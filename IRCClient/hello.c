@@ -111,14 +111,13 @@ printUsage()
 //------------------GTK FUNCTIONS------------------------------
 
 /* This is a callback function. The data arguments are ignored
- * in this example. More on callbacks below. */
+ * in this example. More on callbacks below. 
 static void hello( GtkWidget *widget,
                    gpointer   data )
 {
-    
-	sendCommand(host, port, command, response);
+   
 	g_print ("Hello World2\n");
-}
+}*/
 
 
 
@@ -137,7 +136,7 @@ static gboolean delete_event( GtkWidget *widget,
     /* Change TRUE to FALSE and the main window will be destroyed with
      * a "delete-event". */
 
-    return TRUE;
+    return FALSE;
 }
 
 /* Another callback */
@@ -146,6 +145,7 @@ static void destroy( GtkWidget *widget,
 {
     gtk_main_quit ();
 }
+
 
 
 //--------------PANNED Methods------------------------
@@ -244,6 +244,32 @@ static GtkWidget *create_list2( void )
 
     return scrolled_window;
 }
+
+//----------ENTRY Functions (Built In)-------------------
+static void enter_callback( GtkWidget *widget,
+                            GtkWidget *entry )
+{
+  const gchar *entry_text;
+  entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
+  printf ("Entry contents: %s\n", entry_text);
+}
+
+static void entry_toggle_editable( GtkWidget *checkbutton,
+                                   GtkWidget *entry )
+{
+  gtk_editable_set_editable (GTK_EDITABLE (entry),
+                             GTK_TOGGLE_BUTTON (checkbutton)->active);
+}
+
+static void entry_toggle_visibility( GtkWidget *checkbutton,
+                                     GtkWidget *entry )
+{
+  gtk_entry_set_visibility (GTK_ENTRY (entry),
+			    GTK_TOGGLE_BUTTON (checkbutton)->active);
+}
+
+
+//----------------------------------------------
    
 /* Add some text to our text widget - this is a callback that is invoked
 when our window is realized. We could also force our window to be
@@ -318,6 +344,94 @@ static GtkWidget *create_text2( void )
    return scrolled_window;
 }
 
+//--------------CUSTOM Button functions-------------------
+
+static void create_room( GtkWidget *widget,
+                   gpointer   data ){
+					   fprintf(stderr,"Create Room");
+}
+
+static void create_account( GtkWidget *widget,
+                   gpointer   data ){
+					   fprintf(stderr,"Create Account");
+				   }
+			   
+static void send_to_server( GtkWidget *widget,
+                   gpointer   data ){
+					   fprintf(stderr,"SENT");	
+				   }
+
+					   
+static void send_message( GtkWidget *widget,
+                   gpointer   data ){
+					   fprintf(stderr,"Send Message");
+	   
+	GtkWidget *window1;
+	GtkWidget *vbox, *hbox;
+    GtkWidget *entry;
+    GtkWidget *button;
+    GtkWidget *check;
+	gint tmp_pos;
+	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_widget_set_size_request (GTK_WIDGET (window1), 200, 100);
+    gtk_window_set_title (GTK_WINDOW (window1), "Send Message");
+    g_signal_connect (window1, "destroy",
+                      G_CALLBACK (gtk_widget_destroy), NULL);
+					  
+    g_signal_connect_swapped (window1, "delete-event",
+                              G_CALLBACK (gtk_widget_destroy), 
+                              window1);
+							  vbox = gtk_vbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (window1), vbox);
+    gtk_widget_show (vbox);
+
+    entry = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry), 50);
+    g_signal_connect (entry, "activate",
+		      G_CALLBACK (enter_callback),
+		      entry);
+    gtk_entry_set_text (GTK_ENTRY (entry), "hello");
+    tmp_pos = GTK_ENTRY (entry)->text_length;
+    gtk_editable_insert_text (GTK_EDITABLE (entry), " world", -1, &tmp_pos);
+    gtk_editable_select_region (GTK_EDITABLE (entry),
+			        0, GTK_ENTRY (entry)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
+    gtk_widget_show (entry);
+
+    hbox = gtk_hbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (vbox), hbox);
+    gtk_widget_show (hbox);
+                                  
+    check = gtk_check_button_new_with_label ("Editable");
+    gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled",
+	              G_CALLBACK (entry_toggle_editable), entry);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
+    gtk_widget_show (check);
+    
+    check = gtk_check_button_new_with_label ("Visible");
+    gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled",
+	              G_CALLBACK (entry_toggle_visibility), entry);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
+    gtk_widget_show (check);
+                                   
+    button = gtk_button_new_with_label ("Send");
+	
+    g_signal_connect_swapped (button, "clicked",
+			      G_CALLBACK (gtk_widget_destroy),
+			      window1);
+				  
+    gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
+    gtk_widget_set_can_default (button, TRUE);
+    gtk_widget_grab_default (button);
+    gtk_widget_show (button);
+    
+    gtk_widget_show (window1);
+}
+
+
+
 
 
 int
@@ -358,6 +472,7 @@ main(int argc, char **argv) {
 	GtkWidget *text2;
 	GtkWidget *label1;
 	GtkWidget *label2;
+	
 
 	
     GtkWidget *separator;
@@ -431,7 +546,13 @@ main(int argc, char **argv) {
      * function is defined above. */
 
     g_signal_connect (button1, "clicked",
-		      G_CALLBACK (hello), NULL);
+		      G_CALLBACK (send_message), NULL);
+			  
+	g_signal_connect (button2, "clicked",
+		      G_CALLBACK (create_room), NULL);
+			  
+	g_signal_connect (button3, "clicked",
+		      G_CALLBACK (create_account), NULL);
     
     /* This will cause the window to be destroyed by calling
      * gtk_widget_destroy(window) when "clicked".  Again, the destroy
