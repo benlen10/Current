@@ -314,9 +314,9 @@ main(int argc, char **argv) {
     
     /* Creates a new button with the label "Hello World". */
     button1 = gtk_button_new_with_label ("Send");
-	button2 = gtk_button_new_with_label ("Exit");
+	button2 = gtk_button_new_with_label ("Create Room");
 	button3 = gtk_button_new_with_label ("Create Account");
-	button4 = gtk_button_new_with_label ("New Button");
+	button4 = gtk_button_new_with_label ("Exit");
 	hpaned = gtk_hpaned_new ();
 	vpaned = gtk_vpaned_new ();
 	
@@ -370,17 +370,15 @@ main(int argc, char **argv) {
 	horiz1 = gtk_hbox_new (FALSE, 0);
 	horiz2 = gtk_hbox_new (FALSE, 0);
 
-	gtk_box_pack_start (GTK_BOX (horiz1), list, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz1), list, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button1, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button2, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button3, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button4, TRUE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (vert), hpaned);
 
-	//gtk_box_pack_start (GTK_BOX (vert), horiz1, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vert), vpaned, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vert), horiz2, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vert), button4, TRUE, FALSE, 0);
+	
 
 	gtk_container_add (GTK_CONTAINER (window), vert);
     
@@ -392,8 +390,6 @@ main(int argc, char **argv) {
 	gtk_widget_show (button2);
 	gtk_widget_show (button3);
 	gtk_widget_show (button4);
-	//gtk_widget_show (users);
-	//gtk_widget_show (rooms);
     gtk_widget_show (window);
 	gtk_widget_show (hpaned);
 	gtk_widget_show (vpaned);
