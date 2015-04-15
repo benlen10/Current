@@ -172,9 +172,10 @@ main(int argc, char **argv) {
 	
 	/* GtkWidget is the storage type for widgets */
     GtkWidget *window;
-    GtkWidget *button;
+    GtkWidget *button1;
 	GtkWidget *button2;
-	GtkWidget *vert
+	GtkWidget *button3;
+	GtkWidget *vert;
     GtkWidget *horiz1;
 	GtkWidget *horiz2;
     GtkWidget *separator;
@@ -188,7 +189,6 @@ main(int argc, char **argv) {
     
     /* create a new window */
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	fprintf(stderr,"LOC0");
 	
     /* When the window is given the "delete-event" signal (this is given
      * by the window manager, usually by the "close" option, or on the
@@ -210,25 +210,25 @@ main(int argc, char **argv) {
 	
     
     /* Creates a new button with the label "Hello World". */
-    button = gtk_button_new_with_label ("Hello World");
-	button2 = gtk_button_new_with_label ("Hello!!!");
+    button1 = gtk_button_new_with_label ("Send");
+	button2 = gtk_button_new_with_label ("Exit");
+	button3 = gtk_button_new_with_label ("Create Account");
 	
     //Set the Widget sizes
 	gtk_widget_set_size_request (GTK_WIDGET (window), 450, 500);
-	gtk_widget_set_size_request (GTK_WIDGET (button), 50, 70);
-	gtk_widget_set_size_request (GTK_WIDGET (button2), 50, 70);
+	
 	
     /* When the button receives the "clicked" signal, it will call the
      * function hello() passing it NULL as its argument.  The hello()
      * function is defined above. */
 
-    g_signal_connect (button, "clicked",
+    g_signal_connect (button1, "clicked",
 		      G_CALLBACK (hello), NULL);
     
     /* This will cause the window to be destroyed by calling
      * gtk_widget_destroy(window) when "clicked".  Again, the destroy
      * signal could come from here, or the window manager. */
-    g_signal_connect_swapped (button, "clicked",
+    g_signal_connect_swapped (button2, "clicked",
 			      G_CALLBACK (gtk_widget_destroy),
                               window);
 							  
@@ -239,18 +239,26 @@ main(int argc, char **argv) {
 	//gtk_container_add (GTK_CONTAINER (window), button2);
 	
 	//-------------BOXES------------------------
-	box1 = gtk_vbox_new (FALSE, 0);
+	vert = gtk_vbox_new (FALSE, 0);
+	horiz1 = gtk_hbox_new (FALSE, 0);
+	horiz2 = gtk_vbox_new (FALSE, 0);
 
-	gtk_box_pack_start (GTK_BOX (box1), button, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (box1), button2, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button1, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button2, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button3, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vert), horiz2, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vert), button1, TRUE, FALSE, 0);
 
-	gtk_container_add (GTK_CONTAINER (window), box1);
+	gtk_container_add (GTK_CONTAINER (window), vert);
     fprintf(stderr,"LOC2");
     
     /* The final step is to display this newly created widget. */
-	gtk_widget_show (box1);
-    gtk_widget_show (button);
+	gtk_widget_show (vert);
+	gtk_widget_show (horiz1);
+	gtk_widget_show (horiz2);
+    gtk_widget_show (button1);
 	gtk_widget_show (button2);
+	gtk_widget_show (button3);
     gtk_widget_show (window);
     
     /* All GTK applications must have a gtk_main(). Control ends here
