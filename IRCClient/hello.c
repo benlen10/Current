@@ -146,6 +146,101 @@ static void destroy( GtkWidget *widget,
 }
 
 
+//--------------PANNED Methods------------------------
+static GtkWidget *create_list( void )
+{
+
+    GtkWidget *scrolled_window;
+    GtkWidget *tree_view;
+    GtkListStore *model;
+    GtkTreeIter iter;
+    GtkCellRenderer *cell;
+    GtkTreeViewColumn *column;
+
+    int i;
+   
+    /* Create a new scrolled window, with scrollbars only if needed */
+    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+				    GTK_POLICY_AUTOMATIC, 
+				    GTK_POLICY_AUTOMATIC);
+   
+    model = gtk_list_store_new (1, G_TYPE_STRING);
+    tree_view = gtk_tree_view_new ();
+    gtk_container_add (GTK_CONTAINER (scrolled_window), tree_view);
+    gtk_tree_view_set_model (GTK_TREE_VIEW (tree_view), GTK_TREE_MODEL (model));
+    gtk_widget_show (tree_view);
+   
+    /* Add some messages to the window */
+    for (i = 0; i < 10; i++) {
+        gchar *msg = g_strdup_printf ("Message #%d", i);
+        gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+        gtk_list_store_set (GTK_LIST_STORE (model), 
+	                    &iter,
+                            0, msg,
+	                    -1);
+	g_free (msg);
+    }
+   
+    cell = gtk_cell_renderer_text_new ();
+
+    column = gtk_tree_view_column_new_with_attributes ("Messages",
+                                                       cell,
+                                                       "text", 0,
+                                                       NULL);
+  
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view),
+	  		         GTK_TREE_VIEW_COLUMN (column));
+
+    return scrolled_window;
+}
+   
+/* Add some text to our text widget - this is a callback that is invoked
+when our window is realized. We could also force our window to be
+realized with gtk_widget_realize, but it would have to be part of
+a hierarchy first */
+
+static void insert_text( GtkTextBuffer *buffer )
+{
+   GtkTextIter iter;
+ 
+   gtk_text_buffer_get_iter_at_offset (buffer, &iter, 0);
+
+   gtk_text_buffer_insert (buffer, &iter,   
+    "From: pathfinder@nasa.gov\n"
+    "To: mom@nasa.gov\n"
+    "Subject: Made it!\n"
+    "\n"
+    "We just got in this morning. The weather has been\n"
+    "great - clear but cold, and there are lots of fun sights.\n"
+    "Sojourner says hi. See you soon.\n"
+    " -Path\n", -1);
+}
+   
+/* Create a scrolled text area that displays a "message" */
+static GtkWidget *create_text( void )
+{
+   GtkWidget *scrolled_window;
+   GtkWidget *view;
+   GtkTextBuffer *buffer;
+
+   view = gtk_text_view_new ();
+   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+
+   scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+		   	           GTK_POLICY_AUTOMATIC,
+				   GTK_POLICY_AUTOMATIC);
+
+   gtk_container_add (GTK_CONTAINER (scrolled_window), view);
+   insert_text (buffer);
+
+   gtk_widget_show_all (scrolled_window);
+
+   return scrolled_window;
+}
+
+
 
 
 
@@ -175,13 +270,19 @@ main(int argc, char **argv) {
     GtkWidget *button1;
 	GtkWidget *button2;
 	GtkWidget *button3;
+	GtkWidget *button4;
 	GtkWidget *vert;
     GtkWidget *horiz1;
 	GtkWidget *horiz2;
+	GtkWidget *users;
+	GtkWidget *rooms;
+	GtkWidget *hpaned;
+	GtkWidget *list;
+    GtkWidget *text;
+	GtkWidget *text2;
+	
     GtkWidget *separator;
     GtkWidget *label;
-    GtkWidget *quitbox;
-    int which;
     
     /* This is called in all GTK applications. Arguments are parsed
      * from the command line and are returned to the application. */
@@ -213,6 +314,19 @@ main(int argc, char **argv) {
     button1 = gtk_button_new_with_label ("Send");
 	button2 = gtk_button_new_with_label ("Exit");
 	button3 = gtk_button_new_with_label ("Create Account");
+	button4 = gtk_button_new_with_label ("New Button");
+	hpaned = gtk_hpaned_new ();
+	
+	//ADD to hpaned PANEL
+	list = create_list ();
+    gtk_paned_add1 (GTK_PANED (hpaned), list);
+    gtk_widget_show (list);
+   
+    text = create_text ();
+    gtk_paned_add2 (GTK_PANED (hpaned), text);
+    gtk_widget_show (text);
+   
+
 	
     //Set the Widget sizes
 	gtk_widget_set_size_request (GTK_WIDGET (window), 450, 500);
@@ -241,25 +355,33 @@ main(int argc, char **argv) {
 	//-------------BOXES------------------------
 	vert = gtk_vbox_new (FALSE, 0);
 	horiz1 = gtk_hbox_new (FALSE, 0);
-	horiz2 = gtk_vbox_new (FALSE, 0);
+	horiz2 = gtk_hbox_new (FALSE, 0);
 
+	//gtk_box_pack_start (GTK_BOX (horiz1), rooms, TRUE, FALSE, 0);
+	//gtk_box_pack_start (GTK_BOX (horiz1), users, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button1, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button2, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button3, TRUE, FALSE, 0);
+	 gtk_container_add (GTK_CONTAINER (vert), hpaned);
+
+	//gtk_box_pack_start (GTK_BOX (vert), horiz1, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vert), horiz2, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vert), button1, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vert), button4, TRUE, FALSE, 0);
 
 	gtk_container_add (GTK_CONTAINER (window), vert);
-    fprintf(stderr,"LOC2");
     
-    /* The final step is to display this newly created widget. */
+    /* The final step is to display the widgets. */
 	gtk_widget_show (vert);
 	gtk_widget_show (horiz1);
 	gtk_widget_show (horiz2);
     gtk_widget_show (button1);
 	gtk_widget_show (button2);
 	gtk_widget_show (button3);
+	gtk_widget_show (button4);
+	//gtk_widget_show (users);
+	//gtk_widget_show (rooms);
     gtk_widget_show (window);
+	gtk_widget_show (hpaned);
     
     /* All GTK applications must have a gtk_main(). Control ends here
      * and waits for an event to occur (like a key press or
