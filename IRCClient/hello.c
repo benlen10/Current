@@ -277,7 +277,9 @@ main(int argc, char **argv) {
 	GtkWidget *users;
 	GtkWidget *rooms;
 	GtkWidget *hpaned;
+	GtkWidget *vpaned;
 	GtkWidget *list;
+	GtkWidget *list2;
     GtkWidget *text;
 	GtkWidget *text2;
 	
@@ -316,15 +318,26 @@ main(int argc, char **argv) {
 	button3 = gtk_button_new_with_label ("Create Account");
 	button4 = gtk_button_new_with_label ("New Button");
 	hpaned = gtk_hpaned_new ();
+	vpaned = gtk_vpaned_new ();
 	
 	//ADD to hpaned PANEL
 	list = create_list ();
     gtk_paned_add1 (GTK_PANED (hpaned), list);
     gtk_widget_show (list);
    
-    text = create_text ();
-    gtk_paned_add2 (GTK_PANED (hpaned), text);
+	list2 = create_list ();
+    gtk_paned_add2 (GTK_PANED (hpaned), list2);
+    gtk_widget_show (list2);
+	
+	//ADD to vpand PANEL
+	
+	text = create_text ();
+    gtk_paned_add1 (GTK_PANED (vpaned), text);
     gtk_widget_show (text);
+   
+    text2 = create_text ();
+    gtk_paned_add2 (GTK_PANED (vpaned), text2);
+    gtk_widget_show (text2);
    
 
 	
@@ -357,14 +370,15 @@ main(int argc, char **argv) {
 	horiz1 = gtk_hbox_new (FALSE, 0);
 	horiz2 = gtk_hbox_new (FALSE, 0);
 
-	//gtk_box_pack_start (GTK_BOX (horiz1), rooms, TRUE, FALSE, 0);
-	//gtk_box_pack_start (GTK_BOX (horiz1), users, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz1), list, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz1), list, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button1, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button2, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button3, TRUE, FALSE, 0);
-	 gtk_container_add (GTK_CONTAINER (vert), hpaned);
+	gtk_container_add (GTK_CONTAINER (vert), hpaned);
 
 	//gtk_box_pack_start (GTK_BOX (vert), horiz1, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vert), vpaned, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vert), horiz2, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vert), button4, TRUE, FALSE, 0);
 
@@ -382,6 +396,7 @@ main(int argc, char **argv) {
 	//gtk_widget_show (rooms);
     gtk_widget_show (window);
 	gtk_widget_show (hpaned);
+	gtk_widget_show (vpaned);
     
     /* All GTK applications must have a gtk_main(). Control ends here
      * and waits for an event to occur (like a key press or
