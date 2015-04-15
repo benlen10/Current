@@ -323,6 +323,23 @@ static GtkWidget *create_text2( void )
    return scrolled_window;
 }
 
+//-------------CUSTOM Send to server functions-----------
+
+static void send_message( GtkWidget *widget,
+                   gpointer   data ){
+					   fprintf(stderr,"Sent Message");	
+				   }
+				   
+static void create_room( GtkWidget *widget,
+                   gpointer   data ){
+					   fprintf(stderr,"Create Room");	
+				   }
+				   
+static void create_account( GtkWidget *widget,
+                   gpointer   data ){
+					   fprintf(stderr,"Create Room");	
+				   }
+
 //--------------CUSTOM Button functions-------------------
 
 static void create_room_window( GtkWidget *widget,
@@ -380,9 +397,8 @@ static void create_room_window( GtkWidget *widget,
                                    
     button = gtk_button_new_with_label ("Create");
 	
-    g_signal_connect_swapped (button, "clicked",
-			      G_CALLBACK (gtk_widget_destroy),
-			      window1);
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
+                        GTK_SIGNAL_FUNC (create_room), NULL);
 				  
     gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
     gtk_widget_set_can_default (button, TRUE);
@@ -463,9 +479,8 @@ GtkWidget *window1;
                                    
     button = gtk_button_new_with_label ("Create");
 	
-    g_signal_connect_swapped (button, "clicked",
-			      G_CALLBACK (gtk_widget_destroy),
-			      window1);
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
+                        GTK_SIGNAL_FUNC (create_account), NULL);
 				  
     gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
     gtk_widget_set_can_default (button, TRUE);
@@ -475,10 +490,6 @@ GtkWidget *window1;
     gtk_widget_show (window1);
 				   }
 			   
-static void send_message( GtkWidget *widget,
-                   gpointer   data ){
-					   fprintf(stderr,"SENT");	
-				   }
 
 					   
 static void send_message_window( GtkWidget *widget,
@@ -537,9 +548,8 @@ static void send_message_window( GtkWidget *widget,
                                    
     button = gtk_button_new_with_label ("Send");
 	
-    g_signal_connect_swapped (button, "clicked",
-			      G_CALLBACK (gtk_widget_destroy),
-			      window1);
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
+                        GTK_SIGNAL_FUNC (send_message), NULL);
 				  
     gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
     gtk_widget_set_can_default (button, TRUE);
@@ -548,6 +558,7 @@ static void send_message_window( GtkWidget *widget,
     
     gtk_widget_show (window1);
 }
+
 
 
 
