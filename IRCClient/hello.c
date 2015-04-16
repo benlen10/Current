@@ -371,6 +371,8 @@ static void create_room( GtkWidget *widget,
 	printf ("Create Room: %s\n", entry_text);
 	sprintf(command,"%s\n",entry_text);
 	insert_text3(command);
+	sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
+	insert_text4(response);
 	}
 	else{
 		
@@ -391,8 +393,10 @@ static void enter_room( GtkWidget *widget,
 	strcpy(curroom,entry_text);
   printf ("Enter Room: %s\n", entry_text);
 sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,entry_text);
-	sendCommand(host, port, command, response);  
+	sendCommand(host, port, command, response);
+	sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
 	insert_text4(response);
+	insert_text2(command);
 	}
 	else{
 		insert_text2(response);
@@ -409,7 +413,9 @@ static void leave_room( GtkWidget *widget,
 	printf("%s",response);
 	if(strcmp(response,"OK\r\n")==0){
 	strcpy(curroom,"");
-  printf ("Left room\n", entry_text);	
+  printf ("Left room\n", entry_text);
+	sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
+	insert_text4(response);
   }
 	else{
 		insert_text2(response);
@@ -452,6 +458,8 @@ static void create_account( GtkWidget *widget,
 					printf("%s",response);
 				if(strcmp(response,"OK\r\n")==0){
 					   printf ("Create Account: %s %s\n", user,pass);
+					   sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
+					insert_text4(response);
 						 }
 								else{
 								insert_text2(response);
@@ -490,16 +498,20 @@ static void login( GtkWidget *widget,
 								strcpy(curuser,user);
 								strcpy(curpass,pass);
 							
-					   printf ("Login Successful\n");	
+					   printf ("Login Successful\n");
+						sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
+				insert_text4(response);
 				   }
 				   
 static void logout( GtkWidget *widget,
                             GtkWidget *entry ){
-							
+						char * command = (char*) malloc(1000);	
 								strcpy(curuser,"");
 								strcpy(curpass,"");
 							
 					   printf ("Logout Successful \n");	
+					   sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
+						insert_text4(response);
 				   }
 
 //--------------CUSTOM Window functions-------------------
