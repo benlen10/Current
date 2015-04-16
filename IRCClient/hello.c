@@ -230,7 +230,7 @@ static void enter_callback( GtkWidget *widget,
 {
   const gchar *entry_text;
   entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
-  printf ("Entry contents: %s\n", entry_text);
+  //printf ("Entry contents: %s\n", entry_text);
 }
 
 static void entry_toggle_editable( GtkWidget *checkbutton,
@@ -326,21 +326,31 @@ static GtkWidget *create_text2( void )
 //-------------CUSTOM Send to server functions-----------
 
 static void send_message( GtkWidget *widget,
-                   gpointer   data ){
-					   fprintf(stderr,"Sent Message");	
+                            GtkWidget *entry ){
+					   const gchar *entry_text;
+		entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
+  printf ("Sent: %s\n", entry_text);	
 				   }
 				   
 static void create_room( GtkWidget *widget,
-                   gpointer   data ){
-					   fprintf(stderr,"Create Room");	
+                            GtkWidget *entry ){
+								const gchar *entry_text;
+     entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
+  printf ("Create Room: %s\n", entry_text);	
 				   }
 				   
 static void create_account( GtkWidget *widget,
-                   gpointer   data ){
-					   fprintf(stderr,"Create Room");	
+                            GObject *context_object ){
+							GtkWidget *ent = g_object_get_data (context_object, "entry");
+							GtkWidget *ent2 = g_object_get_data (context_object, "entry2");							
+								
+								
+								const char *entry_text  = gtk_entry_get_text (GTK_ENTRY (ent));
+								const char *entry_text2 = gtk_entry_get_text (GTK_ENTRY (ent2));
+					   printf ("Create Account: %s %s\n", entry_text,entry_text2);	
 				   }
 
-//--------------CUSTOM Button functions-------------------
+//--------------CUSTOM Window functions-------------------
 
 static void create_room_window( GtkWidget *widget,
                    gpointer   data ){
@@ -398,15 +408,13 @@ static void create_room_window( GtkWidget *widget,
     button = gtk_button_new_with_label ("Create");
 	
     gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                        GTK_SIGNAL_FUNC (create_room), NULL);
+                        GTK_SIGNAL_FUNC (create_room), entry);
 				  
     gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
     gtk_widget_set_can_default (button, TRUE);
     gtk_widget_grab_default (button);
     gtk_widget_show (button);
-    
-    gtk_widget_show (window1);
-					   
+    gtk_widget_show (window1);			   
 }
 
 static void create_account_window( GtkWidget *widget,
@@ -417,6 +425,7 @@ GtkWidget *window1;
 	GtkWidget *entry2;
     GtkWidget *button;
     GtkWidget *check;
+	GObject *context_object = (GObject *) malloc(1000);
 	gint tmp_pos;
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_widget_set_size_request (GTK_WIDGET (window1), 200, 100);
@@ -478,9 +487,13 @@ GtkWidget *window1;
     gtk_widget_show (check);
                                    
     button = gtk_button_new_with_label ("Create");
+	fprintf(stderr,"LOC1");
+	g_object_set_data (context_object, "entry", entry);
+	g_object_set_data (context_object, "entry2", entry2);
+fprintf(stderr,"LOC1");
 	
     gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                        GTK_SIGNAL_FUNC (create_account), NULL);
+                        GTK_SIGNAL_FUNC (create_account), context_object);
 				  
     gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
     gtk_widget_set_can_default (button, TRUE);
@@ -549,7 +562,7 @@ static void send_message_window( GtkWidget *widget,
     button = gtk_button_new_with_label ("Send");
 	
     gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                        GTK_SIGNAL_FUNC (send_message), NULL);
+                        GTK_SIGNAL_FUNC (send_message), entry);
 				  
     gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
     gtk_widget_set_can_default (button, TRUE);
