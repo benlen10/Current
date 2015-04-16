@@ -23,7 +23,8 @@ char response[MAX_RESPONSE];
 static char curuser[1000];
 static char curpass[1000];
 static char curroom[1000];
-int lastMessage;
+static int lastMessage;
+GtkTextBuffer *buffer1;
 //char command[1000];
 
 int open_client_socket(char * host, int port) {
@@ -160,10 +161,9 @@ static GtkWidget *create_list1( void )
     for (i = 0; i < 10; i++) {
         gchar *msg = g_strdup_printf ("Room #%d", i);
         gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (model), 
-	                    &iter,
-                            0, msg,
-	                    -1);
+        gtk_list_store_set (GTK_LIST_STORE (model), &iter,0, msg,-1);
+
+	                    
 	g_free (msg);
     }
    
@@ -259,16 +259,13 @@ when our window is realized. We could also force our window to be
 realized with gtk_widget_realize, but it would have to be part of
 a hierarchy first */
 
-static void insert_text1( GtkTextBuffer *buffer )
+static void insert_text1( char * str )
 {
    GtkTextIter iter;
  
-   gtk_text_buffer_get_iter_at_offset (buffer, &iter, 0);
+   gtk_text_buffer_get_iter_at_offset (buffer1, &iter, 0);
 
-   gtk_text_buffer_insert (buffer, &iter,   
-    "Mary: Hi Everybody!\n"
-	"Superman: Hello there."
-    , -1);
+   gtk_text_buffer_insert (buffer1, &iter, str, -1);
 }
 
 static void insert_text2( GtkTextBuffer *buffer )
@@ -287,10 +284,10 @@ static GtkWidget *create_text1( void )
 {
    GtkWidget *scrolled_window;
    GtkWidget *view;
-   GtkTextBuffer *buffer;
+   
 
    view = gtk_text_view_new ();
-   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+   buffer1 = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
 
    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
@@ -298,7 +295,7 @@ static GtkWidget *create_text1( void )
 				   GTK_POLICY_AUTOMATIC);
 
    gtk_container_add (GTK_CONTAINER (scrolled_window), view);
-   insert_text1 (buffer);
+   //insert_text1 (buffer1);
 
    gtk_widget_show_all (scrolled_window);
 
@@ -336,8 +333,9 @@ static void send_message( GtkWidget *widget,
   
   char * command = (char*) malloc(1000);
   sprintf(command,"SEND-MESSAGE %s %s %s %s",curuser,curpass,curroom, entry_text);
-	sendCommand(host, port, command, response);
+	//sendCommand(host, port, command, response);
 	printf ("Sent: %s\n", entry_text);
+	insert_text1 (command);
 				   }
 				   
 static void create_room( GtkWidget *widget,
@@ -617,34 +615,21 @@ static void send_message_window( GtkWidget *widget,
 
 
 
-void * getMessagesThread(void * arg) {
-	// This code will be executed simultaneously with main()
-	// Get messages to get last message number. Discard the initial Messages
-	char * command = (char*) malloc(100);
-	while (1) {
-		// Get messages after last message number received.
-		/*fprintf(stderr,"LOC1");
-		if(strlen(curuser)>1){
-			
-  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage,curroom);
-	sendCommand(host, port, command, response);
-		}
-	
-
-		// Print messages
-		printf ("Sent: %s\n", response);
-		printf("NO Messages\n");
-
-		// Sleep for ten seconds*/
-		usleep(2*1000*1000);
-	}
-}
-
 static gboolean
 update_messages(GtkWidget *widget)
 {
- 
-  fprintf(stderr,"LOOP");
+	char * command = (char*) malloc(1000);
+	char * msgresponse = (char*) malloc(1000);
+  //fprintf(stderr,"LOOP");
+  if((strlen(curuser)>1)&&(strlen(curroom)>1)){
+	  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage, curroom);
+	sendCommand(host, port, command, msgresponse);
+	//if(strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0){
+	insert_text1 (msgresponse);
+	lastMessage++;
+	//}
+	  
+  }
   return TRUE;
 }
 
@@ -824,6 +809,7 @@ main(int argc, char **argv) {
     /* All GTK applications must have a gtk_main(). Control ends here
      * and waits for an event to occur (like a key press or
      * mouse event). */
+	 lastMessage = 0;
 	 
 	g_timeout_add(5000, (GSourceFunc) update_messages, (gpointer) window);
 	 
