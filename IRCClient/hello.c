@@ -391,12 +391,10 @@ static void leave_room( GtkWidget *widget,
 								const gchar *entry_text;
      entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
 	 char * command = (char*) malloc(1000);
-	 sprintf(command,"CREATE-ROOM %s %s %s",curuser,curpass,entry_text);
+	 sprintf(command,"LEAVE-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
-	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
-	sendCommand(host, port, command, response);
-	strcpy(curroom,entry_text);
-  printf ("Create Room: %s\n", entry_text);	
+	strcpy(curroom,"");
+  printf ("Left room\n", entry_text);	
 				   }
 				   
 static void create_account( GtkWidget *widget,
@@ -433,6 +431,50 @@ static void create_account( GtkWidget *widget,
 					sprintf(command,"ADD-USER %s %s",user,pass);
 				sendCommand(host, port, command, response);			
 					   printf ("Create Account: %s %s\n", user,pass);	
+				   }
+				   
+static void login( GtkWidget *widget,
+                            GtkWidget *entry ){
+								char * command = (char*) malloc(1000);
+								char user[100];
+								char pass[100];
+							//GtkWidget *ent = g_object_get_data (context_object, "entry");
+							//GtkWidget *ent2 = g_object_get_data (context_object, "entry2");							
+								
+								
+								const char *entry_text  = gtk_entry_get_text (GTK_ENTRY (entry));
+								//const char *entry_text2 = gtk_entry_get_text (GTK_ENTRY (ent2));
+									strcat(entry_text,"_");
+									int x = 0;
+									int y = 0;
+								while(entry_text[y] != '_'){
+									user[x] = entry_text[y];
+									x++;
+									y++;
+								}
+								user[x] = '\0';
+								x=0;
+								y++;
+								while(entry_text[y] != '_'){
+									pass[x] = entry_text[y];
+									x++;
+									y++;
+								}
+								pass[x] = '\0';
+								x=0;
+								strcpy(curuser,user);
+								strcpy(curpass,pass);
+							
+					   printf ("Login Successful\n");	
+				   }
+				   
+static void logout( GtkWidget *widget,
+                            GtkWidget *entry ){
+							
+								strcpy(curuser,"");
+								strcpy(curpass,"");
+							
+					   printf ("Logout Successful \n");	
 				   }
 
 //--------------CUSTOM Window functions-------------------
@@ -890,11 +932,22 @@ main(int argc, char **argv) {
 	g_signal_connect (button_new_room, "clicked",
 		      G_CALLBACK (create_room_window), NULL);
 			  
+	g_signal_connect (button_enter, "clicked",
+		      G_CALLBACK (enter_room_window), NULL);
+			  
+	g_signal_connect (button_leave, "clicked",
+		      G_CALLBACK (leave_room_window), NULL);
+			  
+	g_signal_connect (button_login, "clicked",
+		      G_CALLBACK (login), NULL);
+			  
+	g_signal_connect (button_logout, "clicked",
+		      G_CALLBACK (logout), NULL);
+			  
 	g_signal_connect (button_new_account, "clicked",
 		      G_CALLBACK (create_account_window), NULL);
 	
-	g_signal_connect (button_login, "clicked",
-		      G_CALLBACK (create_account_window), NULL);
+
     
     /* This will cause the window to be destroyed by calling
      * gtk_widget_destroy(window) when "clicked".  Again, the destroy
