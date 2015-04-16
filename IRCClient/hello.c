@@ -360,6 +360,39 @@ static void create_room( GtkWidget *widget,
 	 char * command = (char*) malloc(1000);
 	 sprintf(command,"CREATE-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
+	printf ("Create Room: %s\n", entry_text);
+	//Possibly remove-----------
+	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
+	sendCommand(host, port, command, response);
+	strcpy(curroom,entry_text);
+	//-------------------------------
+  	printf ("Enter Room: %s\n", entry_text);
+	//Add to ROOM list
+	sprintf(command,"%s\n",entry_text);
+	insert_text3(command);
+				   }
+				   
+static void enter_room( GtkWidget *widget,
+                            GtkWidget *entry ){
+								const gchar *entry_text;
+     entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
+	 char * command = (char*) malloc(1000);
+	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
+	sendCommand(host, port, command, response);
+	strcpy(curroom,entry_text);
+  printf ("Enter Room: %s\n", entry_text);
+sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,entry_text);
+	sendCommand(host, port, command, response);  
+	insert_text4(response);
+				   }
+				   
+static void leave_room( GtkWidget *widget,
+                            GtkWidget *entry ){
+								const gchar *entry_text;
+     entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
+	 char * command = (char*) malloc(1000);
+	 sprintf(command,"CREATE-ROOM %s %s %s",curuser,curpass,entry_text);
+	sendCommand(host, port, command, response);
 	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
 	strcpy(curroom,entry_text);
@@ -411,7 +444,6 @@ static void create_room_window( GtkWidget *widget,
 	GtkWidget *vbox, *hbox;
     GtkWidget *entry;
     GtkWidget *button;
-    GtkWidget *check;
 	gint tmp_pos;
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_widget_set_size_request (GTK_WIDGET (window1), 200, 100);
@@ -431,9 +463,9 @@ static void create_room_window( GtkWidget *widget,
     g_signal_connect (entry, "activate",
 		      G_CALLBACK (enter_callback),
 		      entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), "hello");
+    gtk_entry_set_text (GTK_ENTRY (entry), "");
     tmp_pos = GTK_ENTRY (entry)->text_length;
-    gtk_editable_insert_text (GTK_EDITABLE (entry), " world", -1, &tmp_pos);
+   
     gtk_editable_select_region (GTK_EDITABLE (entry),
 			        0, GTK_ENTRY (entry)->text_length);
     gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
@@ -443,19 +475,7 @@ static void create_room_window( GtkWidget *widget,
     gtk_container_add (GTK_CONTAINER (vbox), hbox);
     gtk_widget_show (hbox);
                                   
-    check = gtk_check_button_new_with_label ("Editable");
-    gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
-    g_signal_connect (check, "toggled",
-	              G_CALLBACK (entry_toggle_editable), entry);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
-    gtk_widget_show (check);
     
-    check = gtk_check_button_new_with_label ("Visible");
-    gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
-    g_signal_connect (check, "toggled",
-	              G_CALLBACK (entry_toggle_visibility), entry);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
-    gtk_widget_show (check);
                                    
     button = gtk_button_new_with_label ("Create");
 	
@@ -469,12 +489,115 @@ static void create_room_window( GtkWidget *widget,
     gtk_widget_show (window1);			   
 }
 
+static void enter_room_window( GtkWidget *widget,
+                   gpointer   data ){
+
+	GtkWidget *window1;
+	GtkWidget *vbox, *hbox;
+    GtkWidget *entry;
+    GtkWidget *button;
+	gint tmp_pos;
+	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_widget_set_size_request (GTK_WIDGET (window1), 200, 100);
+    gtk_window_set_title (GTK_WINDOW (window1), "Enter Room");
+    g_signal_connect (window1, "destroy",
+                      G_CALLBACK (gtk_widget_destroy), NULL);
+					  
+    g_signal_connect_swapped (window1, "delete-event",
+                              G_CALLBACK (gtk_widget_destroy), 
+                              window1);
+							  vbox = gtk_vbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (window1), vbox);
+    gtk_widget_show (vbox);
+
+    entry = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry), 50);
+    g_signal_connect (entry, "activate",
+		      G_CALLBACK (enter_callback),
+		      entry);
+    gtk_entry_set_text (GTK_ENTRY (entry), "");
+    tmp_pos = GTK_ENTRY (entry)->text_length;
+   
+    gtk_editable_select_region (GTK_EDITABLE (entry),
+			        0, GTK_ENTRY (entry)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
+    gtk_widget_show (entry);
+
+    hbox = gtk_hbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (vbox), hbox);
+    gtk_widget_show (hbox);
+                                  
+    
+                                   
+    button = gtk_button_new_with_label ("OK");
+	
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
+                        GTK_SIGNAL_FUNC (enter_room), entry);
+				  
+    gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
+    gtk_widget_set_can_default (button, TRUE);
+    gtk_widget_grab_default (button);
+    gtk_widget_show (button);
+    gtk_widget_show (window1);			   
+}
+
+static void leave_room_window( GtkWidget *widget,
+                   gpointer   data ){
+
+	GtkWidget *window1;
+	GtkWidget *vbox, *hbox;
+    GtkWidget *entry;
+    GtkWidget *button;
+	gint tmp_pos;
+	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_widget_set_size_request (GTK_WIDGET (window1), 200, 100);
+    gtk_window_set_title (GTK_WINDOW (window1), "Leave Room");
+    g_signal_connect (window1, "destroy",
+                      G_CALLBACK (gtk_widget_destroy), NULL);
+					  
+    g_signal_connect_swapped (window1, "delete-event",
+                              G_CALLBACK (gtk_widget_destroy), 
+                              window1);
+							  vbox = gtk_vbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (window1), vbox);
+    gtk_widget_show (vbox);
+
+    entry = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry), 50);
+    g_signal_connect (entry, "activate",
+		      G_CALLBACK (enter_callback),
+		      entry);
+    gtk_entry_set_text (GTK_ENTRY (entry), "");
+    tmp_pos = GTK_ENTRY (entry)->text_length;
+   
+    gtk_editable_select_region (GTK_EDITABLE (entry),
+			        0, GTK_ENTRY (entry)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
+    gtk_widget_show (entry);
+
+    hbox = gtk_hbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (vbox), hbox);
+    gtk_widget_show (hbox);
+                                  
+    
+                                   
+    button = gtk_button_new_with_label ("OK");
+	
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
+                        GTK_SIGNAL_FUNC (leave_room), entry);
+				  
+    gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
+    gtk_widget_set_can_default (button, TRUE);
+    gtk_widget_grab_default (button);
+    gtk_widget_show (button);
+    gtk_widget_show (window1);			   
+}
+
 static void create_account_window( GtkWidget *widget,
                    gpointer   data ){
 GtkWidget *window1;
 	GtkWidget *vbox, *hbox;
     GtkWidget *entry;
-	GtkWidget *entry2;
     GtkWidget *button;
     GtkWidget *check;
 	GObject *context_object = (GObject *) malloc(1000);
@@ -506,19 +629,7 @@ GtkWidget *window1;
     gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (entry);
 	
-	//PASS Entry
-	entry2 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry2), 50);
-    g_signal_connect (entry2, "activate",
-		      G_CALLBACK (enter_callback),
-		      entry2);
-    gtk_entry_set_text (GTK_ENTRY (entry2), "");
-    tmp_pos = GTK_ENTRY (entry2)->text_length;
-    gtk_editable_insert_text (GTK_EDITABLE (entry2), " ", -1, &tmp_pos);
-    gtk_editable_select_region (GTK_EDITABLE (entry2),
-			        0, GTK_ENTRY (entry2)->text_length);
-    gtk_box_pack_start (GTK_BOX (vbox), entry2, TRUE, TRUE, 0);
-    gtk_widget_show (entry2);
+	
 
     hbox = gtk_hbox_new (FALSE, 0);
     gtk_container_add (GTK_CONTAINER (vbox), hbox);
@@ -538,11 +649,7 @@ GtkWidget *window1;
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
     gtk_widget_show (check);
                                    
-    button = gtk_button_new_with_label ("Create");
-	
-	//g_object_set_data (context_object, "entry", entry);
-	//g_object_set_data (context_object, "entry2", entry2);
-	printf(stderr,"LOC2");
+    button = gtk_button_new_with_label ("OK");
 
 	
 	
@@ -679,10 +786,14 @@ main(int argc, char **argv) {
 	
 	/* GtkWidget is the storage type for widgets */
     GtkWidget *window;
-    GtkWidget *button1;
-	GtkWidget *button2;
-	GtkWidget *button3;
-	GtkWidget *button4;
+    GtkWidget *button_send;
+	GtkWidget *button_new_room;
+	GtkWidget *button_new_account;
+	GtkWidget *button_exit;
+	GtkWidget *button_enter;
+	GtkWidget *button_leave;
+	GtkWidget *button_login;
+	GtkWidget *button_logout;
 	GtkWidget *vert;
     GtkWidget *horiz1;
 	GtkWidget *horiz2;
@@ -729,10 +840,14 @@ main(int argc, char **argv) {
 	
     
     /* Creates a new button with the label "Hello World". */
-    button1 = gtk_button_new_with_label ("Send");
-	button2 = gtk_button_new_with_label ("Create Room");
-	button3 = gtk_button_new_with_label ("Create Account");
-	button4 = gtk_button_new_with_label ("Exit");
+    button_send = gtk_button_new_with_label ("Send");
+	button_new_room = gtk_button_new_with_label ("Create Room");
+	button_new_account = gtk_button_new_with_label ("Create Account");
+	button_exit = gtk_button_new_with_label ("Exit");
+	button_enter = gtk_button_new_with_label ("Enter Room");
+	button_leave = gtk_button_new_with_label ("Leave Room");
+	button_login = gtk_button_new_with_label ("Login");
+	button_logout = gtk_button_new_with_label ("Logout");
 	hpaned = gtk_hpaned_new ();
 	vpaned = gtk_vpaned_new ();
 	
@@ -762,26 +877,29 @@ main(int argc, char **argv) {
 
 	
     //Set the Widget sizes
-	gtk_widget_set_size_request (GTK_WIDGET (window), 450, 500);
+	gtk_widget_set_size_request (GTK_WIDGET (window), 550, 600);
 	
 	
     /* When the button receives the "clicked" signal, it will call the
      * function hello() passing it NULL as its argument.  The hello()
      * function is defined above. */
 
-    g_signal_connect (button1, "clicked",
+    g_signal_connect (button_send, "clicked",
 		      G_CALLBACK (send_message_window), NULL);
 			  
-	g_signal_connect (button2, "clicked",
+	g_signal_connect (button_new_room, "clicked",
 		      G_CALLBACK (create_room_window), NULL);
 			  
-	g_signal_connect (button3, "clicked",
+	g_signal_connect (button_new_account, "clicked",
+		      G_CALLBACK (create_account_window), NULL);
+	
+	g_signal_connect (button_login, "clicked",
 		      G_CALLBACK (create_account_window), NULL);
     
     /* This will cause the window to be destroyed by calling
      * gtk_widget_destroy(window) when "clicked".  Again, the destroy
      * signal could come from here, or the window manager. */
-    g_signal_connect_swapped (button4, "clicked",
+    g_signal_connect_swapped (button_exit, "clicked",
 			      G_CALLBACK (gtk_widget_destroy),
                               window);
 							  
@@ -794,11 +912,14 @@ main(int argc, char **argv) {
 	
 	gtk_box_pack_start (GTK_BOX (horiz1), label1, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz1), label2, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz2), button1, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz2), button2, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz2), button3, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz2), button4, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz2), button4, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button_send, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button_new_room, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button_enter, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button_leave, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button_login, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button_logout, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button_new_account, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button_exit, TRUE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (vert), horiz1);
 	gtk_container_add (GTK_CONTAINER (vert), hpaned);
 
@@ -812,10 +933,14 @@ main(int argc, char **argv) {
 	gtk_widget_show (vert);
 	gtk_widget_show (horiz1);
 	gtk_widget_show (horiz2);
-    gtk_widget_show (button1);
-	gtk_widget_show (button2);
-	gtk_widget_show (button3);
-	gtk_widget_show (button4);
+    gtk_widget_show (button_send);
+	gtk_widget_show (button_new_room);
+	gtk_widget_show (button_new_account);
+	gtk_widget_show (button_enter); 
+	gtk_widget_show (button_leave); 
+	gtk_widget_show (button_login);
+	gtk_widget_show (button_logout);
+	gtk_widget_show (button_exit);
 	gtk_widget_show (label1);
 	gtk_widget_show (label2);
     gtk_widget_show (window);
@@ -825,6 +950,7 @@ main(int argc, char **argv) {
 	gtk_widget_show (text2);
 	gtk_widget_show (text3);
 	gtk_widget_show (text4);
+	
     
     /* All GTK applications must have a gtk_main(). Control ends here
      * and waits for an event to occur (like a key press or
