@@ -20,7 +20,10 @@ char * host;
 char * sport;
 int port;
 char response[MAX_RESPONSE];
-char command[1000];
+static char curuser[1000];
+static char curpass[1000];
+static char curroom[1000];
+//char command[1000];
 
 int open_client_socket(char * host, int port) {
 	// Initialize socket address structure
@@ -329,25 +332,60 @@ static void send_message( GtkWidget *widget,
                             GtkWidget *entry ){
 					   const gchar *entry_text;
 		entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
-  printf ("Sent: %s\n", entry_text);	
+  
+  char * command = (char*) malloc(1000);
+  sprintf(command,"SEND-MESSAGE %s %s %s %s",curuser,curpass,curroom, entry_text);
+	sendCommand(host, port, command, response);
+	printf ("Sent: %s\n", entry_text);
 				   }
 				   
 static void create_room( GtkWidget *widget,
                             GtkWidget *entry ){
 								const gchar *entry_text;
      entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
+	 char * command = (char*) malloc(1000);
+	 sprintf(command,"CREATE-ROOM %s %s %s",curuser,curpass,entry_text);
+	sendCommand(host, port, command, response);
+	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
+	sendCommand(host, port, command, response);
+	strcpy(curroom,entry_text);
   printf ("Create Room: %s\n", entry_text);	
 				   }
 				   
 static void create_account( GtkWidget *widget,
-                            GObject *context_object ){
-							GtkWidget *ent = g_object_get_data (context_object, "entry");
-							GtkWidget *ent2 = g_object_get_data (context_object, "entry2");							
+                            GtkWidget *entry ){
+								char * command = (char*) malloc(1000);
+								char user[100];
+								char pass[100];
+							//GtkWidget *ent = g_object_get_data (context_object, "entry");
+							//GtkWidget *ent2 = g_object_get_data (context_object, "entry2");							
 								
 								
-								const char *entry_text  = gtk_entry_get_text (GTK_ENTRY (ent));
-								const char *entry_text2 = gtk_entry_get_text (GTK_ENTRY (ent2));
-					   printf ("Create Account: %s %s\n", entry_text,entry_text2);	
+								const char *entry_text  = gtk_entry_get_text (GTK_ENTRY (entry));
+								//const char *entry_text2 = gtk_entry_get_text (GTK_ENTRY (ent2));
+									strcat(entry_text,"_");
+									int x = 0;
+									int y = 0;
+								while(entry_text[y] != '_'){
+									user[x] = entry_text[y];
+									x++;
+									y++;
+								}
+								user[x] = '\0';
+								x=0;
+								y++;
+								while(entry_text[y] != '_'){
+									pass[x] = entry_text[y];
+									x++;
+									y++;
+								}
+								pass[x] = '\0';
+								x=0;
+								strcpy(curuser,user);
+								strcpy(curpass,pass);
+					sprintf(command,"ADD-USER %s %s",user,pass);
+				sendCommand(host, port, command, response);			
+					   printf ("Create Account: %s %s\n", user,pass);	
 				   }
 
 //--------------CUSTOM Window functions-------------------
@@ -446,7 +484,7 @@ GtkWidget *window1;
     g_signal_connect (entry, "activate",
 		      G_CALLBACK (enter_callback),
 		      entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), "Username");
+    gtk_entry_set_text (GTK_ENTRY (entry), "Username_Password");
     tmp_pos = GTK_ENTRY (entry)->text_length;
     gtk_editable_insert_text (GTK_EDITABLE (entry), " ", -1, &tmp_pos);
     gtk_editable_select_region (GTK_EDITABLE (entry),
@@ -460,7 +498,7 @@ GtkWidget *window1;
     g_signal_connect (entry2, "activate",
 		      G_CALLBACK (enter_callback),
 		      entry2);
-    gtk_entry_set_text (GTK_ENTRY (entry2), "Password");
+    gtk_entry_set_text (GTK_ENTRY (entry2), "");
     tmp_pos = GTK_ENTRY (entry2)->text_length;
     gtk_editable_insert_text (GTK_EDITABLE (entry2), " ", -1, &tmp_pos);
     gtk_editable_select_region (GTK_EDITABLE (entry2),
@@ -487,13 +525,15 @@ GtkWidget *window1;
     gtk_widget_show (check);
                                    
     button = gtk_button_new_with_label ("Create");
-	fprintf(stderr,"LOC1");
-	g_object_set_data (context_object, "entry", entry);
-	g_object_set_data (context_object, "entry2", entry2);
-fprintf(stderr,"LOC1");
+	
+	//g_object_set_data (context_object, "entry", entry);
+	//g_object_set_data (context_object, "entry2", entry2);
+	printf(stderr,"LOC2");
+
+	
 	
     gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                        GTK_SIGNAL_FUNC (create_account), context_object);
+                        GTK_SIGNAL_FUNC (create_account), entry);
 				  
     gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
     gtk_widget_set_can_default (button, TRUE);
