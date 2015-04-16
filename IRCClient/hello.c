@@ -350,11 +350,12 @@ static void send_message( GtkWidget *widget,
   char * command = (char*) malloc(1000);
   sprintf(command,"SEND-MESSAGE %s %s %s %s",curuser,curpass,curroom, entry_text);
 	sendCommand(host, port, command, response);
+	printf("%s",response);
 	if(strcmp(response,"OK\r\n")==0){
 	printf ("Sent: %s\n", entry_text);
 	}
 	else{
-		printf("%s",response);
+		
 		insert_text2(response);
 	}
 				   }
@@ -366,20 +367,13 @@ static void create_room( GtkWidget *widget,
 	 char * command = (char*) malloc(1000);
 	 sprintf(command,"CREATE-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
-	printf ("Create Room: %s\n", entry_text);
-	//Possibly remove-----------
-	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
-	sendCommand(host, port, command, response);
 	if(strcmp(response,"OK\r\n")==0){
-	strcpy(curroom,entry_text);
-	//-------------------------------
-  	printf ("Enter Room: %s\n", entry_text);
-	//Add to ROOM list
+	printf ("Create Room: %s\n", entry_text);
 	sprintf(command,"%s\n",entry_text);
 	insert_text3(command);
 	}
 	else{
-		printf("%s",response);
+		
 		insert_text2(response);
 	}
 	
@@ -392,6 +386,7 @@ static void enter_room( GtkWidget *widget,
 	 char * command = (char*) malloc(1000);
 	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
+	printf("%s",response);
 	if(strcmp(response,"OK\r\n")==0){
 	strcpy(curroom,entry_text);
   printf ("Enter Room: %s\n", entry_text);
@@ -400,7 +395,6 @@ sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,entry_text);
 	insert_text4(response);
 	}
 	else{
-		printf("%s",response);
 		insert_text2(response);
 	}
 				   }
@@ -412,12 +406,12 @@ static void leave_room( GtkWidget *widget,
 	 char * command = (char*) malloc(1000);
 	 sprintf(command,"LEAVE-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
+	printf("%s",response);
 	if(strcmp(response,"OK\r\n")==0){
 	strcpy(curroom,"");
   printf ("Left room\n", entry_text);	
   }
 	else{
-		printf("%s",response);
 		insert_text2(response);
 	}
 				   }
@@ -454,12 +448,12 @@ static void create_account( GtkWidget *widget,
 								strcpy(curuser,user);
 								strcpy(curpass,pass);
 					sprintf(command,"ADD-USER %s %s",user,pass);
-				sendCommand(host, port, command, response);	
+				sendCommand(host, port, command, response);
+					printf("%s",response);
 				if(strcmp(response,"OK\r\n")==0){
 					   printf ("Create Account: %s %s\n", user,pass);
 						 }
 								else{
-								printf("%s",response);
 								insert_text2(response);
 								}
 				   }
@@ -890,7 +884,7 @@ update_messages(GtkWidget *widget)
   if((strlen(curuser)>1)&&(strlen(curroom)>1)){
 	  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage, curroom);
 	sendCommand(host, port, command, msgresponse);
-	if(strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0){
+	if((strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0)&&(strcmp(msgresponse,"ERROR (User not in room)\r\n")!=0)){
 	insert_text1 (msgresponse);
 	lastMessage++;
 	}
