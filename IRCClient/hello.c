@@ -350,7 +350,13 @@ static void send_message( GtkWidget *widget,
   char * command = (char*) malloc(1000);
   sprintf(command,"SEND-MESSAGE %s %s %s %s",curuser,curpass,curroom, entry_text);
 	sendCommand(host, port, command, response);
+	if(strcmp(response,"OK\r\n")==0){
 	printf ("Sent: %s\n", entry_text);
+	}
+	else{
+		printf("%s",response);
+		insert_text2(response);
+	}
 				   }
 				   
 static void create_room( GtkWidget *widget,
@@ -364,13 +370,20 @@ static void create_room( GtkWidget *widget,
 	//Possibly remove-----------
 	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
+	if(strcmp(response,"OK\r\n")==0){
 	strcpy(curroom,entry_text);
 	//-------------------------------
   	printf ("Enter Room: %s\n", entry_text);
 	//Add to ROOM list
 	sprintf(command,"%s\n",entry_text);
 	insert_text3(command);
-				   }
+	}
+	else{
+		printf("%s",response);
+		insert_text2(response);
+	}
+	
+	 }
 				   
 static void enter_room( GtkWidget *widget,
                             GtkWidget *entry ){
@@ -379,11 +392,17 @@ static void enter_room( GtkWidget *widget,
 	 char * command = (char*) malloc(1000);
 	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
+	if(strcmp(response,"OK\r\n")==0){
 	strcpy(curroom,entry_text);
   printf ("Enter Room: %s\n", entry_text);
 sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);  
 	insert_text4(response);
+	}
+	else{
+		printf("%s",response);
+		insert_text2(response);
+	}
 				   }
 				   
 static void leave_room( GtkWidget *widget,
@@ -393,8 +412,14 @@ static void leave_room( GtkWidget *widget,
 	 char * command = (char*) malloc(1000);
 	 sprintf(command,"LEAVE-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
+	if(strcmp(response,"OK\r\n")==0){
 	strcpy(curroom,"");
   printf ("Left room\n", entry_text);	
+  }
+	else{
+		printf("%s",response);
+		insert_text2(response);
+	}
 				   }
 				   
 static void create_account( GtkWidget *widget,
@@ -429,8 +454,14 @@ static void create_account( GtkWidget *widget,
 								strcpy(curuser,user);
 								strcpy(curpass,pass);
 					sprintf(command,"ADD-USER %s %s",user,pass);
-				sendCommand(host, port, command, response);			
-					   printf ("Create Account: %s %s\n", user,pass);	
+				sendCommand(host, port, command, response);	
+				if(strcmp(response,"OK\r\n")==0){
+					   printf ("Create Account: %s %s\n", user,pass);
+						 }
+								else{
+								printf("%s",response);
+								insert_text2(response);
+								}
 				   }
 				   
 static void login( GtkWidget *widget,
@@ -705,6 +736,77 @@ GtkWidget *window1;
     
     gtk_widget_show (window1);
 				   }
+				   
+	static void login_window( GtkWidget *widget,
+                   gpointer   data ){
+GtkWidget *window1;
+	GtkWidget *vbox, *hbox;
+    GtkWidget *entry;
+    GtkWidget *button;
+    GtkWidget *check;
+	GObject *context_object = (GObject *) malloc(1000);
+	gint tmp_pos;
+	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_widget_set_size_request (GTK_WIDGET (window1), 200, 100);
+    gtk_window_set_title (GTK_WINDOW (window1), "Login");
+    g_signal_connect (window1, "destroy",
+                      G_CALLBACK (gtk_widget_destroy), NULL);
+					  
+    g_signal_connect_swapped (window1, "delete-event",
+                              G_CALLBACK (gtk_widget_destroy), 
+                              window1);
+							  vbox = gtk_vbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (window1), vbox);
+    gtk_widget_show (vbox);
+
+	//USER Entry
+    entry = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry), 50);
+    g_signal_connect (entry, "activate",
+		      G_CALLBACK (enter_callback),
+		      entry);
+    gtk_entry_set_text (GTK_ENTRY (entry), "Username_Password");
+    tmp_pos = GTK_ENTRY (entry)->text_length;
+    gtk_editable_insert_text (GTK_EDITABLE (entry), " ", -1, &tmp_pos);
+    gtk_editable_select_region (GTK_EDITABLE (entry),
+			        0, GTK_ENTRY (entry)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
+    gtk_widget_show (entry);
+	
+	
+
+    hbox = gtk_hbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (vbox), hbox);
+    gtk_widget_show (hbox);
+                                  
+    check = gtk_check_button_new_with_label ("Editable");
+    gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled",
+	              G_CALLBACK (entry_toggle_editable), entry);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
+    gtk_widget_show (check);
+    
+    check = gtk_check_button_new_with_label ("Visible");
+    gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled",
+	              G_CALLBACK (entry_toggle_visibility), entry);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
+    gtk_widget_show (check);
+                                   
+    button = gtk_button_new_with_label ("OK");
+
+	
+	
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
+                        GTK_SIGNAL_FUNC (login), entry);
+				  
+    gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
+    gtk_widget_set_can_default (button, TRUE);
+    gtk_widget_grab_default (button);
+    gtk_widget_show (button);
+    
+    gtk_widget_show (window1);
+				   }
 			   
 
 					   
@@ -719,7 +821,7 @@ static void send_message_window( GtkWidget *widget,
     GtkWidget *check;
 	gint tmp_pos;
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_widget_set_size_request (GTK_WIDGET (window1), 200, 100);
+    gtk_widget_set_size_request (GTK_WIDGET (window1), 400, 100);
     gtk_window_set_title (GTK_WINDOW (window1), "Send Message");
     g_signal_connect (window1, "destroy",
                       G_CALLBACK (gtk_widget_destroy), NULL);
@@ -939,7 +1041,7 @@ main(int argc, char **argv) {
 		      G_CALLBACK (leave_room_window), NULL);
 			  
 	g_signal_connect (button_login, "clicked",
-		      G_CALLBACK (login), NULL);
+		      G_CALLBACK (login_window), NULL);
 			  
 	g_signal_connect (button_logout, "clicked",
 		      G_CALLBACK (logout), NULL);
