@@ -23,6 +23,7 @@ char response[MAX_RESPONSE];
 static char curuser[1000];
 static char curpass[1000];
 static char curroom[1000];
+int lastMessage;
 //char command[1000];
 
 int open_client_socket(char * host, int port) {
@@ -612,6 +613,43 @@ static void send_message_window( GtkWidget *widget,
     gtk_widget_show (window1);
 }
 
+//-----------------GET Messages Thread-------------------
+
+
+
+void * getMessagesThread(void * arg) {
+	// This code will be executed simultaneously with main()
+	// Get messages to get last message number. Discard the initial Messages
+	char * command = (char*) malloc(100);
+	while (1) {
+		// Get messages after last message number received.
+		/*fprintf(stderr,"LOC1");
+		if(strlen(curuser)>1){
+			
+  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage,curroom);
+	sendCommand(host, port, command, response);
+		}
+	
+
+		// Print messages
+		printf ("Sent: %s\n", response);
+		printf("NO Messages\n");
+
+		// Sleep for ten seconds*/
+		usleep(2*1000*1000);
+	}
+}
+
+static gboolean
+update_messages(GtkWidget *widget)
+{
+ 
+  fprintf(stderr,"LOOP");
+  return TRUE;
+}
+
+
+
 
 
 
@@ -786,6 +824,9 @@ main(int argc, char **argv) {
     /* All GTK applications must have a gtk_main(). Control ends here
      * and waits for an event to occur (like a key press or
      * mouse event). */
+	 
+	g_timeout_add(5000, (GSourceFunc) update_messages, (gpointer) window);
+	 
     gtk_main ();
 	
 
