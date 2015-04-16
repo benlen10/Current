@@ -27,6 +27,7 @@ static int lastMessage;
 GtkTextBuffer *buffer1;
 GtkTextBuffer *buffer2;
 GtkTextBuffer *buffer3;
+GtkTextBuffer *buffer4;
 //char command[1000];
 
 int open_client_socket(char * host, int port) {
@@ -182,53 +183,6 @@ static GtkWidget *create_list1( void )
     return scrolled_window;
 }
 
-static GtkWidget *create_list2( void )
-{
-
-    GtkWidget *scrolled_window;
-    GtkWidget *tree_view;
-    GtkListStore *model;
-    GtkTreeIter iter;
-    GtkCellRenderer *cell;
-    GtkTreeViewColumn *column;
-
-    int i;
-   
-    /* Create a new scrolled window, with scrollbars only if needed */
-    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-				    GTK_POLICY_AUTOMATIC, 
-				    GTK_POLICY_AUTOMATIC);
-   
-    model = gtk_list_store_new (1, G_TYPE_STRING);
-    tree_view = gtk_tree_view_new ();
-    gtk_container_add (GTK_CONTAINER (scrolled_window), tree_view);
-    gtk_tree_view_set_model (GTK_TREE_VIEW (tree_view), GTK_TREE_MODEL (model));
-    gtk_widget_show (tree_view);
-   
-    /* Add some messages to the window */
-    for (i = 0; i < 10; i++) {
-        gchar *msg = g_strdup_printf ("User #%d", i);
-        gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (model), 
-	                    &iter,
-                            0, msg,
-	                    -1);
-	g_free (msg);
-    }
-   
-    cell = gtk_cell_renderer_text_new ();
-
-    column = gtk_tree_view_column_new_with_attributes ("Users",
-                                                       cell,
-                                                       "text", 0,
-                                                       NULL);
-  
-    gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view),
-	  		         GTK_TREE_VIEW_COLUMN (column));
-
-    return scrolled_window;
-}
 
 //----------ENTRY Functions (Built In)-------------------
 static void enter_callback( GtkWidget *widget,
@@ -279,13 +233,22 @@ static void insert_text2( char * str )
    gtk_text_buffer_insert (buffer2, &iter, str, -1);
 }
 
-static void insert_text3( char * str )
+static void insert_text3( char * str ) //Rooms
 {
    GtkTextIter iter;
  
    gtk_text_buffer_get_iter_at_offset (buffer3, &iter, 0);
 
    gtk_text_buffer_insert (buffer3, &iter, str, -1);
+}
+
+static void insert_text4( char * str )  //Users
+{
+   GtkTextIter iter;
+ 
+   gtk_text_buffer_get_iter_at_offset (buffer4, &iter, 0);
+
+   gtk_text_buffer_insert (buffer4, &iter, str, -1);
 }
    
 /* Create a scrolled text area that displays a "message" */
@@ -353,6 +316,29 @@ static GtkWidget *create_text3( void )
 
    return scrolled_window;
 }
+
+static GtkWidget *create_text4( void )
+{
+   GtkWidget *scrolled_window;
+   GtkWidget *view;
+   
+
+   view = gtk_text_view_new ();
+   buffer4 = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+
+   scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+		   	           GTK_POLICY_AUTOMATIC,
+				   GTK_POLICY_AUTOMATIC);
+
+   gtk_container_add (GTK_CONTAINER (scrolled_window), view);
+   //insert_text4 (buffer4);
+
+   gtk_widget_show_all (scrolled_window);
+
+   return scrolled_window;
+}
+
 
 //-------------CUSTOM Send to server functions-----------
 
@@ -704,10 +690,10 @@ main(int argc, char **argv) {
 	GtkWidget *hpaned;
 	GtkWidget *vpaned;
 	GtkWidget *list;
-	GtkWidget *list2;
     GtkWidget *text;
 	GtkWidget *text2;
 	GtkWidget *text3;
+	GtkWidget *text4;
 	GtkWidget *label1;
 	GtkWidget *label2;
 	
@@ -751,12 +737,12 @@ main(int argc, char **argv) {
 	vpaned = gtk_vpaned_new ();
 	
 	//ADD to hpaned PANEL
-	list = create_list1 ();
-    gtk_paned_add1 (GTK_PANED (hpaned), list);
-    gtk_widget_show (list);
-   
 	text3 = create_text3 ();
-    gtk_paned_add2 (GTK_PANED (hpaned), text3);
+    gtk_paned_add1 (GTK_PANED (hpaned), text3);
+
+   
+	text4 = create_text4 ();
+    gtk_paned_add2 (GTK_PANED (hpaned), text4);
 	
 	//ADD to vpand PANEL
 	
@@ -838,6 +824,7 @@ main(int argc, char **argv) {
 	gtk_widget_show (text);
 	gtk_widget_show (text2);
 	gtk_widget_show (text3);
+	gtk_widget_show (text4);
     
     /* All GTK applications must have a gtk_main(). Control ends here
      * and waits for an event to occur (like a key press or
