@@ -23,7 +23,9 @@ char response[MAX_RESPONSE];
 static char curuser[1000];
 static char curpass[1000];
 static char curroom[1000];
+static char blocklist[10][100];
 static int lastMessage;
+static int blockCount;
 GtkTextBuffer *buffer1;
 GtkTextBuffer *buffer2;
 GtkTextBuffer *buffer3;
@@ -553,8 +555,41 @@ static void logout( GtkWidget *widget,
 						insert_text2(command);
 						gtk_entry_set_text (GTK_ENTRY (entry), "");
 				   }
+				   
+static void block( GtkWidget *widget,
+                            GtkWidget *entry ){
+								//gtk_text_buffer_set_text (buffer2,"",-1);
+						char * command = (char*) malloc(1000);
+						const char *entry_text  = gtk_entry_get_text (GTK_ENTRY (entry));
+						strcpy(blocklist[blockCount],entry_text);		
+								
+							
+					   printf ("(%s) Blocked \n",entry_text);	
+					   sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
+						insert_text2(command);
+						gtk_entry_set_text (GTK_ENTRY (entry), "");
+				   }
+				   
+				   
+static void blacklist( GtkWidget *widget,
+                            GtkWidget *entry ){
+								gtk_text_buffer_set_text (buffer2,"",-1);
+						char * command = (char*) malloc(1000);	
+								strcpy(curuser,"");
+								strcpy(curpass,"");
+								strcpy(curroom,"");
+							
+					   printf ("Logout Successful \n");	
+					   sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
+						insert_text2(command);
+						gtk_entry_set_text (GTK_ENTRY (entry), "");
+				   }
 
+				   
+				   
 //--------------CUSTOM Window functions-------------------
+
+
 
 static void create_room_window( GtkWidget *widget,
                    gpointer   data ){
@@ -923,6 +958,58 @@ static void send_message_window( GtkWidget *widget,
     gtk_widget_show (window1);
 }
 
+static void block_window( GtkWidget *widget,
+                   gpointer   data ){
+
+	GtkWidget *window1;
+	GtkWidget *vbox, *hbox;
+    GtkWidget *entry;
+    GtkWidget *button;
+	gint tmp_pos;
+	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_widget_set_size_request (GTK_WIDGET (window1), 200, 100);
+    gtk_window_set_title (GTK_WINDOW (window1), "Block Uuser");
+    g_signal_connect (window1, "destroy",
+                      G_CALLBACK (gtk_widget_destroy), NULL);
+					  
+    g_signal_connect_swapped (window1, "delete-event",
+                              G_CALLBACK (gtk_widget_destroy), 
+                              window1);
+							  vbox = gtk_vbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (window1), vbox);
+    gtk_widget_show (vbox);
+
+    entry = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry), 50);
+    g_signal_connect (entry, "activate",
+		      G_CALLBACK (enter_callback),
+		      entry);
+    gtk_entry_set_text (GTK_ENTRY (entry), "");
+    tmp_pos = GTK_ENTRY (entry)->text_length;
+   
+    gtk_editable_select_region (GTK_EDITABLE (entry),
+			        0, GTK_ENTRY (entry)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
+    gtk_widget_show (entry);
+
+    hbox = gtk_hbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (vbox), hbox);
+    gtk_widget_show (hbox);
+                                  
+    
+                                   
+    button = gtk_button_new_with_label ("Blacklist");
+	
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
+                        GTK_SIGNAL_FUNC (block), entry);
+				  
+    gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
+    gtk_widget_set_can_default (button, TRUE);
+    gtk_widget_grab_default (button);
+    gtk_widget_show (button);
+    gtk_widget_show (window1);			   
+}
+
 //-----------------GET Messages Thread-------------------
 
 
@@ -986,6 +1073,8 @@ main(int argc, char **argv) {
 	GtkWidget *button_logout;
 	GtkWidget *button_users;
 	GtkWidget *button_clear;
+	GtkWidget *button_block;
+	GtkWidget *button_blacklist;
 	GtkWidget *vert;
     GtkWidget *horiz1;
 	GtkWidget *horiz2;
@@ -1041,6 +1130,8 @@ main(int argc, char **argv) {
 	button_login = gtk_button_new_with_label ("Login");
 	button_logout = gtk_button_new_with_label ("Logout");
 	button_users = gtk_button_new_with_label ("Get All Users");
+	button_block = gtk_button_new_with_label ("Block User");
+	button_blacklist = gtk_button_new_with_label ("Blacklist");
 	button_clear = gtk_button_new_with_label ("Clear");
 	hpaned = gtk_hpaned_new ();
 	vpaned = gtk_vpaned_new ();
@@ -1099,6 +1190,12 @@ main(int argc, char **argv) {
 	g_signal_connect (button_new_account, "clicked",
 		      G_CALLBACK (create_account_window), NULL);
 	
+	g_signal_connect (button_block, "clicked",
+		      G_CALLBACK (block_window), NULL);
+	
+	g_signal_connect (button_blacklist, "clicked",
+		      G_CALLBACK (blacklist), NULL);
+	
 	g_signal_connect (button_users, "clicked",
 		      G_CALLBACK (get_all_users), NULL);
 			  
@@ -1132,6 +1229,8 @@ main(int argc, char **argv) {
 	gtk_box_pack_start (GTK_BOX (horiz3), button_enter, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz3), button_leave, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz3), button_users, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz3), button_block, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz3), button_blacklist, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz3), button_clear, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz3), button_exit, TRUE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (vert), horiz1);
@@ -1158,6 +1257,8 @@ main(int argc, char **argv) {
 	gtk_widget_show (button_logout);
 	gtk_widget_show (button_users);
 	gtk_widget_show (button_clear);
+	gtk_widget_show (button_block);
+	gtk_widget_show (button_blacklist);
 	gtk_widget_show (button_exit);
 	gtk_widget_show (label1);
 	gtk_widget_show (label2);
@@ -1174,6 +1275,7 @@ main(int argc, char **argv) {
      * and waits for an event to occur (like a key press or
      * mouse event). */
 	 lastMessage = 0;
+	 blockCount=0;
 	 
 	g_timeout_add(5000, (GSourceFunc) update_messages, (gpointer) window);
 	 
