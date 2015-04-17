@@ -363,9 +363,14 @@ static void send_message( GtkWidget *widget,
 	gtk_entry_set_text (GTK_ENTRY (entry), "");
 				   }
 				   
+static void clear( GtkWidget *widget,
+                            GtkWidget *entry ){
+	gtk_text_buffer_set_text (buffer2,"",-1);
+							}
+				   
 static void get_all_users(GtkWidget *widget,
                             GtkWidget *entry ){
-								//gtk_text_buffer_set_text (buffer2,"",-1);
+								gtk_text_buffer_set_text (buffer2,"",-1);
 							   const gchar *entry_text;
 		entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
   
@@ -391,7 +396,7 @@ static void create_room( GtkWidget *widget,
 	printf ("Create Room: %s\n", entry_text);
 	sprintf(command,"%s\n",entry_text);
 	insert_text3(command);
-	sprintf(command,"Current User: %s\n Current Room: %s\n",curuser,curroom);
+	sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
 	insert_text2(command);
 	}
 	else{
@@ -420,7 +425,7 @@ static void enter_room( GtkWidget *widget,
   printf ("Enter Room: %s\n", entry_text);
 sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,curroom);
 	sendCommand(host, port, command, response);
-	sprintf(command,"Current User: %s\n Current Room: %s\n",curuser,curroom);
+	sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
 	if(strcmp(response,"DENIED\r\n")!=0){
 	insert_text4(response);
 	}
@@ -445,7 +450,7 @@ static void leave_room( GtkWidget *widget,
 	if(strcmp(response,"OK\r\n")==0){
 	strcpy(curroom,"");
   printf ("Left room\n", entry_text);
-	sprintf(command,"Current User: %s\n Current Room: %s\n",curuser,curroom);
+	sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
 	insert_text2(command);
   }
 	else{
@@ -491,7 +496,7 @@ static void create_account( GtkWidget *widget,
 					
 				if(strcmp(response,"OK\r\n")==0){
 					   printf ("Create Account: %s %s\n", user,pass);
-					   sprintf(command,"Current User: %s\n Current Room: %s\n",curuser,curroom);
+					   sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
 					insert_text2(command);
 						 }
 								else{
@@ -531,7 +536,7 @@ static void login( GtkWidget *widget,
 								strcpy(curpass,pass);
 							
 					   printf ("Login Successful\n");
-						sprintf(command,"Current User: %s\n Current Room: %s\n",curuser,curroom);
+						sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
 				insert_text2(command);
 				   }
 				   
@@ -544,7 +549,7 @@ static void logout( GtkWidget *widget,
 								strcpy(curroom,"");
 							
 					   printf ("Logout Successful \n");	
-					   sprintf(command,"Current User: %s\n Current Room: %s\n",curuser,curroom);
+					   sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
 						insert_text2(command);
 						gtk_entry_set_text (GTK_ENTRY (entry), "");
 				   }
@@ -980,6 +985,7 @@ main(int argc, char **argv) {
 	GtkWidget *button_login;
 	GtkWidget *button_logout;
 	GtkWidget *button_users;
+	GtkWidget *button_clear;
 	GtkWidget *vert;
     GtkWidget *horiz1;
 	GtkWidget *horiz2;
@@ -1035,6 +1041,7 @@ main(int argc, char **argv) {
 	button_login = gtk_button_new_with_label ("Login");
 	button_logout = gtk_button_new_with_label ("Logout");
 	button_users = gtk_button_new_with_label ("Get All Users");
+	button_clear = gtk_button_new_with_label ("Clear");
 	hpaned = gtk_hpaned_new ();
 	vpaned = gtk_vpaned_new ();
 	
@@ -1059,7 +1066,7 @@ main(int argc, char **argv) {
 
 	//Create LABELS
 	label1 = gtk_label_new("Rooms");
-	label2 = gtk_label_new("Users");
+	label2 = gtk_label_new("Users In Room");
    
 
 	
@@ -1094,6 +1101,9 @@ main(int argc, char **argv) {
 	
 	g_signal_connect (button_users, "clicked",
 		      G_CALLBACK (get_all_users), NULL);
+			  
+	g_signal_connect (button_clear, "clicked",
+		      G_CALLBACK (clear), NULL);
 	
 
     
@@ -1110,23 +1120,26 @@ main(int argc, char **argv) {
 	vert = gtk_vbox_new (FALSE, 0);
 	horiz1 = gtk_hbox_new (FALSE, 0);
 	horiz2 = gtk_hbox_new (FALSE, 0);
+	horiz3 = gtk_hbox_new (FALSE, 0);
 	
 	gtk_box_pack_start (GTK_BOX (horiz1), label1, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz1), label2, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_send, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_new_room, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz2), button_enter, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz2), button_leave, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_login, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_logout, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz2), button_users, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_new_account, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz2), button_exit, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz3), button_enter, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz3), button_leave, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz3), button_users, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz3), button_clear, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz3), button_exit, TRUE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (vert), horiz1);
 	gtk_container_add (GTK_CONTAINER (vert), hpaned);
 
 	gtk_box_pack_start (GTK_BOX (vert), vpaned, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vert), horiz2, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vert), horiz3, TRUE, FALSE, 0);
 	
 
 	gtk_container_add (GTK_CONTAINER (window), vert);
@@ -1135,6 +1148,7 @@ main(int argc, char **argv) {
 	gtk_widget_show (vert);
 	gtk_widget_show (horiz1);
 	gtk_widget_show (horiz2);
+	gtk_widget_show (horiz3);
     gtk_widget_show (button_send);
 	gtk_widget_show (button_new_room);
 	gtk_widget_show (button_new_account);
@@ -1143,6 +1157,7 @@ main(int argc, char **argv) {
 	gtk_widget_show (button_login);
 	gtk_widget_show (button_logout);
 	gtk_widget_show (button_users);
+	gtk_widget_show (button_clear);
 	gtk_widget_show (button_exit);
 	gtk_widget_show (label1);
 	gtk_widget_show (label2);
