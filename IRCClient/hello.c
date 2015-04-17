@@ -288,7 +288,7 @@ static GtkWidget *create_text2( void )
 				   GTK_POLICY_AUTOMATIC);
 
    gtk_container_add (GTK_CONTAINER (scrolled_window), view);
-   //insert_text2 (buffer2);
+
 
    gtk_widget_show_all (scrolled_window);
 
@@ -344,6 +344,7 @@ static GtkWidget *create_text4( void )
 
 static void send_message( GtkWidget *widget,
                             GtkWidget *entry ){
+								gtk_text_buffer_set_text (buffer2,"",-1);
 					   const gchar *entry_text;
 		entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
   
@@ -351,6 +352,7 @@ static void send_message( GtkWidget *widget,
   sprintf(command,"SEND-MESSAGE %s %s %s %s",curuser,curpass,curroom, entry_text);
 	sendCommand(host, port, command, response);
 	printf("%s",response);
+	
 	if(strcmp(response,"OK\r\n")==0){
 	printf ("Sent: %s\n", entry_text);
 	}
@@ -358,10 +360,12 @@ static void send_message( GtkWidget *widget,
 		
 		insert_text2(response);
 	}
+	gtk_entry_set_text (GTK_ENTRY (entry), "");
 				   }
 				   
 static void create_room( GtkWidget *widget,
                             GtkWidget *entry ){
+								gtk_text_buffer_set_text (buffer2,"",-1);
 								const gchar *entry_text;
      entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
 	 char * command = (char*) malloc(1000);
@@ -372,39 +376,50 @@ static void create_room( GtkWidget *widget,
 	sprintf(command,"%s\n",entry_text);
 	insert_text3(command);
 	sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
-	insert_text4(response);
+	insert_text2(command);
 	}
 	else{
 		
 		insert_text2(response);
 	}
+	gtk_entry_set_text (GTK_ENTRY (entry), "");
 	
 	 }
 				   
 static void enter_room( GtkWidget *widget,
                             GtkWidget *entry ){
+								gtk_text_buffer_set_text (buffer4,"",-1); //Clear users list
+								gtk_text_buffer_set_text (buffer2,"",-1); //Clear debug list
+								gtk_text_buffer_set_text (buffer1,"",-1); //Clear messages list
 								const gchar *entry_text;
      entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
 	 char * command = (char*) malloc(1000);
 	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
 	printf("%s",response);
-	if(strcmp(response,"OK\r\n")==0){
+	
+	if(strcmp(response,"DENIED\r\n")!=0){
+	gtk_text_buffer_set_text (buffer4,"",-1);
 	strcpy(curroom,entry_text);
   printf ("Enter Room: %s\n", entry_text);
-sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,entry_text);
+sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,curroom);
 	sendCommand(host, port, command, response);
 	sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
+	if(strcmp(response,"DENIED\r\n")!=0){
 	insert_text4(response);
+	}
 	insert_text2(command);
 	}
 	else{
 		insert_text2(response);
 	}
+	gtk_entry_set_text (GTK_ENTRY (entry), "");
 				   }
 				   
 static void leave_room( GtkWidget *widget,
                             GtkWidget *entry ){
+								gtk_text_buffer_set_text (buffer2,"",-1);
+								gtk_text_buffer_set_text (buffer1,"",-1); //Clear messages list
 								const gchar *entry_text;
      entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
 	 char * command = (char*) malloc(1000);
@@ -415,24 +430,25 @@ static void leave_room( GtkWidget *widget,
 	strcpy(curroom,"");
   printf ("Left room\n", entry_text);
 	sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
-	insert_text4(response);
+	insert_text2(command);
   }
 	else{
 		insert_text2(response);
 	}
+	gtk_entry_set_text (GTK_ENTRY (entry), "");
 				   }
 				   
 static void create_account( GtkWidget *widget,
                             GtkWidget *entry ){
+								gtk_text_buffer_set_text (buffer2,"",-1);
 								char * command = (char*) malloc(1000);
 								char user[100];
 								char pass[100];
-							//GtkWidget *ent = g_object_get_data (context_object, "entry");
-							//GtkWidget *ent2 = g_object_get_data (context_object, "entry2");							
+							
 								
 								
 								const char *entry_text  = gtk_entry_get_text (GTK_ENTRY (entry));
-								//const char *entry_text2 = gtk_entry_get_text (GTK_ENTRY (ent2));
+								
 									strcat(entry_text,"_");
 									int x = 0;
 									int y = 0;
@@ -456,27 +472,27 @@ static void create_account( GtkWidget *widget,
 					sprintf(command,"ADD-USER %s %s",user,pass);
 				sendCommand(host, port, command, response);
 					printf("%s",response);
+					
 				if(strcmp(response,"OK\r\n")==0){
 					   printf ("Create Account: %s %s\n", user,pass);
 					   sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
-					insert_text4(response);
+					insert_text2(command);
 						 }
 								else{
 								insert_text2(response);
 								}
+								gtk_entry_set_text (GTK_ENTRY (entry), "");
 				   }
 				   
 static void login( GtkWidget *widget,
                             GtkWidget *entry ){
+								gtk_text_buffer_set_text (buffer2,"",-1);
 								char * command = (char*) malloc(1000);
 								char user[100];
 								char pass[100];
-							//GtkWidget *ent = g_object_get_data (context_object, "entry");
-							//GtkWidget *ent2 = g_object_get_data (context_object, "entry2");							
-								
-								
+							
 								const char *entry_text  = gtk_entry_get_text (GTK_ENTRY (entry));
-								//const char *entry_text2 = gtk_entry_get_text (GTK_ENTRY (ent2));
+								
 									strcat(entry_text,"_");
 									int x = 0;
 									int y = 0;
@@ -500,18 +516,21 @@ static void login( GtkWidget *widget,
 							
 					   printf ("Login Successful\n");
 						sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
-				insert_text4(response);
+				insert_text2(command);
 				   }
 				   
 static void logout( GtkWidget *widget,
                             GtkWidget *entry ){
+								gtk_text_buffer_set_text (buffer2,"",-1);
 						char * command = (char*) malloc(1000);	
 								strcpy(curuser,"");
 								strcpy(curpass,"");
+								strcpy(curroom,"");
 							
 					   printf ("Logout Successful \n");	
 					   sprintf(command,"Current User: %s Current Room: %s\n",curuser,curroom);
-						insert_text4(response);
+						insert_text2(command);
+						gtk_entry_set_text (GTK_ENTRY (entry), "");
 				   }
 
 //--------------CUSTOM Window functions-------------------
@@ -1125,3 +1144,5 @@ main(int argc, char **argv) {
 
 	return 0;
 }
+
+//
