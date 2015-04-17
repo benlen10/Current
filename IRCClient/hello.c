@@ -1279,6 +1279,7 @@ main(int argc, char **argv) {
 	gtk_box_pack_start (GTK_BOX (horiz2), button_new_room, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_login, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_logout, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button_clear, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_new_account, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz3), button_enter, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz3), button_leave, TRUE, FALSE, 0);
@@ -1286,7 +1287,6 @@ main(int argc, char **argv) {
 	gtk_box_pack_start (GTK_BOX (horiz3), button_block, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz3), button_blacklist, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz3), button_filter, TRUE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (horiz3), button_clear, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz3), button_exit, TRUE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (vert), horiz1);
 	gtk_container_add (GTK_CONTAINER (vert), hpaned);
