@@ -919,9 +919,9 @@ static void send_message_window( GtkWidget *widget,
     g_signal_connect (entry, "activate",
 		      G_CALLBACK (enter_callback),
 		      entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), "hello");
+    gtk_entry_set_text (GTK_ENTRY (entry), "");
     tmp_pos = GTK_ENTRY (entry)->text_length;
-    gtk_editable_insert_text (GTK_EDITABLE (entry), " world", -1, &tmp_pos);
+    gtk_editable_insert_text (GTK_EDITABLE (entry), "", -1, &tmp_pos);
     gtk_editable_select_region (GTK_EDITABLE (entry),
 			        0, GTK_ENTRY (entry)->text_length);
     gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
@@ -931,19 +931,7 @@ static void send_message_window( GtkWidget *widget,
     gtk_container_add (GTK_CONTAINER (vbox), hbox);
     gtk_widget_show (hbox);
                                   
-    check = gtk_check_button_new_with_label ("Editable");
-    gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
-    g_signal_connect (check, "toggled",
-	              G_CALLBACK (entry_toggle_editable), entry);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
-    gtk_widget_show (check);
     
-    check = gtk_check_button_new_with_label ("Visible");
-    gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
-    g_signal_connect (check, "toggled",
-	              G_CALLBACK (entry_toggle_visibility), entry);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
-    gtk_widget_show (check);
                                    
     button = gtk_button_new_with_label ("Send");
 	
@@ -1023,14 +1011,18 @@ update_messages(GtkWidget *widget)
   if((strlen(curuser)>1)&&(strlen(curroom)>1)){
 	  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage, curroom);
 	sendCommand(host, port, command, msgresponse);
-	if((strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0)&&(strcmp(msgresponse,"ERROR (User not in room)\r\n")!=0)){
+	printf("msgresponse: %s\n",msgresponse);
+	if((strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0)&&(strcmp(msgresponse,"ERROR (User not in room)\r\n")!=0)&&(strcmp(msgresponse,"(Blocked)\n")!=0)){
 	while(x<blockCount){
-		if(strstr(blocklist[x],msgresponse)!=NULL){
+		if(strstr(msgresponse,blocklist[x])!=NULL){
 			insert_text1 ("(Blocked)\n");
+			strcpy(msgresponse,"NO-NEW-MESSAGES\r\n");
 			return TRUE;
+			
 		}
 		x++;
 	}
+	x=0;
 		
 	insert_text1 (msgresponse);
 	lastMessage++;
