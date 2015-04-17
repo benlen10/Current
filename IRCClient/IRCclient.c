@@ -1080,15 +1080,7 @@ update_messages(GtkWidget *widget)
   }
   return TRUE;
 }
-
-
-
-
-
-
-
-
-
+//--------------------------MAIN METHOD-----------------------
 
 int
 main(int argc, char **argv) {
@@ -1213,7 +1205,7 @@ main(int argc, char **argv) {
 
 	
     //Set the Widget sizes
-	gtk_widget_set_size_request (GTK_WIDGET (window), 550, 600);
+	gtk_widget_set_size_request (GTK_WIDGET (window), 600, 650);
 	
 	
     /* When the button receives the "clicked" signal, it will call the
