@@ -558,14 +558,14 @@ static void logout( GtkWidget *widget,
 				   
 static void block( GtkWidget *widget,
                             GtkWidget *entry ){
-								//gtk_text_buffer_set_text (buffer2,"",-1);
+								gtk_text_buffer_set_text (buffer2,"",-1);
 						char * command = (char*) malloc(1000);
 						const char *entry_text  = gtk_entry_get_text (GTK_ENTRY (entry));
 						strcpy(blocklist[blockCount],entry_text);		
-								
+						blockCount++;		
 							
 					   printf ("(%s) Blocked \n",entry_text);	
-					   sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
+					    sprintf(command,"Successfully Blocked %s\n",entry_text);
 						insert_text2(command);
 						gtk_entry_set_text (GTK_ENTRY (entry), "");
 				   }
@@ -574,15 +574,15 @@ static void block( GtkWidget *widget,
 static void blacklist( GtkWidget *widget,
                             GtkWidget *entry ){
 								gtk_text_buffer_set_text (buffer2,"",-1);
-						char * command = (char*) malloc(1000);	
-								strcpy(curuser,"");
-								strcpy(curpass,"");
-								strcpy(curroom,"");
-							
-					   printf ("Logout Successful \n");	
-					   sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
-						insert_text2(command);
-						gtk_entry_set_text (GTK_ENTRY (entry), "");
+						
+						int x = 0;
+						
+						while (x<blockCount){
+						insert_text2(blocklist[x]);
+						insert_text2("\n");
+						x++;
+						}
+						insert_text2("Blacklist:\n");
 				   }
 
 				   
@@ -1019,13 +1019,22 @@ update_messages(GtkWidget *widget)
 {
 	char * command = (char*) malloc(1000);
 	char * msgresponse = (char*) malloc(1000);
-  //fprintf(stderr,"LOOP");
+	int x =0;
   if((strlen(curuser)>1)&&(strlen(curroom)>1)){
 	  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage, curroom);
 	sendCommand(host, port, command, msgresponse);
 	if((strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0)&&(strcmp(msgresponse,"ERROR (User not in room)\r\n")!=0)){
+	while(x<blockCount){
+		if(strstr(blocklist[x],msgresponse)!=NULL){
+			insert_text1 ("(Blocked)\n");
+			return TRUE;
+		}
+		x++;
+	}
+		
 	insert_text1 (msgresponse);
 	lastMessage++;
+
 	}
 	  
   }
