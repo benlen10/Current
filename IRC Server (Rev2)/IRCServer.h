@@ -14,7 +14,7 @@ private:
 public:
 	
 	FILE * passFile;
-	char users[10000][100];
+	char users[100][100];
 	void initialize();
 	bool checkPassword(int fd, const char * user, const char * password);
 	void processRequest( int socket );
