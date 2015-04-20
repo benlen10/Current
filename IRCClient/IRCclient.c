@@ -1339,11 +1339,13 @@ main(int argc, char **argv) {
 	 blockCount=0;
 	 filterToggle = FALSE;
 	 strcpy(filterlist[0],"cat");
-	 strcpy(filterlist[1],"dog");
-	 strcpy(filterlist[2],"cow");
-	 strcpy(filterlist[3],"goat");
-	 strcpy(filterlist[4],"pig");
-	 filterCount = 5;
+	 strcpy(filterlist[2],"hell");
+	 strcpy(filterlist[3],"damn");
+	 strcpy(filterlist[4],"shit");
+	 strcpy(filterlist[5],"fuck");
+	 strcpy(filterlist[6],"bitch");
+	 strcpy(filterlist[7],"ass");
+	 filterCount = 8;
 	 
 	 
 	g_timeout_add(5000, (GSourceFunc) update_messages, (gpointer) window);
