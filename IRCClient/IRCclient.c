@@ -493,8 +493,8 @@ static void create_account( GtkWidget *widget,
 								}
 								pass[x] = '\0';
 								x=0;
-								strcpy(curuser,user);
-								strcpy(curpass,pass);
+								//strcpy(curuser,user);
+								//strcpy(curpass,pass);
 					sprintf(command,"ADD-USER %s %s",user,pass);
 				sendCommand(host, port, command, response);
 					printf("%s",response);
