@@ -1041,6 +1041,12 @@ update_messages(GtkWidget *widget)
 	
 	
   if((strlen(curuser)>1)&&(strlen(curroom)>1)){
+	  sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,curroom);
+	sendCommand(host, port, command, response);
+		if(((strstr(response,"ERROR")==NULL))||(strstr(response,"DENIED")==NULL)){
+			gtk_text_buffer_set_text (buffer4,"",-1);
+	insert_text4(response);
+	}
 	  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage, curroom);
 	sendCommand(host, port, command, msgresponse);
 	if((strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0)&&(strcmp(msgresponse,"ERROR (User not in room)\r\n")!=0)&&(strcmp(msgresponse,"(Blocked)\n")!=0)){
