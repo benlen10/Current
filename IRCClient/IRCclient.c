@@ -382,8 +382,9 @@ static void get_all_users(GtkWidget *widget,
   char * command = (char*) malloc(1000);
   sprintf(command,"GET-ALL-USERS %s %s",curuser,curpass);
 	sendCommand(host, port, command, response);
+
 	printf("%s",response);
-	insert_text2(response);							
+	insert_text2(response);		
 								
 							}
 				   
@@ -431,13 +432,18 @@ static void enter_room( GtkWidget *widget,
 sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,curroom);
 	sendCommand(host, port, command, response);
 	sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
-	if(strcmp(response,"DENIED\r\n")!=0){
-	insert_text4(response);
+		if(((strstr(response,"ERROR")!=NULL))||(strstr(response,"DENIED")!=NULL)){
+		printf("%s",response);
+	insert_text2(response);	
+	gtk_entry_set_text (GTK_ENTRY (entry), "");
+		return;
 	}
+	else
+	{
+	insert_text4(response);
 	insert_text2(command);
 	}
-	else{
-		insert_text2(response);
+
 	}
 	gtk_entry_set_text (GTK_ENTRY (entry), "");
 				   }
@@ -1032,6 +1038,8 @@ update_messages(GtkWidget *widget)
 	char * command = (char*) malloc(1000);
 	char * msgresponse = (char*) malloc(1000);
 	int x =0;
+	
+	
   if((strlen(curuser)>1)&&(strlen(curroom)>1)){
 	  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage, curroom);
 	sendCommand(host, port, command, msgresponse);
@@ -1049,7 +1057,6 @@ update_messages(GtkWidget *widget)
 	int y =0;
 	if(filterToggle == 1){
 	while(y<filterCount){
-		fprintf(stderr,"LOOP");
 		char * tmp = malloc(100);
 		if(strstr(msgresponse,filterlist[y])!=NULL){
 			fprintf(stderr,"Censor Message");
