@@ -949,15 +949,12 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
 				write(fd, str,strlen(str));
 				return;
 			}
-			if(i>=(rooms[x].messageCount-1)){
+			if(i>(rooms[x].messageCount-1)){
 				sprintf(str,"NO-NEW-MESSAGES\r\n");
 				write(fd, str,strlen(str));
 				return;
 			}
 			
-			if(i==0){
-			i=100;
-			}
 				
 			while(y<rooms[x].messageCount){
 				sprintf(str,"%d %s %s\r\n",y,rooms[x].messageUser[y],rooms[x].messages[y]);
@@ -996,10 +993,8 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
 
 	
 			while(y<rooms[x].userCount){
-				if(strlen(rooms[x].users[y])>3){
 	sprintf(str,"%s\r\n",rooms[x].users[y]);
 write(fd, str, strlen(str));	
-				}
 	y++;
 	}
 	sprintf(str,"\r\n");
