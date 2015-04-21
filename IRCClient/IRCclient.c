@@ -1361,6 +1361,7 @@ main(int argc, char **argv) {
 	 filterToggle = FALSE;
 	 strcpy(filterlist[0],"cat");
 	 strcpy(filterlist[1],"dog");
+<<<<<<< HEAD
 	 strcpy(filterlist[2],"hell");
 	 strcpy(filterlist[3],"damn");
 	 strcpy(filterlist[4],"shit");
@@ -1368,6 +1369,12 @@ main(int argc, char **argv) {
 	 strcpy(filterlist[6],"bitch");
 	 strcpy(filterlist[7],"ass");
 	 filterCount = 8;
+=======
+	 strcpy(filterlist[2],"cow");
+	 strcpy(filterlist[3],"goat");
+	 strcpy(filterlist[4],"pig");
+	 filterCount = 5;
+>>>>>>> parent of 1f665b7... IRCClient (Rev 31)
 	 
 	 
 	g_timeout_add(5000, (GSourceFunc) update_messages, (gpointer) window);
