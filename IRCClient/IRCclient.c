@@ -421,32 +421,14 @@ static void enter_room( GtkWidget *widget,
 								const gchar *entry_text;
      entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
 	 char * command = (char*) malloc(1000);
-	 char * msgresponse = (char*) malloc(1000);
 	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
 	printf("%s",response);
-
+	
 	if(strcmp(response,"DENIED\r\n")!=0){
 	gtk_text_buffer_set_text (buffer4,"",-1);
 	strcpy(curroom,entry_text);
   printf ("Enter Room: %s\n", entry_text);
-  
-  
-   sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage, curroom);
-	sendCommand(host, port, command, msgresponse);
-	if((strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0)&&(strcmp(msgresponse,"ERROR (User not in room)\r\n")!=0)){
-  char * tmp = msgresponse;
-		while(*tmp!='\0'){
-			fprintf(stderr,"LOOP:%c",*tmp);
-			if((*tmp == '\r')){
-				fprintf(stderr,"lastMessage++\n");
-				lastMessage++;
-			}
-			tmp++;
-		}
-		lastMessage--;
-	}
-  
 sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,curroom);
 	sendCommand(host, port, command, response);
 	sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
@@ -591,7 +573,7 @@ static void block( GtkWidget *widget,
 						strcpy(blocklist[blockCount],entry_text);		
 						blockCount++;		
 							
-					   printf ("(%s) Blocked\n",entry_text);	
+					   printf ("(%s) Blocked \n",entry_text);	
 					    sprintf(command,"Successfully Blocked %s\n",entry_text);
 						insert_text2(command);
 						gtk_entry_set_text (GTK_ENTRY (entry), "");
@@ -1067,16 +1049,12 @@ update_messages(GtkWidget *widget)
 	}
 	  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage, curroom);
 	sendCommand(host, port, command, msgresponse);
-	if((strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0)&&(strcmp(msgresponse,"ERROR (User not in room)\r\n")!=0)){
-	
-		
+	if((strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0)&&(strcmp(msgresponse,"ERROR (User not in room)\r\n")!=0)&&(strcmp(msgresponse,"(Blocked)\n")!=0)){
 	while(x<blockCount){
 		if(strstr(msgresponse,blocklist[x])!=NULL){
-			char * temp = strstr(msgresponse,blocklist[x]);
-			while(*temp!='\n'){
-				*temp = '-';
-				temp++;
-			}
+			insert_text1 ("(Blocked)\n");
+			strcpy(msgresponse,"NO-NEW-MESSAGES\r\n");
+			return TRUE;
 			
 		}
 		x++;
@@ -1085,14 +1063,14 @@ update_messages(GtkWidget *widget)
 	int y =0;
 	if(filterToggle == 1){
 	while(y<filterCount){
+		char * tmp = malloc(100);
 		if(strstr(msgresponse,filterlist[y])!=NULL){
-			fprintf(stderr,"Censor Message\n");
+			fprintf(stderr,"Censor Message");
 			char * cur = strstr(msgresponse,filterlist[y]);
-			cur++;
 			while((*cur != ' ')&&(*cur != '\0')&&(*cur != '\n')){
 				*cur='*';
 				cur++;
-				fprintf(stderr,"cur:%c\n",*cur);
+				//fprintf(stderr,"cur:%c\n",*cur);
 			}
 			insert_text1 (msgresponse);
 			lastMessage++;
@@ -1109,6 +1087,7 @@ update_messages(GtkWidget *widget)
 		
 	insert_text1 (msgresponse);
 	lastMessage++;
+
 	}
 	  
   }
@@ -1360,9 +1339,12 @@ main(int argc, char **argv) {
 	 blockCount=0;
 	 filterToggle = FALSE;
 	 strcpy(filterlist[0],"cat");
+<<<<<<< HEAD
 	 strcpy(filterlist[1],"dog");
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+>>>>>>> parent of 025211d... IRCClient (Rev 32)
 	 strcpy(filterlist[2],"hell");
 	 strcpy(filterlist[3],"damn");
 	 strcpy(filterlist[4],"shit");
