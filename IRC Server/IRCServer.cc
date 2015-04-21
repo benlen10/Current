@@ -36,8 +36,9 @@ const char * usage =
 
 int QueueLength = 5;
 int userCount = 0;
-Room rooms[100];
+Room rooms[10000];
 int roomCount = 0;
+int totalMessages = 0;
 
 int
 IRCServer::open_server_socket(int port) {
@@ -162,8 +163,6 @@ IRCServer::processRequest( int fd )
 
 		prevChar = newChar;
 	}
-	//fprintf(stderr,"RAW INPUT:%s\n",commandLine);
-	
 	
 	// Add null character at the end of the string
 	// Eliminate last \r
@@ -203,13 +202,11 @@ IRCServer::processRequest( int fd )
 	while(commandLine[x]== ' '){      //Skip middle spaces
 	x++;
 	}
-	
 	while(x<commandLineLength){       //GET Password
 	password[y] = commandLine[x];
 	y++;
 	x++;
 	}
-
 	password[y] = '\0';
 	y = 0;
 	}
@@ -367,8 +364,7 @@ IRCServer::processRequest( int fd )
 	while(commandLine[x]== ' '){      //Skip middle spaces
 	x++;
 	}
-	
-	while(commandLine[x]!= ' '){       //GET Password
+	while(x<commandLineLength){       //GET Password
 	password[y] = commandLine[x];
 	y++;
 	x++;
@@ -410,17 +406,16 @@ IRCServer::processRequest( int fd )
 	x++;
 	}
 	
-	while(commandLine[x]!= ' '){       //GET Room
+	while(commandLine[x]!= ' '){       //GET Args
 	args[y] = commandLine[x];
 	y++;
 	x++;
 	}
+	args[y] = '\0';
 	y = 0;
-	while(commandLine[x]== ' '){      //Skip middle spaces
-	x++;
-	}
-
-	while(x<commandLineLength){       //GET Message
+	
+	
+	while(x<commandLineLength){       //GET args2
 	args2[y] = commandLine[x];
 	y++;
 	x++;
@@ -428,7 +423,6 @@ IRCServer::processRequest( int fd )
 	args2[y] = '\0';
 	y = 0;
 	}
-	
 	
 	else if(strstr(commandLine,"GET-MESSAGES")!=NULL){              //GET-MESSAGES
 		strcpy(command,"GET-MESSAGES");
@@ -553,7 +547,7 @@ IRCServer::processRequest( int fd )
 		enterRoom(fd, user, password, args);
 	}
 	else if (!strcmp(command, "LEAVE-ROOM")) {
-		leaveRoom(fd, user, password);
+		leaveRoom(fd, user, password, args);
 	}
 	else if (!strcmp(command, "SEND-MESSAGE")) {
 		sendMessage(fd, user, password, args,args2);
@@ -561,15 +555,11 @@ IRCServer::processRequest( int fd )
 	else if (!strcmp(command, "GET-MESSAGES")) {
 		getMessages(fd, user, password, args,args2);
 	}
-
 	else if (!strcmp(command, "GET-USERS-IN-ROOM")) {
 		getUsersInRoom(fd, user, password, args);
 	}
 	else if (!strcmp(command, "CREATE-ROOM")) {
 		createRoom(fd, user, password, args);
-	}
-	else if (!strcmp(command, "LIST-ROOMS")) {
-		listRooms(fd, user, password);
 	}
 	else if (!strcmp(command, "GET-ALL-USERS")) {
 		getAllUsers(fd, user, password, args);
@@ -609,107 +599,49 @@ IRCServer::initialize()
 		userCount++;
 		x++;
 		}
-		
-	char * temp = (char*) malloc(1000);             //SORT USers
-	int stat = 0;
-	int st = 0;
-	x=0;
-	while(st == 0){
-		stat = 0;
-		x=0;
-	while(x<(userCount-1)){
-		if(strcmp(users[x],users[x+1])>0){
-
-			stat = 1;
-			strcpy(temp,users[x]);
-			strcpy(users[x],users[x+1]);
-			strcpy(users[x+1],temp);
-		}
-		x++;
-	}
-	if(stat==0){
-		st = 1;
-	}
-	}
 
 }
 
 bool
 IRCServer::checkPassword(int fd, const char * user, const char * password) {
 	// Here check the password
-	passFile = fopen("password.txt", "r+");
-	//fprintf(stderr,"LOC1");
+	passFile = fopen("password.txt", "a+");
 	char * str = (char*) malloc(1000);
 	char * str2 = (char*) malloc(1000);
 	strcat(str2,user);
 	strcat(str2,"^");
 	strcat(str2,password);
-	strcat(str2,"\n");
-	
-	
-	while(fgets(str, 1000, passFile) != NULL){
-		//fprintf(stderr,"LOC2");
-		//fprintf(stderr,"PASS:%s%d CHECK:%s%d\n",str2,strlen(str2),str,strlen(str));
-		if(strcmp(str2,str)==0){
+	while(fgets(str, 100, passFile) != NULL){
+		if(strstr(str,str2)!=NULL){
 	return true;
 		}
 	}
 	
-		
+		fprintf(stderr,"Login REJECTED\n");
 		fclose(passFile);
 		return false;
+		
+
 }
 
 void
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
-	//fprintf(stderr,"PASS:%s",password);
 	
 	int x = 0;
 	while(x<userCount){
 		if(strcmp(user, users[x]) == 0){             //Check if user already exists
-			write(fd, "DENIED\r\n", 9);
+			write(fd, "DENIED\r\n", 10);
 					fprintf(stderr,"User Already Exists\n");
 			return;
 		}
 		x++;
 	}
-	//fprintf(stderr,"RECIEVED: User: %s Pass %s",user,password);
-	x = 0;
 	strcpy(users[userCount],user);            //Add to master users list;
 	userCount++;
-	passFile = fopen("password.txt", "a");
+	passFile = fopen("password.txt", "a+");
 	fprintf(passFile,"%s^%s\n",user,password);
-	fclose(passFile);                       	//SORT Users
-	
-	char * temp = (char*) malloc(1000);
-	int stat = 0;
-	int st = 0;
-	x=0;
-	if(userCount>1){
-	while(st == 0){
-		stat = 0;
-		x=0;
-		
-	while(x<(userCount-1)){
-		if(strcmp(users[x],users[x+1])>0){
-			stat = 1;
-			strcpy(temp,users[x]);
-			strcpy(users[x],users[x+1]);
-			strcpy(users[x+1],temp);
-		}
-		x++;
-	}
-	if(stat==0){
-		st = 1;
-	}
-	}
-	}
-	
-	
-		
-	
-	
+	fclose(passFile);
 	fprintf(stderr,"User Added\n");
 	write(fd, "OK\r\n", 5);
 	return;		
@@ -719,8 +651,7 @@ void
 IRCServer::createRoom(int fd, const char * user, const char * password, const char * args)
 {
 	if(!(IRCServer::checkPassword(fd,user,password))){
-		char * str = "ERROR (Wrong password)\r\n";
-				write(fd, str,strlen(str));
+		write(fd, "DENIED\r\n",9);
 	return;
 	}
 	int y = 0;
@@ -732,7 +663,6 @@ IRCServer::createRoom(int fd, const char * user, const char * password, const ch
 		}
 		y++;
 	}
-		
 		strcpy(rooms[roomCount].name,args);		
 		write(fd, "OK\r\n",5);
 		fprintf(stderr,"Room Created\n");
@@ -742,80 +672,18 @@ IRCServer::createRoom(int fd, const char * user, const char * password, const ch
 }
 
 void
-IRCServer::listRooms(int fd, const char * user, const char * password)
-{
-	if(!(IRCServer::checkPassword(fd,user,password))){
-		char * str = "ERROR (Wrong password)\r\n";
-				write(fd, str,strlen(str));
-	return;
-	}
-	int y = 0;
-	while(y<roomCount){
-			write(fd,rooms[y].name,strlen(rooms[y].name));
-			y++;
-			write(fd, "\r\n",3);
-			}
-			return;
-
-}
-
-void
 IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args)
 {
 	if(!(IRCServer::checkPassword(fd,user,password))){
-		char * str = "ERROR (Wrong password)\r\n";
-				write(fd, str,strlen(str));
+		write(fd, "DENIED\r\n",9);
 	return;
 	}
-	char * temp = (char*) malloc(1000); 
-	
 	int x = 0;
-		int y = 0;
-	
-	
-	x = 0;
-	y=0;
 	while(x<roomCount){
 		if(strcmp(rooms[x].name,args)==0){
-			y=0;
-	while(y<rooms[x].userCount){
-	if(strcmp(rooms[x].users[y],user)==0){
-	fprintf(stderr,"User already in room\r\n");
-				write(fd, "OK\r\n",5);
-	return;
-	}
-	y++;
-	}
 			strcpy(rooms[x].users[rooms[x].userCount],user);
 	rooms[x].userCount++;
-	//fprintf(stderr,"Increasing User Count: %d\n",rooms[x].userCount);
 	write(fd, "OK\r\n",5);
-	fprintf(stderr,"User Entered Room\n");
-	
-	int stat = 0;
-	int st = 0;
-	
-	if(rooms[x].userCount>1){                         //SORT USers
-		fprintf(stderr,"SORT Room users\n");
-	while(st == 0){
-		stat = 0;
-		int y =0;
-	while(y<(rooms[x].userCount-1)){
-		if(strcmp(rooms[x].users[y],rooms[x].users[y+1])>0){
-
-			stat = 1;
-			strcpy(temp,rooms[x].users[y]);
-			strcpy(rooms[x].users[y],rooms[x].users[y+1]);
-			strcpy(rooms[x].users[y+1],temp);
-		}
-		y++;
-	}
-	if(stat==0){
-		st = 1;
-	}
-	}
-	}
-	
 	return;
 	
 		}
@@ -823,37 +691,37 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 	}
 	
 
-	char * str = "ERROR (No room)\r\n";
-				write(fd, str,strlen(str));
+	
+	write(fd, "DENIED\r\n",10);
+	fprintf(stderr,"Room does not exist\n");
 	return;
 }
 
 void
-IRCServer::leaveRoom(int fd, const char * user, const char * password)
+IRCServer::leaveRoom(int fd, const char * user, const char * password, const char * args)
 {
 	if(!(IRCServer::checkPassword(fd,user,password))){
-		char * str = "ERROR (Wrong password)\r\n";
-				write(fd, str,strlen(str));
+		write(fd, "DENIED\r\n",9);
 	return;
 	}
 	int x = 0;
 		int y = 0;
-	while(x<roomCount){
-	y=0;
-	while(y<rooms[x].userCount){
+		while(x<roomCount){
+		if(strcmp(rooms[x].name,args)==0){
+	while(y < rooms[x].userCount){
 	if(strcmp(rooms[x].users[y],user)==0){
-	rooms[x].users[y][0] = '\0';
-	fprintf(stderr,"User Removed From Room");
-	write(fd, "OK\r\n",5);
-	return;
+		rooms[x].users[y][0] =  '\0';
+		rooms[x].userCount--;
+		fprintf(stderr,"User Removed");
+		write(fd, "OK\r\n",5);
+		return;
 	}
-	y++;
+	}
 	}
 	x++;
-	}	
-	
-	char * str = "ERROR (No user in room)\r\n";
-				write(fd, str,strlen(str));
+		}
+	write(fd, "DENIED",9);
+	fprintf(stderr,"User Not Removed");
 	return;
 }
 
@@ -862,11 +730,8 @@ IRCServer::leaveRoom(int fd, const char * user, const char * password)
 void
 IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args, const char * args2)
 {
-	
-	
 	if(!(IRCServer::checkPassword(fd,user,password))){
-		char * str = "ERROR (Wrong password)\r\n";
-				write(fd, str,strlen(str));
+		write(fd, "DENIED\r\n",9);
 	return;
 	}
 	int x = 0;
@@ -875,44 +740,39 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
 	
 	
 	while(x<=roomCount){
-		//fprintf(stderr,"LOC0");
-		//fprintf(stderr,"ROOM NAME:%s\n",args);
-		//fprintf(stderr,"ROOM:%s\n",rooms[x].name);
-		
-		if(strstr(rooms[x].name,args)!=NULL){
-			//fprintf(stderr,"ROOM:%s\n",rooms[x].name);
+		fprintf(stderr,"LOC0");
+		if(strcmp(rooms[x].name,args2)==0){
 			//fprintf(stderr,"LOC1");
-			//fprintf(stderr,"UserCount%d\n",rooms[x].userCount);
 			while(i<rooms[x].userCount){             //Verify that user is in room
-			
 			if(strcmp(rooms[x].users[i],user)==0){
 					status = true;
 			}
-			
+			//fprintf(stderr,"LOC2");
 			i++;
 			}
-			
-			if(status == false){
-				char * str = "ERROR (user not in room)\r\n";
-				write(fd, str,strlen(str));
+			if(!(status)){
+				fprintf(stderr,"User is not in room");
+				write(fd, "DENIED\r\n",9);
 				return;
 			}
 			//fprintf(stderr,"LOC3");
 			if(rooms[x].messageCount >= 100){        //Wraparound if more than 100 messages
 				rooms[x].messageCount = 0;
 			}
-			strcpy(rooms[x].messages[rooms[x].messageCount],args2);
+			strcpy(rooms[x].messages[rooms[x].messageCount],args);
 			strcpy(rooms[x].messageUser[rooms[x].messageCount],user);
-	if(rooms[x].messageCount<100){
 	rooms[x].messageCount++;
+	if(totalMessages<100){
+	totalMessages++;
 	}
 	write(fd, "OK\r\n",5);
+	fprintf(stderr,"Message:%s",args);
 	return;
 		}
 		x++;
 	}
 	write(fd, "DENIED\r\n",9);
-	fprintf(stderr,"Room Not Found\n");
+	fprintf(stderr,"Room Not Found");
 	return;
 
 }
@@ -920,58 +780,26 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
 void
 IRCServer::getMessages(int fd, const char * user, const char * password, const char * args, const char * args2)
 {
-	char * str = (char*) malloc(1000);
 	if(!(IRCServer::checkPassword(fd,user,password))){
-		char * str = "ERROR (Wrong password)\r\n";
-				write(fd, str,strlen(str));
+		write(fd, "DENIED\r\n",9);
 	return;
 	}
 	
 	int x = 0;
 	int y = 0;
 	int i = atoi(args);
-	y = (y + i);
-	int u = 0;
-	bool status = false;
+	char * msg = (char*) malloc(1000);
 	while(x<roomCount){
 		if(strcmp(rooms[x].name,args2)==0){
-			while(u<rooms[x].userCount){             //Verify that user is in room
-			
-			if(strcmp(rooms[x].users[u],user)==0){
-					status = true;
-			}
-			
-			u++;
-			}
-			
-			if(status == false){
-				char * str = "ERROR (User not in room)\r\n";
-				write(fd, str,strlen(str));
-				return;
-			}
-			if(i>=(rooms[x].messageCount-1)){
-				sprintf(str,"NO-NEW-MESSAGES\r\n");
-				write(fd, str,strlen(str));
-				return;
-			}
-			
-			if(i==0){
-			i=100;
-			}
-				
-			while(y<rooms[x].messageCount){
-				sprintf(str,"%d %s %s\r\n",y,rooms[x].messageUser[y],rooms[x].messages[y]);
-				write(fd, str,strlen(str));
+			while((y<totalMessages)&&(y<i)){
+				sprintf(msg,"MSGNUM%d %s %s\n",y,rooms[x].messageUser[y],rooms[x].messages[y]);
+				write(fd, msg,strlen(msg));
 				y++;
 			}
-			sprintf(str,"\r\n");
-			write(fd, str, strlen(str));
 			return;
 		}
 		x++;
 	}
-	fprintf(stderr,"Room does not exist");
-	write(fd, "DENIED\r\n",9);
 	return;
 	
 }
@@ -979,39 +807,25 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
 void
 IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args)
 {
-	char * temp = (char*) malloc(1000);
-	char str[1000];
 	if(!(IRCServer::checkPassword(fd,user,password))){
-		char * str = "ERROR (Wrong password)\r\n";
-				write(fd, str,strlen(str));
+		write(fd, "DENIED\r\n",9);
 	return;
 	}
-	
-	
 	int y =0;
 	int x = 0;
 	while(x<roomCount){
 		if(strcmp(rooms[x].name,args)==0){
-			
-
-	
 			while(y<rooms[x].userCount){
-				if(strlen(rooms[x].users[y])>1){
-	sprintf(str,"%s\r\n",rooms[x].users[y]);
-write(fd, str, strlen(str));	
-				}
+	write(fd, rooms[x].users[y],strlen(rooms[x].users[y]));
+	write(fd, "\r\n",3);
 	y++;
 	}
-	sprintf(str,"\r\n");
-write(fd, str, strlen(str));
-	
-	
 	return;
 		}
 		x++;
 	}
 	write(fd, "DENIED\r\n",9);
-	fprintf(stderr,"Room not found\n");
+	fprintf(stderr,"Room not found");
 	
 	
 }
@@ -1019,25 +833,20 @@ write(fd, str, strlen(str));
 void
 IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args)
 {
-	char str[1000];
-
 	if(!(IRCServer::checkPassword(fd,user,password))){
-		char * str = "ERROR (Wrong password)\r\n";
-				write(fd, str,strlen(str));
+		write(fd, "DENIED\r\n",9);
 	return;
 	}
 	
 	int x = 0;
 	while(x<userCount){
-		
-		sprintf(str,"%s\r\n",users[x]);
-write(fd, str, strlen(str));		
+		write(fd, users[x], strlen(users[x]));
+		write(fd, "\r\n", 3);
 		x++;
-	
 	}
-	sprintf(str,"\r\n");
-write(fd, str, strlen(str));
-	
+	write(fd, "\r\n", 3);
 	return;
+	
+
 }
 
