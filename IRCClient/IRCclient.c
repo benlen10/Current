@@ -387,6 +387,21 @@ static void get_all_users(GtkWidget *widget,
 	insert_text2(response);		
 								
 							}
+							
+static void list_rooms(GtkWidget *widget,
+                            GtkWidget *entry ){
+								gtk_text_buffer_set_text (buffer2,"",-1);
+							   const gchar *entry_text;
+		entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
+  
+  char * command = (char*) malloc(1000);
+  sprintf(command,"LIST-ROOMS %s %s",curuser,curpass);
+	sendCommand(host, port, command, response);
+
+	printf("%s",response);
+	insert_text2(response);		
+								
+							}							
 				   
 		
 				   
@@ -421,6 +436,7 @@ static void enter_room( GtkWidget *widget,
 								const gchar *entry_text;
      entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
 	 char * command = (char*) malloc(1000);
+	  char * msgresponse = (char*) malloc(1000);
 	sprintf(command,"ENTER-ROOM %s %s %s",curuser,curpass,entry_text);
 	sendCommand(host, port, command, response);
 	printf("%s",response);
@@ -429,6 +445,28 @@ static void enter_room( GtkWidget *widget,
 	gtk_text_buffer_set_text (buffer4,"",-1);
 	strcpy(curroom,entry_text);
   printf ("Enter Room: %s\n", entry_text);
+  
+  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage, curroom);
+	sendCommand(host, port, command, msgresponse);
+	
+	if((strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0)&&(strcmp(msgresponse,"ERROR (User not in room)\r\n")!=0)){
+  char * tmp = msgresponse;
+  insert_text1("-Previous Messages\n");
+  insert_text1(msgresponse);
+		while(*tmp!='\0'){
+			fprintf(stderr,"LOOP:%c",*tmp);
+			if((*tmp == '\r')){
+				fprintf(stderr,"lastMessage++\n");
+				lastMessage++;
+			}
+			tmp++;
+		}
+		lastMessage--;
+	}
+	else{
+		lastMessage = 0;
+	}
+  
 sprintf(command,"GET-USERS-IN-ROOM %s %s %s",curuser,curpass,curroom);
 	sendCommand(host, port, command, response);
 	sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
@@ -460,6 +498,7 @@ static void leave_room( GtkWidget *widget,
 	printf("%s",response);
 	if(strcmp(response,"OK\r\n")==0){
 	strcpy(curroom,"");
+	gtk_text_buffer_set_text (buffer4,"",-1);
   printf ("Left room\n", entry_text);
 	sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
 	insert_text2(command);
@@ -1047,14 +1086,24 @@ update_messages(GtkWidget *widget)
 			gtk_text_buffer_set_text (buffer4,"",-1);
 	insert_text4(response);
 	}
+	
+	sprintf(command,"LIST-ROOMS %s %s",curuser,curpass);
+	sendCommand(host, port, command, response);
+		if(((strstr(response,"ERROR")==NULL))||(strstr(response,"DENIED")==NULL)){
+			gtk_text_buffer_set_text (buffer3,"",-1);
+	insert_text3(response);
+	}
+	
 	  sprintf(command,"GET-MESSAGES %s %s %d %s",curuser,curpass,lastMessage, curroom);
 	sendCommand(host, port, command, msgresponse);
 	if((strcmp(msgresponse,"NO-NEW-MESSAGES\r\n")!=0)&&(strcmp(msgresponse,"ERROR (User not in room)\r\n")!=0)&&(strcmp(msgresponse,"(Blocked)\n")!=0)){
 	while(x<blockCount){
 		if(strstr(msgresponse,blocklist[x])!=NULL){
-			insert_text1 ("(Blocked)\n");
-			strcpy(msgresponse,"NO-NEW-MESSAGES\r\n");
-			return TRUE;
+			char * temp = strstr(msgresponse,blocklist[x]);
+			while(*temp!='\n'){
+				*temp = '-';
+				temp++;
+			}
 			
 		}
 		x++;
@@ -1084,7 +1133,7 @@ update_messages(GtkWidget *widget)
 	y=0;
 	
 	}
-		
+
 	insert_text1 (msgresponse);
 	lastMessage++;
 
@@ -1126,6 +1175,7 @@ main(int argc, char **argv) {
 	GtkWidget *button_login;
 	GtkWidget *button_logout;
 	GtkWidget *button_users;
+	GtkWidget *button_rooms;
 	GtkWidget *button_clear;
 	GtkWidget *button_block;
 	GtkWidget *button_blacklist;
@@ -1185,6 +1235,7 @@ main(int argc, char **argv) {
 	button_login = gtk_button_new_with_label ("Login");
 	button_logout = gtk_button_new_with_label ("Logout");
 	button_users = gtk_button_new_with_label ("Get All Users");
+	button_rooms = gtk_button_new_with_label ("List Rooms");
 	button_block = gtk_button_new_with_label ("Block User");
 	button_blacklist = gtk_button_new_with_label ("Blacklist");
 	button_clear = gtk_button_new_with_label ("Clear");
@@ -1254,6 +1305,9 @@ main(int argc, char **argv) {
 	
 	g_signal_connect (button_users, "clicked",
 		      G_CALLBACK (get_all_users), NULL);
+			  
+	g_signal_connect (button_rooms, "clicked",
+		      G_CALLBACK (list_rooms), NULL);		  
 	
 	g_signal_connect (button_filter, "clicked",
 		      G_CALLBACK (filter), NULL);
@@ -1282,6 +1336,7 @@ main(int argc, char **argv) {
 	gtk_box_pack_start (GTK_BOX (horiz1), label2, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_send, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_new_room, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (horiz2), button_rooms, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_login, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_logout, TRUE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (horiz2), button_clear, TRUE, FALSE, 0);
@@ -1316,6 +1371,7 @@ main(int argc, char **argv) {
 	gtk_widget_show (button_login);
 	gtk_widget_show (button_logout);
 	gtk_widget_show (button_users);
+	gtk_widget_show (button_rooms);
 	gtk_widget_show (button_clear);
 	gtk_widget_show (button_block);
 	gtk_widget_show (button_blacklist);
