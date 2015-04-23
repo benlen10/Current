@@ -744,6 +744,7 @@ IRCServer::createRoom(int fd, const char * user, const char * password, const ch
 void
 IRCServer::listRooms(int fd, const char * user, const char * password)
 {
+	char * str = (char*) malloc(1000);
 	if(!(IRCServer::checkPassword(fd,user,password))){
 		char * str = "ERROR (Wrong password)\r\n";
 				write(fd, str,strlen(str));
@@ -751,10 +752,12 @@ IRCServer::listRooms(int fd, const char * user, const char * password)
 	}
 	int y = 0;
 	while(y<roomCount){
-			write(fd,rooms[y].name,strlen(rooms[y].name));
+		fprintf(stderr,"Room:%s\n",rooms[y].name);
+		sprintf(str,"%s\r\n",rooms[y].name);
+			write(fd, str, strlen(str));	
 			y++;
-			write(fd, "\r\n",3);
 			}
+			write(fd, "\r\n",3);
 			return;
 
 }
@@ -993,8 +996,10 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
 
 	
 			while(y<rooms[x].userCount){
+				if(strlen(rooms[x].users[y])>1){
 	sprintf(str,"%s\r\n",rooms[x].users[y]);
 write(fd, str, strlen(str));	
+				}
 	y++;
 	}
 	sprintf(str,"\r\n");
