@@ -272,7 +272,7 @@ static GtkWidget *create_text1( void )
 				   GTK_POLICY_AUTOMATIC);
 
    gtk_container_add (GTK_CONTAINER (scrolled_window), view);
-   //insert_text1 (buffer1);
+   insert_text1 ("Messages");
 
    gtk_widget_show_all (scrolled_window);
 
@@ -281,6 +281,7 @@ static GtkWidget *create_text1( void )
 
 static GtkWidget *create_text2( void )
 {
+	char * command = (char*) malloc(1000);
    GtkWidget *scrolled_window;
    GtkWidget *view;
 
@@ -293,7 +294,9 @@ static GtkWidget *create_text2( void )
 				   GTK_POLICY_AUTOMATIC);
 
    gtk_container_add (GTK_CONTAINER (scrolled_window), view);
-
+   
+   sprintf(command,"Current User: %s\nCurrent Room: %s\n",curuser,curroom);
+	insert_text2(command);
 
    gtk_widget_show_all (scrolled_window);
 
@@ -315,7 +318,6 @@ static GtkWidget *create_text3( void )
 				   GTK_POLICY_AUTOMATIC);
 
    gtk_container_add (GTK_CONTAINER (scrolled_window), view);
-   //insert_text3 (buffer3);
 
    gtk_widget_show_all (scrolled_window);
 
