@@ -9,6 +9,10 @@ class Guest {
 	
 	public:
 	string name;
+	int birthdate;
+	string state;
+	
+	
 };
 #endif
 	
