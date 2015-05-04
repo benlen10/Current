@@ -18,6 +18,22 @@ add_name(){
 	fgets(temp,99, stdin);
 	strcpy(guests[guestCount],temp);
 }
+edit(){
+	printf("Edit");
+}
+
+remove(){
+	printf("Remove");
+}
+
+
+checkin(){
+	printf("Checkin");
+}
+
+checkout(){
+	printf("Checkout");
+}
 
 main(){
 	printf("Guest List Software Prototype\n");
