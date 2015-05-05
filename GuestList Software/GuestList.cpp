@@ -37,29 +37,37 @@ checkout(){
 
 main(){
 	printf("Guest List Software Prototype\n");
-	
+
+	while(1){
 	char * tmp = (char*) malloc(100);
 	printf("Available Actions: <ADD> <REMOVE> <EDIT> <CHECKIN> <CHECKOUT> <EXIT>\n");
 	fgets(tmp,99, stdin);
+	printf("Input: %s",tmp);
 	
-	if(!strcmp(tmp,"ADD")){
+	if(!strcmp(tmp,"ADD\n")){
 		add_name();
 	}
-	else if(!strcmp(tmp,"REMOVE")){
+	else if(!strcmp(tmp,"REMOVE\n")){
+		remove();
 	}
-	else if(!strcmp(tmp,"EDIT")){
+	else if(!strcmp(tmp,"EDIT\n")){
+		edit();
 	}
-	else if(!strcmp(tmp,"CHECKIN")){
+	else if(!strcmp(tmp,"CHECKIN\n")){
+		checkin();
 	}
-	else if(!strcmp(tmp,"CHECKOUT")){
+	else if(!strcmp(tmp,"CHECKOUT\n")){
+		checkout();
 	}
-	else if(!strcmp(tmp,"EXIT")){
+	else if(!strcmp(tmp,"EXIT\n")){
 		printf("Exiting Program");
 		return 0;
 	}
 	else{
-		printf("Invalid Command");
+		printf("Invalid Command\n");
 		return 0;
+	}
+	
 	}
 
 	
