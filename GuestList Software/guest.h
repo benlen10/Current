@@ -8,7 +8,7 @@ using namespace std;
 class Guest {
 	
 	public:
-	string name;
+	char name[100];
 	int birthdate;
 	string state;
 	

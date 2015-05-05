@@ -7,7 +7,7 @@
 
 const int maxGuests = 500;
 int guestCount = 0;
-char guests[maxGuests][100];
+Guest guests[maxGuests];
 
 
 using namespace std;
@@ -16,7 +16,9 @@ add_name(){
 	char * temp = (char*) malloc(100);
 	printf("Enter Guest Name\n");
 	fgets(temp,99, stdin);
-	strcpy(guests[guestCount],temp);
+	strcpy(guests[guestCount].name,temp);
+	guestCount++;
+	printf("Successfully Added %s\n",temp);
 }
 edit(){
 	printf("Edit");
