@@ -9,7 +9,7 @@ class Guest {
 	
 	public:
 	char name[100];
-	int birthdate;
+	int date;
 	string state;
 	
 	

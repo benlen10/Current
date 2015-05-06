@@ -14,9 +14,13 @@ using namespace std;
 
 add_name(){
 	char * temp = (char*) malloc(100);
+	int date = 0;
 	printf("Enter Guest Name\n");
 	fgets(temp,99, stdin);
 	strcpy(guests[guestCount].name,temp);
+	printf("Enter Birth Date\n");
+	scanf("%d", &date);
+	guests[guestCount].date = date;
 	guestCount++;
 	printf("Successfully Added %s\n",temp);
 }
@@ -44,7 +48,6 @@ main(){
 	char * tmp = (char*) malloc(100);
 	printf("Available Actions: <ADD> <REMOVE> <EDIT> <CHECKIN> <CHECKOUT> <EXIT>\n");
 	fgets(tmp,99, stdin);
-	printf("Input: %s",tmp);
 	
 	if(!strcmp(tmp,"ADD\n")){
 		add_name();
