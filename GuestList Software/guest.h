@@ -10,7 +10,8 @@ class Guest {
 	public:
 	char name[100];
 	int date;
-	string state;
+	int status;
+	char state[100];
 	
 	
 };

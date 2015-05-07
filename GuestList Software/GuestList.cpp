@@ -25,7 +25,27 @@ add_name(){
 	printf("Successfully Added %s\n",temp);
 }
 edit(){
-	printf("Edit");
+	char * tmp = (char*) malloc(100);
+	printf("Usage: <NAME> <DATE> <STATE> <STATUS>");
+	fgets(tmp,99,stdin);
+	if(!strcmp(tmp,"NAME\n")){
+		add_name();
+	}
+	else if(!strcmp(tmp,"NAME\n")){
+		return 0;;
+	}
+	else if(!strcmp(tmp,"STATE\n")){
+		return 0;
+	}
+	else if(!strcmp(tmp,"STATUS\n")){
+		return 0;
+	}
+
+	else{
+		printf("Invalid Command\n");
+		return 0;
+	}
+	
 }
 
 remove(){
