@@ -26,18 +26,32 @@ add_name(){
 }
 edit(){
 	char * tmp = (char*) malloc(100);
+	printf("Specify what user to edit/n");
+	fgets(tmp,99,stdin);
+	int i = 0;
+	
+	while(i<guestCount){
+		if(!strcmp(guests[i].name,tmp)){
+			break;
+		}
+		i++;
+	}
+	printf("Editing Guest: %s",guests[i].name);
 	printf("Usage: <NAME> <DATE> <STATE> <STATUS>");
 	fgets(tmp,99,stdin);
 	if(!strcmp(tmp,"NAME\n")){
 		add_name();
 	}
 	else if(!strcmp(tmp,"NAME\n")){
-		return 0;;
+		printf("Enter new name");
+		return 0;
 	}
 	else if(!strcmp(tmp,"STATE\n")){
+		printf("Enter new state");
 		return 0;
 	}
 	else if(!strcmp(tmp,"STATUS\n")){
+		printf("Enter new status");
 		return 0;
 	}
 
