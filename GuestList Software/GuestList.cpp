@@ -29,6 +29,8 @@ edit(){
 	printf("Specify what user to edit/n");
 	fgets(tmp,99,stdin);
 	int i = 0;
+	int date;
+	int status;
 	
 	while(i<guestCount){
 		if(!strcmp(guests[i].name,tmp)){
@@ -40,18 +42,27 @@ edit(){
 	printf("Usage: <NAME> <DATE> <STATE> <STATUS>");
 	fgets(tmp,99,stdin);
 	if(!strcmp(tmp,"NAME\n")){
-		add_name();
-	}
-	else if(!strcmp(tmp,"NAME\n")){
 		printf("Enter new name");
+		fgets(tmp,99,stdin);
+		strcpy(guests[i].name,tmp);
+		return 0;
+	}
+	else if(!strcmp(tmp,"DATE\n")){
+		printf("Enter new birth date");
+		scanf("%d", &date);
+		guests[i].date = date;
 		return 0;
 	}
 	else if(!strcmp(tmp,"STATE\n")){
 		printf("Enter new state");
+		fgets(tmp,99,stdin);
+		strcpy(guests[i].state,tmp);
 		return 0;
 	}
 	else if(!strcmp(tmp,"STATUS\n")){
 		printf("Enter new status");
+		scanf("%d", &status);
+		guests[i].status = status;
 		return 0;
 	}
 
