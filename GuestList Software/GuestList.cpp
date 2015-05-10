@@ -38,6 +38,10 @@ edit(){
 		}
 		i++;
 	}
+	if(!strcmp(guests[i].name,tmp)){
+		printf("ERROR: Guest not found");
+			return 0;
+		}
 	printf("Editing Guest: %s",guests[i].name);
 	printf("Usage: <NAME> <DATE> <STATE> <STATUS>");
 	fgets(tmp,99,stdin);
@@ -74,7 +78,20 @@ edit(){
 }
 
 remove(){
-	printf("Remove");
+	int i = 0;
+	char * tmp = (char*) malloc(100);
+	printf("Type guest to remove/n");
+	fgets(tmp,99,stdin);
+	while(i<guestCount){
+		if(!strcmp(guests[i].name,tmp)){
+			break;
+		}
+		i++;
+	}
+	if(!strcmp(guests[i].name,tmp)){
+		printf("ERROR: Guest not found");
+			return 0;
+		}
 }
 
 
