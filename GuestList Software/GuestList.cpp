@@ -92,6 +92,8 @@ remove(){
 		printf("ERROR: Guest not found");
 			return 0;
 		}
+		strcpy(guests[i].name,NULL);
+		printf("Successfully removed guest");
 }
 
 
