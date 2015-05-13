@@ -26,11 +26,11 @@ add_name(){
 }
 edit(){
 	char * tmp = (char*) malloc(100);
-	printf("Specify what user to edit/n");
-	fgets(tmp,99,stdin);
 	int i = 0;
 	int date;
 	int status;
+	printf("Specify what user to edit/n");
+	fgets(tmp,99,stdin);
 	
 	while(i<guestCount){
 		if(!strcmp(guests[i].name,tmp)){
@@ -98,7 +98,24 @@ remove(){
 
 
 checkin(){
-	printf("Checkin");
+	//Status 1 signifies guest if currently checked in
+	char * tmp = (char*) malloc(100);
+	int status;
+	int i = 0;
+	printf("Specify what user to edit/n");
+	fgets(tmp,99,stdin);
+	
+	while(i<guestCount){
+		if(!strcmp(guests[i].name,tmp)){
+			break;
+		}
+		i++;
+	}
+	if(!strcmp(guests[i].name,tmp)){
+		printf("ERROR: Guest not found");
+			return 0;
+		}
+		guests[i].status = 1;
 }
 
 checkout(){
