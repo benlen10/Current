@@ -129,6 +129,7 @@ main(){
 	char * tmp = (char*) malloc(100);
 	printf("Available Actions: <ADD> <REMOVE> <EDIT> <CHECKIN> <CHECKOUT> <EXIT>\n");
 	fgets(tmp,99, stdin);
+	printf("LOC1");
 	
 	if(!strcmp(tmp,"ADD\n")){
 		add_name();
