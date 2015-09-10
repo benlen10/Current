@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Database {
 	 static String[][] passwords;
-	 
+	 Users[] userarray = new Users[10];
 
 	
 	
@@ -21,14 +21,32 @@ public class Database {
 		}
 		System.out.printf("File Test\n");
 		load();
-		
-		
-	}
+		System.out.printf("Options: Add, Remove, Edit");
+		tmp = s.nextLine();
+		if (tmp=="Add"){
+			System.out.printf("Add");
+		}
+		else if(tmp == "Remove"){
+			System.out.printf("Remove");
+			
+		}
+		else if(tmp == "Edit"){
+			System.out.printf("Edit");
+		}
+		else{
+			System.out.printf("Unreconized command");
+		}
+		}
+			
 	
 	static public void load(){
 		File f = new File("C://Windows/test.txt");
 		return; 
 			
+		
+	}
+	
+	public void addAdmin(){
 		
 	}
 	
