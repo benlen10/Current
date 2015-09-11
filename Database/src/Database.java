@@ -23,21 +23,26 @@ public class Database {
 		load();
 		System.out.printf("Options: Add, Remove, Edit");
 		tmp = s.nextLine();
+		
+		//Parse Options
 		if (tmp=="Add"){
-			System.out.printf("Add");
+			add();
 		}
 		else if(tmp == "Remove"){
-			System.out.printf("Remove");
+			remove();
 			
 		}
 		else if(tmp == "Edit"){
-			System.out.printf("Edit");
+			edit();
 		}
 		else{
 			System.out.printf("Unreconized command");
+			return;
 		}
 		}
 			
+	
+	//Methods
 	
 	static public void load(){
 		File f = new File("C://Windows/test.txt");
@@ -46,8 +51,20 @@ public class Database {
 		
 	}
 	
-	public void addAdmin(){
+	public static void addAdmin(){
 		
+	}
+	
+	public static void add(){
+		System.out.printf("Add");
+	}
+	
+	public static void remove(){
+		System.out.printf("Remove");
+	}
+	
+	public static void edit(){
+		System.out.printf("Edit");
 	}
 	
 }
