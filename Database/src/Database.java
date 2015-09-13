@@ -3,7 +3,9 @@ import java.io.*;
 
 public class Database {
 	 static String[][] passwords;
-	 Users[] userarray = new Users[10];
+	 static Users[] userarray = new Users[10];
+	 static int usercount = 0;
+	 static String tmp;
 
 	
 	
@@ -56,7 +58,15 @@ public class Database {
 	}
 	
 	public static void add(){
-		System.out.printf("Add");
+		Scanner s = new Scanner(System.in);
+		System.out.printf("Enter new user name");
+		tmp = s.nextLine();
+		userarray[usercount].name = tmp;
+		System.out.printf("Enter new password");
+		tmp = s.nextLine();
+		userarray[usercount].pass = tmp;
+		usercount++;
+		System.out.printf("Summary: User: %s Pass: %s Message: %s", userarray[usercount].name, userarray[usercount].pass, userarray[usercount].message );
 	}
 	
 	public static void remove(){
