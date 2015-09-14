@@ -70,7 +70,17 @@ public class Database {
 	}
 	
 	public static void remove(){
-		System.out.printf("Remove");
+		System.out.printf("Enter user name to remove");
+		Scanner s = new Scanner(System.in);
+		tmp = s.nextLine();
+		for(int i =0; i<usercount; i++){
+			if(userarray[i].name == tmp){
+				System.out.println("Found User");
+				userarray[i].deleteUser();
+				System.out.println("User secuessfully removed");
+			}
+		}
+		
 	}
 	
 	public static void edit(){
