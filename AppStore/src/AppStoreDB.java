@@ -94,6 +94,16 @@ public class AppStoreDB {
 			System.err.println("User is not a developer");
 			return null;
 		}
+		                                   //Check for dup app id
+		App ap;
+		Iterator<App> it = apps.iterator();
+			while(it.hasNext()){
+				ap = it.next();
+				if(ap.getAppId().equals(appId)){
+					System.err.println("App Id already exists");
+					throw new IllegalArgumentException();
+				}
+			}
 		
 		App a = new App(uploader, appId, appName, category,
 				 price, timestamp);
@@ -140,7 +150,7 @@ public class AppStoreDB {
 		List<App> free = new ArrayList();
 		App a;
 		Iterator<App> it = apps.iterator();
-		if(category.length()<2){
+		if(category==null){
 			while(it.hasNext()){
 				a = it.next();
 				if(a.getPrice()==0){
@@ -156,7 +166,31 @@ public class AppStoreDB {
 			}
 		}
 		}
-		//FIX: Actually sort list by score before returning
+		
+		App a1;
+		App a2;
+		App tmp;
+		int i = 0;
+		boolean status = true;
+		boolean trigger = false;
+		while(status==true){
+			i = 0;
+			while(i<free.size()){
+			a1 = free.get(i);
+			a2 = free.get(i+1);
+			if(a1.getAppScore()<a2.getAppScore()){
+				tmp = a1;
+				a1=a2;
+				a2=tmp;
+				trigger = true;
+			}
+			i++;
+			}
+			if(trigger=false){
+				status=false;
+			}
+		}
+		
 		return free;
 		
 	}
@@ -165,7 +199,7 @@ public class AppStoreDB {
 		List<App> paid = new ArrayList();
 		App a;
 		Iterator<App> it = apps.iterator();
-		if(category.length()<2){
+		if(category == null){
 			while(it.hasNext()){
 				a = it.next();
 				if(a.getPrice()!=0){
@@ -181,7 +215,29 @@ public class AppStoreDB {
 			}
 		}
 		}
-		//FIX: Actually sort list by score before returning
+		App a1;
+		App a2;
+		App tmp;
+		int i = 0;
+		boolean status = true;
+		boolean trigger = false;
+		while(status==true){
+			i = 0;
+			while(i<paid.size()){
+			a1 = paid.get(i);
+			a2 = paid.get(i+1);
+			if(a1.getAppScore()<a2.getAppScore()){
+				tmp = a1;
+				a1=a2;
+				a2=tmp;
+				trigger = true;
+			}
+			i++;
+			}
+			if(trigger=false){
+				status=false;
+			}
+		}
 		return paid;
 	}
 	
@@ -189,7 +245,7 @@ public class AppStoreDB {
 		List<App> recent = new ArrayList();
 		App a;
 		Iterator<App> it = apps.iterator();
-		if(category.length()<2){
+		if(category == null){
 			while(it.hasNext()){
 				a = it.next();
 				recent.add(a);
@@ -203,7 +259,30 @@ public class AppStoreDB {
 			}
 		}
 		}
-                                //FIX: Actually sort
+
+		App a1;
+		App a2;
+		App tmp;
+		int i = 0;
+		boolean status = true;
+		boolean trigger = false;
+		while(status==true){
+			i = 0;
+			while(i<recent.size()){
+			a1 = recent.get(i);
+			a2 = recent.get(i+1);
+			if(a1.getUploadTimestamp()<a2.getUploadTimestamp()){
+				tmp = a1;
+				a1=a2;
+				a2=tmp;
+				trigger = true;
+			}
+			i++;
+			}
+			if(trigger=false){
+				status=false;
+			}
+		}                     
 		return recent;
 	}
 }
