@@ -93,13 +93,25 @@ public class AppStoreDB {
 
 	}
 	
-	public void downloadApp(User user, App app) {		
+	public void downloadApp(User user, App app) {	
+		if(hasUserDownloadedApp(user,app)){
+			System.err.println("User has already downloaded this app");
+			return;
+		}
+		else{
 		app.download(user);
 		user.download(app);
+		}
 	}
 	
 	public void rateApp(User user, App app, short rating) {
+		if (hasUserDownloadedApp(user, app)){
 		app.rate(user, rating);
+		}
+		else{
+			System.err.println("User has not downloaded app");
+			return;
+		}
 	}
 	
 	public boolean hasUserDownloadedApp(User user, App app) {		
