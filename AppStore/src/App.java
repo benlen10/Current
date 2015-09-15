@@ -64,6 +64,9 @@ public class App implements Comparable<App> {
 	}
 
 	public double getAverageRating() {
+		if(ratings.size()==0){
+			return 0;
+		}
 		Iterator<AppRating> it = ratings.iterator();
 		int total = 0;
 		while(it.hasNext()){

@@ -26,7 +26,7 @@ public class AppStoreDB {
 	}
 	
 	public void addCategory(String category) {
-		categories.add("category");
+		categories.add(category);
 	}
 	
 	public List<String> getCategories() {
@@ -67,10 +67,8 @@ public class AppStoreDB {
 			u = it.next();
 			if(u.getEmail().equals(email)){
 				if (u.verifyPassword(password)){
-					//FIX!!! Method to store current user
-					System.out.println("Login secuessful");
+					return u;
 				}
-				System.out.println("Invalid Password");
 				return null;
 			}
 		}
@@ -81,6 +79,11 @@ public class AppStoreDB {
 	public App uploadApp(User uploader, String appId, String appName,
 			String category, double price, 
 			long timestamp) throws IllegalArgumentException {
+		
+		if(!(uploader.isDeveloper())){
+			System.err.println("User is not a developer");
+			return null;
+		}
 		
 		App a = new App(uploader, appId, appName, category,
 				 price, timestamp);

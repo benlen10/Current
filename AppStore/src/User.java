@@ -61,11 +61,9 @@ public class User {
 
 	public void subscribeAsDeveloper() {
 		type = "developer";
-		System.out.printf("Secuesfully registered as developer");
 	}
 
 	public void download(App app) { 
-		System.out.printf("Downloaded app");
 		downloadList.add(app);
 	}
 
