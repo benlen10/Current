@@ -1,5 +1,5 @@
-
 import java.util.*;
+
 public class App implements Comparable<App> {
 	
 	//Constructor data members
@@ -11,8 +11,7 @@ public class App implements Comparable<App> {
 	private long uploadTimestamp;
 	//Custom data members
 	private long downloadCount;
-	private ArrayList<Short> ratings1 = new ArrayList<Short>();
-	private ArrayList<User> ratings2 = new ArrayList<User>();
+	private List<AppRating> ratings = new ArrayList();
 	
 
 	public App(User developer, String appId, String appName, String category,
@@ -55,8 +54,9 @@ public class App implements Comparable<App> {
 	}
 
 	public void rate(User user, short rating) throws IllegalArgumentException {
-		ratings1.add(rating);
-		ratings2.add(user);
+		AppRating r = new AppRating(this,user,rating);
+		ratings.add(r);
+		
 	}
 
 	public long getTotalDownloads() {
@@ -64,12 +64,12 @@ public class App implements Comparable<App> {
 	}
 
 	public double getAverageRating() {
-		Iterator<Short> it1 = ratings1.iterator();
+		Iterator<AppRating> it = ratings.iterator();
 		int total = 0;
-		while(it1.hasNext()){
-			total =+ it1.next();
+		while(it.hasNext()){
+			total =+ it.next().getRating();
 		}
-		return (total/ratings1.size());
+		return (total/ratings.size());
 
 	}
 	
