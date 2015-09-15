@@ -174,8 +174,9 @@ public class AppStoreDB {
 		boolean status = true;
 		boolean trigger = false;
 		while(status==true){
+			trigger=false;
 			i = 0;
-			while(i<free.size()){
+			while(i<(free.size()-1)){
 			a1 = free.get(i);
 			a2 = free.get(i+1);
 			if(a1.getAppScore()<a2.getAppScore()){
@@ -186,7 +187,7 @@ public class AppStoreDB {
 			}
 			i++;
 			}
-			if(trigger=false){
+			if(trigger==false){
 				status=false;
 			}
 		}
@@ -222,8 +223,9 @@ public class AppStoreDB {
 		boolean status = true;
 		boolean trigger = false;
 		while(status==true){
+			trigger=false;
 			i = 0;
-			while(i<paid.size()){
+			while(i<(paid.size()-1)){
 			a1 = paid.get(i);
 			a2 = paid.get(i+1);
 			if(a1.getAppScore()<a2.getAppScore()){
@@ -234,7 +236,7 @@ public class AppStoreDB {
 			}
 			i++;
 			}
-			if(trigger=false){
+			if(trigger==false){
 				status=false;
 			}
 		}
@@ -267,19 +269,22 @@ public class AppStoreDB {
 		boolean status = true;
 		boolean trigger = false;
 		while(status==true){
+			System.out.printf("Loop(Outer)");
+			trigger=false;
 			i = 0;
-			while(i<recent.size()){
+			while(i<(recent.size()-1)){
+				System.out.printf("Loop(inter)");
 			a1 = recent.get(i);
 			a2 = recent.get(i+1);
 			if(a1.getUploadTimestamp()<a2.getUploadTimestamp()){
 				tmp = a1;
-				a1=a2;
-				a2=tmp;
+				recent.set(i, a2);
+				recent.set((i+1), tmp);
 				trigger = true;
 			}
 			i++;
 			}
-			if(trigger=false){
+			if(trigger==false){
 				status=false;
 			}
 		}                     

@@ -144,7 +144,7 @@ public class AppStore {
 		 tmp = 0;
 			while((tmp = appData.read())!=-1){
 				c = (char) tmp;
-
+				sb = new StringBuilder();  
 		while(c!=','){
 			sb.append(c);
 			c = (char) appData.read();
@@ -184,9 +184,7 @@ public class AppStore {
 			c = (char) appData.read();
 		}
 		
-		price = 0;
 		price = Double.parseDouble(sb.toString());
-		//FIX price string to int parsing issues
 		
 		sb = new StringBuilder();               //Parse timestamp
 		c = (char) appData.read();
@@ -201,10 +199,11 @@ public class AppStore {
 		uploadTimestamp = Long.parseLong(t);
 
 		//Create developer user
-		User u = new User(developeremail, "temp", "Devel", "Store", "US", "developer");
-		
-		appStoreDB.uploadApp(u, appId, appName, appcategory, price, uploadTimestamp);
-		//System.out.printf(" <%s> <%s> <%s> <%s> <%s>\n",appId, appName, appcategory, price, uploadTimestamp);
+
+		//System.err.printf("Devel Email: %s\n\n", developeremail);
+		appStoreDB.uploadApp(new User(developeremail, "temp", "Devel", "Store", "US", "developer"), appId, appName, appcategory, price, uploadTimestamp);
+		//System.out.printf(" <%s> <%s> <%s> <%s> <%s> <%s>\n",developeremail, appId, appName, appcategory, price, uploadTimestamp);
+
 		}
 		
 		//APP ACTIVITY
