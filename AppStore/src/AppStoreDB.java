@@ -17,7 +17,17 @@ public class AppStoreDB {
 			String lastName, String country, String type)
 			throws IllegalArgumentException {
 		
-		User u = new User(email,password,firstName,
+		User u;
+		Iterator<User> it = users.iterator();
+		while(it.hasNext()){
+			u = it.next();
+			if(u.getEmail().equals(email)){
+				System.err.println("User already exists in database");   //Custom error message
+				throw new IllegalArgumentException();
+			}
+		}
+		
+		u = new User(email,password,firstName,
 			lastName, country, type);
 		users.add(u);
 		return u;
@@ -130,11 +140,21 @@ public class AppStoreDB {
 		List<App> free = new ArrayList();
 		App a;
 		Iterator<App> it = apps.iterator();
+		if(category.length()<2){
+			while(it.hasNext()){
+				a = it.next();
+				if(a.getPrice()==0){
+					free.add(a);
+				}
+			}	
+		}
+		else{
 		while(it.hasNext()){
 			a = it.next();
-			if(a.getPrice()==0){
+			if((a.getPrice()==0)&&(a.getCategory().equals(category))){
 				free.add(a);
 			}
+		}
 		}
 		//FIX: Actually sort list by score before returning
 		return free;
@@ -145,11 +165,21 @@ public class AppStoreDB {
 		List<App> paid = new ArrayList();
 		App a;
 		Iterator<App> it = apps.iterator();
+		if(category.length()<2){
+			while(it.hasNext()){
+				a = it.next();
+				if(a.getPrice()!=0){
+					paid.add(a);
+				}
+			}	
+		}
+		else{
 		while(it.hasNext()){
 			a = it.next();
-			if(a.getPrice()!=0){
+			if((a.getPrice()!=0)&&(a.getCategory().equals(category))){
 				paid.add(a);
 			}
+		}
 		}
 		//FIX: Actually sort list by score before returning
 		return paid;
@@ -158,13 +188,20 @@ public class AppStoreDB {
 	public List<App> getMostRecentApps(String category) {
 		List<App> recent = new ArrayList();
 		App a;
-		long newest = 0;
 		Iterator<App> it = apps.iterator();
+		if(category.length()<2){
+			while(it.hasNext()){
+				a = it.next();
+				recent.add(a);
+			}	
+		}
+		else{
 		while(it.hasNext()){
 			a = it.next();
-			if(a.getUploadTimestamp()>newest){
+			if(a.getCategory().equals(category)){
 				recent.add(a);
 			}
+		}
 		}
                                 //FIX: Actually sort
 		return recent;
