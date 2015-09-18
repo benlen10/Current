@@ -49,12 +49,10 @@ public class Database {
 	static public void load(){
 		File f = new File("C://Windows/test.txt");
 		return; 
-			
-		
 	}
 	
 	public static void addAdmin(){
-		
+		System.out.println("Add Admin");
 	}
 	
 	public static void add(){
@@ -64,9 +62,9 @@ public class Database {
 		userarray[usercount].name = tmp;
 		System.out.printf("Enter new password");
 		tmp = s.nextLine();
-		userarray[usercount].pass = tmp;
+		userarray[usercount].setP(tmp);
 		usercount++;
-		System.out.printf("Summary: User: %s Pass: %s Message: %s", userarray[usercount].name, userarray[usercount].pass, userarray[usercount].message );
+		System.out.printf("Summary: User: %s Pass: %s Message: %s", userarray[usercount].name, userarray[usercount].getP(), userarray[usercount].message );
 	}
 	
 	public static void remove(){
@@ -79,12 +77,46 @@ public class Database {
 				userarray[i].deleteUser();
 				System.out.println("User secuessfully removed");
 			}
-		}
-		
+		}	
 	}
+
 	
 	public static void edit(){
-		System.out.printf("Edit");
+		System.out.printf("Enter user to edit");
+		Scanner s = new Scanner(System.in);
+		tmp = s.nextLine();
+		for(int i =0; i<usercount; i++){
+			if(userarray[i].name == tmp){
+				System.out.println("Options to edit: Name, Pass, Message");
+				
+				if (tmp=="Name"){
+					System.out.println("Enter new name");
+					tmp = s.nextLine();
+					userarray[i].name = tmp;
+					System.out.println("Name change successful");
+				}
+				else if(tmp == "Pass"){
+					System.out.println("Enter new pass");
+					tmp = s.nextLine();
+					userarray[i].setP(tmp);
+					System.out.println("Password change successful");
+					
+				}
+				else if(tmp == "Message"){
+					System.out.println("Enter new message");
+					tmp = s.nextLine();
+					userarray[i].message = tmp;
+					System.out.println("Message updated");
+				}
+				else{
+					System.out.println("Unreconized command");
+					return;
+				}
+				
 	}
-	
+		}
+	}
 }
+
+	
+		
