@@ -11,11 +11,11 @@ public class Users {
 	}
 
 
-public String getPass(){
+String getP(){
 	return pass;
 }
 
-public void setPass(String p){
+public void setP(String p){
 	pass = p;
 	System.out.println("Setter: Pass changed");
 }

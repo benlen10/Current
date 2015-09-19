@@ -15,12 +15,13 @@ public class Database {
 		String tmp = s.nextLine();
 		System.out.printf("------Enter Password------\n");
 		String tmp1 = s.nextLine();
-		System.out.printf("Echo User: %s,  Pass:%s", tmp,tmp1);
+		System.out.printf("Echo User: %s,  Pass:%s\n", tmp,tmp1);
 		
-		for (int i = 0; i<passwords.length; i++){
+		/*for (int i = 0; i<passwords.length; i++){
 			System.out.printf("loop");
 			
 		}
+		*/
 		System.out.printf("File Test\n");
 		load();
 		System.out.printf("Options: Add, Remove, Edit");
@@ -47,7 +48,14 @@ public class Database {
 	//Methods
 	
 	static public void load(){
-		File f = new File("C://Windows/test.txt");
+		File f = new File("C:/java/pass.txt");
+		try{
+		f.createNewFile();
+		}
+		catch (IOException e){
+			e.printStackTrace();
+		}
+		System.out.println("File created");
 		return; 
 	}
 	
