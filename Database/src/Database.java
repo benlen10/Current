@@ -11,9 +11,10 @@ public class Database {
 	
 	public static void main(String args[]){
 		Scanner s = new Scanner(System.in); 
-		System.out.printf("------Enter Username------\n");
+		addAdmin();                        //Create inital admin account for first login.
+		System.out.printf("Enter Username\n");
 		String tmp = s.nextLine();
-		System.out.printf("------Enter Password------\n");
+		System.out.printf("Enter Password\n");
 		String tmp1 = s.nextLine();
 		System.out.printf("Echo User: %s,  Pass:%s\n", tmp,tmp1);
 		
@@ -22,7 +23,6 @@ public class Database {
 			
 		}
 		*/
-		System.out.printf("File Test\n");
 		load();
 		System.out.printf("Options: Add, Remove, Edit");
 		tmp = s.nextLine();
@@ -55,12 +55,14 @@ public class Database {
 		catch (IOException e){
 			e.printStackTrace();
 		}
-		System.out.println("File created");
 		return; 
 	}
 	
 	public static void addAdmin(){
-		System.out.println("Add Admin");
+		userarray[0].name = "admin";
+		userarray[0].setP("admin");
+		userarray[0].message = "Inital Account";
+		System.out.println("Inital admin user created");
 	}
 	
 	public static void add(){
