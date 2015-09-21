@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Database {
-	 static String[][] passwords;
 	 static Users[] userarray = new Users[10];
 	 static int usercount = 0;
 	 static String tmp;
@@ -10,6 +9,7 @@ public class Database {
 	
 	
 	public static void main(String args[]){
+		load();
 		Scanner s = new Scanner(System.in); 
 		addAdmin();                        //Create inital admin account for first login.
 		System.out.printf("Enter Username\n");
@@ -18,12 +18,8 @@ public class Database {
 		String tmp1 = s.nextLine();
 		System.out.printf("Echo User: %s,  Pass:%s\n", tmp,tmp1);
 		
-		/*for (int i = 0; i<passwords.length; i++){
-			System.out.printf("loop");
-			
-		}
-		*/
-		load();
+
+
 		System.out.printf("Options: Add, Remove, Edit");
 		tmp = s.nextLine();
 		
