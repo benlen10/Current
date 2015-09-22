@@ -12,15 +12,15 @@ public class Database {
 		load();
 		Scanner s = new Scanner(System.in); 
 		addAdmin();                        //Create inital admin account for first login.
-		System.out.printf("Enter Username\n");
+		System.out.println("Enter Username:");
 		String tmp = s.nextLine();
-		System.out.printf("Enter Password\n");
+		System.out.println("Enter Password:");
 		String tmp1 = s.nextLine();
 		System.out.printf("Echo User: %s,  Pass:%s\n", tmp,tmp1);
 		
 
 
-		System.out.printf("Options: Add, Remove, Edit");
+		System.out.println("Options: Add, Remove, Edit");
 		tmp = s.nextLine();
 		
 		//Parse Options
@@ -44,20 +44,24 @@ public class Database {
 	//Methods
 	
 	static public void load(){
-		File f = new File("C:/java/pass.txt");
+		File f = new File("C:/java/userdata.txt");
 		try{
 		f.createNewFile();
+		BufferedReader br = new BufferedReader(new FileReader("C:/java/userdata.txt"));
+		System.out.printf("File: %s\n",br.readLine());
+		System.out.printf("File2: %s\n",br.readLine());
 		}
 		catch (IOException e){
 			e.printStackTrace();
 		}
-		return; 
+		
+		
 	}
 	
 	public static void addAdmin(){
-		userarray[0].name = "admin";
-		userarray[0].setP("admin");
-		userarray[0].message = "Inital Account";
+		//userarray[0].name = "admin";
+		//userarray[0].setP("admin");
+		//userarray[0].message = "Inital Account";
 		System.out.println("Inital admin user created");
 	}
 	
