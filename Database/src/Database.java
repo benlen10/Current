@@ -48,14 +48,19 @@ public class Database {
 		try{
 		f.createNewFile();
 		BufferedReader br = new BufferedReader(new FileReader("C:/java/userdata.txt"));
-		System.out.printf("File: %s\n",br.readLine());
-		System.out.printf("File2: %s\n",br.readLine());
+		char c = 'a';
+		String user = "";
+		String pass = "";
+		String message = "";
+		while((c!='|')||(c!='\0')){
+			user += c;
 		}
+		System.out.println(user);		
+		}	
 		catch (IOException e){
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 	
 	public static void addAdmin(){
