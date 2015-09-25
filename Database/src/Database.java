@@ -48,11 +48,12 @@ public class Database {
 		try{
 		f.createNewFile();
 		BufferedReader br = new BufferedReader(new FileReader("C:/java/userdata.txt"));
-		char c = 'a';
+		char c = ' ';
 		String user = "";
 		String pass = "";
 		String message = "";
-		while((c!='|')||(c!='\0')){
+		while((c!='|')&&(c!='\0')&&(c!='\0')){
+			c = (char) br.read();
 			user += c;
 		}
 		System.out.println(user);		
