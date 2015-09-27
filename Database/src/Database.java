@@ -52,15 +52,32 @@ public class Database {
 		String user = "";
 		String pass = "";
 		String message = "";
-		while((c!='|')&&(c!='\0')&&(c!='\0')){
+		while((c!='|')&&(c!='\0')&&(c!='\0')){  //User parse
 			c = (char) br.read();
 			user += c;
 		}
-		System.out.println(user);		
+		System.out.println(user);
+		userarray[usercount].name = user;
+		
+		while((c!='|')&&(c!='\0')&&(c!='\0')){  //Pass Parse
+			c = (char) br.read();
+			pass += c;
+		}
+		System.out.println(pass);
+		userarray[usercount].setP(pass);
+		
+		while((c!='|')&&(c!='\0')&&(c!='\0')){  //Message parse
+			c = (char) br.read();
+			message += c;
+		}
+		System.out.println(message);
+		userarray[usercount].message = message;
+
 		}	
 		catch (IOException e){
 			e.printStackTrace();
 		}
+		usercount++;
 
 	}
 	
