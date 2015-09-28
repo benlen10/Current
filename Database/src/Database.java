@@ -2,13 +2,16 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Database {
-	 static Users[] userarray = new Users[10];
+
+	static Users[] userarray = new Users[10];
 	 static int usercount = 0;
 	 static String tmp;
-
+	 static String tmp2;
+	 
 	
 	
 	public static void main(String args[]){
+		
 		load();
 		Scanner s = new Scanner(System.in); 
 		addAdmin();                        //Create inital admin account for first login.
@@ -43,7 +46,7 @@ public class Database {
 	
 	//Methods
 	
-	static public void load(){
+		public static  void load(){
 		File f = new File("C:/java/userdata.txt");
 		try{
 		f.createNewFile();
@@ -52,21 +55,24 @@ public class Database {
 		String user = "";
 		String pass = "";
 		String message = "";
-		while((c!='|')&&(c!='\0')&&(c!='\0')){  //User parse
+		userarray[usercount] = new Users();   //Initialize current position
+		
+		while((c!='|')&&(c!='\0')&&(c!='\n')){  //User parse
 			c = (char) br.read();
 			user += c;
 		}
-		System.out.println(user);
-		userarray[usercount].name = user;
 		
-		while((c!='|')&&(c!='\0')&&(c!='\0')){  //Pass Parse
+
+		
+		while((c!='|')&&(c!='\0')&&(c!='\n')){  //Pass Parse
+			System.out.println("loop");
 			c = (char) br.read();
 			pass += c;
 		}
 		System.out.println(pass);
 		userarray[usercount].setP(pass);
-		
-		while((c!='|')&&(c!='\0')&&(c!='\0')){  //Message parse
+
+		while((c!='|')&&(c!='\0')&&(c!='\n')){  //Message parse
 			c = (char) br.read();
 			message += c;
 		}
@@ -95,6 +101,7 @@ public class Database {
 		userarray[usercount].name = tmp;
 		System.out.printf("Enter new password");
 		tmp = s.nextLine();
+		userarray[usercount] = new Users();
 		userarray[usercount].setP(tmp);
 		usercount++;
 		System.out.printf("Summary: User: %s Pass: %s Message: %s", userarray[usercount].name, userarray[usercount].getP(), userarray[usercount].message );

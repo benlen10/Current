@@ -17,7 +17,7 @@ String getP(){
 
 public void setP(String p){
 	pass = p;
-	System.out.println("Setter: Pass changed");
+	//System.out.println("Setter: Pass changed");
 }
 
 }
