@@ -51,33 +51,41 @@ public class Database {
 		try{
 		f.createNewFile();
 		BufferedReader br = new BufferedReader(new FileReader("C:/java/userdata.txt"));
-		char c = ' ';
+		char c = (char) br.read();
 		String user = "";
 		String pass = "";
 		String message = "";
 		userarray[usercount] = new Users();   //Initialize current position
 		
+		StringBuilder sb = new StringBuilder();
 		while((c!='|')&&(c!='\0')&&(c!='\n')){  //User parse
+			sb.append(c);
 			c = (char) br.read();
-			user += c;
+			
 		}
 		
+		System.out.println(sb.toString());
+		userarray[usercount].name = sb.toString();
+		c = (char) br.read();
 
-		
+		 sb = new StringBuilder();
 		while((c!='|')&&(c!='\0')&&(c!='\n')){  //Pass Parse
-			System.out.println("loop");
+			sb.append(c);
 			c = (char) br.read();
-			pass += c;
+			
 		}
-		System.out.println(pass);
-		userarray[usercount].setP(pass);
+		System.out.println("pass");
+		System.out.println(sb.toString());
+		userarray[usercount].setP(sb.toString());
 
+		sb = new StringBuilder();
 		while((c!='|')&&(c!='\0')&&(c!='\n')){  //Message parse
+			sb.append(c);
 			c = (char) br.read();
-			message += c;
+			
 		}
-		System.out.println(message);
-		userarray[usercount].message = message;
+		System.out.println(sb.toString());
+		userarray[usercount].message = sb.toString();
 
 		}	
 		catch (IOException e){
