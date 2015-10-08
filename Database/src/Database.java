@@ -64,8 +64,8 @@ public class Database {
 			
 		}
 		
-		System.out.println(sb.toString());
 		userarray[usercount].name = sb.toString();
+		System.out.println(userarray[usercount].name);
 		c = (char) br.read();
 
 		 sb = new StringBuilder();
@@ -74,9 +74,8 @@ public class Database {
 			c = (char) br.read();
 			
 		}
-		System.out.println("pass");
-		System.out.println(sb.toString());
 		userarray[usercount].setP(sb.toString());
+		System.out.println(userarray[usercount].getP());
 
 		sb = new StringBuilder();
 		while((c!='|')&&(c!='\0')&&(c!='\n')){  //Message parse
@@ -84,14 +83,16 @@ public class Database {
 			c = (char) br.read();
 			
 		}
-		System.out.println(sb.toString());
 		userarray[usercount].message = sb.toString();
-
-		}	
+		System.out.println(userarray[usercount].message);
+		
+		usercount++;
+		System.out.printf("Current usercount: %d", usercount);
+		}
 		catch (IOException e){
 			e.printStackTrace();
 		}
-		usercount++;
+		
 
 	}
 	
