@@ -41,10 +41,12 @@ public class UWmail {
 	  try (ZipFile zf = new ZipFile(fileName);) {
 	        //follow this approach for using <? extends ZipEntry>, even though we will not cover this in class.
 	        Enumeration<? extends ZipEntry> entries = zf.entries();
+	        
 	        while(entries.hasMoreElements()) {
+	        	
 	          ZipEntry ze = entries.nextElement();
 	          if(ze.getName().endsWith(".txt")) {
-
+	        	  System.out.printf("LOOP\n\n");
 	            InputStream in = zf.getInputStream(ze);
 	            Scanner sc = new Scanner(in);
 	            StringBuilder sb = new StringBuilder();
@@ -53,6 +55,7 @@ public class UWmail {
 	            
 	            while(sc.hasNextLine()) {
 	              sb.append(sc.nextLine());
+	              sb.append("\n");
 	            }
 	            
 	            String content = sb.toString();
@@ -60,17 +63,19 @@ public class UWmail {
 	            boolean stat = true;
 	            
 	            
-	            while(stat){
 	            	
 	            	if(content.charAt(0) == 'I'){
 	            	
 	            	while(content.charAt(i) != ('>')){
 	            	if(content.charAt(i) == ('<')){              // PARSE inReplyTo
+	            		i++;
 	            		while(content.charAt(i) != ('>')){
 	            			sb2.append(content.charAt(i));
 	            			i++;
 	            			}
 	            		inReplyTo = sb2.toString();
+	            		System.out.printf("InReplyTo: %s\n\n", inReplyTo);
+	            		break;
 	            		}
 	            	i++;
 	            	}
@@ -78,34 +83,45 @@ public class UWmail {
 	            	i++;
 	            	sb2 = new StringBuilder();
 	            	
-	            	while(content.charAt(i) != ('>')){
+	            	while(stat){
 	            	if(content.charAt(i) == ('<')){              // PARSE References
-	            		while(content.charAt(i) != ('>')){
-	            			while(content.charAt(i) != (',')){
+	            		i++;
+	            			while(stat){
 	            			sb2.append(content.charAt(i));
 	            			i++;
+	            			if(content.charAt(i) == ('>')){
+	            				stat=false;
 	            			}
-	            			references.add(sb2.toString());
+	            			if(content.charAt(i) == (',')){
+	            			//references.add(sb2.toString());
 	            			sb2 = new StringBuilder();
-	            		}
-	            		references.add(sb2.toString());  //Add final reference to ListADT
+	            			
+	            			}
+	            			i++;
+	            			}
 	            	}
 	            	i++;
 	            	}
+	            	//references.add(sb2.toString());  //Add final reference to ListADT
 	            	
 	            	i++;
 	            	sb2 = new StringBuilder();	 
+	            	stat = true;
 	            	}
-	            	else{
 	            	
-	            		while(stat){
+	            	//END of initial if method
+
+	            	
+	            	while(stat){
 	            		if(content.charAt(i) == (' ')){              // PARSE Date
+	            			System.out.printf("YES\n");
+	            			i++;
 		            		while(content.charAt(i) != ('\n')){
 		            			sb2.append(content.charAt(i));
 		            			i++;
-		            		
 		            			}
 		            		//date = sb2.toString();  //TODO FIX: Correctly Parse Date
+		            		
 		            		}
 	            		i++;
 	            		}
@@ -116,6 +132,7 @@ public class UWmail {
 		            	
 		            	while(content.charAt(i) != ('>')){
 			            	if(content.charAt(i) == ('<')){              // PARSE messageID
+			            		i++;
 			            		while(content.charAt(i) != ('>')){
 			            			sb2.append(content.charAt(i));
 			            			i++;
@@ -130,6 +147,7 @@ public class UWmail {
 		            	
 		            	while(content.charAt(i) != ('\n')){
 			            	if(content.charAt(i) == (' ')){              // PARSE Subject
+			            		i++;
 			            		while(content.charAt(i) != ('\n')){
 			            			sb2.append(content.charAt(i));
 			            			i++;
@@ -145,6 +163,7 @@ public class UWmail {
 		            	
 		            	while(content.charAt(i) != ('\n')){
 			            	if(content.charAt(i) == (' ')){              // PARSE From
+			            		i++;
 			            		while(content.charAt(i) != ('\n')){
 			            			sb2.append(content.charAt(i));
 			            			i++;
@@ -177,14 +196,10 @@ public class UWmail {
 	            			i++;
 		            	}
 		            	body.add(sb2.toString());  //TODO FIX Properly split body into List ADT
-		            	
-	            	}
-
-	            }
-	            
-	            
 	          }
 	        }
+	        
+	        
 	      } catch (ZipException e) {
 	        System.out.println("A .zip format error has occurred for the file.");
 	        System.exit(1);
