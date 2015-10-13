@@ -1,12 +1,15 @@
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.Integer;
 import java.lang.NumberFormatException;
+import java.util.*;
 
 public class UWmail {
   private static UWmailDB uwmailDB = new UWmailDB();
@@ -24,21 +27,162 @@ public class UWmail {
   }
 
   private static void loadEmails(String fileName) {
-    //TODO
+	     Date date;
+		 String messageID;
+		 String subject;
+		 String from;
+		 String to;
+		 String inReplyTo;
+		 ListADT<String> body = new DoublyLinkedList();
+		 ListADT<String> references =  new DoublyLinkedList();
+
+		
+		
 	  try (ZipFile zf = new ZipFile(fileName);) {
 	        //follow this approach for using <? extends ZipEntry>, even though we will not cover this in class.
 	        Enumeration<? extends ZipEntry> entries = zf.entries();
 	        while(entries.hasMoreElements()) {
 	          ZipEntry ze = entries.nextElement();
 	          if(ze.getName().endsWith(".txt")) {
+
 	            InputStream in = zf.getInputStream(ze);
 	            Scanner sc = new Scanner(in);
-	            System.out.println(ze.getName());
-	            System.out.println("-----------------------------");
+	            StringBuilder sb = new StringBuilder();
+	            StringBuilder sb2 = new StringBuilder();
+	            
+	            
 	            while(sc.hasNextLine()) {
-	              String line = sc.nextLine();
-	              System.out.println("  " + line);
+	              sb.append(sc.nextLine());
 	            }
+	            
+	            String content = sb.toString();
+	            int i = 0;
+	            boolean stat = true;
+	            
+	            
+	            while(stat){
+	            	
+	            	if(content.charAt(0) == 'I'){
+	            	
+	            	while(content.charAt(i) != ('>')){
+	            	if(content.charAt(i) == ('<')){              // PARSE inReplyTo
+	            		while(content.charAt(i) != ('>')){
+	            			sb2.append(content.charAt(i));
+	            			i++;
+	            			}
+	            		inReplyTo = sb2.toString();
+	            		}
+	            	i++;
+	            	}
+	            	
+	            	i++;
+	            	sb2 = new StringBuilder();
+	            	
+	            	while(content.charAt(i) != ('>')){
+	            	if(content.charAt(i) == ('<')){              // PARSE References
+	            		while(content.charAt(i) != ('>')){
+	            			while(content.charAt(i) != (',')){
+	            			sb2.append(content.charAt(i));
+	            			i++;
+	            			}
+	            			references.add(sb2.toString());
+	            			sb2 = new StringBuilder();
+	            		}
+	            		references.add(sb2.toString());  //Add final reference to ListADT
+	            	}
+	            	i++;
+	            	}
+	            	
+	            	i++;
+	            	sb2 = new StringBuilder();	 
+	            	}
+	            	else{
+	            	
+	            		while(stat){
+	            		if(content.charAt(i) == (' ')){              // PARSE Date
+		            		while(content.charAt(i) != ('\n')){
+		            			sb2.append(content.charAt(i));
+		            			i++;
+		            		
+		            			}
+		            		//date = sb2.toString();  //TODO FIX: Correctly Parse Date
+		            		}
+	            		i++;
+	            		}
+	                                                
+		            	
+		            	i++;
+		            	sb2 = new StringBuilder();
+		            	
+		            	while(content.charAt(i) != ('>')){
+			            	if(content.charAt(i) == ('<')){              // PARSE messageID
+			            		while(content.charAt(i) != ('>')){
+			            			sb2.append(content.charAt(i));
+			            			i++;
+			            			}
+			            		messageID = sb2.toString();
+			            		}
+			            	i++;
+			            	}
+		            	
+		            	i++;
+		            	sb2 = new StringBuilder();
+		            	
+		            	while(content.charAt(i) != ('\n')){
+			            	if(content.charAt(i) == (' ')){              // PARSE Subject
+			            		while(content.charAt(i) != ('\n')){
+			            			sb2.append(content.charAt(i));
+			            			i++;
+			            			
+			            			}
+			            		subject = sb2.toString();
+			            		}
+			            	i++;
+			            	}
+		            	
+		            	i++;
+		            	sb2 = new StringBuilder();
+		            	
+		            	while(content.charAt(i) != ('\n')){
+			            	if(content.charAt(i) == (' ')){              // PARSE From
+			            		while(content.charAt(i) != ('\n')){
+			            			sb2.append(content.charAt(i));
+			            			i++;
+			            			}
+			            		from = sb2.toString();
+			            		}
+			            	i++;
+			            	}
+		            	
+		            	i++;
+		            	sb2 = new StringBuilder();
+		            	
+		            	while(content.charAt(i) != ('\n')){
+			            	if(content.charAt(i) == (' ')){              // PARSE To
+			            		while(content.charAt(i) != ('\n')){
+			            			sb2.append(content.charAt(i));
+			            			i++;
+			            			}
+			            		to = sb2.toString();
+			            		}
+			            	i++;
+			            	}
+		            	
+		            	i++;
+		            	sb2 = new StringBuilder();
+		            	
+		            	
+		            	while(i<content.length()){
+		            		sb2.append(content.charAt(i));
+	            			i++;
+		            	}
+		            	body.add(sb2.toString());  //TODO FIX Properly split body into List ADT
+		            	
+	            	}
+
+	            }
+	            
+	            
 	          }
 	        }
 	      } catch (ZipException e) {
