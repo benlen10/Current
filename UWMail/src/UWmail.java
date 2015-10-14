@@ -28,11 +28,11 @@ public class UWmail {
 
   private static void loadEmails(String fileName) {
 	     Date date;
-		 String messageID;
-		 String subject;
-		 String from;
-		 String to;
-		 String inReplyTo;
+		 String messageID = "";
+		 String subject = "";
+		 String from = "";
+		 String to = "";
+		 String inReplyTo = "";
 		 ListADT<String> body = new DoublyLinkedList();
 		 ListADT<String> references =  new DoublyLinkedList();
 
@@ -46,7 +46,7 @@ public class UWmail {
 	        	
 	          ZipEntry ze = entries.nextElement();
 	          if(ze.getName().endsWith(".txt")) {
-	        	  System.out.printf("LOOP\n\n");
+	        	  System.out.printf("NEXT MESSAGE\n\n");   //TODO FIX Remove Debug
 	            InputStream in = zf.getInputStream(ze);
 	            Scanner sc = new Scanner(in);
 	            StringBuilder sb = new StringBuilder();
@@ -62,6 +62,13 @@ public class UWmail {
 	            int i = 0;
 	            boolean stat = true;
 	            
+	         messageID = "";                              //Reset local vars
+	   		 subject = "";
+	   		 from = "";
+	   		 to = "";
+	   		 inReplyTo = "";
+	            
+	            
 	            
 	            	
 	            	if(content.charAt(0) == 'I'){
@@ -74,7 +81,8 @@ public class UWmail {
 	            			i++;
 	            			}
 	            		inReplyTo = sb2.toString();
-	            		System.out.printf("InReplyTo: %s\n\n", inReplyTo);
+	            		
+	            		
 	            		break;
 	            		}
 	            	i++;
@@ -93,7 +101,7 @@ public class UWmail {
 	            				stat=false;
 	            			}
 	            			if(content.charAt(i) == (',')){
-	            			//references.add(sb2.toString());
+	            			references.add(sb2.toString());
 	            			sb2 = new StringBuilder();
 	            			
 	            			}
@@ -102,7 +110,7 @@ public class UWmail {
 	            	}
 	            	i++;
 	            	}
-	            	//references.add(sb2.toString());  //Add final reference to ListADT
+	            	references.add(sb2.toString());  //Add final reference to ListADT
 	            	
 	            	i++;
 	            	sb2 = new StringBuilder();	 
@@ -114,13 +122,13 @@ public class UWmail {
 	            	
 	            	while(stat){
 	            		if(content.charAt(i) == (' ')){              // PARSE Date
-	            			System.out.printf("YES\n");
 	            			i++;
 		            		while(content.charAt(i) != ('\n')){
 		            			sb2.append(content.charAt(i));
 		            			i++;
 		            			}
 		            		//date = sb2.toString();  //TODO FIX: Correctly Parse Date
+		            		stat = false;
 		            		
 		            		}
 	            		i++;
@@ -129,8 +137,9 @@ public class UWmail {
 		            	
 		            	i++;
 		            	sb2 = new StringBuilder();
+		            	stat = true;
 		            	
-		            	while(content.charAt(i) != ('>')){
+		            	while(stat){
 			            	if(content.charAt(i) == ('<')){              // PARSE messageID
 			            		i++;
 			            		while(content.charAt(i) != ('>')){
@@ -138,30 +147,33 @@ public class UWmail {
 			            			i++;
 			            			}
 			            		messageID = sb2.toString();
+			            		stat = false;
 			            		}
 			            	i++;
 			            	}
 		            	
 		            	i++;
 		            	sb2 = new StringBuilder();
+		            	stat = true;
 		            	
-		            	while(content.charAt(i) != ('\n')){
+		            	while(stat){
 			            	if(content.charAt(i) == (' ')){              // PARSE Subject
 			            		i++;
 			            		while(content.charAt(i) != ('\n')){
 			            			sb2.append(content.charAt(i));
-			            			i++;
-			            			
+			            			i++;	            			
 			            			}
 			            		subject = sb2.toString();
+			            		stat=false;
 			            		}
 			            	i++;
 			            	}
 		            	
 		            	i++;
 		            	sb2 = new StringBuilder();
+		            	stat = true;
 		            	
-		            	while(content.charAt(i) != ('\n')){
+		            	while(stat){
 			            	if(content.charAt(i) == (' ')){              // PARSE From
 			            		i++;
 			            		while(content.charAt(i) != ('\n')){
@@ -169,25 +181,28 @@ public class UWmail {
 			            			i++;
 			            			}
 			            		from = sb2.toString();
+			            		stat=false;
 			            		}
 			            	i++;
 			            	}
 		            	
 		            	i++;
 		            	sb2 = new StringBuilder();
+		            	stat = true;
 		            	
-		            	while(content.charAt(i) != ('\n')){
+		            	while(stat){
 			            	if(content.charAt(i) == (' ')){              // PARSE To
 			            		while(content.charAt(i) != ('\n')){
 			            			sb2.append(content.charAt(i));
 			            			i++;
 			            			}
 			            		to = sb2.toString();
+			            		stat = false;
 			            		}
 			            	i++;
 			            	}
 		            	
-		            	i++;
+		            	
 		            	sb2 = new StringBuilder();
 		            	
 		            	
@@ -195,7 +210,19 @@ public class UWmail {
 		            		sb2.append(content.charAt(i));
 	            			i++;
 		            	}
+		            	
 		            	body.add(sb2.toString());  //TODO FIX Properly split body into List ADT
+		            	
+		            	System.out.printf("InReplyTo: %s\n\n", inReplyTo);
+		            	System.out.printf("Reference0: %s\n\n", references.get(0));
+		            	//System.out.printf("Date: %s\n\n", date);
+		            	System.out.printf("messageID: %s\n\n", messageID);
+		            	System.out.printf("Subject: %s\n\n", subject);
+		            	System.out.printf("From: %s\n\n", from);
+		            	System.out.printf("To: %s\n\n", to);
+		            	System.out.printf("Body0: %s\n\n", body.get(0));
+
+
 	          }
 	        }
 	        

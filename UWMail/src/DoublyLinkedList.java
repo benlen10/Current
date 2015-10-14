@@ -5,6 +5,11 @@ public class DoublyLinkedList<E> implements ListADT<E>{
 	
 	public void add(E item){
 	Listnode<E> tmp = head;
+	if(tmp==null){
+		Listnode<E> n = new Listnode<E>(item,tmp , tmp);
+		head = n;
+		return;
+	}
 	while(tmp.getNext()!=null){
 		tmp=tmp.getNext();
 	}
