@@ -27,7 +27,7 @@ public class UWmail {
   }
 
   private static void loadEmails(String fileName) {
-	     Date date;
+	     Date date = new Date();
 		 String messageID = "";
 		 String subject = "";
 		 String from = "";
@@ -95,11 +95,10 @@ public class UWmail {
 	            	if(content.charAt(i) == ('<')){              // PARSE References
 	            		i++;
 	            			while(stat){
+	            				if(content.charAt(i) == ('>')){
+		            				stat=false;
+		            			}
 	            			sb2.append(content.charAt(i));
-	            			i++;
-	            			if(content.charAt(i) == ('>')){
-	            				stat=false;
-	            			}
 	            			if(content.charAt(i) == (',')){
 	            			references.add(sb2.toString());
 	            			sb2 = new StringBuilder();
@@ -110,7 +109,8 @@ public class UWmail {
 	            	}
 	            	i++;
 	            	}
-	            	references.add(sb2.toString());  //Add final reference to ListADT
+	            	String t = sb2.toString().substring(0, (sb2.toString().length()-1));
+	            	references.add(t);  //Add final reference to ListADT
 	            	
 	            	i++;
 	            	sb2 = new StringBuilder();	 
@@ -221,7 +221,8 @@ public class UWmail {
 		            	System.out.printf("From: %s\n\n", from);
 		            	System.out.printf("To: %s\n\n", to);
 		            	System.out.printf("Body0: %s\n\n", body.get(0));
-
+		            	
+		            	uwmailDB.addEmail(new Email(date, messageID, subject, from, to, body, inReplyTo, references) );
 
 	          }
 	        }

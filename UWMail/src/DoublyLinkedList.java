@@ -2,12 +2,14 @@ import java.util.Iterator;
 
 public class DoublyLinkedList<E> implements ListADT<E>{
 	private Listnode<E> head;
+	private int count;
 	
 	public void add(E item){
 	Listnode<E> tmp = head;
 	if(tmp==null){
 		Listnode<E> n = new Listnode<E>(item,tmp , tmp);
 		head = n;
+		count++;
 		return;
 	}
 	while(tmp.getNext()!=null){
@@ -15,7 +17,6 @@ public class DoublyLinkedList<E> implements ListADT<E>{
 	}
 	new Listnode<E>(item, null, tmp);
 	}
-	
 		
 	
 	public void add(int pos,E item){
@@ -89,7 +90,8 @@ public class DoublyLinkedList<E> implements ListADT<E>{
 	public int size(){
 		Listnode<E> tmp = head;
 		int i = 0;
-		while(tmp.getNext()!=null){
+		while(tmp!=null){
+			tmp = tmp.getNext();
 			i++;
 		}
 		return i;

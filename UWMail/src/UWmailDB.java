@@ -22,10 +22,16 @@ public class UWmailDB {
   public void addEmail(Email e) {
     Iterator<Conversation> it = convos.iterator();
     String s;
+   if(!it.hasNext()){                                                    //If no existing conversations 
+	   Conversation c = new Conversation(e);
+	   convos.add(c);
+	   return;
+   }
     Conversation tmp = it.next();
     
     while(it.hasNext()){
     	Iterator<String> it2 = tmp.get(0).getReferences().iterator();
+    	
     	while(it2.hasNext()){        //Search for message id within references
     		s = it2.next();
     		if(tmp.get(0).getMessageID().equals(s)){
