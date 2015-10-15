@@ -28,7 +28,7 @@ public class Conversation implements Iterable<Email> {
   }
 
   public Email get(int n) {
-    return convo.get(n);
+    return convo.get(convo.size());
   }
 
   public void add(Email e) {

@@ -2,67 +2,78 @@ import java.util.Iterator;
 
 public class DoublyLinkedList<E> implements ListADT<E>{
 	private Listnode<E> head;
-	private int count;
+	private Listnode<E> tail;
+	private int numItems;
+	
+	public  DoublyLinkedList(){
+		head = tail = new Listnode<E>(null);
+		numItems=0;
+	}
 	
 	public void add(E item){
-	Listnode<E> tmp = head;
-	if(tmp==null){
-		Listnode<E> n = new Listnode<E>(item,tmp , tmp);
-		head = n;
-		count++;
-		return;
-	}
-	while(tmp.getNext()!=null){
-		tmp=tmp.getNext();
-	}
-	new Listnode<E>(item, null, tmp);
+		if(numItems==0){
+			head = new Listnode<E>(item,null,null);
+			tail = head;
+		}
+		
+		tail.setNext( new Listnode<E>(item,null,tail));
+		tail = tail.getNext();
+		numItems++;
+			return;
 	}
 		
 	
 	public void add(int pos,E item){
-		Listnode<E> tmp = head;
-		int i = 0;
-		while( i<pos){
-			tmp = tmp.getNext();
-			if(tmp==null){
-				return;
-			}
-			i++;
+		 if (pos < 0 || pos > numItems) {
+		        throw new IndexOutOfBoundsException();
+		    }
+		 
+		 if (pos == numItems) {
+		        add(item);
+		        return;
+		    }
+		 Listnode<E> tmp = head;
+		 int k;
+		 for (k = 0; k < pos; k++) {
+		        tmp = tmp.getNext();
 		}
-		Listnode<E> n = new Listnode<E>(item,tmp, tmp.getNext());
-		tmp.setNext(n);
-		Listnode<E> tmp2 = tmp.getNext();
-		tmp.setPrev(n);
-			
-		}
+		 Listnode<E> n = new Listnode<E>(item, tmp.getNext(), tmp.getPrev());
+		 tmp.setNext(n);
+		 tmp.getPrev().setNext(n);
+		 tmp.getNext().setPrev(n);
+		 numItems++;
+		 
+	}
 	
 	public boolean contains(E item){
 		Listnode<E> tmp = head;
 		while(tmp.getNext()!=null){
-			if(tmp==item){
+			if(tmp.getData()==item){
 				return true;
 			}
 			tmp=tmp.getNext();
 		}
 		return false;
+	
 	}
 	
 	
 	public E get(int pos){
-		Listnode<E> tmp = head;
-		int i = 0;
-		while( i<pos){
-			tmp = tmp.getNext();
-			if(tmp==null){
-				return null;
-			}
-			i++;
+		 if (pos < 0 || pos > numItems) {
+		        throw new IndexOutOfBoundsException();
+		    }
+		 
+		 Listnode<E> tmp = head;
+		 int k;
+		 for (k = 0; k < pos; k++) {
+		        tmp = tmp.getNext();
 		}
-		return tmp.getData();
+		 return tmp.getData();
+	
 	}
 	
 	public boolean isEmpty(){
-		if(head.getNext() == null){
+		if(numItems ==0){
 			return true;
 		}
 		else{
@@ -72,34 +83,47 @@ public class DoublyLinkedList<E> implements ListADT<E>{
 	}
 	
 	public E remove(int pos){
-		Listnode<E> tmp = head;
-		int i = 0;
-		while( i<pos){
-			tmp = tmp.getNext();
-			if(tmp==null){
-				return null;
-			}
-			i++;
+		 if (pos < 0 || pos > numItems) {
+		        throw new IndexOutOfBoundsException();
+		    }
+
+		 
+		 if(pos==0){
+		E save = head.getData();
+		head = head.getNext();
+		head.setPrev(null);
+		numItems--;
+		return save;
+		 }
+		 
+		 if (pos== (numItems-1)){
+			 E save = tail.getData();
+			 Listnode<E> tmp = tail.getPrev();
+					 tmp.setNext(null);
+			 numItems--;
+			 return save;
+		 }
+		 
+		 Listnode<E> tmp = head;
+		 int k;
+		 for (k = 0; k < pos; k++) {
+		        tmp = tmp.getNext();
 		}
-		Listnode<E> tmp2 = tmp.getNext();
-		tmp.setNext(tmp2.getNext());
-		return tmp.getData();
+		 E save = tmp.getData();
+		 tmp.getPrev().setNext(tmp.getNext());
+		 tmp.getNext().setPrev(tmp.getPrev());
+		 numItems--;
+		 return save;
+	
 	}
 		
 	
 	public int size(){
-		Listnode<E> tmp = head;
-		int i = 0;
-		while(tmp!=null){
-			tmp = tmp.getNext();
-			i++;
-		}
-		return i;
+	return numItems;
 		
 	}
 	
 	public Iterator<E> iterator(){
-		//TODO
 		return new DoublyLinkedListIterator(this);
 	}
 	

@@ -1,7 +1,7 @@
 import java.util.Iterator;
 
 public class UWmailDB {
-  //TODO private member variables
+
 	private int size;
 	private DoublyLinkedList<Conversation> convos = new DoublyLinkedList();
 	private DoublyLinkedList<Conversation> convoTrash = new DoublyLinkedList();
@@ -25,6 +25,7 @@ public class UWmailDB {
    if(!it.hasNext()){                                                    //If no existing conversations 
 	   Conversation c = new Conversation(e);
 	   convos.add(c);
+	   System.err.println("---------------Kinda0-----------");
 	   return;
    }
     Conversation tmp = it.next();
@@ -35,11 +36,15 @@ public class UWmailDB {
     	while(it2.hasNext()){        //Search for message id within references
     		s = it2.next();
     		if(tmp.get(0).getMessageID().equals(s)){
+    			System.err.println("---------------YES-----------");
     			tmp.add(e);
         		return;
     	}
     	}
     }
+    System.err.println("---------------Kinda1-----------");
+    Conversation c = new Conversation(e);
+    convos.add(c);
   }
 
   public ListADT<Conversation> getInbox() {

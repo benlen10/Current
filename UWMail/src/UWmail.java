@@ -1,6 +1,3 @@
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -46,7 +43,7 @@ public class UWmail {
 	        	
 	          ZipEntry ze = entries.nextElement();
 	          if(ze.getName().endsWith(".txt")) {
-	        	  System.out.printf("NEXT MESSAGE\n\n");   //TODO FIX Remove Debug
+	        	//  System.out.printf("NEXT MESSAGE\n\n");   //TODO FIX Remove Debug
 	            InputStream in = zf.getInputStream(ze);
 	            Scanner sc = new Scanner(in);
 	            StringBuilder sb = new StringBuilder();
@@ -213,7 +210,7 @@ public class UWmail {
 		            	
 		            	body.add(sb2.toString());  //TODO FIX Properly split body into List ADT
 		            	
-		            	System.out.printf("InReplyTo: %s\n\n", inReplyTo);
+		            	/*System.out.printf("InReplyTo: %s\n\n", inReplyTo);
 		            	System.out.printf("Reference0: %s\n\n", references.get(0));
 		            	//System.out.printf("Date: %s\n\n", date);
 		            	System.out.printf("messageID: %s\n\n", messageID);
@@ -221,7 +218,7 @@ public class UWmail {
 		            	System.out.printf("From: %s\n\n", from);
 		            	System.out.printf("To: %s\n\n", to);
 		            	System.out.printf("Body0: %s\n\n", body.get(0));
-		            	
+		            	*/
 		            	uwmailDB.addEmail(new Email(date, messageID, subject, from, to, body, inReplyTo, references) );
 
 	          }
@@ -245,6 +242,14 @@ public class UWmail {
     boolean done = false;
     //TODO: print out the inbox here, according to the guidelines in the problem
     //
+    Iterator<Conversation> it = uwmailDB.getInbox().iterator();
+    int x = 0;
+
+    while(it.hasNext()){
+    	System.out.printf("[%d] %s (Date)\n",x,it.next().get(0));
+    	x++;
+    }
+    
     while (!done) 
     {
       System.out.print("Enter option ([#]Open conversation, [T]rash, " + 
