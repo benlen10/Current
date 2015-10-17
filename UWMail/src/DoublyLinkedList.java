@@ -30,8 +30,16 @@ public class DoublyLinkedList<E> implements ListADT<E>{
 		 
 		 if (pos == numItems) {
 		        add(item);
+		        numItems++;
 		        return;
 		    }
+		 if(pos==0){
+			 Listnode<E> n = new Listnode<E>(item, head.getNext(),null);
+			 head.getNext().setPrev(n);
+			 head = n;
+			 numItems++;
+			 return;
+		 }
 		 Listnode<E> tmp = head;
 		 int k;
 		 for (k = 0; k < pos; k++) {
@@ -42,7 +50,7 @@ public class DoublyLinkedList<E> implements ListADT<E>{
 		 tmp.getPrev().setNext(n);
 		 tmp.getNext().setPrev(n);
 		 numItems++;
-		 
+		 return;
 	}
 	
 	public boolean contains(E item){

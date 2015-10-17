@@ -20,31 +20,42 @@ public class UWmailDB {
   //    Also, the messageID of e is guaranteed to be included in the References field
   //    of all emails in the conversation that it belongs in.
   public void addEmail(Email e) {
-    Iterator<Conversation> it = convos.iterator();
-    String s;
-   if(!it.hasNext()){                                                    //If no existing conversations 
-	   Conversation c = new Conversation(e);
-	   convos.add(c);
-	   System.err.println("---------------Kinda0-----------");
-	   return;
-   }
-    Conversation tmp = it.next();
-    
-    while(it.hasNext()){
-    	Iterator<String> it2 = tmp.get(0).getReferences().iterator();
-    	
-    	while(it2.hasNext()){        //Search for message id within references
-    		s = it2.next();
-    		if(tmp.get(0).getMessageID().equals(s)){
-    			System.err.println("---------------YES-----------");
+	  
+	
+	  
+	  
+	  Iterator<Conversation> it = convos.iterator();
+	    String s;
+	    boolean stat = true;
+	   
+	    if(it.hasNext()){
+	     Conversation tmp = it.next();
+	    while(stat){
+	    	if(!tmp.get(0).getReferences().isEmpty()){
+	    		Iterator<String> it2 = tmp.get(0).getReferences().iterator();
+	    		while(it2.hasNext()){        //Search for message id within references
+	    			s = it2.next();
+	    			if(e.getMessageID().equals(s)){
     			tmp.add(e);
         		return;
-    	}
-    	}
-    }
-    System.err.println("---------------Kinda1-----------");
-    Conversation c = new Conversation(e);
-    convos.add(c);
+	    			}
+	    	}
+	    }
+	    	if(it.hasNext()){
+	    		tmp = it.next();
+	    	}
+	    	else{
+	    		stat=false;
+	    	}
+	    	
+	    }
+	    }
+	    
+	    Conversation c = new Conversation(e);
+		   convos.add(c);
+		   return;
+	  
+	  
   }
 
   public ListADT<Conversation> getInbox() {

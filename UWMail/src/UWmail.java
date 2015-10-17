@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.lang.Integer;
 import java.lang.NumberFormatException;
 import java.util.*;
+import java.text.DateFormat;
+import java.text.ParseException;
 
 public class UWmail {
   private static UWmailDB uwmailDB = new UWmailDB();
@@ -92,22 +94,27 @@ public class UWmail {
 	            	if(content.charAt(i) == ('<')){              // PARSE References
 	            		i++;
 	            			while(stat){
-	            				if(content.charAt(i) == ('>')){
-		            				stat=false;
+	            				while(content.charAt(i) != ('>')){
+	            					sb2.append(content.charAt(i));
+	            					i++;
 		            			}
 	            			sb2.append(content.charAt(i));
-	            			if(content.charAt(i) == (',')){
-	            			references.add(sb2.toString());
+	            			references.add(sb2.toString().substring(0, (sb2.toString().length()-1)));
 	            			sb2 = new StringBuilder();
-	            			
+	            			if(content.charAt(i+1)=='\n'){
+	            				stat = false;
+	            			}
+	            			else{
+	            				while(content.charAt(i) != ('<')){  //
+	            					i++;
+	            				}
 	            			}
 	            			i++;
 	            			}
 	            	}
 	            	i++;
 	            	}
-	            	String t = sb2.toString().substring(0, (sb2.toString().length()-1));
-	            	references.add(t);  //Add final reference to ListADT
+
 	            	
 	            	i++;
 	            	sb2 = new StringBuilder();	 
@@ -124,7 +131,19 @@ public class UWmail {
 		            			sb2.append(content.charAt(i));
 		            			i++;
 		            			}
-		            		//date = sb2.toString();  //TODO FIX: Correctly Parse Date
+		            		
+		            		DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.US);
+		            		/*try{
+		            		date = df.parse(sb2.toString());  //TODO FIX: Correctly Parse Date
+		            		}catch(ParseException e){
+		            			e.printStackTrace();
+		            		}*/
+		            		
+		            //TODO debug print date
+		            		//System.out.printf("RAW Date: %s\n",sb2.toString());
+		            		//System.out.printf("Date: %s\n",date.toString());
+
+	
 		            		stat = false;
 		            		
 		            		}
@@ -220,7 +239,6 @@ public class UWmail {
 		            	System.out.printf("Body0: %s\n\n", body.get(0));
 		            	*/
 		            	uwmailDB.addEmail(new Email(date, messageID, subject, from, to, body, inReplyTo, references) );
-
 	          }
 	        }
 	        
@@ -246,7 +264,7 @@ public class UWmail {
     int x = 0;
 
     while(it.hasNext()){
-    	System.out.printf("[%d] %s (Date)\n",x,it.next().get(0));
+    	System.out.printf("[%d] %s (Date)\n",x,it.next().get(0).getSubject());
     	x++;
     }
     
@@ -313,6 +331,14 @@ public class UWmail {
     boolean done = false;
     //TODO: print out the trash here according to the problem specifications
     //
+    Iterator<Conversation> it = uwmailDB.getInbox().iterator();
+    int x = 0;
+
+    while(it.hasNext()){
+    	System.out.printf("[%d] %s (Date)\n",x,it.next().get(0).getSubject());
+    	x++;
+    }
+    
     while (!done) 
     {
       System.out.print("Enter option ([I]nbox, [Q]uit): ");
@@ -352,8 +378,28 @@ public class UWmail {
     //the user back to the inbox view and continue processing commands.
     //
     boolean done = false;
+    
+    if(val>uwmailDB.getInbox().size()){
+    	done = true;
+    }
     //TODO: Print the conversation here, according to the problem specifications
     //
+    Conversation c = uwmailDB.getInbox().get(val);
+    Iterator<Conversation> it = uwmailDB.getInbox().iterator();
+    
+    while(it.hasNext()){
+    	System.out.printf("SUBJECT: %s\n",e.getSubject());
+    	System.out.println("--------------------------------------------------------------------------------");
+    	System.out.printf("%s | %s | (Date)\n",e.getSubject());
+    	System.out.println("--------------------------------------------------------------------------------");
+    	System.out.printf("From: %s\n",e.getFrom());
+    	System.out.printf("From: %s\n",e.getTo());
+    	System.out.printf("(Date)\n\n");      
+    	System.out.printf("%s\n\n",e.getBody());
+    	
+    	e = it.next();
+    }
+    
     while (!done) 
     {
       System.out.print("Enter option ([N]ext email, [P]revious email, " + 
@@ -375,24 +421,37 @@ public class UWmail {
           case 'p':
             //TODO: for this conversation, move the current email pointer back 
             //  using Conversation.moveCurrentBack().
-            //
+            //DONE
+        	  c.moveCurrentBack();
+        	  
             displayConversation(val);
             break;
           case 'N':
           case 'n':
             //TODO: for this conversation, move the current email pointer 
             //  forward using Conversation.moveCurrentForward().
-            //
+            //DONE
+        	  c.moveCurrentForward();
             displayConversation(val);
             break;
           case 'J':
           case 'j':
-            //TODO: Display the next conversation
+            //TODO: Display the next conversation DONE
+        	  if(it.hasNext()){
+        	  c = it.next();
+        	  }else{
+        		  done=true;    //Return to Inbox
+        	  }
             break;
 
           case 'K':
           case 'k':
             //TODO: Display the previous conversation
+        	  if(it.hasNext()){
+            	  c = it.
+            	  }else{
+            		  done=true;    //Return to Inbox
+            	  }
             break;
 
           case 'I':
