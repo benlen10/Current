@@ -32,7 +32,7 @@ public class Conversation implements Iterable<Email> {
   }
 
   public Email get(int n) {
-    return convo.get(convo.size());
+    return convo.get(n);
   }
 
   public void add(Email e) {

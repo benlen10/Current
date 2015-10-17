@@ -21,9 +21,7 @@ public class UWmailDB {
   //    of all emails in the conversation that it belongs in.
   public void addEmail(Email e) {
 	  
-	
-	  
-	  
+
 	  Iterator<Conversation> it = convos.iterator();
 	    String s;
 	    boolean stat = true;

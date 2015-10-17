@@ -3,7 +3,7 @@ import java.util.Iterator;
 public class DoublyLinkedList<E> implements ListADT<E>{
 	private Listnode<E> head;
 	private Listnode<E> tail;
-	private int numItems;
+	private  int numItems;
 	
 	public  DoublyLinkedList(){
 		head = tail = new Listnode<E>(null);
@@ -34,9 +34,10 @@ public class DoublyLinkedList<E> implements ListADT<E>{
 		        return;
 		    }
 		 if(pos==0){
-			 Listnode<E> n = new Listnode<E>(item, head.getNext(),null);
+			 Listnode<E> n = new Listnode<E>(item, head.getNext(),head);
 			 head.getNext().setPrev(n);
-			 head = n;
+			 head.setNext(n);
+			 //head = n;
 			 numItems++;
 			 return;
 		 }
