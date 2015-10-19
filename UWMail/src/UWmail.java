@@ -225,7 +225,7 @@ public class UWmail {
 	            			sb2.append(content.charAt(i));
 	            			i++;
 	            			}
-		            	body.add(0,sb2.toString());
+		            	body.add(sb2.toString());
 		            	
 		            	
 		            	
@@ -233,7 +233,7 @@ public class UWmail {
 		            		sb2.append(content.charAt(i));
 	            			i++;
 		            	}
-		            	body.add(1,sb2.toString()); 
+		            	body.add(sb2.toString()); 
 		            	
 		            	/*System.out.printf("InReplyTo: %s\n\n", inReplyTo);
 		            	System.out.printf("Reference0: %s\n\n", references.get(0));
@@ -392,17 +392,20 @@ public class UWmail {
     //
     int v = val;
     Conversation c = uwmailDB.getInbox().get(v);
-    
-    
+   
+
     while (!done) 
     {
     	 //Print Above (Future Messages)
+    	 System.out.printf("Convo  Size: %d\n\n)", uwmailDB.getInbox().get(v).size());
     	System.out.printf("\nSUBJECT: %s\n",c.get(0).getSubject());   
     	System.out.println("--------------------------------------------------------------------------------");
-    	int k;                                                       
-    	for(k=c.size(); k > c.getCurrent();k--){
+    	int k; 
+
+    	for(k=c.size(); (k > c.getCurrent()+1);k--){
     		System.out.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
     		System.out.println("--------------------------------------------------------------------------------");
+
     	}
     	                                                                 //Print Current Message
     	System.out.printf("From: %s\n",c.get(c.getCurrent()).getFrom());
@@ -438,7 +441,8 @@ for(k=c.getCurrent(); k > 0;k--){
             //  using Conversation.moveCurrentBack().
             //DONE
         	  if(c.getCurrent()==0){
-        		  done=true;
+        		  displayInbox();
+                  return;
         	  }
         	  c.moveCurrentBack();
         	  
@@ -449,8 +453,9 @@ for(k=c.getCurrent(); k > 0;k--){
             //TODO: for this conversation, move the current email pointer 
             //  forward using Conversation.moveCurrentForward().
             //DONE
-        	  if(c.getCurrent()==c.size()){
-        		  done=true;
+        	  if(c.getCurrent()==(c.size())){
+        		  displayInbox();
+                  return;
         	  }
         	c.moveCurrentForward();
             displayConversation(val);
@@ -458,8 +463,9 @@ for(k=c.getCurrent(); k > 0;k--){
           case 'J':
           case 'j':
             //TODO: Display the next conversation DONE
-        	  if(v==uwmailDB.getInbox().size()){
-        		  done=true;
+        	  if(v==(uwmailDB.getInbox().size())-1){
+        		  displayInbox();
+                  return;
         	  }
         	  else{
         		  v++;
@@ -471,7 +477,8 @@ for(k=c.getCurrent(); k > 0;k--){
           case 'k':
             //TODO: Display the previous conversation
         	  if(v==0){
-        		  done=true;
+        		  displayInbox();
+                  return;
         	  }
         	  else{
         		  v--;

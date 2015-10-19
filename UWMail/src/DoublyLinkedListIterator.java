@@ -19,8 +19,9 @@ public class DoublyLinkedListIterator<E> implements Iterator<E>{
             throw new NoSuchElementException();
         }
 
-        curPos++;
-        return  (E) list.get(curPos);
+
+        return  (E) list.get(curPos++);
+
 	}
 	
 	public void remove(){

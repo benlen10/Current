@@ -3,11 +3,12 @@ import java.util.Iterator;
 public class UWmailDB {
 
 	private int size;
-	private DoublyLinkedList<Conversation> convos = new DoublyLinkedList();
-	private DoublyLinkedList<Conversation> convoTrash = new DoublyLinkedList();
+	private DoublyLinkedList<Conversation> convos; 
+	private DoublyLinkedList<Conversation> convoTrash; 
 
   public UWmailDB() {
-    //TODO implement constructor
+	  convos = new DoublyLinkedList<Conversation>();
+	  convoTrash = new DoublyLinkedList<Conversation>();
   }
 
   public int size() {
@@ -35,6 +36,8 @@ public class UWmailDB {
 	    			s = it2.next();
 	    			if(e.getMessageID().equals(s)){
     			tmp.add(e);
+    			System.err.printf("ADDED: %s\n",e.getSubject());
+    			stat  = false;
         		return;
 	    			}
 	    	}
@@ -49,8 +52,9 @@ public class UWmailDB {
 	    }
 	    }
 	    
-	    Conversation c = new Conversation(e);
-		   convos.add(c);
+
+		   convos.add(new Conversation(e));
+		   System.err.printf("NEW Convo: %s\n",e.getSubject());
 		   return;
 	  
 	  

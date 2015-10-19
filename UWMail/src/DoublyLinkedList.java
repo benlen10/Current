@@ -14,6 +14,8 @@ public class DoublyLinkedList<E> implements ListADT<E>{
 		if(numItems==0){
 			head = new Listnode<E>(item,null,null);
 			tail = head;
+			numItems++;
+			return;
 		}
 		
 		tail.setNext( new Listnode<E>(item,null,tail));
@@ -27,12 +29,20 @@ public class DoublyLinkedList<E> implements ListADT<E>{
 		 if (pos < 0 || pos > numItems) {
 		        throw new IndexOutOfBoundsException();
 		    }
+		if(numItems==0){
+			head = new Listnode<E>(item,null,null);
+			tail = head;
+			numItems++;
+			return;
+		}
+		
 		 
-		 if (pos == numItems) {
+		 if ((pos+1) == numItems) {
 		        add(item);
 		        numItems++;
 		        return;
 		    }
+		 
 		 if(pos==0){
 			 Listnode<E> n = new Listnode<E>(item, head.getNext(),head);
 			 head.getNext().setPrev(n);
@@ -68,9 +78,12 @@ public class DoublyLinkedList<E> implements ListADT<E>{
 	
 	
 	public E get(int pos){
-		 if (pos < 0 || pos > numItems) {
+		 if (pos < 0 || pos > (numItems-1)) {
 		        throw new IndexOutOfBoundsException();
 		    }
+		 if(pos==0){
+			 return head.getData();
+		 }
 		 
 		 Listnode<E> tmp = head;
 		 int k;

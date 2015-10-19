@@ -2,13 +2,15 @@ import java.util.Iterator;
 
 public class Conversation implements Iterable<Email> {
   //TODO private member variables
-	private DoublyLinkedList<Email> convo = new DoublyLinkedList<Email>();
-	private int curPos = 0;
-	private int size = 0;
+	private DoublyLinkedList<Email> convo;
+	private int curPos;
+	private int size;
 
   public Conversation(Email e) {
-	  convo.add(e);
-	  size++;
+	  curPos=0;
+	  size=0;
+	 convo = new DoublyLinkedList<Email>();
+	 add(e);
   }
 
   public int getCurrent() {
