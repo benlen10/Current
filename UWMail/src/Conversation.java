@@ -18,14 +18,14 @@ public class Conversation implements Iterable<Email> {
   }
 
   public void moveCurrentBack() {
-	  if(curPos>0){
-    curPos--;
+	  if(curPos<size){
+    curPos++;
 	  }
   }
 
   public void moveCurrentForward() {
-	  if(curPos<size){
-	  curPos++;
+	  if(curPos>0){
+	  curPos--;
 	  }
   }
 
@@ -38,7 +38,7 @@ public class Conversation implements Iterable<Email> {
   }
 
   public void add(Email e) {
-	  convo.add(0,e);
+	  convo.add(e);
 	  size++;
   }
 

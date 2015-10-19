@@ -26,14 +26,14 @@ public class UWmail {
   }
 
   private static void loadEmails(String fileName) {
-	     Date date = new Date();
-		 String messageID = "";
-		 String subject = "";
-		 String from = "";
-		 String to = "";
-		 String inReplyTo = "";
-		 ListADT<String> body = new DoublyLinkedList();
-		 ListADT<String> references =  new DoublyLinkedList();
+	    Date date = new Date();
+			 String messageID = "";
+			 String subject = "";
+			 String from = "";
+			 String to = "";
+			 String inReplyTo = "";
+			 ListADT<String> body = new DoublyLinkedList<String>();
+			 ListADT<String> references =  new DoublyLinkedList<String>();
 
 		
 		
@@ -66,6 +66,8 @@ public class UWmail {
 	   		 from = "";
 	   		 to = "";
 	   		 inReplyTo = "";
+	   		body = new DoublyLinkedList<String>();
+	   		references =  new DoublyLinkedList<String>();
 	            
 	            
 	            
@@ -267,10 +269,23 @@ public class UWmail {
     //TODO: print out the inbox here, according to the guidelines in the problem
     //
     Iterator<Conversation> it = uwmailDB.getInbox().iterator();
-    int x = 0;
 
-    while(it.hasNext()){
-    	System.out.printf("[%d] %s (Date)\n",x,it.next().get(0).getSubject());
+    boolean t = true;
+    int x = 0;
+    Conversation c1;
+    while(t){
+    	if(it.hasNext()){
+    		c1 = it.next();
+    	}
+    	else{
+    		t=false;
+    		break;
+    	}                                                                     
+    
+
+    	
+    	System.out.printf("[%d] %s (Date)\n",x,c1.get((c1.size()-1)).getSubject());
+    	//it2= it2.next();
     	x++;
     }
     
@@ -337,11 +352,14 @@ public class UWmail {
     boolean done = false;
     //TODO: print out the trash here according to the problem specifications
     //
-    Iterator<Conversation> it = uwmailDB.getInbox().iterator();
+    Iterator<Conversation> it = uwmailDB.getTrash().iterator();
+    Conversation tr;
     int x = 0;
-
+    System.out.println("Trash:");
+    System.out.println("--------------------------------------------------------------------------------");
     while(it.hasNext()){
-    	System.out.printf("[%d] %s (Date)\n",x,it.next().get(0).getSubject());
+    	tr=it.next();
+    	System.out.printf("[%d] %s (Date)\n",x,tr.get((tr.size()-1)).getSubject());
     	x++;
     }
     
@@ -397,25 +415,30 @@ public class UWmail {
     while (!done) 
     {
     	 //Print Above (Future Messages)
-    	 System.out.printf("Convo  Size: %d\n\n)", uwmailDB.getInbox().get(v).size());
-    	System.out.printf("\nSUBJECT: %s\n",c.get(0).getSubject());   
+    	 //System.out.printf("Convo  Size: %d\n\n)", uwmailDB.getInbox().get(v).size());
+    	int size = (c.size()-1);
+    	if (size>2){
+    		size=0;
+    	}
+    	System.out.printf("SUBJECT: %s\n",c.get((c.size()-1)).getSubject());   
     	System.out.println("--------------------------------------------------------------------------------");
     	int k; 
 
-    	for(k=c.size(); (k > c.getCurrent()+1);k--){
-    		System.out.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
+    	for(k=(c.size()-1); (k > c.getCurrent());k--){
+    		System.err.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
     		System.out.println("--------------------------------------------------------------------------------");
 
     	}
     	                                                                 //Print Current Message
     	System.out.printf("From: %s\n",c.get(c.getCurrent()).getFrom());
-    	System.out.printf("From: %s\n",c.get(c.getCurrent()).getTo());
+    	System.out.printf("To: %s\n",c.get(c.getCurrent()).getTo());
     	System.out.printf("(Date)\n\n");      
-    	System.out.printf("%s\n\n",c.get(c.getCurrent()).getBody().get(1));
+    	System.out.printf("%s\n",c.get(c.getCurrent()).getBody().get(1));
+    	System.out.println("--------------------------------------------------------------------------------");
     	
-for(k=c.getCurrent(); k > 0;k--){
+for(k=(c.getCurrent()-1); k >= 0;k--){
 		System.out.println("--------------------------------------------------------------------------------");
-		System.out.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
+		System.err.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
 		System.out.println("--------------------------------------------------------------------------------");
     	}
     	
@@ -440,7 +463,7 @@ for(k=c.getCurrent(); k > 0;k--){
             //TODO: for this conversation, move the current email pointer back 
             //  using Conversation.moveCurrentBack().
             //DONE
-        	  if(c.getCurrent()==0){
+        	  if(c.getCurrent()==(c.size())-1){
         		  displayInbox();
                   return;
         	  }
@@ -453,7 +476,7 @@ for(k=c.getCurrent(); k > 0;k--){
             //TODO: for this conversation, move the current email pointer 
             //  forward using Conversation.moveCurrentForward().
             //DONE
-        	  if(c.getCurrent()==(c.size())){
+        	  if(c.getCurrent()==0){
         		  displayInbox();
                   return;
         	  }
@@ -502,6 +525,7 @@ for(k=c.getCurrent(); k > 0;k--){
             //should be moved to the trash when # is entered, and you should
             //take the user back to the inbox and continue processing input.
             //
+        	  uwmailDB.deleteConversation(v);
             return;
 
           default:  

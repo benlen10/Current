@@ -36,7 +36,7 @@ public class UWmailDB {
 	    			s = it2.next();
 	    			if(e.getMessageID().equals(s)){
     			tmp.add(e);
-    			System.err.printf("ADDED: %s\n",e.getSubject());
+    		
     			stat  = false;
         		return;
 	    			}
@@ -54,7 +54,7 @@ public class UWmailDB {
 	    
 
 		   convos.add(new Conversation(e));
-		   System.err.printf("NEW Convo: %s\n",e.getSubject());
+		   //System.err.printf("NEW Convo: %s\n",e.getSubject());
 		   return;
 	  
 	  
