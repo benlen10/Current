@@ -269,10 +269,13 @@ public class UWmail {
     //TODO: print out the inbox here, according to the guidelines in the problem
     //
     Iterator<Conversation> it = uwmailDB.getInbox().iterator();
-
     boolean t = true;
     int x = 0;
     Conversation c1;
+    System.out.println("Inbox:");
+	System.out.println("--------------------------------------------------------------------------------");
+	
+	
     while(t){
     	if(it.hasNext()){
     		c1 = it.next();
@@ -281,7 +284,7 @@ public class UWmail {
     		t=false;
     		break;
     	}                                                                     
-    
+    	
 
     	
     	System.out.printf("[%d] %s (Date)\n",x,c1.get((c1.size()-1)).getSubject());
