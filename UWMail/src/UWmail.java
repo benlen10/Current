@@ -224,10 +224,10 @@ public class UWmail {
 		            	sb2 = new StringBuilder();
 		            	
 		            	while(content.charAt(i) != ('\n')){
-	            			sb2.append(content.charAt(i));
+	            			sb2.append(content.charAt(i));              //Parse Body
 	            			i++;
 	            			}
-		            	body.add(sb2.toString());
+		            	body.add(sb2.toString().substring(0, (sb2.toString().length()-1)));
 		            	
 		            	
 		            	
@@ -235,7 +235,7 @@ public class UWmail {
 		            		sb2.append(content.charAt(i));
 	            			i++;
 		            	}
-		            	body.add(sb2.toString()); 
+		            	body.add(sb2.toString().substring(0, (sb2.toString().length()-1))); 
 		            	
 		            	/*System.out.printf("InReplyTo: %s\n\n", inReplyTo);
 		            	System.out.printf("Reference0: %s\n\n", references.get(0));
@@ -284,9 +284,7 @@ public class UWmail {
     		t=false;
     		break;
     	}                                                                     
-    	
 
-    	
     	System.out.printf("[%d] %s (Date)\n",x,c1.get((c1.size()-1)).getSubject());
     	//it2= it2.next();
     	x++;
@@ -360,11 +358,13 @@ public class UWmail {
     int x = 0;
     System.out.println("Trash:");
     System.out.println("--------------------------------------------------------------------------------");
+   
     while(it.hasNext()){
     	tr=it.next();
     	System.out.printf("[%d] %s (Date)\n",x,tr.get((tr.size()-1)).getSubject());
     	x++;
     }
+  
     
     while (!done) 
     {
@@ -440,7 +440,6 @@ public class UWmail {
     	System.out.println("--------------------------------------------------------------------------------");
     	
 for(k=(c.getCurrent()-1); k >= 0;k--){
-		System.out.println("--------------------------------------------------------------------------------");
 		System.err.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
 		System.out.println("--------------------------------------------------------------------------------");
     	}
@@ -466,11 +465,10 @@ for(k=(c.getCurrent()-1); k >= 0;k--){
             //TODO: for this conversation, move the current email pointer back 
             //  using Conversation.moveCurrentBack().
             //DONE
-        	  if(c.getCurrent()==(c.size())-1){
-        		  displayInbox();
-                  return;
+        	  if(c.getCurrent()<(c.size())-1){
+        		  c.moveCurrentBack();
         	  }
-        	  c.moveCurrentBack();
+        	 
         	  
             displayConversation(val);
             break;
@@ -479,11 +477,10 @@ for(k=(c.getCurrent()-1); k >= 0;k--){
             //TODO: for this conversation, move the current email pointer 
             //  forward using Conversation.moveCurrentForward().
             //DONE
-        	  if(c.getCurrent()==0){
-        		  displayInbox();
-                  return;
+        	  if(c.getCurrent()!=0){
+        		  c.moveCurrentForward();
         	  }
-        	c.moveCurrentForward();
+        	
             displayConversation(val);
             break;
           case 'J':
