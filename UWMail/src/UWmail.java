@@ -227,7 +227,7 @@ public class UWmail {
 	            			sb2.append(content.charAt(i));              //Parse Body
 	            			i++;
 	            			}
-		            	body.add(sb2.toString().substring(0, (sb2.toString().length()-1)));
+		            	body.add(sb2.toString());
 		            	
 		            	
 		            	
@@ -428,19 +428,19 @@ public class UWmail {
     	int k; 
 
     	for(k=(c.size()-1); (k > c.getCurrent());k--){
-    		System.err.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
+    		System.out.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
     		System.out.println("--------------------------------------------------------------------------------");
 
     	}
     	                                                                 //Print Current Message
     	System.out.printf("From: %s\n",c.get(c.getCurrent()).getFrom());
-    	System.out.printf("To: %s\n",c.get(c.getCurrent()).getTo());
+    	System.out.printf("To:%s\n",c.get(c.getCurrent()).getTo());
     	System.out.printf("(Date)\n\n");      
     	System.out.printf("%s\n",c.get(c.getCurrent()).getBody().get(1));
     	System.out.println("--------------------------------------------------------------------------------");
     	
 for(k=(c.getCurrent()-1); k >= 0;k--){
-		System.err.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
+		System.out.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
 		System.out.println("--------------------------------------------------------------------------------");
     	}
     	
@@ -465,7 +465,7 @@ for(k=(c.getCurrent()-1); k >= 0;k--){
             //TODO: for this conversation, move the current email pointer back 
             //  using Conversation.moveCurrentBack().
             //DONE
-        	  if(c.getCurrent()<(c.size())-1){
+        	  if((c.getCurrent()<(c.size())-1)&&(c.size()>1)){
         		  c.moveCurrentBack();
         	  }
         	 
@@ -477,7 +477,7 @@ for(k=(c.getCurrent()-1); k >= 0;k--){
             //TODO: for this conversation, move the current email pointer 
             //  forward using Conversation.moveCurrentForward().
             //DONE
-        	  if(c.getCurrent()!=0){
+        	  if((c.getCurrent()!=0)&&(c.size()>1)){
         		  c.moveCurrentForward();
         	  }
         	
