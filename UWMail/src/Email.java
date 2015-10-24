@@ -33,9 +33,8 @@ public class Email {
 	  this.references = references;
   }
 
-  public String getDate() {
-	  //TODO!!!!
-    return "temp";
+  public Date getDate() {
+    return date;
   }
 
   public String getMessageID() {

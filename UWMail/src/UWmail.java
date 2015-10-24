@@ -7,12 +7,17 @@ import java.io.InputStream;
 import java.lang.Integer;
 import java.lang.NumberFormatException;
 import java.util.*;
+import java.util.Date;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
 
 public class UWmail {
   private static UWmailDB uwmailDB = new UWmailDB();
   private static final Scanner stdin = new Scanner(System.in);
+  
+
 
   public static void main(String args[]) {
     if (args.length != 1) {
@@ -26,7 +31,6 @@ public class UWmail {
   }
 
   private static void loadEmails(String fileName) {
-	    Date date = new Date();
 			 String messageID = "";
 			 String subject = "";
 			 String from = "";
@@ -34,6 +38,10 @@ public class UWmail {
 			 String inReplyTo = "";
 			 ListADT<String> body = new DoublyLinkedList<String>();
 			 ListADT<String> references =  new DoublyLinkedList<String>();
+			 Date date = new Date();
+			 DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+	     	
+     		
 
 		
 		
@@ -133,17 +141,13 @@ public class UWmail {
 		            			sb2.append(content.charAt(i));
 		            			i++;
 		            			}
-		            		
-		            		DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.US);
-		            		/*try{
-		            		date = df.parse(sb2.toString());  //TODO FIX: Correctly Parse Date
+		            		try{
+		            		date = df.parse(sb2.toString());  
 		            		}catch(ParseException e){
-		            			e.printStackTrace();
-		            		}*/
+		            			System.out.println("Caught an error parsing the date!");
+		            		}
 		            		
-		            //TODO debug print date
-		            		//System.out.printf("RAW Date: %s\n",sb2.toString());
-		            		//System.out.printf("Date: %s\n",date.toString());
+		            
 
 	
 		            		stat = false;
@@ -266,6 +270,7 @@ public class UWmail {
 
   private static void displayInbox(){
     boolean done = false;
+    DateFormat dateWithoutTime = new SimpleDateFormat("MMM d"); 
     //TODO: print out the inbox here, according to the guidelines in the problem
     //
     Iterator<Conversation> it = uwmailDB.getInbox().iterator();
@@ -275,6 +280,9 @@ public class UWmail {
     System.out.println("Inbox:");
 	System.out.println("--------------------------------------------------------------------------------");
 	
+	if(!it.hasNext()){
+		System.out.println("No conversations to view.");
+	}
 	
     while(t){
     	if(it.hasNext()){
@@ -285,7 +293,7 @@ public class UWmail {
     		break;
     	}                                                                     
 
-    	System.out.printf("[%d] %s (Date)\n",x,c1.get((c1.size()-1)).getSubject());
+    	System.out.printf("[%d] %s (%s)\n",x,c1.get((c1.size()-1)).getSubject(),dateWithoutTime.format(c1.get((c1.size()-1)).getDate()));
     	//it2= it2.next();
     	x++;
     }
@@ -351,6 +359,7 @@ public class UWmail {
 
   private static void displayTrash(){
     boolean done = false;
+    DateFormat dateWithoutTime = new SimpleDateFormat("MMM d"); 
     //TODO: print out the trash here according to the problem specifications
     //
     Iterator<Conversation> it = uwmailDB.getTrash().iterator();
@@ -358,11 +367,16 @@ public class UWmail {
     int x = 0;
     System.out.println("Trash:");
     System.out.println("--------------------------------------------------------------------------------");
-   
+    
+    if(!it.hasNext()){
+    	System.out.println("No conversations to show." );
+    }
+    else{
     while(it.hasNext()){
     	tr=it.next();
-    	System.out.printf("[%d] %s (Date)\n",x,tr.get((tr.size()-1)).getSubject());
+    	System.out.printf("[%d] %s %s\n",x,tr.get((tr.size()-1)).getSubject(),dateWithoutTime.format(tr.get((tr.size()-1)).getDate()));
     	x++;
+    }
     }
   
     
@@ -404,19 +418,23 @@ public class UWmail {
     //TODO: Check whether val is valid as a conversation number. If not, take
     //the user back to the inbox view and continue processing commands.
     //
+	  int v=val;
     boolean done = false;
+    DateFormat dateWithoutTime = new SimpleDateFormat("MMM d"); 
     
     if(val>uwmailDB.getInbox().size()){
     	done = true;
     }
     //TODO: Print the conversation here, according to the problem specifications
     //
-    int v = val;
+
     Conversation c = uwmailDB.getInbox().get(v);
    
 
     while (!done) 
     {
+    	 c = uwmailDB.getInbox().get(v);
+    	 
     	 //Print Above (Future Messages)
     	 //System.out.printf("Convo  Size: %d\n\n)", uwmailDB.getInbox().get(v).size());
     	int size = (c.size()-1);
@@ -425,30 +443,31 @@ public class UWmail {
     	}
     	System.out.printf("SUBJECT: %s\n",c.get((c.size()-1)).getSubject());   
     	System.out.println("--------------------------------------------------------------------------------");
+    	//System.err.printf("V VALUE: %d\n",v);
     	int k; 
 
     	for(k=(c.size()-1); (k > c.getCurrent());k--){
-    		System.out.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
+    		System.out.printf("%s | %s | %s\n",c.get(k).getFrom(),c.get(k).getBody().get(0),dateWithoutTime.format(c.get(k).getDate()));
     		System.out.println("--------------------------------------------------------------------------------");
 
     	}
     	                                                                 //Print Current Message
     	System.out.printf("From: %s\n",c.get(c.getCurrent()).getFrom());
     	System.out.printf("To:%s\n",c.get(c.getCurrent()).getTo());
-    	System.out.printf("(Date)\n\n");      
+    	System.out.printf("%s\n\n",dateWithoutTime.format(c.get(c.getCurrent()).getDate()));      
     	System.out.printf("%s\n",c.get(c.getCurrent()).getBody().get(1));
     	System.out.println("--------------------------------------------------------------------------------");
     	
 for(k=(c.getCurrent()-1); k >= 0;k--){
-		System.out.printf("%s | %s | (Date)\n",c.get(k).getFrom(),c.get(k).getBody().get(0));
+		System.out.printf("%s | %s | %s\n",c.get(k).getFrom(),c.get(k).getBody().get(0),dateWithoutTime.format(c.get(k).getDate()));
 		System.out.println("--------------------------------------------------------------------------------");
     	}
     	
     	
-      System.out.print("Enter option ([N]ext email, [P]revious email, " + 
-          "[J]Next conversation, [K]Previous conversation, [I]nbox, [#]Move " +
-          "to trash, [Q]uit): ");
-      String input = stdin.nextLine();
+System.out.print("Enter option ([N]ext email, [P]revious email, " +
+        "[J]Next conversation, [K]Previous\nconversation, [I]nbox, " +
+        "[#]Move to trash, [Q]uit): ");
+    String input = stdin.nextLine();
 
       if (input.length() > 0) 
       {
@@ -465,23 +484,29 @@ for(k=(c.getCurrent()-1); k >= 0;k--){
             //TODO: for this conversation, move the current email pointer back 
             //  using Conversation.moveCurrentBack().
             //DONE
-        	  if((c.getCurrent()<(c.size())-1)&&(c.size()>1)){
+        	  c = uwmailDB.getInbox().get(v);
+        	  if(((c.getCurrent()<(c.size())-1))&&(c.size()>1)){
+
         		  c.moveCurrentBack();
+
         	  }
         	 
         	  
-            displayConversation(val);
+            displayConversation(v);
             break;
           case 'N':
           case 'n':
             //TODO: for this conversation, move the current email pointer 
             //  forward using Conversation.moveCurrentForward().
             //DONE
+        	  c = uwmailDB.getInbox().get(v);
         	  if((c.getCurrent()!=0)&&(c.size()>1)){
+
         		  c.moveCurrentForward();
         	  }
+        	 
         	
-            displayConversation(val);
+            displayConversation(v);
             break;
           case 'J':
           case 'j':
