@@ -1,7 +1,7 @@
 import java.util.Iterator;
 
 public class Conversation implements Iterable<Email> {
-  //TODO private member variables
+
 	private DoublyLinkedList<Email> convo;
 	private int curPos;
 	private int size;

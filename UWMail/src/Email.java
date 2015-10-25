@@ -2,7 +2,6 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Email {
-  //TODO private member variables
 	private Date date;
 	private String messageID;
 	private String subject;

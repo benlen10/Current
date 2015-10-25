@@ -53,7 +53,7 @@ public class UWmail {
 	        	
 	          ZipEntry ze = entries.nextElement();
 	          if(ze.getName().endsWith(".txt")) {
-	        	//  System.out.printf("NEXT MESSAGE\n\n");   //TODO FIX Remove Debug
+
 	            InputStream in = zf.getInputStream(ze);
 	            Scanner sc = new Scanner(in);
 	            StringBuilder sb = new StringBuilder();
@@ -241,15 +241,7 @@ public class UWmail {
 		            	}
 		            	body.add(sb2.toString().substring(0, (sb2.toString().length()-1))); 
 		            	
-		            	/*System.out.printf("InReplyTo: %s\n\n", inReplyTo);
-		            	System.out.printf("Reference0: %s\n\n", references.get(0));
-		            	//System.out.printf("Date: %s\n\n", date);
-		            	System.out.printf("messageID: %s\n\n", messageID);
-		            	System.out.printf("Subject: %s\n\n", subject);
-		            	System.out.printf("From: %s\n\n", from);
-		            	System.out.printf("To: %s\n\n", to);
-		            	System.out.printf("Body0: %s\n\n", body.get(0));
-		            	*/
+		            	
 		            	uwmailDB.addEmail(new Email(date, messageID, subject, from, to, body, inReplyTo, references) );
 	          }
 	        }
@@ -271,8 +263,7 @@ public class UWmail {
   private static void displayInbox(){
     boolean done = false;
     DateFormat dateWithoutTime = new SimpleDateFormat("MMM d"); 
-    //TODO: print out the inbox here, according to the guidelines in the problem
-    //
+  
     Iterator<Conversation> it = uwmailDB.getInbox().iterator();
     boolean t = true;
     int x = 0;
@@ -293,7 +284,7 @@ public class UWmail {
     		break;
     	}                                                                     
 
-    	System.out.printf("[%d] %s (%s)\n",x,c1.get((c1.size()-1)).getSubject(),dateWithoutTime.format(c1.get((c1.size()-1)).getDate()));
+    	System.out.printf("[%d] %s (%s)\n",x,c1.get((c1.size()-1)).getSubject(),dateWithoutTime.format(c1.get(0).getDate()));
     	//it2= it2.next();
     	x++;
     }
@@ -360,8 +351,7 @@ public class UWmail {
   private static void displayTrash(){
     boolean done = false;
     DateFormat dateWithoutTime = new SimpleDateFormat("MMM d"); 
-    //TODO: print out the trash here according to the problem specifications
-    //
+  
     Iterator<Conversation> it = uwmailDB.getTrash().iterator();
     Conversation tr;
     int x = 0;
@@ -415,9 +405,7 @@ public class UWmail {
   }
 
   private static void displayConversation(int val) {
-    //TODO: Check whether val is valid as a conversation number. If not, take
-    //the user back to the inbox view and continue processing commands.
-    //
+   
 	  int v=val;
     boolean done = false;
     DateFormat dateWithoutTime = new SimpleDateFormat("MMM d"); 
@@ -425,8 +413,7 @@ public class UWmail {
     if(val>uwmailDB.getInbox().size()){
     	done = true;
     }
-    //TODO: Print the conversation here, according to the problem specifications
-    //
+  
 
     Conversation c = uwmailDB.getInbox().get(v);
    
@@ -481,9 +468,7 @@ System.out.print("Enter option ([N]ext email, [P]revious email, " +
         switch(input.charAt(0)){
           case 'P':
           case 'p':
-            //TODO: for this conversation, move the current email pointer back 
-            //  using Conversation.moveCurrentBack().
-            //DONE
+           
         	  c = uwmailDB.getInbox().get(v);
         	  if(((c.getCurrent()<(c.size())-1))&&(c.size()>1)){
 
@@ -496,9 +481,7 @@ System.out.print("Enter option ([N]ext email, [P]revious email, " +
             break;
           case 'N':
           case 'n':
-            //TODO: for this conversation, move the current email pointer 
-            //  forward using Conversation.moveCurrentForward().
-            //DONE
+           
         	  c = uwmailDB.getInbox().get(v);
         	  if((c.getCurrent()!=0)&&(c.size()>1)){
 
@@ -510,7 +493,7 @@ System.out.print("Enter option ([N]ext email, [P]revious email, " +
             break;
           case 'J':
           case 'j':
-            //TODO: Display the next conversation DONE
+           
         	  if(v==(uwmailDB.getInbox().size())-1){
         		  displayInbox();
                   return;
@@ -523,7 +506,7 @@ System.out.print("Enter option ([N]ext email, [P]revious email, " +
 
           case 'K':
           case 'k':
-            //TODO: Display the previous conversation
+        
         	  if(v==0){
         		  displayInbox();
                   return;
@@ -546,11 +529,8 @@ System.out.print("Enter option ([N]ext email, [P]revious email, " +
             break;
 
           case '#':
-            //TODO: add delete conversation functionality. This conversation
-            //should be moved to the trash when # is entered, and you should
-            //take the user back to the inbox and continue processing input.
-            //
         	  uwmailDB.deleteConversation(v);
+        	  displayInbox();
             return;
 
           default:  

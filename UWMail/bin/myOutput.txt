@@ -1,6 +1,6 @@
 Inbox:
 --------------------------------------------------------------------------------
-[0] p2 (Sep 21)
+[0] p2 (Sep 22)
 [1] Action item (Sep 21)
 [2] Message subject (Sep 18)
 Enter option ([#]Open conversation, [T]rash, [Q]uit): Invalid command!
@@ -13,7 +13,7 @@ Enter option ([#]Open conversation, [T]rash, [Q]uit): Trash:
 No conversations to show.
 Enter option ([I]nbox, [Q]uit): Inbox:
 --------------------------------------------------------------------------------
-[0] p2 (Sep 21)
+[0] p2 (Sep 22)
 [1] Action item (Sep 21)
 [2] Message subject (Sep 18)
 Enter option ([#]Open conversation, [T]rash, [Q]uit): SUBJECT: p2
@@ -242,7 +242,7 @@ you@wisc.edu | Right on! | Sep 18
 Enter option ([N]ext email, [P]revious email, [J]Next conversation, [K]Previous
 conversation, [I]nbox, [#]Move to trash, [Q]uit): Inbox:
 --------------------------------------------------------------------------------
-[0] p2 (Sep 21)
+[0] p2 (Sep 22)
 [1] Action item (Sep 21)
 [2] Message subject (Sep 18)
 Enter option ([#]Open conversation, [T]rash, [Q]uit): Trash:
@@ -250,7 +250,7 @@ Enter option ([#]Open conversation, [T]rash, [Q]uit): Trash:
 No conversations to show.
 Enter option ([I]nbox, [Q]uit): Inbox:
 --------------------------------------------------------------------------------
-[0] p2 (Sep 21)
+[0] p2 (Sep 22)
 [1] Action item (Sep 21)
 [2] Message subject (Sep 18)
 Enter option ([#]Open conversation, [T]rash, [Q]uit): SUBJECT: Action item
@@ -262,7 +262,11 @@ Sep 21
 Please respond to this email by tonight!
 --------------------------------------------------------------------------------
 Enter option ([N]ext email, [P]revious email, [J]Next conversation, [K]Previous
-conversation, [I]nbox, [#]Move to trash, [Q]uit): Enter option ([#]Open conversation, [T]rash, [Q]uit): Trash:
+conversation, [I]nbox, [#]Move to trash, [Q]uit): Inbox:
+--------------------------------------------------------------------------------
+[0] p2 (Sep 22)
+[1] Message subject (Sep 18)
+Enter option ([#]Open conversation, [T]rash, [Q]uit): Trash:
 --------------------------------------------------------------------------------
 [0] Action item Sep 21
 Enter option ([I]nbox, [Q]uit): Quitting...
