@@ -1,6 +1,0 @@
-Date: Fri, 18 Sep 2015 10:20:13 -0500
-Message-ID: <CACOyKaYi2mwiyAWBMkTGtUkyMWVRhUYTNDjRZdHxSeXk6C1N4w@mail.wisc.com>
-Subject: Message subject
-From: sender@wisc.edu
-To: you@wisc.edu
-This is the email body.
