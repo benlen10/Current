@@ -1,0 +1,15 @@
+3
+doc1,5,5,user1,user2
+doc2,3,5,user3,user2
+doc3,3,4,user4,user5,user1
+12345,user1,doc1,set,1,3,2
+12360,user2,doc1,set,1,4,3
+12365,user1,doc1,clear,1,3
+12370,user2,doc1,undo
+12371,user2,doc1,redo
+12373,user1,doc1,undo
+14310,user3,doc2,set,1,1,3
+14321,user2,doc2,add,1,1,4
+14330,user3,doc2,undo
+14333,user3,doc2,redo
+14334,user2,doc2,undo

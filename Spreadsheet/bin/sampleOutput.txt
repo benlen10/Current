@@ -1,0 +1,111 @@
+----------Update Database----------
+12345	doc1	user1	set	[1,3]	2
+
+Document Name: doc1	Size: [5,5]
+Table: 
+0	0	0	0	0	
+0	0	0	2	0	
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+
+----------Update Database----------
+12360	doc1	user2	set	[1,4]	3
+
+Document Name: doc1	Size: [5,5]
+Table: 
+0	0	0	0	0	
+0	0	0	2	3	
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+
+----------Update Database----------
+12365	doc1	user1	clear	[1,3]
+
+Document Name: doc1	Size: [5,5]
+Table: 
+0	0	0	0	0	
+0	0	0	0	3	
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+
+----------Update Database----------
+12370	doc1	user2	undo
+
+Document Name: doc1	Size: [5,5]
+Table: 
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+
+----------Update Database----------
+12371	doc1	user2	redo
+
+Document Name: doc1	Size: [5,5]
+Table: 
+0	0	0	0	0	
+0	0	0	0	3	
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+
+----------Update Database----------
+12373	doc1	user1	undo
+
+Document Name: doc1	Size: [5,5]
+Table: 
+0	0	0	0	0	
+0	0	0	2	3	
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+
+----------Update Database----------
+14310	doc2	user3	set	[1,1]	3
+
+Document Name: doc2	Size: [3,5]
+Table: 
+0	0	0	0	0	
+0	3	0	0	0	
+0	0	0	0	0	
+
+----------Update Database----------
+14321	doc2	user2	add	[1,1]	4
+
+Document Name: doc2	Size: [3,5]
+Table: 
+0	0	0	0	0	
+0	7	0	0	0	
+0	0	0	0	0	
+
+----------Update Database----------
+14330	doc2	user3	undo
+
+Document Name: doc2	Size: [3,5]
+Table: 
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+
+----------Update Database----------
+14333	doc2	user3	redo
+
+Document Name: doc2	Size: [3,5]
+Table: 
+0	0	0	0	0	
+0	7	0	0	0	
+0	0	0	0	0	
+
+----------Update Database----------
+14334	doc2	user2	undo
+
+Document Name: doc2	Size: [3,5]
+Table: 
+0	0	0	0	0	
+0	3	0	0	0	
+0	0	0	0	0	
+
