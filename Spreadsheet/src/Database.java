@@ -17,12 +17,13 @@ public class Database {
     }
 
     public String update(Operation operation) {
-        //TODO update the database return the updated document content.
-        throw new RuntimeException("update not implemented");
+    	Document d = getDocumentByDocumentName(operation.getDocName());
+        d.update(operation);
+        return d.toString();
     }
 
     private Document getDocumentByDocumentName(String docName) {
-      Iterator it = docs.iterator();
+      Iterator<Document> it = docs.iterator();
       while(it.hasNext()){
     	  Document d = (Document) it.next();
     	  if(d.getDocName().equals(docName)){
