@@ -8,14 +8,19 @@ public class Server {
     private Database dat;
     private String inputFileName;
     private String outputFileName;
-    private static String input;
     private List<Operation> ops;
-
+    BufferedWriter writer;
     public Server(String inputFileName, String outputFileName) {
     	this.inputFileName = inputFileName;
     	this.outputFileName = outputFileName;
        dat = new Database();
-       ops = new ArrayList<Operation>();       
+       ops = new ArrayList<Operation>();     
+       try{
+    	   writer = new BufferedWriter(new FileWriter(outputFileName)); 
+       }
+       catch(IOException e){
+    	   System.err.printf("IOException caught");
+       }
        
     }
 
@@ -156,7 +161,12 @@ public class Server {
     private void process() {
        Iterator<Operation> it = ops.iterator();
        while(it.hasNext()){
-     	  dat.update(it.next());
+    	   try{
+     	  writer.write(dat.update(it.next()));
+    	   }
+    	   catch(IOException e){
+    		   System.err.println("IOException caught when writing to file (Updating Database)");
+    	   }
      	  }
        }
 
@@ -166,7 +176,6 @@ public class Server {
             System.out.println("Usage: java Server [input.txt] [output.txt]");
             System.exit(0);
         }
-        input = args[0];
         Server server = new Server(args[0], args[1]);
         server.run();
     }
