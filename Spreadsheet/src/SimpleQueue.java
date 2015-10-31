@@ -4,7 +4,6 @@
  */
 public class SimpleQueue<E> implements QueueADT<E> {
 
-    //TODO
     //You may use an expandable circular array or a chain of listnodes. 
     //You may NOT use Java's predefined classes such as ArrayList or LinkedList.
 	private int total,first,next;

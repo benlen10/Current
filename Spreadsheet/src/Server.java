@@ -41,35 +41,51 @@ public class Server {
 		long timestamp;
 		int i =0;
 		int argCount = 0;
-		int docCount = (char) file.read();
+		System.err.printf("%c", c);
+		int docCount = Integer.parseInt(Character.toString((char) file.read()));
 		String docName, op,user;
 		Operation.OP opp;
 		opp = Operation.OP.ADD;
 		List<User> users = new ArrayList<User>();
 		
+		c = (char) file.read();
+		c = (char) file.read();
+		c = (char) file.read();
+		System.err.printf("DocCount: %d\n",docCount);
 		while(i<docCount){
 			
 			while(c!=','){                               //Parse DocName
+				
 				sb.append(c);
 				c = (char) file.read();
+				
 			}
 			docName = sb.toString();
 
-			c = (char) file.read();
-			sb = new StringBuilder();
-			rows = (char) file.read();         //Parse rows
-			c = (char) file.read();
-			cols = (char) file.read();         //Parse cols
-			c = (char) file.read();       
 			
-			while(c!='\n'){  
-			while(c!=','){                               
+			
+			rows = Integer.parseInt(Character.toString((char) file.read()));         //Parse rows
+			c = (char) file.read();
+			cols =  Integer.parseInt(Character.toString((char) file.read()));  
+			sb = new StringBuilder();
+			c = (char) file.read();
+			c = (char) file.read();
+			boolean stat = true;
+			while(stat){  
+			while((c!=',')&&stat){       
 				sb.append(c);
 				c = (char) file.read();
+				//System.err.printf("%c", c);
+				if(c=='\n'){
+					stat = false;
+				}
 			}
 			users.add(new User(sb.toString()));
+			//System.err.printf("USER:%s\n",sb.toString());
+			sb = new StringBuilder();
 			c = (char) file.read();
 			}
+			//System.err.printf("Name: %s Rows: %d Cols: %d\n", docName, rows, cols);
 			dat.addDocument(new Document(docName, rows, cols, users));
 			i++;
 		}
@@ -121,7 +137,6 @@ public class Server {
 		} else if(op.equals("REDO")){
 			opp = Operation.OP.REDO;
 		}
-		
 		
 		int u = 0;
 		while((c!=',')||(u!=-1)){ 

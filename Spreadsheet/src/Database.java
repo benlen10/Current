@@ -1,11 +1,12 @@
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Database {
     List<Document> docs;
 
     public Database() {
-        //docs = new List<Document>();       FIX error
+        docs = new ArrayList<Document>();       
     }
 
     public void addDocument(Document doc) {
