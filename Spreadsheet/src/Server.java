@@ -56,6 +56,7 @@ public class Server {
 			
 			while(c!=','){                               //Parse DocName
 				
+				
 				sb.append(c);
 				c = (char) file.read();
 				
@@ -89,10 +90,18 @@ public class Server {
 			dat.addDocument(new Document(docName, rows, cols, users));
 			i++;
 		}
-		         
-		while(c!=','){                                            //PROCESS OPERATIONS 
+		 boolean stat2=true;
+														//PROCESS OPERATIONS 
+		while(stat2){
+			rows = 0;
+			cols = 0;
+			constant = 0;
+			sb = new StringBuilder();         	
+			System.err.println("LOOP");
+		while(c!=','){       
 			sb.append(c);
 			c = (char) file.read();
+			
 		}
 		timestamp = Integer.parseInt(sb.toString());                    //Timestamp
 		
@@ -103,7 +112,6 @@ public class Server {
 			c = (char) file.read();
 		}
 		user = sb.toString();                                  //Pase User
-		
 		sb = new StringBuilder();              
 		c = (char) file.read();
 		while(c!=','){                                           
@@ -114,49 +122,76 @@ public class Server {
 		
 		sb = new StringBuilder();              
 		c = (char) file.read();
-		while(c!=','){                                           
+		//sb.append(c);
+		int u=0;
+		while((c!=',')&&(c!='\n')&&(u!=-1)){     
+			
 			sb.append(c);
-			c = (char) file.read();
+			u = file.read();
+			c = (char) u;
 		}
-		op = sb.toString();                                  
+		System.err.printf("UVALUE:%d   %c\n",u,c);
+		op = sb.toString();
+		if(u==-1){   //Break while loop  
+			stat2 = false;
+			System.err.println("FALSE");
+		}
 		
-		if(op.equals("SET")){
+		if(c=='\n'){
+			op = sb.substring(0, sb.length()-1);
+			c = (char) file.read();
+
+		}
+	
+		
+		
+		if(op.equals("set")){
 			opp = Operation.OP.SET;
-		} else if(op.equals("CLEAR")){
+		} else if(op.equals("clear")){
 			opp = Operation.OP.CLEAR;
-		} else if(op.equals("ADD")){
+		} else if(op.equals("add")){
 			opp = Operation.OP.ADD;
-		} else if(op.equals("SUB")){
+		} else if(op.equals("sub")){
 			opp = Operation.OP.SUB;
-		} else if(op.equals("MUL")){
+		} else if(op.equals("mul")){
 			opp = Operation.OP.MUL;
-		} else if(op.equals("DIV")){
+		} else if(op.equals("div")){
 			opp = Operation.OP.DIV;
-		} else if(op.equals("UNDO")){
+		} else if(op.equals("undo")){
 			opp = Operation.OP.UNDO;
-		} else if(op.equals("REDO")){
+		} else if(op.equals("redo")){
 			opp = Operation.OP.REDO;
 		}
 		
-		int u = 0;
-		while((c!=',')||(u!=-1)){ 
-		u =  file.read();
-		c = (char) u;
+		u = 0;
+		//c = (char) file.read();
+		rows = 0;
+		cols = 0;
+		constant = 0;
+		if((!op.equals(("undo")))&&(!op.equals("redo"))){
+			System.err.printf("OP EQUALS: %s.\n", op);
 		sb = new StringBuilder();
-		rows =  file.read();         //Parse rows
+		rows =  Integer.parseInt(Character.toString((char) file.read()));           //Parse rows
 		argCount++;
-		u = file.read();
-		c = (char) u;
-		cols = (char) file.read();         //Parse cols
+		c = (char) file.read();
+		
+		
+		cols = Integer.parseInt(Character.toString((char) file.read()));           //Parse cols
+		argCount++; 
+		c = (char) file.read();
+		
+		
+		if(!op.equals("clear")){
+		constant = Integer.parseInt(Character.toString((char) file.read()));         //Parse constant
 		argCount++;
-		u = file.read();    
-		c = (char) u;
-		constant = (char) file.read();       //Parse constant
-		argCount++;
-		u = file.read();   
-		c = (char) u;
-		u=-1;                                     //Break while loop  
+		c = (char) file.read();
 		}
+		u = file.read();
+		c = (char) file.read();
+		}
+
+		System.err.printf("Name: %s User: %s OP: %s Timestamp: %d Rows: %d Cols: %d Constant: %d\n", docName, user, op, timestamp,rows, cols, constant);
+	
 		if(argCount==0){
 		ops.add(new Operation(docName, user, opp, timestamp));
 		}
@@ -167,6 +202,8 @@ public class Server {
 		else if(argCount==3){
 			ops.add(new Operation(docName, user, opp, rows, cols, constant, timestamp));
     	}
+		argCount=0;
+		}
     	}
 		catch(IOException e){
 			e.printStackTrace();
