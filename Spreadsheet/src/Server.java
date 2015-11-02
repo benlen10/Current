@@ -5,7 +5,7 @@ import java.util.ArrayList;
 //import Operation.OP;
 
 public class Server {
-    private Database dat;
+    public Database dat;
     private String inputFileName;
     private String outputFileName;
     private List<Operation> ops;
@@ -41,7 +41,6 @@ public class Server {
 		long timestamp;
 		int i =0;
 		int argCount = 0;
-		System.err.printf("%c", c);
 		int docCount = Integer.parseInt(Character.toString((char) file.read()));
 		String docName, op,user;
 		Operation.OP opp;
@@ -51,7 +50,6 @@ public class Server {
 		c = (char) file.read();
 		c = (char) file.read();
 		c = (char) file.read();
-		System.err.printf("DocCount: %d\n",docCount);
 		while(i<docCount){
 			
 			while(c!=','){                               //Parse DocName
@@ -81,7 +79,7 @@ public class Server {
 					stat = false;
 				}
 			}
-			users.add(new User(sb.toString()));
+			users.add(new User(sb.toString()));                      //Parse Users
 			//System.err.printf("USER:%s\n",sb.toString());
 			sb = new StringBuilder();
 			c = (char) file.read();
@@ -97,7 +95,7 @@ public class Server {
 			cols = 0;
 			constant = 0;
 			sb = new StringBuilder();         	
-			System.err.println("LOOP");
+			//System.err.println("LOOP");
 		while(c!=','){       
 			sb.append(c);
 			c = (char) file.read();
@@ -130,11 +128,11 @@ public class Server {
 			u = file.read();
 			c = (char) u;
 		}
-		System.err.printf("UVALUE:%d   %c\n",u,c);
+		//System.err.printf("UVALUE:%d   %c\n",u,c);
 		op = sb.toString();
 		if(u==-1){   //Break while loop  
 			stat2 = false;
-			System.err.println("FALSE");
+			//System.err.println("FALSE");
 		}
 		
 		if(c=='\n'){
@@ -169,7 +167,7 @@ public class Server {
 		cols = 0;
 		constant = 0;
 		if((!op.equals(("undo")))&&(!op.equals("redo"))){
-			System.err.printf("OP EQUALS: %s.\n", op);
+			//System.err.printf("OP EQUALS: %s.\n", op);
 		sb = new StringBuilder();
 		rows =  Integer.parseInt(Character.toString((char) file.read()));           //Parse rows
 		argCount++;
@@ -190,7 +188,7 @@ public class Server {
 		c = (char) file.read();
 		}
 
-		System.err.printf("Name: %s User: %s OP: %s Timestamp: %d Rows: %d Cols: %d Constant: %d\n", docName, user, op, timestamp,rows, cols, constant);
+		//System.err.printf("Name: %s User: %s OP: %s Timestamp: %d Rows: %d Cols: %d Constant: %d\n", docName, user, op, timestamp,rows, cols, constant);
 	
 		if(argCount==0){
 		ops.add(new Operation(docName, user, opp, timestamp));

@@ -23,23 +23,30 @@ public class Document {
     }
 
     public void update(Operation operation) {
+    	System.err.println("LOOP");
       if(operation.getOp() == op2.SET){
-    	  doc[operation.getColIndex()][operation.getRowIndex()] = operation.getConstant();
+    	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
+    	  doc[operation.getRowIndex()][operation.getColIndex()] = operation.getConstant();
     	  
       } else if(operation.getOp() == op2.CLEAR){
-    	  doc[operation.getColIndex()][operation.getRowIndex()] = 0;
+    	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
+    	  doc[operation.getRowIndex()][operation.getColIndex()] = 0;
     	  
       } else if(operation.getOp() == op2.ADD){
-    	  doc[operation.getColIndex()][operation.getRowIndex()] =+ operation.getConstant();
+    	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
+    	  doc[operation.getRowIndex()][operation.getColIndex()] =+ operation.getConstant();
     	  
       } else if(operation.getOp() == op2.SUB){
-    	  doc[operation.getColIndex()][operation.getRowIndex()] =- operation.getConstant();
+    	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
+    	  doc[operation.getRowIndex()][operation.getColIndex()] =- operation.getConstant();
     	  
       }  else if(operation.getOp() == op2.MUL){
-    	  doc[operation.getColIndex()][operation.getRowIndex()] = doc[operation.getColIndex()][operation.getRowIndex()] * operation.getConstant();
+    	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
+    	  doc[operation.getRowIndex()][operation.getColIndex()] = doc[operation.getColIndex()][operation.getRowIndex()] * operation.getConstant();
     	  
       } else if(operation.getOp() == op2.DIV){
-    	  doc[operation.getColIndex()][operation.getRowIndex()] =doc[operation.getColIndex()][operation.getRowIndex()] / operation.getConstant();
+    	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
+    	  doc[operation.getRowIndex()][operation.getColIndex()] =doc[operation.getColIndex()][operation.getRowIndex()] / operation.getConstant();
     	  
       } else if(operation.getOp() == op2.UNDO){
     	  WAL w = getUserByUserId(operation.getUserId()).popWALForUndo();
@@ -57,10 +64,13 @@ public class Document {
     }
 
     private User getUserByUserId(String userId) {
-    	Iterator it =  userList.iterator();
+    	//System.err.printf("UserID: %s.\n",userId);
+    	Iterator<User> it =  userList.iterator();
     	while(it.hasNext()){
-    		User u = (User) it.next();
-    		if(u.getUserId()==userId){
+    		User u = it.next();
+    		//System.err.printf("User: %s\n",u.getUserId());
+    		if(u.getUserId().contains(userId)){
+    			
     			return u;
     		}
     	}
