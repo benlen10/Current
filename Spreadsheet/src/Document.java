@@ -23,7 +23,7 @@ public class Document {
     }
 
     public void update(Operation operation) {
-    	System.err.println("LOOP");
+    	//System.err.println("LOOP");
       if(operation.getOp() == op2.SET){
     	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
     	  doc[operation.getRowIndex()][operation.getColIndex()] = operation.getConstant();
@@ -49,10 +49,12 @@ public class Document {
     	  doc[operation.getRowIndex()][operation.getColIndex()] =doc[operation.getColIndex()][operation.getRowIndex()] / operation.getConstant();
     	  
       } else if(operation.getOp() == op2.UNDO){
+    	  getUserByUserId(operation.getUserId()).pushWALForRedo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
     	  WAL w = getUserByUserId(operation.getUserId()).popWALForUndo();
     	  doc[w.getRowIndex()][w.getColIndex()] = w.getOldValue();
     	  
       } else if(operation.getOp() == op2.REDO){
+    	  getUserByUserId(operation.getUserId()).pushWALForRedo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
     	  WAL w = getUserByUserId(operation.getUserId()).popWALForRedo();
     	  doc[w.getRowIndex()][w.getColIndex()] = w.getOldValue();
     	  

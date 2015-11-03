@@ -1,0 +1,78 @@
+Document Name: doc1     Size: [5, 5]
+ Table:
+0      0      0      0      0      
+0      0      0      2      0      
+0      0      0      0      0      
+0      0      0      0      0      
+0      0      0      0      0      
+
+Document Name: doc1     Size: [5, 5]
+ Table:
+0      0      0      0      0      
+0      0      0      2      3      
+0      0      0      0      0      
+0      0      0      0      0      
+0      0      0      0      0      
+
+Document Name: doc1     Size: [5, 5]
+ Table:
+0      0      0      0      0      
+0      0      0      0      3      
+0      0      0      0      0      
+0      0      0      0      0      
+0      0      0      0      0      
+
+Document Name: doc1     Size: [5, 5]
+ Table:
+0      0      0      0      0      
+0      0      0      0      3      
+0      0      0      0      0      
+0      0      0      0      0      
+0      0      0      0      0      
+
+Document Name: doc1     Size: [5, 5]
+ Table:
+0      0      0      0      0      
+0      0      0      0      3      
+0      0      0      0      0      
+0      0      0      0      0      
+0      0      0      0      0      
+
+Document Name: doc1     Size: [5, 5]
+ Table:
+0      0      0      0      0      
+0      0      0      0      3      
+0      0      0      0      0      
+0      2      0      0      0      
+0      0      0      0      0      
+
+Document Name: doc2     Size: [3, 5]
+ Table:
+0      0      0      0      0      
+0      3      0      0      0      
+0      0      0      0      0      
+
+Document Name: doc2     Size: [3, 5]
+ Table:
+0      0      0      0      0      
+0      4      0      0      0      
+0      0      0      0      0      
+
+Document Name: doc2     Size: [3, 5]
+ Table:
+0      0      0      0      0      
+0      0      0      0      0      
+0      0      0      0      0      
+
+Document Name: doc2     Size: [3, 5]
+ Table:
+0      0      0      0      0      
+0      0      0      0      0      
+0      0      0      0      0      
+
+Document Name: doc2     Size: [3, 5]
+ Table:
+0      0      0      0      0      
+0      3      0      0      0      
+0      0      0      0      0      
+
