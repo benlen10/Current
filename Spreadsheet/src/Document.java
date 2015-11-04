@@ -34,11 +34,11 @@ public class Document {
     	  
       } else if(operation.getOp() == op2.ADD){
     	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
-    	  doc[operation.getRowIndex()][operation.getColIndex()] =+ operation.getConstant();
+    	  doc[operation.getRowIndex()][operation.getColIndex()] = doc[operation.getRowIndex()][operation.getColIndex()] +  operation.getConstant();
     	  
       } else if(operation.getOp() == op2.SUB){
     	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
-    	  doc[operation.getRowIndex()][operation.getColIndex()] =- operation.getConstant();
+    	  doc[operation.getRowIndex()][operation.getColIndex()] = doc[operation.getRowIndex()][operation.getColIndex()] - operation.getConstant();
     	  
       }  else if(operation.getOp() == op2.MUL){
     	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
@@ -54,7 +54,7 @@ public class Document {
     	  doc[w.getRowIndex()][w.getColIndex()] = w.getOldValue();
     	  
       } else if(operation.getOp() == op2.REDO){
-    	  getUserByUserId(operation.getUserId()).pushWALForRedo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
+    	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getColIndex(),operation.getRowIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
     	  WAL w = getUserByUserId(operation.getUserId()).popWALForRedo();
     	  doc[w.getRowIndex()][w.getColIndex()] = w.getOldValue();
     	  
@@ -83,9 +83,11 @@ public class Document {
        return doc[rowIndex][colIndex];
     }
 
-    public String toString() {
+    public String toString(Operation op) {
        StringBuilder sb = new StringBuilder();
-       sb.append(String.format("Document Name: %s     Size: [%d, %d]\n Table:\n", getDocName(), rowSize, colSize));
+       sb.append("----------Update Database----------\n");
+       sb.append(op.toString());
+       sb.append(String.format("Document Name: %s     Size: [%d, %d]\nTable:\n", getDocName(), rowSize, colSize));
        int i, x;
        for(i=0; i<rowSize; i++){
     	   for(x=0; x<colSize; x++){

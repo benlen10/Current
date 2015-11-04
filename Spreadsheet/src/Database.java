@@ -20,7 +20,7 @@ public class Database {
     public String update(Operation operation) {
     	Document d = getDocumentByDocumentName(operation.getDocName());
         d.update(operation);
-        return d.toString();
+        return d.toString(operation);
     }
 
     private Document getDocumentByDocumentName(String docName) {

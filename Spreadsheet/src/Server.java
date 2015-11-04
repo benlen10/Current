@@ -210,10 +210,8 @@ public class Server {
 
     private void process() {
        Iterator<Operation> it = ops.iterator();
-       while(it.hasNext()){
-    		  
+       while(it.hasNext()){  
      	  writer.println(dat.update(it.next()));
-
      	  }
        }
 

@@ -14,6 +14,7 @@ public class Operation {
     private String docName;
     private String userId;
     private OP op;
+    private String o;
     private int rowIndex;
     private int colIndex;
     private int constant;
@@ -28,6 +29,7 @@ public class Operation {
        this.colIndex=colIndex;
        this.constant = constant;
        this.timestamp = timestamp;
+       this.o=o;
     }
 
     public Operation(String docName, String userId, OP op, int rowIndex, int
@@ -73,7 +75,14 @@ public class Operation {
     }
 
     public String toString() {
-        //TODO return formatted string representation of this operation.
-        throw new RuntimeException("toString not implemented");
+    	if(op.toString().contains("UNDO")||op.toString().contains("REDO")){
+    		return String.format("%d	%s	%s	%s\n\n",timestamp, docName, userId, op.toString().toLowerCase());
+    	}
+    	else if(op.toString().contains("CLEAR")){
+        return String.format("%d	%s	%s	%s  [%d][%d]\n\n",timestamp, docName, userId, op.toString().toLowerCase(), rowIndex, colIndex);
+    	}
+    	else{
+    		 return String.format("%d	%s	%s	%s  [%d][%d]	%d\n\n",timestamp, docName, userId, op.toString().toLowerCase(), rowIndex, colIndex,constant);
+    	}
     }
 }
