@@ -79,10 +79,10 @@ public class Operation {
     		return String.format("%d	%s	%s	%s\n\n",timestamp, docName, userId, op.toString().toLowerCase());
     	}
     	else if(op.toString().contains("CLEAR")){
-        return String.format("%d	%s	%s	%s  [%d][%d]\n\n",timestamp, docName, userId, op.toString().toLowerCase(), rowIndex, colIndex);
+        return String.format("%d	%s	%s	%s	[%d,%d]\n\n",timestamp, docName, userId, op.toString().toLowerCase(), rowIndex, colIndex);
     	}
     	else{
-    		 return String.format("%d	%s	%s	%s  [%d][%d]	%d\n\n",timestamp, docName, userId, op.toString().toLowerCase(), rowIndex, colIndex,constant);
+    		 return String.format("%d	%s	%s	%s	[%d,%d]	%d\n\n",timestamp, docName, userId, op.toString().toLowerCase(), rowIndex, colIndex,constant);
     	}
     }
 }

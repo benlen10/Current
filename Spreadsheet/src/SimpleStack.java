@@ -34,6 +34,8 @@ public class SimpleStack<E> implements StackADT<E> {
     	}
     	
     	stack[++cur]= item;
+    	WAL w = (WAL) item;
+    	System.err.printf("PUSH:%d\n",w.getOldValue() );
     	size++;
     }
 
