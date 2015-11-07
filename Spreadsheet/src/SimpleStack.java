@@ -1,3 +1,11 @@
+//Main Class File:   Spreadsheet Server (Project 3)
+//File:                  SimpleStack.java
+//Semester:          Fall 2015
+
+//Author:         Ben Leninton
+//Email:           lenington@wisc.edu
+//CS Login:      lenington
+//Lecturer's Name:  Jim Skrentny
 /**
  * An ordered collection of items, where items are both added
  * and removed from the top.
@@ -21,7 +29,11 @@ public class SimpleStack<E> implements StackADT<E> {
         size = 0;
     }
 
-
+    /**
+     * Adds item to the top of the stack.
+     * @param item the item to add to the stack.
+     * @throws IllegalArgumentException if item is null.
+     */
     public void push(E item) {
     	if(size==maxSize){
     		maxSize = (maxSize * 2);
@@ -39,7 +51,11 @@ public class SimpleStack<E> implements StackADT<E> {
     	size++;
     }
 
-
+    /**
+     * Removes the item on the top of the Stack and returns it.
+     * @return the top item in the stack.
+     * @throws EmptyStackException if the stack is empty.
+     */
     public E pop() {
     	if(size==0){
     		throw new EmptyStackException();
@@ -53,8 +69,12 @@ public class SimpleStack<E> implements StackADT<E> {
     	}
     }
 
- 
-    public E peek() {
+    /**
+     * Returns the item on top of the Stack without removing it.
+     * @return the top item in the stack.
+     * @throws EmptyStackException if the stack is empty.
+     */
+	 public E peek() {
     	if(size==0){
     		throw new EmptyStackException();
     	}
@@ -64,7 +84,10 @@ public class SimpleStack<E> implements StackADT<E> {
     	
     }
 
-    
+	 /**
+	     * Returns true iff the Stack is empty.
+	     * @return true if stack is empty; otherwise false.
+	     */
     public boolean isEmpty() {
         if(size==0){
         	return true;

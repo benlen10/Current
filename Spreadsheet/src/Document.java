@@ -1,3 +1,12 @@
+//Main Class File:   Spreadsheet Server (Project 3)
+//File:                  Document.java
+//Semester:          Fall 2015
+
+//Author:         Ben Leninton
+//Email:           lenington@wisc.edu
+//CS Login:      lenington
+//Lecturer's Name:  Jim Skrentny
+
 import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
@@ -5,6 +14,10 @@ import java.util.Iterator;
 import java.lang.StringBuilder;
 
 public class Document {
+	/*
+	 * The Document class is responsible for creating document objects and stores
+	 * information including row size, column size, the user list and current cell data.
+	 */
     private String docName;
     private int rowSize;
     private int colSize;
@@ -15,6 +28,7 @@ public class Document {
 
     public Document(String docName, int rowSize, int colSize, List<User>
             userList) {
+    	//Creates a new Document object and stores values
        this.docName=docName;
        this.rowSize = rowSize;
        this.colSize = colSize;
@@ -24,6 +38,7 @@ public class Document {
     }
     
     public List<String> getAllUserIds() {
+    	//Returns an array list of the UserIDs
        List<String> userIds = new ArrayList<String>();
        Iterator<User> it = userList.iterator();
        while(it.hasNext()){
@@ -33,7 +48,8 @@ public class Document {
     }
 
     public void update(Operation operation) {
-    	//System.err.println("LOOP");
+    	//Applies the specified operation to the current document
+    	//@param specific operation to apply
       if(operation.getOp() == op2.SET){
     	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getRowIndex(),operation.getColIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
     	  doc[operation.getRowIndex()][operation.getColIndex()] = operation.getConstant();
@@ -61,32 +77,28 @@ public class Document {
       } else if(operation.getOp() == op2.UNDO){
     	  WAL w = getUserByUserId(operation.getUserId()).popWALForUndo();
     	  getUserByUserId(operation.getUserId()).pushWALForRedo(new WAL(w.getRowIndex(),w.getColIndex(), doc[w.getRowIndex()][w.getColIndex()]));
-    	  System.err.printf("PRE%d\n",doc[w.getRowIndex()][w.getColIndex()]);
     	  doc[w.getRowIndex()][w.getColIndex()] = w.getOldValue();
-    	  System.err.printf("UNDO [%d][%d]%d\n",w.getRowIndex(), w.getColIndex(), w.getOldValue());
-    	  System.err.printf("RESULT%d\n",doc[w.getRowIndex()][w.getColIndex()]);
-    	  
+	  
       } else if(operation.getOp() == op2.REDO){
     	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getRowIndex(),operation.getColIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
     	  WAL w = getUserByUserId(operation.getUserId()).popWALForRedo();
-    	  System.err.printf("PRE%d\n",doc[w.getRowIndex()][w.getColIndex()]);
     	  doc[w.getRowIndex()][w.getColIndex()] = w.getOldValue();
-    	  System.err.printf("REDO [%d][%d]%d\n",w.getRowIndex(), w.getColIndex(), w.getOldValue());
-    	  System.err.printf("RESULT%d\n",doc[w.getRowIndex()][w.getColIndex()]);
+    	  
     	  
       }
     }
 
     public String getDocName() {
+    	//Return the name of the Document object
         return docName;
     }
 
-    private User getUserByUserId(String userId) {
-    	//System.err.printf("UserID: %s.\n",userId);
+    private User getUserByUserId(String userId) {  
+    	//Return the User object matching the ID
+    	//@param userId: The id to match with a User object
     	Iterator<User> it =  userList.iterator();
     	while(it.hasNext()){
     		User u = it.next();
-    		//System.err.printf("User: %s\n",u.getUserId());
     		if(u.getUserId().contains(userId)){
     			
     			return u;
@@ -96,11 +108,14 @@ public class Document {
     }
 
     public int getCellValue(int rowIndex, int colIndex){
+    	//Return the value at the specified position
        return doc[rowIndex][colIndex];
     }
     
 
     public String toString(Operation op) {
+    	//Return the string representation of the operation
+    	//@param op. The operation to convert to a string
        StringBuilder sb = new StringBuilder();
        sb.append("----------Update Database----------\n");
        sb.append(op.toString());

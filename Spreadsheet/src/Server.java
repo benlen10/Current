@@ -1,3 +1,13 @@
+//Title:            Spreadsheet Server (Project 3)
+//Files:            Database.java, Document.java, EmptyQueueException.java, EmptyStackException.java, Operation.java, QueueADT.Java,
+//                    SimpleQueue.java, SimpleStack.java, StackADT.java, User.java, WAL.java
+//Semester:     Fall 2015
+//
+//Author:         Ben Lenington
+//Email:           lenington@wisc.edu
+//CS Login:      lenington
+//Lecturer's Name:  Jim Skrentny
+
 import java.io.*;
 import java.util.List;
 import java.util.Iterator;
@@ -5,6 +15,9 @@ import java.util.ArrayList;
 //import Operation.OP;
 
 public class Server {
+	/*
+	 * The main class for the spreadsheet program responsible for the program flow and parsing the input file.
+	 */
     public Database dat;
     private String inputFileName;
     private String outputFileName;
@@ -25,11 +38,13 @@ public class Server {
     }
 
     public void run(){
+    	//Preform the essential server processes in the two methods
         initialize();
         process();
     }
 
     private void initialize() {
+    	//Parse the input text file creating Document and User objects.
     	try{
     	BufferedReader file = new BufferedReader(new FileReader(inputFileName));
     	StringBuilder sb = new StringBuilder();  
@@ -40,7 +55,7 @@ public class Server {
 		int constant = 0;
 		long timestamp;
 		int i =0;
-		int argCount = 0;
+		int argCount = 0;    //Keep track of the number of args following the operation
 		int docCount = Integer.parseInt(Character.toString((char) file.read()));
 		String docName, op,user;
 		Operation.OP opp;
@@ -69,33 +84,32 @@ public class Server {
 			sb = new StringBuilder();
 			c = (char) file.read();
 			c = (char) file.read();
-			boolean stat = true;
+			boolean stat = true;       //A boolean value to detect when a '\n' char is hit
 			while(stat){  
 			while((c!=',')&&stat){       
 				sb.append(c);
 				c = (char) file.read();
-				//System.err.printf("%c", c);
 				if(c=='\n'){
 					stat = false;
 				}
 			}
 			users.add(new User(sb.toString()));                      //Parse Users
-			//System.err.printf("USER:%s\n",sb.toString());
+			
 			sb = new StringBuilder();
 			c = (char) file.read();
 			}
-			//System.err.printf("Name: %s Rows: %d Cols: %d\n", docName, rows, cols);
+	
 			dat.addDocument(new Document(docName, rows, cols, users));
 			i++;
 		}
-		 boolean stat2=true;
+		 boolean stat2=true;  //A boolean value to break the outer while loop once the end of the file is reached.
+		 
 														//PROCESS OPERATIONS 
 		while(stat2){
 			rows = 0;
 			cols = 0;
 			constant = 0;
 			sb = new StringBuilder();         	
-			//System.err.println("LOOP");
 		while(c!=','){       
 			sb.append(c);
 			c = (char) file.read();
@@ -120,7 +134,6 @@ public class Server {
 		
 		sb = new StringBuilder();              
 		c = (char) file.read();
-		//sb.append(c);
 		int u=0;
 		while((c!=',')&&(c!='\n')&&(u!=-1)){     
 			
@@ -128,11 +141,9 @@ public class Server {
 			u = file.read();
 			c = (char) u;
 		}
-		//System.err.printf("UVALUE:%d   %c\n",u,c);
 		op = sb.toString();
 		if(u==-1){   //Break while loop  
 			stat2 = false;
-			//System.err.println("FALSE");
 		}
 		
 		if(c=='\n'){
@@ -162,12 +173,10 @@ public class Server {
 		}
 		
 		u = 0;
-		//c = (char) file.read();
 		rows = 0;
 		cols = 0;
 		constant = 0;
 		if((!op.equals(("undo")))&&(!op.equals("redo"))){
-			//System.err.printf("OP EQUALS: %s.\n", op);
 		sb = new StringBuilder();
 		rows =  Integer.parseInt(Character.toString((char) file.read()));           //Parse rows
 		argCount++;
@@ -187,8 +196,6 @@ public class Server {
 		u = file.read();
 		c = (char) file.read();
 		}
-
-		//System.err.printf("Name: %s User: %s OP: %s Timestamp: %d Rows: %d Cols: %d Constant: %d\n", docName, user, op, timestamp,rows, cols, constant);
 	
 		if(argCount==0){
 		ops.add(new Operation(docName, user, opp, timestamp));
@@ -209,6 +216,7 @@ public class Server {
     }
 
     private void process() {
+    	//Process the operations in the ops queue one by one
        Iterator<Operation> it = ops.iterator();
        while(it.hasNext()){  
      	  writer.println(dat.update(it.next()));
@@ -217,6 +225,7 @@ public class Server {
 
 
     public static void main(String[] args){
+    	//The starting point for the program which passes in the text file names when creating a new Server object.
         if(args.length != 2){
             System.out.println("Usage: java Server [input.txt] [output.txt]");
             System.exit(0);

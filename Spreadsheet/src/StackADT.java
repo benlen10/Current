@@ -1,3 +1,12 @@
+//Main Class File:   Spreadsheet Server (Project 3)
+//File:                  StackADT.java
+//Semester:          Fall 2015
+
+//Author:         Ben Leninton
+//Email:           lenington@wisc.edu
+//CS Login:      lenington
+//Lecturer's Name:  Jim Skrentny
+
 /**
  * An ordered collection of items, where items are both added
  * and removed from the top.
