@@ -17,6 +17,9 @@ public class WAL {
 	
 	//Create a new WAL object and store the values to local vars
     public WAL(int rowIndex, int colIndex, int oldValue) {
+    	if((rowIndex<0)||(colIndex<0)){
+    		throw new IllegalArgumentException();
+    	}
     	this.rowIndex = rowIndex;
     	this.colIndex = colIndex;
     	this.oldValue = oldValue;

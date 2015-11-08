@@ -27,6 +27,9 @@ public class Database {
     public void addDocument(Document doc) {
     	//Add the doc object to the ArrayList
     	//@ param doc. Document object to add
+    	if(doc==null){
+    		throw new IllegalArgumentException();
+    	}
        docs.add(doc);
     }
 

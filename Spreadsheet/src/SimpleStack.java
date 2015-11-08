@@ -35,6 +35,9 @@ public class SimpleStack<E> implements StackADT<E> {
      * @throws IllegalArgumentException if item is null.
      */
     public void push(E item) {
+    	if(item==null){
+    		throw new IllegalArgumentException();
+    	}
     	if(size==maxSize){
     		maxSize = (maxSize * 2);
     		int i;
@@ -47,7 +50,7 @@ public class SimpleStack<E> implements StackADT<E> {
     	
     	stack[++cur]= item;
     	WAL w = (WAL) item;
-    	System.err.printf("PUSH:%d\n",w.getOldValue() );
+    	
     	size++;
     }
 

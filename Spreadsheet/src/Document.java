@@ -29,6 +29,9 @@ public class Document {
     public Document(String docName, int rowSize, int colSize, List<User>
             userList) {
     	//Creates a new Document object and stores values
+    	if((docName.length()<1)||(docName==null)||(rowSize<1)||(colSize<1)){
+    		throw new IllegalArgumentException();
+    	}
        this.docName=docName;
        this.rowSize = rowSize;
        this.colSize = colSize;
@@ -50,6 +53,7 @@ public class Document {
     public void update(Operation operation) {
     	//Applies the specified operation to the current document
     	//@param specific operation to apply
+    	
       if(operation.getOp() == op2.SET){
     	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getRowIndex(),operation.getColIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
     	  doc[operation.getRowIndex()][operation.getColIndex()] = operation.getConstant();
@@ -80,11 +84,12 @@ public class Document {
     	  doc[w.getRowIndex()][w.getColIndex()] = w.getOldValue();
 	  
       } else if(operation.getOp() == op2.REDO){
-    	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(operation.getRowIndex(),operation.getColIndex(), doc[operation.getRowIndex()][operation.getColIndex()]));
     	  WAL w = getUserByUserId(operation.getUserId()).popWALForRedo();
+    	  getUserByUserId(operation.getUserId()).pushWALForUndo(new WAL(w.getRowIndex(),w.getColIndex(), doc[w.getRowIndex()][w.getColIndex()]));
     	  doc[w.getRowIndex()][w.getColIndex()] = w.getOldValue();
-    	  
-    	  
+      }
+      else{
+    	  throw new IllegalArgumentException();
       }
     }
 
@@ -108,6 +113,9 @@ public class Document {
     }
 
     public int getCellValue(int rowIndex, int colIndex){
+    	if((rowIndex>=rowSize)||(colIndex>=colSize)){
+    		throw new IllegalArgumentException();
+    	}
     	//Return the value at the specified position
        return doc[rowIndex][colIndex];
     }

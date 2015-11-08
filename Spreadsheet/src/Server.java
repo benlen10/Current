@@ -74,6 +74,13 @@ public class Server {
 				c = (char) file.read();
 				
 			}
+			Iterator<Document> it = dat.getDocumentList().iterator();        //Check to see if the document name is a duplicate
+			while(it.hasNext()){
+					if(it.next().getDocName().equals(sb.toString())){
+						throw new IllegalArgumentException();
+					}
+				}
+
 			docName = sb.toString();
 
 			
@@ -93,7 +100,20 @@ public class Server {
 					stat = false;
 				}
 			}
-			users.add(new User(sb.toString()));                      //Parse Users
+			boolean dupUser = false;        //Determines if a userId already exists in the user database
+			
+			Iterator<Document> itt = dat.getDocumentList().iterator();        //Check to see if userId is a duplicate
+			while(itt.hasNext()){
+				Iterator<String> it2 = itt.next().getAllUserIds().iterator();
+				while(it2.hasNext()){
+					if(it2.next().equals(sb.toString())){
+						dupUser=true;
+					}
+				}
+			}
+			if(!dupUser){
+				users.add(new User(sb.toString()));                      //Parse Users
+			}
 			
 			sb = new StringBuilder();
 			c = (char) file.read();

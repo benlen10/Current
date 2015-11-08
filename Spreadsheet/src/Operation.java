@@ -37,6 +37,14 @@ public class Operation {
     public Operation(String docName, String userId, OP op, int rowIndex, int
             colIndex, int constant, long timestamp) {
     	//Creates a new operation object and stores the data to local variables 
+    	Operation.OP op2 = Operation.OP.SET;
+    	if(!((op ==op2.SET)||(op ==op2.CLEAR)||(op ==op2.ADD)||(op ==op2.SUB)||(op ==op2.MUL)||(op ==op2.DIV)||(op ==op2.UNDO)||(op ==op2.REDO)) ){
+    		throw new IllegalArgumentException();
+    	}
+    	if((docName.length()<1)||(docName==null)||(userId.length()<1)||(userId==null)||(rowIndex<0)||(colIndex<0)){
+    		throw new IllegalArgumentException();
+    	}
+    	
     	this.docName = docName;
        this.userId = userId;
        this.op=op;
@@ -50,6 +58,13 @@ public class Operation {
     public Operation(String docName, String userId, OP op, int rowIndex, int
             colIndex, long timestamp) {
     	//Creates a new operation object and stores the data to local variables 
+    	Operation.OP op2 = Operation.OP.SET;
+    	if(!((op ==op2.SET)||(op ==op2.CLEAR)||(op ==op2.ADD)||(op ==op2.SUB)||(op ==op2.MUL)||(op ==op2.DIV)||(op ==op2.UNDO)||(op ==op2.REDO)) ){
+    		throw new IllegalArgumentException();
+    	}
+    	if((docName.length()<1)||(docName==null)||(userId.length()<1)||(userId==null)||(rowIndex<0)||(colIndex<0)){
+    		throw new IllegalArgumentException();
+    	}
     	this.docName = docName;
         this.userId = userId;
         this.op=op;
@@ -61,6 +76,14 @@ public class Operation {
 
     public Operation(String docName, String userId, OP op, long timestamp) {
     	//Creates a new operation object and stores the data to local variables 
+    	Operation.OP op2 = Operation.OP.SET;
+    	if(!((op ==op2.SET)||(op ==op2.CLEAR)||(op ==op2.ADD)||(op ==op2.SUB)||(op ==op2.MUL)||(op ==op2.DIV)||(op ==op2.UNDO)||(op ==op2.REDO)) ){
+    		throw new IllegalArgumentException();
+    	}
+    	if((docName.length()<1)||(docName==null)||(userId.length()<1)||(userId==null)){
+    		throw new IllegalArgumentException();
+    	}
+    	
     	this.docName = docName;
         this.userId = userId;
         this.op=op;
@@ -84,16 +107,28 @@ public class Operation {
 
     public int getRowIndex() {
     	//Return the current Document object row index
+    	Operation.OP op2 = Operation.OP.SET;
+    	if((op ==op2.UNDO)||(op ==op2.REDO)){
+    		return -1;
+    	}
        return rowIndex;
     }
 
     public int getColIndex() {
     	//Return the current Document object column index
+    	Operation.OP op2 = Operation.OP.SET;
+    	if((op ==op2.UNDO)||(op ==op2.REDO)){
+    		return -1;
+    	}
        return colIndex;
     }
 
     public int getConstant() {
     	//Return the current Document object constant
+    	Operation.OP op2 = Operation.OP.SET;
+    	if((op ==op2.UNDO)||(op ==op2.REDO)||(op ==op2.CLEAR)){
+    		return -1;
+    	}
        return constant;
     }
 

@@ -12,13 +12,18 @@ public class User {
 	 * The class responsible for creating User objects and stores data such including the userId,
 	 * and the current undo and redo stacks of WAL objects.
 	 */
+
+	
     private String userId;
     SimpleStack<WAL> undo;
     SimpleStack<WAL> redo;
+
     
     //Create a new user Object and store the userId as well as creating new WAL stacks for undo and redo operations
     public User(String userId) {
-    	
+    	if((userId==null)||(userId.length()<1)){
+    		new IllegalArgumentException();
+    	}
        this.userId = userId;
        redo = new SimpleStack<WAL>();
        undo = new SimpleStack<WAL>();
@@ -36,11 +41,17 @@ public class User {
     
     //Push the undo WAL object to the top of the stack
     public void pushWALForUndo(WAL trans) {
+    	if(trans==null){
+    		throw new IllegalArgumentException();
+    	}
         undo.push(trans);
     }
     
     //Push the redo WAL object to the top of the stack 
     public void pushWALForRedo(WAL trans) {
+    	if(trans==null){
+    		throw new IllegalArgumentException();
+    	}
         redo.push(trans);
     }
     
