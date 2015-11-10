@@ -55,6 +55,7 @@ public class Database {
 		String user = "";
 		String pass = "";
 		String message = "";
+		while(c!='#'){
 		userarray[usercount] = new Users();   //Initialize current position
 		
 		StringBuilder sb = new StringBuilder();
@@ -65,7 +66,7 @@ public class Database {
 		}
 		
 		userarray[usercount].name = sb.toString();
-		System.out.println(userarray[usercount].name);
+		System.out.printf("User#%d, Name: %s\n", usercount, userarray[usercount].name);
 		c = (char) br.read();
 
 		 sb = new StringBuilder();
@@ -75,7 +76,8 @@ public class Database {
 			
 		}
 		userarray[usercount].setP(sb.toString());
-		System.out.println(userarray[usercount].getP());
+		System.out.printf("User#%d, Pass: %s\n", usercount, userarray[usercount].getP());
+		c = (char) br.read();
 
 		sb = new StringBuilder();
 		while((c!='|')&&(c!='\0')&&(c!='\n')){  //Message parse
@@ -84,10 +86,13 @@ public class Database {
 			
 		}
 		userarray[usercount].message = sb.toString();
-		System.out.println(userarray[usercount].message);
+		//System.out.println(sb.toString());
+		System.out.printf("User#%d, Message: %s\n", usercount, userarray[usercount].message);
 		
 		usercount++;
-		System.out.printf("Current usercount: %d", usercount);
+		}
+		
+		System.out.printf("Current usercount: %d\n", usercount);
 		}
 		catch (IOException e){
 			e.printStackTrace();
