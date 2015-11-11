@@ -25,16 +25,21 @@ public class Database {
 
 		System.out.println("Options: Add, Remove, Edit");
 		tmp = s.nextLine();
+		System.out.printf("Input:%s\n",tmp);
 		
 		//Parse Options
-		if (tmp=="Add"){
+		if (tmp.equals("Add")){
 			add();
 		}
-		else if(tmp == "Remove"){
+		else if(tmp.equals("Remove")){
 			remove();
 			
 		}
-		else if(tmp == "Edit"){
+		else if(tmp.equals("View")){
+			view();
+			
+		}
+		else if(tmp.equals("Edit")){
 			edit();
 		}
 		else{
@@ -67,7 +72,7 @@ public class Database {
 		}
 		
 		userarray[usercount].name = sb.toString();
-		System.out.printf("User#%d, Name: %s\n", usercount, userarray[usercount].name);
+		//System.out.printf("User#%d, Name: %s\n", usercount, userarray[usercount].name);
 		c = (char) br.read();
 
 		 sb = new StringBuilder();
@@ -77,7 +82,7 @@ public class Database {
 			
 		}
 		userarray[usercount].setP(sb.toString());
-		System.out.printf("User#%d, Pass: %s\n", usercount, userarray[usercount].getP());
+		//System.out.printf("User#%d, Pass: %s\n", usercount, userarray[usercount].getP());
 		c = (char) br.read();
 
 		sb = new StringBuilder();
@@ -87,7 +92,7 @@ public class Database {
 			
 		}
 		userarray[usercount].message = sb.toString();
-		System.out.printf("User#%d, Message: %s\n", usercount, userarray[usercount].message);
+		//System.out.printf("User#%d, Message: %s\n", usercount, userarray[usercount].message);
 		int x = 0;
 		while((c!='*')&&(x<10)){
 		c = (char) br.read();
@@ -130,6 +135,9 @@ public class Database {
 		usercount++;
 		System.out.printf("Summary: User: %s Pass: %s Message: %s", userarray[usercount].name, userarray[usercount].getP(), userarray[usercount].message );
 	}
+	public static void view(){
+	}
+	
 	
 	public static void remove(){
 		System.out.printf("Enter user name to remove");
