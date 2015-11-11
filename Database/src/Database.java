@@ -55,7 +55,8 @@ public class Database {
 		String user = "";
 		String pass = "";
 		String message = "";
-		while(c!='#'){
+		boolean status = true;
+		while(status == true){
 		userarray[usercount] = new Users();   //Initialize current position
 		
 		StringBuilder sb = new StringBuilder();
@@ -86,9 +87,18 @@ public class Database {
 			
 		}
 		userarray[usercount].message = sb.toString();
-		//System.out.println(sb.toString());
 		System.out.printf("User#%d, Message: %s\n", usercount, userarray[usercount].message);
+		int x = 0;
+		while((c!='*')&&(x<10)){
+		c = (char) br.read();
+		x++;
+		if(c=='#'){
+			status = false;
+		}
 		
+		//System.out.printf("Char:%c\n",c);
+		}
+		c = (char) br.read();
 		usercount++;
 		}
 		
