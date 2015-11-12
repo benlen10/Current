@@ -23,7 +23,7 @@ public class Database {
 		
 
 
-		System.out.println("Options: Add, Remove, Edit");
+		System.out.println("Options: View, Add, Remove, Edit");
 		tmp = s.nextLine();
 		System.out.printf("Input:%s\n",tmp);
 		
@@ -61,8 +61,16 @@ public class Database {
 		String pass = "";
 		String message = "";
 		boolean status = true;
+		
+		
+		if(c!='*'){
+			System.out.println("Invalid or corrupt userdata.txt");           //Userdata.txt integrity check 
+			return;
+		}
+		
 		while(status == true){
 		userarray[usercount] = new Users();   //Initialize current position
+		
 		
 		StringBuilder sb = new StringBuilder();
 		while((c!='|')&&(c!='\0')&&(c!='\n')){  //User parse
@@ -136,6 +144,9 @@ public class Database {
 		System.out.printf("Summary: User: %s Pass: %s Message: %s", userarray[usercount].name, userarray[usercount].getP(), userarray[usercount].message );
 	}
 	public static void view(){
+		for(int i = 0; i<usercount; i++){
+		System.out.printf("User %d: %s\n", i, userarray[i].name);
+		}
 	}
 	
 	
