@@ -125,13 +125,16 @@ public class Database {
 	}
 	
 	public static void addAdmin(){
-		//userarray[0].name = "admin";
-		//userarray[0].setP("admin");
-		//userarray[0].message = "Inital Account";
+		userarray[0] = new Users();
+		userarray[0].name = "admin";
+		userarray[0].setP("admin");
+		userarray[0].message = "Inital Account";
+		usercount++;
 		System.out.println("Inital admin user created");
 	}
 	
 	public static void add(){
+		userarray[usercount] = new Users();
 		Scanner s = new Scanner(System.in);
 		System.out.printf("Enter new user name");
 		tmp = s.nextLine();
