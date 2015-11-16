@@ -1,4 +1,7 @@
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -32,13 +35,33 @@ public class Scheduler {
 	}
 	
 	private static boolean initializeFromInputFile(String resourceListFile) {
+		long start;
+		long end;
+		String name;
+		String resource = " ";
+		String organization;
+		String description;
+		try (BufferedReader br = new BufferedReader(new FileReader(resourceListFile))) {
+		    String line;
+		    while ((line = br.readLine()) != null) {
+		       if(line.equals("#Resource:")){                          //Skip over #Resource:
+		    	   resource=br.readLine();
+		    	   schedulerDB.resources.add((new Resource(resource)));
+		       }
+		       name = br.readLine();
+		       start= Long.parseLong(br.readLine());  //Fix time parsing
+		       end= Long.parseLong(br.readLine());
+		       organization = br.readLine();
+		       description = br.readLine();
+		       schedulerDB.findResource(resource).addEvent(new Event( start,  end,  name,  resource,  organization,  description));
+		    }
+		    return true;
 		
-		//TODO Remove this exception and implement the method
-		/*
-		 * You will read the contents of the input file using Java File IO and
-		 * then process them to initialize your database
-		 */
-		throw new RuntimeException("initializeFromInputFile() not implemented.");
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	private static void processUserCommands() {
