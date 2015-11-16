@@ -5,66 +5,150 @@ import java.util.*;
 
 
 public class SchedulerDB {
-	//TODO add private data members
+	public List<Resource> resources;
 	
 	SchedulerDB(){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("Constructor not implemented.");
+		resources = new ArrayList<Resource>();
 	}
 	
 	public boolean addResource(String resource){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("addResource() not implemented.");
+		if(resource!=null){                                               //Check for dup
+		resources.add(new Resource(resource));
+		return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	public boolean removeResource(String r){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("removeResource() not implemented.");
+		Iterator<Resource> it = resources.iterator();
+		while(it.hasNext()){
+			Resource res =it.next();
+			if(res.getName().equals(r)){
+				resources.remove(res);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean addEvent(String r, long start, long end, String name, 
 			String organization, String description){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("addEvent() not implemented.");
+		Event e = new Event(start, end,  name,r ,organization, description);
+		Iterator<Resource> it = resources.iterator();
+		while(it.hasNext()){
+			Resource res =it.next();
+			if(res.getName().equals(r)){
+				res.addEvent(e);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean deleteEvent(long start, String resource){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("deleteEvent() not implemented.");
+		Iterator<Resource> it = resources.iterator();
+		while(it.hasNext()){
+			Resource res =it.next();
+			if(res.getName().equals(resource)){
+						return res.deleteEvent(start);
+					}
+		}
+		return false;
 	}
 	
 	public Resource findResource(String r){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("findResource() not implemented.");
+		Iterator<Resource> it = resources.iterator();
+		while(it.hasNext()){
+			Resource res =it.next();
+			if(res.getName().equals(r)){
+				return res;
+			}
+		}
+		return null;
 	}
 	
 	public List<Resource> getResources(){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("getResources() not implemented.");
+		return resources;
 	}
 	
 	public List<Event> getEventsInReource(String resource){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("getEventsInReource() not implemented.");
+		List<Event> events = new ArrayList<Event>();
+		Iterator<Resource> it = resources.iterator();
+		while(it.hasNext()){
+			Resource res =it.next();
+			if(res.getName().equals(resource)){
+				Iterator<Event> it2 = res.iterator();
+				while(it2.hasNext()){
+					events.add(it2.next());
+				}
+			}
+		}
+		return events;
 	}
 	
 	public List<Event> getEventsInRange(long start, long end){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("getEventsInRange() not implemented.");
+		List<Event> events = new ArrayList<Event>();
+		Iterator<Resource> it = resources.iterator();
+		while(it.hasNext()){
+			Resource res =it.next();
+				Iterator<Event> it2 = res.iterator();
+				while(it2.hasNext()){
+					Event e = it2.next();
+					if((e.getStart()>=start)&&(e.getEnd()<=end)){
+					events.add(e);
+					}
+				}
+		}
+		return events;
 	}	
 	
 	public List<Event> getEventsInRangeInReource(long start, long end, String resource){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("getEventsInRangeInReource() not implemented.");
+		List<Event> events = new ArrayList<Event>();
+		Iterator<Resource> it = resources.iterator();
+		while(it.hasNext()){
+			Resource res =it.next();
+			if(res.getName().equals(resource)){
+				Iterator<Event> it2 = res.iterator();
+				while(it2.hasNext()){
+					Event e = it2.next();
+					if((e.getStart()>=start)&&(e.getEnd()<=end)){
+					events.add(e);
+					}
+				}
+			}
+		}
+		return events;
 	}
 	
 	public List<Event> getAllEvents(){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("getAllEvents() not implemented.");
+		List<Event> events = new ArrayList<Event>();
+		Iterator<Resource> it = resources.iterator();
+		while(it.hasNext()){
+			Resource res =it.next();
+				Iterator<Event> it2 = res.iterator();
+				while(it2.hasNext()){
+					Event e = it2.next();
+					events.add(e);
+				}
+		}
+		return events;
 	}
 	
 	public List<Event> getEventsForOrg(String org){
-		//TODO Remove this exception and implement the method
-		throw new RuntimeException("getEventsForOrg() not implemented.");
+		List<Event> events = new ArrayList<Event>();
+		Iterator<Resource> it = resources.iterator();
+		while(it.hasNext()){
+			Resource res =it.next();
+				Iterator<Event> it2 = res.iterator();
+				while(it2.hasNext()){
+					Event e = it2.next();
+					if(e.getOrganization().equals(org)){
+					events.add(e);
+					}
+				}
+		}
+		return events;
 	}
 }

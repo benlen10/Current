@@ -1,13 +1,11 @@
 
 class IntervalBSTnode<K extends Interval> {
 	private K keyValue;
-	private IntervalBSTnode<K> leftChild;
-	private IntervalBSTnode<K> rightChild;
+	IntervalBSTnode<K> leftChild;
+	IntervalBSTnode<K> rightChild;
 	private long maxEnd;
 	
-	
-	
- 
+
     public IntervalBSTnode(K keyValue) {
 		this.keyValue = keyValue;
 		leftChild = null;
