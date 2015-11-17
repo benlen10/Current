@@ -44,13 +44,16 @@ public class Scheduler {
 		try (BufferedReader br = new BufferedReader(new FileReader(resourceListFile))) {
 		    String line;
 		    while ((line = br.readLine()) != null) {
-		       if(line.equals("#Resource:")){                          //Skip over #Resource:
+		       if(line.contains("#Resource:")){                          //Skip over #Resource:
 		    	   resource=br.readLine();
+		    	   System.err.println("YES\n\n");
 		    	   schedulerDB.resources.add((new Resource(resource)));
 		       }
 		       name = br.readLine();
-		       start= Long.parseLong(br.readLine());  //Fix time parsing
-		       end= Long.parseLong(br.readLine());
+		       start= 0000; //Long.parseLong(br.readLine());  //Fix time parsing
+		       br.readLine();
+		       end=  0000; //Long.parseLong(br.readLine());
+		       br.readLine();
 		       organization = br.readLine();
 		       description = br.readLine();
 		       schedulerDB.findResource(resource).addEvent(new Event( start,  end,  name,  resource,  organization,  description));
