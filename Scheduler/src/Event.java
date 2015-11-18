@@ -68,12 +68,12 @@ private String description;
 	
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
-		sb.append(name);
-		sb.append(String.format("By: %s", organization));
-		sb.append(String.format("In: %s", resource));
-		sb.append(String.format("Start: %d", start));
-		sb.append(String.format("End: %d", end));
-		sb.append(String.format("Description: %s", description));
+		sb.append(name + "\n");
+		sb.append(String.format("By: %s\n", organization));
+		sb.append(String.format("In: %s\n", resource));
+		sb.append(String.format("Start: %s\n", Scheduler.parseDate(start)));
+		sb.append(String.format("End: %s\n", Scheduler.parseDate(end)));
+		sb.append(String.format("Description: %s\n", description));
 		return sb.toString();
 	}
 }

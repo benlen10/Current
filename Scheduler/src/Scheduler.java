@@ -53,9 +53,9 @@ public class Scheduler {
 		       }
 		       
 		       name = line;
-		       System.err.printf("Resource: %s Name: %s\n", resource,name);
-		       start = parseTime(br.readLine());
-		       end = parseTime(br.readLine());
+		       //System.err.printf("Resource: %s Name: %s\n", resource,name);
+		       start = parseTimestamp(br.readLine());
+		       end = parseTimestamp(br.readLine());
 		       organization = br.readLine();
 		       description = br.readLine();
 		       schedulerDB.findResource(resource).addEvent(new Event( start,  end,  name,  resource,  organization,  description));
@@ -69,17 +69,25 @@ public class Scheduler {
 		}
 	}
 	
-	public static long parseTime(String s){                                                       //Custom Method
-		 SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yy, kk:mm");
+	public static long parseTimestamp(String s){                                                       //Custom Method
+		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy,kk:mm");
 		 long tmp = 0;
 		 try{
 		    Date d = sdf.parse(s);
+		    //System.out.println(d.getTime());
 		    return d.getTime();
 		 }
 		 catch(ParseException e){
 			 e.printStackTrace();
 			 return tmp;
 		 }
+	}
+	
+	public static String parseDate(long l){                    //Custom method
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy,kk:mm");
+		Date d = new Date(l);
+		System.err.printf("Timestamp: %d, Date: %s\n",l,sdf.format(d));
+		return sdf.format(d);
 	}
 	
 	private static void processUserCommands() {
