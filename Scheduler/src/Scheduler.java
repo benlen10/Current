@@ -4,8 +4,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Calendar; 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -46,14 +48,14 @@ public class Scheduler {
 		    while ((line = br.readLine()) != null) {
 		       if(line.contains("#Resource:")){                          //Skip over #Resource:
 		    	   resource=br.readLine();
-		    	   System.err.println("YES\n\n");
 		    	   schedulerDB.resources.add((new Resource(resource)));
+		    	   line = br.readLine();
 		       }
-		       name = br.readLine();
-		       start= 0000; //Long.parseLong(br.readLine());  //Fix time parsing
-		       br.readLine();
-		       end=  0000; //Long.parseLong(br.readLine());
-		       br.readLine();
+		       
+		       name = line;
+		       System.err.printf("Resource: %s Name: %s\n", resource,name);
+		       start = parseTime(br.readLine());
+		       end = parseTime(br.readLine());
 		       organization = br.readLine();
 		       description = br.readLine();
 		       schedulerDB.findResource(resource).addEvent(new Event( start,  end,  name,  resource,  organization,  description));
@@ -65,6 +67,19 @@ public class Scheduler {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public static long parseTime(String s){                                                       //Custom Method
+		 SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yy, kk:mm");
+		 long tmp = 0;
+		 try{
+		    Date d = sdf.parse(s);
+		    return d.getTime();
+		 }
+		 catch(ParseException e){
+			 e.printStackTrace();
+			 return tmp;
+		 }
 	}
 	
 	private static void processUserCommands() {
