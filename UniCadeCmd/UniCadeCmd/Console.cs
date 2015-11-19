@@ -12,5 +12,10 @@ namespace UniCadeCmd
         private string emuPath;
         private string romPath;
         private string prefPath;
+        private string romExt;
+        private int gameCount;
+        private string consoleInfo;
+        private string launchParam;
+
     }
 }
