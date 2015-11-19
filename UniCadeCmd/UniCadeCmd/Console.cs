@@ -16,6 +16,5 @@ namespace UniCadeCmd
         private int gameCount;
         private string consoleInfo;
         private string launchParam;
-
     }
 }
