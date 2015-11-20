@@ -14,9 +14,18 @@ namespace UniCadeCmd
         private int totalLaunchCount;
         private string userInfo;
         private int age;
-        private string allowedEsrb;
+
 
         //Methods
+        public User(string userName, string pass, int loginCount, int totalLaunchCount, string userInfo, int age)
+        {
+            this.userName = userName;
+            this.pass = pass;
+            this.loginCount = loginCount;
+            this.totalLaunchCount = totalLaunchCount;
+            this.userInfo = userInfo;
+            this.age = age;
+        }
 
         public string getUsername()
         {
