@@ -15,6 +15,21 @@ namespace UniCadeCmd
         private string userInfo;
         private int age;
         private string allowedEsrb;
-             
+
+        //Methods
+
+        public string getUsername()
+        {
+            return userName;
+        }
+
+        public string getPass()
+        {
+            return pass;
+        }
+
+
     }
-}
+
+    }
+

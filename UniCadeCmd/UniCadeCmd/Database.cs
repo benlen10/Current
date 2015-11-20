@@ -13,7 +13,7 @@ namespace UniCadeCmd
         public ArrayList userList;
         public ArrayList reviewList;
 
-    Databse() {
+    public Database() {
             consoleList = new ArrayList();
             userList = new ArrayList();
             reviewList = new ArrayList();
