@@ -38,6 +38,11 @@ namespace UniCadeCmd
             while (true)
             {
                 System.Console.WriteLine("Available Consoles:");
+                string list;
+                foreach(Console c in dat.consoleList)
+                {
+
+                }
                 string input = System.Console.ReadLine();
             }
 
