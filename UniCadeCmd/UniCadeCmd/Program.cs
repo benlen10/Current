@@ -8,11 +8,16 @@ namespace UniCadeCmd
 {
     class Program
     {
+        static Database dat;
+
         static void Main(string[] args)
         {
-            Database dat = new Database();
+            dat = new Database();
             bool loginStat = false;
+
             dat.userList.Add(new User("Ben", "temp", 0, 0, " ", 20));
+            dat.consoleList.Add(new Console("GBA", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
+
             System.Console.WriteLine("Please enter username");
             string userName = System.Console.ReadLine();
             foreach (User u in dat.userList)
@@ -37,22 +42,37 @@ namespace UniCadeCmd
                 }
             while (true)
             {
-                System.Console.WriteLine("Available Consoles:");
-                string list;
-                foreach(Console c in dat.consoleList)
-                {
-
-                }
-                string input = System.Console.ReadLine();
+                displayConsoles();
+                
             }
 
         }
 
         //Methods
 
-        public void displayConsoles()
+        public static void displayConsoles()
         {
+            System.Console.WriteLine("Available Consoles:");
+            string list = "";
+            foreach (Console c in dat.consoleList)
+            {
+                list = list + " " + c.getName();
+            }
+            System.Console.WriteLine(list);
+            string input = System.Console.ReadLine();
+            foreach (Console c in dat.consoleList)
+            {
+                if (input.Equals(c.getName())){
+                    displayGameList(c);
+                }
+            }
 
+        }
+
+        public static void displayGameList(Console c)
+        {
+            string text = string.Format("{0} (Total Games: {1})",c.getName(), 0);
+            System.Console.WriteLine(text);
         }
 
 

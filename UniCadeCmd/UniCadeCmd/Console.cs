@@ -19,7 +19,7 @@ namespace UniCadeCmd
 
         // Methods
 
-        Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam)
+        public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam)
         {
             this.name = name;
             this.emuPath = emuPath;
