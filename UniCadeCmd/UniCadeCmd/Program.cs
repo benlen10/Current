@@ -73,7 +73,15 @@ namespace UniCadeCmd
         {
             string text = string.Format("{0} (Total Games: {1})",c.getName(), 0);
             System.Console.WriteLine(text);
+            System.Console.WriteLine("Additional Options: Launch:  <game>, Info: (i) <game>, Close (close");
         }
+
+
+        displayGameInfo(Game g)
+        {
+            System.Console.WriteLine(g.g);
+        }
+
 
 
     }
