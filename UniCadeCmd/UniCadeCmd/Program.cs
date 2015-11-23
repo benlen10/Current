@@ -77,9 +77,9 @@ namespace UniCadeCmd
         }
 
 
-        displayGameInfo(Game g)
+        public static void displayGameInfo(Game g)
         {
-            System.Console.WriteLine(g.g);
+            System.Console.WriteLine(g.title);
         }
 
 
