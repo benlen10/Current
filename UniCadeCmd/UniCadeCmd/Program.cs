@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Collections;
 
 namespace UniCadeCmd
 {
@@ -16,7 +18,10 @@ namespace UniCadeCmd
             bool loginStat = false;
 
             dat.userList.Add(new User("Ben", "temp", 0, 0, " ", 20));
-            dat.consoleList.Add(new Console("GBA", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
+            Console c = new Console("GBA", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam");
+            c.getGameList().Add(new Game("Final Fantasy II.gba", "GBA", 1));
+            c.getGameList().Add(new Game("Super Metroid.gba", "GBA", 1));
+            dat.consoleList.Add(c);
 
             System.Console.WriteLine("Please enter username");
             string userName = System.Console.ReadLine();
@@ -81,6 +86,38 @@ namespace UniCadeCmd
         {
             System.Console.WriteLine(g.title);
         }
+
+        public static void scan(string targetDirectory) { 
+        string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
+        foreach(string subdirectory in subdirectoryEntries)
+            scanDirectory(subdirectory, targetDirectory);
+    }
+
+    public static void scanDirectory(string path, string directory)
+        {
+            bool foundCon = false;
+            Console con = new Console();
+            foreach(Console c in dat.consoleList)
+            {
+                if (c.getName().Equals(directory))
+                {
+                    con = c;
+                    foundCon = true;
+                    break;
+                }
+            }
+            if (!foundCon)
+            {
+                System.Console.WriteLine("Console not found");
+                return;
+            }
+            string[] fileEntries = Directory.GetFiles(path);
+            foreach (string fileName in fileEntries)
+            {
+                con.getGameList().Add(new Game(fileName, con.getName(), 0));
+            }
+        }
+
 
 
 

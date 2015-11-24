@@ -16,7 +16,7 @@ namespace UniCadeCmd
         public int releaseDate;
         public string publisher;
         public string developer;
-        public string[] geners;
+        public string[] genres;
         public string[] tags;
         public int userScore;
         public int criticScore;
@@ -25,8 +25,6 @@ namespace UniCadeCmd
         public string esrb;
         public string esrbDescriptor;
         public string esrbSummary;
-
-        //Methods 
 
 
         //Basic Constructor
@@ -55,10 +53,12 @@ namespace UniCadeCmd
             this.description = description;
             this.esrbDescriptor = esrbDescriptor;
             this.esrbSummary = esrbSummary;
-            this.geners = geners;
+            this.genres = genres;
             this.tags = tags;
             title = fileName.Substring(0, fileName.IndexOf('.'));
         }
+
+        //Methods 
 
         public string getFileName()
         {
@@ -79,9 +79,6 @@ namespace UniCadeCmd
         {
             con = s;
         }
-
-
-
 
     }
 

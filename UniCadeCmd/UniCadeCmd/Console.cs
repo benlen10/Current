@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace UniCadeCmd
 {
@@ -16,8 +17,14 @@ namespace UniCadeCmd
         private int gameCount;
         private string consoleInfo;
         private string launchParam;
+        private ArrayList gameList;
 
         // Methods
+
+        public Console()
+        {
+            name = "null";
+        }
 
         public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam)
         {
@@ -29,12 +36,18 @@ namespace UniCadeCmd
             this.gameCount = gameCount;
             this.consoleInfo = consoleInfo;
             this.launchParam = launchParam;
+            gameList = new ArrayList();
 
         }
 
         public string getName()
         {
             return name;
+        }
+
+        public ArrayList getGameList()
+        {
+            return gameList;
         }
     }
 
