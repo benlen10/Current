@@ -18,10 +18,7 @@ namespace UniCadeCmd
             bool loginStat = false;
 
             dat.userList.Add(new User("Ben", "temp", 0, 0, " ", 20));
-            Console c = new Console("GBA", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam");
-            c.getGameList().Add(new Game("Final Fantasy II.gba", "GBA", 1));
-            c.getGameList().Add(new Game("Super Metroid.gba", "GBA", 1));
-            dat.consoleList.Add(c);
+            loadDefaultConsoles();
 
             System.Console.WriteLine("Please enter username");
             string userName = System.Console.ReadLine();
@@ -76,9 +73,18 @@ namespace UniCadeCmd
 
         public static void displayGameList(Console c)
         {
-            string text = string.Format("{0} (Total Games: {1})",c.getName(), 0);
-            System.Console.WriteLine(text);
-            System.Console.WriteLine("Additional Options: Launch:  <game>, Info: (i) <game>, Close (close");
+            while (true)
+            {
+                string text = string.Format("{0} (Total Games: {1})", c.getName(), c.gameCount);
+                System.Console.WriteLine(text);
+                System.Console.WriteLine("Additional Options: Launch:  <game>, Info: (i) <game>, Close (close");
+                foreach (Game g in c.getGameList())
+                {
+                    System.Console.WriteLine(g.title);
+                }
+                string input = System.Console.ReadLine();
+            }
+
         }
 
 
@@ -86,6 +92,7 @@ namespace UniCadeCmd
         {
             System.Console.WriteLine(g.title);
         }
+
 
         public static void scan(string targetDirectory) { 
         string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
@@ -115,7 +122,23 @@ namespace UniCadeCmd
             foreach (string fileName in fileEntries)
             {
                 con.getGameList().Add(new Game(fileName, con.getName(), 0));
+                con.gameCount++;
             }
+        }
+
+        public static void loadDefaultConsoles()
+        {
+            Console c = new Console("GBA", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam");
+            c.getGameList().Add(new Game("Final Fantasy II.gba", "GBA", 1));
+            c.getGameList().Add(new Game("Super Metroid.gba", "GBA", 1));
+            dat.consoleList.Add(c);
+            dat.consoleList.Add(new Console("Gamecube", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
+            dat.consoleList.Add(new Console("NES", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
+            dat.consoleList.Add(new Console("SNES", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
+            dat.consoleList.Add(new Console("N64", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
+            dat.consoleList.Add(new Console("PS1", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
+            dat.consoleList.Add(new Console("PS2", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
+            dat.consoleList.Add(new Console("PSP", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
         }
 
 

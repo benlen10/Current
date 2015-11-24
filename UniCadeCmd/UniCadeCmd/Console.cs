@@ -14,10 +14,10 @@ namespace UniCadeCmd
         private string romPath;
         private string prefPath;
         private string romExt;
-        private int gameCount;
         private string consoleInfo;
         private string launchParam;
         private ArrayList gameList;
+        public int gameCount;
 
         // Methods
 
