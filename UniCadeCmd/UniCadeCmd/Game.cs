@@ -11,7 +11,7 @@ namespace UniCadeCmd
         private string fileName;
         private string con;
         public int launchCount;
-        public string title;
+        private string title;
         public string description;
         public int releaseDate;
         public string publisher;
@@ -70,6 +70,11 @@ namespace UniCadeCmd
             return con;
         }
 
+        public string getTitle()
+        {
+            return title;
+        }
+
         public void setFileName(string s)
         {
             fileName = s;
@@ -79,6 +84,8 @@ namespace UniCadeCmd
         {
             con = s;
         }
+
+
 
     }
 

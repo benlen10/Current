@@ -77,12 +77,30 @@ namespace UniCadeCmd
             {
                 string text = string.Format("{0} (Total Games: {1})", c.getName(), c.gameCount);
                 System.Console.WriteLine(text);
-                System.Console.WriteLine("Additional Options: Launch:  <game>, Info: (i) <game>, Close (close");
+                System.Console.WriteLine("Additional Options:Info: (i) <game>, Close (c), Console Info (ci)\n");
                 foreach (Game g in c.getGameList())
                 {
-                    System.Console.WriteLine(g.title);
+                    System.Console.WriteLine(g.getTitle());
                 }
                 string input = System.Console.ReadLine();
+                if (input.Contains("(i)")){
+                    System.Console.WriteLine("YAS");
+                    string s = input.Substring(3);
+                    foreach (Game g in c.getGameList())
+                    {
+                        if (s.Contains(g.getTitle()))
+                        {
+                            displayGameInfo(g);
+                        }
+                    }
+                }
+                else if (input.Equals("(ci)"))
+                {
+                    consoleInfo();
+                }
+                else if (input.Equals("(c)")){
+                    return;
+                }
             }
 
         }
@@ -90,7 +108,20 @@ namespace UniCadeCmd
 
         public static void displayGameInfo(Game g)
         {
-            System.Console.WriteLine(g.title);
+            while (true)
+            {
+                System.Console.WriteLine(g.getTitle());
+                string input = System.Console.ReadLine();
+                if (input.Equals("(c)"))
+                {
+                    return;
+                }
+            }
+
+            }
+        public static void displayConsoleInfo(Game g)
+        {
+
         }
 
 
