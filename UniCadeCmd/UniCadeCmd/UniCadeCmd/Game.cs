@@ -90,7 +90,7 @@ namespace UniCadeCmd
             return developer;
         }
 
-        public int getCiticScore()
+        public int getCriticScore()
         {
             return criticScore;
         }

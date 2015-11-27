@@ -96,7 +96,7 @@ namespace UniCadeCmd
                 }
                 else if (input.Equals("(ci)"))
                 {
-                    consoleInfo();
+                    displayConsoleInfo(c);
                 }
                 else if (input.Equals("(c)")){
                     return;
@@ -111,6 +111,15 @@ namespace UniCadeCmd
             while (true)
             {
                 System.Console.WriteLine("Title " + g.getTitle());
+                System.Console.WriteLine("Release Date " + g.getReleaseDate());
+                System.Console.WriteLine("Developer " + g.getDeveloper());
+                System.Console.WriteLine("Publisher " + g.getPublisher());
+                System.Console.WriteLine("Players " + g.getPlayers());
+                System.Console.WriteLine("User Score " + g.getUserScore());
+                System.Console.WriteLine("Critic Score " + g.getCriticScore());
+                System.Console.WriteLine("ESRB Rating " + g.getEsrb());
+                System.Console.WriteLine("ESRB Descriptor " + g.getEsrbDescriptor());
+                System.Console.WriteLine("Game Description " + g.getDescription());
 
                 string input = System.Console.ReadLine();
                 if (input.Equals("(c)"))
@@ -120,7 +129,7 @@ namespace UniCadeCmd
             }
 
             }
-        public static void displayConsoleInfo(Game g)
+        public static void displayConsoleInfo(Console c)
         {
 
         }
