@@ -49,6 +49,63 @@ namespace UniCadeCmd
         {
             return gameList;
         }
+
+        public string getEmuPath()
+        {
+            return emuPath;
+        }
+
+        public string getRomPath()
+        {
+            return romPath;
+        }
+
+        public string getRomExt()
+        {
+            return romExt;
+        }
+
+        public string getConsoleInfo()
+        {
+            return consoleInfo;
+        }
+
+        public string getLaunchParam()
+        {
+            return launchParam;
+        }
+
+        public void setName(string s)
+        {
+            name = s;
+        }
+
+        public void setEmuPath(string s)
+        {
+            emuPath = s;
+        }
+
+        public void setRomPath(string s)
+        {
+            romPath = s;
+        }
+
+        public void setRomEet(string s)
+        {
+           romExt  = s;
+        }
+
+        public void setConsoleInfo(string s)
+        {
+            consoleInfo = s;
+        }
+
+        public void setLaunchParam(string s)
+        {
+            launchParam = s;
+        }
+
+
     }
 
 }

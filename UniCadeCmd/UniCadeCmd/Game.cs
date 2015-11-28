@@ -10,21 +10,21 @@ namespace UniCadeCmd
     {
         private string fileName;
         private string con;
-        public int launchCount;
         private string title;
-        public string description;
-        public int releaseDate;
-        public string publisher;
-        public string developer;
-        public string[] genres;
-        public string[] tags;
-        public int userScore;
-        public int criticScore;
-        public string trivia;
-        public int players;
-        public string esrb;
-        public string esrbDescriptor;
-        public string esrbSummary;
+        private string description;
+        private int releaseDate;
+        private string publisher;
+        private string developer;
+        private string[] genres;
+        private string[] tags;
+        private int userScore;
+        private int criticScore;
+        private string trivia;
+        private int players;
+        private string esrb;
+        private string esrbDescriptor;
+        private string esrbSummary;
+        public int launchCount;
 
 
         //Basic Constructor
@@ -70,9 +70,76 @@ namespace UniCadeCmd
             return con;
         }
 
+        public int getReleaseDate()
+        {
+            return releaseDate;
+        }
+
+        public int getUserScore()
+        {
+            return userScore;
+        }
+
+        public string getDeveloper()
+        {
+            return developer;
+        }
+
+        public string getPublisher()
+        {
+            return developer;
+        }
+
+        public int getCriticScore()
+        {
+            return criticScore;
+        }
+
+        public int getPlayers()
+        {
+            return players;
+        }
+
+        public string getTrivia()
+        {
+            return trivia;
+        }
+
+        public string getDescription()
+        {
+            return description;
+        }
+
+        public string getEsrb()
+        {
+            return esrb;
+        }
+
+        public string getEsrbDescriptor()
+        {
+            return esrbDescriptor;
+        }
+
+        public string getEsrbSummary()
+        {
+            return esrbSummary;
+        }
+
+        public string[] getTags()
+        {
+            return tags;
+        }
+
         public string getTitle()
         {
             return title;
+        }
+
+
+
+        public string[] getGenres()
+        {
+            return genres;
         }
 
         public void setFileName(string s)
@@ -83,6 +150,66 @@ namespace UniCadeCmd
         public void setConsole(string s)
         {
             con = s;
+        }
+
+        public void setReleaseDate(int s)
+        {
+            releaseDate = s;
+        }
+
+        public void setPublisher(string s)
+        {
+            publisher = s;
+        }
+
+        public void setDeveloper(string s)
+        {
+            developer = s;
+        }
+
+        public void setUserScore(int s)
+        {
+            userScore = s;
+        }
+
+        public void setCriticScore(int s)
+        {
+            criticScore = s;
+        }
+
+        public void setTrivia(string s)
+        {
+            trivia = s;
+        }
+
+        public void setPlayers(int s)
+        {
+            players = s;
+        }
+
+        public void setGenres(string[] s)
+        {
+            genres = s;
+        }
+
+        public void setTags(string[] s)
+        {
+            tags = s;
+        }
+
+        public void setEsrb(string s)
+        {
+            esrb = s;
+        }
+
+        public void setEsrbDescriptors(string s)
+        {
+           esrbDescriptor = s;
+        }
+
+        public void setEsrbSummary(string s)
+        {
+            esrbSummary = s;
         }
 
 
