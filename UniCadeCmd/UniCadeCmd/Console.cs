@@ -15,6 +15,7 @@ namespace UniCadeCmd
         private string prefPath;
         private string romExt;
         private string consoleInfo;
+        private string releaseDate;
         private string launchParam;
         private ArrayList gameList;
         public int gameCount;
@@ -26,7 +27,7 @@ namespace UniCadeCmd
             name = "null";
         }
 
-        public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam)
+        public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam, string releaseDate)
         {
             this.name = name;
             this.emuPath = emuPath;
@@ -36,6 +37,7 @@ namespace UniCadeCmd
             this.gameCount = gameCount;
             this.consoleInfo = consoleInfo;
             this.launchParam = launchParam;
+            this.releaseDate = releaseDate;
             gameList = new ArrayList();
 
         }
@@ -43,6 +45,11 @@ namespace UniCadeCmd
         public string getName()
         {
             return name;
+        }
+
+        public string getReleaseDate()
+        {
+            return releaseDate;
         }
 
         public ArrayList getGameList()
@@ -83,6 +90,11 @@ namespace UniCadeCmd
         public void setEmuPath(string s)
         {
             emuPath = s;
+        }
+
+        public void setReleaseDate(string s)
+        {
+            releaseDate = s;
         }
 
         public void setRomPath(string s)

@@ -132,7 +132,22 @@ namespace UniCadeCmd
             }
         public static void displayConsoleInfo(Console c)
         {
-
+            while (true)
+            {
+                System.Console.WriteLine("[Type (c) to close info window]\n");
+                System.Console.WriteLine("Console: " + c.getName());
+                System.Console.WriteLine("Release Date: " + c.getReleaseDate());
+                System.Console.WriteLine("Emulator Path: " + c.getEmuPath());
+                System.Console.WriteLine("Rom Path: " + c.getRomPath());
+                System.Console.WriteLine("Rom Extension: " + c.getRomExt());
+                System.Console.WriteLine("Launch Param: " + c.getLaunchParam());
+                System.Console.WriteLine("Console Info: " + c.getConsoleInfo());
+                string input = System.Console.ReadLine();
+                if (input.Equals("(c)"))
+                {
+                    return;
+                }
+            }
         }
 
 
@@ -170,17 +185,17 @@ namespace UniCadeCmd
 
         public static void loadDefaultConsoles()
         {
-            Console c = new Console("GBA", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam");
+            Console c = new Console("GBA", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000");
             c.getGameList().Add(new Game("Final Fantasy II.gba", "GBA", 1));
             c.getGameList().Add(new Game("Super Metroid.gba", "GBA", 1));
             dat.consoleList.Add(c);
-            dat.consoleList.Add(new Console("Gamecube", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
-            dat.consoleList.Add(new Console("NES", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
-            dat.consoleList.Add(new Console("SNES", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
-            dat.consoleList.Add(new Console("N64", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
-            dat.consoleList.Add(new Console("PS1", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
-            dat.consoleList.Add(new Console("PS2", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
-            dat.consoleList.Add(new Console("PSP", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam"));
+            dat.consoleList.Add(new Console("Gamecube", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
+            dat.consoleList.Add(new Console("NES", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
+            dat.consoleList.Add(new Console("SNES", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
+            dat.consoleList.Add(new Console("N64", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
+            dat.consoleList.Add(new Console("PS1", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
+            dat.consoleList.Add(new Console("PS2", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
+            dat.consoleList.Add(new Console("PSP", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
         }
 
 
