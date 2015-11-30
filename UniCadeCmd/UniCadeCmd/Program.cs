@@ -15,11 +15,19 @@ namespace UniCadeCmd
         static void Main(string[] args)
         {
             dat = new Database();
-            bool loginStat = false;
-
             dat.userList.Add(new User("Ben", "temp", 0, 0, " ", 20));
             loadDefaultConsoles();
+            login();
+            
+                displayConsoles(); 
 
+        }
+
+        //Methods
+
+       public static void login()
+        {
+            bool loginStat = false;
             System.Console.WriteLine("Please enter username");
             string userName = System.Console.ReadLine();
             foreach (User u in dat.userList)
@@ -38,37 +46,36 @@ namespace UniCadeCmd
                     }
                 }
             }
-                if (!loginStat)
-                {
-                    Environment.Exit(1);
-                }
-            while (true)
+            if (!loginStat)
             {
-                displayConsoles();
-                
+                Environment.Exit(1);
             }
-
         }
-
-        //Methods
 
         public static void displayConsoles()
         {
-            System.Console.WriteLine("Available Consoles:");
-            string list = "";
-            foreach (Console c in dat.consoleList)
+            while (true)
             {
-                list = list + " " + c.getName();
-            }
-            System.Console.WriteLine(list);
-            string input = System.Console.ReadLine();
-            foreach (Console c in dat.consoleList)
-            {
-                if (input.Equals(c.getName())){
-                    displayGameList(c);
+                System.Console.WriteLine("Available Consoles:   [Type (c) to exit]");
+                string list = "";
+                foreach (Console c in dat.consoleList)
+                {
+                    list = list + " " + c.getName();
+                }
+                System.Console.WriteLine(list);
+                string input = System.Console.ReadLine();
+                if (input.Equals("(c)"))
+                {
+                    return;
+                }
+                foreach (Console c in dat.consoleList)
+                {
+                    if (input.Equals(c.getName()))
+                    {
+                        displayGameList(c);
+                    }
                 }
             }
-
         }
 
         public static void displayGameList(Console c)
