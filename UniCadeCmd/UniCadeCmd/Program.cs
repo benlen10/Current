@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections;
+using System.Diagnostics;
 
 namespace UniCadeCmd
 {
@@ -18,8 +19,8 @@ namespace UniCadeCmd
             dat.userList.Add(new User("Ben", "temp", 0, 0, " ", 20));
             loadDefaultConsoles();
             login();
-            
-                displayConsoles(); 
+            scan(@"C:\UniCade\ROMS");
+            displayConsoles(); 
 
         }
 
@@ -27,28 +28,25 @@ namespace UniCadeCmd
 
        public static void login()
         {
-            bool loginStat = false;
-            System.Console.WriteLine("Please enter username");
-            string userName = System.Console.ReadLine();
-            foreach (User u in dat.userList)
+            while (true)
             {
-                if (userName.Equals(u.getUsername()))
+                System.Console.WriteLine("Please enter username");
+                string userName = System.Console.ReadLine();
+                foreach (User u in dat.userList)
                 {
-                    while (!loginStat)
+                    if (userName.Equals(u.getUsername()))
                     {
-                        System.Console.WriteLine("Please enter password");
-                        if (System.Console.ReadLine().Equals(u.getPass()))
+                        while (true)
                         {
-                            System.Console.WriteLine("Password Accepted");
-                            loginStat = true;
-                            break;
+                            System.Console.WriteLine("Please enter password");
+                            if (System.Console.ReadLine().Equals(u.getPass()))
+                            {
+                                System.Console.WriteLine("Password Accepted");
+                                return;
+                            }
                         }
                     }
                 }
-            }
-            if (!loginStat)
-            {
-                Environment.Exit(1);
             }
         }
 
@@ -90,9 +88,10 @@ namespace UniCadeCmd
                     System.Console.WriteLine(g.getTitle());
                 }
                 string input = System.Console.ReadLine();
+                string s = input.Substring(3);
                 if (input.Contains("(i)")){
-                    System.Console.WriteLine("YAS");
-                    string s = input.Substring(3);
+                   
+                    
                     foreach (Game g in c.getGameList())
                     {
                         if (s.Contains(g.getTitle()))
@@ -107,6 +106,18 @@ namespace UniCadeCmd
                 }
                 else if (input.Equals("(c)")){
                     return;
+                }
+                else
+                {
+                    foreach (Game g in c.getGameList())
+                    {
+                        if (s.Contains(g.getTitle()))
+                        {
+                            System.Console.WriteLine("Launch" + c.getEmuPath() + " " + c.getRomPath() + g.getFileName());
+                            Process.Start(c.getEmuPath() + " " + c.getRomPath() + g.getFileName());
+                        }
+                    }
+
                 }
             }
 
@@ -166,11 +177,12 @@ namespace UniCadeCmd
 
     public static void scanDirectory(string path, string directory)
         {
+            string emuName = new DirectoryInfo(path).Name;
             bool foundCon = false;
             Console con = new Console();
             foreach(Console c in dat.consoleList)
             {
-                if (c.getName().Equals(directory))
+                if (c.getName().Equals(emuName))
                 {
                     con = c;
                     foundCon = true;
@@ -183,9 +195,11 @@ namespace UniCadeCmd
                 return;
             }
             string[] fileEntries = Directory.GetFiles(path);
+
             foreach (string fileName in fileEntries)
             {
-                con.getGameList().Add(new Game(fileName, con.getName(), 0));
+
+                con.getGameList().Add(new Game(Path.GetFileName(fileName), con.getName(), 0));
                 con.gameCount++;
             }
         }
