@@ -89,9 +89,7 @@ namespace UniCadeCmd
                 }
                 string input = System.Console.ReadLine();
                 string s = input.Substring(3);
-                if (input.Contains("(i)")){
-                   
-                    
+                if (input.Contains("(i)")){ 
                     foreach (Game g in c.getGameList())
                     {
                         if (s.Contains(g.getTitle()))
@@ -107,18 +105,22 @@ namespace UniCadeCmd
                 else if (input.Equals("(c)")){
                     return;
                 }
-                else
-                {
-                    foreach (Game g in c.getGameList())
+                System.Console.WriteLine("YES\n\n\n\n\n");
+                    foreach (Game g1 in c.getGameList())
                     {
-                        if (s.Contains(g.getTitle()))
+                        if (input.Contains(g1.getTitle()))
                         {
-                            System.Console.WriteLine("Launch" + c.getEmuPath() + " " + c.getRomPath() + g.getFileName());
-                            Process.Start(c.getEmuPath() + " " + c.getRomPath() + g.getFileName());
-                        }
+                        var m_command = new System.Diagnostics.Process();
+                        m_command.StartInfo.FileName = c.getEmuPath();
+                        m_command.StartInfo.Arguments = ("\"" + c.getRomPath()+ g1.getFileName() + "\"");
+                        m_command.Start();
+                        System.Console.WriteLine("LAUNCH" + c.getEmuPath() + " " + c.getRomPath() + "\"" + g1.getFileName() + "\"");
+                        //Process.Start(c.getEmuPath() + " "+ c.getRomPath()+ g1.getFileName());
+
+                    }
                     }
 
-                }
+                
             }
 
         }
@@ -212,7 +214,7 @@ namespace UniCadeCmd
             dat.consoleList.Add(c);
             dat.consoleList.Add(new Console("Gamecube", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
             dat.consoleList.Add(new Console("NES", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("SNES", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
+            dat.consoleList.Add(new Console("SNES", @"C:\UniCade\Emulators\ZSNES\zsnesw.exe", @"C:\UniCade\ROMS\SNES\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
             dat.consoleList.Add(new Console("N64", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
             dat.consoleList.Add(new Console("PS1", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
             dat.consoleList.Add(new Console("PS2", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
