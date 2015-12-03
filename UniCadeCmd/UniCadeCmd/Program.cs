@@ -54,7 +54,7 @@ namespace UniCadeCmd
         {
             while (true)
             {
-                System.Console.WriteLine("Available Consoles:   [Type (c) to exit]");
+                System.Console.WriteLine("Available Consoles:   [Exit: (c), Refresh (r):, Info: (i) <Console> ]");
                 string list = "";
                 foreach (Console c in dat.consoleList)
                 {
@@ -66,7 +66,17 @@ namespace UniCadeCmd
                 {
                     return;
                 }
-                foreach (Console c in dat.consoleList)
+                else if (input.Contains("(i)"))
+                {
+                    foreach(Console c in dat.consoleList)
+                    {
+                        if (input.Contains(c.getName()))
+                        {
+                            displayConsoleInfo(c);
+                        }
+                    }
+                }
+                    foreach (Console c in dat.consoleList)
                 {
                     if (input.Equals(c.getName()))
                     {
@@ -193,7 +203,7 @@ namespace UniCadeCmd
             }
             if (!foundCon)
             {
-                System.Console.WriteLine("Console not found");
+                //System.Console.WriteLine("Console not found");
                 return;
             }
             string[] fileEntries = Directory.GetFiles(path);
