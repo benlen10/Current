@@ -231,8 +231,26 @@ namespace UniCadeCmd
             dat.consoleList.Add(new Console("PSP", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
         }
 
+        public static void loadConsoles()
+        {
+            string line;
+            char[] sep = { '|' };
+            string[] r = { " " };
+            StreamReader file = new StreamReader(@"C:\UniCade\consoleList.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                r = line.Split(sep);
+                //Console.WriteLine("Length: " + r.Length);
 
+                dat.consoleList.Add(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[7], r[8]));
+            }
+            file.Close();
+        }
 
+        public static void saveConsoleDatabase()
+        {
+
+        }
 
     }
 

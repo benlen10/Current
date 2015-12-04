@@ -27,7 +27,7 @@ namespace UniCadeCmd
             name = "null";
         }
 
-        public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam, string releaseDate)
+        public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string launchParam, string releaseDate, string consoleInfo)
         {
             this.name = name;
             this.emuPath = emuPath;
