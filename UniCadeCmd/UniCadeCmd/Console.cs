@@ -52,6 +52,11 @@ namespace UniCadeCmd
             return releaseDate;
         }
 
+        public string getlaunchParam()
+        {
+            return launchParam;
+        }
+
         public ArrayList getGameList()
         {
             return gameList;
@@ -60,6 +65,11 @@ namespace UniCadeCmd
         public string getEmuPath()
         {
             return emuPath;
+        }
+
+        public string getPrefPath()
+        {
+            return prefPath;
         }
 
         public string getRomPath()

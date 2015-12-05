@@ -247,9 +247,23 @@ namespace UniCadeCmd
             file.Close();
         }
 
-        public static void saveConsoleDatabase()
+        public static void saveConsoleDatabase(string path)
         {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
 
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                foreach (Console c in dat.consoleList)
+                {
+                    string txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, c.getlaunchParam(), c.getReleaseDate(), c.getConsoleInfo());
+                    sw.WriteLine(txt);
+
+                }
+
+            }
         }
 
     }
