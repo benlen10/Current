@@ -266,6 +266,29 @@ namespace UniCadeCmd
             }
         }
 
+        public static void saveGameDatabase(string path)
+        {
+            Console con = new Console();
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                foreach (Console c in dat.consoleList)
+                {
+                    foreach (Game g in con.getGameList())
+                    {
+                        string txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}|", g.getFileName(), g.getConsole(), g.launchCount, g.getTitle(), g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), g.getTrivia(), g.getEsrb(), g.getEsrbDescriptor(),g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags());
+                        sw.WriteLine(txt);
+
+                    }
+                }
+
+            }
+        }
+
     }
 
     }

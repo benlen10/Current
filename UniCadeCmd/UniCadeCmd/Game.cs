@@ -12,7 +12,7 @@ namespace UniCadeCmd
         private string con;
         private string title;
         private string description;
-        private int releaseDate;
+        private string releaseDate;
         private string publisher;
         private string developer;
         private string[] genres;
@@ -36,7 +36,7 @@ namespace UniCadeCmd
         }
 
         //Extended Constuctor 
-        public Game(string fileName, string con, int launchCount, string title, int releaseDate, string publisher, string developer, int userScore, int criticScore, int players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string[] genres, string[] tags)
+        public Game(string fileName, string con, int launchCount, string title, string releaseDate, string publisher, string developer, int userScore, int criticScore, int players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string[] genres, string[] tags)
         {
 
             this.fileName = fileName;
@@ -70,7 +70,7 @@ namespace UniCadeCmd
             return con;
         }
 
-        public int getReleaseDate()
+        public string getReleaseDate()
         {
             return releaseDate;
         }
@@ -152,7 +152,7 @@ namespace UniCadeCmd
             con = s;
         }
 
-        public void setReleaseDate(int s)
+        public void setReleaseDate(string s)
         {
             releaseDate = s;
         }
