@@ -247,26 +247,25 @@ namespace UniCadeCmd
             file.Close();
         }
 
-        public static void saveConsoleDatabase(string path)
+        public static void loadGames()
         {
-            if (File.Exists(path))
+            string line;
+            char[] sep = { '|' };
+            string[] r = { " " };
+            StreamReader file = new StreamReader(@"C:\UniCade\consoleList.txt");
+            while ((line = file.ReadLine()) != null)
             {
-                File.Delete(path);
+                r = line.Split(sep);
+                //Console.WriteLine("Length: " + r.Length);
+
+                dat.consoleList.Add(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[7], r[8]));
             }
-
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                foreach (Console c in dat.consoleList)
-                {
-                    string txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, c.getlaunchParam(), c.getReleaseDate(), c.getConsoleInfo());
-                    sw.WriteLine(txt);
-
-                }
-
-            }
+            file.Close();
         }
 
-        public static void saveGameDatabase(string path)
+
+
+        public static void saveDatabase(string path)
         {
             Console con = new Console();
             if (File.Exists(path))
@@ -278,6 +277,8 @@ namespace UniCadeCmd
             {
                 foreach (Console c in dat.consoleList)
                 {
+                    string txt = string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, c.getlaunchParam(), c.getReleaseDate(), c.getConsoleInfo());
+                    sw.WriteLine(txt);
                     foreach (Game g in con.getGameList())
                     {
                         string txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}|", g.getFileName(), g.getConsole(), g.launchCount, g.getTitle(), g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), g.getTrivia(), g.getEsrb(), g.getEsrbDescriptor(),g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags());
