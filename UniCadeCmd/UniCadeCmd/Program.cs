@@ -247,9 +247,11 @@ namespace UniCadeCmd
             file.Close();
         }
 
-        public static void loadGames()
+        public static void loadDatabase()
         {
             string line;
+            Console c = new Console();
+            string[] tmp = { "tmp" };
             char[] sep = { '|' };
             string[] r = { " " };
             StreamReader file = new StreamReader(@"C:\UniCade\consoleList.txt");
@@ -257,8 +259,15 @@ namespace UniCadeCmd
             {
                 r = line.Split(sep);
                 //Console.WriteLine("Length: " + r.Length);
+                if (line.Substring(0, 5).Contains("***"))
+                {
 
-                dat.consoleList.Add(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[7], r[8]));
+                    c = new Console(r[0].Substring(2), r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[7], r[8]);
+                }
+                else
+                {
+                    c.getGameList().Add(new Game(r[0], r[1], Int32.Parse(r[2]), r[3], r[4], r[5], r[6], Int32.Parse(r[7]), Int32.Parse(r[8]), Int32.Parse(r[9]), r[10], r[11], r[12], r[13], r[14],tmp ,tmp ));
+                }
             }
             file.Close();
         }
@@ -281,7 +290,7 @@ namespace UniCadeCmd
                     sw.WriteLine(txt);
                     foreach (Game g in con.getGameList())
                     {
-                        string txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}|", g.getFileName(), g.getConsole(), g.launchCount, g.getTitle(), g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), g.getTrivia(), g.getEsrb(), g.getEsrbDescriptor(),g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags());
+                         txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}|", g.getFileName(), g.getConsole(), g.launchCount, g.getTitle(), g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), g.getTrivia(), g.getEsrb(), g.getEsrbDescriptor(),g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags());
                         sw.WriteLine(txt);
 
                     }
