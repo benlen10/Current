@@ -12,14 +12,16 @@ namespace UniCadeCmd
     class Program
     {
         static Database dat;
+        public static string databasePath = @"C:\UniCade\Databse.txt";
+        public static string romPath = @"C:\UniCade\ROMS";
 
         static void Main(string[] args)
         {
             dat = new Database();
             dat.userList.Add(new User("Ben", "temp", 0, 0, " ", 20));
-            loadDefaultConsoles();
+            loadDatabase(databasePath);
+            //loadDefaultConsoles();
             login();
-            scan(@"C:\UniCade\ROMS");
             displayConsoles(); 
 
         }
@@ -54,7 +56,7 @@ namespace UniCadeCmd
         {
             while (true)
             {
-                System.Console.WriteLine("Available Consoles:   [Exit: (c), Refresh (r):, Info: (i) <Console> ]");
+                System.Console.WriteLine("Available Consoles:   [Exit: (c), Rescan (r):, Info: (i) <Console> ]");
                 string list = "";
                 foreach (Console c in dat.consoleList)
                 {
@@ -64,11 +66,16 @@ namespace UniCadeCmd
                 string input = System.Console.ReadLine();
                 if (input.Equals("(c)"))
                 {
+                    saveDatabase(databasePath);
                     return;
+                }
+                else if (input.Contains("(r)"))
+                {
+                    scan(romPath);
                 }
                 else if (input.Contains("(i)"))
                 {
-                    foreach(Console c in dat.consoleList)
+                    foreach (Console c in dat.consoleList)
                     {
                         if (input.Contains(c.getName()))
                         {
@@ -219,8 +226,8 @@ namespace UniCadeCmd
         public static void loadDefaultConsoles()
         {
             Console c = new Console("GBA", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000");
-            c.getGameList().Add(new Game("Final Fantasy II.gba", "GBA", 1));
-            c.getGameList().Add(new Game("Super Metroid.gba", "GBA", 1));
+            //c.getGameList().Add(new Game("Final Fantasy II.gba", "GBA", 1));
+            //c.getGameList().Add(new Game("Super Metroid.gba", "GBA", 1));
             dat.consoleList.Add(c);
             dat.consoleList.Add(new Console("Gamecube", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
             dat.consoleList.Add(new Console("NES", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
@@ -247,26 +254,30 @@ namespace UniCadeCmd
             file.Close();
         }
 
-        public static void loadDatabase()
+        public static void loadDatabase(string path)
         {
             string line;
+            int conCount = 0;
             Console c = new Console();
             string[] tmp = { "tmp" };
             char[] sep = { '|' };
             string[] r = { " " };
-            StreamReader file = new StreamReader(@"C:\UniCade\consoleList.txt");
+            StreamReader file = new StreamReader(path);
             while ((line = file.ReadLine()) != null)
             {
                 r = line.Split(sep);
-                //Console.WriteLine("Length: " + r.Length);
+                //System.Console.WriteLine("Loop");
                 if (line.Substring(0, 5).Contains("***"))
                 {
-
-                    c = new Console(r[0].Substring(2), r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[7], r[8]);
+                    if (conCount > 0) {
+                        dat.consoleList.Add(c);
+                            }
+                    c = new Console(r[0].Substring(3), r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[7], r[8]);
+                    conCount++;
                 }
                 else
                 {
-                    c.getGameList().Add(new Game(r[0], r[1], Int32.Parse(r[2]), r[3], r[4], r[5], r[6], Int32.Parse(r[7]), Int32.Parse(r[8]), Int32.Parse(r[9]), r[10], r[11], r[12], r[13], r[14],tmp ,tmp ));
+                    c.getGameList().Add(new Game(r[0], r[1], Int32.Parse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14],tmp ,tmp ));
                 }
             }
             file.Close();
@@ -288,7 +299,7 @@ namespace UniCadeCmd
                 {
                     string txt = string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, c.getlaunchParam(), c.getReleaseDate(), c.getConsoleInfo());
                     sw.WriteLine(txt);
-                    foreach (Game g in con.getGameList())
+                    foreach (Game g in c.getGameList())
                     {
                          txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}|", g.getFileName(), g.getConsole(), g.launchCount, g.getTitle(), g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), g.getTrivia(), g.getEsrb(), g.getEsrbDescriptor(),g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags());
                         sw.WriteLine(txt);

@@ -17,10 +17,10 @@ namespace UniCadeCmd
         private string developer;
         private string[] genres;
         private string[] tags;
-        private int userScore;
-        private int criticScore;
+        private string userScore;
+        private string criticScore;
         private string trivia;
-        private int players;
+        private string players;
         private string esrb;
         private string esrbDescriptor;
         private string esrbSummary;
@@ -36,7 +36,7 @@ namespace UniCadeCmd
         }
 
         //Extended Constuctor 
-        public Game(string fileName, string con, int launchCount, string title, string releaseDate, string publisher, string developer, int userScore, int criticScore, int players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string[] genres, string[] tags)
+        public Game(string fileName, string con, int launchCount, string title, string releaseDate, string publisher, string developer, string userScore, string criticScore, string players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string[] genres, string[] tags)
         {
 
             this.fileName = fileName;
@@ -75,7 +75,7 @@ namespace UniCadeCmd
             return releaseDate;
         }
 
-        public int getUserScore()
+        public string getUserScore()
         {
             return userScore;
         }
@@ -90,12 +90,12 @@ namespace UniCadeCmd
             return developer;
         }
 
-        public int getCriticScore()
+        public string getCriticScore()
         {
             return criticScore;
         }
 
-        public int getPlayers()
+        public string getPlayers()
         {
             return players;
         }
@@ -167,12 +167,12 @@ namespace UniCadeCmd
             developer = s;
         }
 
-        public void setUserScore(int s)
+        public void setUserScore(string s)
         {
             userScore = s;
         }
 
-        public void setCriticScore(int s)
+        public void setCriticScore(string s)
         {
             criticScore = s;
         }
@@ -182,7 +182,7 @@ namespace UniCadeCmd
             trivia = s;
         }
 
-        public void setPlayers(int s)
+        public void setPlayers(string s)
         {
             players = s;
         }
