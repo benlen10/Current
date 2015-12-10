@@ -36,7 +36,7 @@ namespace UniCadeCmd
         }
 
         //Extended Constuctor 
-        public Game(string fileName, string con, int launchCount, string title, string releaseDate, string publisher, string developer, string userScore, string criticScore, string players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string[] genres, string[] tags)
+        public Game(string fileName, string con, int launchCount, string releaseDate, string publisher, string developer, string userScore, string criticScore, string players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string[] genres, string[] tags)
         {
 
             this.fileName = fileName;
