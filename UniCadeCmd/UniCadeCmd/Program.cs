@@ -19,8 +19,13 @@ namespace UniCadeCmd
         {
             dat = new Database();
             dat.userList.Add(new User("Ben", "temp", 0, 0, " ", 20));
-            loadDatabase(databasePath);
-            //loadDefaultConsoles();
+            if (!loadDatabase(databasePath))
+            {
+                loadDefaultConsoles();
+                scan(romPath);
+                saveDatabase(databasePath);
+            }
+            
             login();
             displayConsoles(); 
 
@@ -122,16 +127,19 @@ namespace UniCadeCmd
                 else if (input.Equals("(c)")){
                     return;
                 }
-                System.Console.WriteLine("YES\n\n\n\n\n");
-                    foreach (Game g1 in c.getGameList())
+                //System.Console.WriteLine("YES\n\n\n\n\n");
+                    foreach (Game g1 in c.getGameList())              //Launch Game
                     {
                         if (input.Contains(g1.getTitle()))
                         {
                         var m_command = new System.Diagnostics.Process();
+                        string gamePath = ("\"" + c.getRomPath() + g1.getFileName() + "\"");
+                        string args = c.getLaunchParam().Replace("%file", gamePath);
+                        System.Console.WriteLine(args);
                         m_command.StartInfo.FileName = c.getEmuPath();
-                        m_command.StartInfo.Arguments = ("\"" + c.getRomPath()+ g1.getFileName() + "\"");
+                        m_command.StartInfo.Arguments = args;
                         m_command.Start();
-                        System.Console.WriteLine("LAUNCH" + c.getEmuPath() + " " + c.getRomPath() + "\"" + g1.getFileName() + "\"");
+                     
                         //Process.Start(c.getEmuPath() + " "+ c.getRomPath()+ g1.getFileName());
 
                     }
@@ -225,25 +233,21 @@ namespace UniCadeCmd
 
         public static void loadDefaultConsoles()
         {
-            Console c = new Console("GBA", "emuPath", "romPath", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000");
-            //c.getGameList().Add(new Game("Final Fantasy II.gba", "GBA", 1));
-            //c.getGameList().Add(new Game("Super Metroid.gba", "GBA", 1));
-            dat.consoleList.Add(c);
-            dat.consoleList.Add(new Console("Gamecube", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Gamecube\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("NES", @"C:\UniCade\Emulators\NES\Jnes.exe", @"C:\UniCade\ROMS\NES\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("SNES", @"C:\UniCade\Emulators\ZSNES\zsnesw.exe", @"C:\UniCade\ROMS\SNES\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("N64", @"C:\UniCade\Emulators\Project64\Project64.exe", @"C:\UniCade\ROMS\N64\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("PS1", @"C:\UniCade\Emulators\ePSXe\ePSXe.exe", @"C:\UniCade\ROMS\PS1\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("PS2", @"C:\UniCade\Emulators\PCSX2\pcsx2.exe", @"C:\UniCade\ROMS\PS2\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("Atari 2600", @"C:\UniCade\Emulators\Stella\Stella.exe", @"C:\UniCade\ROMS\Atari 2600\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("Dreamcast", @"C:\UniCade\Emulators\NullDC\nullDC_Win32_Release-NoTrace.exe", @"C:\UniCade\ROMS\Dreamcast\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("PSP", @"C:\UniCade\Emulators\PPSSPP\PPSSPPWindows64.exe", @"C:\UniCade\ROMS\PSP\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("Sega Genisis", @"C:\UniCade\Emulators\Fusion\Fusion.exe", @"C:\UniCade\ROMS\Sega Genisis\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("Wii", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Wii\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("Nintendo DS", @"C:\UniCade\Emulators\NDS\DeSmuME.exe", @"C:\UniCade\ROMS\NDS\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("PSP", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\PSP\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("GBC", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C: \UniCade\ROMS\GBC\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
-            dat.consoleList.Add(new Console("SCUMMVM", @"C:\UniCade\Emulators\PPSSPP\PPSSPPWindows64.exe", @"C:\UniCade\ROMS\SCUMMVM\", "prefPath", "romExt", 0, "consoleInfo", "launchParam", "0000"));
+            dat.consoleList.Add(new Console("GBA", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C: \UniCade\ROMS\GBA\", "prefPath", "romExt", 0, "consoleInfo", "%file", "2001"));
+            dat.consoleList.Add(new Console("Gamecube", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Gamecube\", "prefPath", "romExt", 0, "consoleInfo", "/b /e %file", "2001"));
+            dat.consoleList.Add(new Console("NES", @"C:\UniCade\Emulators\NES\Jnes.exe", @"C:\UniCade\ROMS\NES\", "prefPath", "romExt", 0, "consoleInfo", "%file", "1983"));
+            dat.consoleList.Add(new Console("SNES", @"C:\UniCade\Emulators\ZSNES\zsnesw.exe", @"C:\UniCade\ROMS\SNES\", "prefPath", "romExt", 0, "consoleInfo", "%file", "1990"));
+            dat.consoleList.Add(new Console("N64", @"C:\UniCade\Emulators\Project64\Project64.exe", @"C:\UniCade\ROMS\N64\", "prefPath", "romExt", 0, "consoleInfo", "%file", "1996"));
+            dat.consoleList.Add(new Console("PS1", @"C:\UniCade\Emulators\ePSXe\ePSXe.exe", @"C:\UniCade\ROMS\PS1\", "prefPath", "romExt", 0, "consoleInfo", "-nogui -loadbin %file", "1994"));
+            dat.consoleList.Add(new Console("PS2", @"C:\UniCade\Emulators\PCSX2\pcsx2.exe", @"C:\UniCade\ROMS\PS2\", "prefPath", "romExt", 0, "consoleInfo", "%file", "2000"));
+            dat.consoleList.Add(new Console("Atari 2600", @"C:\UniCade\Emulators\Stella\Stella.exe", @"C:\UniCade\ROMS\Atari 2600\", "prefPath", "romExt", 0, "consoleInfo", "file", "1977"));
+            dat.consoleList.Add(new Console("Dreamcast", @"C:\UniCade\Emulators\NullDC\nullDC_Win32_Release-NoTrace.exe", @"C:\UniCade\ROMS\Dreamcast\", "prefPath", "romExt", 0, "consoleInfo", "-config ImageReader:defaultImage=%file", "1998"));
+            dat.consoleList.Add(new Console("PSP", @"C:\UniCade\Emulators\PPSSPP\PPSSPPWindows64.exe", @"C:\UniCade\ROMS\PSP\", "prefPath", "romExt", 0, "consoleInfo", "%file", "2005"));
+            dat.consoleList.Add(new Console("Sega Genisis", @"C:\UniCade\Emulators\Fusion\Fusion.exe", @"C:\UniCade\ROMS\Sega Genisis\", "prefPath", "romExt", 0, "consoleInfo", "%file -gen -auto -fullscreen", "1990"));
+            dat.consoleList.Add(new Console("Wii", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Wii\", "prefPath", "romExt", 0, "consoleInfo", "/b /e %file", "2006"));
+            dat.consoleList.Add(new Console("Nintendo DS", @"C:\UniCade\Emulators\NDS\DeSmuME.exe", @"C:\UniCade\ROMS\NDS\", "prefPath", "romExt", 0, "consoleInfo", "%file", "2005"));
+            dat.consoleList.Add(new Console("GBC", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C: \UniCade\ROMS\GBC\", "prefPath", "romExt", 0, "consoleInfo", "%file", "1998"));
+            //dat.consoleList.Add(new Console("SCUMMVM", @"C:\UniCade\Emulators\PPSSPP\PPSSPPWindows64.exe", @"C:\UniCade\ROMS\SCUMMVM\", "prefPath", "romExt", 0, "consoleInfo", "%file", "0000"));
         }
 
         public static void loadConsoles()
@@ -262,8 +266,13 @@ namespace UniCadeCmd
             file.Close();
         }
 
-        public static void loadDatabase(string path)
+        public static bool loadDatabase(string path)
         {
+            if (!File.Exists(path))
+            {
+                System.Console.WriteLine("Database file does not exist");
+                return false;
+            }
             string line;
             int conCount = 0;
             Console c = new Console();
@@ -290,7 +299,7 @@ namespace UniCadeCmd
                 }
             }
             file.Close();
-            System.Console.WriteLine("Database Updated");
+            return true;
         }
 
 
@@ -307,7 +316,7 @@ namespace UniCadeCmd
             {
                 foreach (Console c in dat.consoleList)
                 {
-                    string txt = string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, c.getlaunchParam(), c.getReleaseDate(), c.getConsoleInfo());
+                    string txt = string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, c.getConsoleInfo(), c.getlaunchParam(), c.getReleaseDate());
                     sw.WriteLine(txt);
                     foreach (Game g in c.getGameList())
                     {
@@ -323,4 +332,3 @@ namespace UniCadeCmd
     }
 
     }
-

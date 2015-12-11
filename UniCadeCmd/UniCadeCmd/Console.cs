@@ -27,7 +27,7 @@ namespace UniCadeCmd
             name = "null";
         }
 
-        public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string launchParam, string releaseDate, string consoleInfo)
+        public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam, string releaseDate)
         {
             this.name = name;
             this.emuPath = emuPath;
@@ -112,7 +112,7 @@ namespace UniCadeCmd
             romPath = s;
         }
 
-        public void setRomEet(string s)
+        public void setRomExt(string s)
         {
            romExt  = s;
         }
