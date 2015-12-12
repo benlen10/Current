@@ -61,7 +61,7 @@ namespace UniCadeCmd
         {
             while (true)
             {
-                System.Console.WriteLine("Available Consoles:   [Exit: (c), Rescan (r):, Info: (i) <Console> ]");
+                System.Console.WriteLine("Available Consoles:   [Exit: (c), Rescan (r):, Info: (i), (d) Download Info <Console> ]");
                 string list = "";
                 foreach (Console c in dat.consoleList)
                 {
@@ -77,6 +77,21 @@ namespace UniCadeCmd
                 else if (input.Contains("(r)"))
                 {
                     scan(romPath);
+                }
+                else if (input.Contains("(d)"))
+                {
+
+                    foreach (Console c in dat.consoleList)
+                    {
+                        if (input.Contains(c.getName()))
+                        {
+                            foreach (Game g in c.getGameList())
+                            {
+                                WebOps.scrapeInfo(g);
+                            }
+                        }
+                    }
+                    
                 }
                 else if (input.Contains("(i)"))
                 {
