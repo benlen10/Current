@@ -13,7 +13,7 @@ namespace UniCadeCmd
         {
             string url = ("http://www.mobygames.com/game/" + g.getConsole() +"/" + g.getTitle().Replace(" ", "-"));
             url = url.ToLower();
-            System.Console.WriteLine(url);
+            //System.Console.WriteLine(url);
             Uri uri = new Uri("http://www.mobygames.com/game/resident-evil-2");
             WebClient site = new WebClient();
             //Html from page
@@ -59,6 +59,25 @@ namespace UniCadeCmd
             {
                 System.Console.WriteLine(g.getEsrb());
             }
+            else
+            {
+                g.setEsrb("Unrated");
+            }
+
+            //Parse Release Date
+
+            int tmp = html.IndexOf("release-info");
+
+            if (tmp > 0)
+            {
+                int indexB = html.IndexOf("release-info", (tmp+20));
+
+                string releaseDate = html.Substring((indexB+14), 12);
+                g.setReleaseDate(releaseDate);
+                    System.Console.WriteLine(g.getReleaseDate());
+            }
+           
+            
 
         }
     }
