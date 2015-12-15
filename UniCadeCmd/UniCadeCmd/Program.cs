@@ -11,7 +11,7 @@ namespace UniCadeCmd
 {
     class Program
     {
-        static Database dat;
+        public static Database dat;
         public static string databasePath = @"C:\UniCade\Databse.txt";
         public static string romPath = @"C:\UniCade\ROMS";
 
@@ -26,7 +26,7 @@ namespace UniCadeCmd
                 saveDatabase(databasePath);
             }
             
-            login();
+            //login();
             displayConsoles(); 
 
         }
@@ -61,7 +61,7 @@ namespace UniCadeCmd
         {
             while (true)
             {
-                System.Console.WriteLine("Available Consoles:   [Exit: (c), Rescan (r):, Info: (i), (d) Download Info <Console> ]");
+                System.Console.WriteLine("Available Consoles:   [Exit: (c), Rescan (r):, Info: (i),(s) Settings, (d) Download Info <Console> ]");
                 string list = "";
                 foreach (Console c in dat.consoleList)
                 {
@@ -77,6 +77,11 @@ namespace UniCadeCmd
                 else if (input.Contains("(r)"))
                 {
                     scan(romPath);
+                }
+                else if (input.Contains("(s)"))
+                {
+                    SettingsWindow sw = new SettingsWindow();
+                    sw.ShowDialog();
                 }
                 else if (input.Contains("(d)"))
                 {

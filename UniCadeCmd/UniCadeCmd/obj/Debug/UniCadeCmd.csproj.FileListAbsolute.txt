@@ -4,3 +4,5 @@ C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\bin\Debug\UniCadeCmd.pdb
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.csprojResolveAssemblyReference.cache
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.exe
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.pdb
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.SettingsWindow.resources
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.csproj.GenerateResource.Cache
