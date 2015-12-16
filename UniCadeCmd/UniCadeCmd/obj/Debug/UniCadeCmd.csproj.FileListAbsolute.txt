@@ -6,3 +6,5 @@ C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.exe
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.pdb
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.SettingsWindow.resources
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.csproj.GenerateResource.Cache
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.GUI.resources
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.Properties.Resources.resources

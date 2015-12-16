@@ -17,6 +17,7 @@ namespace UniCadeCmd
         {
             
             InitializeComponent();
+            richTextBox1.Text = "Readme \nContents";
             foreach(Console c in Program.dat.consoleList)
             {
                 listBox1.Items.Add(c.getName());
@@ -69,5 +70,7 @@ namespace UniCadeCmd
         {
             Close();
         }
+
+
     }
 }

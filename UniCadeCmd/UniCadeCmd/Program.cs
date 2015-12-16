@@ -61,7 +61,7 @@ namespace UniCadeCmd
         {
             while (true)
             {
-                System.Console.WriteLine("Available Consoles:   [Exit: (c), Rescan (r):, Info: (i),(s) Settings, (d) Download Info <Console> ]");
+                System.Console.WriteLine("Available Consoles:   [Exit: (c), Rescan (r):, Info: (i), GUI (g), (s) Settings, (d) Download Info <Console> ]");
                 string list = "";
                 foreach (Console c in dat.consoleList)
                 {
@@ -82,6 +82,11 @@ namespace UniCadeCmd
                 {
                     SettingsWindow sw = new SettingsWindow();
                     sw.ShowDialog();
+                }
+                else if (input.Contains("(g)"))
+                {
+                    GUI gui = new GUI();
+                    gui.ShowDialog();
                 }
                 else if (input.Contains("(d)"))
                 {
