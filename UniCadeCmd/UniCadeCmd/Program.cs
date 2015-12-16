@@ -14,6 +14,7 @@ namespace UniCadeCmd
         public static Database dat;
         public static string databasePath = @"C:\UniCade\Databse.txt";
         public static string romPath = @"C:\UniCade\ROMS";
+        public static string MediaPath = @"C:\UniCade\Media";
 
         static void Main(string[] args)
         {
@@ -125,15 +126,30 @@ namespace UniCadeCmd
 
         public static void displayGameList(Console c)
         {
+            bool fav = false;
             while (true)
             {
                 string text = string.Format("{0} (Total Games: {1})", c.getName(), c.gameCount);
                 System.Console.WriteLine(text);
-                System.Console.WriteLine("Additional Options:Info: (i) <game>, Close (c), Console Info (ci)\n");
+                System.Console.WriteLine("Additional Options:Info: (i) <game>, Close (c), Display Favorites (f) Console Info (ci)\n");
+
+                //Display Game List
                 foreach (Game g in c.getGameList())
                 {
-                    System.Console.WriteLine(g.getTitle());
+                    if (fav)
+                    {
+                        if (g.getFav() == 1)
+                        {
+                            System.Console.WriteLine(g.getTitle());
+                        }
+                    }
+                    else
+                    {
+                        System.Console.WriteLine(g.getTitle());
+                    }
                 }
+
+
                 string input = System.Console.ReadLine();
                 string s = input.Substring(3);
                 if (input.Contains("(i)")){ 
@@ -148,6 +164,10 @@ namespace UniCadeCmd
                 else if (input.Equals("(ci)"))
                 {
                     displayConsoleInfo(c);
+                }
+                else if (input.Equals("(f)"))
+                {
+                    fav = true;
                 }
                 else if (input.Equals("(c)")){
                     return;
@@ -319,7 +339,7 @@ namespace UniCadeCmd
                 }
                 else
                 {
-                    c.getGameList().Add(new Game(r[0], r[1], Int32.Parse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13],tmp ,tmp ));
+                    c.getGameList().Add(new Game(r[0], r[1], Int32.Parse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13],tmp ,tmp, int.Parse(r[14]) ));
                     //System.Console.WriteLine(r[0]);
                 }
             }
@@ -345,7 +365,7 @@ namespace UniCadeCmd
                     sw.WriteLine(txt);
                     foreach (Game g in c.getGameList())
                     {
-                         txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|", g.getFileName(), g.getConsole(), g.launchCount, g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), g.getTrivia(), g.getEsrb(), g.getEsrbDescriptor(),g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags());
+                         txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", g.getFileName(), g.getConsole(), g.launchCount, g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), g.getTrivia(), g.getEsrb(), g.getEsrbDescriptor(),g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags(), g.getFav());
                         sw.WriteLine(txt);
 
                     }

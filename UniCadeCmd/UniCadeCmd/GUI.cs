@@ -14,12 +14,23 @@ namespace UniCadeCmd
     {
         public GUI()
         {
-            FormBorderStyle = FormBorderStyle.None;
             InitializeComponent();
         }
 
         private void GUI_Load(object sender, EventArgs e)
         {
+            FormBorderStyle = FormBorderStyle.None;
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Load(@"C: \UniCade\Media\SNES.png");
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+
+        }
+
+        void GUI_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+                MessageBox.Show("Form.KeyPress: '" +
+                    e.KeyChar.ToString() + "' pressed.");
 
         }
     }

@@ -24,6 +24,7 @@ namespace UniCadeCmd
         private string esrb;
         private string esrbDescriptor;
         private string esrbSummary;
+        private int fav;
         public int launchCount;
 
 
@@ -36,11 +37,12 @@ namespace UniCadeCmd
         }
 
         //Extended Constuctor 
-        public Game(string fileName, string con, int launchCount, string releaseDate, string publisher, string developer, string userScore, string criticScore, string players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string[] genres, string[] tags)
+        public Game(string fileName, string con, int launchCount, string releaseDate, string publisher, string developer, string userScore, string criticScore, string players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string[] genres, string[] tags, int fav)
         {
 
             this.fileName = fileName;
             this.con = con;
+            this.fav = fav;
             this.launchCount = launchCount;
             this.releaseDate = releaseDate;
             this.publisher = publisher;
@@ -100,6 +102,11 @@ namespace UniCadeCmd
             return players;
         }
 
+        public int getFav()
+        {
+            return fav;
+        }
+
         public string getTrivia()
         {
             return trivia;
@@ -150,6 +157,11 @@ namespace UniCadeCmd
         public void setConsole(string s)
         {
             con = s;
+        }
+
+        public void setConsole(int s)
+        {
+            fav = s;
         }
 
         public void setReleaseDate(string s)
