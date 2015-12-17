@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace UniCadeCmd
 {
-    class Console
+    public class Console
     {
         private string name;
         private string emuPath;
@@ -52,10 +52,6 @@ namespace UniCadeCmd
             return releaseDate;
         }
 
-        public string getlaunchParam()
-        {
-            return launchParam;
-        }
 
         public ArrayList getGameList()
         {

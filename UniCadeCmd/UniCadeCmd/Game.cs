@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniCadeCmd
 {
-    class Game
+    public class Game
     {
         private string fileName;
         private string con;
@@ -15,8 +15,8 @@ namespace UniCadeCmd
         private string releaseDate;
         private string publisher;
         private string developer;
-        private string[] genres;
-        private string[] tags;
+        private string genres;
+        private string tags;
         private string userScore;
         private string criticScore;
         private string trivia;
@@ -34,10 +34,22 @@ namespace UniCadeCmd
             this.fileName = fileName;
             this.con = con;
             title = fileName.Substring(0, fileName.IndexOf('.'));
+            description = "";
+            releaseDate = "";
+            publisher = "";
+            developer = "";
+            userScore = "";
+            criticScore = "";
+            trivia = "";
+            players = "";
+            esrb = "";
+            esrbDescriptor = "";
+            esrbSummary = "";
+
         }
 
         //Extended Constuctor 
-        public Game(string fileName, string con, int launchCount, string releaseDate, string publisher, string developer, string userScore, string criticScore, string players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string[] genres, string[] tags, int fav)
+        public Game(string fileName, string con, int launchCount, string releaseDate, string publisher, string developer, string userScore, string criticScore, string players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, int fav)
         {
 
             this.fileName = fileName;
@@ -89,7 +101,7 @@ namespace UniCadeCmd
 
         public string getPublisher()
         {
-            return developer;
+            return publisher;
         }
 
         public string getCriticScore()
@@ -105,6 +117,11 @@ namespace UniCadeCmd
         public int getFav()
         {
             return fav;
+        }
+
+        public void setFav(int n)
+        {
+            fav = n;
         }
 
         public string getTrivia()
@@ -132,7 +149,7 @@ namespace UniCadeCmd
             return esrbSummary;
         }
 
-        public string[] getTags()
+        public string getTags()
         {
             return tags;
         }
@@ -144,7 +161,7 @@ namespace UniCadeCmd
 
 
 
-        public string[] getGenres()
+        public string getGenres()
         {
             return genres;
         }
@@ -184,6 +201,11 @@ namespace UniCadeCmd
             userScore = s;
         }
 
+        public void setDescription(string s)
+        {
+            description = s;
+        }
+
         public void setCriticScore(string s)
         {
             criticScore = s;
@@ -199,12 +221,12 @@ namespace UniCadeCmd
             players = s;
         }
 
-        public void setGenres(string[] s)
+        public void setGenres(string s)
         {
             genres = s;
         }
 
-        public void setTags(string[] s)
+        public void setTags(string s)
         {
             tags = s;
         }

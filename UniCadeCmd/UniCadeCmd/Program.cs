@@ -14,20 +14,39 @@ namespace UniCadeCmd
         public static Database dat;
         public static string databasePath = @"C:\UniCade\Databse.txt";
         public static string romPath = @"C:\UniCade\ROMS";
-        public static string MediaPath = @"C:\UniCade\Media";
+        public static string mediaPath = @"C:\UniCade\Media";
+        public static string emuPath = @"C:\UniCade\Emulators";
+        public static string prefPath = @"C:\UniCade\Preferences.txt";
+        public static User curUser;
 
         static void Main(string[] args)
         {
             dat = new Database();
-            dat.userList.Add(new User("Ben", "temp", 0, 0, " ", 20));
-            if (!loadDatabase(databasePath))
-            {
-                loadDefaultConsoles();
-                scan(romPath);
-                saveDatabase(databasePath);
-            }
             
-            //login();
+            if (!FileOps.loadPreferences(prefPath))
+            {
+                
+                
+                FileOps.defaultPreferences();
+                System.Console.WriteLine("Preference file not found. Loading default values");
+            }
+            if (!FileOps.loadDatabase(databasePath))
+            {
+                FileOps.loadDefaultConsoles();
+                FileOps.scan(romPath);
+                FileOps.saveDatabase(databasePath);
+            }
+
+            if (curUser == null)
+            {
+                curUser = new User("UniCade", "temp", 0, 0, " ", 20);
+                dat.userList.Add(curUser);
+            }
+
+            if (SettingsWindow.requireLogin == 1)
+            {
+                login();
+            }
             displayConsoles(); 
 
         }
@@ -38,18 +57,29 @@ namespace UniCadeCmd
         {
             while (true)
             {
-                System.Console.WriteLine("Please enter username");
+                System.Console.WriteLine("Please enter username (Type x to exit)");
                 string userName = System.Console.ReadLine();
+                if (userName.Equals("x"))
+                {
+                    return;
+                }
                 foreach (User u in dat.userList)
                 {
                     if (userName.Equals(u.getUsername()))
                     {
                         while (true)
                         {
+                            string ps = System.Console.ReadLine();
                             System.Console.WriteLine("Please enter password");
-                            if (System.Console.ReadLine().Equals(u.getPass()))
+                            if (ps.Equals("x"))
+                            {
+                                return;
+                            }
+                            if (ps.Equals(u.getPass()))
                             {
                                 System.Console.WriteLine("Password Accepted");
+                                curUser = u;
+                                curUser.loginCount++;
                                 return;
                             }
                         }
@@ -62,32 +92,61 @@ namespace UniCadeCmd
         {
             while (true)
             {
-                System.Console.WriteLine("Available Consoles:   [Exit: (c), Rescan (r):, Info: (i), GUI (g), (s) Settings, (d) Download Info <Console> ]");
+                System.Console.WriteLine("{"+ curUser.getUsername()+ "} Available Consoles:   [Exit: (c), Rescan (r):, Info: (i), GUI (g), Switch User (u), (s) Settings, (uf) User Favs (d) Download Info <Console>");
                 string list = "";
                 foreach (Console c in dat.consoleList)
                 {
-                    list = list + " " + c.getName();
+                    list = list + " " + "["+ c.getName()  + "]";
                 }
                 System.Console.WriteLine(list);
                 string input = System.Console.ReadLine();
                 if (input.Equals("(c)"))
                 {
-                    saveDatabase(databasePath);
+                    FileOps.saveDatabase(databasePath);
+                    FileOps.savePreferences(prefPath);
                     return;
                 }
                 else if (input.Contains("(r)"))
                 {
-                    scan(romPath);
+                    FileOps.scan(romPath);
                 }
+
+                else if (input.Equals("(uf)"))
+                {
+                    displayUserFavs();
+                }
+
+
                 else if (input.Contains("(s)"))
                 {
-                    SettingsWindow sw = new SettingsWindow();
-                    sw.ShowDialog();
+                    if (SettingsWindow.passProtect>0)
+                    {
+                        System.Console.WriteLine("Enter Password");
+                        string inp = System.Console.ReadLine();
+                        int n;
+                        Int32.TryParse(inp, out n);
+                        if (n>0) {
+                            if (Int32.Parse(inp).Equals(SettingsWindow.passProtect))
+                            {
+                                SettingsWindow sw = new SettingsWindow();
+                                sw.ShowDialog();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        SettingsWindow sw = new SettingsWindow();
+                        sw.ShowDialog();
+                    }
                 }
                 else if (input.Contains("(g)"))
                 {
                     GUI gui = new GUI();
                     gui.ShowDialog();
+                }
+                else if (input.Contains("(u)"))
+                {
+                    login();
                 }
                 else if (input.Contains("(d)"))
                 {
@@ -129,9 +188,10 @@ namespace UniCadeCmd
             bool fav = false;
             while (true)
             {
+                
                 string text = string.Format("{0} (Total Games: {1})", c.getName(), c.gameCount);
                 System.Console.WriteLine(text);
-                System.Console.WriteLine("Additional Options:Info: (i) <game>, Close (c), Display Favorites (f) Console Info (ci)\n");
+                System.Console.WriteLine("Additional Options:Info: (i) <game>, Close (c),Global Fav (gf), (uf) Add User Fav, Display Favorites (f) Console Info (ci)\n");
 
                 //Display Game List
                 foreach (Game g in c.getGameList())
@@ -143,21 +203,39 @@ namespace UniCadeCmd
                             System.Console.WriteLine(g.getTitle());
                         }
                     }
+                    else if (SettingsWindow.viewEsrb > 1)
+                    {
+                        if (SettingsWindow.calcEsrb(g.getEsrb()) <= SettingsWindow.restrictESRB)
+                        {
+                            System.Console.WriteLine(g.getTitle());
+                        }
+                    }
                     else
                     {
                         System.Console.WriteLine(g.getTitle());
                     }
+
                 }
 
 
                 string input = System.Console.ReadLine();
                 string s = input.Substring(3);
-                if (input.Contains("(i)")){ 
+                if (input.Contains("(i)"))
+                {
                     foreach (Game g in c.getGameList())
                     {
                         if (s.Contains(g.getTitle()))
                         {
-                            displayGameInfo(g);
+                            System.Console.Write(displayGameInfo(g));
+                            string inp = System.Console.ReadLine();
+                            while (true)
+                            {
+                                inp = System.Console.ReadLine();
+                                if (inp.Equals("(c)"))
+                                {
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -167,58 +245,124 @@ namespace UniCadeCmd
                 }
                 else if (input.Equals("(f)"))
                 {
-                    fav = true;
+                    if (!fav)
+                    {
+                        fav = true;
+                    }
+                    else
+                    {
+                        fav = false;
+                    }
                 }
-                else if (input.Equals("(c)")){
+                else if (input.Contains("(uf)"))
+                {
+                    curUser.favorites.Add(c.getName() + "*" + input.Substring(5));
+                    System.Console.WriteLine("\n***Added to User Favorites***\n");
+                }
+                else if (input.Contains("(gf)"))
+                {
+                    foreach (Game g in c.getGameList())
+                    {
+                        if (input.Substring(4).Contains(g.getTitle()))
+                        {
+                            if (g.getFav() < 1)
+                            {
+                                g.setFav(1);
+                                System.Console.WriteLine("\n***Added to Favorites***\n");
+                            }
+                            else
+                            {
+                                g.setFav(0);
+                                System.Console.WriteLine("\n***Removed From Favorites***\n");
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                else if (input.Equals("(c)"))
+                {
                     return;
                 }
-                //System.Console.WriteLine("YES\n\n\n\n\n");
-                    foreach (Game g1 in c.getGameList())              //Launch Game
+                else
+                {
+                    //System.Console.WriteLine("YES\n\n\n\n\n");
+                    foreach (Game g1 in c.getGameList())
                     {
                         if (input.Contains(g1.getTitle()))
                         {
-                        var m_command = new System.Diagnostics.Process();
-                        string gamePath = ("\"" + c.getRomPath() + g1.getFileName() + "\"");
-                        string args = c.getLaunchParam().Replace("%file", gamePath);
-                        System.Console.WriteLine(args);
-                        m_command.StartInfo.FileName = c.getEmuPath();
-                        m_command.StartInfo.Arguments = args;
-                        m_command.Start();
-                     
-                        //Process.Start(c.getEmuPath() + " "+ c.getRomPath()+ g1.getFileName());
+                            FileOps.launch(g1, c);
 
+                        }
                     }
-                    }
-
-                
+                }
             }
 
         }
 
-
-        public static void displayGameInfo(Game g)
+        public static void displayUserFavs()
         {
+            string str = "";
+            foreach (string s in curUser.favorites)
+            {
+                string[] st = s.Split('*');
+                if (st.Length > 1)
+                {
+                    str += (st[0] + " " + st[1]+"\n");
+                }
+            }
             while (true)
             {
                 System.Console.WriteLine("[Type (c) to close info window]\n");
-                System.Console.WriteLine("Title: " + g.getTitle());
-                System.Console.WriteLine("Release Date: " + g.getReleaseDate());
-                System.Console.WriteLine("Developer: " + g.getDeveloper());
-                System.Console.WriteLine("Publisher: " + g.getPublisher());
-                System.Console.WriteLine("Players: " + g.getPlayers());
-                System.Console.WriteLine("User Score: " + g.getUserScore());
-                System.Console.WriteLine("Critic Score: " + g.getCriticScore());
-                System.Console.WriteLine("ESRB Rating: " + g.getEsrb());
-                System.Console.WriteLine("ESRB Descriptor: " + g.getEsrbDescriptor());
-                System.Console.WriteLine("Game Description: " + g.getDescription());
-
+                System.Console.WriteLine(str);
                 string input = System.Console.ReadLine();
                 if (input.Equals("(c)"))
                 {
                     return;
                 }
+                //Check for matching input string to launch
+                foreach (string s in curUser.favorites)
+                {
+                    string[] st = s.Split('*');
+                    if (st.Length > 1)
+                    {
+                        str = (st[0] + " " + st[1] + "\n");
+                        if (str.Contains(input))
+                        {
+                            foreach(Console c in Program.dat.consoleList)
+                            {
+                                if (c.getName().Equals(st[0]))
+                                {
+                                    foreach (Game g in c.getGameList()){
+                                        if (st[1].Contains(g.getTitle())){
+                                            FileOps.launch(g, c);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
+        }
 
+
+       public static string displayGameInfo(Game g)
+        {
+            string txt = "";
+
+                txt = txt +("[Type (c) to close info window]\n");
+                txt = txt + ("Title: " + g.getTitle() +"\n");
+                txt = txt + ("Release Date: " + g.getReleaseDate() + "\n");
+                txt = txt + ("Developer: " + g.getDeveloper() + "\n");
+                txt = txt + ("Publisher: " + g.getPublisher() + "\n");
+                txt = txt + ("Players: " + g.getPlayers() + "\n");
+                txt = txt + ("User Score: " + g.getUserScore() + "\n");
+                txt = txt + ("Critic Score: " + g.getCriticScore() + "\n");
+                txt = txt + ("ESRB Rating: " + g.getEsrb() + "\n");
+                txt = txt + ("ESRB Descriptor: " + g.getEsrbDescriptor() + "\n");
+                txt = txt + ("Game Description: " + g.getDescription() + "\n");
+                return txt;
             }
         public static void displayConsoleInfo(Console c)
         {
@@ -241,138 +385,7 @@ namespace UniCadeCmd
         }
 
 
-        public static void scan(string targetDirectory) { 
-        string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
-        foreach(string subdirectory in subdirectoryEntries)
-            scanDirectory(subdirectory, targetDirectory);
-    }
 
-    public static void scanDirectory(string path, string directory)
-        {
-            string emuName = new DirectoryInfo(path).Name;
-            bool foundCon = false;
-            Console con = new Console();
-            foreach(Console c in dat.consoleList)
-            {
-                if (c.getName().Equals(emuName))
-                {
-                    con = c;
-                    foundCon = true;
-                    break;
-                }
-            }
-            if (!foundCon)
-            {
-                //System.Console.WriteLine("Console not found");
-                return;
-            }
-            string[] fileEntries = Directory.GetFiles(path);
-
-            foreach (string fileName in fileEntries)
-            {
-
-                con.getGameList().Add(new Game(Path.GetFileName(fileName), con.getName(), 0));
-                con.gameCount++;
-            }
-        }
-
-        public static void loadDefaultConsoles()
-        {
-            dat.consoleList.Add(new Console("GBA", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C: \UniCade\ROMS\GBA\", "prefPath", "romExt", 0, "consoleInfo", "%file", "2001"));
-            dat.consoleList.Add(new Console("Gamecube", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Gamecube\", "prefPath", "romExt", 0, "consoleInfo", "/b /e %file", "2001"));
-            dat.consoleList.Add(new Console("NES", @"C:\UniCade\Emulators\NES\Jnes.exe", @"C:\UniCade\ROMS\NES\", "prefPath", "romExt", 0, "consoleInfo", "%file", "1983"));
-            dat.consoleList.Add(new Console("SNES", @"C:\UniCade\Emulators\ZSNES\zsnesw.exe", @"C:\UniCade\ROMS\SNES\", "prefPath", "romExt", 0, "consoleInfo", "%file", "1990"));
-            dat.consoleList.Add(new Console("N64", @"C:\UniCade\Emulators\Project64\Project64.exe", @"C:\UniCade\ROMS\N64\", "prefPath", "romExt", 0, "consoleInfo", "%file", "1996"));
-            dat.consoleList.Add(new Console("PS1", @"C:\UniCade\Emulators\ePSXe\ePSXe.exe", @"C:\UniCade\ROMS\PS1\", "prefPath", "romExt", 0, "consoleInfo", "-nogui -loadbin %file", "1994"));
-            dat.consoleList.Add(new Console("PS2", @"C:\UniCade\Emulators\PCSX2\pcsx2.exe", @"C:\UniCade\ROMS\PS2\", "prefPath", "romExt", 0, "consoleInfo", "%file", "2000"));
-            dat.consoleList.Add(new Console("Atari 2600", @"C:\UniCade\Emulators\Stella\Stella.exe", @"C:\UniCade\ROMS\Atari 2600\", "prefPath", "romExt", 0, "consoleInfo", "file", "1977"));
-            dat.consoleList.Add(new Console("Dreamcast", @"C:\UniCade\Emulators\NullDC\nullDC_Win32_Release-NoTrace.exe", @"C:\UniCade\ROMS\Dreamcast\", "prefPath", "romExt", 0, "consoleInfo", "-config ImageReader:defaultImage=%file", "1998"));
-            dat.consoleList.Add(new Console("PSP", @"C:\UniCade\Emulators\PPSSPP\PPSSPPWindows64.exe", @"C:\UniCade\ROMS\PSP\", "prefPath", "romExt", 0, "consoleInfo", "%file", "2005"));
-            dat.consoleList.Add(new Console("Sega Genisis", @"C:\UniCade\Emulators\Fusion\Fusion.exe", @"C:\UniCade\ROMS\Sega Genisis\", "prefPath", "romExt", 0, "consoleInfo", "%file -gen -auto -fullscreen", "1990"));
-            dat.consoleList.Add(new Console("Wii", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Wii\", "prefPath", "romExt", 0, "consoleInfo", "/b /e %file", "2006"));
-            dat.consoleList.Add(new Console("Nintendo DS", @"C:\UniCade\Emulators\NDS\DeSmuME.exe", @"C:\UniCade\ROMS\NDS\", "prefPath", "romExt", 0, "consoleInfo", "%file", "2005"));
-            dat.consoleList.Add(new Console("GBC", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C: \UniCade\ROMS\GBC\", "prefPath", "romExt", 0, "consoleInfo", "%file", "1998"));
-            //dat.consoleList.Add(new Console("SCUMMVM", @"C:\UniCade\Emulators\PPSSPP\PPSSPPWindows64.exe", @"C:\UniCade\ROMS\SCUMMVM\", "prefPath", "romExt", 0, "consoleInfo", "%file", "0000"));
-        }
-
-        public static void loadConsoles()
-        {
-            string line;
-            char[] sep = { '|' };
-            string[] r = { " " };
-            StreamReader file = new StreamReader(@"C:\UniCade\consoleList.txt");
-            while ((line = file.ReadLine()) != null)
-            {
-                r = line.Split(sep);
-                //Console.WriteLine("Length: " + r.Length);
-
-                dat.consoleList.Add(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[7], r[8]));
-            }
-            file.Close();
-        }
-
-        public static bool loadDatabase(string path)
-        {
-            if (!File.Exists(path))
-            {
-                System.Console.WriteLine("Database file does not exist");
-                return false;
-            }
-            string line;
-            int conCount = 0;
-            Console c = new Console();
-            string[] tmp = { "tmp" };
-            char[] sep = { '|' };
-            string[] r = { " " };
-            StreamReader file = new StreamReader(path);
-            while ((line = file.ReadLine()) != null)
-            {
-                r = line.Split(sep);
-                //System.Console.WriteLine("Loop");
-                if (line.Substring(0, 5).Contains("***"))
-                {
-                    if (conCount > 0) {
-                        dat.consoleList.Add(c);
-                            }
-                    c = new Console(r[0].Substring(3), r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[7], r[8]);
-                    conCount++;
-                }
-                else
-                {
-                    c.getGameList().Add(new Game(r[0], r[1], Int32.Parse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13],tmp ,tmp, int.Parse(r[14]) ));
-                    //System.Console.WriteLine(r[0]);
-                }
-            }
-            file.Close();
-            return true;
-        }
-
-
-
-        public static void saveDatabase(string path)
-        {
-            Console con = new Console();
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                foreach (Console c in dat.consoleList)
-                {
-                    string txt = string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, c.getConsoleInfo(), c.getlaunchParam(), c.getReleaseDate());
-                    sw.WriteLine(txt);
-                    foreach (Game g in c.getGameList())
-                    {
-                         txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", g.getFileName(), g.getConsole(), g.launchCount, g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), g.getTrivia(), g.getEsrb(), g.getEsrbDescriptor(),g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags(), g.getFav());
-                        sw.WriteLine(txt);
-
-                    }
-                }
-
-            }
-        }
 
     }
 
