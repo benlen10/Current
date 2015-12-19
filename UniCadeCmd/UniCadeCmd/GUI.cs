@@ -116,7 +116,23 @@ namespace UniCadeCmd
                         infoWindowActive = false;
                     }
                 }
+                else
+                {
+                    infoWindowActive = true;
+                    displayConsoleInfo();
+
+                }
             }
+            else if (e.Alt&& (e.KeyCode == Keys.C))  //Display Command line and close gui
+            {
+                Close();
+            }
+            else if (e.Alt&& (e.KeyCode == Keys.P))  //Display preferences window
+            {
+                SettingsWindow sw = new SettingsWindow();
+                sw.ShowDialog();
+            }
+
             else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Current Window
             {
 
@@ -273,7 +289,7 @@ namespace UniCadeCmd
                     break;
                 }
             }
-
+            richTextBox1.Visible = true;
         }
 
         private void displayConsoleInfo()
