@@ -113,38 +113,42 @@ namespace UniCadeCmd
                     else
                     {
                         richTextBox1.Visible = false;  //Close Info Window
-                        pictureBox1.Visible = true;
                         infoWindowActive = false;
                     }
                 }
-                else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Current Window
+            }
+            else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Current Window
+            {
+
+                if (gameSelectionActive)
                 {
-                    if (gameSelectionActive)
+                    if (infoWindowActive)
                     {
-                        if (infoWindowActive)
-                        {
-                            richTextBox1.Visible = false;  //Close Info Window
-                            listBox1.Visible = true;
-                            infoWindowActive = false;
-                        }
-                        else
-                        {
-                            listBox1.Visible = false;  //Close Game Selection window
-                            pictureBox1.Visible = true;
-                            gameSelectionActive = false;
-                        }
+                        richTextBox1.Visible = false;  //Close Info Window
+                        listBox1.Visible = true;
+                        infoWindowActive = false;
                     }
                     else
                     {
-
-                            richTextBox1.Visible = false;  //Close Info Window
-                            infoWindowActive = false;
-                        }
-
+                        listBox1.Visible = false;  //Close Game Selection window
+                        pictureBox1.Visible = true;
+                        gameSelectionActive = false;
                     }
 
                 }
+                else
+                {
+
+                    richTextBox1.Visible = false;  //Close Info Window
+                    pictureBox1.Visible = true;
+                    infoWindowActive = false;
+                }
+
             }
+        }
+
+                
+            
         
 
         
@@ -274,7 +278,14 @@ namespace UniCadeCmd
 
         private void displayConsoleInfo()
         {
-            
+            foreach (Console c in Program.dat.consoleList)
+            {
+                if (c.getName().Equals(conList[index]))
+                {
+                    Program.displayConsoleInfo(c);
+                    break;
+                }
+            }
 
         }
     }
