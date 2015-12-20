@@ -28,6 +28,7 @@ namespace UniCadeCmd
 
         private void GUI_Load(object sender, EventArgs e)
         {
+            Cursor.Hide();
             this.WindowState = FormWindowState.Normal;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Bounds = Screen.PrimaryScreen.Bounds;
@@ -281,6 +282,10 @@ namespace UniCadeCmd
 
         private void displayGameInfo()
         {
+            if(listBox1.SelectedItem == null)
+            {
+                return;
+            }
             foreach (Game g in gameSelectionConsole.getGameList())
             {
                 if (listBox1.SelectedItem.ToString().Equals(g.getTitle()))
