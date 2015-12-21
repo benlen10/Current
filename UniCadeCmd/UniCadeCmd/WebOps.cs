@@ -25,10 +25,13 @@ namespace UniCadeCmd
         public static int boxFront = 1;
         public static int boxBack = 1;
         public static int screenshot = 1;
+        public static string gameName;
 
 
         public static void scrapeInfo(Game g)
         {
+            gameName = g.getTitle().Replace(" ", "-");
+            gameName = gameName.Replace("'", "");
             if (mobyg > 0)
             {
                 scrapeMobyGames(g);
@@ -47,7 +50,7 @@ namespace UniCadeCmd
             {
                 return;
             }
-            string url = ("http://www.mobygames.com/game/" + g.getConsole() + "/" + g.getTitle().Replace(" ", "-"));
+            string url = ("http://www.mobygames.com/game/" + g.getConsole() + "/" + gameName);
             url = url.ToLower();
 
             WebClient site = new WebClient();
@@ -217,7 +220,7 @@ namespace UniCadeCmd
                 return;
             }
 
-            string url = ("http://www.metacritic.com/game/" + metaCon + "/" + g.getTitle().Replace(" ", "-") + "/details");
+            string url = ("http://www.metacritic.com/game/" + metaCon + "/" + gameName + "/details");
             url = url.ToLower();
 
             var http = (HttpWebRequest)WebRequest.Create(url);
