@@ -141,7 +141,8 @@ namespace UniCadeCmd
                     else
                     {
                         SettingsWindow sw = new SettingsWindow();
-                        sw.ShowDialog();
+
+                       sw.ShowDialog();
                     }
                 }
                 else if (input.Contains("(g)"))

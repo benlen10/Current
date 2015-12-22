@@ -11,7 +11,7 @@ namespace UniCadeCmd
     class WebOps
     {
         //Scraper Settings
-        public static int metac =1;
+        public static int metac = 1;
         public static int mobyg = 1;
         public static int year = 1;
         public static int publisher = 1;
@@ -30,7 +30,8 @@ namespace UniCadeCmd
 
         public static void scrapeInfo(Game g)
         {
-            gameName = g.getTitle().Replace(" ", "-");
+            gameName = g.getTitle().Replace(" - ", " ");
+            gameName = gameName.Replace(" ", "-");
             gameName = gameName.Replace("'", "");
             if (mobyg > 0)
             {
@@ -58,15 +59,14 @@ namespace UniCadeCmd
             string html = site.DownloadString(url);
 
             //Parse ESRB
-            System.Console.WriteLine("PARSE ESRB");
-            if (esrb > 1)
+            if (esrb > 0)
             {
-                int indexA = html.IndexOf("ESRB Rating");
+                int indexA = html.IndexOf("ESRB");
                 if (indexA < 0)
                 {
                     indexA = 0;
                 }
-                string s = html.Substring(indexA, indexA + 100);
+                string s = html.Substring(indexA, indexA + 50);
                 if (s.Contains("Everyone"))
                 {
                     g.setEsrb("Everyone");
@@ -274,24 +274,29 @@ namespace UniCadeCmd
                 }
             }
 
-            //Parse Developer (Metacritic)
-            if (developer > 0)
-            {
-                int tmp = 0;
-                tmp = html.IndexOf("Developer:");
-                if (tmp > 0)
-                {
-                    System.Console.WriteLine("YEs1");
-                    int tmp2 = html.IndexOf("<", tmp + 20);
-                    if (true) //tmp2 > 0)
+           
+
+                //Parse Developer (Metacritic)
+                /*if (developer > 0)
+                { 
+                    int tmp = 0;
+                    tmp = html.IndexOf("/company/",6850 );
+                    int tmp2 = html.IndexOf("/company/", (tmp+30));
+                    System.Console.WriteLine("Length" + tmp2);
+                    if (tmp > 0)
                     {
-                        string dev = html.Substring((tmp + 20), tmp2 - (tmp + 20));
-                        System.Console.WriteLine(dev);
-                        g.setDeveloper(dev);
+                        //System.Console.WriteLine("YEs1");
+                        int tmp3 = html.Substring(tmp).IndexOf(">");
+                        if (true) //tmp2 > 0)
+                        {
+                            string dev = html.Substring((tmp2+9), 5);
+                            System.Console.WriteLine(dev);
+                            g.setDeveloper(dev);
+                        }
                     }
                 }
-            }
-        }
+            }*/
 
-        }
+            }
     }
+}
