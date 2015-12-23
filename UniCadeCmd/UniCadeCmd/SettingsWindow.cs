@@ -177,7 +177,9 @@ namespace UniCadeCmd
 
             refreshGlobalFavs();
 
-           
+            richTextBox1.Text = "(© Lenington Design)"; //Readme Info
+
+
             }
 
         
@@ -987,6 +989,11 @@ namespace UniCadeCmd
         private void button23_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void SettingsWindow_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
