@@ -14,6 +14,7 @@ namespace UniCadeCmd
 {
     public partial class GUI : Form
     {
+        private KeyHandler ghk;
         public static ArrayList conList;
         public static int index;
         public static string curCon;
@@ -29,10 +30,12 @@ namespace UniCadeCmd
         private void GUI_Load(object sender, EventArgs e)
         {
             Cursor.Hide();
-            this.WindowState = FormWindowState.Normal;
+            this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Bounds = Screen.PrimaryScreen.Bounds;
             this.BringToFront();
+            ghk = new KeyHandler(Keys.F4, this);
+            ghk.Register();
             listBox1.Visible = false;
            // textBox1.BackColor = Color.Transparent;
             gameSelectionActive = false;
@@ -132,6 +135,10 @@ namespace UniCadeCmd
             {
                 SettingsWindow sw = new SettingsWindow();
                 sw.ShowDialog();
+            }
+            else if (e.Alt && (e.KeyCode == Keys.X))  //Close current process
+            {
+                
             }
 
             else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Current Window
@@ -308,6 +315,23 @@ namespace UniCadeCmd
                 }
             }
 
+        }
+
+        private void HandleHotkey()
+        {
+            System.Console.WriteLine("HOTKEY DETECTED");
+            this.WindowState = FormWindowState.Normal;
+            this.WindowState = FormWindowState.Maximized;
+            this.Bounds = Screen.PrimaryScreen.Bounds;
+            this.BringToFront();
+
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == Constants.WM_HOTKEY_MSG_ID)
+                HandleHotkey();
+            base.WndProc(ref m);
         }
     }
 }

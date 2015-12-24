@@ -9,6 +9,7 @@ namespace UniCadeCmd
 {
     class FileOps
     {
+
         public static bool loadDatabase(string path)
         {
             if (!File.Exists(path))
@@ -22,6 +23,7 @@ namespace UniCadeCmd
             char[] sep = { '|' };
             string[] r = { " " };
             StreamReader file = new StreamReader(path);
+          
             while ((line = file.ReadLine()) != null)
             {
                 r = line.Split(sep);
@@ -369,6 +371,11 @@ namespace UniCadeCmd
             m_command.StartInfo.FileName = c.getEmuPath();
             m_command.StartInfo.Arguments = args; 
             m_command.Start();
+        }
+
+        public static void killLaunch()
+        {
+
         }
 
         public static void loadDefaultConsoles()

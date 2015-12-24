@@ -108,6 +108,7 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "GUI";
             this.Text = "GUI";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

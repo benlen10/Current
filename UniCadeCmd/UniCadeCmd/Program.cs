@@ -47,11 +47,11 @@ namespace UniCadeCmd
             {
                 login();
             }
-            /*if (SettingsWindow.cmdOrGui < 1)
+            if (SettingsWindow.cmdOrGui < 1)
             {
                 GUI gui = new GUI();
                 gui.ShowDialog();
-            }*/
+            }
             displayConsoles(); 
 
         }
