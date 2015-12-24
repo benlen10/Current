@@ -9,7 +9,7 @@ namespace UniCadeCmd
 {
     class FileOps
     {
-
+        public static System.Diagnostics.Process proc;
         public static bool loadDatabase(string path)
         {
             if (!File.Exists(path))
@@ -358,7 +358,7 @@ namespace UniCadeCmd
             }
             g.launchCount++;
             Program.curUser.totalLaunchCount++;
-            var m_command = new System.Diagnostics.Process();
+            proc = new System.Diagnostics.Process();
             string gamePath = ("\"" + c.getRomPath() + g.getFileName() + "\"");
             string args = c.getLaunchParam().Replace("%file", gamePath);
             if (args.Length<5)
@@ -368,14 +368,14 @@ namespace UniCadeCmd
             }
             System.Console.WriteLine(gamePath);
             System.Console.WriteLine(args);
-            m_command.StartInfo.FileName = c.getEmuPath();
-            m_command.StartInfo.Arguments = args; 
-            m_command.Start();
+            proc.StartInfo.FileName = c.getEmuPath();
+            proc.StartInfo.Arguments = args; 
+            proc.Start();
         }
 
         public static void killLaunch()
         {
-
+            proc.Kill();
         }
 
         public static void loadDefaultConsoles()

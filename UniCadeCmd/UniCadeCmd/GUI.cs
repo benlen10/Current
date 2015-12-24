@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace UniCadeCmd
 {
@@ -320,6 +321,8 @@ namespace UniCadeCmd
         private void HandleHotkey()
         {
             System.Console.WriteLine("HOTKEY DETECTED");
+            FileOps.killLaunch();
+            Thread.Sleep(1500);
             this.WindowState = FormWindowState.Normal;
             this.WindowState = FormWindowState.Maximized;
             this.Bounds = Screen.PrimaryScreen.Bounds;
