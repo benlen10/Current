@@ -77,6 +77,7 @@
     <Compile Include="Splash.Designer.cs">
       <DependentUpon>Splash.cs</DependentUpon>
     </Compile>
+    <Compile Include="Taskbar.cs" />
     <Compile Include="User.cs" />
     <Compile Include="WebOps.cs" />
   </ItemGroup>

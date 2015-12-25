@@ -35,6 +35,8 @@ namespace UniCadeCmd
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Bounds = Screen.PrimaryScreen.Bounds;
             this.BringToFront();
+            Taskbar.Hide();
+            this.TopMost = true;
             ghk = new KeyHandler(Keys.F4, this);
             ghk.Register();
             listBox1.Visible = false;
@@ -130,6 +132,7 @@ namespace UniCadeCmd
             }
             else if (e.Alt&& (e.KeyCode == Keys.C))  //Display Command line and close gui
             {
+                Taskbar.Show();
                 Close();
             }
             else if (e.Alt&& (e.KeyCode == Keys.P))  //Display preferences window
@@ -327,6 +330,7 @@ namespace UniCadeCmd
             this.WindowState = FormWindowState.Maximized;
             this.Bounds = Screen.PrimaryScreen.Bounds;
             this.BringToFront();
+            this.TopMost = true;
 
         }
 
