@@ -133,7 +133,7 @@ namespace UniCadeCmd
             else if (e.Alt&& (e.KeyCode == Keys.C))  //Display Command line and close gui
             {
                 Taskbar.Show();
-                Close();
+                Application.Exit();
             }
             else if (e.Alt&& (e.KeyCode == Keys.P))  //Display preferences window
             {
@@ -319,6 +319,17 @@ namespace UniCadeCmd
                 }
             }
 
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            switch (e.CloseReason)
+            {
+                case CloseReason.UserClosing:
+                    e.Cancel = true;
+                    break;
+            }
+
+            base.OnFormClosing(e);
         }
 
         private void HandleHotkey()
