@@ -35,6 +35,12 @@ namespace UniCadeCmd
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Bounds = Screen.PrimaryScreen.Bounds;
             this.BringToFront();
+
+            BackgroundThread bt = new BackgroundThread();  //Start a new background thread
+            //Thread t1 = new Thread(bt.BackgroundProcess);
+            //t1.Start();
+
+
             Taskbar.Hide();
             this.TopMost = true;
             ghk = new KeyHandler(Keys.F4, this);
@@ -74,6 +80,8 @@ namespace UniCadeCmd
 
 
             updateGUI();
+            this.Focus();
+            this.Activate();
 
         }
 
@@ -342,7 +350,13 @@ namespace UniCadeCmd
             this.Bounds = Screen.PrimaryScreen.Bounds;
             this.BringToFront();
             this.TopMost = true;
+            this.Activate();
 
+        }
+
+        public void activate()
+        {
+            this.Activate();
         }
 
         protected override void WndProc(ref Message m)

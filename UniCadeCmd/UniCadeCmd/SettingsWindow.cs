@@ -64,6 +64,8 @@ namespace UniCadeCmd
             comboBox2.Items.Add("Mature");
             comboBox2.Items.Add("Adults Only (AO)");
 
+            richTextBox1.Text = TextFiles.features + "\n\n\n\n\n\n"+ TextFiles.instructions;
+
             if (restrictESRB == 1)
             {
                 checkBox7.Checked = true;

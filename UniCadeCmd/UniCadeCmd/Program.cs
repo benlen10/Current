@@ -18,9 +18,12 @@ namespace UniCadeCmd
         public static string emuPath = @"C:\UniCade\Emulators";
         public static string prefPath = @"C:\UniCade\Preferences.txt";
         public static User curUser;
+        public static GUI gui;
 
         static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+
             dat = new Database();
             
             if (!FileOps.loadPreferences(prefPath))
@@ -49,7 +52,7 @@ namespace UniCadeCmd
             }
             if (SettingsWindow.cmdOrGui < 1)
             {
-                GUI gui = new GUI();
+                gui = new GUI();
                 gui.ShowDialog();
             }
             displayConsoles(); 
@@ -389,6 +392,15 @@ namespace UniCadeCmd
                 }
             }
         }
+
+        static void OnProcessExit(object sender, EventArgs e)
+        {
+            Taskbar.Show();
+        }
+        protected virtual void OnClosing() {
+            Taskbar.Show();
+        }
+
 
 
 

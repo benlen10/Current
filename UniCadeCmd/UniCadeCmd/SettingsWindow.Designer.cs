@@ -312,7 +312,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(694, 523);
+            this.checkBox1.Location = new System.Drawing.Point(785, 538);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(306, 29);
             this.checkBox1.TabIndex = 35;
@@ -334,9 +334,9 @@
             // 
             this.button9.Location = new System.Drawing.Point(367, 507);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(270, 84);
+            this.button9.Size = new System.Drawing.Size(357, 84);
             this.button9.TabIndex = 33;
-            this.button9.Text = "Force Metadata Rescrape";
+            this.button9.Text = "Force Global Metadata Rescrape";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -1713,7 +1713,7 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // SettingsWindow
             // 

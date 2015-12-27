@@ -9,3 +9,7 @@ C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.csproj
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.GUI.resources
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.Properties.Resources.resources
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.Splash.resources
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\bin\Debug\UniCadeCmd.exe.manifest
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\bin\Debug\UniCadeCmd.application
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.exe.manifest
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.application
