@@ -22,6 +22,7 @@ namespace UniCadeCmd
         public static bool gameSelectionActive;
         public static bool infoWindowActive;
         public Console gameSelectionConsole;
+        public static int totalGameCount;
         int conCount;
         public GUI()
         {
@@ -82,6 +83,18 @@ namespace UniCadeCmd
             updateGUI();
             this.Focus();
             this.Activate();
+
+
+            foreach (Console c in Program.dat.consoleList)
+            {
+                
+                    foreach (Game g in c.getGameList())
+                    {
+
+                        totalGameCount++;
+                    }
+            }
+            label1.Text =  "Total Game Count: " + totalGameCount;
 
         }
 
@@ -169,6 +182,7 @@ namespace UniCadeCmd
                         listBox1.Visible = false;  //Close Game Selection window
                         pictureBox1.Visible = true;
                         gameSelectionActive = false;
+                        label1.Text = "Total Game Count: " + totalGameCount;
                     }
 
                 }
@@ -261,6 +275,8 @@ namespace UniCadeCmd
                 pictureBox1.Image.Dispose();
                 pictureBox1.Image = null;
             }
+
+          
         }
 
         private void openGameSelection()
@@ -273,11 +289,13 @@ namespace UniCadeCmd
                 if (c.getName().Equals(conList[index]))
                 {
                     gameSelectionConsole = c;
+                    label1.Text = c.getName() + " Game Count: " + c.gameCount;
                     foreach (Game g in c.getGameList())
                     {
 
                         listBox1.Items.Add(g.getTitle());
                     }
+                    break;
                 }
             }
 
@@ -286,7 +304,9 @@ namespace UniCadeCmd
 
 
 
-        private void launchGame()
+
+
+private void launchGame()
         {
             foreach (Game g in gameSelectionConsole.getGameList())
             {
