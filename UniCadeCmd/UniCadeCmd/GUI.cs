@@ -151,15 +151,30 @@ namespace UniCadeCmd
 
                 }
             }
-            else if (e.Alt&& (e.KeyCode == Keys.C))  //Display Command line and close gui
+            else if (e.Alt && (e.KeyCode == Keys.C))  //Display Command line and close gui
             {
                 Taskbar.Show();
                 Application.Exit();
             }
-            else if (e.Alt&& (e.KeyCode == Keys.P))  //Display preferences window
+            else if (e.Alt && (e.KeyCode == Keys.P))  //Display preferences window
+            {
+
+                if (SettingsWindow.passProtect > 0) { 
+                PassWindow pw = new PassWindow();
+                DialogResult result = pw.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    SettingsWindow sw = new SettingsWindow();
+                    sw.ShowDialog();
+                }
+            }
+            else
             {
                 SettingsWindow sw = new SettingsWindow();
                 sw.ShowDialog();
+            }
+        
             }
             else if (e.Alt && (e.KeyCode == Keys.X))  //Close current process
             {

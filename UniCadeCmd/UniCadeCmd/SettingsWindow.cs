@@ -181,8 +181,11 @@ namespace UniCadeCmd
 
             richTextBox1.Text = "(© Lenington Design)"; //Readme Info
 
-
-            }
+            this.Activate();
+            this.Focus();
+            this.TopMost = true;
+            Cursor.Show();
+        }
 
         
 
