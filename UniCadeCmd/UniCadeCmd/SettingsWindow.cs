@@ -240,7 +240,7 @@ namespace UniCadeCmd
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Hide();
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -299,7 +299,7 @@ namespace UniCadeCmd
 
         private void button5_Click(object sender, EventArgs e)  //Close Button
         {
-            Close();
+            this.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)   //Rescrape Info Button
@@ -392,7 +392,7 @@ namespace UniCadeCmd
 
         private void button13_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Hide();
         }
 
         //Extra Methods
@@ -434,12 +434,13 @@ namespace UniCadeCmd
 
         private void button16_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Hide();
         }
 
         private void button14_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Hide();
+            
         }
 
         private void button15_Click(object sender, EventArgs e)  //Save Global Settings 
@@ -465,7 +466,10 @@ namespace UniCadeCmd
             {
                 playtime = Int32.Parse(textBox7.Text);
             }
-            restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
+            if (comboBox1.SelectedItem != null)
+            {
+                restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
+            }
             FileOps.savePreferences(Program.prefPath);
         }
 
@@ -993,7 +997,7 @@ namespace UniCadeCmd
 
         private void button23_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Hide();
         }
 
         private void SettingsWindow_Load(object sender, EventArgs e)
