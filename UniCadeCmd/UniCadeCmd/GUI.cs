@@ -47,7 +47,7 @@ namespace UniCadeCmd
             ghk = new KeyHandler(Keys.F4, this);
             ghk.Register();
             listBox1.Visible = false;
-           // textBox1.BackColor = Color.Transparent;
+            // textBox1.BackColor = Color.Transparent;
             gameSelectionActive = false;
             infoWindowActive = false;
             richTextBox1.Visible = false;
@@ -70,7 +70,9 @@ namespace UniCadeCmd
             pictureBox1.BackColor = Color.Transparent;
             pictureBox2.BackColor = Color.Transparent;
             pictureBox3.BackColor = Color.Transparent;
+            pictureBox4.BackColor = Color.Transparent;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
 
 
             pictureBox2.Load(@"C:\UniCade\Media\Backgrounds\UniCade Logo (Narrow).png");
@@ -87,14 +89,14 @@ namespace UniCadeCmd
 
             foreach (Console c in Program.dat.consoleList)
             {
-                
-                    foreach (Game g in c.getGameList())
-                    {
 
-                        totalGameCount++;
-                    }
+                foreach (Game g in c.getGameList())
+                {
+
+                    totalGameCount++;
+                }
             }
-            label1.Text =  "Total Game Count: " + totalGameCount;
+            label1.Text = "Total Game Count: " + totalGameCount;
 
         }
 
@@ -159,26 +161,26 @@ namespace UniCadeCmd
             else if (e.Alt && (e.KeyCode == Keys.P))  //Display preferences window
             {
 
-                if (SettingsWindow.passProtect > 0) { 
-                PassWindow pw = new PassWindow();
-                DialogResult result = pw.ShowDialog();
+                if (SettingsWindow.passProtect > 0) {
+                    PassWindow pw = new PassWindow();
+                    DialogResult result = pw.ShowDialog();
 
-                if (result == DialogResult.OK)
+                    if (result == DialogResult.OK)
+                    {
+                        SettingsWindow sw = new SettingsWindow();
+                        sw.ShowDialog();
+                    }
+                }
+                else
                 {
                     SettingsWindow sw = new SettingsWindow();
                     sw.ShowDialog();
                 }
-            }
-            else
-            {
-                SettingsWindow sw = new SettingsWindow();
-                sw.ShowDialog();
-            }
-        
+
             }
             else if (e.Alt && (e.KeyCode == Keys.X))  //Close current process
             {
-                
+
             }
 
             else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Current Window
@@ -212,11 +214,11 @@ namespace UniCadeCmd
             }
         }
 
-                
-            
-        
 
-        
+
+
+
+
 
 
 
@@ -291,7 +293,7 @@ namespace UniCadeCmd
                 pictureBox1.Image = null;
             }
 
-          
+
         }
 
         private void openGameSelection()
@@ -321,7 +323,7 @@ namespace UniCadeCmd
 
 
 
-private void launchGame()
+        private void launchGame()
         {
             foreach (Game g in gameSelectionConsole.getGameList())
             {
@@ -336,7 +338,7 @@ private void launchGame()
 
         private void displayGameInfo()
         {
-            if(listBox1.SelectedItem == null)
+            if (listBox1.SelectedItem == null)
             {
                 return;
             }
@@ -399,6 +401,45 @@ private void launchGame()
             if (m.Msg == Constants.WM_HOTKEY_MSG_ID)
                 HandleHotkey();
             base.WndProc(ref m);
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            System.Console.WriteLine("Index changed");
+            foreach (Game g in gameSelectionConsole.getGameList())
+            {
+
+                if (listBox1.SelectedIndex.ToString().Equals(g.getTitle())){
+                    System.Console.WriteLine("FOUND" + g.getEsrb());
+                    pictureBox4.Image = null;
+                    if (g.getEsrb().Equals("Everyone"))
+                    {
+                        pictureBox4.Load(@"C:\UniCade\Media\Esrb\Everyone.png");
+                    }
+                    else if (g.getEsrb().Equals("Everyone (KA)"))
+                    {
+                        pictureBox4.Load(@"C:\UniCade\Media\Esrb\Everyone.png");
+                    }
+                    else if (g.getEsrb().Equals("Everyone 10+"))
+                    {
+                        pictureBox4.Load(@"C:\UniCade\Media\Esrb\Everyone 10+.png");
+                    }
+                    else if (g.getEsrb().Equals("Teen"))
+                    {
+                        pictureBox4.Load(@"C:\UniCade\Media\Esrb\Teen.png");
+                    }
+                    else if (g.getEsrb().Equals("Mature"))
+                    {
+                        System.Console.WriteLine("MATURE");
+                        pictureBox4.Load(@"C:\UniCade\Media\Esrb\Mature.png");
+                    }
+                    else if (g.getEsrb().Equals("Adults Only (AO)"))
+                    {
+                        pictureBox4.Load(@"C:\UniCade\Media\Esrb\Adults Only (AO).png");
+                    }
+
+                }
+            }
         }
     }
 }
