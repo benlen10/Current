@@ -361,16 +361,16 @@ namespace UniCadeCmd
             string txt = "";
 
                 txt = txt +("[Type (c) to close info window]\n");
-                txt = txt + ("Title: " + g.getTitle() +"\n");
-                txt = txt + ("Release Date: " + g.getReleaseDate() + "\n");
-                txt = txt + ("Developer: " + g.getDeveloper() + "\n");
-                txt = txt + ("Publisher: " + g.getPublisher() + "\n");
-                txt = txt + ("Players: " + g.getPlayers() + "\n");
-                txt = txt + ("User Score: " + g.getUserScore() + "\n");
-                txt = txt + ("Critic Score: " + g.getCriticScore() + "\n");
-                txt = txt + ("ESRB Rating: " + g.getEsrb() + "\n");
-                txt = txt + ("ESRB Descriptor: " + g.getEsrbDescriptor() + "\n");
-                txt = txt + ("Game Description: " + g.getDescription() + "\n");
+                txt = txt + ("/nTitle: " + g.getTitle() +"\n");
+                txt = txt + ("/nRelease Date: " + g.getReleaseDate() + "\n");
+                txt = txt + ("/nDeveloper: " + g.getDeveloper() + "\n");
+                txt = txt + ("/nPublisher: " + g.getPublisher() + "\n");
+                txt = txt + ("/nPlayers: " + g.getPlayers() + "\n");
+                txt = txt + ("/nUser Score: " + g.getUserScore() + "\n");
+                txt = txt + ("/nCritic Score: " + g.getCriticScore() + "\n");
+                txt = txt + ("/nESRB Rating: " + g.getEsrb() + "\n");
+                txt = txt + ("/nESRB Descriptors: " + g.getEsrbDescriptor() + "\n");
+                txt = txt + ("G/mame Description: " + g.getDescription() + "\n");
                 return txt;
             }
         public static void displayConsoleInfo(Console c)

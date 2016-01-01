@@ -200,6 +200,7 @@ namespace UniCadeCmd
                         pictureBox1.Visible = true;
                         gameSelectionActive = false;
                         label1.Text = "Total Game Count: " + totalGameCount;
+                        pictureBox4.Image = null;
                     }
 
                 }
@@ -405,12 +406,12 @@ namespace UniCadeCmd
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            System.Console.WriteLine("Index changed");
+            System.Console.WriteLine("Index changed: "+ listBox1.SelectedIndex.ToString());
             foreach (Game g in gameSelectionConsole.getGameList())
             {
 
-                if (listBox1.SelectedIndex.ToString().Equals(g.getTitle())){
-                    System.Console.WriteLine("FOUND" + g.getEsrb());
+                if (listBox1.SelectedItem.ToString().Equals(g.getTitle())){
+                    System.Console.WriteLine("FOUND");
                     pictureBox4.Image = null;
                     if (g.getEsrb().Equals("Everyone"))
                     {
