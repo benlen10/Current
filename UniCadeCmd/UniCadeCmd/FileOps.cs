@@ -343,6 +343,7 @@ namespace UniCadeCmd
                 if (EsrbNum >= SettingsWindow.restrictESRB)
                 {
                     System.Console.WriteLine("\n***Rating " + g.getEsrb() + " Is restricted***\n");
+                   Program.gui.createNotification("\n***Rating " + g.getEsrb() + " Is restricted***\n");
                     return;
                 }
 

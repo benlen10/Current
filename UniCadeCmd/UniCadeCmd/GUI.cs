@@ -36,6 +36,7 @@ namespace UniCadeCmd
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Bounds = Screen.PrimaryScreen.Bounds;
             this.BringToFront();
+            label2.Visible = false;
 
             BackgroundThread bt = new BackgroundThread();  //Start a new background thread
             //Thread t1 = new Thread(bt.BackgroundProcess);
@@ -122,6 +123,7 @@ namespace UniCadeCmd
             {
                 if (gameSelectionActive)
                 {
+
                     launchGame();
                 }
                 else
@@ -406,12 +408,12 @@ namespace UniCadeCmd
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            System.Console.WriteLine("Index changed: "+ listBox1.SelectedIndex.ToString());
+            label2.Text = null;
+            label2.Visible = false;
             foreach (Game g in gameSelectionConsole.getGameList())
             {
 
                 if (listBox1.SelectedItem.ToString().Equals(g.getTitle())){
-                    System.Console.WriteLine("FOUND");
                     pictureBox4.Image = null;
                     if (g.getEsrb().Equals("Everyone"))
                     {
@@ -431,7 +433,7 @@ namespace UniCadeCmd
                     }
                     else if (g.getEsrb().Equals("Mature"))
                     {
-                        System.Console.WriteLine("MATURE");
+
                         pictureBox4.Load(@"C:\UniCade\Media\Esrb\Mature.png");
                     }
                     else if (g.getEsrb().Equals("Adults Only (AO)"))
@@ -441,6 +443,18 @@ namespace UniCadeCmd
 
                 }
             }
+        }
+         
+        public  void createNotification(String notification)
+        {
+            label2.Visible = true;
+            label2.Text = notification;
+            label2.Focus();
+            label2.BringToFront();
+            /*while (true)
+            {
+
+            }*/
         }
     }
 }

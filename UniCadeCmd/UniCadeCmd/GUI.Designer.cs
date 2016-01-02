@@ -38,6 +38,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -96,10 +97,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.richTextBox1.Font = new System.Drawing.Font("Calibri", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(1139, 56);
+            this.richTextBox1.Location = new System.Drawing.Point(1313, 115);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(710, 797);
+            this.richTextBox1.Size = new System.Drawing.Size(710, 742);
             this.richTextBox1.TabIndex = 6;
             this.richTextBox1.Text = "";
             this.richTextBox1.Visible = false;
@@ -131,12 +132,24 @@
             this.pictureBox4.TabIndex = 10;
             this.pictureBox4.TabStop = false;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.label2.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(912, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(448, 78);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Notification Box";
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UniCadeCmd.Properties.Resources.Interface_Background;
             this.ClientSize = new System.Drawing.Size(2056, 1060);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.richTextBox1);
@@ -168,5 +181,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Label label2;
     }
 }
