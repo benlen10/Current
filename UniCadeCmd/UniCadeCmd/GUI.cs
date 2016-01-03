@@ -188,6 +188,7 @@ namespace UniCadeCmd
             else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Current Window
             {
 
+                closeNotification();
                 if (gameSelectionActive)
                 {
                     if (infoWindowActive)
@@ -408,8 +409,7 @@ namespace UniCadeCmd
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            label2.Text = null;
-            label2.Visible = false;
+            closeNotification();
             foreach (Game g in gameSelectionConsole.getGameList())
             {
 
@@ -451,11 +451,14 @@ namespace UniCadeCmd
             label2.Text = notification;
             label2.Focus();
             label2.BringToFront();
-            /*while (true)
-            {
-
-            }*/
         }
+
+        public void closeNotification()
+        {
+            label2.Text = null;
+            label2.Visible = false;
+        }
+
     }
 }
 
