@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Diagnostics;
 
 namespace UniCadeCmd
 {
@@ -371,14 +372,17 @@ namespace UniCadeCmd
             {
                  args = c.getLaunchParam().Replace("%file", gamePath);
             }
-            if (args.Length<2)
+
+            if (c.getName().Equals("MAME"))
             {
-                System.Console.WriteLine("default args");
-               args = gamePath;
+                Process.Start(@"C:\UniCade\Emulators\MAME\mame.bat");
             }
-            proc.StartInfo.FileName = c.getEmuPath();
-            proc.StartInfo.Arguments = args; 
-            proc.Start();
+            else
+            {
+                proc.StartInfo.FileName = c.getEmuPath();
+                proc.StartInfo.Arguments = args;
+                proc.Start();
+            }
         }
 
         public static void killLaunch()
@@ -392,7 +396,7 @@ namespace UniCadeCmd
             Program.dat.consoleList.Add(new Console("Wii", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Wii\", "prefPath", ".gcz*.iso", 0, "consoleInfo", "/b /e %file", "2006"));
             Program.dat.consoleList.Add(new Console("NDS", @"C:\UniCade\Emulators\NDS\DeSmuME.exe", @"C:\UniCade\ROMS\NDS\", "prefPath", ".nds", 0, "consoleInfo", "%file", "2005"));
             Program.dat.consoleList.Add(new Console("GBC", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\GBC\", "prefPath", ".gbc", 0, "consoleInfo", "%file", "1998"));
-            Program.dat.consoleList.Add(new Console("MAME", @"C:\UniCade\Emulators\MAME\mame.exe", @"C:\UniCade\Emulators\MAME\roms\", "prefPath", ".zip", 0, "consoleInfo", "%file", "1980"));
+            Program.dat.consoleList.Add(new Console("MAME", @"C:\UniCade\Emulators\MAME\mame.bat", @"C:\UniCade\Emulators\MAME\roms\", "prefPath", ".zip", 0, "consoleInfo", "", "1980")); //%file -skip_gameinfo -nowindow
             Program.dat.consoleList.Add(new Console("PC", @"C:\Windows\explorer.exe", @"C:\UniCade\ROMS\PC\", "prefPath", ".lnk*.url", 0, "consoleInfo", "%file", "1980"));
 
             Program.dat.consoleList.Add(new Console("GBA", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\GBA\", "prefPath", ".gba", 0, "consoleInfo", "%file", "2001"));
