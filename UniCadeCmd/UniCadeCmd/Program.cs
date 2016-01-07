@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Collections;
 using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace UniCadeCmd
 {
@@ -18,11 +20,17 @@ namespace UniCadeCmd
         public static string emuPath = @"C:\UniCade\Emulators";
         public static string prefPath = @"C:\UniCade\Preferences.txt";
         public static User curUser;
+        public static int coins = 0;
+        public static bool playtimeRemaining = true;
         public static GUI gui;
+        public static string userLicenseName;
+        public static string userLicenseKey;
 
         static void Main(string[] args)
         {
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+
+
 
             dat = new Database();
             
@@ -33,6 +41,13 @@ namespace UniCadeCmd
                 FileOps.defaultPreferences();
                 System.Console.WriteLine("Preference file not found. Loading default values");
             }
+
+            if(!ValidateSHA256(userLicenseKey, Database.getHashKey()))
+            {
+                MessageBox.Show("Invalid License Key");
+                return;
+            }
+
             if (!FileOps.loadDatabase(databasePath))
             {
                 FileOps.loadDefaultConsoles();
@@ -403,6 +418,34 @@ namespace UniCadeCmd
         }
         protected virtual void OnClosing() {
             Taskbar.Show();
+        }
+
+        private static string SHA256Hash(string data)
+        {
+            SHA256Managed sha256 = new SHA256Managed();
+            byte[] hashData = sha256.ComputeHash(Encoding.Default.GetBytes(data));
+            StringBuilder returnValue = new StringBuilder();
+
+            for (int i = 0; i < hashData.Length; i++)
+            {
+                returnValue.Append(hashData[i].ToString());
+            }
+            return returnValue.ToString();
+        }
+
+
+        private static bool ValidateSHA256(string input, string storedHashData)
+        {
+            string getHashInputData = SHA256Hash(input);
+
+            if (string.Compare(getHashInputData, storedHashData) == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
