@@ -422,6 +422,10 @@ namespace UniCadeCmd
 
         private static string SHA256Hash(string data)
         {
+            if(data == null)
+            {
+                return null;
+            }
             SHA256Managed sha256 = new SHA256Managed();
             byte[] hashData = sha256.ComputeHash(Encoding.Default.GetBytes(data));
             StringBuilder returnValue = new StringBuilder();
