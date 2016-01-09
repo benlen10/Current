@@ -12,11 +12,17 @@ namespace UniCadeCmd
         public ArrayList consoleList;
         public ArrayList userList;
         public ArrayList reviewList;
+        private static string hashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
 
     public Database() {
             consoleList = new ArrayList();
             userList = new ArrayList();
             reviewList = new ArrayList();
+        }
+
+        public static string getHashKey()
+        {
+            return hashKey;
         }
 
     }

@@ -23,6 +23,7 @@ namespace UniCadeCmd
         public static bool infoWindowActive;
         public Console gameSelectionConsole;
         public static int totalGameCount;
+        public static bool fav;
         int conCount;
         public GUI()
         {
@@ -31,7 +32,7 @@ namespace UniCadeCmd
 
         private void GUI_Load(object sender, EventArgs e)
         {
-            Cursor.Hide();
+            //Cursor.Hide();
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Bounds = Screen.PrimaryScreen.Bounds;
@@ -72,8 +73,33 @@ namespace UniCadeCmd
             pictureBox2.BackColor = Color.Transparent;
             pictureBox3.BackColor = Color.Transparent;
             pictureBox4.BackColor = Color.Transparent;
+            pictureBox5.BackColor = Color.Transparent;
+            pictureBox6.BackColor = Color.Transparent;
+            pictureBox7.BackColor = Color.Transparent;
+            pictureBox5.Visible = false;
+            pictureBox6.Visible = false;
+            pictureBox7.Visible = false;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            if (SettingsWindow.payPerPlay > 0)
+            {
+
+                if (SettingsWindow.playtime > 0)
+                {
+                    displayPayNotification("(PayPerPlay) Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + SettingsWindow.coins);
+                }
+                else if (SettingsWindow.coins > 0)
+                {
+
+                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                }
+
+            }
+            else
+            {
+                label3.Visible = false;
+            }
 
 
             pictureBox2.Load(@"C:\UniCade\Media\Backgrounds\UniCade Logo (Narrow).png");
@@ -145,6 +171,9 @@ namespace UniCadeCmd
                     else
                     {
                         richTextBox1.Visible = false;  //Close Info Window
+                        pictureBox5.Visible = false;
+                        pictureBox6.Visible = false;
+                        pictureBox7.Visible = false;
                         infoWindowActive = false;
                     }
                 }
@@ -155,15 +184,78 @@ namespace UniCadeCmd
 
                 }
             }
+
+            else if (e.KeyCode == Keys.Space)  //Add or remove favorites
+            {
+                if (gameSelectionActive)
+                {
+                    if (listBox1.SelectedItem != null)
+                    {
+                        foreach (Game g in gameSelectionConsole.getGameList())
+                        {
+                            if (listBox1.SelectedItem.ToString().Equals(g.getTitle()))
+                            {
+                                if (g.getFav() > 0)
+                                {
+                                    g.setFav(0);
+                                    createNotification("Removed from Favorites");
+                                }
+                                else
+                                {
+                                    g.setFav(1);
+                                    createNotification("Added to Favorites");
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            else if (e.KeyCode == Keys.F10)  // Insert coin
+            {
+                Program.coins++;
+                if (SettingsWindow.payPerPlay > 0)
+                {
+
+                    if (SettingsWindow.playtime > 0)
+                    {
+                        Program.gui.displayPayNotification("(PayPerPlay) Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + Program.coins);
+                    }
+                    else if (SettingsWindow.coins > 0)
+                    {
+                        Program.gui.displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                    }
+
+                }
+                createNotification("Coin Inserted - Total Coins: " + Program.coins);
+            }
+
+            else if (e.KeyCode == Keys.F)  //Toggle Favorites view
+            {
+                if (gameSelectionActive)
+                {
+                    if (fav)
+                    {
+                        fav = false;
+                    }
+                    else
+                    {
+                        fav = true;
+                    }
+                    openGameSelection();
+                }
+            }
             else if (e.Alt && (e.KeyCode == Keys.C))  //Display Command line and close gui
             {
                 Taskbar.Show();
                 Application.Exit();
             }
+
             else if (e.Alt && (e.KeyCode == Keys.P))  //Display preferences window
             {
 
-                if (SettingsWindow.passProtect > 0) {
+                if (SettingsWindow.passProtect > 0)
+                {
                     PassWindow pw = new PassWindow();
                     DialogResult result = pw.ShowDialog();
 
@@ -227,6 +319,7 @@ namespace UniCadeCmd
 
 
 
+
         private void button3_Click(object sender, EventArgs e)  //Right
         {
             right();
@@ -240,6 +333,7 @@ namespace UniCadeCmd
 
         private void right()
         {
+            closeNotification();
             if (index < (conCount - 1))
             {
                 index++;
@@ -253,6 +347,7 @@ namespace UniCadeCmd
 
         private void left()
         {
+            closeNotification();
             if (index > 0)
             {
                 index--;
@@ -276,6 +371,7 @@ namespace UniCadeCmd
 
         private void updateGUI()
         {
+          
             curCon = (string)conList[index];
             //System.Console.WriteLine(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png");
             if ((File.Exists(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png")))
@@ -311,10 +407,24 @@ namespace UniCadeCmd
                 {
                     gameSelectionConsole = c;
                     label1.Text = c.getName() + " Game Count: " + c.gameCount;
+                    if (fav)
+                    {
+                        listBox1.Items.Add(c.getName() + " Favorites:\n\n");
+                    }
                     foreach (Game g in c.getGameList())
                     {
+                        if (fav)
+                        {
 
-                        listBox1.Items.Add(g.getTitle());
+                            if (g.getFav() == 1)
+                            {
+                                listBox1.Items.Add(g.getTitle());
+                            }
+                        }
+                        else
+                        {
+                            listBox1.Items.Add(g.getTitle());
+                        }
                     }
                     break;
                 }
@@ -346,14 +456,45 @@ namespace UniCadeCmd
             {
                 return;
             }
+            pictureBox5.Visible = true;
+            pictureBox6.Visible = true;
+            pictureBox7.Visible = true;
+
+            pictureBox5.Image = null;
+            pictureBox6.Image = null;
+            pictureBox7.Image = null;
+
             foreach (Game g in gameSelectionConsole.getGameList())
             {
                 if (listBox1.SelectedItem.ToString().Equals(g.getTitle()))
                 {
                     richTextBox1.Text = Program.displayGameInfo(g);
+
+                    if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png"))
+                    {
+                        pictureBox5.Load(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png");
+
+                    }
+
+                    if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxBack.png"))
+                    {
+                        pictureBox6.Load(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxBack.png");
+
+                    }
+
+                    if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png"))
+                    {
+                        pictureBox7.Load(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png");
+
+                    }
+
                     break;
                 }
             }
+
+
+
+
             richTextBox1.Visible = true;
         }
 
@@ -413,7 +554,8 @@ namespace UniCadeCmd
             foreach (Game g in gameSelectionConsole.getGameList())
             {
 
-                if (listBox1.SelectedItem.ToString().Equals(g.getTitle())){
+                if (listBox1.SelectedItem.ToString().Equals(g.getTitle()))
+                {
                     pictureBox4.Image = null;
                     if (g.getEsrb().Equals("Everyone"))
                     {
@@ -443,9 +585,11 @@ namespace UniCadeCmd
 
                 }
             }
+
+
         }
-         
-        public  void createNotification(String notification)
+
+        public void createNotification(String notification)
         {
             label2.Visible = true;
             label2.Text = notification;
@@ -459,6 +603,54 @@ namespace UniCadeCmd
             label2.Visible = false;
         }
 
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            if (pb.Dock == DockStyle.None)
+            {
+                pb.Dock = DockStyle.Fill;
+                pb.BringToFront();
+            }
+            else
+                pb.Dock = DockStyle.None;
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            if (pb.Dock == DockStyle.None)
+            {
+                pb.Dock = DockStyle.Fill;
+                pb.BringToFront();
+            }
+            else
+                pb.Dock = DockStyle.None;
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            if (pb.Dock == DockStyle.None)
+            {
+                pb.Dock = DockStyle.Fill;
+                pb.BringToFront();
+            }
+            else
+                pb.Dock = DockStyle.None;
+        }
+
+        public void displayPayNotification(String s)
+        {
+            label2.Focus();
+            label2.BringToFront();
+            label3.Visible = true;
+            label3.Text = s;
+        }
+        public void closePayNotification()
+        {
+            label3.Visible = false;
+            label3.Text = null;
+        }
     }
 }
 

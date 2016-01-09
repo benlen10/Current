@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,7 @@ namespace UniCadeCmd
         public static int viewEsrb;
         public static int passProtect;
         public static int enforceExt;
+        
 
 
         public SettingsWindow()
@@ -165,10 +167,7 @@ namespace UniCadeCmd
             {
                 checkBox14.Checked = true;
             }
-            if (perLaunch > 0)
-            {
-                checkBox16.Checked = true;
-            }
+
             textBox29.Text = coins.ToString();
             textBox30.Text = playtime.ToString();
 
@@ -291,6 +290,24 @@ namespace UniCadeCmd
                     else
                     {
                         checkBox3.Checked = false;
+                    }
+                    pictureBox1.Image = null;
+                    pictureBox2.Image = null;
+                    pictureBox3.Image = null;
+
+                    if (File.Exists(@"C:\UniCade\Media\Games\" + curConsole2.getName() + "\\" + g.getTitle() + "_BoxFront.png")){
+                        pictureBox1.Load(@"C:\UniCade\Media\Games\"+ curConsole2.getName() + "\\" + g.getTitle() + "_BoxFront.png");
+
+                    }
+
+                    if (File.Exists(@"C:\UniCade\Media\Games\" + curConsole2.getName() + "\\" + g.getTitle() + "_BoxBack.png")){
+                        pictureBox2.Load(@"C:\UniCade\Media\Games\" + curConsole2.getName() + "\\" + g.getTitle() + "_BoxBack.png");
+
+                    }
+
+                    if (File.Exists(@"C:\UniCade\Media\Games\" + curConsole2.getName() + "\\" + g.getTitle() + "_Screenshot.png")){
+                        pictureBox3.Load(@"C:\UniCade\Media\Games\" + curConsole2.getName() + "\\" + g.getTitle() + "_Screenshot.png");
+
                     }
 
                     refreshEsrbIcon(g);
@@ -455,6 +472,9 @@ namespace UniCadeCmd
             Program.mediaPath = textBox32.Text;
             Program.romPath = textBox33.Text;
 
+
+
+
             int n = 0;
             Int32.TryParse(textBox7.Text, out n);
             if (n > 0)
@@ -475,6 +495,20 @@ namespace UniCadeCmd
             {
                 restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
             }
+
+            if (SettingsWindow.payPerPlay > 0)
+            {
+
+                if (SettingsWindow.playtime > 0)
+                {
+                    Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
+                }
+                else if (SettingsWindow.coins > 0)
+                {
+                    Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
+                }
+
+            }
             FileOps.savePreferences(Program.prefPath);
         }
 
@@ -494,7 +528,7 @@ namespace UniCadeCmd
 
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox7.Checked)
+            if (checkBox6.Checked)
             {
                 restrictESRB = 1;
             }
@@ -543,7 +577,7 @@ namespace UniCadeCmd
 
         private void checkBox12_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox10.Checked)
+            if (checkBox12.Checked)
             {
                 scanOnStartup = 1;
             }
@@ -555,7 +589,7 @@ namespace UniCadeCmd
 
         private void checkBox13_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox10.Checked)
+            if (checkBox13.Checked)
             {
                 cmdOrGui = 1;
             }
@@ -567,13 +601,29 @@ namespace UniCadeCmd
 
         private void checkBox14_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox10.Checked)
+            if (checkBox14.Checked)
             {
                 payPerPlay = 1;
+               
             }
             else
             {
                 payPerPlay = 0;
+                Program.gui.closePayNotification();
+            }
+
+            if (SettingsWindow.payPerPlay > 0)
+            {
+                Program.gui.closePayNotification();
+                if (SettingsWindow.playtime > 0)
+                {
+                    Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
+                }
+                else if (SettingsWindow.coins > 0)
+                {
+                    Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
+                }
+
             }
         }
 
@@ -588,7 +638,22 @@ namespace UniCadeCmd
             Int32.TryParse(textBox30.Text, out n);
             if (n > 0)
             {
-                coins = Int32.Parse(textBox30.Text);
+                playtime = Int32.Parse(textBox30.Text);
+            }
+
+            Program.gui.closePayNotification();
+            if (SettingsWindow.payPerPlay > 0)
+            {
+                
+                if (SettingsWindow.playtime > 0)
+                {
+                    Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
+                }
+                else if (SettingsWindow.coins > 0)
+                {
+                    Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
+                }
+
             }
         }
 
@@ -600,6 +665,21 @@ namespace UniCadeCmd
             {
                 coins = Int32.Parse(textBox29.Text);
             }
+            Program.gui.closePayNotification();
+            if (SettingsWindow.payPerPlay > 0)
+            {
+
+                if (SettingsWindow.playtime > 0)
+                {
+                    Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
+                }
+                else if (SettingsWindow.coins > 0)
+                {
+                    Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
+                }
+
+            }
+
         }
 
         private void textBox31_TextChanged(object sender, EventArgs e)
@@ -622,7 +702,7 @@ namespace UniCadeCmd
             if (curUser != null)
             {
               
-                if (comboBox2.SelectedIndex > 0)
+                if (listBox4.SelectedIndex > 0)
                 {
                     curUser.seAge(calcEsrb(comboBox2.SelectedItem.ToString()));
                 }
@@ -1010,6 +1090,52 @@ namespace UniCadeCmd
         {
 
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            if (pb.Dock == DockStyle.None)
+            {
+                pb.Dock = DockStyle.Fill;
+                pb.BringToFront();
+            }
+            else
+                pb.Dock = DockStyle.None;
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            if (pb.Dock == DockStyle.None)
+            {
+                pb.Dock = DockStyle.Fill;
+                pb.BringToFront();
+            }
+            else
+                pb.Dock = DockStyle.None;
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            if (pb.Dock == DockStyle.None)
+            {
+                pb.Dock = DockStyle.Fill;
+                pb.BringToFront();
+            }
+            else
+                pb.Dock = DockStyle.None;
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage4_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
     }
 
-    }

@@ -190,6 +190,10 @@ namespace UniCadeCmd
             {
                 SettingsWindow.perLaunch = 0;
             }
+            line = file.ReadLine();    //Parse License Key
+            r = line.Split(sep);
+            Program.userLicenseName = r[1];
+            Program.userLicenseKey = r[2];
 
             SettingsWindow.coins = Int32.Parse(r[3]);
             SettingsWindow.playtime = Int32.Parse(r[4]);
@@ -246,6 +250,7 @@ namespace UniCadeCmd
                 //sw.WriteLine("KeyBindings|" + SettingsWindow.defaultUser);
                 sw.WriteLine("LoadingScreen|" + SettingsWindow.showLoading);
                 sw.WriteLine("PaySettings|" + SettingsWindow.payPerPlay + "|" + SettingsWindow.perLaunch + "|" + SettingsWindow.coins + "|" + SettingsWindow.playtime);
+                sw.WriteLine("License Key|" + Program.userLicenseName + "|" + Program.userLicenseKey);
                 sw.WriteLine("***UserData***");
                 foreach (User u in Program.dat.userList)
                 {
@@ -356,6 +361,43 @@ namespace UniCadeCmd
                 {
                     System.Console.WriteLine("\n***Rating " + g.getEsrb() + " Is restricted***\n");
                     return;
+                }
+            }
+
+            if (SettingsWindow.payPerPlay > 0)
+            {
+                if (SettingsWindow.playtime>0)
+                {
+                    if (!Program.playtimeRemaining)
+                    {
+                        Program.gui.createNotification("Playtime Expired: Insert More coins");
+                        return;
+                    }
+                }
+                else if (SettingsWindow.coins > 0)
+                {
+                    int i = 0;
+                    if (Program.coins < SettingsWindow.coins)
+                    {
+
+                        Program.gui.createNotification("Insert Coins");
+                        return;
+                    }
+
+                        while (i < SettingsWindow.coins)
+                    {
+                        if (Program.coins > 0)
+                        {
+                            Program.coins--;
+                            i++;
+                            Program.gui.displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                        }
+                        else
+                        {
+                            Program.gui.createNotification("Insert Coins");
+                            return;
+                        }
+                    }
                 }
             }
             g.launchCount++;

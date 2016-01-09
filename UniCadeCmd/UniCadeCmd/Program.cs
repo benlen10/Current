@@ -25,6 +25,7 @@ namespace UniCadeCmd
         public static GUI gui;
         public static string userLicenseName;
         public static string userLicenseKey;
+        public static bool validLicense;
 
         static void Main(string[] args)
         {
@@ -45,7 +46,13 @@ namespace UniCadeCmd
             if(!ValidateSHA256(userLicenseKey, Database.getHashKey()))
             {
                 MessageBox.Show("Invalid License Key");
-                return;
+                LicenseEntry le = new LicenseEntry();
+
+                    le.ShowDialog();
+                if (!validLicense)
+                {
+                    return;
+                }
             }
 
             if (!FileOps.loadDatabase(databasePath))
@@ -420,7 +427,7 @@ namespace UniCadeCmd
             Taskbar.Show();
         }
 
-        private static string SHA256Hash(string data)
+        public static string SHA256Hash(string data)
         {
             if(data == null)
             {
@@ -438,7 +445,7 @@ namespace UniCadeCmd
         }
 
 
-        private static bool ValidateSHA256(string input, string storedHashData)
+        public static bool ValidateSHA256(string input, string storedHashData)
         {
             string getHashInputData = SHA256Hash(input);
 

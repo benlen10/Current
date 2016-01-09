@@ -89,6 +89,12 @@
       <DependentUpon>GUI.cs</DependentUpon>
     </Compile>
     <Compile Include="KeyHandler.cs" />
+    <Compile Include="LicenseEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LicenseEntry.Designer.cs">
+      <DependentUpon>LicenseEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="PassWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
   <ItemGroup>
     <EmbeddedResource Include="GUI.resx">
       <DependentUpon>GUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LicenseEntry.resx">
+      <DependentUpon>LicenseEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PassWindow.resx">
       <DependentUpon>PassWindow.cs</DependentUpon>
