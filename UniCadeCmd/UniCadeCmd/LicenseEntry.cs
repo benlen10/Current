@@ -17,7 +17,7 @@ namespace UniCadeCmd
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)  //Validate button
         {
 
                 if ((textBox1.Text == null) || (textBox2.Text == null))
@@ -27,11 +27,18 @@ namespace UniCadeCmd
                 }
                 Program.userLicenseName = textBox1.Text;
                 Program.userLicenseKey = textBox2.Text;
+                
 
-                if (Program.ValidateSHA256(Program.userLicenseKey, Database.getHashKey()))
+                if (Program.ValidateSHA256(Program.userLicenseName + Database.getHashKey() , Program.userLicenseKey))
                 {
-                    Application.Exit();
+                MessageBox.Show("License is VALID");
+                Program.validLicense = true;
+                FileOps.savePreferences(Program.prefPath);
                 }
+            else
+            {
+                MessageBox.Show("License is INVALID");
+            }
 
 
             

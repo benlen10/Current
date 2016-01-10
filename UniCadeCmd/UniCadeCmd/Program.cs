@@ -447,8 +447,10 @@ namespace UniCadeCmd
 
         public static bool ValidateSHA256(string input, string storedHashData)
         {
+            System.Console.WriteLine("Input: " + input);
             string getHashInputData = SHA256Hash(input);
-
+            System.Console.WriteLine("InputHash: " + getHashInputData);
+            System.Console.WriteLine("StoredHashData: " + storedHashData);
             if (string.Compare(getHashInputData, storedHashData) == 0)
             {
                 return true;
