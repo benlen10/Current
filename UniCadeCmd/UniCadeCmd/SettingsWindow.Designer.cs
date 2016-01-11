@@ -225,27 +225,27 @@
             this.label37.AutoSize = true;
             this.label37.Location = new System.Drawing.Point(34, 695);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(130, 25);
+            this.label37.Size = new System.Drawing.Size(136, 25);
             this.label37.TabIndex = 6;
-            this.label37.Text = "License Key";
+            this.label37.Text = "License Key:";
             // 
             // label35
             // 
             this.label35.AutoSize = true;
             this.label35.Location = new System.Drawing.Point(34, 605);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(130, 25);
+            this.label35.Size = new System.Drawing.Size(136, 25);
             this.label35.TabIndex = 4;
-            this.label35.Text = "Licensed To";
+            this.label35.Text = "Licensed To:";
             // 
             // label34
             // 
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(34, 652);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(78, 25);
+            this.label34.Size = new System.Drawing.Size(84, 25);
             this.label34.TabIndex = 3;
-            this.label34.Text = "Edition";
+            this.label34.Text = "Edition:";
             // 
             // label33
             // 
@@ -259,11 +259,12 @@
             // label32
             // 
             this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label32.Location = new System.Drawing.Point(34, 559);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(128, 25);
+            this.label32.Size = new System.Drawing.Size(182, 31);
             this.label32.TabIndex = 1;
-            this.label32.Text = "Licesne Info";
+            this.label32.Text = "License Info:";
             // 
             // richTextBox1
             // 

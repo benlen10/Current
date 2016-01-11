@@ -183,6 +183,12 @@ namespace UniCadeCmd
             this.Activate();
             this.Focus();
             this.TopMost = true;
+
+            //Pupulate License info
+            label35.Text = "Licensed to: " + Program.userLicenseName;
+            label34.Text = "License Type: Full Version";
+            label37.Text = "License Key: " + Program.userLicenseKey;
+
             Cursor.Show();
         }
 

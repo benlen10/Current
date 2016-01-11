@@ -34,6 +34,7 @@ namespace UniCadeCmd
                 MessageBox.Show("License is VALID");
                 Program.validLicense = true;
                 FileOps.savePreferences(Program.prefPath);
+                Close();
                 }
             else
             {
