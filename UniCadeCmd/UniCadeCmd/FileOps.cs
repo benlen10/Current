@@ -190,13 +190,15 @@ namespace UniCadeCmd
             {
                 SettingsWindow.perLaunch = 0;
             }
+            SettingsWindow.coins = Int32.Parse(r[3]);
+            SettingsWindow.playtime = Int32.Parse(r[4]);
+
             line = file.ReadLine();    //Parse License Key
             r = line.Split(sep);
             Program.userLicenseName = r[1];
             Program.userLicenseKey = r[2];
 
-            SettingsWindow.coins = Int32.Parse(r[3]);
-            SettingsWindow.playtime = Int32.Parse(r[4]);
+            
 
             file.ReadLine(); //Skip ***Users*** line
 

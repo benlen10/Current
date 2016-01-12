@@ -43,7 +43,7 @@ namespace UniCadeCmd
                 System.Console.WriteLine("Preference file not found. Loading default values");
             }
 
-            if(!ValidateSHA256(userLicenseKey, Database.getHashKey()))
+            if(!ValidateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))
             {
                 MessageBox.Show("Invalid License Key");
                 LicenseEntry le = new LicenseEntry();
@@ -447,10 +447,7 @@ namespace UniCadeCmd
 
         public static bool ValidateSHA256(string input, string storedHashData)
         {
-            System.Console.WriteLine("Input: " + input);
             string getHashInputData = SHA256Hash(input);
-            System.Console.WriteLine("InputHash: " + getHashInputData);
-            System.Console.WriteLine("StoredHashData: " + storedHashData);
             if (string.Compare(getHashInputData, storedHashData) == 0)
             {
                 return true;
