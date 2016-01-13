@@ -179,6 +179,8 @@
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button24 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -250,9 +252,10 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(6, 11);
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Location = new System.Drawing.Point(6, 13);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(137, 25);
+            this.label33.Size = new System.Drawing.Size(188, 31);
             this.label33.TabIndex = 2;
             this.label33.Text = "Software Info";
             // 
@@ -268,7 +271,7 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(3, 39);
+            this.richTextBox1.Location = new System.Drawing.Point(3, 60);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(1138, 496);
@@ -277,6 +280,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button25);
+            this.tabPage1.Controls.Add(this.button24);
             this.tabPage1.Controls.Add(this.checkBox1);
             this.tabPage1.Controls.Add(this.button19);
             this.tabPage1.Controls.Add(this.button9);
@@ -313,7 +318,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(785, 538);
+            this.checkBox1.Location = new System.Drawing.Point(753, 476);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(306, 29);
             this.checkBox1.TabIndex = 35;
@@ -457,9 +462,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1006, 607);
+            this.button2.Location = new System.Drawing.Point(1021, 607);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(105, 49);
+            this.button2.Size = new System.Drawing.Size(193, 49);
             this.button2.TabIndex = 19;
             this.button2.Text = "Close";
             this.button2.UseVisualStyleBackColor = true;
@@ -886,11 +891,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(844, 637);
+            this.button1.Location = new System.Drawing.Point(829, 621);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(160, 73);
+            this.button1.Size = new System.Drawing.Size(160, 104);
             this.button1.TabIndex = 23;
-            this.button1.Text = "Rescrape Info";
+            this.button1.Text = "Rescrape Game Metadata";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -1048,6 +1053,7 @@
             this.textBox28.ReadOnly = true;
             this.textBox28.Size = new System.Drawing.Size(58, 31);
             this.textBox28.TabIndex = 76;
+            this.textBox28.TextChanged += new System.EventHandler(this.textBox28_TextChanged);
             // 
             // textBox27
             // 
@@ -1724,6 +1730,25 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
             // 
+            // button24
+            // 
+            this.button24.Location = new System.Drawing.Point(744, 525);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(246, 49);
+            this.button24.TabIndex = 36;
+            this.button24.Text = "Rescan Single Console";
+            this.button24.UseVisualStyleBackColor = true;
+            // 
+            // button25
+            // 
+            this.button25.Location = new System.Drawing.Point(1005, 525);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(209, 49);
+            this.button25.TabIndex = 37;
+            this.button25.Text = "Global Rescan";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -1907,5 +1932,7 @@
         private System.Windows.Forms.Button button23;
         private System.Windows.Forms.Button button22;
         private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Button button25;
+        private System.Windows.Forms.Button button24;
     }
 }

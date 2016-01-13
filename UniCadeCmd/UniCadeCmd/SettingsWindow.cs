@@ -47,7 +47,6 @@ namespace UniCadeCmd
 
         private void populate()
         {
-            richTextBox1.Text = "Readme \nContents";
             foreach (Console c in Program.dat.consoleList)
             {
                 listBox1.Items.Add(c.getName());
@@ -178,7 +177,6 @@ namespace UniCadeCmd
 
             refreshGlobalFavs();
 
-            richTextBox1.Text = "(© Lenington Design)"; //Readme Info
 
             this.Activate();
             this.Focus();
@@ -1141,6 +1139,16 @@ namespace UniCadeCmd
         private void tabPage4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox28_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            FileOps.scan(Program.romPath);
         }
     }
     }

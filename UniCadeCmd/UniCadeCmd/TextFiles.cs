@@ -70,8 +70,9 @@ o	To rescrape metadata for all games and consoles, navigate to the Emulators tab
 ";
 
 
-        public static string licenseInfo = @"";
-        public static string features = @"- Includes 15 preconfigured consoles
+        public static string licenseInfo = @"© Lenington Design ";
+        public static string features = @"UniCade Interface (© Lenington Design) 
+- Includes 15 preconfigured consoles
 - Command line based interface supports virtually the same feature set as the GUI version (With the exception of displaying game media images)
 - Streamlined, modern and intuitive interface that anyone can operate.
 - Supports up to 40 custom added game consoles
