@@ -1738,6 +1738,7 @@
             this.button24.TabIndex = 36;
             this.button24.Text = "Rescan Single Console";
             this.button24.UseVisualStyleBackColor = true;
+            this.button24.Click += new System.EventHandler(this.button24_Click);
             // 
             // button25
             // 

@@ -281,6 +281,7 @@ namespace UniCadeCmd
             string emuName = new DirectoryInfo(path).Name;
             bool foundCon = false;
             string[] ex;
+
             
             Console con = new Console();
             foreach (Console c in Program.dat.consoleList)
@@ -307,6 +308,13 @@ namespace UniCadeCmd
                     foreach (string s in exs) {
                         if (ex[1].Equals(s))
                         {
+
+                            foreach(Game g in con.getGameList())
+                            {
+                                if (g.getTitle().Equals(Path.GetFileName(fileName))){
+
+                                }
+                            }
                             con.getGameList().Add(new Game(Path.GetFileName(fileName), con.getName(), 0));
                             con.gameCount++;
                         }
@@ -320,7 +328,9 @@ namespace UniCadeCmd
             }
         }
 
-       
+
+
+
 
         public static void loadConsoles()
         {

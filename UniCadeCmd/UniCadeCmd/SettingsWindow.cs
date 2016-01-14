@@ -1146,10 +1146,30 @@ namespace UniCadeCmd
 
         }
 
-        private void button25_Click(object sender, EventArgs e)
+        private void button25_Click(object sender, EventArgs e)  //Global Rescan button
         {
             FileOps.scan(Program.romPath);
         }
+
+        private void button24_Click(object sender, EventArgs e)  //Single console rescan button
+        {
+            if (listBox1.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+            foreach (Console c in Program.dat.consoleList)
+            {
+                if (c.getName().Equals(listBox1.SelectedItem.ToString())){
+                    FileOps.scanDirectory(c.getRomPath(), Program.romPath);
+                    MessageBox.Show(c.getName()+ " Successfully Scanned");
+                    break;
+                }
+                
+            }
+            
+        }
     }
+
     }
 
