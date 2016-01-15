@@ -281,6 +281,7 @@ namespace UniCadeCmd
             string emuName = new DirectoryInfo(path).Name;
             bool foundCon = false;
             string[] ex;
+            bool dup = false;
 
             
             Console con = new Console();
@@ -308,22 +309,38 @@ namespace UniCadeCmd
                     foreach (string s in exs) {
                         if (ex[1].Equals(s))
                         {
-
+                            dup = false;
                             foreach(Game g in con.getGameList())
                             {
                                 if (g.getTitle().Equals(Path.GetFileName(fileName))){
-
+                                    dup = true;
+                                    break;
                                 }
                             }
-                            con.getGameList().Add(new Game(Path.GetFileName(fileName), con.getName(), 0));
-                            con.gameCount++;
+                            if (!dup)
+                            {
+                                con.getGameList().Add(new Game(Path.GetFileName(fileName), con.getName(), 0));
+                                con.gameCount++;
+                            }
                         }
                     }
                 }
                 else
                 {
-                    con.getGameList().Add(new Game(Path.GetFileName(fileName), con.getName(), 0));
-                    con.gameCount++;
+                    dup = false;
+                    foreach (Game g in con.getGameList())
+                    {
+                        if (g.getTitle().Equals(Path.GetFileName(fileName)))
+                        {
+                            dup = true;
+                            break;
+                        }
+                    }
+                    if (!dup)
+                    {
+                        con.getGameList().Add(new Game(Path.GetFileName(fileName), con.getName(), 0));
+                        con.gameCount++;
+                    }
                 }
             }
         }
