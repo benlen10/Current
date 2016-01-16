@@ -283,7 +283,7 @@ namespace UniCadeCmd
             string[] ex;
             bool dup = false;
 
-            
+
             Console con = new Console();
             foreach (Console c in Program.dat.consoleList)
             {
@@ -306,13 +306,15 @@ namespace UniCadeCmd
                 if (SettingsWindow.enforceExt > 0)
                 {
                     ex = fileName.Split('.');
-                    foreach (string s in exs) {
+                    foreach (string s in exs)
+                    {
                         if (ex[1].Equals(s))
                         {
                             dup = false;
-                            foreach(Game g in con.getGameList())
+                            foreach (Game g in con.getGameList())
                             {
-                                if (g.getTitle().Equals(Path.GetFileName(fileName))){
+                                if (g.getTitle().Equals(Path.GetFileName(fileName)))
+                                {
                                     dup = true;
                                     break;
                                 }
@@ -341,6 +343,26 @@ namespace UniCadeCmd
                         con.getGameList().Add(new Game(Path.GetFileName(fileName), con.getName(), 0));
                         con.gameCount++;
                     }
+                }
+            }
+            //Delete nonexistent games
+            bool found = false;
+            Game foundGame = null;
+            foreach (Game g in con.getGameList())
+            {
+                found = false;
+                foreach (string fileName in fileEntries)
+                {
+                    if (g.getTitle().Equals(Path.GetFileName(fileName)))
+                    {
+                        found = true;
+                    }
+                }
+                if (found)
+                {
+                    con.getGameList().Remove(foundGame);
+                    found = false;
+                    foundGame = null;
                 }
             }
         }
