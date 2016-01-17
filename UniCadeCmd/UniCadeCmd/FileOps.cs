@@ -332,7 +332,7 @@ namespace UniCadeCmd
                     dup = false;
                     foreach (Game g in con.getGameList())
                     {
-                        if (g.getTitle().Equals(Path.GetFileName(fileName)))
+                        if (g.getTitle().Equals(fileName.Split('.')[0]))
                         {
                             dup = true;
                             break;
