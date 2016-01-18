@@ -38,6 +38,8 @@
             this.label32 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button25 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button19 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
@@ -179,8 +181,10 @@
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button24 = new System.Windows.Forms.Button();
-            this.button25 = new System.Windows.Forms.Button();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -314,6 +318,26 @@
             this.tabPage1.Text = "Emulators";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // button25
+            // 
+            this.button25.Location = new System.Drawing.Point(1005, 525);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(209, 49);
+            this.button25.TabIndex = 37;
+            this.button25.Text = "Global Rescan";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
+            // 
+            // button24
+            // 
+            this.button24.Location = new System.Drawing.Point(744, 525);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(246, 49);
+            this.button24.TabIndex = 36;
+            this.button24.Text = "Rescan Single Console";
+            this.button24.UseVisualStyleBackColor = true;
+            this.button24.Click += new System.EventHandler(this.button24_Click);
             // 
             // checkBox1
             // 
@@ -545,6 +569,10 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.textBox8);
+            this.tabPage3.Controls.Add(this.textBox3);
+            this.tabPage3.Controls.Add(this.label55);
+            this.tabPage3.Controls.Add(this.label54);
             this.tabPage3.Controls.Add(this.checkBox3);
             this.tabPage3.Controls.Add(this.button18);
             this.tabPage3.Controls.Add(this.label26);
@@ -932,7 +960,7 @@
             this.listBox3.ItemHeight = 25;
             this.listBox3.Location = new System.Drawing.Point(243, 56);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(253, 654);
+            this.listBox3.Size = new System.Drawing.Size(253, 629);
             this.listBox3.TabIndex = 19;
             this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
             // 
@@ -942,7 +970,7 @@
             this.listBox2.ItemHeight = 25;
             this.listBox2.Location = new System.Drawing.Point(6, 56);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(231, 654);
+            this.listBox2.Size = new System.Drawing.Size(231, 629);
             this.listBox2.TabIndex = 18;
             this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
@@ -1730,25 +1758,39 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
             // 
-            // button24
+            // label54
             // 
-            this.button24.Location = new System.Drawing.Point(744, 525);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(246, 49);
-            this.button24.TabIndex = 36;
-            this.button24.Text = "Rescan Single Console";
-            this.button24.UseVisualStyleBackColor = true;
-            this.button24.Click += new System.EventHandler(this.button24_Click);
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(238, 700);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(196, 25);
+            this.label54.TabIndex = 68;
+            this.label54.Text = "Games for Console";
             // 
-            // button25
+            // label55
             // 
-            this.button25.Location = new System.Drawing.Point(1005, 525);
-            this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(209, 49);
-            this.button25.TabIndex = 37;
-            this.button25.Text = "Global Rescan";
-            this.button25.UseVisualStyleBackColor = true;
-            this.button25.Click += new System.EventHandler(this.button25_Click);
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(6, 700);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(140, 25);
+            this.label55.TabIndex = 69;
+            this.label55.Text = "Total Games:";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(148, 700);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(84, 31);
+            this.textBox3.TabIndex = 70;
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(440, 697);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.Size = new System.Drawing.Size(84, 31);
+            this.textBox8.TabIndex = 71;
             // 
             // SettingsWindow
             // 
@@ -1935,5 +1977,9 @@
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Button button25;
         private System.Windows.Forms.Button button24;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.Label label54;
     }
 }

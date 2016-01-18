@@ -186,6 +186,7 @@ namespace UniCadeCmd
             label35.Text = "Licensed to: " + Program.userLicenseName;
             label34.Text = "License Type: Full Version";
             label37.Text = "License Key: " + Program.userLicenseKey;
+            
 
             Cursor.Show();
         }
@@ -249,6 +250,7 @@ namespace UniCadeCmd
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             string curItem = listBox2.SelectedItem.ToString();
             listBox3.Items.Clear();
             foreach (Console c in Program.dat.consoleList)
@@ -256,6 +258,8 @@ namespace UniCadeCmd
                 if (c.getName().Equals(curItem))
                 {
                     curConsole2 = c;
+                    textBox8.Text = c.gameCount.ToString();
+                    textBox3.Text = Database.totalGameCount.ToString();
                     foreach (Game g in c.getGameList())
                     {
                         listBox3.Items.Add(g.getTitle());
@@ -1149,6 +1153,7 @@ namespace UniCadeCmd
         private void button25_Click(object sender, EventArgs e)  //Global Rescan button
         {
             FileOps.scan(Program.romPath);
+            MessageBox.Show("Global Rescan Successfull");
         }
 
         private void button24_Click(object sender, EventArgs e)  //Single console rescan button

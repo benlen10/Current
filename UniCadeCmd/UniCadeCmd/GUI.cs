@@ -22,7 +22,6 @@ namespace UniCadeCmd
         public static bool gameSelectionActive;
         public static bool infoWindowActive;
         public Console gameSelectionConsole;
-        public static int totalGameCount;
         public static bool fav;
         int conCount;
         public GUI()
@@ -113,17 +112,8 @@ namespace UniCadeCmd
             this.Focus();
             this.Activate();
 
-
-            foreach (Console c in Program.dat.consoleList)
-            {
-
-                foreach (Game g in c.getGameList())
-                {
-
-                    totalGameCount++;
-                }
-            }
-            label1.Text = "Total Game Count: " + totalGameCount;
+            FileOps.refreshGameCount();
+            label1.Text = "Total Game Count: " + Database.totalGameCount;
 
         }
 
@@ -294,7 +284,7 @@ namespace UniCadeCmd
                         listBox1.Visible = false;  //Close Game Selection window
                         pictureBox1.Visible = true;
                         gameSelectionActive = false;
-                        label1.Text = "Total Game Count: " + totalGameCount;
+                        label1.Text = "Total Game Count: " + Database.totalGameCount;
                         pictureBox4.Image = null;
                     }
 

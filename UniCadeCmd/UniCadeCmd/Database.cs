@@ -12,6 +12,7 @@ namespace UniCadeCmd
         public ArrayList consoleList;
         public ArrayList userList;
         public ArrayList reviewList;
+        public static int totalGameCount;
         private static string hashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
 
     public Database() {
