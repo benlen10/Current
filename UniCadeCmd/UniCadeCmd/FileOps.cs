@@ -365,6 +365,7 @@ namespace UniCadeCmd
                     foundGame = null;
                 }
             }
+            refreshGameCount();
         }
 
 
@@ -505,8 +506,24 @@ namespace UniCadeCmd
            
         }
 
+        public static void refreshGameCount()
+        {
+
+            foreach (Console c in Program.dat.consoleList)
+            {
+
+                foreach (Game g in c.getGameList())
+                {
+
+                    Database.totalGameCount++;
+                }
+            }
+            
+        }
+
         public static void defaultPreferences()
         {
+
             SettingsWindow.defaultUser = "UniCade";
             SettingsWindow.showSplash = 0;
             SettingsWindow.scanOnStartup = 0;

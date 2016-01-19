@@ -1174,6 +1174,15 @@ namespace UniCadeCmd
             }
             
         }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            foreach (Console c in Program.dat.consoleList)
+            {
+                c.getGameList().Clear();
+            }
+            MessageBox.Show("Game library successfully cleared");
+        }
     }
 
     }

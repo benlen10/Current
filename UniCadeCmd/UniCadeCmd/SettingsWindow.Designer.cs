@@ -185,6 +185,7 @@
             this.label55 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
+            this.button26 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1205,6 +1206,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.button26);
             this.tabPage4.Controls.Add(this.label39);
             this.tabPage4.Controls.Add(this.button20);
             this.tabPage4.Controls.Add(this.label45);
@@ -1792,6 +1794,16 @@
             this.textBox8.Size = new System.Drawing.Size(84, 31);
             this.textBox8.TabIndex = 71;
             // 
+            // button26
+            // 
+            this.button26.Location = new System.Drawing.Point(1031, 674);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(297, 54);
+            this.button26.TabIndex = 91;
+            this.button26.Text = "Delete ALL Games";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Click += new System.EventHandler(this.button26_Click);
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -1981,5 +1993,6 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.Button button26;
     }
 }
