@@ -186,6 +186,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.button26 = new System.Windows.Forms.Button();
+            this.button27 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -285,6 +286,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button27);
             this.tabPage1.Controls.Add(this.button25);
             this.tabPage1.Controls.Add(this.button24);
             this.tabPage1.Controls.Add(this.checkBox1);
@@ -447,17 +449,17 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(306, 607);
+            this.button8.Location = new System.Drawing.Point(275, 607);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(172, 49);
+            this.button8.Size = new System.Drawing.Size(218, 49);
             this.button8.TabIndex = 23;
-            this.button8.Text = "Delete";
+            this.button8.Text = "Delete Console";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(37, 607);
+            this.button7.Location = new System.Drawing.Point(6, 607);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(263, 49);
             this.button7.TabIndex = 22;
@@ -1804,6 +1806,16 @@
             this.button26.UseVisualStyleBackColor = true;
             this.button26.Click += new System.EventHandler(this.button26_Click);
             // 
+            // button27
+            // 
+            this.button27.Location = new System.Drawing.Point(367, 443);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(357, 49);
+            this.button27.TabIndex = 38;
+            this.button27.Text = "Delete ALL Console Games";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.button27_Click);
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -1994,5 +2006,6 @@
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.Button button27;
     }
 }

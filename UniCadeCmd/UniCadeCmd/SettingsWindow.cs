@@ -1183,6 +1183,25 @@ namespace UniCadeCmd
             }
             MessageBox.Show("Game library successfully cleared");
         }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+            foreach (Console c in Program.dat.consoleList)
+            {
+                if (c.getName().Equals(listBox1.SelectedItem.ToString()))
+                {
+                    c.getGameList().Clear();
+                    MessageBox.Show(c.getName() + " Library cleared");
+                    break;
+                }
+
+            }
+        }
     }
 
     }
