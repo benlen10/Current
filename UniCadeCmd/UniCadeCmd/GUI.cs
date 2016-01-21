@@ -44,7 +44,7 @@ namespace UniCadeCmd
 
 
             Taskbar.Hide();
-            this.TopMost = true;
+            //this.TopMost = true;
             ghk = new KeyHandler(Keys.F4, this);
             ghk.Register();
             listBox1.Visible = false;
