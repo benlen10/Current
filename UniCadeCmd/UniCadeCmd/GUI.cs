@@ -44,7 +44,7 @@ namespace UniCadeCmd
 
 
             Taskbar.Hide();
-            //this.TopMost = true;
+            this.TopMost = true;
             ghk = new KeyHandler(Keys.F4, this);
             ghk.Register();
             listBox1.Visible = false;
@@ -361,7 +361,10 @@ namespace UniCadeCmd
 
         private void updateGUI()
         {
-          
+            if (!FileOps.processActive)
+            {
+                Program.gui.TopMost = true;
+            }
             curCon = (string)conList[index];
             //System.Console.WriteLine(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png");
             if ((File.Exists(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png")))
@@ -641,6 +644,8 @@ namespace UniCadeCmd
             label3.Visible = false;
             label3.Text = null;
         }
+
+
     }
 }
 

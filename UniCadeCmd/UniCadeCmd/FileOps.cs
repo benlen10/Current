@@ -10,8 +10,12 @@ namespace UniCadeCmd
 {
     class FileOps
     {
+        public static bool processActive;
         public static System.Diagnostics.Process proc;
+
+
         public static bool loadDatabase(string path)
+            
         {
             if (!File.Exists(path))
             {
@@ -394,7 +398,8 @@ namespace UniCadeCmd
 
         public static void launch(Game g, Console c)
         {
-
+            
+            Program.gui.TopMost = false;
             if (SettingsWindow.restrictESRB > 0)
             {
                 int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
@@ -473,14 +478,25 @@ namespace UniCadeCmd
             }
             else
             {
+                proc.EnableRaisingEvents = true;
+                proc.Exited += new EventHandler(proc_Exited);
                 proc.StartInfo.FileName = c.getEmuPath();
                 proc.StartInfo.Arguments = args;
+                processActive = true;
                 proc.Start();
             }
         }
 
+        private static void proc_Exited(object sender, System.EventArgs e)
+        {
+            processActive = false;
+        }
+
+
         public static void killLaunch()
         {
+            Program.gui.TopMost = true;
+            processActive = false;
             proc.Kill();
         }
 
