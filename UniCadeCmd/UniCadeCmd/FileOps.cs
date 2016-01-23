@@ -39,7 +39,7 @@ namespace UniCadeCmd
                     {
                         Program.dat.consoleList.Add(c);
                     }
-                    c = new Console(r[0].Substring(3), r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[7], r[8]);
+                    c = new Console(r[0].Substring(3), r[1], r[2], r[3], r[4], Int32.Parse(r[5]), "ConsoleInfo", r[6], r[7]);
                     conCount++;
                 }
                 else
@@ -66,7 +66,7 @@ namespace UniCadeCmd
             {
                 foreach (Console c in Program.dat.consoleList)
                 {
-                    string txt = string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, c.getConsoleInfo(), c.getLaunchParam(), c.getReleaseDate());
+                    string txt = string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, "Console Info", c.getLaunchParam(), c.getReleaseDate());
                     sw.WriteLine(txt);
                     foreach (Game g in c.getGameList())
                     {
@@ -472,19 +472,15 @@ namespace UniCadeCmd
                  args = c.getLaunchParam().Replace("%file", gamePath);
             }
 
-            if (c.getName().Equals("MAME"))
-            {
-                Process.Start(@"C:\UniCade\Emulators\MAME\mame.bat");
-            }
-            else
-            {
+
                 proc.EnableRaisingEvents = true;
                 proc.Exited += new EventHandler(proc_Exited);
                 proc.StartInfo.FileName = c.getEmuPath();
                 proc.StartInfo.Arguments = args;
                 processActive = true;
+            System.Console.WriteLine(args);
                 proc.Start();
-            }
+
         }
 
         private static void proc_Exited(object sender, System.EventArgs e)
