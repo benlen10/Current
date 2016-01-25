@@ -44,7 +44,7 @@ namespace UniCadeCmd
                 }
                 else
                 {
-                    c.getGameList().Add(new Game(r[0], r[1], Int32.Parse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], "", "", Int32.Parse(r[14])));
+                    c.getGameList().Add(new Game(r[0], r[1], Int32.Parse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], Int32.Parse(r[16])));
                     //System.Console.WriteLine(r[0]);
                 }
             }
@@ -70,7 +70,7 @@ namespace UniCadeCmd
                     sw.WriteLine(txt);
                     foreach (Game g in c.getGameList())
                     {
-                        txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|{7}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", g.getFileName(), g.getConsole(), g.launchCount, g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), g.getTrivia(), g.getEsrb(), g.getEsrbDescriptor(), g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags(), g.getFav());
+                        txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", g.getFileName(), g.getConsole(), g.launchCount, g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), g.getTrivia(), g.getEsrb(), g.getEsrbDescriptor(), g.getEsrbSummary(), "Description", g.getGenres(), g.getTags(), g.getFav());
                         sw.WriteLine(txt);
 
                     }
