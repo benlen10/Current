@@ -187,6 +187,7 @@
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.button26 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
+            this.button28 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -572,6 +573,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button28);
             this.tabPage3.Controls.Add(this.textBox8);
             this.tabPage3.Controls.Add(this.textBox3);
             this.tabPage3.Controls.Add(this.label55);
@@ -902,7 +904,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(1073, 637);
+            this.button6.Location = new System.Drawing.Point(1113, 637);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(188, 73);
             this.button6.TabIndex = 25;
@@ -922,7 +924,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(829, 621);
+            this.button1.Location = new System.Drawing.Point(748, 621);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 104);
             this.button1.TabIndex = 23;
@@ -1816,6 +1818,16 @@
             this.button27.UseVisualStyleBackColor = true;
             this.button27.Click += new System.EventHandler(this.button27_Click);
             // 
+            // button28
+            // 
+            this.button28.Location = new System.Drawing.Point(923, 621);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(160, 104);
+            this.button28.TabIndex = 72;
+            this.button28.Text = "Rescrape Console Metadata";
+            this.button28.UseVisualStyleBackColor = true;
+            this.button28.Click += new System.EventHandler(this.button28_Click);
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -2007,5 +2019,6 @@
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Button button26;
         private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Button button28;
     }
 }

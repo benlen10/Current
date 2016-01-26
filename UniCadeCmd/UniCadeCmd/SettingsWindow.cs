@@ -329,7 +329,7 @@ namespace UniCadeCmd
             this.Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)   //Rescrape Info Button
+        private void button1_Click(object sender, EventArgs e)   //Rescrape Game Info Button
         {
             Game g = curGame;
             WebOps.scrapeInfo(g);
@@ -1201,6 +1201,17 @@ namespace UniCadeCmd
                 }
 
             }
+        }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+            Game g = curGame;
+            foreach(Game g1 in curConsole2.getGameList())
+            {
+                WebOps.scrapeInfo(g1);
+            }
+            MessageBox.Show("Operation Successful");
+           
         }
     }
 
