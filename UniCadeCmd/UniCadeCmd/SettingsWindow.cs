@@ -1205,8 +1205,8 @@ namespace UniCadeCmd
 
         private void button28_Click(object sender, EventArgs e)
         {
-            Game g = curGame;
-            foreach(Game g1 in curConsole2.getGameList())
+            MessageBox.Show("This may take a while... Please wait for a completed nofication.");
+            foreach (Game g1 in curConsole2.getGameList())
             {
                 WebOps.scrapeInfo(g1);
             }

@@ -45,6 +45,7 @@ namespace UniCadeCmd
         }
 
 
+
         public static void scrapeMobyGames(Game g)
         {
             if (g == null)
@@ -115,7 +116,7 @@ namespace UniCadeCmd
                 {
                     int indexB = html.IndexOf("release-info", (tmp + 20));
 
-                    string releaseDate = html.Substring((indexB + 14), 12);
+                    string releaseDate = html.Substring((indexB + 14), 4);
                     g.setReleaseDate(releaseDate);
                     System.Console.WriteLine(g.getReleaseDate());
                 }
@@ -167,6 +168,8 @@ namespace UniCadeCmd
                     if (tmp2 > 0)
                     {
                         string description = html.Substring((tmp + 16), tmp2 - (tmp + 16));
+                        description = description.Replace("\n", " ");
+                        description = description.Replace('|', ' ');
                         g.setDescription(description);
                     }
                 }
