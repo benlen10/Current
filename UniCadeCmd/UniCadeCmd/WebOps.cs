@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace UniCadeCmd
 {
@@ -67,7 +68,7 @@ namespace UniCadeCmd
                 {
                     indexA = 0;
                 }
-                string s = html.Substring(indexA, indexA + 50);
+                string s = html; //html.Substring(indexA, indexA + 50);
                 if (s.Contains("Everyone"))
                 {
                     g.setEsrb("Everyone");
@@ -168,8 +169,7 @@ namespace UniCadeCmd
                     if (tmp2 > 0)
                     {
                         string description = html.Substring((tmp + 16), tmp2 - (tmp + 16));
-                        description = description.Replace("\n", " ");
-                        description = description.Replace('|', ' ');
+                        description = Regex.Replace(description, @"\t|\n|\r", " ");
                         g.setDescription(description);
                     }
                 }
