@@ -12,7 +12,7 @@ namespace UniCadeCmd
 
         public static bool connectSQL()
         {
-            SqlConnection myConnection = new SqlConnection("user id=root;" + "password=Star6120;server=serverurl;" + "Trusted_Connection=yes;" + "database=database; " + "connection timeout=30");
+            SqlConnection myConnection = new SqlConnection("user id=root;" + "password=Star6120; server=localhost;" + "Trusted_Connection=yes;" + "database=unicade; " + "connection timeout=30");
 
             try
             {

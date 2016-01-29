@@ -38,6 +38,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button27 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
             this.button24 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -66,6 +67,11 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Us = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button28 = new System.Windows.Forms.Button();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.button18 = new System.Windows.Forms.Button();
             this.label26 = new System.Windows.Forms.Label();
@@ -130,6 +136,7 @@
             this.listBox4 = new System.Windows.Forms.ListBox();
             this.label38 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button26 = new System.Windows.Forms.Button();
             this.label39 = new System.Windows.Forms.Label();
             this.button20 = new System.Windows.Forms.Button();
             this.label45 = new System.Windows.Forms.Label();
@@ -180,14 +187,12 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.label54 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.button26 = new System.Windows.Forms.Button();
-            this.button27 = new System.Windows.Forms.Button();
-            this.button28 = new System.Windows.Forms.Button();
+            this.button29 = new System.Windows.Forms.Button();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.button30 = new System.Windows.Forms.Button();
+            this.textBox14 = new System.Windows.Forms.TextBox();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -199,6 +204,7 @@
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.tabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage2
@@ -322,6 +328,16 @@
             this.tabPage1.Text = "Emulators";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // button27
+            // 
+            this.button27.Location = new System.Drawing.Point(367, 443);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(357, 49);
+            this.button27.TabIndex = 38;
+            this.button27.Text = "Delete ALL Console Games";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.button27_Click);
             // 
             // button25
             // 
@@ -564,6 +580,7 @@
             this.Us.Controls.Add(this.tabPage5);
             this.Us.Controls.Add(this.tabPage4);
             this.Us.Controls.Add(this.tabPage6);
+            this.Us.Controls.Add(this.tabPage7);
             this.Us.Controls.Add(this.tabPage2);
             this.Us.Location = new System.Drawing.Point(0, 0);
             this.Us.Name = "Us";
@@ -626,6 +643,50 @@
             this.tabPage3.Text = "Games";
             this.tabPage3.UseVisualStyleBackColor = true;
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
+            // 
+            // button28
+            // 
+            this.button28.Location = new System.Drawing.Point(923, 621);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(160, 104);
+            this.button28.TabIndex = 72;
+            this.button28.Text = "Rescrape Console Metadata";
+            this.button28.UseVisualStyleBackColor = true;
+            this.button28.Click += new System.EventHandler(this.button28_Click);
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(440, 697);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.Size = new System.Drawing.Size(84, 31);
+            this.textBox8.TabIndex = 71;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(148, 700);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(84, 31);
+            this.textBox3.TabIndex = 70;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(6, 700);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(140, 25);
+            this.label55.TabIndex = 69;
+            this.label55.Text = "Total Games:";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(238, 700);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(196, 25);
+            this.label54.TabIndex = 68;
+            this.label54.Text = "Games for Console";
             // 
             // checkBox3
             // 
@@ -1252,6 +1313,16 @@
             this.tabPage4.UseVisualStyleBackColor = true;
             this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
+            // button26
+            // 
+            this.button26.Location = new System.Drawing.Point(1031, 674);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(297, 54);
+            this.button26.TabIndex = 91;
+            this.button26.Text = "Delete ALL Games";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Click += new System.EventHandler(this.button26_Click);
+            // 
             // label39
             // 
             this.label39.AutoSize = true;
@@ -1758,75 +1829,59 @@
             this.label19.TabIndex = 0;
             this.label19.Text = "Site Options";
             // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.textBox14);
+            this.tabPage7.Controls.Add(this.button30);
+            this.tabPage7.Controls.Add(this.richTextBox2);
+            this.tabPage7.Controls.Add(this.button29);
+            this.tabPage7.Location = new System.Drawing.Point(8, 39);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(1679, 752);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "UniCade Server";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
             // 
-            // label54
+            // button29
             // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(238, 700);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(196, 25);
-            this.label54.TabIndex = 68;
-            this.label54.Text = "Games for Console";
+            this.button29.Location = new System.Drawing.Point(322, 458);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(179, 113);
+            this.button29.TabIndex = 0;
+            this.button29.Text = "Connect to SQL Server";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
-            // label55
+            // richTextBox2
             // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(6, 700);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(140, 25);
-            this.label55.TabIndex = 69;
-            this.label55.Text = "Total Games:";
+            this.richTextBox2.Location = new System.Drawing.Point(180, 229);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(475, 211);
+            this.richTextBox2.TabIndex = 1;
+            this.richTextBox2.Text = "";
             // 
-            // textBox3
+            // button30
             // 
-            this.textBox3.Location = new System.Drawing.Point(148, 700);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(84, 31);
-            this.textBox3.TabIndex = 70;
+            this.button30.Location = new System.Drawing.Point(674, 229);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(172, 48);
+            this.button30.TabIndex = 2;
+            this.button30.Text = "Send";
+            this.button30.UseVisualStyleBackColor = true;
             // 
-            // textBox8
+            // textBox14
             // 
-            this.textBox8.Location = new System.Drawing.Point(440, 697);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(84, 31);
-            this.textBox8.TabIndex = 71;
-            // 
-            // button26
-            // 
-            this.button26.Location = new System.Drawing.Point(1031, 674);
-            this.button26.Name = "button26";
-            this.button26.Size = new System.Drawing.Size(297, 54);
-            this.button26.TabIndex = 91;
-            this.button26.Text = "Delete ALL Games";
-            this.button26.UseVisualStyleBackColor = true;
-            this.button26.Click += new System.EventHandler(this.button26_Click);
-            // 
-            // button27
-            // 
-            this.button27.Location = new System.Drawing.Point(367, 443);
-            this.button27.Name = "button27";
-            this.button27.Size = new System.Drawing.Size(357, 49);
-            this.button27.TabIndex = 38;
-            this.button27.Text = "Delete ALL Console Games";
-            this.button27.UseVisualStyleBackColor = true;
-            this.button27.Click += new System.EventHandler(this.button27_Click);
-            // 
-            // button28
-            // 
-            this.button28.Location = new System.Drawing.Point(923, 621);
-            this.button28.Name = "button28";
-            this.button28.Size = new System.Drawing.Size(160, 104);
-            this.button28.TabIndex = 72;
-            this.button28.Text = "Rescrape Console Metadata";
-            this.button28.UseVisualStyleBackColor = true;
-            this.button28.Click += new System.EventHandler(this.button28_Click);
+            this.textBox14.Location = new System.Drawing.Point(180, 165);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(666, 31);
+            this.textBox14.TabIndex = 3;
             // 
             // SettingsWindow
             // 
@@ -1855,6 +1910,8 @@
             this.tabPage4.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2020,5 +2077,10 @@
         private System.Windows.Forms.Button button26;
         private System.Windows.Forms.Button button27;
         private System.Windows.Forms.Button button28;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.Button button30;
+        public System.Windows.Forms.RichTextBox richTextBox2;  //public 
+        private System.Windows.Forms.Button button29;
     }
 }
