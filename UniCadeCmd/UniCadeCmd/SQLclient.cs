@@ -61,5 +61,35 @@ namespace UniCadeCmd
 
         }
 
+        public static bool addGame()
+        {
+
+        }
+
+        public static string getGameByConsole(string con)
+        {
+
+        }
+
+        public static string getSingleGame(string con)
+        {
+
+        }
+
+        public static string getAllGames()
+        {
+
+        }
+
+        public static getUsers()
+        {
+
+        }
+
+        authiencateUser()
+        {
+
+        } 
+
     }
 }
