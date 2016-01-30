@@ -4,27 +4,62 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
+
 
 namespace UniCadeCmd
 {
     class SQLclient
     {
+        public static MySqlConnection conn;
 
-        public static bool connectSQL()
+        public static string connectSQL()
         {
-            SqlConnection myConnection = new SqlConnection("user id=root;" + "password=Star6120; server=localhost;" + "Trusted_Connection=yes;" + "database=unicade; " + "connection timeout=30");
+            
+            conn = new MySqlConnection("server=127.0.0.1;"+ "uid=root;" +"pwd=Star6120;"+"database=unicade;");
 
             try
             {
-                myConnection.Open();
-                return true;
+                conn.Open();
+                return "connected";
             }
             catch (Exception e)
             {
                 System.Console.WriteLine(e.ToString());
-                return false;
+                return e.ToString();
             }
 
         }
+
+        public static string processSQLcommand(string s)
+        {
+            MySqlCommand myCommand = new MySqlCommand(s, conn);
+            //myCommand.ExecuteNonQuery();
+
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+                MySqlDataReader myReader = null;
+
+                 myReader= myCommand.ExecuteReader();
+                int col = 0;
+                while (myReader.Read())
+                {
+                    sb.Append(myReader.GetString(col));
+                }
+                myReader.Close();
+                myCommand.Dispose();
+                return sb.ToString();
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e.ToString());
+                
+                return e.ToString();
+            }
+
+
+        }
+
     }
 }

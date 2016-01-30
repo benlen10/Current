@@ -1213,6 +1213,22 @@ namespace UniCadeCmd
             MessageBox.Show("Operation Successful");
            
         }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            richTextBox2.Text = SQLclient.connectSQL();
+        }
+
+        private void button30_Click(object sender, EventArgs e)
+        {
+            richTextBox2.Text = null;
+            if (textBox14.Text.Length < 2)
+            {
+                MessageBox.Show("Command cannot be empty");
+                return;
+            }
+            richTextBox2.Text = SQLclient.processSQLcommand(textBox14.Text);
+        }
     }
 
     }

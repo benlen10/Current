@@ -15,3 +15,4 @@ C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.exe.ma
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.application
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.PassWindow.resources
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.LicenseEntry.resources
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\bin\Debug\MySql.Data.dll

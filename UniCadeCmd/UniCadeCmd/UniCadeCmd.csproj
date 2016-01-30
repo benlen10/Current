@@ -64,6 +64,9 @@
     <ApplicationIcon>UniCade Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\PrivateAssemblies\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -121,6 +124,7 @@
     <Compile Include="Splash.Designer.cs">
       <DependentUpon>Splash.cs</DependentUpon>
     </Compile>
+    <Compile Include="SQLclient.cs" />
     <Compile Include="Taskbar.cs" />
     <Compile Include="TextFiles.cs" />
     <Compile Include="User.cs" />

@@ -188,11 +188,11 @@
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button29 = new System.Windows.Forms.Button();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.button30 = new System.Windows.Forms.Button();
             this.textBox14 = new System.Windows.Forms.TextBox();
+            this.button30 = new System.Windows.Forms.Button();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.button29 = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1843,11 +1843,30 @@
             this.tabPage7.Text = "UniCade Server";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // contextMenuStrip1
+            // textBox14
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
+            this.textBox14.Location = new System.Drawing.Point(180, 165);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(666, 31);
+            this.textBox14.TabIndex = 3;
+            // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(674, 229);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(172, 48);
+            this.button30.TabIndex = 2;
+            this.button30.Text = "Send";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click);
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(180, 229);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(475, 211);
+            this.richTextBox2.TabIndex = 1;
+            this.richTextBox2.Text = "";
             // 
             // button29
             // 
@@ -1859,29 +1878,11 @@
             this.button29.UseVisualStyleBackColor = true;
             this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
-            // richTextBox2
+            // contextMenuStrip1
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(180, 229);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(475, 211);
-            this.richTextBox2.TabIndex = 1;
-            this.richTextBox2.Text = "";
-            // 
-            // button30
-            // 
-            this.button30.Location = new System.Drawing.Point(674, 229);
-            this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(172, 48);
-            this.button30.TabIndex = 2;
-            this.button30.Text = "Send";
-            this.button30.UseVisualStyleBackColor = true;
-            // 
-            // textBox14
-            // 
-            this.textBox14.Location = new System.Drawing.Point(180, 165);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(666, 31);
-            this.textBox14.TabIndex = 3;
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
             // 
             // SettingsWindow
             // 
