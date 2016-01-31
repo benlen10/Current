@@ -34,7 +34,6 @@ namespace UniCadeCmd
         public static string processSQLcommand(string s)
         {
             MySqlCommand myCommand = new MySqlCommand(s, conn);
-            //myCommand.ExecuteNonQuery();
 
             StringBuilder sb = new StringBuilder();
             try
@@ -71,8 +70,31 @@ namespace UniCadeCmd
 
         }
 
-        public static string getSingleGame(string con)
+        public static string getSingleGame(string con, string g)
         {
+            MySqlCommand myCommand = new MySqlCommand("Use Database unicade;"+ "select * FROM games WHERE title = "+ g + "AND console = " + con+  ";", conn);
+
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+                MySqlDataReader myReader = null;
+
+                myReader = myCommand.ExecuteReader();
+                int col = 1;
+                while (myReader.Read())
+                {
+                    sb.Append(myReader.GetString(col));
+                }
+                myReader.Close();
+                myCommand.Dispose();
+                return sb.ToString();
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e.ToString());
+
+                return e.ToString();
+            }
 
         }
 
