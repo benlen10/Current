@@ -1229,6 +1229,15 @@ namespace UniCadeCmd
             }
             richTextBox2.Text = SQLclient.processSQLcommand(textBox14.Text);
         }
+
+        private void button31_Click(object sender, EventArgs e)
+        {
+           Game g =    SQLclient.getSingleGame(textBox34.Text, textBox35.Text);
+            if (g != null)
+            {
+                richTextBox2.Text = g.getFileName();
+            }
+        }
     }
 
     }

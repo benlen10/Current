@@ -129,6 +129,7 @@ namespace UniCadeCmd
                     list = list + " " + "["+ c.getName()  + "]";
                 }
                 System.Console.WriteLine(list);
+
                 string input = System.Console.ReadLine();
                 if (input.Equals("(c)"))
                 {

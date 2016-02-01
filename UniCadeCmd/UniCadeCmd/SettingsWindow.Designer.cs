@@ -193,6 +193,9 @@
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.button29 = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.textBox34 = new System.Windows.Forms.TextBox();
+            this.textBox35 = new System.Windows.Forms.TextBox();
+            this.button31 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1831,6 +1834,9 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.button31);
+            this.tabPage7.Controls.Add(this.textBox35);
+            this.tabPage7.Controls.Add(this.textBox34);
             this.tabPage7.Controls.Add(this.textBox14);
             this.tabPage7.Controls.Add(this.button30);
             this.tabPage7.Controls.Add(this.richTextBox2);
@@ -1852,7 +1858,7 @@
             // 
             // button30
             // 
-            this.button30.Location = new System.Drawing.Point(674, 229);
+            this.button30.Location = new System.Drawing.Point(866, 184);
             this.button30.Name = "button30";
             this.button30.Size = new System.Drawing.Size(172, 48);
             this.button30.TabIndex = 2;
@@ -1882,7 +1888,31 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // textBox34
+            // 
+            this.textBox34.Location = new System.Drawing.Point(180, 109);
+            this.textBox34.Name = "textBox34";
+            this.textBox34.Size = new System.Drawing.Size(291, 31);
+            this.textBox34.TabIndex = 4;
+            // 
+            // textBox35
+            // 
+            this.textBox35.Location = new System.Drawing.Point(574, 119);
+            this.textBox35.Name = "textBox35";
+            this.textBox35.Size = new System.Drawing.Size(272, 31);
+            this.textBox35.TabIndex = 5;
+            // 
+            // button31
+            // 
+            this.button31.Location = new System.Drawing.Point(866, 109);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(288, 50);
+            this.button31.TabIndex = 6;
+            this.button31.Text = "Get Single Game";
+            this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.button31_Click);
             // 
             // SettingsWindow
             // 
@@ -2083,5 +2113,8 @@
         private System.Windows.Forms.Button button30;
         public System.Windows.Forms.RichTextBox richTextBox2;  //public 
         private System.Windows.Forms.Button button29;
+        private System.Windows.Forms.Button button31;
+        private System.Windows.Forms.TextBox textBox35;
+        private System.Windows.Forms.TextBox textBox34;
     }
 }

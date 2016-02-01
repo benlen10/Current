@@ -62,17 +62,17 @@ namespace UniCadeCmd
 
         public static bool addGame()
         {
-
+            return false;
         }
 
         public static string getGameByConsole(string con)
         {
-
+            return null;
         }
 
-        public static string getSingleGame(string con, string g)
+        public static Game getSingleGame(string con, string gam)
         {
-            MySqlCommand myCommand = new MySqlCommand("Use Database unicade;"+ "select * FROM games WHERE title = "+ g + "AND console = " + con+  ";", conn);
+            MySqlCommand myCommand = new MySqlCommand("Use unicade;"+ "select * FROM games WHERE title = "+ "\""+ gam + "\""+ " AND console = " + "\""+ con + "\""  +  ";", conn);
 
             StringBuilder sb = new StringBuilder();
             try
@@ -81,36 +81,38 @@ namespace UniCadeCmd
 
                 myReader = myCommand.ExecuteReader();
                 int col = 1;
+                myReader.Read();
+                Game g = new Game(myReader.GetString(1), myReader.GetString(3), myReader.GetInt32(4), myReader.GetString(5), myReader.GetString(6), myReader.GetString(7), myReader.GetString(8), myReader.GetString(9), myReader.GetString(10), myReader.GetString(11), myReader.GetString(12), myReader.GetString(13), myReader.GetString(14), myReader.GetString(15), myReader.GetString(16), myReader.GetString(16), myReader.GetInt32(16));
                 while (myReader.Read())
                 {
                     sb.Append(myReader.GetString(col));
                 }
                 myReader.Close();
                 myCommand.Dispose();
-                return sb.ToString();
+                return g;
             }
             catch (Exception e)
             {
                 System.Console.WriteLine(e.ToString());
 
-                return e.ToString();
+                return null;
             }
 
         }
 
         public static string getAllGames()
         {
-
+            return null;
         }
 
-        public static getUsers()
+        public static string getUsers()
         {
-
+            return null;
         }
 
-        authiencateUser()
+        public static bool authiencateUser()
         {
-
+            return false;
         } 
 
     }
