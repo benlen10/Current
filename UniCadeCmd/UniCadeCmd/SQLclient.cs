@@ -82,7 +82,7 @@ namespace UniCadeCmd
                 myReader = myCommand.ExecuteReader();
                 int col = 1;
                 myReader.Read();
-                Game g = new Game(myReader.GetString(1), myReader.GetString(3), myReader.GetInt32(4), myReader.GetString(5), myReader.GetString(6), myReader.GetString(7), myReader.GetString(8), myReader.GetString(9), myReader.GetString(10), myReader.GetString(11), myReader.GetString(12), myReader.GetString(13), myReader.GetString(14), myReader.GetString(15), myReader.GetString(16), myReader.GetString(16), myReader.GetInt32(16));
+                Game g = new Game(SafeGetString(myReader,1), SafeGetString(myReader,3), SafeGetInt32(myReader,4), SafeGetString(myReader, 5), SafeGetString(myReader, 6), SafeGetString(myReader, 7), SafeGetString(myReader, 8), SafeGetString(myReader, 9), SafeGetString(myReader, 10), SafeGetString(myReader,11), SafeGetString(myReader, 12), SafeGetString(myReader, 13), SafeGetString(myReader, 14), SafeGetString(myReader, 15), SafeGetString(myReader, 16), SafeGetString(myReader, 17), SafeGetInt32(myReader, 18));
                 while (myReader.Read())
                 {
                     sb.Append(myReader.GetString(col));
@@ -113,7 +113,23 @@ namespace UniCadeCmd
         public static bool authiencateUser()
         {
             return false;
-        } 
+        }
+
+        public static string SafeGetString(MySqlDataReader reader, int colIndex)
+        {
+            if (!reader.IsDBNull(colIndex))
+                return reader.GetString(colIndex);
+            else
+                return string.Empty;
+        }
+
+        public static int SafeGetInt32(MySqlDataReader reader, int colIndex)
+        {
+            if (!reader.IsDBNull(colIndex))
+                return reader.GetInt32(colIndex);
+            else
+                return 0;
+        }
 
     }
 }

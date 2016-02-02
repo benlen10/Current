@@ -1236,7 +1236,15 @@ namespace UniCadeCmd
             if (g != null)
             {
                 richTextBox2.Text = g.getFileName();
-            }
+                foreach (Console c in Program.dat.consoleList)
+                {
+                    if (g.getConsole().Equals(c.getName()))
+                    {
+                        c.getGameList().Add(g);
+                        c.gameCount++;
+                        MessageBox.Show("Game Sucuesfully Added");
+                    }
+                }
         }
     }
 
