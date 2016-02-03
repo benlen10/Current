@@ -1245,6 +1245,7 @@ namespace UniCadeCmd
                         MessageBox.Show("Game Sucuesfully Added");
                     }
                 }
+            }
         }
     }
 

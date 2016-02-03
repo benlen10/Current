@@ -60,9 +60,11 @@ namespace UniCadeCmd
 
         }
 
-        public static bool addGame()
+        public static bool uploadGame(Game g)
         {
-            return false;
+            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "INSERT INTO games" + "(filename,title, Console, launchcount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite)" + "VALUES (" + g.getFileName() + "," + g.getTitle() + "," + g.getConsole() + "," + g.launchCount + "," + g.getReleaseDate() + "," + g.getPublisher() + "," + g.getDeveloper() + "," + g.getUserScore() + "," + g.getCriticScore() + "," + g.getPlayers() + "," + g.getTrivia() + "," + g.getEsrb() + "," + g.getEsrbDescriptor() + "," + g.getEsrbSummary() + "," + g.getDescription() + "," + g.getGenres() + "," + g.getTags() + "," + g.getFav());
+            myCommand.ExecuteNonQuery();
+            return true;
         }
 
         public static string getGameByConsole(string con)
