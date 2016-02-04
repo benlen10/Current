@@ -196,6 +196,8 @@
             this.textBox34 = new System.Windows.Forms.TextBox();
             this.textBox35 = new System.Windows.Forms.TextBox();
             this.button31 = new System.Windows.Forms.Button();
+            this.button32 = new System.Windows.Forms.Button();
+            this.button33 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -593,6 +595,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button33);
+            this.tabPage3.Controls.Add(this.button32);
             this.tabPage3.Controls.Add(this.button28);
             this.tabPage3.Controls.Add(this.textBox8);
             this.tabPage3.Controls.Add(this.textBox3);
@@ -978,7 +982,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(587, 637);
+            this.button5.Location = new System.Drawing.Point(587, 655);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(140, 73);
             this.button5.TabIndex = 24;
@@ -1914,6 +1918,26 @@
             this.button31.UseVisualStyleBackColor = true;
             this.button31.Click += new System.EventHandler(this.button31_Click);
             // 
+            // button32
+            // 
+            this.button32.Location = new System.Drawing.Point(511, 533);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(187, 41);
+            this.button32.TabIndex = 73;
+            this.button32.Text = "Delete Game";
+            this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click);
+            // 
+            // button33
+            // 
+            this.button33.Location = new System.Drawing.Point(512, 594);
+            this.button33.Name = "button33";
+            this.button33.Size = new System.Drawing.Size(181, 43);
+            this.button33.TabIndex = 74;
+            this.button33.Text = "Upload Game";
+            this.button33.UseVisualStyleBackColor = true;
+            this.button33.Click += new System.EventHandler(this.button33_Click);
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -2116,5 +2140,7 @@
         private System.Windows.Forms.Button button31;
         private System.Windows.Forms.TextBox textBox35;
         private System.Windows.Forms.TextBox textBox34;
+        private System.Windows.Forms.Button button33;
+        private System.Windows.Forms.Button button32;
     }
 }

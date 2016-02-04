@@ -1247,6 +1247,21 @@ namespace UniCadeCmd
                 }
             }
         }
+
+        private void button32_Click(object sender, EventArgs e)  //Delete game button
+        {
+            if (curGame != null)
+            {
+                curConsole.getGameList().Remove(curGame);
+                MessageBox.Show("Game Removed");
+            }
+        }
+
+        private void button33_Click(object sender, EventArgs e)  //Upload game button
+        {
+            SQLclient.uploadGame(curGame);
+            MessageBox.Show("Game uploaded to database");
+        }
     }
 
     }
