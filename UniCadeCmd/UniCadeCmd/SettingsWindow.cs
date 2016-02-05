@@ -1259,8 +1259,8 @@ namespace UniCadeCmd
 
         private void button33_Click(object sender, EventArgs e)  //Upload game button
         {
-            SQLclient.uploadGame(curGame);
-            MessageBox.Show("Game uploaded to database");
+            String c = SQLclient.uploadGame(curGame);
+            richTextBox2.Text = c;
         }
     }
 
