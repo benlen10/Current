@@ -290,7 +290,7 @@ namespace UniCadeCmd
                     textBox6.Text = g.getEsrb();
                     textBox17.Text = g.getPlayers();
                     textBox19.Text = g.getEsrbDescriptor();
-                    textBox18.Text = g.getTrivia();
+                    textBox18.Text = g.getDescription();
                     if (g.getFav() == 1)
                     {
                         checkBox3.Checked = true;
@@ -354,7 +354,7 @@ namespace UniCadeCmd
             curGame.setDeveloper(textBox10.Text);
             curGame.setEsrb(textBox6.Text);
             curGame.setPlayers(textBox17.Text);
-            curGame.setTrivia(textBox18.Text);
+            curGame.setDescription(textBox18.Text);
             FileOps.saveDatabase(Program.databasePath);
 
         }

@@ -28,6 +28,8 @@ namespace UniCadeCmd
         public static int screenshot = 1;
         public static string gameName;
 
+        public static int maxDescriptionLength = 5000;
+
 
         public static void scrapeInfo(Game g)
         {
@@ -171,7 +173,10 @@ namespace UniCadeCmd
                         string description = html.Substring((tmp + 16), tmp2 - (tmp + 16));
                         description = Regex.Replace(description, @"\t|\n|\r", " ");
                         description = description.Replace("\"", "");
-                        description = description.Substring(0, 5000);
+                        if (description.Length > maxDescriptionLength)
+                        {
+                            description = description.Substring(0, maxDescriptionLength);
+                        }
                         g.setDescription(description);
                     }
                 }
