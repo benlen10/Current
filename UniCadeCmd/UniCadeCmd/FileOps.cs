@@ -214,7 +214,7 @@ namespace UniCadeCmd
             
                 r = line.Split(sep);
 
-                User u = new User(r[0], r[1], Int32.Parse(r[2]), Int32.Parse(r[3]), r[5], Int32.Parse(r[4]));
+                User u = new User(r[0], r[1], Int32.Parse(r[2]), r[3], Int32.Parse(r[4]), r[5], r[6], r[7]);
                 if (r[6].Length > 0)
                 {
                     string[] st = r[6].Split('#');
@@ -265,7 +265,7 @@ namespace UniCadeCmd
                     {
                         favs += (s + "#");
                     }
-                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}", u.getUsername(), u.getPass(), u.getLoginCount(), u.getLaunchCount(), u.getAge(), u.getUserInfo(), favs);
+                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}", u.getUsername(), u.getPass(), u.getLoginCount(), u.getEmail(), u.getLaunchCount(), u.getUserInfo(), u.getAllowedEsrb(), u.getProfPic());
                 }
             }
 
@@ -411,10 +411,10 @@ namespace UniCadeCmd
                 }
 
             }
-            if (Program.curUser.getAge() > 0)
+            if (Program.curUser.getAllowedEsrb().Length > 1)
             {
                 int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
-                if (EsrbNum >= Program.curUser.getAge())
+                if (EsrbNum >= SettingsWindow.calcEsrb(Program.curUser.getAllowedEsrb()))
                 {
                     System.Console.WriteLine("\n***Rating " + g.getEsrb() + " Is restricted***\n");
                     return;

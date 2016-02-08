@@ -363,7 +363,7 @@ namespace UniCadeCmd
         {
             if (!FileOps.processActive)
             {
-                Program.gui.TopMost = true;
+                //Program.gui.TopMost = true;
             }
             curCon = (string)conList[index];
             //System.Console.WriteLine(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png");

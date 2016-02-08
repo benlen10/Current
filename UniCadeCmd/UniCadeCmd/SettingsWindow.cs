@@ -712,7 +712,7 @@ namespace UniCadeCmd
               
                 if (listBox4.SelectedIndex > 0)
                 {
-                    curUser.seAge(calcEsrb(comboBox2.SelectedItem.ToString()));
+                    curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
                 }
                
             }
@@ -756,7 +756,7 @@ namespace UniCadeCmd
             curUser.setName(textBox23.Text);
             curUser.setpass(textBox24.Text);
             curUser.setUserInfo(textBox26.Text);
-            curUser.seAge(calcEsrb(comboBox2.SelectedItem.ToString()));
+            curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
             FileOps.saveDatabase(Program.databasePath);
         }
 
@@ -1259,6 +1259,7 @@ namespace UniCadeCmd
 
         private void button33_Click(object sender, EventArgs e)  //Upload game button
         {
+            SQLclient.connectSQL();
             String c = SQLclient.uploadGame(curGame);
             richTextBox2.Text = c;
         }

@@ -64,7 +64,7 @@ namespace UniCadeCmd
 
             if (curUser == null)
             {
-                curUser = new User("UniCade", "temp", 0, 0, " ", 20);
+                curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "","");
                 dat.userList.Add(curUser);
             }
 

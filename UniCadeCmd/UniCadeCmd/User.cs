@@ -14,19 +14,23 @@ namespace UniCadeCmd
         public int loginCount;
         public int totalLaunchCount;
         private string userInfo;
-        private int age;
+        private string allowedEsrb;
+        private string email;
+        private string profPic;
         public ArrayList favorites;
 
 
         //Methods
-        public User(string userName, string pass, int loginCount, int totalLaunchCount, string userInfo, int age)
+        public User(string userName, string pass, int loginCount, string email, int totalLaunchCount, string userInfo, string allowedEsrb, string profPic)
         {
             this.userName = userName;
             this.pass = pass;
             this.loginCount = loginCount;
             this.totalLaunchCount = totalLaunchCount;
             this.userInfo = userInfo;
-            this.age = age;
+            this.allowedEsrb = allowedEsrb;
+            this.email = email;
+            this.profPic = profPic;
             favorites = new ArrayList();
         }
 
@@ -45,6 +49,16 @@ namespace UniCadeCmd
             return pass;
         }
 
+        public string getEmail()
+        {
+            return email;
+        }
+
+        public string getProfPic()
+        {
+            return profPic;
+        }
+
         public int getLoginCount()
         {
             return loginCount;
@@ -60,9 +74,9 @@ namespace UniCadeCmd
             return userInfo;
         }
 
-        public int getAge()
+        public string getAllowedEsrb()
         {
-            return age;
+            return allowedEsrb;
         }
 
         public void setName(string s)
@@ -75,14 +89,24 @@ namespace UniCadeCmd
             pass = s;
         }
 
+        public void setEmail(string s)
+        {
+            email = s;
+        }
+
+        public void setProfPic(string s)
+        {
+            profPic = s;
+        }
+
         public void setUserInfo(string s)
         {
             userInfo = s;
         }
 
-        public void seAge(int s)
+        public void setAllowedEsrb(string s)
         {
-            age = s;
+            allowedEsrb = s;
         }
 
     }
