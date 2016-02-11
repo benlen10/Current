@@ -1263,6 +1263,12 @@ namespace UniCadeCmd
             String c = SQLclient.uploadGame(curGame);
             richTextBox2.Text = c;
         }
+
+        private void button34_Click(object sender, EventArgs e)
+        {
+            UnicadeAccount ua = new UnicadeAccount();
+            ua.ShowDialog();
+        }
     }
 
     }

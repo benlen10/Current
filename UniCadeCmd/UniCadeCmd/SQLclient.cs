@@ -151,15 +151,16 @@ namespace UniCadeCmd
             return false;
         }
 
-        public static bool createUser(string username, string pass, string email, string info, string esrb, string profPic)
+        public static string createUser(string username, string pass, string email, string info, string esrb, string profPic)
         {
             if (conn == null)
             {
                 connectSQL();
             }
-            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");");
-            myCommand.ExecuteNonQuery();
-            return true;
+            string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
+            MySqlCommand myCommand = new MySqlCommand(command,conn);
+            //myCommand.ExecuteNonQuery();
+            return command;
         }
 
         public static bool deleteUser()

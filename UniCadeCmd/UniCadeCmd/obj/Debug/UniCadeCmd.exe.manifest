@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UniCadeCmd.exe" size="5842336">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UniCadeCmd.exe" size="5845408">
       <assemblyIdentity name="UniCadeCmd" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>wb4DwCHNHtdtNiA6ItQnC+u/Rh3K93m+56fnTlqwmms=</dsig:DigestValue>
+        <dsig:DigestValue>g5G+kpNhkMPX9rGxrGxx5qvK0Ov/lxMZRbFckGscg30=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

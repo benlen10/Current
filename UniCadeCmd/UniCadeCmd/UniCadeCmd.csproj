@@ -127,6 +127,12 @@
     <Compile Include="SQLclient.cs" />
     <Compile Include="Taskbar.cs" />
     <Compile Include="TextFiles.cs" />
+    <Compile Include="UnicadeAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnicadeAccount.Designer.cs">
+      <DependentUpon>UnicadeAccount.cs</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
     <Compile Include="WebOps.cs" />
   </ItemGroup>
@@ -153,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UnicadeAccount.resx">
+      <DependentUpon>UnicadeAccount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

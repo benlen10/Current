@@ -23,6 +23,7 @@ namespace UniCadeCmd
         public static bool infoWindowActive;
         public Console gameSelectionConsole;
         public static bool fav;
+        public static SettingsWindow sw;
         int conCount;
         public GUI()
         {
@@ -257,7 +258,7 @@ namespace UniCadeCmd
                 }
                 else
                 {
-                    SettingsWindow sw = new SettingsWindow();
+                    sw = new SettingsWindow();
                     sw.ShowDialog();
                 }
 

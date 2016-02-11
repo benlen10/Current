@@ -67,6 +67,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Us = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button33 = new System.Windows.Forms.Button();
+            this.button32 = new System.Windows.Forms.Button();
             this.button28 = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -78,10 +80,6 @@
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -188,28 +186,30 @@
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.button31 = new System.Windows.Forms.Button();
+            this.textBox35 = new System.Windows.Forms.TextBox();
+            this.textBox34 = new System.Windows.Forms.TextBox();
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.button30 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.button29 = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.textBox34 = new System.Windows.Forms.TextBox();
-            this.textBox35 = new System.Windows.Forms.TextBox();
-            this.button31 = new System.Windows.Forms.Button();
-            this.button32 = new System.Windows.Forms.Button();
-            this.button33 = new System.Windows.Forms.Button();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button34 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage2
@@ -651,6 +651,26 @@
             this.tabPage3.UseVisualStyleBackColor = true;
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
+            // button33
+            // 
+            this.button33.Location = new System.Drawing.Point(512, 594);
+            this.button33.Name = "button33";
+            this.button33.Size = new System.Drawing.Size(181, 43);
+            this.button33.TabIndex = 74;
+            this.button33.Text = "Upload Game";
+            this.button33.UseVisualStyleBackColor = true;
+            this.button33.Click += new System.EventHandler(this.button33_Click);
+            // 
+            // button32
+            // 
+            this.button32.Location = new System.Drawing.Point(511, 533);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(187, 41);
+            this.button32.TabIndex = 73;
+            this.button32.Text = "Delete Game";
+            this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click);
+            // 
             // button28
             // 
             this.button28.Location = new System.Drawing.Point(923, 621);
@@ -751,46 +771,6 @@
             this.label23.Size = new System.Drawing.Size(69, 25);
             this.label23.TabIndex = 62;
             this.label23.Text = "ESRB";
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Location = new System.Drawing.Point(1386, 560);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(144, 142);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 61;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Location = new System.Drawing.Point(1289, 365);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(307, 140);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 60;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(1460, 128);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(125, 192);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 59;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(1300, 127);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(125, 193);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 58;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // textBox16
             // 
@@ -1838,13 +1818,13 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.button34);
             this.tabPage7.Controls.Add(this.button31);
             this.tabPage7.Controls.Add(this.textBox35);
             this.tabPage7.Controls.Add(this.textBox34);
             this.tabPage7.Controls.Add(this.textBox14);
             this.tabPage7.Controls.Add(this.button30);
             this.tabPage7.Controls.Add(this.richTextBox2);
-            this.tabPage7.Controls.Add(this.button29);
             this.tabPage7.Location = new System.Drawing.Point(8, 39);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
@@ -1852,6 +1832,30 @@
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "UniCade Server";
             this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // button31
+            // 
+            this.button31.Location = new System.Drawing.Point(866, 109);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(288, 50);
+            this.button31.TabIndex = 6;
+            this.button31.Text = "Get Single Game";
+            this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.button31_Click);
+            // 
+            // textBox35
+            // 
+            this.textBox35.Location = new System.Drawing.Point(574, 119);
+            this.textBox35.Name = "textBox35";
+            this.textBox35.Size = new System.Drawing.Size(272, 31);
+            this.textBox35.TabIndex = 5;
+            // 
+            // textBox34
+            // 
+            this.textBox34.Location = new System.Drawing.Point(180, 109);
+            this.textBox34.Name = "textBox34";
+            this.textBox34.Size = new System.Drawing.Size(291, 31);
+            this.textBox34.TabIndex = 4;
             // 
             // textBox14
             // 
@@ -1878,65 +1882,61 @@
             this.richTextBox2.TabIndex = 1;
             this.richTextBox2.Text = "";
             // 
-            // button29
-            // 
-            this.button29.Location = new System.Drawing.Point(322, 458);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(179, 113);
-            this.button29.TabIndex = 0;
-            this.button29.Text = "Connect to SQL Server";
-            this.button29.UseVisualStyleBackColor = true;
-            this.button29.Click += new System.EventHandler(this.button29_Click);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
             // 
-            // textBox34
+            // pictureBox4
             // 
-            this.textBox34.Location = new System.Drawing.Point(180, 109);
-            this.textBox34.Name = "textBox34";
-            this.textBox34.Size = new System.Drawing.Size(291, 31);
-            this.textBox34.TabIndex = 4;
+            this.pictureBox4.Location = new System.Drawing.Point(1386, 560);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(144, 142);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 61;
+            this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
-            // textBox35
+            // pictureBox3
             // 
-            this.textBox35.Location = new System.Drawing.Point(574, 119);
-            this.textBox35.Name = "textBox35";
-            this.textBox35.Size = new System.Drawing.Size(272, 31);
-            this.textBox35.TabIndex = 5;
+            this.pictureBox3.Location = new System.Drawing.Point(1289, 365);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(307, 140);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 60;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
-            // button31
+            // pictureBox2
             // 
-            this.button31.Location = new System.Drawing.Point(866, 109);
-            this.button31.Name = "button31";
-            this.button31.Size = new System.Drawing.Size(288, 50);
-            this.button31.TabIndex = 6;
-            this.button31.Text = "Get Single Game";
-            this.button31.UseVisualStyleBackColor = true;
-            this.button31.Click += new System.EventHandler(this.button31_Click);
+            this.pictureBox2.Location = new System.Drawing.Point(1460, 128);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(125, 192);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 59;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
-            // button32
+            // pictureBox1
             // 
-            this.button32.Location = new System.Drawing.Point(511, 533);
-            this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(187, 41);
-            this.button32.TabIndex = 73;
-            this.button32.Text = "Delete Game";
-            this.button32.UseVisualStyleBackColor = true;
-            this.button32.Click += new System.EventHandler(this.button32_Click);
+            this.pictureBox1.Location = new System.Drawing.Point(1300, 127);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(125, 193);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 58;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // button33
+            // button34
             // 
-            this.button33.Location = new System.Drawing.Point(512, 594);
-            this.button33.Name = "button33";
-            this.button33.Size = new System.Drawing.Size(181, 43);
-            this.button33.TabIndex = 74;
-            this.button33.Text = "Upload Game";
-            this.button33.UseVisualStyleBackColor = true;
-            this.button33.Click += new System.EventHandler(this.button33_Click);
+            this.button34.Location = new System.Drawing.Point(316, 461);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(172, 112);
+            this.button34.TabIndex = 7;
+            this.button34.Text = "Create new account";
+            this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
             // 
             // SettingsWindow
             // 
@@ -1955,10 +1955,6 @@
             this.Us.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -1967,6 +1963,10 @@
             this.tabPage6.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2136,11 +2136,11 @@
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.Button button30;
         public System.Windows.Forms.RichTextBox richTextBox2;  //public 
-        private System.Windows.Forms.Button button29;
         private System.Windows.Forms.Button button31;
         private System.Windows.Forms.TextBox textBox35;
         private System.Windows.Forms.TextBox textBox34;
         private System.Windows.Forms.Button button33;
         private System.Windows.Forms.Button button32;
+        private System.Windows.Forms.Button button34;
     }
 }
