@@ -157,7 +157,7 @@ namespace UniCadeCmd
             {
                 connectSQL();
             }
-            string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
+            string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,launchcount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
             MySqlCommand myCommand = new MySqlCommand(command,conn);
             //myCommand.ExecuteNonQuery();
             return command;
