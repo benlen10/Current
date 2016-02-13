@@ -20,7 +20,7 @@ namespace UniCadeCmd
         private void button1_Click(object sender, EventArgs e)  //Create account button
         {
             
-            GUI.sw.richTextBox2.Text= SQLclient.createUser(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, "Null", "NullProfPath");
+            SQLclient.createUser(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, "Null", "NullProfPath");
             MessageBox.Show("User created");
         }
 
