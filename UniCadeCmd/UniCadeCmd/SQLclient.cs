@@ -157,8 +157,20 @@ namespace UniCadeCmd
             {
                 connectSQL();
             }
-            string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,launchcount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
-            MySqlCommand myCommand = new MySqlCommand(command,conn);
+
+            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM users WHERE username = " + "\"" + username + "\"" + " OR email = " + "\"" + email + "\"" + ";", conn);
+
+
+            MySqlDataReader myReader = myCommand.ExecuteReader();
+                myReader.Read();
+            if ((SafeGetString(myReader, 1).Equals(username, StringComparison.InvariantCultureIgnoreCase)) || (SafeGetString(myReader, 2).Equals(email, StringComparison.InvariantCultureIgnoreCase))){
+                System.Console.WriteLine("User Already Exists");
+                return false;
+            }
+
+
+                string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,launchcount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
+             myCommand = new MySqlCommand(command,conn);
             myCommand.ExecuteNonQuery();
             command = @"USE unicade;
 

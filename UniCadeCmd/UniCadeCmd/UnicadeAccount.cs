@@ -19,9 +19,12 @@ namespace UniCadeCmd
 
         private void button1_Click(object sender, EventArgs e)  //Create account button
         {
-            
+            if ((textBox1.Text == null) || (textBox2.Text == null)|| (textBox3.Text == null)|| (textBox4.Text == null))
+            {
+                MessageBox.Show("Fields cannot be empty");
+                return;
+            }
             SQLclient.createUser(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, "Null", "NullProfPath");
-            MessageBox.Show("User created");
         }
 
         private void button2_Click(object sender, EventArgs e)
