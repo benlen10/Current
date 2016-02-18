@@ -1269,6 +1269,23 @@ namespace UniCadeCmd
             UnicadeAccount ua = new UnicadeAccount();
             ua.ShowDialog();
         }
+
+        private void button29_Click_1(object sender, EventArgs e)
+        {
+            Login l = new Login();
+            l.ShowDialog();
+            if (SQLclient.sqlUser != null)
+            {
+                label56.Text = SQLclient.sqlUser;
+            }
+
+        }
+
+        private void button39_Click(object sender, EventArgs e)  //Logout button (SQL)
+        {
+            SQLclient.sqlUser = null;
+            label56.Text = "Current User: Null";
+        }
     }
 
     }

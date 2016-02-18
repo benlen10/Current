@@ -12,6 +12,7 @@ namespace UniCadeCmd
     class SQLclient
     {
         public static MySqlConnection conn;
+        public static string sqlUser;
 
         public static string connectSQL()
         {
@@ -20,6 +21,7 @@ namespace UniCadeCmd
 
             try
             {
+                sqlUser = null;
                 conn.Open();
                 return "connected";
             }
@@ -133,13 +135,28 @@ namespace UniCadeCmd
             return null;
         }
 
-        public static bool authiencateUser()
+        public static bool authiencateUser(string user, string pass)
         {
             if (conn == null)
             {
                 connectSQL();
             }
-            return false;
+
+            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM users WHERE username = " + "\"" + user + "\"" + " OR email = " + "\"" + user + "\"" + ";", conn);
+
+
+            MySqlDataReader myReader = myCommand.ExecuteReader();
+            myReader.Read();
+            if(pass.Equals(SafeGetString(myReader, 2), StringComparison.InvariantCultureIgnoreCase)){
+                sqlUser = user;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+            
         }
 
         public static bool createUser(User u)
@@ -163,7 +180,7 @@ namespace UniCadeCmd
 
             MySqlDataReader myReader = myCommand.ExecuteReader();
                 myReader.Read();
-            if ((SafeGetString(myReader, 1).Equals(username, StringComparison.InvariantCultureIgnoreCase)) || (SafeGetString(myReader, 2).Equals(email, StringComparison.InvariantCultureIgnoreCase))){
+            if ((SafeGetString(myReader, 1).Equals(username, StringComparison.InvariantCultureIgnoreCase)) || (SafeGetString(myReader, 3).Equals(email, StringComparison.InvariantCultureIgnoreCase))){
                 System.Console.WriteLine("User Already Exists");
                 return false;
             }

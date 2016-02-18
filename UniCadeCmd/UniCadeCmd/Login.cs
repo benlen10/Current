@@ -21,5 +21,26 @@ namespace UniCadeCmd
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)  //Close button
+        {
+            Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)  //Login button
+        {
+            if((textBox1.Text==null)|| (textBox2.Text == null))
+            {
+
+            }
+            if (SQLclient.authiencateUser(textBox1.Text, textBox2.Text))
+            {
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Incorrect login details");
+            }
+        }
     }
 }

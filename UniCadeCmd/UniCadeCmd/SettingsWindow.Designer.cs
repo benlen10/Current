@@ -198,6 +198,13 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button34 = new System.Windows.Forms.Button();
+            this.button29 = new System.Windows.Forms.Button();
+            this.button35 = new System.Windows.Forms.Button();
+            this.button36 = new System.Windows.Forms.Button();
+            this.button37 = new System.Windows.Forms.Button();
+            this.button38 = new System.Windows.Forms.Button();
+            this.label56 = new System.Windows.Forms.Label();
+            this.button39 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1818,6 +1825,13 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.button39);
+            this.tabPage7.Controls.Add(this.label56);
+            this.tabPage7.Controls.Add(this.button38);
+            this.tabPage7.Controls.Add(this.button37);
+            this.tabPage7.Controls.Add(this.button36);
+            this.tabPage7.Controls.Add(this.button35);
+            this.tabPage7.Controls.Add(this.button29);
             this.tabPage7.Controls.Add(this.button34);
             this.tabPage7.Controls.Add(this.button31);
             this.tabPage7.Controls.Add(this.textBox35);
@@ -1930,13 +1944,79 @@
             // 
             // button34
             // 
-            this.button34.Location = new System.Drawing.Point(316, 461);
+            this.button34.Location = new System.Drawing.Point(195, 461);
             this.button34.Name = "button34";
             this.button34.Size = new System.Drawing.Size(172, 112);
             this.button34.TabIndex = 7;
             this.button34.Text = "Create new account";
             this.button34.UseVisualStyleBackColor = true;
             this.button34.Click += new System.EventHandler(this.button34_Click);
+            // 
+            // button29
+            // 
+            this.button29.Location = new System.Drawing.Point(752, 335);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(172, 48);
+            this.button29.TabIndex = 8;
+            this.button29.Text = "Login";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click_1);
+            // 
+            // button35
+            // 
+            this.button35.Location = new System.Drawing.Point(574, 468);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(172, 99);
+            this.button35.TabIndex = 9;
+            this.button35.Text = "Delete Current User";
+            this.button35.UseVisualStyleBackColor = true;
+            // 
+            // button36
+            // 
+            this.button36.Location = new System.Drawing.Point(373, 468);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(172, 99);
+            this.button36.TabIndex = 10;
+            this.button36.Text = "Edit Current User";
+            this.button36.UseVisualStyleBackColor = true;
+            // 
+            // button37
+            // 
+            this.button37.Location = new System.Drawing.Point(166, 661);
+            this.button37.Name = "button37";
+            this.button37.Size = new System.Drawing.Size(172, 48);
+            this.button37.TabIndex = 11;
+            this.button37.Text = "Close";
+            this.button37.UseVisualStyleBackColor = true;
+            // 
+            // button38
+            // 
+            this.button38.Location = new System.Drawing.Point(770, 468);
+            this.button38.Name = "button38";
+            this.button38.Size = new System.Drawing.Size(172, 80);
+            this.button38.TabIndex = 12;
+            this.button38.Text = "Commit Changes";
+            this.button38.UseVisualStyleBackColor = true;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.Location = new System.Drawing.Point(175, 45);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(201, 25);
+            this.label56.TabIndex = 13;
+            this.label56.Text = "Current User: Null";
+            // 
+            // button39
+            // 
+            this.button39.Location = new System.Drawing.Point(965, 335);
+            this.button39.Name = "button39";
+            this.button39.Size = new System.Drawing.Size(172, 48);
+            this.button39.TabIndex = 14;
+            this.button39.Text = "Logout";
+            this.button39.UseVisualStyleBackColor = true;
+            this.button39.Click += new System.EventHandler(this.button39_Click);
             // 
             // SettingsWindow
             // 
@@ -2142,5 +2222,12 @@
         private System.Windows.Forms.Button button33;
         private System.Windows.Forms.Button button32;
         private System.Windows.Forms.Button button34;
+        private System.Windows.Forms.Button button38;
+        private System.Windows.Forms.Button button37;
+        private System.Windows.Forms.Button button36;
+        private System.Windows.Forms.Button button35;
+        private System.Windows.Forms.Button button29;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.Button button39;
     }
 }

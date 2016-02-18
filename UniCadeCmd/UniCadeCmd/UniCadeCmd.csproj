@@ -80,6 +80,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackgroundThread.cs" />
+    <Compile Include="ConfirmAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfirmAction.Designer.cs">
+      <DependentUpon>ConfirmAction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Console.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Database.cs" />
@@ -97,6 +103,12 @@
     </Compile>
     <Compile Include="LicenseEntry.Designer.cs">
       <DependentUpon>LicenseEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="PassWindow.cs">
       <SubType>Form</SubType>
@@ -141,11 +153,17 @@
     <None Include="UniCadeCmd_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ConfirmAction.resx">
+      <DependentUpon>ConfirmAction.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI.resx">
       <DependentUpon>GUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LicenseEntry.resx">
       <DependentUpon>LicenseEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PassWindow.resx">
       <DependentUpon>PassWindow.cs</DependentUpon>

@@ -17,3 +17,5 @@ C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.PassWi
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.LicenseEntry.resources
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\bin\Debug\MySql.Data.dll
 C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.UnicadeAccount.resources
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.ConfirmAction.resources
+C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.Login.resources
