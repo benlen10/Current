@@ -15,15 +15,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        populateList();
     }
 
     public void generateGameList(){
     }
 
-    @Override
+
     public void populateList(){
+        ArrayList a = new ArrayList();
+        a.add("Game 1");
+        a.add(("Game 2"));
+        a.add(("Game 2"));
+        a.add(("Game 2"));
+        a.add(("Game 2"));
+        a.add(("Game 2"));
+        a.add(("Game 2"));
         ListView lv = (ListView)findViewById(R.id.listView);
-        ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myList);
+        ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, a);
         lv.setAdapter(myarrayAdapter);
         lv.setTextFilterEnabled(true);
     }

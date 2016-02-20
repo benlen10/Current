@@ -26,7 +26,7 @@ public class Game {
 
 
         //Basic Constructor
-        public Game(String fileName, String con, int launchCount)
+        public Game(String fileName, String con)
         {
             this.fileName = fileName;
             this.con = con;
@@ -36,6 +36,7 @@ public class Game {
             publisher = "";
             developer = "";
             userScore = "";
+            launchCount= 0;
             criticScore = "";
             trivia = "";
             players = "";
