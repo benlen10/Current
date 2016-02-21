@@ -5,8 +5,8 @@ import java.util.ArrayList;
  * Created by Ben on 12/17/2015.
  */
 public class Database {
-    public ArrayList consoleList;
-    public ArrayList userList;
+    public ArrayList<Console> consoleList;
+    public ArrayList<User> userList;
     public ArrayList reviewList;
     public static int totalGameCount;
     private static String hashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";

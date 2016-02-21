@@ -35,7 +35,7 @@ public class Console {
         this.consoleInfo = consoleInfo;
         this.launchParam = launchParam;
         this.releaseDate = releaseDate;
-        gameList = new ArrayList();
+        gameList = new ArrayList<Game>();
 
     }
 
@@ -50,7 +50,7 @@ public class Console {
     }
 
 
-    public ArrayList getGameList()
+    public ArrayList<Game> getGameList()
     {
         return gameList;
     }

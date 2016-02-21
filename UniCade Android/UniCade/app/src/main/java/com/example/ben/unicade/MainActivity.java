@@ -11,6 +11,20 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static Database dat;
+    public static String databasePath = "C:\\UniCade\\Databse.txt";
+    public static String romPath = "C:\\UniCade\\ROMS";
+    public static String mediaPath = "C:\\UniCade\\Media";
+    public static String emuPath = "C:\\UniCade\\Emulators";
+    public static String prefPath = "C:\\UniCade\\Preferences.txt";
+    public static User curUser;
+    public static int coins = 0;
+    public static boolean playtimeRemaining = true;
+    public static String userLicenseName;
+    public static String userLicenseKey;
+    public static boolean validLicense;
+    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

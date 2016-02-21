@@ -14,7 +14,7 @@ public class User {
     private String allowedEsrb;
     private String email;
     private String profPic;
-    public ArrayList favorites;
+    public ArrayList<String> favorites;
 
 
     //Methods
