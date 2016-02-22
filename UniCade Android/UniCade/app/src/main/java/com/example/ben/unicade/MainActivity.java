@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -29,14 +30,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        populateList();
+        dat = new Database();
+        populateGameList();
+        FileOps.loadDefaultConsoles();
+        populateConsoleList();
     }
 
     public void generateGameList(){
     }
 
 
-    public void populateList(){
+    public void populateGameList(){
         ArrayList a = new ArrayList();
         a.add("Game 1");
         a.add(("Game 2"));
@@ -49,5 +53,20 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, a);
         lv.setAdapter(myarrayAdapter);
         lv.setTextFilterEnabled(true);
+    }
+
+    public void populateConsoleList(){
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        //spinner.setOnItemSelectedListener(this);
+        ArrayList<String> al = new ArrayList<String>();
+        for(Console c : dat.consoleList){
+            al.add(c.getName());
+        }
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, al);
+
+
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(dataAdapter);
     }
 }
