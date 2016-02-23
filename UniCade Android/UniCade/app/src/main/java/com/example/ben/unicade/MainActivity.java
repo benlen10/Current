@@ -6,7 +6,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import java.util.ArrayList;
 
 
@@ -24,16 +25,40 @@ public class MainActivity extends AppCompatActivity {
     public static String userLicenseName;
     public static String userLicenseKey;
     public static boolean validLicense;
-    
+    public static Console curConsole;
+    public static MainActivity obj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dat = new Database();
+        obj = this;
         populateGameList();
         FileOps.loadDefaultConsoles();
         populateConsoleList();
+
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String con = spinner.getSelectedItem().toString();
+                for(Console c : dat.consoleList){
+                    if(c.getName().equals(con)){
+                        curConsole = c;
+                        break;
+                    }
+                }
+                updateGameList();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
     }
 
     public void generateGameList(){
@@ -55,6 +80,19 @@ public class MainActivity extends AppCompatActivity {
         lv.setTextFilterEnabled(true);
     }
 
+    public void updateGameList(){
+        ArrayList<String> games = new ArrayList<String>();
+        for(Game g : curConsole.getGameList()){
+            games.add(g.getTitle());
+            System.out.println("LOOP");
+        }
+        ListView lv = (ListView)findViewById(R.id.listView);
+        ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
+        lv.setAdapter(myarrayAdapter);
+        lv.setTextFilterEnabled(true);
+
+    }
+
     public void populateConsoleList(){
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         //spinner.setOnItemSelectedListener(this);
@@ -69,4 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
         spinner.setAdapter(dataAdapter);
     }
+
+
 }

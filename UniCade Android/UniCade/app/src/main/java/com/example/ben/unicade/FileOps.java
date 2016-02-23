@@ -2,6 +2,7 @@ package com.example.ben.unicade;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.*;
+import android.content.Context.*;
 
 /**
  * Created by Ben on 12/17/2015.
@@ -49,12 +50,12 @@ public class FileOps {
 
 
 
-    public static void saveDatabase(String path)
+    public  void saveDatabase()
     {
-        Console con = new Console();
+
 
         try {
-            File file = new File(path);
+            File file = new File(MainActivity.obj.getFilesDir(), "Database.txt");
 
             if (!file.exists()) {
                 file.createNewFile();
@@ -287,7 +288,10 @@ public class FileOps {
         MainActivity.dat.consoleList.add(new Console("GBC", "C:\\UniCade\\Emulators\\GBA\\VisualBoyAdvance.exe", "C:\\UniCade\\ROMS\\GBC\\", "prefPath", ".gbc", 0, "consoleInfo", "%file", "1998"));
         MainActivity.dat.consoleList.add(new Console("MAME", "C:\\UniCade\\Emulators\\MAME\\mame.bat", "C:\\UniCade\\Emulators\\MAME\\roms\\", "prefPath", ".zip", 0, "consoleInfo", "", "1980")); //%file -skip_gameinfo -nowindow
         MainActivity.dat.consoleList.add(new Console("PC", "C:\\Windows\\explorer.exe", "C:\\UniCade\\ROMS\\PC\\", "prefPath", ".lnk*.url", 0, "consoleInfo", "%file", "1980"));
-        MainActivity.dat.consoleList.add(new Console("GBA", "C:\\UniCade\\Emulators\\GBA\\VisualBoyAdvance.exe", "C:\\UniCade\\ROMS\\GBA\\", "prefPath", ".gba", 0, "consoleInfo", "%file", "2001"));
+        Console c1 = new Console("GBA", "C:\\UniCade\\Emulators\\GBA\\VisualBoyAdvance.exe", "C:\\UniCade\\ROMS\\GBA\\", "prefPath", ".gba", 0, "consoleInfo", "%file", "2001");
+        c1.getGameList().add(new Game("Mario.zip", "GBA"));
+        c1.getGameList().add(new Game("Mario2.zip", "GBA"));
+        MainActivity.dat.consoleList.add(c1);
         MainActivity.dat.consoleList.add(new Console("Gamecube", "C:\\UniCade\\Emulators\\Dolphin\\dolphin.exe", "C:\\UniCade\\ROMS\\Gamecube\\", "prefPath", ".iso*.gcz", 0, "consoleInfo", "/b /e %file", "2001"));
         MainActivity.dat.consoleList.add(new Console("NES", "C:\\UniCade\\Emulators\\NES\\Jnes.exe", "C:\\UniCade\\ROMS\\NES\\", "prefPath", ".nes", 0, "consoleInfo", "%file", "1983"));
         MainActivity.dat.consoleList.add(new Console("SNES", "C:\\UniCade\\Emulators\\ZSNES\\zsnesw.exe", "C:\\UniCade\\ROMS\\SNES\\", "prefPath", ".smc", 0, "consoleInfo", "%file", "1990"));
