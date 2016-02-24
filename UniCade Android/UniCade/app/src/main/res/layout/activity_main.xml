@@ -27,6 +27,16 @@
             android:id="@+id/listView"
             android:layout_gravity="left|top" />
 
+        <Button
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:text="Save Databse"
+            android:id="@+id/button"
+            android:layout_gravity="right|center_vertical"
+            android:textSize="10dp"
+            android:onClick="saveDatabase"
+            android:nestedScrollingEnabled="true" />
+
     </FrameLayout>
 
 </RelativeLayout>

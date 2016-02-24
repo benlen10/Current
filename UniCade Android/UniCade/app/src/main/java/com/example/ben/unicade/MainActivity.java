@@ -80,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
         lv.setTextFilterEnabled(true);
     }
 
+    public void saveDatabase(View v){
+        FileOps.saveDatabase();
+    }
+
     public void updateGameList(){
         ArrayList<String> games = new ArrayList<String>();
         for(Game g : curConsole.getGameList()){

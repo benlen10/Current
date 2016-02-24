@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.*;
 import android.content.Context.*;
+import android.os.Environment;
 
 /**
  * Created by Ben on 12/17/2015.
@@ -50,12 +51,16 @@ public class FileOps {
 
 
 
-    public  void saveDatabase()
+    public static void saveDatabase()
     {
 
 
         try {
-            File file = new File(MainActivity.obj.getFilesDir(), "Database.txt");
+            System.err.println("YES");
+            File sdCard = Environment.getExternalStorageDirectory();
+            File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
+            dir.mkdirs();
+            File file = new File(dir, "UniCade.txt");
 
             if (!file.exists()) {
                 file.createNewFile();
@@ -64,11 +69,12 @@ public class FileOps {
                 file.createNewFile();
             }
 
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            FileWriter fw = new FileWriter(file);
             BufferedWriter sw = new BufferedWriter(fw);
+            System.err.println("YES2");
             for(Console c : MainActivity.dat.consoleList)
             {
-                String txt = String.format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, "Console Info", c.getLaunchParam(), c.getReleaseDate());
+                String txt = String.format("***"+ c.getName() + "|"+ c.getEmuPath()+ "|"+ c.getRomPath()+ "|"+ c.getPrefPath()+ "|"+ c.getRomExt()+ "|"+ c.gameCount+ "|"+ "Console Info"+ "|"+ c.getLaunchParam()+ "|"+ c.getReleaseDate());
                 sw.write(txt);
                 for(Game g : c.getGameList())
                 {
@@ -77,6 +83,7 @@ public class FileOps {
 
                 }
             }
+            sw.close();
         }catch (IOException e){
             return;
         }
@@ -213,6 +220,7 @@ public class FileOps {
                     MainActivity.curUser = u;
                 }
             }
+
             file.close();
             return true;
         }
