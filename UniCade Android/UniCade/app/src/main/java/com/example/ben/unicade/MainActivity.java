@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import java.util.ArrayList;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +29,16 @@ public class MainActivity extends AppCompatActivity {
     public static boolean validLicense;
     public static Console curConsole;
     public static MainActivity obj;
+    Spinner spinner;
+    public static TextView t1;
+    public static TextView t2;
+    public static TextView t3;
+    public static TextView t4;  //Title
+    public static TextView t5;
+    public static TextView t6;
+    public static TextView t7;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +47,14 @@ public class MainActivity extends AppCompatActivity {
         dat = new Database();
         obj = this;
         populateGameList();
-        FileOps.loadDefaultConsoles();
-        populateConsoleList();
+         spinner = (Spinner) findViewById(R.id.spinner);
+         t1 = (TextView) findViewById(R.id.textView);
+        t2 = (TextView) findViewById(R.id.textView2);
+        t3 = (TextView) findViewById(R.id.textView3);
+        t4 = (TextView) findViewById(R.id.textView4);
+        t5 = (TextView) findViewById(R.id.textView5);
+        t6 = (TextView) findViewById(R.id.textView6);
+        t7 = (TextView) findViewById(R.id.textView7);
 
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -58,6 +76,28 @@ public class MainActivity extends AppCompatActivity {
                 // your code here
             }
 
+        });
+        final ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                    String item = (String) (listView.getItemAtPosition(position));
+                    for (Game g : curConsole.getGameList()) {
+                        if (g.getTitle().equals(item)) {
+                            t4.setText(("Title: " + g.getTitle()));
+                            t1.setText(("Release Date"+ g.getReleaseDate()));
+                            t2.setText(("Publisher: " + g.getPublisher()));
+                            t3.setText(("ESRB Rating: " + g.getEsrb()));
+                            t5.setText(("Players: " + g.getPlayers()));
+                        }
+                    }
+
+
+
+
+            }
         });
     }
 
@@ -84,6 +124,10 @@ public class MainActivity extends AppCompatActivity {
         FileOps.saveDatabase();
     }
 
+    public void loadDatabase(View v){
+        FileOps.loadDatabase();
+    }
+
     public void updateGameList(){
         ArrayList<String> games = new ArrayList<String>();
         for(Game g : curConsole.getGameList()){
@@ -94,16 +138,26 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         lv.setAdapter(myarrayAdapter);
         lv.setTextFilterEnabled(true);
+        t7.setText("Current Console Games: " + curConsole.gameCount);
+        t4.setText(("Title:"));
+        t1.setText(("Release Date:" ));
+        t2.setText(("Publisher:" ));
+        t3.setText(("ESRB Rating:"));
+        t5.setText(("Players:"));
 
     }
 
     public void populateConsoleList(){
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
         //spinner.setOnItemSelectedListener(this);
         ArrayList<String> al = new ArrayList<String>();
         for(Console c : dat.consoleList){
             al.add(c.getName());
+            for(Game g : c.getGameList()){
+                dat.totalGameCount++;
+            }
         }
+        t6.setText("Total Game Count: " + dat.totalGameCount);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, al);
 
 

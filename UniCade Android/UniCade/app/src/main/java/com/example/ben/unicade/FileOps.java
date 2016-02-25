@@ -10,11 +10,15 @@ import android.os.Environment;
  */
 public class FileOps {
 
-    public static boolean loadDatabase(String path)
+    public static boolean loadDatabase()
 
     {
         try {
-            File f = new File(path);
+            File sdCard = Environment.getExternalStorageDirectory();
+            File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
+            dir.mkdirs();
+            File f = new File(dir, "Database.txt");
+
 
             if (!f.exists()) {
                 System.out.println("Database file does not exist");
@@ -25,16 +29,18 @@ public class FileOps {
             String line;
             int conCount = 0;
             Console c = new Console();
-            String[] r = {" "};
+            String[] r = null;
 
             while ((line = file.readLine()) != null) {
-                r = line.split("|");
-                //System.out.println("Loop");
+                System.out.println("LINE: " + line);
+                r = line.split("\\|");
+                System.out.println("Loop");
                 if (line.substring(0, 5).contains("***")) {
                     if (conCount > 0) {
                         MainActivity.dat.consoleList.add(c);
                     }
-                    c = new Console(r[0].substring(3), r[1], r[2], r[3], r[4], Integer.parseInt(r[5]), r[6], r[7], r[8]);
+                    System.out.printf("SPLIT: %s|%s|%s|%s|%s|%s|%s",r[0], r[1], r[2], r[3], r[4],r[5],r[6]);
+                    c = new Console(r[0].substring(3), r[1], r[2], r[3], r[4], Integer.parseInt(r[5]) , r[6], r[7], r[8]);
                     conCount++;
                 } else {
                     c.getGameList().add(new Game(r[0], r[1], Integer.parseInt(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], Integer.parseInt(r[16])));
@@ -42,6 +48,7 @@ public class FileOps {
                 }
             }
             file.close();
+            MainActivity.obj.populateConsoleList();
             return true;
         }catch(IOException e){
             return false;
@@ -222,6 +229,7 @@ public class FileOps {
             }
 
             file.close();
+
             return true;
         }
         catch (IOException e){
