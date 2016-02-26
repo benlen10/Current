@@ -1,9 +1,29 @@
 package com.example.ben.unicade;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import java.util.ArrayList;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
+import android.widget.ImageView;
+import android.app.Fragment;
+
 /**
  * Created by Ben on 12/18/2015.
  */
-public class SettingsWindow {
+public class SettingsWindow extends Activity {
     Console curConsole2;
     Console curConsole;
     public Game curGame;
@@ -26,4 +46,16 @@ public class SettingsWindow {
     public static int passProtect;
     public static int enforceExt;
 
-}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.settings_activity);
+    }
+
+    public void closeSettings(View v){
+        super.onBackPressed();
+    }
+
+
+
+    }
