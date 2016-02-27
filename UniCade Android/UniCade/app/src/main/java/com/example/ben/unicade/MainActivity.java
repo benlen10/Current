@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+
+import java.io.File;
 import java.util.ArrayList;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public static String userLicenseKey;
     public static boolean validLicense;
     public static Console curConsole;
+    public static Game curGame;
     public static MainActivity obj;
     Spinner spinner;
     public static TextView t1;
@@ -51,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dat = new Database();
         obj = this;
-        populateGameList();
          spinner = (Spinner) findViewById(R.id.spinner);
          t1 = (TextView) findViewById(R.id.textView);
         t2 = (TextView) findViewById(R.id.textView2);
@@ -86,11 +88,12 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
+                                    long id) {          //Game Clicked
 
                     String item = (String) (listView.getItemAtPosition(position));
                     for (Game g : curConsole.getGameList()) {
                         if (g.getTitle().equals(item)) {
+                            curGame = g;
                             t4.setText(("Title: " + g.getTitle()));
                             t1.setText(("Release Date"+ g.getReleaseDate()));
                             t2.setText(("Publisher: " + g.getPublisher()));
@@ -129,26 +132,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    public void generateGameList(){
+        FileOps.loadDatabase();
     }
 
 
-    public void populateGameList(){
-        ArrayList a = new ArrayList();
-        a.add("Game 1");
-        a.add(("Game 2"));
-        a.add(("Game 2"));
-        a.add(("Game 2"));
-        a.add(("Game 2"));
-        a.add(("Game 2"));
-        a.add(("Game 2"));
-        ListView lv = (ListView)findViewById(R.id.listView);
-        ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, a);
-        lv.setAdapter(myarrayAdapter);
-        lv.setTextFilterEnabled(true);
-    }
+
 
     public void saveDatabase(View v){
         FileOps.saveDatabase();
@@ -160,6 +148,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void launchSettings(View view){
         startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
+    }
+
+    public void launchInfoWindow(View view){
+        startActivity(new Intent(getApplicationContext(), DetailedInfo.class));
     }
 
 

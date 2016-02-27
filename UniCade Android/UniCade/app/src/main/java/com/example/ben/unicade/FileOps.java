@@ -32,14 +32,11 @@ public class FileOps {
             String[] r = null;
 
             while ((line = file.readLine()) != null) {
-                System.out.println("LINE: " + line);
                 r = line.split("\\|");
-                System.out.println("Loop");
                 if (line.substring(0, 5).contains("***")) {
                     if (conCount > 0) {
                         MainActivity.dat.consoleList.add(c);
                     }
-                    System.out.printf("SPLIT: %s|%s|%s|%s|%s|%s|%s",r[0], r[1], r[2], r[3], r[4],r[5],r[6]);
                     c = new Console(r[0].substring(3), r[1], r[2], r[3], r[4], Integer.parseInt(r[5]) , r[6], r[7], r[8]);
                     conCount++;
                 } else {
@@ -63,11 +60,10 @@ public class FileOps {
 
 
         try {
-            System.err.println("YES");
             File sdCard = Environment.getExternalStorageDirectory();
             File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
             dir.mkdirs();
-            File file = new File(dir, "UniCade.txt");
+            File file = new File(dir, "Database.txt");
 
             if (!file.exists()) {
                 file.createNewFile();
@@ -78,15 +74,14 @@ public class FileOps {
 
             FileWriter fw = new FileWriter(file);
             BufferedWriter sw = new BufferedWriter(fw);
-            System.err.println("YES2");
             for(Console c : MainActivity.dat.consoleList)
             {
-                String txt = String.format("***"+ c.getName() + "|"+ c.getEmuPath()+ "|"+ c.getRomPath()+ "|"+ c.getPrefPath()+ "|"+ c.getRomExt()+ "|"+ c.gameCount+ "|"+ "Console Info"+ "|"+ c.getLaunchParam()+ "|"+ c.getReleaseDate());
-                sw.write(txt);
+
+                sw.write("***"+ c.getName() + "|"+ c.getEmuPath()+ "|"+ c.getRomPath()+ "|"+ c.getPrefPath()+ "|"+ c.getRomExt()+ "|"+ c.gameCount+ "|"+ "Console Info"+ "|"+ c.getLaunchParam()+ "|"+ c.getReleaseDate());
                 for(Game g : c.getGameList())
                 {
-                    txt = String.format(g.getFileName() +"|"+ g.getConsole() +"|"+ g.launchCount +"|"+ g.getReleaseDate() +"|"+ g.getPublisher()+"|"+ g.getDeveloper() +"|"+ g.getUserScore()+"|"+ g.getCriticScore()+"|"+ g.getPlayers()+"|"+ g.getTrivia() +"|"+ g.getEsrb()+"|"+ g.getEsrbDescriptor()+"|"+ g.getEsrbSummary()+"|"+ g.getDescription()+"|"+ g.getGenres() +"|"+g.getTags()+"|"+ g.getFav());
-                    sw.write(txt);
+
+                    sw.write(g.getFileName() +"|"+ g.getConsole() +"|"+ g.launchCount +"|"+ g.getReleaseDate() +"|"+ g.getPublisher()+"|"+ g.getDeveloper() +"|"+ g.getUserScore()+"|"+ g.getCriticScore()+"|"+ g.getPlayers()+"|"+ g.getTrivia() +"|"+ g.getEsrb()+"|"+ g.getEsrbDescriptor()+"|"+ g.getEsrbSummary()+"|"+ g.getDescription()+"|"+ g.getGenres() +"|"+g.getTags()+"|"+ g.getFav());
 
                 }
             }

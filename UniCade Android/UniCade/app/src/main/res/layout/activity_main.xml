@@ -15,28 +15,27 @@
         android:layout_height="wrap_content"
         android:text="Release Date:"
         android:id="@+id/textView"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="84dp"
         android:layout_alignTop="@+id/listView"
-        android:layout_alignEnd="@+id/button"
-        android:layout_marginEnd="46dp" />
+        android:layout_alignStart="@+id/textView4" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Publisher:"
         android:id="@+id/textView2"
+        android:layout_marginRight="47dp"
         android:layout_below="@+id/textView"
-        android:layout_alignRight="@+id/button"
-        android:layout_marginRight="47dp" />
+        android:layout_alignStart="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ESRB:"
         android:id="@+id/textView3"
+        android:layout_marginRight="47dp"
         android:layout_below="@+id/textView2"
-        android:layout_alignRight="@+id/button"
-        android:layout_marginRight="47dp" />
+        android:layout_alignStart="@+id/textView2" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,8 +67,8 @@
         android:text="Settings"
         android:id="@+id/button"
         android:onClick="launchSettings"
-        android:layout_alignBottom="@+id/button2"
-        android:layout_toEndOf="@+id/button2" />
+        android:layout_below="@+id/listView"
+        android:layout_toStartOf="@+id/button5" />
 
     <ListView
         android:layout_width="142dp"
@@ -84,30 +83,27 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/button"
+        android:layout_alignEnd="@+id/button"
+        android:layout_marginTop="27dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Title: "
         android:id="@+id/textView4"
-        android:layout_below="@+id/textView3"
-        android:layout_alignRight="@+id/button"
-        android:layout_marginRight="47dp" />
+        android:layout_marginRight="47dp"
+        android:layout_marginBottom="19dp"
+        android:layout_above="@+id/textView2"
+        android:layout_alignStart="@+id/imageView" />
 
     <Button
-        android:layout_width="115dp"
-        android:layout_height="35dp"
-        android:text="Load Databse"
-        android:id="@+id/button2"
-        android:layout_gravity="right|center_vertical"
-        android:textSize="10dp"
-        android:onClick="loadDatabase"
-        android:nestedScrollingEnabled="true"
-        android:layout_row="28"
-        android:layout_column="10"
-        android:layout_below="@+id/listView"
-        android:layout_toEndOf="@+id/listView" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="More Info"
+        android:id="@+id/button5"
+        android:onClick="launchInfoWindow"
+        android:layout_above="@+id/spinner"
+        android:layout_toEndOf="@+id/textView4" />
 
 </RelativeLayout>

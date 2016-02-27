@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsWindow" android:label="@string/app_name"/>
+        <activity android:name=".DetailedInfo" android:label="@string/app_name"/>
     </application>
 
 </manifest>
