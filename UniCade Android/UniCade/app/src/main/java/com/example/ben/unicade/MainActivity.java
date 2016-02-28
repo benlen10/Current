@@ -154,6 +154,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), DetailedInfo.class));
     }
 
+    public void launchLogin(View view){
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+    }
+
+    public void connectSQL(View view){
+        SQLclass.connectSql();
+    }
+
 
 
     public void updateGameList(){

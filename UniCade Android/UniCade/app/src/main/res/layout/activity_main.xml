@@ -106,4 +106,23 @@
         android:layout_above="@+id/spinner"
         android:layout_toEndOf="@+id/textView4" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:id="@+id/button9"
+        android:layout_marginBottom="15dp"
+        android:layout_above="@+id/imageView"
+        android:layout_alignEnd="@+id/button5"
+        android:onClick="launchLogin" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SQL"
+        android:id="@+id/button10"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentEnd="true"
+        android:onClick="connectSQL" />
+
 </RelativeLayout>
