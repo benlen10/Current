@@ -12,7 +12,8 @@
         android:layout_marginStart="25dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="35dp" />
+        android:layout_marginTop="35dp"
+        android:onClick="showInputDialog" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,7 +30,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Release Date"
         android:id="@+id/textView10"
-        android:layout_below="@+id/textView9"
+        android:layout_below="@+id/imageView2"
         android:layout_alignStart="@+id/textView9" />
 
     <TextView
@@ -38,8 +39,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Publisher:"
         android:id="@+id/textView11"
-        android:layout_below="@+id/textView10"
-        android:layout_alignLeft="@+id/textView9" />
+        android:layout_below="@+id/imageView2"
+        android:layout_alignStart="@+id/textView10"
+        android:layout_marginTop="17dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,8 +49,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Critic Score: "
         android:id="@+id/textView12"
-        android:layout_below="@+id/textView11"
-        android:layout_alignLeft="@+id/textView9" />
+        android:layout_above="@+id/textView13"
+        android:layout_alignStart="@+id/textView11" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,8 +58,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Players"
         android:id="@+id/textView13"
-        android:layout_below="@+id/textView12"
-        android:layout_alignLeft="@+id/textView9" />
+        android:layout_above="@+id/textView14"
+        android:layout_alignStart="@+id/textView12" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,8 +67,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ESRB Rating: "
         android:id="@+id/textView14"
-        android:layout_below="@+id/textView13"
-        android:layout_alignLeft="@+id/textView9" />
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_alignStart="@+id/textView13"
+        android:layout_marginTop="26dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,8 +77,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ESRB Descriptors"
         android:id="@+id/textView15"
-        android:layout_below="@+id/textView14"
-        android:layout_alignLeft="@+id/textView9" />
+        android:layout_above="@+id/textView16"
+        android:layout_alignStart="@+id/textView14"
+        android:layout_marginBottom="23dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -90,9 +94,8 @@
         android:layout_height="wrap_content"
         android:text="Favorite"
         android:id="@+id/checkBox"
-        android:layout_marginTop="47dp"
-        android:layout_below="@+id/textView17"
-        android:layout_alignEnd="@+id/textView11" />
+        android:layout_below="@+id/imageView6"
+        android:layout_alignStart="@+id/textView17" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,7 +103,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Launch Count:"
         android:id="@+id/textView16"
-        android:layout_below="@+id/textView15"
+        android:layout_alignTop="@+id/imageView6"
         android:layout_alignStart="@+id/textView15" />
 
     <TextView
@@ -109,8 +112,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Description:"
         android:id="@+id/textView17"
-        android:layout_below="@+id/textView16"
-        android:layout_alignStart="@+id/textView16" />
+        android:layout_above="@+id/checkBox"
+        android:layout_alignStart="@+id/textView16"
+        android:layout_marginBottom="35dp" />
 
     <ImageView
         android:layout_width="100dp"

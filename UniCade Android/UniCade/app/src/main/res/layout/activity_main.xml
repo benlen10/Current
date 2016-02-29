@@ -27,6 +27,11 @@
         android:layout_marginRight="47dp"
         android:layout_below="@+id/textView"
         android:layout_alignStart="@+id/textView" />
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -123,6 +128,6 @@
         android:id="@+id/button10"
         android:layout_below="@+id/textView3"
         android:layout_alignParentEnd="true"
-        android:onClick="connectSQL" />
+        android:onClick="showInputDialog" />
 
 </RelativeLayout>
