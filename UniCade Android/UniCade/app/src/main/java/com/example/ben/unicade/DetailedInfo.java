@@ -35,7 +35,10 @@ public class DetailedInfo extends Activity{
     public static ImageView i5;
     public static ImageView i6;
     public static CheckBox c1;
-    private String m_Text = "";
+    private String resultText = "";
+    private String origText = "";
+    private String popupTitle = "";
+    public Game curGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class DetailedInfo extends Activity{
         if(g==null){
             return;
         }
+        curGame = g;
         t5.setText(("Title: " + g.getTitle()));
         t9.setText(("Console: "+ g.getConsole()));
         t10.setText(("Release Date: " + g.getReleaseDate()));
@@ -114,20 +118,18 @@ public class DetailedInfo extends Activity{
 
     }
 
-    public void showInputDialog(View v){
+    public void showInputDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Title");
-
+        builder.setTitle(popupTitle)
         final EditText input = new EditText(this);
-
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setText(origText);
         builder.setView(input);
 
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                m_Text = input.getText().toString();
+                resultText = input.getText().toString();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -138,6 +140,65 @@ public class DetailedInfo extends Activity{
         });
 
         builder.show();
+    }
+
+
+
+    public void editRelease(View v){
+        origText = curGame.getReleaseDate();
+        popupTitle = "Edit Release Date";
+        showInputDialog();
+        curGame.setReleaseDate(resultText);
+    }
+
+    public void editPublisher(View v){
+        origText = curGame.getPublisher();
+        popupTitle = "Edit Publisher";
+        showInputDialog();
+        curGame.setPublisher(resultText);
+    }
+
+    public void editScore(View v){
+        origText = curGame.getCriticScore();
+        popupTitle = "Edit Critic Score";
+        showInputDialog();
+        curGame.setCriticScore(resultText);
+    }
+
+    public void editPlayers(View v){
+        origText = curGame.getPlayers();
+        popupTitle = "Edit Playerse";
+        showInputDialog();
+        curGame.setPlayers(resultText);
+    }
+
+    public void editEsrb(View v){
+        origText = curGame.getEsrb();
+        popupTitle = "Edit ESRB Rating";
+        showInputDialog();
+        curGame.setEsrb(resultText);
+
+    }
+
+    public void editEsrbDescriptors(View v){
+        origText = curGame.getEsrbDescriptor();
+        popupTitle = "Edit ESRB Descriptors";
+        showInputDialog();
+        curGame.setEsrbDescriptors(resultText);
+    }
+
+    public void editLaunchCount(View v){
+        origText = Integer.toString(curGame.launchCount);
+        popupTitle = "Edit Launch Count";
+        showInputDialog();
+        curGame.launchCount = Integer.parseInt(resultText);
+    }
+
+    public void editDescription(View v){
+        origText = curGame.getDescription();
+        popupTitle = "Edit Desription";
+        showInputDialog();
+        curGame.setReleaseDate(resultText);
     }
 
 }

@@ -31,7 +31,8 @@
         android:text="Release Date"
         android:id="@+id/textView10"
         android:layout_below="@+id/imageView2"
-        android:layout_alignStart="@+id/textView9" />
+        android:layout_alignStart="@+id/textView9"
+        android:onClick="editRelease" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +42,8 @@
         android:id="@+id/textView11"
         android:layout_below="@+id/imageView2"
         android:layout_alignStart="@+id/textView10"
-        android:layout_marginTop="17dp" />
+        android:layout_marginTop="17dp"
+        android:onClick="editPublisher" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,7 +52,8 @@
         android:text="Critic Score: "
         android:id="@+id/textView12"
         android:layout_above="@+id/textView13"
-        android:layout_alignStart="@+id/textView11" />
+        android:layout_alignStart="@+id/textView11"
+        android:onClick="editScore" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,7 +62,8 @@
         android:text="Players"
         android:id="@+id/textView13"
         android:layout_above="@+id/textView14"
-        android:layout_alignStart="@+id/textView12" />
+        android:layout_alignStart="@+id/textView12"
+        android:onClick="editPlayers" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,7 +73,8 @@
         android:id="@+id/textView14"
         android:layout_alignTop="@+id/imageView3"
         android:layout_alignStart="@+id/textView13"
-        android:layout_marginTop="26dp" />
+        android:layout_marginTop="26dp"
+        android:onClick="editEsrb" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -79,7 +84,8 @@
         android:id="@+id/textView15"
         android:layout_above="@+id/textView16"
         android:layout_alignStart="@+id/textView14"
-        android:layout_marginBottom="23dp" />
+        android:layout_marginBottom="23dp"
+        android:onClick="editEsrbDescriptors" />
 
     <Button
         android:layout_width="wrap_content"
@@ -104,7 +110,8 @@
         android:text="Launch Count:"
         android:id="@+id/textView16"
         android:layout_alignTop="@+id/imageView6"
-        android:layout_alignStart="@+id/textView15" />
+        android:layout_alignStart="@+id/textView15"
+        android:onClick="editLaunchCount" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,7 +121,8 @@
         android:id="@+id/textView17"
         android:layout_above="@+id/checkBox"
         android:layout_alignStart="@+id/textView16"
-        android:layout_marginBottom="35dp" />
+        android:layout_marginBottom="35dp"
+        android:onClick="editDescription" />
 
     <ImageView
         android:layout_width="100dp"
@@ -150,5 +158,13 @@
         android:id="@+id/imageView6"
         android:layout_above="@+id/imageView5"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/button11"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_toEndOf="@+id/textView16" />
 
 </RelativeLayout>

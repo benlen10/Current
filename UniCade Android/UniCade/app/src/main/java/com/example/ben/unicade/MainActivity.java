@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     public static TextView t6;
     public static TextView t7;
     public static ImageView i1;
-    private String m_Text = "";
 
 
 
