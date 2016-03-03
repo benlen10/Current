@@ -120,7 +120,7 @@ public class DetailedInfo extends Activity{
 
     public void showInputDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(popupTitle)
+        builder.setTitle(popupTitle);
         final EditText input = new EditText(this);
         input.setText(origText);
         builder.setView(input);
