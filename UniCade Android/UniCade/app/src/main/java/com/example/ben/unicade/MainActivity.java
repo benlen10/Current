@@ -158,7 +158,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void launchInfoWindow(View view){
         if(curGame==null){
-            showPopup("No Game Selected");
+            showPopup("Error", "No Game Selected");
+            return;
         }
         startActivity(new Intent(getApplicationContext(), DetailedInfo.class));
     }
@@ -210,12 +211,12 @@ public class MainActivity extends AppCompatActivity {
         spinner.setAdapter(dataAdapter);
     }
 
-    public void showPopup(String message){
+    public void showPopup(String title, String message){
     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
             context);
 
     // set title
-    alertDialogBuilder.setTitle("Your Title");
+    alertDialogBuilder.setTitle(title);
 
     // set dialog message
     alertDialogBuilder
