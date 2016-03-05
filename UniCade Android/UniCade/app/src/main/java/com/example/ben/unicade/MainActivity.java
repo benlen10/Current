@@ -222,20 +222,14 @@ public class MainActivity extends AppCompatActivity {
     alertDialogBuilder
             .setMessage(message)
             .setCancelable(false)
-    .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+    .setPositiveButton("OK",new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog,int id) {
             // if this button is clicked, close
             // current activity
-            MainActivity.this.finish();
-        }
-    })
-            .setNegativeButton("No",new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog,int id) {
-            // if this button is clicked, just close
-            // the dialog box and do nothing
             dialog.cancel();
         }
-    });
+    }
+            );
 
     // create alert dialog
     AlertDialog alertDialog = alertDialogBuilder.create();
