@@ -149,6 +149,7 @@ public class DetailedInfo extends Activity{
         popupTitle = "Edit Release Date";
         showInputDialog();
         curGame.setReleaseDate(resultText);
+        loadInfo(curGame);
     }
 
     public void editPublisher(View v){
@@ -156,6 +157,7 @@ public class DetailedInfo extends Activity{
         popupTitle = "Edit Publisher";
         showInputDialog();
         curGame.setPublisher(resultText);
+        loadInfo(curGame);
     }
 
     public void editScore(View v){
@@ -163,6 +165,7 @@ public class DetailedInfo extends Activity{
         popupTitle = "Edit Critic Score";
         showInputDialog();
         curGame.setCriticScore(resultText);
+        loadInfo(curGame);
     }
 
     public void editPlayers(View v){
@@ -170,6 +173,7 @@ public class DetailedInfo extends Activity{
         popupTitle = "Edit Playerse";
         showInputDialog();
         curGame.setPlayers(resultText);
+        loadInfo(curGame);
     }
 
     public void editEsrb(View v){
@@ -177,6 +181,7 @@ public class DetailedInfo extends Activity{
         popupTitle = "Edit ESRB Rating";
         showInputDialog();
         curGame.setEsrb(resultText);
+        loadInfo(curGame);
 
     }
 
@@ -185,6 +190,7 @@ public class DetailedInfo extends Activity{
         popupTitle = "Edit ESRB Descriptors";
         showInputDialog();
         curGame.setEsrbDescriptors(resultText);
+        loadInfo(curGame);
     }
 
     public void editLaunchCount(View v){
@@ -192,6 +198,7 @@ public class DetailedInfo extends Activity{
         popupTitle = "Edit Launch Count";
         showInputDialog();
         curGame.launchCount = Integer.parseInt(resultText);
+        loadInfo(curGame);
     }
 
     public void editDescription(View v){
@@ -199,6 +206,7 @@ public class DetailedInfo extends Activity{
         popupTitle = "Edit Desription";
         showInputDialog();
         curGame.setReleaseDate(resultText);
+        loadInfo(curGame);
     }
 
 }
