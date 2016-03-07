@@ -144,13 +144,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void saveDatabase(View v){
-        FileOps.saveDatabase();
-    }
 
-    public void loadDatabase(View v){
-        FileOps.loadDatabase();
-    }
+
 
     public void launchSettings(View view){
         startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
@@ -222,14 +217,14 @@ public class MainActivity extends AppCompatActivity {
     alertDialogBuilder
             .setMessage(message)
             .setCancelable(false)
-    .setPositiveButton("OK",new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog,int id) {
-            // if this button is clicked, close
-            // current activity
-            dialog.cancel();
-        }
-    }
-            );
+    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // if this button is clicked, close
+                    // current activity
+                    dialog.cancel();
+                }
+            }
+    );
 
     // create alert dialog
     AlertDialog alertDialog = alertDialogBuilder.create();

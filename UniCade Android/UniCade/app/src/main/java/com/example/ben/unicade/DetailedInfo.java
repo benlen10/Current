@@ -205,7 +205,7 @@ public class DetailedInfo extends Activity{
         origText = curGame.getDescription();
         popupTitle = "Edit Desription";
         showInputDialog();
-        curGame.setReleaseDate(resultText);
+        curGame.setDescription(resultText);
         loadInfo(curGame);
     }
 

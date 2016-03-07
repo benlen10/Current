@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.*;
 import android.content.Context.*;
 import android.os.Environment;
+import android.view.View;
 
 /**
  * Created by Ben on 12/17/2015.
@@ -64,28 +65,31 @@ public class FileOps {
             File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
             dir.mkdirs();
             File file = new File(dir, "Database.txt");
-
+            System.err.println("YES0");
             if (!file.exists()) {
                 file.createNewFile();
             } else {
                 file.delete();
                 file.createNewFile();
+                System.err.println("CREATE NEW");
             }
 
             FileWriter fw = new FileWriter(file);
             BufferedWriter sw = new BufferedWriter(fw);
+            System.err.println("YES1");
             for(Console c : MainActivity.dat.consoleList)
             {
 
                 sw.write("***"+ c.getName() + "|"+ c.getEmuPath()+ "|"+ c.getRomPath()+ "|"+ c.getPrefPath()+ "|"+ c.getRomExt()+ "|"+ c.gameCount+ "|"+ "Console Info"+ "|"+ c.getLaunchParam()+ "|"+ c.getReleaseDate());
                 for(Game g : c.getGameList())
                 {
-
+                    System.err.println("LOOP");
                     sw.write(g.getFileName() +"|"+ g.getConsole() +"|"+ g.launchCount +"|"+ g.getReleaseDate() +"|"+ g.getPublisher()+"|"+ g.getDeveloper() +"|"+ g.getUserScore()+"|"+ g.getCriticScore()+"|"+ g.getPlayers()+"|"+ g.getTrivia() +"|"+ g.getEsrb()+"|"+ g.getEsrbDescriptor()+"|"+ g.getEsrbSummary()+"|"+ g.getDescription()+"|"+ g.getGenres() +"|"+g.getTags()+"|"+ g.getFav());
 
                 }
             }
             sw.close();
+
         }catch (IOException e){
             return;
         }

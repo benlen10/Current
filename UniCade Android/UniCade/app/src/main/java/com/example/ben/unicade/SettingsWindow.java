@@ -56,6 +56,14 @@ public class SettingsWindow extends Activity {
         super.onBackPressed();
     }
 
+    public void saveDatabase(View v){
+        FileOps.saveDatabase();
+    }
+
+    public void loadDatabase(View v){
+        FileOps.loadDatabase();
+    }
+
 
 
     }
