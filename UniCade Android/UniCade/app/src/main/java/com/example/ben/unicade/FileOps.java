@@ -80,11 +80,11 @@ public class FileOps {
             for(Console c : MainActivity.dat.consoleList)
             {
 
-                sw.write("***"+ c.getName() + "|"+ c.getEmuPath()+ "|"+ c.getRomPath()+ "|"+ c.getPrefPath()+ "|"+ c.getRomExt()+ "|"+ c.gameCount+ "|"+ "Console Info"+ "|"+ c.getLaunchParam()+ "|"+ c.getReleaseDate());
+                sw.write("***"+ c.getName() + "|"+ c.getEmuPath()+ "|"+ c.getRomPath()+ "|"+ c.getPrefPath()+ "|"+ c.getRomExt()+ "|"+ c.gameCount+ "|"+ "Console Info"+ "|"+ c.getLaunchParam()+ "|"+ c.getReleaseDate() + "\n");
                 for(Game g : c.getGameList())
                 {
                     System.err.println("LOOP");
-                    sw.write(g.getFileName() +"|"+ g.getConsole() +"|"+ g.launchCount +"|"+ g.getReleaseDate() +"|"+ g.getPublisher()+"|"+ g.getDeveloper() +"|"+ g.getUserScore()+"|"+ g.getCriticScore()+"|"+ g.getPlayers()+"|"+ g.getTrivia() +"|"+ g.getEsrb()+"|"+ g.getEsrbDescriptor()+"|"+ g.getEsrbSummary()+"|"+ g.getDescription()+"|"+ g.getGenres() +"|"+g.getTags()+"|"+ g.getFav());
+                    sw.write(g.getFileName() +"|"+ g.getConsole() +"|"+ g.launchCount +"|"+ g.getReleaseDate() +"|"+ g.getPublisher()+"|"+ g.getDeveloper() +"|"+ g.getUserScore()+"|"+ g.getCriticScore()+"|"+ g.getPlayers()+"|"+ g.getTrivia() +"|"+ g.getEsrb()+"|"+ g.getEsrbDescriptor()+"|"+ g.getEsrbSummary()+"|"+ g.getDescription()+"|"+ g.getGenres() +"|"+g.getTags()+"|"+ g.getFav()+ "\n");
 
                 }
             }
