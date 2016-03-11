@@ -97,43 +97,7 @@ public class MainActivity extends AppCompatActivity {
                                     long id) {          //Game Clicked
 
                     String item = (String) (listView.getItemAtPosition(position));
-                    for (Game g : curConsole.getGameList()) {
-                        if (g.getTitle().equals(item)) {
-                            curGame = g;
-                            t4.setText(("Title: " + g.getTitle()));
-                            t1.setText(("Release Date"+ g.getReleaseDate()));
-                            t2.setText(("Publisher: " + g.getPublisher()));
-                            t3.setText(("ESRB Rating: " + g.getEsrb()));
-
-
-                            if (g.getEsrb().equals("Everyone"))
-                            {
-                                i1.setImageResource(R.drawable.everyone);
-                            }
-                            else if (g.getEsrb().equals("Everyone 10+"))
-                            {
-                                i1.setImageResource(R.drawable.everyone10);
-                            }
-                            else if (g.getEsrb().equals("Teen"))
-                            {
-                                i1.setImageResource(R.drawable.teen);
-                            }
-                            else if (g.getEsrb().equals("Mature"))
-                            {
-                                i1.setImageResource(R.drawable.mature);
-                            }
-                            else if (g.getEsrb().equals("Adults Only (AO)"))
-                            {
-                                i1.setImageResource(R.drawable.ao);;
-                            }
-                            else{
-                                i1.setImageResource(0);
-                            }
-
-                        }
-                    }
-
-
+                    updateBasicGameInfo(item);
 
 
             }
@@ -232,6 +196,44 @@ public class MainActivity extends AppCompatActivity {
     // show it
     alertDialog.show();
 }
+
+    public void updateBasicGameInfo(String title){
+        for (Game g : curConsole.getGameList()) {
+            if (g.getTitle().equals(title)) {
+                curGame = g;
+                t4.setText(("Title: " + g.getTitle()));
+                t1.setText(("Release Date"+ g.getReleaseDate()));
+                t2.setText(("Publisher: " + g.getPublisher()));
+                t3.setText(("ESRB Rating: " + g.getEsrb()));
+
+
+                if (g.getEsrb().equals("Everyone"))
+                {
+                    i1.setImageResource(R.drawable.everyone);
+                }
+                else if (g.getEsrb().equals("Everyone 10+"))
+                {
+                    i1.setImageResource(R.drawable.everyone10);
+                }
+                else if (g.getEsrb().equals("Teen"))
+                {
+                    i1.setImageResource(R.drawable.teen);
+                }
+                else if (g.getEsrb().equals("Mature"))
+                {
+                    i1.setImageResource(R.drawable.mature);
+                }
+                else if (g.getEsrb().equals("Adults Only (AO)"))
+                {
+                    i1.setImageResource(R.drawable.ao);;
+                }
+                else{
+                    i1.setImageResource(0);
+                }
+
+            }
+        }
+    }
 
 
 
