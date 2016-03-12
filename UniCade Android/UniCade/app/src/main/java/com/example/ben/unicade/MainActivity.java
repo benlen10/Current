@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public static TextView t6;
     public static TextView t7;
     public static ImageView i1;
+    public static ImageView i7;
     final Context context = this;
 
 
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         t6 = (TextView) findViewById(R.id.textView6);
         t7 = (TextView) findViewById(R.id.textView7);
         i1 = (ImageView) findViewById(R.id.imageView);
+        i7 = (ImageView) findViewById(R.id.imageView7);
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -134,6 +136,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void updateGameList(){
+        i7.setImageResource(0);
+        String conTitle = curConsole.getName();
+        conTitle = conTitle.replace(" ", "");
+        conTitle=conTitle.toLowerCase();
+        i7.setImageResource(getImageId(context,conTitle));
+
         ArrayList<String> games = new ArrayList<String>();
         for(Game g : curConsole.getGameList()){
             games.add(g.getTitle());
@@ -149,6 +157,10 @@ public class MainActivity extends AppCompatActivity {
         t3.setText(("ESRB Rating:"));
         i1.setImageResource(0);
 
+    }
+
+    public static int getImageId(Context context, String imageName) {
+        return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
     }
 
     public void populateConsoleList(){

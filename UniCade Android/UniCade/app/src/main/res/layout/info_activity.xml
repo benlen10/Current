@@ -30,9 +30,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Release Date"
         android:id="@+id/textView10"
-        android:layout_below="@+id/imageView2"
-        android:layout_alignStart="@+id/textView9"
-        android:onClick="editRelease" />
+        android:onClick="editRelease"
+        android:layout_above="@+id/textView11"
+        android:layout_alignStart="@+id/textView9" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,10 +40,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Publisher:"
         android:id="@+id/textView11"
+        android:onClick="editPublisher"
         android:layout_below="@+id/imageView2"
-        android:layout_alignStart="@+id/textView10"
-        android:layout_marginTop="17dp"
-        android:onClick="editPublisher" />
+        android:layout_alignStart="@+id/textView10" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,9 +50,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Critic Score: "
         android:id="@+id/textView12"
-        android:layout_above="@+id/textView13"
-        android:layout_alignStart="@+id/textView11"
-        android:onClick="editScore" />
+        android:onClick="editScore"
+        android:layout_below="@+id/textView11"
+        android:layout_alignStart="@+id/textView11" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -61,9 +60,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Players"
         android:id="@+id/textView13"
-        android:layout_above="@+id/textView14"
-        android:layout_alignStart="@+id/textView12"
-        android:onClick="editPlayers" />
+        android:onClick="editPlayers"
+        android:layout_below="@+id/textView12"
+        android:layout_alignStart="@+id/textView12" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -71,10 +70,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ESRB Rating: "
         android:id="@+id/textView14"
-        android:layout_alignTop="@+id/imageView3"
-        android:layout_alignStart="@+id/textView13"
-        android:layout_marginTop="26dp"
-        android:onClick="editEsrb" />
+        android:onClick="editEsrb"
+        android:layout_below="@+id/textView13"
+        android:layout_alignStart="@+id/textView15" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,10 +80,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ESRB Descriptors"
         android:id="@+id/textView15"
-        android:layout_above="@+id/textView16"
-        android:layout_alignStart="@+id/textView14"
-        android:layout_marginBottom="23dp"
-        android:onClick="editEsrbDescriptors" />
+        android:onClick="editEsrbDescriptors"
+        android:layout_below="@+id/textView14"
+        android:layout_alignStart="@+id/textView13" />
 
     <Button
         android:layout_width="wrap_content"
@@ -100,8 +97,9 @@
         android:layout_height="wrap_content"
         android:text="Favorite"
         android:id="@+id/checkBox"
-        android:layout_below="@+id/imageView6"
-        android:layout_alignStart="@+id/textView17" />
+        android:layout_marginTop="20dp"
+        android:layout_alignStart="@+id/textView17"
+        android:layout_below="@+id/imageView4" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -109,9 +107,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Launch Count:"
         android:id="@+id/textView16"
-        android:layout_alignTop="@+id/imageView6"
-        android:layout_alignStart="@+id/textView15"
-        android:onClick="editLaunchCount" />
+        android:onClick="editLaunchCount"
+        android:layout_below="@+id/textView15"
+        android:layout_alignStart="@+id/textView15" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -119,10 +117,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Description:"
         android:id="@+id/textView17"
-        android:layout_above="@+id/checkBox"
-        android:layout_alignStart="@+id/textView16"
-        android:layout_marginBottom="35dp"
-        android:onClick="editDescription" />
+        android:onClick="editDescription"
+        android:layout_below="@+id/textView16"
+        android:layout_alignStart="@+id/textView16" />
 
     <ImageView
         android:layout_width="100dp"
@@ -135,28 +132,21 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView3"
-        android:layout_alignBottom="@+id/textView15"
+        android:layout_below="@+id/imageView2"
         android:layout_alignParentEnd="true" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView4"
-        android:layout_alignTop="@+id/textView15"
+        android:layout_below="@+id/imageView3"
         android:layout_alignParentEnd="true" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView5"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/imageView6"
-        android:layout_above="@+id/imageView5"
+        android:layout_below="@+id/imageView4"
         android:layout_alignParentEnd="true" />
 
     <Button
@@ -164,8 +154,8 @@
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/button11"
-        android:layout_alignBottom="@+id/imageView5"
-        android:layout_toEndOf="@+id/textView16" />
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/button4" />
 
     <Button
         android:layout_width="wrap_content"
@@ -174,5 +164,12 @@
         android:id="@+id/button12"
         android:layout_alignTop="@+id/button11"
         android:layout_toEndOf="@+id/button11" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView6"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
