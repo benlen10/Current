@@ -2,6 +2,7 @@ package com.example.ben.unicade;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.media.Image;
 import android.os.Bundle;
@@ -39,12 +40,14 @@ public class DetailedInfo extends Activity{
     private String origText = "";
     private String popupTitle = "";
     public Game curGame;
+    final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_activity);
         findView();
+        i6.setImageResource(MainActivity.getImageId(context, MainActivity.conImage));
         loadInfo(MainActivity.curGame);
     }
 

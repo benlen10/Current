@@ -93,16 +93,25 @@
             android:layout_height="wrap_content"
             android:text="Web Scraper Options"
             android:id="@+id/button7"
-            android:layout_centerVertical="true"
-            android:layout_alignStart="@+id/checkBox4" />
+            android:layout_above="@+id/button8"
+            android:layout_alignStart="@+id/button8" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Theme Options"
             android:id="@+id/button8"
-            android:layout_below="@+id/button7"
-            android:layout_alignStart="@+id/button7" />
+            android:layout_above="@+id/textView18"
+            android:layout_alignStart="@+id/textView18"
+            android:layout_marginBottom="33dp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Display Console Image"
+            android:id="@+id/checkBox5"
+            android:layout_below="@+id/checkBox4"
+            android:layout_alignStart="@+id/checkBox4" />
 
     </RelativeLayout>
 

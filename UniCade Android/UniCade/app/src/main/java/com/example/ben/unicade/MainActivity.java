@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     public static ImageView i1;
     public static ImageView i7;
     final Context context = this;
+    public static String conImage = "";
 
 
     @Override
@@ -137,10 +138,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateGameList(){
         i7.setImageResource(0);
-        String conTitle = curConsole.getName();
-        conTitle = conTitle.replace(" ", "");
-        conTitle=conTitle.toLowerCase();
-        i7.setImageResource(getImageId(context,conTitle));
+        conImage = curConsole.getName();
+        conImage = conImage.replace(" ", "");
+        conImage=conImage.toLowerCase();
+        i7.setImageResource(getImageId(context,conImage));
 
         ArrayList<String> games = new ArrayList<String>();
         for(Game g : curConsole.getGameList()){
