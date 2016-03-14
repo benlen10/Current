@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         lv.setAdapter(myarrayAdapter);
         lv.setTextFilterEnabled(true);
-        t7.setText("Current Console Games: " + curConsole.gameCount);
+        t7.setText("Games: " + curConsole.gameCount);
         t4.setText(("Title:"));
         t1.setText(("Release Date:" ));
         t2.setText(("Publisher:" ));

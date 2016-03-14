@@ -35,6 +35,7 @@ public class DetailedInfo extends Activity{
     public static ImageView i4;
     public static ImageView i5;
     public static ImageView i6;
+    public static ImageView i8;
     public static CheckBox c1;
     private String resultText = "";
     private String origText = "";
@@ -48,11 +49,20 @@ public class DetailedInfo extends Activity{
         setContentView(R.layout.info_activity);
         findView();
         i6.setImageResource(MainActivity.getImageId(context, MainActivity.conImage));
+        i8.setImageResource(R.drawable.splash_image);
         loadInfo(MainActivity.curGame);
     }
 
     public void closeInfoWindow(View v){
         super.onBackPressed();
+    }
+
+    public void refreshGameInfoButton(View v){
+        loadInfo(curGame);
+    }
+
+    public void saveDatabase(View v){
+        FileOps.saveDatabase();
     }
 
     public void loadInfo(Game g){
@@ -116,6 +126,7 @@ public class DetailedInfo extends Activity{
         i4 = (ImageView) findViewById(R.id.imageView4);
         i5 = (ImageView) findViewById(R.id.imageView5);
         i6 = (ImageView) findViewById(R.id.imageView6);
+        i8 = (ImageView) findViewById(R.id.imageView8);
         b4 = (Button) findViewById(R.id.button4);
         c1 = (CheckBox) findViewById(R.id.checkBox);
 
