@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
                     i1.setImageResource(R.drawable.ao);;
                 }
                 else{
-                    i1.setImageResource(0);
+                    i1.setImageResource(R.drawable.splash_image);
                 }
 
             }
