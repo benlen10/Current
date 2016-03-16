@@ -84,6 +84,11 @@ public class DetailedInfo extends Activity{
             c1.setChecked(true);
         }
 
+        //System.err.println(MainActivity.curConsole.getName().toLowerCase().replace(" ","")+ "_"+g.getTitle().toLowerCase().replace(" ","") + "_boxfront"+"\n\n\n\n\n\n");
+        i2.setImageResource(MainActivity.getImageId(MainActivity.obj.context, MainActivity.curConsole.getName().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_boxfront"));
+        i3.setImageResource(MainActivity.getImageId(MainActivity.obj.context, MainActivity.curConsole.getName().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_boxback"));
+        i4.setImageResource(MainActivity.getImageId(MainActivity.obj.context, MainActivity.curConsole.getName().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_screenshot"));
+
 
         if (g.getEsrb().equals("Everyone"))
         {

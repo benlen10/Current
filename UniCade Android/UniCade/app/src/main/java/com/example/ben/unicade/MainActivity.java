@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateGameList(){
         i7.setImageResource(0);
+        i1.setImageResource(R.drawable.splash_image);
         conImage = curConsole.getName();
         conImage = conImage.replace(" ", "");
         conImage=conImage.toLowerCase();
@@ -162,6 +163,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static int getImageId(Context context, String imageName) {
         return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
+    }
+
+    public static int getImageId2(Context context,String imageName) {
+        return context.getResources().getIdentifier("drawable2/" + imageName, null, context.getPackageName());
     }
 
     public void populateConsoleList(){
