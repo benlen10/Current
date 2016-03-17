@@ -31,7 +31,7 @@
         android:text="Release Date"
         android:id="@+id/textView10"
         android:onClick="editRelease"
-        android:layout_above="@+id/textView11"
+        android:layout_below="@+id/textView16"
         android:layout_alignStart="@+id/textView9" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:text="Publisher:"
         android:id="@+id/textView11"
         android:onClick="editPublisher"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/textView9"
         android:layout_alignStart="@+id/textView10" />
 
     <TextView
@@ -98,7 +98,7 @@
         android:text="Favorite"
         android:id="@+id/checkBox"
         android:layout_below="@+id/textView17"
-        android:layout_alignEnd="@+id/imageView8" />
+        android:layout_alignEnd="@+id/textView11" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -117,13 +117,14 @@
         android:text="Description:"
         android:id="@+id/textView17"
         android:onClick="editDescription"
-        android:layout_below="@+id/textView16"
-        android:layout_alignStart="@+id/textView16" />
+        android:layout_below="@+id/textView10"
+        android:layout_alignStart="@+id/textView10" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView2"
+        android:onClick="boxfrontFullscreen"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
@@ -132,14 +133,16 @@
         android:layout_height="100dp"
         android:id="@+id/imageView3"
         android:layout_below="@+id/imageView2"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="boxbackFullscreen" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView4"
         android:layout_below="@+id/imageView3"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="screenshotFullscreen" />
 
     <ImageView
         android:layout_width="100dp"

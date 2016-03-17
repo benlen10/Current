@@ -42,6 +42,10 @@ public class DetailedInfo extends Activity{
     private String popupTitle = "";
     public Game curGame;
     final Context context = this;
+    private boolean boxfrontFull = false;
+    private boolean boxbackFull = false;
+    private boolean screenshotFull = false;
+    private android.view.ViewGroup.LayoutParams origParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +165,60 @@ public class DetailedInfo extends Activity{
         builder.show();
     }
 
+    public void boxfrontFullscreen(View v){
+        if(boxfrontFull) {
+            android.view.ViewGroup.LayoutParams params = i2.getLayoutParams();
+            params.width = 500;
+            params.height = 500;
+            i2.setLayoutParams(params);
+            boxfrontFull = false;
+        }
+        else{
+
+            android.view.ViewGroup.LayoutParams params = i2.getLayoutParams();
+            params.width = 1500;
+            params.height = 1500;
+            i2.setLayoutParams(params);
+            boxfrontFull = true;
+        }
+    }
+
+    public void boxbackFullscreen(View v){
+        if(boxfrontFull) {
+            android.view.ViewGroup.LayoutParams params = i3.getLayoutParams();
+            params.width = 500;
+            params.height = 500;
+            i3.setLayoutParams(params);
+            boxfrontFull = false;
+        }
+        else{
+
+            android.view.ViewGroup.LayoutParams params = i3.getLayoutParams();
+            params.width = 1500;
+            params.height = 1500;
+            i3.setLayoutParams(params);
+            boxfrontFull = true;
+        }
+    }
+
+    public void screenshotFullscreen(View v){
+        if(boxfrontFull) {
+            android.view.ViewGroup.LayoutParams params = i4.getLayoutParams();
+            params.width = 500;
+            params.height = 500;
+            i4.setLayoutParams(params);
+            boxfrontFull = false;
+        }
+        else{
+
+            android.view.ViewGroup.LayoutParams params = i4.getLayoutParams();
+            params.width = 1500;
+            params.height = 1500;
+            i4.setLayoutParams(params);
+            boxfrontFull = true;
+        }
+    }
+
 
 
     public void editRelease(View v){
@@ -227,5 +285,7 @@ public class DetailedInfo extends Activity{
         curGame.setDescription(resultText);
         loadInfo(curGame);
     }
+
+
 
 }
