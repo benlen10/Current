@@ -45,6 +45,7 @@ public class DetailedInfo extends Activity{
     private boolean boxfrontFull = false;
     private boolean boxbackFull = false;
     private boolean screenshotFull = false;
+    private boolean consoleFull = false;
     private android.view.ViewGroup.LayoutParams origParams;
 
     @Override
@@ -184,12 +185,12 @@ public class DetailedInfo extends Activity{
     }
 
     public void boxbackFullscreen(View v){
-        if(boxfrontFull) {
+        if(boxbackFull) {
             android.view.ViewGroup.LayoutParams params = i3.getLayoutParams();
             params.width = 500;
             params.height = 500;
             i3.setLayoutParams(params);
-            boxfrontFull = false;
+            boxbackFull = false;
         }
         else{
 
@@ -197,17 +198,17 @@ public class DetailedInfo extends Activity{
             params.width = 1500;
             params.height = 1500;
             i3.setLayoutParams(params);
-            boxfrontFull = true;
+            boxbackFull = true;
         }
     }
 
     public void screenshotFullscreen(View v){
-        if(boxfrontFull) {
+        if(screenshotFull) {
             android.view.ViewGroup.LayoutParams params = i4.getLayoutParams();
             params.width = 500;
             params.height = 500;
             i4.setLayoutParams(params);
-            boxfrontFull = false;
+            screenshotFull = false;
         }
         else{
 
@@ -215,7 +216,25 @@ public class DetailedInfo extends Activity{
             params.width = 1500;
             params.height = 1500;
             i4.setLayoutParams(params);
-            boxfrontFull = true;
+            screenshotFull = true;
+        }
+    }
+
+    public void consoleFullscreen(View v){
+        if(consoleFull) {
+            android.view.ViewGroup.LayoutParams params = i4.getLayoutParams();
+            params.width = 500;
+            params.height = 500;
+            i6.setLayoutParams(params);
+            consoleFull = false;
+        }
+        else{
+
+            android.view.ViewGroup.LayoutParams params = i4.getLayoutParams();
+            params.width = 1500;
+            params.height = 1500;
+            i6.setLayoutParams(params);
+            consoleFull = true;
         }
     }
 
