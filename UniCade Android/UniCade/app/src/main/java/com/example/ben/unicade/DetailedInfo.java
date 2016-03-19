@@ -238,6 +238,15 @@ public class DetailedInfo extends Activity{
         }
     }
 
+    public void toggleFav(View v){
+        if(c1.isChecked()){
+            curGame.setFav(1);
+        }
+        {
+            curGame.setFav(0);
+        }
+    }
+
 
 
     public void editRelease(View v){
