@@ -11,14 +11,14 @@ import android.view.View;
  */
 public class FileOps {
 
-    public static boolean loadDatabase()
+    public static boolean loadDatabase(String name)
 
     {
         try {
             File sdCard = Environment.getExternalStorageDirectory();
             File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
             dir.mkdirs();
-            File f = new File(dir, "Database.txt");
+            File f = new File(dir, name);
 
 
             if (!f.exists()) {
@@ -31,7 +31,7 @@ public class FileOps {
             int conCount = 0;
             Console c = new Console();
             String[] r = null;
-
+            clearLibrary();
             while ((line = file.readLine()) != null) {
                 r = line.split("\\|");
                 if (line.substring(0, 5).contains("***")) {
@@ -56,7 +56,7 @@ public class FileOps {
 
 
 
-    public static void saveDatabase()
+    public static void saveDatabase(String name)
     {
 
 
@@ -64,7 +64,7 @@ public class FileOps {
             File sdCard = Environment.getExternalStorageDirectory();
             File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
             dir.mkdirs();
-            File file = new File(dir, "Database.txt");
+            File file = new File(dir, name);
             if (!file.exists()) {
                 file.createNewFile();
             } else {
@@ -77,10 +77,14 @@ public class FileOps {
             for(Console c : MainActivity.dat.consoleList)
             {
 
-                sw.write("***"+ c.getName() + "|"+ c.getEmuPath()+ "|"+ c.getRomPath()+ "|"+ c.getPrefPath()+ "|"+ c.getRomExt()+ "|"+ c.gameCount+ "|"+ "Console Info"+ "|"+ c.getLaunchParam()+ "|"+ c.getReleaseDate() + "\n");
+                sw.write("***" + c.getName() + "|" + c.getEmuPath() + "|" + c.getRomPath() + "|" + c.getPrefPath() + "|" + c.getRomExt() + "|" + c.gameCount + "|" + "Console Info" + "|" + c.getLaunchParam() + "|" + c.getReleaseDate() + "\n");
                 for(Game g : c.getGameList())
                 {
-                    sw.write(g.getFileName() +"|"+ g.getConsole() +"|"+ g.launchCount +"|"+ g.getReleaseDate() +"|"+ g.getPublisher()+"|"+ g.getDeveloper() +"|"+ g.getUserScore()+"|"+ g.getCriticScore()+"|"+ g.getPlayers()+"|"+ g.getTrivia() +"|"+ g.getEsrb()+"|"+ g.getEsrbDescriptor()+"|"+ g.getEsrbSummary()+"|"+ g.getDescription()+"|"+ g.getGenres() +"|"+g.getTags()+"|"+ g.getFav()+ "\n");
+                    String fav = "0";
+                    if(g.getFav()>0){
+                         fav = "1";
+                    }
+                    sw.write(g.getFileName() +"|"+ g.getConsole() +"|"+ g.launchCount +"|"+ g.getReleaseDate() +"|"+ g.getPublisher()+"|"+ g.getDeveloper() +"|"+ g.getUserScore()+"|"+ g.getCriticScore()+"|"+ g.getPlayers()+"|"+ g.getTrivia() +"|"+ g.getEsrb()+"|"+ g.getEsrbDescriptor()+"|"+ g.getEsrbSummary()+"|"+ g.getDescription()+"|"+ g.getGenres() +"|"+g.getTags()+"|"+ fav+ "\n");
 
                 }
             }
@@ -328,6 +332,10 @@ public class FileOps {
             }
         }
 
+    }
+
+    public static void clearLibrary(){
+        MainActivity.dat.consoleList.clear();
     }
 
     public static void defaultPreferences()

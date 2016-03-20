@@ -57,11 +57,19 @@ public class SettingsWindow extends Activity {
     }
 
     public void saveDatabase(View v){
-        FileOps.saveDatabase();
+        FileOps.saveDatabase("Database.txt");
     }
 
     public void loadDatabase(View v){
-        FileOps.loadDatabase();
+        FileOps.loadDatabase("Database.txt");
+    }
+
+    public void loadBackup(View v){
+        FileOps.loadDatabase("Database_backup.txt");
+    }
+
+    public void saveBackup(View v){
+        FileOps.loadDatabase("Database_backup.txt");
     }
 
 

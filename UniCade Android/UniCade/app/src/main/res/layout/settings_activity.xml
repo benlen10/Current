@@ -113,6 +113,24 @@
             android:layout_below="@+id/checkBox4"
             android:layout_alignStart="@+id/checkBox4" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load Backup"
+            android:id="@+id/button9"
+            android:onClick="loadBackup"
+            android:layout_above="@+id/button6"
+            android:layout_toEndOf="@+id/button8" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backup Database"
+            android:id="@+id/button10"
+            android:onClick="saveBackup"
+            android:layout_below="@+id/button9"
+            android:layout_alignStart="@+id/textView8" />
+
     </RelativeLayout>
 
 </LinearLayout>

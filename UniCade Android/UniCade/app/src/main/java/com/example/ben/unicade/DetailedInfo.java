@@ -67,7 +67,7 @@ public class DetailedInfo extends Activity{
     }
 
     public void saveDatabase(View v){
-        FileOps.saveDatabase();
+        FileOps.saveDatabase("Database.txt");
     }
 
     public void loadInfo(Game g){
@@ -241,9 +241,12 @@ public class DetailedInfo extends Activity{
     public void toggleFav(View v){
         if(c1.isChecked()){
             curGame.setFav(1);
+            System.err.println("IS FAV");
         }
+        else
         {
             curGame.setFav(0);
+            System.err.println("IS NOT FAV");
         }
     }
 
