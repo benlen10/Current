@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        FileOps.loadDatabase();
+        FileOps.loadDatabase("Database.txt");
     }
 
 
@@ -155,9 +155,9 @@ public class MainActivity extends AppCompatActivity {
         t7.setText("Games: " + curConsole.gameCount);
         t4.setText(("Title:"));
         t1.setText(("Release Date:" ));
-        t2.setText(("Publisher:" ));
-        t3.setText(("ESRB Rating:"));
-        i1.setImageResource(0);
+        //t2.setText(("Publisher:" ));
+        //t3.setText(("ESRB Rating:"));
+        i1.setImageResource(R.drawable.splash_image);
 
     }
 

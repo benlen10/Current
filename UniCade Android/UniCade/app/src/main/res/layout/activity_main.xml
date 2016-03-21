@@ -15,18 +15,10 @@
         android:layout_height="wrap_content"
         android:text="Release Date:"
         android:id="@+id/textView"
-        android:layout_marginTop="84dp"
         android:layout_alignTop="@+id/listView"
-        android:layout_alignStart="@+id/textView4" />
+        android:layout_toStartOf="@+id/button14"
+        android:layout_marginTop="38dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Publisher:"
-        android:id="@+id/textView2"
-        android:layout_marginRight="47dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
     <TextView
         android:id="@+id/result"
         android:layout_width="wrap_content"
@@ -36,18 +28,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ESRB:"
-        android:id="@+id/textView3"
-        android:layout_marginRight="47dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Total Games:"
         android:id="@+id/textView6"
-        android:layout_above="@+id/textView7"
+        android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/button" />
 
     <TextView
@@ -55,16 +38,17 @@
         android:layout_height="wrap_content"
         android:text=" Games:"
         android:id="@+id/textView7"
-        android:layout_above="@+id/spinner"
-        android:layout_alignEnd="@+id/textView6" />
+        android:layout_above="@+id/textView6"
+        android:layout_alignEnd="@+id/textView" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView"
         android:visibility="visible"
-        android:layout_above="@+id/button"
-        android:layout_toEndOf="@+id/listView" />
+        android:layout_marginTop="57dp"
+        android:layout_alignTop="@+id/listView"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -80,8 +64,10 @@
         android:layout_height="380dp"
         android:id="@+id/listView"
         android:layout_gravity="left|top"
-        android:layout_alignTop="@+id/result"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/button"
+        android:layout_toStartOf="@+id/textView"
+        android:layout_below="@+id/result" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -89,16 +75,20 @@
         android:id="@+id/spinner"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/button" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title: "
+        android:text="Selected Title: "
         android:id="@+id/textView4"
         android:layout_marginRight="47dp"
-        android:layout_below="@+id/result"
-        android:layout_toEndOf="@+id/listView" />
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_alignBaseline="@+id/result"
+        android:layout_alignBottom="@+id/result"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -106,7 +96,7 @@
         android:text="Info"
         android:id="@+id/button5"
         android:onClick="launchInfoWindow"
-        android:layout_alignBottom="@+id/textView7"
+        android:layout_above="@+id/textView7"
         android:layout_alignParentStart="true" />
 
     <ImageView
@@ -114,7 +104,35 @@
         android:layout_height="100dp"
         android:id="@+id/imageView7"
         android:visibility="visible"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView" />
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/editText2"
+        android:layout_below="@+id/imageView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:id="@+id/button13"
+        android:onClick="launchSettings"
+        android:layout_alignTop="@+id/button"
+        android:layout_toEndOf="@+id/button" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/button14"
+        android:layout_alignBottom="@+id/button13"
+        android:layout_toEndOf="@+id/button13" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:layout_alignBottom="@+id/listView"
+        android:layout_alignEnd="@+id/button14"
+        android:layout_alignStart="@+id/imageView7" />
 
 </RelativeLayout>
