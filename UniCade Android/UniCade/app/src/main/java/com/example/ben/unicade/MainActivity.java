@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     public static ImageView i7;
     final Context context = this;
     public static String conImage = "";
+    private boolean displayUsers = false;
+    private boolean displayAllGames = false;
 
 
     @Override
@@ -75,8 +77,24 @@ public class MainActivity extends AppCompatActivity {
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {  //Console selection changed
                 String con = spinner.getSelectedItem().toString();
+                if(con.equals("Users")){
+                    if(displayUsers) {
+                        displayUsers = false;
+                    }
+                    else{
+                        displayUsers = true;
+                    }
+                }
+                else if(con.equals("ALL Games")){
+                    if(displayAllGames) {
+                        displayAllGames = false;
+                    }
+                    else(displayAllGames){
+                            displayAllGames = true;
+                    }
+                }
                 for(Console c : dat.consoleList){
                     if(c.getName().equals(con)){
                         curConsole = c;
@@ -173,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
 
         //spinner.setOnItemSelectedListener(this);
         ArrayList<String> al = new ArrayList<String>();
+        al.add("Users");
+        al.add("All Games");
         for(Console c : dat.consoleList){
             al.add(c.getName());
             for(Game g : c.getGameList()){
