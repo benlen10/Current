@@ -80,25 +80,22 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {  //Console selection changed
                 String con = spinner.getSelectedItem().toString();
                 if(con.equals("Users")){
-                    if(displayUsers) {
-                        displayUsers = false;
-                    }
-                    else{
                         displayUsers = true;
-                    }
                 }
                 else if(con.equals("ALL Games")){
-                    if(displayAllGames) {
-                        displayAllGames = false;
-                    }
-                    else(displayAllGames){
+
                             displayAllGames = true;
-                    }
+                    curConsole = null;
+
                 }
-                for(Console c : dat.consoleList){
-                    if(c.getName().equals(con)){
-                        curConsole = c;
-                        break;
+                else {
+                    displayAllGames = false;
+                    displayUsers = false;
+                    for (Console c : dat.consoleList) {
+                        if (c.getName().equals(con)) {
+                            curConsole = c;
+                            break;
+                        }
                     }
                 }
                 updateGameList();
@@ -163,8 +160,22 @@ public class MainActivity extends AppCompatActivity {
         i7.setImageResource(getImageId(context,conImage));
 
         ArrayList<String> games = new ArrayList<String>();
-        for(Game g : curConsole.getGameList()){
-            games.add(g.getTitle());
+        if(displayAllGames){
+            for(Console c : dat.consoleList) {
+                for (Game g : c.getGameList()) {
+                    games.add(g.getTitle());
+                }
+            }
+        }
+        else if(displayUsers) {
+            for (User u : dat.userList) {
+                games.add(u.getUsername());
+            }
+        }
+        else {
+            for (Game g : curConsole.getGameList()) {
+                games.add(g.getTitle());
+            }
         }
         ListView lv = (ListView)findViewById(R.id.listView);
         ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
@@ -175,6 +186,10 @@ public class MainActivity extends AppCompatActivity {
         t1.setText(("Release Date:" ));
         //t2.setText(("Publisher:" ));
         //t3.setText(("ESRB Rating:"));
+        if(displayAllGames){
+            t1.setText("Console: " + curGame.getConsole());
+            t7.setText("Games: " + dat.totalGameCount);
+        }
         i1.setImageResource(R.drawable.splash_image);
 
     }
