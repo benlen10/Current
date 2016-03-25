@@ -229,33 +229,56 @@ public class MainActivity extends AppCompatActivity {
 
     // set title
     alertDialogBuilder.setTitle(title);
-
-    // set dialog message
     alertDialogBuilder
             .setMessage(message)
             .setCancelable(false)
     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    // if this button is clicked, close
-                    // current activity
                     dialog.cancel();
                 }
             }
     );
-
-    // create alert dialog
     AlertDialog alertDialog = alertDialogBuilder.create();
-
-    // show it
     alertDialog.show();
 }
 
-    public void updateBasicGameInfo(String title){
+    public void showConfirmPopup(String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(title);
+        builder.setMessage(message);
+
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+
+                dialog.dismiss();
+            }
+
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+
+    public void updateBasicGameInfo(String title) {
         for (Game g : curConsole.getGameList()) {
             if (g.getTitle().equals(title)) {
                 curGame = g;
                 t4.setText(("Title: " + g.getTitle()));
-                t1.setText(("Release Date"+ g.getReleaseDate()));
+                t1.setText(("Release Date" + g.getReleaseDate()));
                 t2.setText(("Publisher: " + g.getPublisher()));
                 t3.setText(("ESRB Rating: " + g.getEsrb()));
 
