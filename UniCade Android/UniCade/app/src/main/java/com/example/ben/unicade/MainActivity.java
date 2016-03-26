@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
@@ -45,17 +46,21 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity obj;
     Spinner spinner;
     public static TextView t1;
-    public static TextView t2;
-    public static TextView t3;
+
     public static TextView t4;  //Title
     public static TextView t6;
     public static TextView t7;
     public static ImageView i1;
     public static ImageView i7;
+    public static CheckBox c6;
+    public static EditText e2;
     final Context context = this;
     public static String conImage = "";
     private boolean displayUsers = false;
     private boolean displayAllGames = false;
+    private boolean globalSearch = false;
+    private boolean searchInProgress = false;
+
 
 
     @Override
@@ -66,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
         obj = this;
          spinner = (Spinner) findViewById(R.id.spinner);
          t1 = (TextView) findViewById(R.id.textView);
-        t2 = (TextView) findViewById(R.id.textView2);
-        t3 = (TextView) findViewById(R.id.textView3);
         t4 = (TextView) findViewById(R.id.textView4);
 
         t6 = (TextView) findViewById(R.id.textView6);
         t7 = (TextView) findViewById(R.id.textView7);
         i1 = (ImageView) findViewById(R.id.imageView);
         i7 = (ImageView) findViewById(R.id.imageView7);
+        e2 = (EditText)  findViewById(R.id.editText2);
+        c6 = (CheckBox) findViewById(R.id.checkBox6);
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -251,7 +256,6 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                // Do nothing but close the dialog
 
                 dialog.dismiss();
             }
@@ -272,6 +276,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void searchGames(View v){
+        if(c6.isChecked()){
+            globalSearch = true;
+        }
+        else{
+            globalSearch = false;
+        }
+        ArrayList<String> games = new ArrayList<String>();
+        String txt = e2.getText().toString().toLowerCase();
+        if(txt==null){
+            if(searchInProgress) {
+                updateGameList();
+                return;
+            }else{
+                showPopup("Error", "Search cannot be empty");
+            }
+
+        }
+        if(globalSearch) {
+            for (Console c : dat.consoleList) {
+                for (Game g : c.getGameList()) {
+                    if (g.getTitle().toLowerCase().contains(txt)) {
+                        games.add(g.getTitle());
+                    }
+                }
+            }
+        }
+        else{
+            for (Game g : curConsole.getGameList()) {
+                if (g.getTitle().toLowerCase().contains(txt)) {
+                    games.add(g.getTitle());
+                }
+            }
+        }
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, games);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+    }
+
+
 
     public void updateBasicGameInfo(String title) {
         for (Game g : curConsole.getGameList()) {
@@ -279,8 +324,7 @@ public class MainActivity extends AppCompatActivity {
                 curGame = g;
                 t4.setText(("Title: " + g.getTitle()));
                 t1.setText(("Release Date" + g.getReleaseDate()));
-                t2.setText(("Publisher: " + g.getPublisher()));
-                t3.setText(("ESRB Rating: " + g.getEsrb()));
+
 
 
                 if (g.getEsrb().equals("Everyone"))
