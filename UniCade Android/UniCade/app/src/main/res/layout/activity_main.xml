@@ -104,7 +104,8 @@
         android:visibility="visible"
         android:layout_alignStart="@+id/textView"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/imageView" />
+        android:layout_below="@+id/imageView"
+        android:layout_above="@+id/editText2" />
 
     <Button
         android:layout_width="wrap_content"

@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         i7 = (ImageView) findViewById(R.id.imageView7);
         e2 = (EditText)  findViewById(R.id.editText2);
         c6 = (CheckBox) findViewById(R.id.checkBox6);
+        t4.setHorizontallyScrolling(true);
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 if(con.equals("Users")){
                         displayUsers = true;
                 }
-                else if(con.equals("ALL Games")){
+                else if(con.equals("All Games")){
 
                             displayAllGames = true;
                     curConsole = null;
@@ -159,10 +160,6 @@ public class MainActivity extends AppCompatActivity {
     public void updateGameList(){
         i7.setImageResource(0);
         i1.setImageResource(R.drawable.splash_image);
-        conImage = curConsole.getName();
-        conImage = conImage.replace(" ", "");
-        conImage=conImage.toLowerCase();
-        i7.setImageResource(getImageId(context,conImage));
 
         ArrayList<String> games = new ArrayList<String>();
         if(displayAllGames){
@@ -171,6 +168,8 @@ public class MainActivity extends AppCompatActivity {
                     games.add(g.getTitle());
                 }
             }
+            t1.setText("Console: ");
+            t7.setText("Games: " + dat.totalGameCount);
         }
         else if(displayUsers) {
             for (User u : dat.userList) {
@@ -178,6 +177,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {
+            conImage = curConsole.getName();
+            conImage = conImage.replace(" ", "");
+            conImage=conImage.toLowerCase();
+            t7.setText("Games: " + curConsole.gameCount);
+            t4.setText(("Title:"));
+            t1.setText(("Release Date:" ));
+            i7.setImageResource(getImageId(context,conImage));
             for (Game g : curConsole.getGameList()) {
                 games.add(g.getTitle());
             }
@@ -186,16 +192,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         lv.setAdapter(myarrayAdapter);
         lv.setTextFilterEnabled(true);
-        t7.setText("Games: " + curConsole.gameCount);
-        t4.setText(("Title:"));
-        t1.setText(("Release Date:" ));
-        //t2.setText(("Publisher:" ));
-        //t3.setText(("ESRB Rating:"));
-        if(displayAllGames){
-            t1.setText("Console: " + curGame.getConsole());
-            t7.setText("Games: " + dat.totalGameCount);
-        }
-        i1.setImageResource(R.drawable.splash_image);
 
     }
 
@@ -311,39 +307,55 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, games);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
+        ListView lv = (ListView)findViewById(R.id.listView);
+        ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
+        lv.setAdapter(myarrayAdapter);
     }
 
 
 
     public void updateBasicGameInfo(String title) {
+        if(displayAllGames){
+
+            for(Console c : dat.consoleList) {
+                for (Game g : c.getGameList()) {
+                    if (g.getTitle().equals(title)) {
+                        curGame = g;
+                        t4.setText(("Title: " + g.getTitle()));
+                        t1.setText(("Console " + g.getConsole()));
+                    }
+                }
+            }
+
+        }else{
+
         for (Game g : curConsole.getGameList()) {
             if (g.getTitle().equals(title)) {
                 curGame = g;
                 t4.setText(("Title: " + g.getTitle()));
                 t1.setText(("Release Date" + g.getReleaseDate()));
+            }
+        }
 
 
 
-                if (g.getEsrb().equals("Everyone"))
+                if (curGame.getEsrb().equals("Everyone"))
                 {
                     i1.setImageResource(R.drawable.everyone);
                 }
-                else if (g.getEsrb().equals("Everyone 10+"))
+                else if (curGame.getEsrb().equals("Everyone 10+"))
                 {
                     i1.setImageResource(R.drawable.everyone10);
                 }
-                else if (g.getEsrb().equals("Teen"))
+                else if (curGame.getEsrb().equals("Teen"))
                 {
                     i1.setImageResource(R.drawable.teen);
                 }
-                else if (g.getEsrb().equals("Mature"))
+                else if (curGame.getEsrb().equals("Mature"))
                 {
                     i1.setImageResource(R.drawable.mature);
                 }
-                else if (g.getEsrb().equals("Adults Only (AO)"))
+                else if (curGame.getEsrb().equals("Adults Only (AO)"))
                 {
                     i1.setImageResource(R.drawable.ao);;
                 }
@@ -355,9 +367,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-}
 
 
 
