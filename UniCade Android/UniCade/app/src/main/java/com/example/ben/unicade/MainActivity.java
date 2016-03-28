@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 else if(con.equals("All Games")){
 
                             displayAllGames = true;
+                    globalSearch = true;
                     curConsole = null;
 
                 }
@@ -277,6 +278,7 @@ public class MainActivity extends AppCompatActivity {
             globalSearch = true;
         }
         else{
+
             globalSearch = false;
         }
         ArrayList<String> games = new ArrayList<String>();
@@ -290,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        if(globalSearch) {
+        if((globalSearch)||(curConsole==null)) {
             for (Console c : dat.consoleList) {
                 for (Game g : c.getGameList()) {
                     if (g.getTitle().toLowerCase().contains(txt)) {
