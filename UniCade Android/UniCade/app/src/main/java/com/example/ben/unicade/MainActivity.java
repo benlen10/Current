@@ -8,7 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -115,6 +117,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        e2.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                searchGames();
+            }
+        });
         final ListView listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -129,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
         });
         FileOps.loadDatabase("Database.txt");
     }
+
+
 
 
 
@@ -273,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void searchGames(View v){
+    public void searchGames(){
         if(c6.isChecked()){
             globalSearch = true;
         }

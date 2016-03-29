@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:text="Release Date:"
         android:id="@+id/textView"
-        android:layout_alignTop="@+id/listView"
-        android:layout_toStartOf="@+id/button14" />
+        android:layout_below="@+id/textView4"
+        android:layout_toStartOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/result"
@@ -105,7 +105,7 @@
         android:layout_alignStart="@+id/textView"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/imageView"
-        android:layout_above="@+id/editText2" />
+        android:layout_above="@+id/checkBox6" />
 
     <Button
         android:layout_width="wrap_content"
@@ -116,30 +116,20 @@
         android:layout_alignTop="@+id/button"
         android:layout_toEndOf="@+id/button" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/button14"
-        android:layout_alignBottom="@+id/button13"
-        android:layout_toEndOf="@+id/button13"
-        android:onClick="searchGames" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText2"
-        android:layout_above="@+id/checkBox6"
-        android:layout_alignStart="@+id/checkBox6"
-        android:layout_alignEnd="@+id/button14" />
+        android:layout_alignBottom="@+id/listView"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView4" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Global Search"
         android:id="@+id/checkBox6"
-        android:layout_above="@+id/button13"
-        android:layout_toEndOf="@+id/listView" />
+        android:layout_above="@+id/editText2"
+        android:layout_toEndOf="@+id/textView4" />
 
 </RelativeLayout>
