@@ -142,9 +142,9 @@ public class DetailedInfo extends Activity{
 
     }
 
-    public void showInputDialog(){
+    public void showInputDialog(String title){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(popupTitle);
+        builder.setTitle(title);
         final EditText input = new EditText(this);
         input.setText(origText);
         builder.setView(input);
@@ -254,65 +254,56 @@ public class DetailedInfo extends Activity{
 
     public void editRelease(View v){
         origText = curGame.getReleaseDate();
-        popupTitle = "Edit Release Date";
-        showInputDialog();
+        showInputDialog("Edit Release Date");
         curGame.setReleaseDate(resultText);
         loadInfo(curGame);
     }
 
     public void editPublisher(View v){
         origText = curGame.getPublisher();
-        popupTitle = "Edit Publisher";
-        showInputDialog();
+        showInputDialog("Edit Publisher");
         curGame.setPublisher(resultText);
         loadInfo(curGame);
     }
 
     public void editScore(View v){
         origText = curGame.getCriticScore();
-        popupTitle = "Edit Critic Score";
-        showInputDialog();
+        showInputDialog("Edit Critic Score");
         curGame.setCriticScore(resultText);
         loadInfo(curGame);
     }
 
     public void editPlayers(View v){
         origText = curGame.getPlayers();
-        popupTitle = "Edit Playerse";
-        showInputDialog();
+        showInputDialog("Edit Players");
         curGame.setPlayers(resultText);
         loadInfo(curGame);
     }
 
     public void editEsrb(View v){
         origText = curGame.getEsrb();
-        popupTitle = "Edit ESRB Rating";
-        showInputDialog();
+        showInputDialog("Edit ESRB Rating");
         curGame.setEsrb(resultText);
         loadInfo(curGame);
-
     }
 
     public void editEsrbDescriptors(View v){
         origText = curGame.getEsrbDescriptor();
-        popupTitle = "Edit ESRB Descriptors";
-        showInputDialog();
+        showInputDialog("Edit ESRB Descriptors");
         curGame.setEsrbDescriptors(resultText);
         loadInfo(curGame);
     }
 
     public void editLaunchCount(View v){
         origText = Integer.toString(curGame.launchCount);
-        popupTitle = "Edit Launch Count";
-        showInputDialog();
+        showInputDialog("Edit Launch Count");
         curGame.launchCount = Integer.parseInt(resultText);
         loadInfo(curGame);
     }
 
     public void editDescription(View v){
         origText = curGame.getDescription();
-        popupTitle = "Edit Desription";
-        showInputDialog();
+        showInputDialog("Edit Desription");
         curGame.setDescription(resultText);
         loadInfo(curGame);
     }

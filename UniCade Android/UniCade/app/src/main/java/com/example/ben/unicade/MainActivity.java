@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean displayAllGames = false;
     private boolean globalSearch = false;
     private boolean searchInProgress = false;
+    public String resultText;
 
 
 
@@ -225,8 +226,8 @@ public class MainActivity extends AppCompatActivity {
 
         //spinner.setOnItemSelectedListener(this);
         ArrayList<String> al = new ArrayList<String>();
-        al.add("Users");
         al.add("All Games");
+        al.add("Users");
         for(Console c : dat.consoleList){
             al.add(c.getName());
             for(Game g : c.getGameList()){
@@ -287,6 +288,30 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void showInputDialog(String title, String origText){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        final EditText input = new EditText(this);
+        input.setText(origText);
+        builder.setView(input);
+
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                resultText = input.getText().toString();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
 

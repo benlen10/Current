@@ -22,7 +22,7 @@ public class FileOps {
 
 
             if (!f.exists()) {
-                System.out.println("Database file does not exist");
+                System.err.println("Database file does not exist");
                 return false;
             }
 
@@ -96,28 +96,32 @@ public class FileOps {
 
     }
 
-    public static boolean loadPreferences(String path)
+    public static boolean loadPreferences(String name)
     {
 
 
 
-        String[] tmp = { "tmp" };
-        String[] r = { " " };
-        try {
-            File f = new File(path);
 
-            if (!f.exists())
-            {
-                System.out.println("Database file does not exist");
+        try {
+            File sdCard = Environment.getExternalStorageDirectory();
+            File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
+            dir.mkdirs();
+            File f = new File(dir, name);
+
+
+            if (!f.exists()) {
+                System.err.println("Database file does not exist");
                 return false;
             }
 
             BufferedReader file = new BufferedReader(new FileReader(f));
 
+            int conCount = 0;
+            Console c = new Console();
+            String[] tmp = { "tmp" };
             String line = file.readLine();
+            String[] r = line.split("|");
 
-
-            r = line.split("|");
             for(User u :MainActivity.dat.userList)
             {
                 if (u.getUsername().equals(r[1]))   //Set curUser to default user
@@ -236,21 +240,23 @@ public class FileOps {
         }
     }
 
-    public static void savePreferences(String path)
+    public static void savePreferences(String name)
     {
 
-        try{
-        File file = new File(path);
+        try {
+            File sdCard = Environment.getExternalStorageDirectory();
+            File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
+            dir.mkdirs();
+            File file = new File(dir, name);
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+                file.delete();
+                file.createNewFile();
+            }
 
-        if (!file.exists()) {
-            file.createNewFile();
-        }else{
-            file.delete();
-            file.createNewFile();
-        }
-
-        FileWriter fw = new FileWriter(file.getAbsoluteFile());
-        BufferedWriter sw = new BufferedWriter(fw);
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter sw = new BufferedWriter(fw);
 
             sw.write("DefaultUser|" + SettingsWindow.defaultUser);
             sw.write("DatabasePath|" + MainActivity.databasePath);
@@ -261,7 +267,6 @@ public class FileOps {
             sw.write("RestrictESRB|" + SettingsWindow.restrictESRB);
             sw.write("RequireLogin|" + SettingsWindow.requireLogin);
             sw.write("CmdOrGui|" + SettingsWindow.cmdOrGui);
-            //sw.write("KeyBindings|" + SettingsWindow.defaultUser);
             sw.write("LoadingScreen|" + SettingsWindow.showLoading);
             sw.write("PaySettings|" + SettingsWindow.payPerPlay + "|" + SettingsWindow.perLaunch + "|" + SettingsWindow.coins + "|" + SettingsWindow.playtime);
             sw.write("License Key|" + MainActivity.userLicenseName + "|" + MainActivity.userLicenseKey);

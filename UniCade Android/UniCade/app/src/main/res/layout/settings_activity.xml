@@ -75,18 +75,10 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Startup Splash Screen"
-            android:id="@+id/checkBox3"
-            android:layout_below="@+id/checkBox2"
-            android:layout_alignStart="@+id/checkBox2" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Rescan Local Libraries On Startup"
             android:id="@+id/checkBox4"
-            android:layout_below="@+id/checkBox3"
-            android:layout_alignStart="@+id/checkBox3" />
+            android:layout_below="@+id/checkBox2"
+            android:layout_alignStart="@+id/checkBox2" />
 
         <Button
             android:layout_width="wrap_content"
@@ -130,6 +122,15 @@
             android:onClick="saveBackup"
             android:layout_below="@+id/button9"
             android:layout_alignStart="@+id/textView8" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apply"
+            android:id="@+id/button15"
+            android:onClick="sa"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/button3" />
 
     </RelativeLayout>
 

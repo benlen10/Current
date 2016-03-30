@@ -53,6 +53,7 @@ public class SettingsWindow extends Activity {
     }
 
     public void closeSettings(View v){
+        FileOps.savePreferences("Preferences.txt");
         super.onBackPressed();
     }
 
@@ -62,6 +63,10 @@ public class SettingsWindow extends Activity {
 
     public void loadDatabase(View v){
         FileOps.loadDatabase("Database.txt");
+    }
+
+    public void savePreferences(View v){
+        FileOps.savePreferences("Preferences.txt");
     }
 
     public void loadBackup(View v){
