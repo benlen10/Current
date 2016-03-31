@@ -155,7 +155,19 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void launchSettings(View view){
-        startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
+        if(SettingsWindow.passProtect>0) {
+            showInputDialog("Enter Password", "");
+            if(resultText.equals(Integer.toString(SettingsWindow.passProtect))) {
+                startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
+            }
+            else{
+                showPopup("Error","Incorrect Password");
+            }
+            return;
+        }
+        else{
+            startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
+        }
     }
 
     public void launchInfoWindow(View view){
