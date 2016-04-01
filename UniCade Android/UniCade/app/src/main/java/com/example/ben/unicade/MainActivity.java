@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public static ImageView i1;
     public static ImageView i7;
     public static CheckBox c6;
+    public static EditText e1;
     public static EditText e2;
     final Context context = this;
     public static String conImage = "";
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         t7 = (TextView) findViewById(R.id.textView7);
         i1 = (ImageView) findViewById(R.id.imageView);
         i7 = (ImageView) findViewById(R.id.imageView7);
+        e1 = (EditText)  findViewById(R.id.editText2);
         e2 = (EditText)  findViewById(R.id.editText2);
         c6 = (CheckBox) findViewById(R.id.checkBox6);
         t4.setHorizontallyScrolling(true);

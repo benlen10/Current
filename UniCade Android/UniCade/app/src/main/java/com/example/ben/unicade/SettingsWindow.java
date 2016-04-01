@@ -32,19 +32,12 @@ public class SettingsWindow extends Activity {
     //Preference Data
 
     public static String defaultUser;
-    public static int showSplash;
     public static int scanOnStartup;
-    public static int restrictESRB;
-    public static int requireLogin;
-    public static int cmdOrGui;
-    public static int showLoading;
-    public static int payPerPlay;
-    public static int coins;
-    public static int playtime;
-    public static int perLaunch;
-    public static int viewEsrb;
+    public static int autoLoadDatabase;
     public static int passProtect;
     public static int enforceExt;
+    public static int displayConImage;
+    public static int displayESRBLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

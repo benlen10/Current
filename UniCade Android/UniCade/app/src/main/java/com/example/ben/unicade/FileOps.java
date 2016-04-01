@@ -2,9 +2,12 @@ package com.example.ben.unicade;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.*;
+import java.util.Set;
+
 import android.content.Context.*;
 import android.os.Environment;
 import android.view.View;
+import android.widget.EditText;
 
 /**
  * Created by Ben on 12/17/2015.
@@ -257,19 +260,23 @@ public class FileOps {
 
             FileWriter fw = new FileWriter(file);
             BufferedWriter sw = new BufferedWriter(fw);
+            if(MainActivity.e2.getText().toString()==null) {
+                SettingsWindow.passProtect = 0;
+            }
+            else{
+                SettingsWindow.passProtect = Integer.parseInt(MainActivity.e2.getText().toString());
+            }
 
             sw.write("DefaultUser|" + SettingsWindow.defaultUser);
-            sw.write("DatabasePath|" + MainActivity.databasePath);
-            sw.write("EmulatorFolderPath|" + MainActivity.emuPath);
-            sw.write("MediaFolderPath|" + MainActivity.mediaPath);
-            sw.write("ShowSplash|" + SettingsWindow.showSplash);
+            sw.write("PassProtect|" + SettingsWindow.passProtect);
             sw.write("ScanOnStartup|" + SettingsWindow.scanOnStartup);
-            sw.write("RestrictESRB|" + SettingsWindow.restrictESRB);
-            sw.write("RequireLogin|" + SettingsWindow.requireLogin);
-            sw.write("CmdOrGui|" + SettingsWindow.cmdOrGui);
-            sw.write("LoadingScreen|" + SettingsWindow.showLoading);
-            sw.write("PaySettings|" + SettingsWindow.payPerPlay + "|" + SettingsWindow.perLaunch + "|" + SettingsWindow.coins + "|" + SettingsWindow.playtime);
+            sw.write("AutoLoadDatabse|" + SettingsWindow.autoLoadDatabase);
+            sw.write("EnforceExt|" + SettingsWindow.enforceExt);
+            sw.write("DisplayConImage|" + SettingsWindow.displayConImage);
+            sw.write("DisplayESRBLogo|" + SettingsWindow.displayESRBLogo);
             sw.write("License Key|" + MainActivity.userLicenseName + "|" + MainActivity.userLicenseKey);
+
+
             sw.write("***UserData***");
             for (User u : MainActivity.dat.userList)
             {
@@ -347,15 +354,12 @@ public class FileOps {
     {
 
         SettingsWindow.defaultUser = "UniCade";
-        SettingsWindow.showSplash = 0;
         SettingsWindow.scanOnStartup = 0;
-        SettingsWindow.restrictESRB = 0;
-        SettingsWindow.requireLogin = 0;
-        SettingsWindow.cmdOrGui = 0;
-        SettingsWindow.showLoading = 0;
-        SettingsWindow.payPerPlay = 0;
-        SettingsWindow.coins = 1;
-        SettingsWindow.playtime = 15;
-        SettingsWindow.perLaunch = 0;
+        SettingsWindow.autoLoadDatabase = 0;
+        SettingsWindow.passProtect = 0;
+        SettingsWindow.enforceExt = 0;
+        SettingsWindow.displayESRBLogo = 0;
+        SettingsWindow.displayConImage = 0;
+
     }
 }
