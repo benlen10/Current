@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
@@ -38,11 +40,17 @@ public class SettingsWindow extends Activity {
     public static int enforceExt;
     public static int displayConImage;
     public static int displayESRBLogo;
+    public CheckBox c2;
+    public CheckBox c3;
+    public CheckBox c4;
+    public CheckBox c5;
+    public EditText e1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
+        loadView();
     }
 
     public void closeSettings(View v){
@@ -73,3 +81,7 @@ public class SettingsWindow extends Activity {
 
 
     }
+
+public void loadView(){
+
+}

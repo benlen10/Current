@@ -132,6 +132,14 @@
             android:layout_alignParentBottom="true"
             android:layout_toStartOf="@+id/button3" />
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Display ESRB Logo"
+            android:id="@+id/checkBox3"
+            android:layout_below="@+id/checkBox5"
+            android:layout_alignStart="@+id/checkBox5" />
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -133,25 +133,7 @@ public class FileOps {
                     System.out.println("Current user change to " + u.getUsername());
                 }
             }
-            line = file.readLine();
-            r = line.split("|");
-            MainActivity.databasePath = r[1];
 
-            line = file.readLine();
-            r = line.split("|");
-            MainActivity.emuPath = r[1];
-
-            line = file.readLine();
-            r = line.split("|");
-            MainActivity.mediaPath = r[1];
-
-            line = file.readLine();
-            r = line.split("|");
-            if (r[1].contains("1")) {
-                SettingsWindow.showSplash = 1;
-            } else {
-                SettingsWindow.showSplash = 0;
-            }
 
             line = file.readLine();
             r = line.split("|");
@@ -161,49 +143,7 @@ public class FileOps {
                 SettingsWindow.scanOnStartup = 0;
             }
 
-            line = file.readLine();
-            r = line.split("|");
-            SettingsWindow.restrictESRB = Integer.parseInt(r[1]);
 
-            file.readLine();
-            r = line.split("|");
-            if (r[1].contains("1")) {
-                SettingsWindow.requireLogin = 1;
-            } else {
-                SettingsWindow.requireLogin = 0;
-            }
-
-            line = file.readLine();
-            r = line.split("|");
-            if (r[1].contains("1")) {
-                SettingsWindow.cmdOrGui = 1;
-            } else {
-                SettingsWindow.cmdOrGui = 0;
-            }
-
-            line = file.readLine();
-            r = line.split("|");
-            if (r[1].contains("1")) {
-                SettingsWindow.showLoading = 1;
-            } else {
-                SettingsWindow.showLoading = 0;
-            }
-
-            line = file.readLine();
-            r = line.split("|");
-            if (r[1].contains("1")) {
-                SettingsWindow.payPerPlay = 1;
-            } else {
-                SettingsWindow.payPerPlay = 0;
-            }
-
-            if (r[2].contains("1")) {
-                SettingsWindow.perLaunch = 1;
-            } else {
-                SettingsWindow.perLaunch = 0;
-            }
-            SettingsWindow.coins = Integer.parseInt(r[3]);
-            SettingsWindow.playtime = Integer.parseInt(r[4]);
 
             line = file.readLine();    //Parse License Key
             r = line.split("|");
@@ -260,12 +200,17 @@ public class FileOps {
 
             FileWriter fw = new FileWriter(file);
             BufferedWriter sw = new BufferedWriter(fw);
+
+
+            //Save current settings
             if(MainActivity.e2.getText().toString()==null) {
                 SettingsWindow.passProtect = 0;
             }
             else{
                 SettingsWindow.passProtect = Integer.parseInt(MainActivity.e2.getText().toString());
             }
+
+            if(SettingsWindow.c2)
 
             sw.write("DefaultUser|" + SettingsWindow.defaultUser);
             sw.write("PassProtect|" + SettingsWindow.passProtect);
