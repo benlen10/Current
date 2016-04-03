@@ -40,11 +40,11 @@ public class SettingsWindow extends Activity {
     public static int enforceExt;
     public static int displayConImage;
     public static int displayESRBLogo;
-    public CheckBox c2;
-    public CheckBox c3;
-    public CheckBox c4;
-    public CheckBox c5;
-    public EditText e1;
+    public static CheckBox c2;
+    public static CheckBox c3;
+    public static CheckBox c4;
+    public static CheckBox c5;
+    public static EditText e1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +78,13 @@ public class SettingsWindow extends Activity {
         FileOps.loadDatabase("Database_backup.txt");
     }
 
-
-
+    public void loadView(){
+        c2 = (CheckBox) findViewById(R.id.checkBox2);
+        c3 = (CheckBox) findViewById(R.id.checkBox3);
+        c4 = (CheckBox) findViewById(R.id.checkBox4);
+        c5 = (CheckBox) findViewById(R.id.checkBox5);
+        e1 = (EditText) findViewById(R.id.editText);
     }
 
-public void loadView(){
 
 }

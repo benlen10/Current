@@ -203,14 +203,40 @@ public class FileOps {
 
 
             //Save current settings
-            if(MainActivity.e2.getText().toString()==null) {
+            if(SettingsWindow.e1.getText().toString()==null) {
                 SettingsWindow.passProtect = 0;
             }
             else{
-                SettingsWindow.passProtect = Integer.parseInt(MainActivity.e2.getText().toString());
+                SettingsWindow.passProtect = Integer.parseInt(SettingsWindow.e1.getText().toString());
             }
 
-            if(SettingsWindow.c2)
+            if(SettingsWindow.c2.isChecked()) {
+            SettingsWindow.autoLoadDatabase = 1;
+            }
+            else{
+                SettingsWindow.autoLoadDatabase = 0;
+            }
+
+            if(SettingsWindow.c4.isChecked()) {
+                SettingsWindow.scanOnStartup = 1;
+            }
+            else{
+                SettingsWindow.scanOnStartup = 0;
+            }
+
+            if(SettingsWindow.c3.isChecked()) {
+                SettingsWindow.displayESRBLogo = 1;
+            }
+            else{
+                SettingsWindow.displayESRBLogo = 0;
+            }
+
+            if(SettingsWindow.c5.isChecked()) {
+                SettingsWindow.displayConImage = 1;
+            }
+            else{
+                SettingsWindow.displayConImage = 0;
+            }
 
             sw.write("DefaultUser|" + SettingsWindow.defaultUser);
             sw.write("PassProtect|" + SettingsWindow.passProtect);
