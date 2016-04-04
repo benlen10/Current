@@ -94,29 +94,21 @@ public class DetailedInfo extends Activity{
         i3.setImageResource(MainActivity.getImageId(MainActivity.obj.context, MainActivity.curConsole.getName().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_boxback"));
         i4.setImageResource(MainActivity.getImageId(MainActivity.obj.context, MainActivity.curConsole.getName().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_screenshot"));
 
-
-        if (g.getEsrb().equals("Everyone"))
-        {
-            i5.setImageResource(R.drawable.everyone);
-        }
-        else if (g.getEsrb().equals("Everyone 10+"))
-        {
-            i5.setImageResource(R.drawable.everyone10);
-        }
-        else if (g.getEsrb().equals("Teen"))
-        {
-            i5.setImageResource(R.drawable.teen);
-        }
-        else if (g.getEsrb().equals("Mature"))
-        {
-            i5.setImageResource(R.drawable.mature);
-        }
-        else if (g.getEsrb().equals("Adults Only (AO)"))
-        {
-            i5.setImageResource(R.drawable.ao);;
-        }
-        else{
-            i5.setImageResource(0);
+        if(SettingsWindow.displayESRBLogo==0) {
+            if (g.getEsrb().equals("Everyone")) {
+                i5.setImageResource(R.drawable.everyone);
+            } else if (g.getEsrb().equals("Everyone 10+")) {
+                i5.setImageResource(R.drawable.everyone10);
+            } else if (g.getEsrb().equals("Teen")) {
+                i5.setImageResource(R.drawable.teen);
+            } else if (g.getEsrb().equals("Mature")) {
+                i5.setImageResource(R.drawable.mature);
+            } else if (g.getEsrb().equals("Adults Only (AO)")) {
+                i5.setImageResource(R.drawable.ao);
+                ;
+            } else {
+                i5.setImageResource(0);
+            }
         }
     }
 

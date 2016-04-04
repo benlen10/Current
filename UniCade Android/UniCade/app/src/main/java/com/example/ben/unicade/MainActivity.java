@@ -396,29 +396,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-                if (curGame.getEsrb().equals("Everyone"))
-                {
-                    i1.setImageResource(R.drawable.everyone);
-                }
-                else if (curGame.getEsrb().equals("Everyone 10+"))
-                {
-                    i1.setImageResource(R.drawable.everyone10);
-                }
-                else if (curGame.getEsrb().equals("Teen"))
-                {
-                    i1.setImageResource(R.drawable.teen);
-                }
-                else if (curGame.getEsrb().equals("Mature"))
-                {
-                    i1.setImageResource(R.drawable.mature);
-                }
-                else if (curGame.getEsrb().equals("Adults Only (AO)"))
-                {
-                    i1.setImageResource(R.drawable.ao);;
-                }
-                else{
-                    i1.setImageResource(R.drawable.splash_image);
+                if(SettingsWindow.displayESRBLogo==0) {
+                    if (curGame.getEsrb().equals("Everyone")) {
+                        i1.setImageResource(R.drawable.everyone);
+                    } else if (curGame.getEsrb().equals("Everyone 10+")) {
+                        i1.setImageResource(R.drawable.everyone10);
+                    } else if (curGame.getEsrb().equals("Teen")) {
+                        i1.setImageResource(R.drawable.teen);
+                    } else if (curGame.getEsrb().equals("Mature")) {
+                        i1.setImageResource(R.drawable.mature);
+                    } else if (curGame.getEsrb().equals("Adults Only (AO)")) {
+                        i1.setImageResource(R.drawable.ao);
+                        ;
+                    } else {
+                        i1.setImageResource(R.drawable.splash_image);
+                    }
                 }
 
             }
