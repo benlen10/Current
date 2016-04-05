@@ -53,7 +53,9 @@ public class DetailedInfo extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_activity);
         findView();
-        i6.setImageResource(MainActivity.getImageId(context, MainActivity.conImage));
+        if(SettingsWindow.displayConImage==0) {
+            i6.setImageResource(MainActivity.getImageId(context, MainActivity.conImage));
+        }
         i8.setImageResource(R.drawable.splash_image);
         loadInfo(MainActivity.curGame);
     }

@@ -210,13 +210,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {
-            conImage = curConsole.getName();
-            conImage = conImage.replace(" ", "");
-            conImage=conImage.toLowerCase();
-            t7.setText("Games: " + curConsole.gameCount);
-            t4.setText(("Title:"));
-            t1.setText(("Release Date:" ));
-            i7.setImageResource(getImageId(context,conImage));
+            if(SettingsWindow.displayConImage==0) {
+                conImage = curConsole.getName();
+                conImage = conImage.replace(" ", "");
+                conImage = conImage.toLowerCase();
+                t7.setText("Games: " + curConsole.gameCount);
+                t4.setText(("Title:"));
+                t1.setText(("Release Date:"));
+                i7.setImageResource(getImageId(context, conImage));
+            }
             for (Game g : curConsole.getGameList()) {
                 games.add(g.getTitle());
             }
