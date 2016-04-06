@@ -2,30 +2,26 @@ package com.example.ben.unicade;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.*;
-import java.util.Set;
-
 import android.content.Context.*;
 import android.os.Environment;
-import android.view.View;
-import android.widget.EditText;
 
 /**
  * Created by Ben on 12/17/2015.
  */
 public class FileOps {
 
-    public static boolean loadDatabase(String name)
+    public static boolean loadDatabase()
 
     {
         try {
             File sdCard = Environment.getExternalStorageDirectory();
             File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
             dir.mkdirs();
-            File f = new File(dir, name);
+            File f = new File(dir, "Database.txt");
 
 
             if (!f.exists()) {
-                System.err.println("Database file does not exist");
+                System.out.println("Database file does not exist");
                 return false;
             }
 
@@ -34,13 +30,16 @@ public class FileOps {
             int conCount = 0;
             Console c = new Console();
             String[] r = null;
-            clearLibrary();
+
             while ((line = file.readLine()) != null) {
+                System.out.println("LINE: " + line);
                 r = line.split("\\|");
+                System.out.println("Loop");
                 if (line.substring(0, 5).contains("***")) {
                     if (conCount > 0) {
                         MainActivity.dat.consoleList.add(c);
                     }
+                    System.out.printf("SPLIT: %s|%s|%s|%s|%s|%s|%s",r[0], r[1], r[2], r[3], r[4],r[5],r[6]);
                     c = new Console(r[0].substring(3), r[1], r[2], r[3], r[4], Integer.parseInt(r[5]) , r[6], r[7], r[8]);
                     conCount++;
                 } else {
@@ -59,15 +58,17 @@ public class FileOps {
 
 
 
-    public static void saveDatabase(String name)
+    public static void saveDatabase()
     {
 
 
         try {
+            System.err.println("YES");
             File sdCard = Environment.getExternalStorageDirectory();
             File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
             dir.mkdirs();
-            File file = new File(dir, name);
+            File file = new File(dir, "UniCade.txt");
+
             if (!file.exists()) {
                 file.createNewFile();
             } else {
@@ -77,54 +78,47 @@ public class FileOps {
 
             FileWriter fw = new FileWriter(file);
             BufferedWriter sw = new BufferedWriter(fw);
+            System.err.println("YES2");
             for(Console c : MainActivity.dat.consoleList)
             {
-
-                sw.write("***" + c.getName() + "|" + c.getEmuPath() + "|" + c.getRomPath() + "|" + c.getPrefPath() + "|" + c.getRomExt() + "|" + c.gameCount + "|" + "Console Info" + "|" + c.getLaunchParam() + "|" + c.getReleaseDate() + "\n");
+                String txt = String.format("***"+ c.getName() + "|"+ c.getEmuPath()+ "|"+ c.getRomPath()+ "|"+ c.getPrefPath()+ "|"+ c.getRomExt()+ "|"+ c.gameCount+ "|"+ "Console Info"+ "|"+ c.getLaunchParam()+ "|"+ c.getReleaseDate());
+                sw.write(txt);
                 for(Game g : c.getGameList())
                 {
-                    String fav = "0";
-                    if(g.getFav()>0){
-                         fav = "1";
-                    }
-                    sw.write(g.getFileName() +"|"+ g.getConsole() +"|"+ g.launchCount +"|"+ g.getReleaseDate() +"|"+ g.getPublisher()+"|"+ g.getDeveloper() +"|"+ g.getUserScore()+"|"+ g.getCriticScore()+"|"+ g.getPlayers()+"|"+ g.getTrivia() +"|"+ g.getEsrb()+"|"+ g.getEsrbDescriptor()+"|"+ g.getEsrbSummary()+"|"+ g.getDescription()+"|"+ g.getGenres() +"|"+g.getTags()+"|"+ fav+ "\n");
+                    txt = String.format(g.getFileName() +"|"+ g.getConsole() +"|"+ g.launchCount +"|"+ g.getReleaseDate() +"|"+ g.getPublisher()+"|"+ g.getDeveloper() +"|"+ g.getUserScore()+"|"+ g.getCriticScore()+"|"+ g.getPlayers()+"|"+ g.getTrivia() +"|"+ g.getEsrb()+"|"+ g.getEsrbDescriptor()+"|"+ g.getEsrbSummary()+"|"+ g.getDescription()+"|"+ g.getGenres() +"|"+g.getTags()+"|"+ g.getFav());
+                    sw.write(txt);
 
                 }
             }
             sw.close();
-
         }catch (IOException e){
             return;
         }
 
     }
 
-    public static boolean loadPreferences(String name)
+    public static boolean loadPreferences(String path)
     {
 
 
 
-
+        String[] tmp = { "tmp" };
+        String[] r = { " " };
         try {
-            File sdCard = Environment.getExternalStorageDirectory();
-            File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
-            dir.mkdirs();
-            File f = new File(dir, name);
+            File f = new File(path);
 
-
-            if (!f.exists()) {
-                System.err.println("Database file does not exist");
+            if (!f.exists())
+            {
+                System.out.println("Database file does not exist");
                 return false;
             }
 
             BufferedReader file = new BufferedReader(new FileReader(f));
 
-            int conCount = 0;
-            Console c = new Console();
-            String[] tmp = { "tmp" };
             String line = file.readLine();
-            String[] r = line.split("|");
 
+
+            r = line.split("|");
             for(User u :MainActivity.dat.userList)
             {
                 if (u.getUsername().equals(r[1]))   //Set curUser to default user
@@ -133,7 +127,25 @@ public class FileOps {
                     System.out.println("Current user change to " + u.getUsername());
                 }
             }
+            line = file.readLine();
+            r = line.split("|");
+            MainActivity.databasePath = r[1];
 
+            line = file.readLine();
+            r = line.split("|");
+            MainActivity.emuPath = r[1];
+
+            line = file.readLine();
+            r = line.split("|");
+            MainActivity.mediaPath = r[1];
+
+            line = file.readLine();
+            r = line.split("|");
+            if (r[1].contains("1")) {
+                SettingsWindow.showSplash = 1;
+            } else {
+                SettingsWindow.showSplash = 0;
+            }
 
             line = file.readLine();
             r = line.split("|");
@@ -143,7 +155,49 @@ public class FileOps {
                 SettingsWindow.scanOnStartup = 0;
             }
 
+            line = file.readLine();
+            r = line.split("|");
+            SettingsWindow.restrictESRB = Integer.parseInt(r[1]);
 
+            file.readLine();
+            r = line.split("|");
+            if (r[1].contains("1")) {
+                SettingsWindow.requireLogin = 1;
+            } else {
+                SettingsWindow.requireLogin = 0;
+            }
+
+            line = file.readLine();
+            r = line.split("|");
+            if (r[1].contains("1")) {
+                SettingsWindow.cmdOrGui = 1;
+            } else {
+                SettingsWindow.cmdOrGui = 0;
+            }
+
+            line = file.readLine();
+            r = line.split("|");
+            if (r[1].contains("1")) {
+                SettingsWindow.showLoading = 1;
+            } else {
+                SettingsWindow.showLoading = 0;
+            }
+
+            line = file.readLine();
+            r = line.split("|");
+            if (r[1].contains("1")) {
+                SettingsWindow.payPerPlay = 1;
+            } else {
+                SettingsWindow.payPerPlay = 0;
+            }
+
+            if (r[2].contains("1")) {
+                SettingsWindow.perLaunch = 1;
+            } else {
+                SettingsWindow.perLaunch = 0;
+            }
+            SettingsWindow.coins = Integer.parseInt(r[3]);
+            SettingsWindow.playtime = Integer.parseInt(r[4]);
 
             line = file.readLine();    //Parse License Key
             r = line.split("|");
@@ -183,71 +237,35 @@ public class FileOps {
         }
     }
 
-    public static void savePreferences(String name)
+    public static void savePreferences(String path)
     {
 
-        try {
-            File sdCard = Environment.getExternalStorageDirectory();
-            File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
-            dir.mkdirs();
-            File file = new File(dir, name);
-            if (!file.exists()) {
-                file.createNewFile();
-            } else {
-                file.delete();
-                file.createNewFile();
-            }
+        try{
+        File file = new File(path);
 
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter sw = new BufferedWriter(fw);
+        if (!file.exists()) {
+            file.createNewFile();
+        }else{
+            file.delete();
+            file.createNewFile();
+        }
 
-
-            //Save current settings
-            if(SettingsWindow.e1.getText().toString()==null) {
-                SettingsWindow.passProtect = 0;
-            }
-            else{
-                SettingsWindow.passProtect = Integer.parseInt(SettingsWindow.e1.getText().toString());
-            }
-
-            if(SettingsWindow.c2.isChecked()) {
-            SettingsWindow.autoLoadDatabase = 1;
-            }
-            else{
-                SettingsWindow.autoLoadDatabase = 0;
-            }
-
-            if(SettingsWindow.c4.isChecked()) {
-                SettingsWindow.scanOnStartup = 1;
-            }
-            else{
-                SettingsWindow.scanOnStartup = 0;
-            }
-
-            if(SettingsWindow.c3.isChecked()) {
-                SettingsWindow.displayESRBLogo = 1;
-            }
-            else{
-                SettingsWindow.displayESRBLogo = 0;
-            }
-
-            if(SettingsWindow.c5.isChecked()) {
-                SettingsWindow.displayConImage = 1;
-            }
-            else{
-                SettingsWindow.displayConImage = 0;
-            }
+        FileWriter fw = new FileWriter(file.getAbsoluteFile());
+        BufferedWriter sw = new BufferedWriter(fw);
 
             sw.write("DefaultUser|" + SettingsWindow.defaultUser);
-            sw.write("PassProtect|" + SettingsWindow.passProtect);
+            sw.write("DatabasePath|" + MainActivity.databasePath);
+            sw.write("EmulatorFolderPath|" + MainActivity.emuPath);
+            sw.write("MediaFolderPath|" + MainActivity.mediaPath);
+            sw.write("ShowSplash|" + SettingsWindow.showSplash);
             sw.write("ScanOnStartup|" + SettingsWindow.scanOnStartup);
-            sw.write("AutoLoadDatabse|" + SettingsWindow.autoLoadDatabase);
-            sw.write("EnforceExt|" + SettingsWindow.enforceExt);
-            sw.write("DisplayConImage|" + SettingsWindow.displayConImage);
-            sw.write("DisplayESRBLogo|" + SettingsWindow.displayESRBLogo);
+            sw.write("RestrictESRB|" + SettingsWindow.restrictESRB);
+            sw.write("RequireLogin|" + SettingsWindow.requireLogin);
+            sw.write("CmdOrGui|" + SettingsWindow.cmdOrGui);
+            //sw.write("KeyBindings|" + SettingsWindow.defaultUser);
+            sw.write("LoadingScreen|" + SettingsWindow.showLoading);
+            sw.write("PaySettings|" + SettingsWindow.payPerPlay + "|" + SettingsWindow.perLaunch + "|" + SettingsWindow.coins + "|" + SettingsWindow.playtime);
             sw.write("License Key|" + MainActivity.userLicenseName + "|" + MainActivity.userLicenseKey);
-
-
             sw.write("***UserData***");
             for (User u : MainActivity.dat.userList)
             {
@@ -317,20 +335,19 @@ public class FileOps {
 
     }
 
-    public static void clearLibrary(){
-        MainActivity.dat.consoleList.clear();
-    }
-
     public static void defaultPreferences()
     {
 
         SettingsWindow.defaultUser = "UniCade";
+        SettingsWindow.showSplash = 0;
         SettingsWindow.scanOnStartup = 0;
-        SettingsWindow.autoLoadDatabase = 0;
-        SettingsWindow.passProtect = 0;
-        SettingsWindow.enforceExt = 0;
-        SettingsWindow.displayESRBLogo = 0;
-        SettingsWindow.displayConImage = 0;
-
+        SettingsWindow.restrictESRB = 0;
+        SettingsWindow.requireLogin = 0;
+        SettingsWindow.cmdOrGui = 0;
+        SettingsWindow.showLoading = 0;
+        SettingsWindow.payPerPlay = 0;
+        SettingsWindow.coins = 1;
+        SettingsWindow.playtime = 15;
+        SettingsWindow.perLaunch = 0;
     }
 }
