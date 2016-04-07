@@ -53,7 +53,7 @@ public class DetailedInfo extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_activity);
         findView();
-        if(SettingsWindow.displayConImage==0) {
+        if(SettingsWindow.displayConImage==1) {
             i6.setImageResource(MainActivity.getImageId(context, MainActivity.conImage));
         }
         i8.setImageResource(R.drawable.splash_image);
@@ -96,7 +96,7 @@ public class DetailedInfo extends Activity{
         i3.setImageResource(MainActivity.getImageId(MainActivity.obj.context, MainActivity.curConsole.getName().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_boxback"));
         i4.setImageResource(MainActivity.getImageId(MainActivity.obj.context, MainActivity.curConsole.getName().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_screenshot"));
 
-        if(SettingsWindow.displayESRBLogo==0) {
+        if(SettingsWindow.displayESRBLogo==1) {
             if (g.getEsrb().equals("Everyone")) {
                 i5.setImageResource(R.drawable.everyone);
             } else if (g.getEsrb().equals("Everyone 10+")) {
