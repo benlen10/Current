@@ -83,10 +83,11 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Web Scraper Options"
+            android:text="Web Scraper Settings"
             android:id="@+id/button7"
             android:layout_above="@+id/button8"
-            android:layout_alignStart="@+id/button8" />
+            android:layout_alignStart="@+id/button8"
+            android:onClick="launchWebSettings" />
 
         <Button
             android:layout_width="wrap_content"

@@ -1,6 +1,7 @@
 package com.example.ben.unicade;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -56,6 +57,10 @@ public class SettingsWindow extends Activity {
     public void closeSettings(View v){
         FileOps.savePreferences("Preferences.txt");
         super.onBackPressed();
+    }
+
+    public void launchWebSettings(View v){
+        startActivity(new Intent(getApplicationContext(), WebSettings.class));
     }
 
     public void saveDatabase(View v){
