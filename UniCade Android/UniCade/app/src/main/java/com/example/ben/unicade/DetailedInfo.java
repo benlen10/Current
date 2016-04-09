@@ -68,6 +68,10 @@ public class DetailedInfo extends Activity{
         loadInfo(curGame);
     }
 
+    public void rescrapeSingleGame(View v){
+        WebOps.scrapeInfo(curGame);
+    }
+
     public void saveDatabase(View v){
         FileOps.saveDatabase("Database.txt");
     }

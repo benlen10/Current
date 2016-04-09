@@ -2,6 +2,7 @@ package com.example.ben.unicade;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 /**
  * Created by Ben on 12/31/2015.
@@ -20,7 +21,7 @@ public class WebSettings extends Activity {
         return;
     }
 
-    public void rescrapeGlobal(){
+    public void rescrapeGlobal(View v){
         for(Console c : MainActivity.dat.consoleList){
             for(Game g : c.getGameList()){
                 WebOps.scrapeInfo(g);
