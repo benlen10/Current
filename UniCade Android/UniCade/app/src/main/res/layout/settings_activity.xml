@@ -141,6 +141,24 @@
             android:layout_below="@+id/checkBox5"
             android:layout_alignStart="@+id/checkBox5" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter License"
+            android:id="@+id/button20"
+            android:onClick="closeSettings"
+            android:layout_alignBottom="@+id/editText"
+            android:layout_toEndOf="@+id/button15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="License:"
+            android:id="@+id/textView3"
+            android:layout_above="@+id/editText"
+            android:layout_toEndOf="@+id/checkBox4" />
+
     </RelativeLayout>
 
 </LinearLayout>

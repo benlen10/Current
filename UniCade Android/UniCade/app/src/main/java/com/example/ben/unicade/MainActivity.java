@@ -20,8 +20,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import java.security.MessageDigest;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -331,6 +333,31 @@ public class MainActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    public static boolean ValidateSHA256(String input, String storedHashData)
+    {
+        MessageDigest md;
+        try {
+
+             md = MessageDigest.getInstance("SHA-256");
+
+        } catch (NoSuchAlgorithmException ex) {
+            return false;
+        }
+        md.update(input.getBytes());
+
+        byte[] shaDig = md.digest();
+        System.err.println("USER HASH: " + shaDig.toString() );
+        System.err.println("STORED HASH: " + storedHashData);
+        if ((shaDig.toString().equals(storedHashData)))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 

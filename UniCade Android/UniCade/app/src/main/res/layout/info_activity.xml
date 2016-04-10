@@ -188,10 +188,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rescrape Info"
+        android:text="Rescrape Game"
         android:id="@+id/button18"
-        android:onClick="refreshGameInfoButton"
+        android:onClick="rescrapeSingleGame"
         android:layout_above="@+id/button4"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scrape Console"
+        android:id="@+id/button19"
+        android:onClick="rescrapeConsole"
+        android:layout_above="@+id/button11"
+        android:layout_toEndOf="@+id/textView16" />
 
 </RelativeLayout>

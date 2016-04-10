@@ -70,6 +70,14 @@ public class DetailedInfo extends Activity{
 
     public void rescrapeSingleGame(View v){
         WebOps.scrapeInfo(curGame);
+        showPopup("Notice", "Operation Complete");
+    }
+
+    public void rescrapeConsole(View v){
+        for(Game g : MainActivity.curConsole.getGameList()) {
+            WebOps.scrapeInfo(g);
+        }
+        showPopup("Notice", "Operation Complete");
     }
 
     public void saveDatabase(View v){
@@ -162,6 +170,25 @@ public class DetailedInfo extends Activity{
         });
 
         builder.show();
+    }
+
+    public void showPopup(String title, String message){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+
+        // set title
+        alertDialogBuilder.setTitle(title);
+        alertDialogBuilder
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }
+                );
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public void boxfrontFullscreen(View v){
