@@ -89,6 +89,21 @@ public class SettingsWindow extends Activity {
         c4 = (CheckBox) findViewById(R.id.checkBox4);
         c5 = (CheckBox) findViewById(R.id.checkBox5);
         e1 = (EditText) findViewById(R.id.editText);
+
+        if(SettingsWindow.autoLoadDatabase>0){
+            c2.setChecked(true);
+        }
+        if(SettingsWindow.scanOnStartup>0){
+            c4.setChecked(true);
+        }
+        if(SettingsWindow.displayConImage>0){
+            c5.setChecked(true);
+        }
+        if(SettingsWindow.displayESRBLogo>0){
+            c3.setChecked(true);
+
+            }
+        }
     }
 
 

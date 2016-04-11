@@ -206,6 +206,9 @@ public class FileOps {
             if(SettingsWindow.e1.getText().toString()==null) {
                 SettingsWindow.passProtect = 0;
             }
+            else if(SettingsWindow.e1.getText().toString().length()<3){
+                SettingsWindow.passProtect = 0;
+            }
             else{
                 SettingsWindow.passProtect = Integer.parseInt(SettingsWindow.e1.getText().toString());
             }
