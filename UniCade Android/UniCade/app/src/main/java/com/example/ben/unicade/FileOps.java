@@ -125,14 +125,20 @@ public class FileOps {
             String line = file.readLine();
             String[] r = line.split("|");
 
-            for(User u :MainActivity.dat.userList)
+            /*for(User u :MainActivity.dat.userList)
             {
                 if (u.getUsername().equals(r[1]))   //Set curUser to default user
                 {
                     MainActivity.curUser = u;
                     System.out.println("Current user change to " + u.getUsername());
                 }
-            }
+            }*/
+
+
+            line = file.readLine();
+            r = line.split("|");
+            SettingsWindow.passProtect = Integer.parseInt(r[1]);
+
 
 
             line = file.readLine();
@@ -143,7 +149,37 @@ public class FileOps {
                 SettingsWindow.scanOnStartup = 0;
             }
 
+            line = file.readLine();
+            r = line.split("|");
+            if ((r[1].contains("1"))) {
+                SettingsWindow.autoLoadDatabase = 1;
+            } else {
+                SettingsWindow.autoLoadDatabase = 0;
+            }
 
+            line = file.readLine();
+            r = line.split("|");
+            if ((r[1].contains("1"))) {
+                SettingsWindow.enforceExt = 1;
+            } else {
+                SettingsWindow.enforceExt = 0;
+            }
+
+            line = file.readLine();
+            r = line.split("|");
+            if ((r[1].contains("1"))) {
+                SettingsWindow.displayConImage = 1;
+            } else {
+                SettingsWindow.displayConImage = 0;
+            }
+
+            line = file.readLine();
+            r = line.split("|");
+            if ((r[1].contains("1"))) {
+                SettingsWindow.displayESRBLogo = 1;
+            } else {
+                SettingsWindow.displayESRBLogo = 0;
+            }
 
             line = file.readLine();    //Parse License Key
             r = line.split("|");
@@ -241,7 +277,6 @@ public class FileOps {
                 SettingsWindow.displayConImage = 0;
             }
 
-            sw.write("DefaultUser|" + SettingsWindow.defaultUser);
             sw.write("PassProtect|" + SettingsWindow.passProtect);
             sw.write("ScanOnStartup|" + SettingsWindow.scanOnStartup);
             sw.write("AutoLoadDatabse|" + SettingsWindow.autoLoadDatabase);
@@ -261,6 +296,7 @@ public class FileOps {
                 }
                 sw.write( u.getUsername() +"|"+ u.getPass() +"|"+ u.getLoginCount() +"|"+ u.getEmail() +"|"+ u.getLaunchCount()+"|"+ u.getUserInfo()+"|"+ u.getAllowedEsrb()+"|"+ u.getProfPic());
         }
+            sw.close();
 
     } catch (IOException e) {
         e.printStackTrace();

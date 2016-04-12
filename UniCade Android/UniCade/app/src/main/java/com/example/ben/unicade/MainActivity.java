@@ -335,6 +335,66 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    private String v;
+    void setValue(String inV) {
+        this.v = inV;
+    }
+    String getValue() {
+        return this.v;
+    }
+    public void run() {
+        this.run();
+    }
+
+    void promptForResult(final MainActivity postrun) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Title");
+        alert.setMessage("Message.");
+
+        final EditText input = new EditText(this);
+
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = input.getText().toString();
+                dialog.dismiss();
+
+                postrun.setValue(value);
+
+                postrun.run();
+                return;
+            }
+        });
+
+
+        promptForResult(new MainActivity() {
+            // put whatever code you want to run after user enters a result
+            public void run() {
+                // get the value we stored from the dialog
+                String value = this.getValue();
+                // do something with this value...
+                // In our example we are taking our value and passing it to
+                // an activity intent, then starting the activity.
+                Intent i = new Intent(getApplication(), MainActivity.class);
+                i.putExtra("extraValue", value);
+                startActivity(i);
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                return;
+            }
+        });
+        alert.show();
+    }
+
+    public void inputWindow(View v){
+        promptForResult(this);
+    }
+
     public static boolean ValidateSHA256(String input, String storedHashData)
     {
         MessageDigest md;
