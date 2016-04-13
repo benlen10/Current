@@ -75,17 +75,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dat = new Database();
         obj = this;
-         spinner = (Spinner) findViewById(R.id.spinner);
-         t1 = (TextView) findViewById(R.id.textView);
-        t4 = (TextView) findViewById(R.id.textView4);
-
-        t6 = (TextView) findViewById(R.id.textView6);
-        t7 = (TextView) findViewById(R.id.textView7);
-        i1 = (ImageView) findViewById(R.id.imageView);
-        i7 = (ImageView) findViewById(R.id.imageView7);
-        e1 = (EditText)  findViewById(R.id.editText2);
-        e2 = (EditText)  findViewById(R.id.editText2);
-        c6 = (CheckBox) findViewById(R.id.checkBox6);
+         findView();
         t4.setHorizontallyScrolling(true);
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -460,6 +450,20 @@ public class MainActivity extends AppCompatActivity {
         ListView lv = (ListView)findViewById(R.id.listView);
         ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         lv.setAdapter(myarrayAdapter);
+    }
+
+    public void findView(){
+        spinner = (Spinner) findViewById(R.id.spinner);
+        t1 = (TextView) findViewById(R.id.textView);
+        t4 = (TextView) findViewById(R.id.textView4);
+
+        t6 = (TextView) findViewById(R.id.textView6);
+        t7 = (TextView) findViewById(R.id.textView7);
+        i1 = (ImageView) findViewById(R.id.imageView);
+        i7 = (ImageView) findViewById(R.id.imageView7);
+        e1 = (EditText)  findViewById(R.id.editText2);
+        e2 = (EditText)  findViewById(R.id.editText2);
+        c6 = (CheckBox) findViewById(R.id.checkBox6);
     }
 
 

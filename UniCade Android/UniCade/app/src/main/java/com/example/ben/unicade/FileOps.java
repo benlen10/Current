@@ -277,13 +277,13 @@ public class FileOps {
                 SettingsWindow.displayConImage = 0;
             }
 
-            sw.write("PassProtect|" + SettingsWindow.passProtect);
-            sw.write("ScanOnStartup|" + SettingsWindow.scanOnStartup);
-            sw.write("AutoLoadDatabse|" + SettingsWindow.autoLoadDatabase);
-            sw.write("EnforceExt|" + SettingsWindow.enforceExt);
-            sw.write("DisplayConImage|" + SettingsWindow.displayConImage);
-            sw.write("DisplayESRBLogo|" + SettingsWindow.displayESRBLogo);
-            sw.write("License Key|" + MainActivity.userLicenseName + "|" + MainActivity.userLicenseKey);
+            sw.write("PassProtect|" + SettingsWindow.passProtect +"\n");
+            sw.write("ScanOnStartup|" + SettingsWindow.scanOnStartup+"\n");
+            sw.write("AutoLoadDatabse|" + SettingsWindow.autoLoadDatabase+"\n");
+            sw.write("EnforceExt|" + SettingsWindow.enforceExt+"\n");
+            sw.write("DisplayConImage|" + SettingsWindow.displayConImage+"\n");
+            sw.write("DisplayESRBLogo|" + SettingsWindow.displayESRBLogo+"\n");
+            sw.write("License Key|" + MainActivity.userLicenseName + "|" + MainActivity.userLicenseKey+"\n");
 
 
             sw.write("***UserData***");

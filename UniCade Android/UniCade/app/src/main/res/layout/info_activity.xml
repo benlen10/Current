@@ -182,7 +182,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView8"
-        android:layout_above="@+id/button4"
+        android:layout_above="@+id/button18"
         android:layout_alignParentStart="true" />
 
     <Button
