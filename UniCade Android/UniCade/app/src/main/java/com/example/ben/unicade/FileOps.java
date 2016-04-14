@@ -123,7 +123,7 @@ public class FileOps {
             Console c = new Console();
             String[] tmp = { "tmp" };
             String line = file.readLine();
-            String[] r = line.split("|");
+            String[] r = line.split("\\|");
 
             /*for(User u :MainActivity.dat.userList)
             {
@@ -136,13 +136,13 @@ public class FileOps {
 
 
             line = file.readLine();
-            r = line.split("|");
+            r = line.split("\\|");
             SettingsWindow.passProtect = Integer.parseInt(r[1]);
 
 
 
             line = file.readLine();
-            r = line.split("|");
+            r = line.split("\\|");
             if ((r[1].contains("1"))) {
                 SettingsWindow.scanOnStartup = 1;
             } else {
@@ -150,7 +150,7 @@ public class FileOps {
             }
 
             line = file.readLine();
-            r = line.split("|");
+            r = line.split("\\|");
             if ((r[1].contains("1"))) {
                 SettingsWindow.autoLoadDatabase = 1;
             } else {
@@ -158,7 +158,7 @@ public class FileOps {
             }
 
             line = file.readLine();
-            r = line.split("|");
+            r = line.split("\\|");
             if ((r[1].contains("1"))) {
                 SettingsWindow.enforceExt = 1;
             } else {
@@ -166,7 +166,7 @@ public class FileOps {
             }
 
             line = file.readLine();
-            r = line.split("|");
+            r = line.split("\\|");
             if ((r[1].contains("1"))) {
                 SettingsWindow.displayConImage = 1;
             } else {
@@ -174,7 +174,7 @@ public class FileOps {
             }
 
             line = file.readLine();
-            r = line.split("|");
+            r = line.split("\\|");
             if ((r[1].contains("1"))) {
                 SettingsWindow.displayESRBLogo = 1;
             } else {
@@ -182,7 +182,7 @@ public class FileOps {
             }
 
             line = file.readLine();    //Parse License Key
-            r = line.split("|");
+            r = line.split("\\|");
             MainActivity.userLicenseName = r[1];
             MainActivity.userLicenseKey = r[2];
 
@@ -193,7 +193,7 @@ public class FileOps {
             while ((line = file.readLine()) != null) {
 
 
-                r = line.split("|");
+                r = line.split("\\|");
 
                 User u = new User(r[0], r[1], Integer.parseInt(r[2]), r[3], Integer.parseInt(r[4]), r[5], r[6], r[7]);
                 if (r[6].length() > 0) {
