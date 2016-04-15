@@ -41,10 +41,10 @@ public class FileOps {
                     if (conCount > 0) {
                         MainActivity.dat.consoleList.add(c);
                     }
-                    c = new Console(r[0].substring(3), r[1], r[2], r[3], r[4], Integer.parseInt(r[5]) , r[6], r[7], r[8]);
+                    c = new Console(r[0].substring(3), r[1], r[2], r[3], r[4], safeParse(r[5]) , r[6], r[7], r[8]);
                     conCount++;
                 } else {
-                    c.getGameList().add(new Game(r[0], r[1], Integer.parseInt(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], Integer.parseInt(r[16])));
+                    c.getGameList().add(new Game(r[0], r[1], safeParse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], safeParse(r[16])));
                     //System.out.println(r[0]);
                 }
             }
@@ -122,22 +122,13 @@ public class FileOps {
             int conCount = 0;
             Console c = new Console();
             String[] tmp = { "tmp" };
+
+
+
             String line = file.readLine();
             String[] r = line.split("\\|");
-
-            /*for(User u :MainActivity.dat.userList)
-            {
-                if (u.getUsername().equals(r[1]))   //Set curUser to default user
-                {
-                    MainActivity.curUser = u;
-                    System.out.println("Current user change to " + u.getUsername());
-                }
-            }*/
-
-
-            line = file.readLine();
-            r = line.split("\\|");
-            SettingsWindow.passProtect = Integer.parseInt(r[1]);
+            System.err.println("PASS: "+ r[1]);
+            SettingsWindow.passProtect = safeParse(r[1]);
 
 
 
@@ -195,7 +186,7 @@ public class FileOps {
 
                 r = line.split("\\|");
 
-                User u = new User(r[0], r[1], Integer.parseInt(r[2]), r[3], Integer.parseInt(r[4]), r[5], r[6], r[7]);
+                User u = new User(r[0], r[1], safeParse(r[2]), r[3], safeParse(r[4]), r[5], r[6], r[7]);
                 if (r[6].length() > 0) {
                     String[] st = r[6].split("#");
 
@@ -246,7 +237,7 @@ public class FileOps {
                 SettingsWindow.passProtect = 0;
             }
             else{
-                SettingsWindow.passProtect = Integer.parseInt(SettingsWindow.e1.getText().toString());
+                SettingsWindow.passProtect = safeParse(SettingsWindow.e1.getText().toString());
             }
 
             if(SettingsWindow.c2.isChecked()) {
@@ -277,7 +268,7 @@ public class FileOps {
                 SettingsWindow.displayConImage = 0;
             }
 
-            sw.write("PassProtect|" + SettingsWindow.passProtect +"\n");
+            sw.write("PassProtect|" + SettingsWindow.passProtect + "\n");
             sw.write("ScanOnStartup|" + SettingsWindow.scanOnStartup+"\n");
             sw.write("AutoLoadDatabse|" + SettingsWindow.autoLoadDatabase+"\n");
             sw.write("EnforceExt|" + SettingsWindow.enforceExt+"\n");
@@ -371,5 +362,13 @@ public class FileOps {
         SettingsWindow.displayESRBLogo = 0;
         SettingsWindow.displayConImage = 0;
 
+    }
+
+    public static int safeParse(String text) {
+        try {
+            return safeParse(text);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }
