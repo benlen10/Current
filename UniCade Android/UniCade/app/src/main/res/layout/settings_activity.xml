@@ -159,6 +159,15 @@
             android:layout_above="@+id/editText"
             android:layout_toEndOf="@+id/checkBox4" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load Prefs"
+            android:id="@+id/button21"
+            android:onClick="loadPrefs"
+            android:layout_alignTop="@+id/button7"
+            android:layout_alignEnd="@+id/button3" />
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -269,12 +269,12 @@ public class FileOps {
             }
 
             sw.write("PassProtect|" + SettingsWindow.passProtect + "\n");
-            sw.write("ScanOnStartup|" + SettingsWindow.scanOnStartup+"\n");
-            sw.write("AutoLoadDatabse|" + SettingsWindow.autoLoadDatabase+"\n");
-            sw.write("EnforceExt|" + SettingsWindow.enforceExt+"\n");
-            sw.write("DisplayConImage|" + SettingsWindow.displayConImage+"\n");
-            sw.write("DisplayESRBLogo|" + SettingsWindow.displayESRBLogo+"\n");
-            sw.write("License Key|" + MainActivity.userLicenseName + "|" + MainActivity.userLicenseKey+"\n");
+            sw.write("ScanOnStartup|" + SettingsWindow.scanOnStartup+ "\n");
+            sw.write("AutoLoadDatabse|" + SettingsWindow.autoLoadDatabase+ "\n");
+            sw.write("EnforceExt|" + SettingsWindow.enforceExt + "\n");
+            sw.write("DisplayConImage|" + SettingsWindow.displayConImage + "\n");
+            sw.write("DisplayESRBLogo|" + SettingsWindow.displayESRBLogo + "\n");
+            sw.write("License Key|" + MainActivity.userLicenseName + "|" + MainActivity.userLicenseKey + "\n");
 
 
             sw.write("***UserData***");
@@ -285,7 +285,7 @@ public class FileOps {
                 {
                     favs += (s + "#");
                 }
-                sw.write( u.getUsername() +"|"+ u.getPass() +"|"+ u.getLoginCount() +"|"+ u.getEmail() +"|"+ u.getLaunchCount()+"|"+ u.getUserInfo()+"|"+ u.getAllowedEsrb()+"|"+ u.getProfPic());
+                sw.write( u.getUsername() +"|"+ u.getPass() +"|"+ u.getLoginCount() +"|"+ u.getEmail() +"|"+ u.getLaunchCount()+"|"+ u.getUserInfo()+"|"+ u.getAllowedEsrb()+"|"+ u.getProfPic()+ "\n");
         }
             sw.close();
 
@@ -366,7 +366,7 @@ public class FileOps {
 
     public static int safeParse(String text) {
         try {
-            return safeParse(text);
+            return Integer.parseInt(text);
         } catch (NumberFormatException e) {
             return 0;
         }

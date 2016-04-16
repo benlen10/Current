@@ -71,6 +71,10 @@ public class SettingsWindow extends Activity {
         FileOps.loadDatabase("Database.txt");
     }
 
+    public void loadPrefs(View v){
+        FileOps.loadPreferences("Preferences.txt");
+    }
+
     public void savePreferences(View v){
         FileOps.savePreferences("Preferences.txt");
     }

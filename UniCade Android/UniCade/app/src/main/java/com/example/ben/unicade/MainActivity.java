@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         obj = this;
          findView();
         t4.setHorizontallyScrolling(true);
-        FileOps.loadPreferences("Preferences.txt");
+        //FileOps.loadPreferences("Preferences.txt");
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
