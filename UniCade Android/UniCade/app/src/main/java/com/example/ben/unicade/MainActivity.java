@@ -467,6 +467,13 @@ public class MainActivity extends AppCompatActivity {
         c6 = (CheckBox) findViewById(R.id.checkBox6);
     }
 
+    public static int safeParse(String text) {
+        try {
+            return safeParse(text);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
 
 
     public void updateBasicGameInfo(String title) {
@@ -491,6 +498,8 @@ public class MainActivity extends AppCompatActivity {
                 t1.setText(("Release Date" + g.getReleaseDate()));
             }
         }
+            
+            
 
 
                 if(SettingsWindow.displayESRBLogo==1) {
