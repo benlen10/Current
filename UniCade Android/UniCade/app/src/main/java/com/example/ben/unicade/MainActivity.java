@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         obj = this;
          findView();
         t4.setHorizontallyScrolling(true);
-        //FileOps.loadPreferences("Preferences.txt");
+        FileOps.loadPreferences("Preferences.txt");
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -153,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void launchSettings(View view){
-        if(SettingsWindow.passProtect>0) {
+        startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
+        /*if(SettingsWindow.passProtect>0) {
             showInputDialog("Enter Password", "");
             if(resultText.equals(Integer.toString(SettingsWindow.passProtect))) {
                 startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
@@ -165,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
-        }
+        }*/
     }
 
     public void launchInfoWindow(View view){

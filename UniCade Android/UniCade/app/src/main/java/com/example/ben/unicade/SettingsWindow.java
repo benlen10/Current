@@ -87,27 +87,30 @@ public class SettingsWindow extends Activity {
         FileOps.loadDatabase("Database_backup.txt");
     }
 
-    public void loadView(){
+    public void loadView() {
         c2 = (CheckBox) findViewById(R.id.checkBox2);
         c3 = (CheckBox) findViewById(R.id.checkBox3);
         c4 = (CheckBox) findViewById(R.id.checkBox4);
         c5 = (CheckBox) findViewById(R.id.checkBox5);
         e1 = (EditText) findViewById(R.id.editText);
 
-        if(SettingsWindow.autoLoadDatabase>0){
+        if (SettingsWindow.autoLoadDatabase > 0) {
             c2.setChecked(true);
         }
-        if(SettingsWindow.scanOnStartup>0){
+        if (SettingsWindow.scanOnStartup > 0) {
             c4.setChecked(true);
         }
-        if(SettingsWindow.displayConImage>0){
+        if (SettingsWindow.displayConImage > 0) {
             c5.setChecked(true);
         }
-        if(SettingsWindow.displayESRBLogo>0){
+        if (SettingsWindow.displayESRBLogo > 0) {
             c3.setChecked(true);
 
-            }
         }
+        if (passProtect > 0) {
+            e1.setText(Integer.toString(passProtect));
+        }
+    }
     }
 
 
