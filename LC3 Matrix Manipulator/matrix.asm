@@ -1,8 +1,8 @@
 ;Free to modify x4000 - x5000
 .ORIG x3000
 ;Save Initial register values
-STR R0, Start, #0
 LD R0, Start
+STR R0, R0, #0
 ADD R0, R0, #1
 STR R1, R0, #0
 ADD R0, R0, #1
@@ -21,7 +21,7 @@ STR R7, R0, #0
 ;Load Operation value to R0 and determine label to jump to
 LDI R0, OP
 ADD R1, R0, #-6
-BRpz INVALIDOP   ;Check for invalid op greater than 5
+BRzp INVALIDOP   ;Check for invalid op greater than 5
 ADD R1, R0, #-1
 BRz LSHIFT
 ADD R1, R0, #-2
@@ -41,11 +41,11 @@ LDI R3, Rows
 ADD R0, R1, R2 ;Check if amount to shift = width
 BRz DONE
 
-LD R6, R3, #0 ;Current Row Counter
+LD R6, Rows      ;Current Row Counter
 LD R0, Matrix  ;Initialize Current position at end of beginning of matrix
 LOOP1
 LD R2, Cols  ;Reload initial col value to R2
-STI R0, EndRow  ;Load last value of the row to EndRow
+STI R0, EndValue  ;Load last value of the row to EndValue
 ADD R0, R0, -1 ;Decrement once outside of loop
 INLOOP1 STR R0, R0, #1   ;Save pos to (pos+1)
 ADD R0, R0, #-1 ;Shift Pointer Left
@@ -64,7 +64,11 @@ BR DONE
 
 
 
-INVALIDOP
+INVALIDOP AND, R0, R0, #0
+LSHIFT AND, R0, R0, #0
+USHIFT AND, R0, R0, #0
+DSHIFT AND, R0, R0, #0
+TRANSPOSE AND, R0, R0, #0
 ;Throw Error
 
 
@@ -78,7 +82,7 @@ Shift  .FILL x5003
 Matrix .FILL x5004
 Start  .FILL x4000 ;Store registers in x4000 - x4007
 Tmp1   .FILL x4010 
-EndRow . FILL x4011
+EndValue .FILL x4011
 
 
 	.END
