@@ -49,13 +49,13 @@ LDI R2, Cols  ;Reload initial col value to R2
 STI R0, EndValue  ;Load last value of the row to EndValue
 ADD R0, R0, -1 ;Decrement once outside of loop
 INLOOP1 
-STR R0, R0, #1   ;Save pos to (pos+1)
+LDR R6, R0, 0   ;Load decimal value to temp register
+STR R6, R0, #1   ;Save pos to (pos+1)
 ADD R0, R0, #-1 ;Shift Pointer Left
 Add R2, R2, #-1 ;Decrement col count
-BRzp INLOOP1     ;Continue inter loop until pos pointer hits beginning of row -1
+BRp INLOOP1     ;Continue inter loop until pos pointer hits beginning of row -1
 LDI R5, EndValue ;Load end value to a temp register, R5
-ADD R0, R0, #1 ;Shift R0 up 1 back to begining of row
-STI R0, EndValue ;Replace the first value of the row with EndValue
+STR R5, R0,0 ;Replace the first value of the row with EndValue
 ADD R1, R1, #-1   ;Decerement Shift counter
 BRp LOOP1         ;If shift counter is above zero, loop back to outer loop1
 ADD R3, R3, #-1  ;Decrement row counter
