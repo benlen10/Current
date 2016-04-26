@@ -45,7 +45,9 @@ LD R0, Matrix  ;Initialize Current position at end of beginning of matrix
 OUTLOOP1
 ADD R0, R0, R2
 ADD R0, R0, #-1
+STI R0, Pos
 LOOP1
+LDI R0, Pos
 LDI R2, Cols  ;Reload initial col value to R2
 LDR R6, R0, 0  ;Load decimal value to temp register
 STI R6 EndValue  ;Load last value of the row to EndValue
@@ -88,7 +90,7 @@ Matrix .FILL x5004
 Start  .FILL x4000 ;Store registers in x4000 - x4007
 Tmp1   .FILL x4010 
 EndValue .FILL x4011
-Pos      .FILL x4011
+Pos      .FILL x4012
 
 
 	.END
