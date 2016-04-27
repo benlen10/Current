@@ -42,7 +42,14 @@ ADD R0, R1, R2 ;Check if amount to shift = width
 BRz DONE
 
 LD R0, Matrix  ;Initialize Current position at end of beginning of matrix
+BR SKIPOUTLOOP1
+
 OUTLOOP1
+LDI R0, Pos   ;Reload position for next col
+LDI R1, Shift ;Reload shift counter for next col
+
+SKIPOUTLOOP1
+LDI R2, Cols  ;Reload initial col value to R2
 ADD R0, R0, R2
 ADD R0, R0, #-1
 STI R0, Pos
