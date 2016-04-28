@@ -47,6 +47,7 @@ BR SKIPOUTLOOP1
 OUTLOOP1
 LDI R0, Pos   ;Reload position for next col
 LDI R1, Shift ;Reload shift counter for next col
+ADD R0, R0, #1 
 
 SKIPOUTLOOP1
 LDI R2, Cols  ;Reload initial col value to R2
