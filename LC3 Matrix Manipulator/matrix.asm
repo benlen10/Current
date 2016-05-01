@@ -87,37 +87,37 @@ ADD R0, R1, R2 ;Check if amount to shift = width
 BRz DONE
 
 LD R0, Matrix  ;Initialize Current position at end of beginning of matrix
-BR SKIPOUTLOOP1
+BR SKIPOUTLOOP2
 
-OUTLOOP1
+OUTLOOP2
 LDI R0, Pos   ;Reload position for next col
 LDI R1, Shift ;Reload shift counter for next col
 ADD R0, R0, R2
 ;ADD R0, R0, #-1
 
 
-SKIPOUTLOOP1
-LDI R2, Cols  ;Reload initial col value to R2
-STI R0, Pos
-LOOP1
-LDI R0, Pos
+SKIPOUTLOOP2
+;LDI R2, Cols  ;Reload initial col value to R2
+;STI R0, Pos
+LOOP2
+;LDI R0, Pos
 LDI R2, Cols  ;Reload initial col value to R2
 LDR R6, R0, 0  ;Load decimal value to temp register
 STI R6 EndValue  ;Load last value of the row to EndValue
-ADD R0, R0, +1 ;Increment once outside of loop
+ADD R0, R0, #1 ;Increment once outside of loop
 ADD R2, R2, #-1
-INLOOP1 
+INLOOP2 
 LDR R6, R0, 0   ;Load decimal value to temp register
 STR R6, R0, #-1   ;Save pos to (pos-1)
 ADD R0, R0, #1 ;Shift Pointer Right
 Add R2, R2, #-1 ;Decrement col count
-BRp INLOOP1     ;Continue inter loop until pos pointer hits beginning of row -1
+BRp INLOOP2     ;Continue inter loop until pos pointer hits beginning of row -1
 LDI R5, EndValue ;Load end value to a temp register, R5
 STR R5, R0,#-1     ;Replace the last value of the row with EndValue
 ADD R1, R1, #-1   ;Decerement Shift counter
-BRp LOOP1         ;If shift counter is above zero, loop back to outer loop1
+BRp LOOP2         ;If shift counter is above zero, loop back to outer loop1
 ADD R3, R3, #-1  ;Decrement row counter
-BRp OUTLOOP1  ;If row counter is above zero, loop back to outer loop1
+BRp OUTLOOP2  ;If row counter is above zero, loop back to outer loop1
 BR DONE 
 
 
@@ -125,7 +125,6 @@ BR DONE
 
 
 INVALIDOP AND, R0, R0, #0
-LSHIFT AND, R0, R0, #0
 USHIFT AND, R0, R0, #0
 DSHIFT AND, R0, R0, #0
 TRANSPOSE AND, R0, R0, #0
