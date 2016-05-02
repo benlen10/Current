@@ -79,6 +79,8 @@ BRp OUTLOOP1  ;If row counter is above zero, loop back to outer loop1
 BR DONE 
 
 
+
+
 LSHIFT
 LDI R1, Shift
 LDI R2, Cols
@@ -90,17 +92,19 @@ LD R0, Matrix  ;Initialize Current position at end of beginning of matrix
 BR SKIPOUTLOOP2
 
 OUTLOOP2
-LDI R0, Pos   ;Reload position for next col
+;LDI R0, Pos   ;Reload position for next col
 LDI R1, Shift ;Reload shift counter for next col
-ADD R0, R0, R2
+;ADD R0, R0, R2
 ;ADD R0, R0, #-1
 
 
-SKIPOUTLOOP2
-;LDI R2, Cols  ;Reload initial col value to R2
-;STI R0, Pos
+
+
+BR SKIPOUTLOOP2
 LOOP2
-;LDI R0, Pos
+LDI R0, Pos
+SKIPOUTLOOP2
+STI R0, Pos
 LDI R2, Cols  ;Reload initial col value to R2
 LDR R6, R0, 0  ;Load decimal value to temp register
 STI R6 EndValue  ;Load last value of the row to EndValue
