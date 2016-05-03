@@ -128,9 +128,44 @@ BR DONE
 
 
 
+DSHIFT 
+LDI R1, Shift
+LDI R2, Cols
+LDI R3, Rows
+MULTI ADD R0, R2, R3  ;R2 is the total elemenet counter
+ADD R2, R2, #-1
+BRp MULTI 
+STI R0, Pos
+
+
+OUTLOOP1 ;Keeps track of row shifts
+
+LOOP1   ;Keeps track of single shifts (not total row shifts)
+LDI R0, Pos
+LDR R6, R0, 0  ;Load decimal value to temp register
+STI R6 EndValue  ;Load last value of the matrix to EndValue
+ADD R0, R0, -1   ;Decrement once outside of loop
+INLOOP1 
+LDR R6, R0, 0   ;Load decimal value to temp register
+STR R6, R0, #1   ;Save pos to (pos+1)
+ADD R0, R0, #-1 ;Shift Pointer Left
+BRp INLOOP1     ;Continue inter loop until pos pointer hits beginning of row -1
+LDI R5, EndValue ;Load end value to a temp register, R5
+STR R5, R0,1     ;Replace the first value of the row with EndValue
+Add R2, R2, #-1 ;Decrement col count
+BRp LOOP1         ;If shift counter is above zero, loop back to outer loop1
+ADD R3, R3, #-1  ;Decrement row counter
+BRp LOOP1  ;If row counter is above zero, continue shifting
+ADD R1, R1, #-1   ;Decerement Shift counter
+LDI R3, Rows
+BR DONE 
+
+
+
+
+
 INVALIDOP AND, R0, R0, #0
 USHIFT AND, R0, R0, #0
-DSHIFT AND, R0, R0, #0
 TRANSPOSE AND, R0, R0, #0
 ;Throw Error
 
