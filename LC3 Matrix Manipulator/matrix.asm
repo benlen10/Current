@@ -138,24 +138,24 @@ BRp MULTI
 STI R0, Pos
 
 
-OUTLOOP1 ;Keeps track of row shifts
+OUTLOOP3 ;Keeps track of row shifts
 
-LOOP1   ;Keeps track of single shifts (not total row shifts)
+LOOP3   ;Keeps track of single shifts (not total row shifts)
 LDI R0, Pos
 LDR R6, R0, 0  ;Load decimal value to temp register
 STI R6 EndValue  ;Load last value of the matrix to EndValue
 ADD R0, R0, -1   ;Decrement once outside of loop
-INLOOP1 
+INLOOP3 
 LDR R6, R0, 0   ;Load decimal value to temp register
 STR R6, R0, #1   ;Save pos to (pos+1)
 ADD R0, R0, #-1 ;Shift Pointer Left
-BRp INLOOP1     ;Continue inter loop until pos pointer hits beginning of row -1
+BRp INLOOP3     ;Continue inter loop until pos pointer hits beginning of row -1
 LDI R5, EndValue ;Load end value to a temp register, R5
 STR R5, R0,1     ;Replace the first value of the row with EndValue
 Add R2, R2, #-1 ;Decrement col count
-BRp LOOP1         ;If shift counter is above zero, loop back to outer loop1
+BRp LOOP3         ;If shift counter is above zero, loop back to outer loop1
 ADD R3, R3, #-1  ;Decrement row counter
-BRp LOOP1  ;If row counter is above zero, continue shifting
+BRp LOOP3  ;If row counter is above zero, continue shifting
 ADD R1, R1, #-1   ;Decerement Shift counter
 LDI R3, Rows
 BR DONE 
