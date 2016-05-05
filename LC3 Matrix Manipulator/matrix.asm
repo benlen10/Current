@@ -132,9 +132,13 @@ DSHIFT
 LDI R1, Shift
 LDI R2, Cols
 LDI R3, Rows
-MULTI ADD R0, R2, R3  ;R2 is the total elemenet counter
+AND R0, R0, #0
+MULTI ADD R0, R0, R3  ;R2 is the total elemenet counter
 ADD R2, R2, #-1
 BRp MULTI 
+LD R4, Matrix
+ADD R0, R0, R4
+ADD R0, R0, #-1
 STI R0, Pos
 
 
@@ -156,8 +160,9 @@ Add R2, R2, #-1 ;Decrement col count
 BRp LOOP3         ;If shift counter is above zero, loop back to outer loop1
 ADD R3, R3, #-1  ;Decrement row counter
 BRp LOOP3  ;If row counter is above zero, continue shifting
-ADD R1, R1, #-1   ;Decerement Shift counter
 LDI R3, Rows
+ADD R1, R1, #-1   ;Decerement Shift counter
+BRp LOOP3
 BR DONE 
 
 
