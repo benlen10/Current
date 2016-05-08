@@ -175,6 +175,7 @@ MULTI2 ADD R0, R0, R3  ;R0 is the current element pointer
 ADD R2, R2, #-1  
 BRp MULTI2
 ADD R2, R0, #0 ;R2 is the total elemenet counter
+AND R0, R0, #0
 STI R2, Elements
 LD R4, Matrix
 ADD R0, R0, R4
@@ -185,18 +186,18 @@ STI R0, Pos
 LOOP4   ;Keeps track of single shifts (not total row shifts)
 LDI R2, Elements
 ADD R2, R2, #-1
-LDI R0, Pos
+LDI R0, Matrix   ;Begin ponter at beginning of matrix
 LDR R6, R0, 0  ;Load decimal value to temp register
-STI R6 EndValue  ;Load last value of the matrix to EndValue
-ADD R0, R0, -1   ;Decrement once outside of loop
+STI R0 EndValue  ;Load first value of the matrix to EndValue
+ADD R0, R0, #1   ;Decrement once outside of loop
 INLOOP4 
 LDR R6, R0, 0   ;Load decimal value to temp register
-STR R6, R0, #1   ;Save pos to (pos+1)
-ADD R0, R0, #-1 ;Shift Pointer Left
+STR R6, R0, #-1   ;Save pos to (pos-1)
+ADD R0, R0, #1 ;Shift Pointer Left
 ADD R2, R2, #-1 ;
 BRp INLOOP4     ;Continue inter loop until pos pointer hits beginning of row -1
 LDI R5, EndValue ;Load end value to a temp register, R5
-STR R5, R0,1     ;Replace the first value of the row with EndValue
+STR R5, R0,#-1     ;Replace the first value of the row with EndValue
 Add R3, R3, #-1 ;Decrement col count
 BRp LOOP4         ;If shift counter is above zero, loop back to outer loop1
 ADD R1, R1, #-1   ;Decerement Shift counter
