@@ -179,25 +179,25 @@ AND R0, R0, #0
 STI R2, Elements
 LD R4, Matrix
 ADD R0, R0, R4
-ADD R0, R0, #-1
+;ADD R0, R0, #-1
 STI R0, Pos
 
 
 LOOP4   ;Keeps track of single shifts (not total row shifts)
 LDI R2, Elements
 ADD R2, R2, #-1
-LDI R0, Matrix   ;Begin ponter at beginning of matrix
-LDR R6, R0, 0  ;Load decimal value to temp register
-STI R0 EndValue  ;Load first value of the matrix to EndValue
-ADD R0, R0, #1   ;Decrement once outside of loop
+LDI R0, Pos   ;Begin ponter at beginning of matrix
+LDI R6, Matrix  ;Load decimal value to temp register
+STI R6, EndValue  ;Load first value of the matrix to EndValue
+ADD R0, R0, #1   ;Increment once outside of loop
 INLOOP4 
 LDR R6, R0, 0   ;Load decimal value to temp register
 STR R6, R0, #-1   ;Save pos to (pos-1)
-ADD R0, R0, #1 ;Shift Pointer Left
+ADD R0, R0, #1 ;Shift Pointer Right
 ADD R2, R2, #-1 ;
 BRp INLOOP4     ;Continue inter loop until pos pointer hits beginning of row -1
 LDI R5, EndValue ;Load end value to a temp register, R5
-STR R5, R0,#-1     ;Replace the first value of the row with EndValue
+STR R5, R0,#-1     ;Replace the last value of the matrix with EndValue
 Add R3, R3, #-1 ;Decrement col count
 BRp LOOP4         ;If shift counter is above zero, loop back to outer loop1
 ADD R1, R1, #-1   ;Decerement Shift counter
