@@ -125,48 +125,18 @@ BRp OUTLOOP2  ;If row counter is above zero, loop back to outer loop1
 BR DONE 
 
 
-
+DSHIFT   ;Invert downshift to upshift
+LDI R1, Shift
+LDI R2, Rows
+SUBT
+ADD R2, R2, #-1
+ADD R1, R1, #-1
+BRp SUBT
+STI R2, Shift
+BR USHIFT
 
 
 USHIFT 
-LDI R1, Shift
-LDI R3, Cols
-LDI R2, Rows
-AND R0, R0, #0
-MULTI ADD R0, R0, R3  ;R0 is the current element pointer
-ADD R2, R2, #-1  
-BRp MULTI 
-ADD R2, R0, #0 ;R2 is the total elemenet counter
-STI R2, Elements
-LD R4, Matrix
-ADD R0, R0, R4
-ADD R0, R0, #-1
-STI R0, Pos
-
-
-LOOP3   ;Keeps track of single shifts (not total row shifts)
-LDI R2, Elements
-ADD R2, R2, #-1
-LDI R0, Pos
-LDR R6, R0, 0  ;Load decimal value to temp register
-STI R6 EndValue  ;Load last value of the matrix to EndValue
-ADD R0, R0, -1   ;Decrement once outside of loop
-INLOOP3 
-LDR R6, R0, 0   ;Load decimal value to temp register
-STR R6, R0, #1   ;Save pos to (pos+1)
-ADD R0, R0, #-1 ;Shift Pointer Left
-ADD R2, R2, #-1 ;
-BRp INLOOP3     ;Continue inter loop until pos pointer hits beginning of row -1
-LDI R5, EndValue ;Load end value to a temp register, R5
-STR R5, R0,1     ;Replace the first value of the row with EndValue
-Add R3, R3, #-1 ;Decrement col count
-BRp LOOP3         ;If shift counter is above zero, loop back to outer loop1
-ADD R1, R1, #-1   ;Decerement Shift counter
-BRp LOOP3
-BR DONE 
-
-
-DSHIFT 
 LDI R1, Shift
 LDI R3, Cols
 LDI R2, Rows
@@ -182,6 +152,8 @@ ADD R0, R0, R4
 ;ADD R0, R0, #-1
 STI R0, Pos
 
+OUTLOOP4
+LDI R3, Cols
 
 LOOP4   ;Keeps track of single shifts (not total row shifts)
 LDI R2, Elements
@@ -201,7 +173,7 @@ STR R5, R0,#-1     ;Replace the last value of the matrix with EndValue
 Add R3, R3, #-1 ;Decrement col count
 BRp LOOP4         ;If shift counter is above zero, loop back to outer loop1
 ADD R1, R1, #-1   ;Decerement Shift counter
-BRp LOOP4
+BRp OUTLOOP4
 BR DONE 
 
 
