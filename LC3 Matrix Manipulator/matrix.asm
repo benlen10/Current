@@ -176,16 +176,59 @@ ADD R1, R1, #-1   ;Decerement Shift counter
 BRp OUTLOOP4
 BR DONE 
 
+TRANSPOSE 
+LDI R1, Cols
+LDI R2, Rows
+;Initial single matrix chec
+ADD R0, R1, #-1
+BRz SWAPRC
+ADD R0, R2, #-1
+BRz SWAPRC
+
+LDI R1, Cols
+LDI R2, Rows
+
+
+AND R3, R3, #0
+MULTI ADD R3, R3, R1  ;R3 Stores total elemetnts
+ADD R2, R2, #-1  
+BRp MULTI
+STI R3, Elements
+
+
+OUTLOOP5
+LD R0, Matrix; R0 is the orig matrix element pointer
+LD R4, NMatrix; R4 is the NEW matrix element pointer
+
+LOOP5
+LDR R6, R0, 0   ;Load decimal value to temp register
+STR R6, R4, #0   ;Save pos to (pos-1)
+ADD R4, R4, #1   ;Increment NEW Matrix pointer
+INLOOP5         ;Move R0 to next element
+ADD R2, R2, #-1  ;Decrement # of rows
+LDR R6, R0, R1
+STR R6, R4, #0
+BBp INLOOP5
 
 
 
-INVALIDOP AND, R0, R0, #0
-TRANSPOSE AND, R0, R0, #0
+
+
+
+
+
+SWAPRC
+;Implement Swap rows and cols
+BR DONE
+
+
+INVALIDOP
 ;Throw Error
 
+DONE
+;Restore Initial register values
 
-
-DONE TRAP x25  
+ TRAP x25  
 ;Labels
 Rows   .FILL x5000
 Cols   .FILL x5001
@@ -197,6 +240,8 @@ Tmp1   .FILL x4010
 EndValue .FILL x4011
 Pos      .FILL x4012
 Elements .FILL x4013
+Nmatrix  .FILL x4015
+Offset  .FILL x0001
 
 
 	.END
