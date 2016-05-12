@@ -203,12 +203,17 @@ LD R4, NMatrix; R4 is the NEW matrix element pointer
 LOOP5
 LDR R6, R0, 0   ;Load decimal value to temp register
 STR R6, R4, #0   ;Save pos to (pos-1)
-ADD R4, R4, #1   ;Increment NEW Matrix pointer
 INLOOP5         ;Move R0 to next element
-ADD R2, R2, #-1  ;Decrement # of rows
-LDR R6, R0, R1
+ADD R4, R4, #1   ;Increment NEW Matrix pointer
+ADD R5, R5, R1
+LDR R6, R0, R5   ;R5 is the CURRENT col offset (multiplied)
 STR R6, R4, #0
+ADD R2, R2, #-1  ;Decrement # of rows
 BBp INLOOP5
+ADD R0, R0, #1
+ADD R4, R4, #1
+ADD R1, R1, #-1 ;Decrement remaining col count
+BRp LOOP5  ;Iterate to next base element If there are still cols remaining
 
 
 
@@ -217,8 +222,13 @@ BBp INLOOP5
 
 
 
-SWAPRC
-;Implement Swap rows and cols
+
+
+SWAPRC  ;Swap rows and cols
+LDI R0, Rows
+LDI R1, Cols
+STI R0, Cols
+STI R1, Rows
 BR DONE
 
 
