@@ -20,16 +20,22 @@
 
 ;Load Operation value to R0 and determine label to jump to
 LDI R0, OP
+AND R1, R1, #0
 ADD R1, R0, #-6
 BRzp INVALIDOP   ;Check for invalid op greater than 5
+AND R1, R1, #0
 ADD R1, R0, #-1
 BRz LSHIFT
+AND R1, R1, #0
 ADD R1, R0, #-2
 BRz RSHIFT
+AND R1, R1, #0
 ADD R1, R0, #-3
 BRz USHIFT
+AND R1, R1, #0
 ADD R1, R0, #-4
 BRz DSHIFT
+AND R1, R1, #0
 ADD R1, R0, #-5
 BRz TRANSPOSE
 BR DONE
@@ -203,25 +209,34 @@ LD R4, NMatrix; R4 is the NEW matrix element pointer
 LOOP5
 LDR R6, R0, 0   ;Load decimal value to temp register
 STR R6, R4, #0   ;Save pos to (pos-1)
+AND R5, R5, #0  
+ADD R5, R5, R0   ;Set R5 to current pos (in first row) value
 INLOOP5         ;Move R0 to next element
 ADD R4, R4, #1   ;Increment NEW Matrix pointer
 ADD R5, R5, R1
-LDR R6, R0, R5   ;R5 is the CURRENT col offset (multiplied)
+LDR R6, R5, #0   ;R5 is the CURRENT col offset (multiplied)
 STR R6, R4, #0
 ADD R2, R2, #-1  ;Decrement # of rows
-BBp INLOOP5
+BRp INLOOP5
 ADD R0, R0, #1
 ADD R4, R4, #1
 ADD R1, R1, #-1 ;Decrement remaining col count
 BRp LOOP5  ;Iterate to next base element If there are still cols remaining
 
+;Restore new matrix
+LD R0, Matrix; R0 is the orig matrix element pointer
+LD R4, NMatrix; R4 is the NEW matrix element pointer
+LDI R3, Elements ;Load R3 with the total number of elements
 
+RLOOP
+LDR R6, R4, #0 ;Load Current NEW Matrix pointer value to temp register R6 
+STR R6, R0, #0 ;Store New Value to old matrix location
+ADD R0, R0, #1 ;Increment all values
+ADD R4, R4, #1
+ADD R3, R3, #-1 ;Decement remaining element count
+BRp RLOOP
 
-
-
-
-
-
+BR SWAPRC
 
 
 SWAPRC  ;Swap rows and cols
