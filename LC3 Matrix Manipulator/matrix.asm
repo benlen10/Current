@@ -186,8 +186,10 @@ TRANSPOSE
 LDI R1, Cols
 LDI R2, Rows
 ;Initial single matrix chec
+AND R0, R0, #0
 ADD R0, R1, #-1
 BRz SWAPRC
+AND R0, R0, #0
 ADD R0, R2, #-1
 BRz SWAPRC
 
@@ -201,25 +203,32 @@ ADD R2, R2, #-1
 BRp MULTI
 STI R3, Elements
 
+LDI R1, Cols
+LDI R2, Rows
+
+AND R7, R7, #0
+ADD R7, R7, R1  ;R7 is a permanant register that will store the TOTAL ORIG # of cols for generating offsets
+
 
 OUTLOOP5
 LD R0, Matrix; R0 is the orig matrix element pointer
 LD R4, NMatrix; R4 is the NEW matrix element pointer
 
 LOOP5
+LDI R2, Rows
 LDR R6, R0, 0   ;Load decimal value to temp register
 STR R6, R4, #0   ;Save pos to (pos-1)
 AND R5, R5, #0  
 ADD R5, R5, R0   ;Set R5 to current pos (in first row) value
 INLOOP5         ;Move R0 to next element
 ADD R4, R4, #1   ;Increment NEW Matrix pointer
-ADD R5, R5, R1
+ADD R5, R5, R7
 LDR R6, R5, #0   ;R5 is the CURRENT col offset (multiplied)
 STR R6, R4, #0
 ADD R2, R2, #-1  ;Decrement # of rows
 BRp INLOOP5
 ADD R0, R0, #1
-ADD R4, R4, #1
+;ADD R4, R4, #1
 ADD R1, R1, #-1 ;Decrement remaining col count
 BRp LOOP5  ;Iterate to next base element If there are still cols remaining
 
