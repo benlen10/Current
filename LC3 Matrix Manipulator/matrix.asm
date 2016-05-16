@@ -1,22 +1,15 @@
 ;Free to modify x4000 - x5000
 .ORIG x3000
 ;Save Initial register values
-;LD R0, Start
-;STR R0, R0, #0
-;ADD R0, R0, #1
-;STR R1, R0, #0
-;ADD R0, R0, #1
-;STR R2, R0, #0
-;ADD R0, R0, #1
-;STR R3, R0, #0
-;ADD R0, R0, #1
-;STR R4, R0, #0
-;ADD R0, R0, #1
-;STR R5, R0, #0
-;ADD R0, R0, #1
-;STR R6, R0, #0
-;ADD R0, R0, #1
-;STR R7, R0, #0
+STI R0, reg0
+STI R1, reg1
+STI R2, reg2
+STI R3, reg3
+STI R4, reg4
+STI R5, reg5
+STI R6, reg6
+STI R7, reg7
+
 
 ;Load Operation value to R0 and determine label to jump to
 LDI R0, OP
@@ -261,6 +254,15 @@ INVALIDOP
 
 DONE
 ;Restore Initial register values
+LDI R0, reg0
+LDI R1, reg1
+LDI R2, reg2
+LDI R3, reg3
+LDI R4, reg4
+LDI R5, reg5
+LDI R6, reg6
+LDI R7, reg7
+LDI R1, reg1
 
  TRAP x25  
 ;Labels
@@ -270,12 +272,20 @@ OP     .FILL x5002
 Shift  .FILL x5003
 Matrix .FILL x5004
 Start  .FILL x4000 ;Store registers in x4000 - x4007
-Tmp1   .FILL x4010 
-EndValue .FILL x4011
-Pos      .FILL x4012
-Elements .FILL x4013
-Nmatrix  .FILL x4015
-Offset  .FILL x0001
+Tmp1   .FILL x400A 
+EndValue .FILL x400B
+Pos      .FILL x400C
+Elements .FILL x400D
+Nmatrix  .FILL x400E
+Offset    .FILL x4010
+reg0  .FILL x4000
+reg1  .FILL x4001
+reg2  .FILL x4002
+reg3  .FILL x4003
+reg4  .FILL x4004
+reg5  .FILL x4005
+reg6  .FILL x4006
+reg7  .FILL x4007
 
 
 	.END
