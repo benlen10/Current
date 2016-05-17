@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/button13"
-        android:onClick="inputWindow"
+        android:onClick="launchLogin"
         android:layout_alignTop="@+id/button"
         android:layout_toEndOf="@+id/button" />
 

@@ -78,22 +78,30 @@ public class MainActivity extends AppCompatActivity {
          findView();
         t4.setHorizontallyScrolling(true);
         FileOps.loadPreferences("Preferences.txt");
+        if(validateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))
+        {
+            SettingsWindow.t3.setText("License: Full");
+            validLicense = true;
+        }
+        else{
+            SettingsWindow.t3.setText("License: None");
+            validLicense = false;
+        }
+
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {  //Console selection changed
                 String con = spinner.getSelectedItem().toString();
-                if(con.equals("Users")){
-                        displayUsers = true;
-                }
-                else if(con.equals("All Games")){
+                if (con.equals("Users")) {
+                    displayUsers = true;
+                } else if (con.equals("All Games")) {
 
-                            displayAllGames = true;
+                    displayAllGames = true;
                     globalSearch = true;
                     curConsole = null;
 
-                }
-                else {
+                } else {
                     displayAllGames = false;
                     displayUsers = false;
                     for (Console c : dat.consoleList) {
@@ -387,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
         promptForResult(this);
     }
 
-    public static boolean ValidateSHA256(String input, String storedHashData)
+    public static boolean validateSHA256(String input, String storedHashData)
     {
         MessageDigest md;
         try {

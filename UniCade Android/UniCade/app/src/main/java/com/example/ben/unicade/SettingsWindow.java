@@ -46,6 +46,7 @@ public class SettingsWindow extends Activity {
     public static CheckBox c4;
     public static CheckBox c5;
     public static EditText e1;
+    public static TextView t3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,7 @@ public class SettingsWindow extends Activity {
         c4 = (CheckBox) findViewById(R.id.checkBox4);
         c5 = (CheckBox) findViewById(R.id.checkBox5);
         e1 = (EditText) findViewById(R.id.editText);
+        t3 = (TextView) findViewById(R.id.textView3);
 
         if (SettingsWindow.autoLoadDatabase > 0) {
             c2.setChecked(true);
