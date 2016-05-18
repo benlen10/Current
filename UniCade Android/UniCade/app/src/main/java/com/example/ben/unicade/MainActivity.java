@@ -80,11 +80,10 @@ public class MainActivity extends AppCompatActivity {
         FileOps.loadPreferences("Preferences.txt");
         if(validateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))
         {
-            SettingsWindow.t3.setText("License: Full");
             validLicense = true;
         }
         else{
-            SettingsWindow.t3.setText("License: None");
+
             validLicense = false;
         }
 

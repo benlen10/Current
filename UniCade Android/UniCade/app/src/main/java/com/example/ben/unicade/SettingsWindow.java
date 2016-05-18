@@ -112,6 +112,12 @@ public class SettingsWindow extends Activity {
         if (passProtect > 0) {
             e1.setText(Integer.toString(passProtect));
         }
+        if(MainActivity.validLicense) {
+            t3.setText("License: Full");
+        }
+        else{
+            t3.setText("License: None");
+        }
     }
     }
 
