@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
     public static EditText e2;
     final Context context = this;
     public static String conImage = "";
-    private boolean displayUsers = false;
     private boolean displayAllGames = false;
     private boolean globalSearch = false;
     private boolean searchInProgress = false;
@@ -92,9 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {  //Console selection changed
                 String con = spinner.getSelectedItem().toString();
-                if (con.equals("Users")) {
-                    displayUsers = true;
-                } else if (con.equals("All Games")) {
+            if (con.equals("All Games")) {
 
                     displayAllGames = true;
                     globalSearch = true;
@@ -102,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     displayAllGames = false;
-                    displayUsers = false;
+
                     for (Console c : dat.consoleList) {
                         if (c.getName().equals(con)) {
                             curConsole = c;
@@ -208,11 +205,8 @@ public class MainActivity extends AppCompatActivity {
             t1.setText("Console: ");
             t7.setText("Games: " + dat.totalGameCount);
         }
-        else if(displayUsers) {
-            for (User u : dat.userList) {
-                games.add(u.getUsername());
-            }
-        }
+
+
         else {
             if(SettingsWindow.displayConImage==1) {
                 conImage = curConsole.getName();
@@ -247,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
         //spinner.setOnItemSelectedListener(this);
         ArrayList<String> al = new ArrayList<String>();
         al.add("All Games");
-        al.add("Users");
         for(Console c : dat.consoleList){
             al.add(c.getName());
             for(Game g : c.getGameList()){
@@ -398,7 +391,6 @@ public class MainActivity extends AppCompatActivity {
     {
         MessageDigest md;
         try {
-
              md = MessageDigest.getInstance("SHA-256");
 
         } catch (NoSuchAlgorithmException ex) {
