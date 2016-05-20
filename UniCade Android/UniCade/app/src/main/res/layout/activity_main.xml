@@ -105,7 +105,7 @@
         android:layout_alignStart="@+id/textView"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/imageView"
-        android:layout_above="@+id/checkBox6" />
+        android:layout_above="@+id/checkBox15" />
 
     <Button
         android:layout_width="wrap_content"
@@ -131,5 +131,14 @@
         android:id="@+id/checkBox6"
         android:layout_above="@+id/editText2"
         android:layout_alignParentEnd="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Favorites"
+        android:id="@+id/checkBox15"
+        android:layout_above="@+id/checkBox6"
+        android:layout_alignParentEnd="true"
+        android:onClick="favCheckChange" />
 
 </RelativeLayout>

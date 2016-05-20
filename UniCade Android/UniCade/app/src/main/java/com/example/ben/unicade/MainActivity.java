@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public static ImageView i1;
     public static ImageView i7;
     public static CheckBox c6;
+    public static CheckBox c15;
     public static EditText e1;
     public static EditText e2;
     final Context context = this;
@@ -148,8 +149,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
+    public void favCheckChange(View v){
+        updateGameList();
+    }
 
 
 
@@ -199,7 +201,14 @@ public class MainActivity extends AppCompatActivity {
         if(displayAllGames){
             for(Console c : dat.consoleList) {
                 for (Game g : c.getGameList()) {
-                    games.add(g.getTitle());
+                    if(c15.isChecked()){
+                        if(g.getFav()>0){
+                            games.add(g.getTitle());
+                        }
+                    }
+                    else {
+                        games.add(g.getTitle());
+                    }
                 }
             }
             t1.setText("Console: ");
@@ -218,7 +227,14 @@ public class MainActivity extends AppCompatActivity {
                 i7.setImageResource(getImageId(context, conImage));
             }
             for (Game g : curConsole.getGameList()) {
-                games.add(g.getTitle());
+                if(c15.isChecked()){
+                    if(g.getFav()>0){
+                        games.add(g.getTitle());
+                    }
+                }
+                else {
+                    games.add(g.getTitle());
+                }
             }
         }
         ListView lv = (ListView)findViewById(R.id.listView);
@@ -465,6 +481,7 @@ public class MainActivity extends AppCompatActivity {
         e1 = (EditText)  findViewById(R.id.editText2);
         e2 = (EditText)  findViewById(R.id.editText2);
         c6 = (CheckBox) findViewById(R.id.checkBox6);
+        c15 = (CheckBox) findViewById(R.id.checkBox15);
     }
 
     public static int safeParse(String text) {
