@@ -184,7 +184,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchLogin(View view){
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        PromptDialog dlg = new PromptDialog(MainActivity.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                // do something
+                return true; // true = close dialog
+            }
+        };
+        dlg.show();
+        //startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
     public void connectSQL(View view){

@@ -203,4 +203,13 @@
         android:layout_above="@+id/button11"
         android:layout_toEndOf="@+id/textView16" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Img"
+        android:id="@+id/button22"
+        android:onClick="loadImagefromGallery"
+        android:layout_above="@+id/imageView6"
+        android:layout_alignStart="@+id/button19" />
+
 </RelativeLayout>
