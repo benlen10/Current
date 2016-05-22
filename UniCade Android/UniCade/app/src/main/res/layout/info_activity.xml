@@ -209,7 +209,26 @@
         android:text="Load Img"
         android:id="@+id/button22"
         android:onClick="loadImagefromGallery"
-        android:layout_above="@+id/imageView6"
-        android:layout_alignStart="@+id/button19" />
+        android:layout_above="@+id/button17"
+        android:layout_alignStart="@+id/button17" />
+
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="2dp"
+        android:id="@+id/imageView11"
+        android:onClick="consoleFullscreen"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/textView9" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Img"
+        android:id="@+id/button17"
+        android:onClick="deleteImage"
+        android:layout_above="@+id/button19"
+        android:layout_alignStart="@+id/button19"
+        android:nestedScrollingEnabled="false" />
 
 </RelativeLayout>

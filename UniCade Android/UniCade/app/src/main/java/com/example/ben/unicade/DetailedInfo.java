@@ -6,12 +6,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.text.InputType;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,6 +24,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.PopupMenu;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 
 /**
  * Created by Ben on 12/20/2015.
@@ -36,12 +48,15 @@ public class DetailedInfo extends Activity{
     public static TextView t16;
     public static TextView t17;
     public static Button b4;
+    public static Button b17;
+    public static Button b22;
     public static ImageView i2;
     public static ImageView i3;
     public static ImageView i4;
     public static ImageView i5;
     public static ImageView i6;
     public static ImageView i8;
+    public static ImageView i11;
     public static CheckBox c1;
     private String resultText = "";
     private String origText = "";
@@ -55,11 +70,16 @@ public class DetailedInfo extends Activity{
     private android.view.ViewGroup.LayoutParams origParams;
     private String imgDecodableString;
     private static int RESULT_LOAD_IMG = 1;
+    private static String viewStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_activity);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         findView();
         if(SettingsWindow.displayConImage==1) {
             i6.setImageResource(MainActivity.getImageId(context, MainActivity.conImage));
@@ -111,9 +131,12 @@ public class DetailedInfo extends Activity{
             c1.setChecked(true);
         }
 
-            i2.setImageResource(MainActivity.getImageId(MainActivity.obj.context, g.getConsole().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_boxfront"));
-            i3.setImageResource(MainActivity.getImageId(MainActivity.obj.context, g.getConsole().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_boxback"));
-            i4.setImageResource(MainActivity.getImageId(MainActivity.obj.context, g.getConsole().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_screenshot"));
+        Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()+ "/Unicade/Media/" + g.getConsole().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_boxfront"+".png");
+        i2.setImageBitmap(bitmap);
+         bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()+ "/Unicade/Media/" + g.getConsole().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_boxback"+".png");
+        i3.setImageBitmap(bitmap);
+         bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()+ "/Unicade/Media/" + g.getConsole().toLowerCase().replace(" ", "") + "_" + g.getTitle().toLowerCase().replace(" ", "") + "_screenshot"+".png");
+        i4.setImageBitmap(bitmap);
 
 
         if (SettingsWindow.displayESRBLogo==1) {
@@ -151,34 +174,20 @@ public class DetailedInfo extends Activity{
         i5 = (ImageView) findViewById(R.id.imageView5);
         i6 = (ImageView) findViewById(R.id.imageView6);
         i8 = (ImageView) findViewById(R.id.imageView8);
+        i11 = (ImageView) findViewById(R.id.imageView11);
         b4 = (Button) findViewById(R.id.button4);
+        b17 = (Button) findViewById(R.id.button17);
+        b22 = (Button) findViewById(R.id.button22);
         c1 = (CheckBox) findViewById(R.id.checkBox);
+        b17.setVisibility(View.INVISIBLE);
+
+        b22.setVisibility(View.INVISIBLE);
+
+
 
     }
 
-    public void showInputDialog(String title){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title);
-        final EditText input = new EditText(this);
-        input.setText(origText);
-        builder.setView(input);
 
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                resultText = input.getText().toString();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-    }
 
     public void showPopup(String title, String message){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -205,6 +214,9 @@ public class DetailedInfo extends Activity{
             params.width = 500;
             params.height = 500;
             i2.setLayoutParams(params);
+            b17.setVisibility(View.INVISIBLE);
+            b22.setVisibility(View.INVISIBLE);
+            viewStatus = " ";
             boxfrontFull = false;
         }
         else{
@@ -213,6 +225,10 @@ public class DetailedInfo extends Activity{
             params.width = 1500;
             params.height = 1500;
             i2.setLayoutParams(params);
+            b17.setText("Set BoxFront");
+            b17.setVisibility(View.VISIBLE);
+            b22.setVisibility(View.VISIBLE);
+            viewStatus = "boxfront";
             boxfrontFull = true;
         }
     }
@@ -223,6 +239,9 @@ public class DetailedInfo extends Activity{
             params.width = 500;
             params.height = 500;
             i3.setLayoutParams(params);
+            b17.setVisibility(View.INVISIBLE);
+            b22.setVisibility(View.INVISIBLE);
+            viewStatus = "boxback";
             boxbackFull = false;
         }
         else{
@@ -231,6 +250,9 @@ public class DetailedInfo extends Activity{
             params.width = 1500;
             params.height = 1500;
             i3.setLayoutParams(params);
+            b17.setText("Set BoxBack");
+            b17.setVisibility(View.VISIBLE);
+            b22.setVisibility(View.VISIBLE);
             boxbackFull = true;
         }
     }
@@ -241,6 +263,9 @@ public class DetailedInfo extends Activity{
             params.width = 500;
             params.height = 500;
             i4.setLayoutParams(params);
+            b17.setVisibility(View.INVISIBLE);
+            b22.setVisibility(View.INVISIBLE);
+            viewStatus = " ";
             screenshotFull = false;
         }
         else{
@@ -249,6 +274,10 @@ public class DetailedInfo extends Activity{
             params.width = 1500;
             params.height = 1500;
             i4.setLayoutParams(params);
+            b17.setText("Set Screenshot");
+            b17.setVisibility(View.VISIBLE);
+            b22.setVisibility(View.VISIBLE);
+            viewStatus = "screenshot";
             screenshotFull = true;
         }
     }
@@ -286,59 +315,108 @@ public class DetailedInfo extends Activity{
 
 
     public void editRelease(View v){
-        origText = curGame.getReleaseDate();
-        showInputDialog("Edit Release Date");
-        curGame.setReleaseDate(resultText);
-        loadInfo(curGame);
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                curGame.setReleaseDate(input);
+                loadInfo(curGame);
+                return true;
+
+            }
+        };
+        dlg.show();
+
     }
 
     public void editPublisher(View v){
-        origText = curGame.getPublisher();
-        showInputDialog("Edit Publisher");
-        curGame.setPublisher(resultText);
-        loadInfo(curGame);
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                curGame.setPublisher(input);
+                loadInfo(curGame);
+                return true;
+
+            }
+        };
+        dlg.show();
     }
 
     public void editScore(View v){
-        origText = curGame.getCriticScore();
-        showInputDialog("Edit Critic Score");
-        curGame.setCriticScore(resultText);
-        loadInfo(curGame);
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                curGame.setCriticScore(input);
+                loadInfo(curGame);
+                return true;
+
+            }
+        };
+        dlg.show();
     }
 
     public void editPlayers(View v){
-        origText = curGame.getPlayers();
-        showInputDialog("Edit Players");
-        curGame.setPlayers(resultText);
-        loadInfo(curGame);
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                curGame.setPlayers(input);
+                loadInfo(curGame);
+                return true;
+
+            }
+        };
+        dlg.show();
     }
 
     public void editEsrb(View v){
-        origText = curGame.getEsrb();
-        showInputDialog("Edit ESRB Rating");
-        curGame.setEsrb(resultText);
-        loadInfo(curGame);
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                curGame.setEsrb(input);
+                loadInfo(curGame);
+                return true;
+
+            }
+        };
+        dlg.show();
     }
 
     public void editEsrbDescriptors(View v){
-        origText = curGame.getEsrbDescriptor();
-        showInputDialog("Edit ESRB Descriptors");
-        curGame.setEsrbDescriptors(resultText);
-        loadInfo(curGame);
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                curGame.setEsrbDescriptors(input);
+                loadInfo(curGame);
+                return true;
+
+            }
+        };
+        dlg.show();
     }
 
     public void editLaunchCount(View v){
-        origText = Integer.toString(curGame.launchCount);
-        showInputDialog("Edit Launch Count");
-        curGame.launchCount = Integer.parseInt(resultText);
-        loadInfo(curGame);
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                curGame.launchCount = safeParse(input);
+                loadInfo(curGame);
+                return true;
+
+            }
+        };
+        dlg.show();
     }
 
     public void editDescription(View v){
-        origText = curGame.getDescription();
-        showInputDialog("Edit Desription");
-        curGame.setDescription(resultText);
-        loadInfo(curGame);
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                curGame.setDescription(input);
+                loadInfo(curGame);
+                return true;
+
+            }
+        };
+        dlg.show();
     }
 
 
@@ -372,22 +450,83 @@ public class DetailedInfo extends Activity{
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 imgDecodableString = cursor.getString(columnIndex);
                 cursor.close();
-                ImageView imgView = (ImageView) findViewById(R.id.imageView6);
                 // Set the Image in ImageView after decoding the String
-                imgView.setImageBitmap(BitmapFactory
+                i11.setVisibility(View.INVISIBLE);
+                i11.setImageBitmap(BitmapFactory
                         .decodeFile(imgDecodableString));
+                //Save image
+                Bitmap bm=((BitmapDrawable)i11.getDrawable()).getBitmap();
+                FileOutputStream out = null;
+                File sdCard = Environment.getExternalStorageDirectory();
+                String filename = (sdCard.getAbsolutePath() + "/UniCade/Media/" + curGame.getConsole().toLowerCase().replace(" ", "") + "_" + curGame.getTitle().toLowerCase().replace(" ", "") + "_"+ viewStatus+".png");
+                System.err.println("SAVE IMAGE: " + filename);
+                try {
+                    out = new FileOutputStream(filename);
+                    bm.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    loadInfo(curGame);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
 
             } else {
-                Toast.makeText(this, "You haven't picked Image",
+                Toast.makeText(this, "No Image Selected",
                         Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
+            Toast.makeText(this, "Unknown Error", Toast.LENGTH_LONG)
                     .show();
         }
 
     }
 
+    /*public void showPopupMenu(View view){
+        PopupMenu popupMenu = new PopupMenu(DetailedInfo.this, view);
+        popupMenu.setOnMenuItemClickListener(DetailedInfo.this);
+        popupMenu.inflate(R.menu.popup_menu);
+        popupMenu.show();
+        }*/
 
+    public void deleteImage(View v){
+        File file = new File((Environment.getExternalStorageDirectory().getAbsolutePath() + "/UniCade/Media/" + curGame.getConsole().toLowerCase().replace(" ", "") + "_" + curGame.getTitle().toLowerCase().replace(" ", "") + "_"+ viewStatus+".png"));
+        System.err.println("DELETE IMAGE: "+ (Environment.getExternalStorageDirectory().getAbsolutePath() + "/UniCade/Media/" + curGame.getConsole().toLowerCase().replace(" ", "") + "_" + curGame.getTitle().toLowerCase().replace(" ", "") + "_"+ viewStatus+".png"));
+        if (file.exists()) {
+        if(file.delete()){
+            Toast.makeText(this, "Image Deleted",
+                    Toast.LENGTH_LONG).show();
+        }
+            else{
+            Toast.makeText(this, "Error Deleting",
+                    Toast.LENGTH_LONG).show();
+        }
+
+            loadInfo(curGame);
+        }
+        else{
+            Toast.makeText(this, "Image does not exist",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void showInputDialog(){
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                resultText = input;
+                return true;
+
+            }
+        };
+        dlg.show();
+
+
+    }
+
+    public static int safeParse(String text) {
+        try {
+            return safeParse(text);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
 
 }

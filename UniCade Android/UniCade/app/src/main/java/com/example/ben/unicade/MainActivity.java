@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,20 +160,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void launchSettings(View view){
-        startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
-        /*if(SettingsWindow.passProtect>0) {
-            showInputDialog("Enter Password", "");
-            if(resultText.equals(Integer.toString(SettingsWindow.passProtect))) {
-                startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
-            }
-            else{
-                showPopup("Error","Incorrect Password");
-            }
-            return;
+        if(SettingsWindow.passProtect>0) {
+            PromptDialog dlg = new PromptDialog(MainActivity.this, R.string.ok, R.string.cancel) {
+
+                @Override
+                public boolean onOkClicked(String input) {
+                    resultText = input;
+                    if(resultText.equals(Integer.toString(SettingsWindow.passProtect))) {
+                        startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
+                        return true;
+                    }
+                    else{
+                        showPopup("Error","Incorrect Password");
+                        return false;
+                    }
+
+                }
+            };
+            dlg.show();
+
         }
         else{
             startActivity(new Intent(getApplicationContext(), SettingsWindow.class));
-        }*/
+        }
     }
 
     public void launchInfoWindow(View view){
@@ -184,15 +194,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchLogin(View view){
-        PromptDialog dlg = new PromptDialog(MainActivity.this, R.string.ok, R.string.cancel) {
-            @Override
-            public boolean onOkClicked(String input) {
-                // do something
-                return true; // true = close dialog
-            }
-        };
-        dlg.show();
-        //startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
     public void connectSQL(View view){
@@ -327,28 +329,18 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-    public void showInputDialog(String title, String origText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title);
-        final EditText input = new EditText(this);
-        input.setText(origText);
-        builder.setView(input);
-
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+    public void showInputDialog(){
+        PromptDialog dlg = new PromptDialog(MainActivity.this, R.string.ok, R.string.cancel) {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                resultText = input.getText().toString();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+            public boolean onOkClicked(String input) {
+                resultText = input;
+                return true;
 
-        builder.show();
+            }
+        };
+        dlg.show();
+
+
     }
 
     private String v;
