@@ -31,16 +31,7 @@
             android:text="Global Rescrape"
             android:id="@+id/button16"
             android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/button17"
             android:onClick="rescrapeGlobal" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Apply"
-            android:id="@+id/button17"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
 
         <CheckBox
             android:layout_width="wrap_content"

@@ -61,7 +61,7 @@ public class DetailedInfo extends Activity{
     private String resultText = "";
     private String origText = "";
     private String popupTitle = "";
-    public Game curGame;
+    public static Game curGame;
     final Context context = this;
     private boolean boxfrontFull = false;
     private boolean boxbackFull = false;
@@ -98,14 +98,26 @@ public class DetailedInfo extends Activity{
 
     public void rescrapeSingleGame(View v){
         WebOps.scrapeInfo(curGame);
-        showPopup("Notice", "Operation Complete");
+        Toast.makeText(this, "Operation Complete",
+                Toast.LENGTH_LONG).show();
+        loadInfo(curGame);
     }
 
     public void rescrapeConsole(View v){
+        WebOps.scrapeInfo(curGame);
+        Toast.makeText(this, "This may take awhile...",
+                Toast.LENGTH_LONG).show();
+        int i = 0;
         for(Game g : MainActivity.curConsole.getGameList()) {
             WebOps.scrapeInfo(g);
+            String text = ("Game " + Integer.toString(i) + "of" + Integer.toString(MainActivity.curConsole.gameCount));
+            Toast.makeText(this, text,
+                    Toast.LENGTH_LONG).show();
         }
-        showPopup("Notice", "Operation Complete");
+        WebOps.scrapeInfo(curGame);
+        Toast.makeText(this, "Operation Complete",
+                Toast.LENGTH_LONG).show();
+        loadInfo(curGame);
     }
 
     public void saveDatabase(View v){

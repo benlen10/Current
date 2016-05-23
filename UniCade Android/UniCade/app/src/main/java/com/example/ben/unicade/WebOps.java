@@ -50,13 +50,12 @@ public class WebOps {
 
 
 
-    public static void scrapeMobyGames(Game g)
-    {
-        if (g == null)
-        {
+    public static void scrapeMobyGames(Game g) {
+        if (g == null) {
             return;
         }
         String url = ("http://www.mobygames.com/game/" + g.getConsole() + "/" + gameName);
+        System.err.println("URLORIG: " + url);
         url = url.toLowerCase();
         String html = "";
         try {
@@ -69,74 +68,55 @@ public class WebOps {
             while ((line = br.readLine()) != null) {
                 html = html + line;
             }
+            System.err.println("URLSTRING: " + html);
 
-
-        }
-        catch(MalformedURLException e){
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+        try{
         //Parse ESRB
-        if (esrb > 0)
-        {
+        if (esrb > 0) {
             int indexA = html.indexOf("ESRB");
-            if (indexA < 0)
-            {
+            if (indexA < 0) {
                 indexA = 0;
             }
             String s = html; //html.substring(indexA, indexA + 50);
-            if (s.contains("Everyone"))
-            {
+            if (s.contains("Everyone")) {
                 g.setEsrb("Everyone");
-            }
-            else if (s.contains("Kids to Adults"))
-            {
+            } else if (s.contains("Kids to Adults")) {
                 g.setEsrb("Everyone (KA)");
-            }
-            else if (s.contains("Everyone 10+"))
-            {
+            } else if (s.contains("Everyone 10+")) {
                 g.setEsrb("Everyone 10+");
-            }
-            else if (s.contains("Teen"))
-            {
+            } else if (s.contains("Teen")) {
                 g.setEsrb("Teen");
-            }
-            else if (s.contains("Mature"))
-            {
+            } else if (s.contains("Mature")) {
                 g.setEsrb("Mature");
-            }
-            else if (s.contains("Mature"))
-            {
+            } else if (s.contains("Mature")) {
                 g.setEsrb("Mature");
-            }
-            else if (s.contains("Adults Only"))
-            {
+            } else if (s.contains("Adults Only")) {
                 g.setEsrb("AO (Adults Only)");
             }
 
-            if (g.getEsrb().length() > 2)
-            {
+            if (g.getEsrb().length() > 2) {
                 System.out.println(g.getEsrb());
             }
-            else
-            {
-                g.setEsrb("Unrated");
-            }
+
         }
 
         //Parse Release Date
-        if (releaseDate > 0)
-        {
+        if (releaseDate > 0) {
             int tmp = html.indexOf("release-info");
 
             if (tmp > 0) {
                 int indexB = html.indexOf("release-info", (tmp + 20));
 
-                String releaseDate = html.substring((indexB + 14), 4);
-                g.setReleaseDate(releaseDate);
-                System.out.println(g.getReleaseDate());
+                    String releaseDate = html.substring((indexB + 14), 4);
+                    g.setReleaseDate(releaseDate);
+                    System.out.println(g.getReleaseDate());
+
+
             }
 
             //Parse Critic Scores
@@ -156,8 +136,7 @@ public class WebOps {
         if (publisher > 0) {
             int tmp = 0;
             tmp = html.indexOf("/company/");
-            if (tmp > 0)
-            {
+            if (tmp > 0) {
                 int tmp2 = html.indexOf("-", tmp + 10);
                 //System.out.println(tmp);
 
@@ -169,8 +148,7 @@ public class WebOps {
             }
         }
 
-        if (description > 0)
-        {
+        if (description > 0) {
             //Parse Description
             int tmp = 0;
             tmp = html.indexOf("Description<");
@@ -194,10 +172,16 @@ public class WebOps {
             }
         }
     }
+        catch(IndexOutOfBoundsException e){
+
+    }
+        DetailedInfo.curGame = g;
+    }
 
 
     public static void scrapeMetacritic(Game g)
     {
+        try{
         //Metacritic Scraper
 
         String metaCon = "";
@@ -295,6 +279,13 @@ public class WebOps {
                     g.setPlayers(players);
                 }
             }
+        }
+            DetailedInfo.curGame = g;
+            
+
+        }
+        catch(IndexOutOfBoundsException e){
+
         }
 
 
