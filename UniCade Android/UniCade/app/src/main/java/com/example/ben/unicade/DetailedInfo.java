@@ -104,10 +104,22 @@ public class DetailedInfo extends Activity{
     }
 
     public void rescrapeConsole(View v){
+        Console curConsole = null;
         WebOps.scrapeInfo(curGame);
         Toast.makeText(this, "This may take awhile...",
                 Toast.LENGTH_LONG).show();
         int i = 0;
+        for(Console c : MainActivity.dat.consoleList){
+            if(c.getName().equals(curGame.getConsole())){
+                curConsole = c;
+                break;
+            }
+        }
+        if(curConsole==null){
+            Toast.makeText(this, "Operation Failed. (Could Not Find Console)",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
         for(Game g : MainActivity.curConsole.getGameList()) {
             WebOps.scrapeInfo(g);
             String text = ("Game " + Integer.toString(i) + "of" + Integer.toString(MainActivity.curConsole.gameCount));

@@ -281,7 +281,7 @@ public class WebOps {
             }
         }
             DetailedInfo.curGame = g;
-            
+
 
         }
         catch(IndexOutOfBoundsException e){

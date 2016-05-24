@@ -30,6 +30,7 @@ public class SettingsWindow extends Activity {
     Console curConsole2;
     Console curConsole;
     public Game curGame;
+    public static String resultText;
     User curUser;
 
     //Preference Data
@@ -118,6 +119,41 @@ public class SettingsWindow extends Activity {
         else{
             t3.setText("License: None");
         }
+    }
+
+    public void enterLicense(View v){
+        PromptDialog dlg = new PromptDialog(SettingsWindow.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                MainActivity.userLicenseKey = input;
+                if(MainActivity.validateSHA256(MainActivity.userLicenseName + Database.getHashKey(), MainActivity.userLicenseKey)){
+                    MainActivity.validLicense = true;
+                    t3.setText("License: Full");
+                }
+                else{
+                    MainActivity.validLicense = true;
+                    t3.setText("License: None");
+                }
+                return true;
+
+            }
+        };
+        dlg.show();
+
+    }
+
+    public void showInputDialog(){
+        PromptDialog dlg = new PromptDialog(SettingsWindow.this, R.string.ok, R.string.cancel) {
+            @Override
+            public boolean onOkClicked(String input) {
+                resultText = input;
+                return true;
+
+            }
+        };
+        dlg.show();
+
+
     }
     }
 
