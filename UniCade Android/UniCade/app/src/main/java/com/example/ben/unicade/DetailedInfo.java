@@ -105,9 +105,7 @@ public class DetailedInfo extends Activity{
 
     public void rescrapeConsole(View v){
         Console curConsole = null;
-        WebOps.scrapeInfo(curGame);
-        Toast.makeText(this, "This may take awhile...",
-                Toast.LENGTH_LONG).show();
+
         int i = 0;
         for(Console c : MainActivity.dat.consoleList){
             if(c.getName().equals(curGame.getConsole())){
@@ -120,11 +118,10 @@ public class DetailedInfo extends Activity{
                     Toast.LENGTH_LONG).show();
             return;
         }
-        for(Game g : MainActivity.curConsole.getGameList()) {
+        for(Game g : curConsole.getGameList()) {
             WebOps.scrapeInfo(g);
             String text = ("Game " + Integer.toString(i) + "of" + Integer.toString(MainActivity.curConsole.gameCount));
-            Toast.makeText(this, text,
-                    Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, text,Toast.LENGTH_LONG).show();
         }
         WebOps.scrapeInfo(curGame);
         Toast.makeText(this, "Operation Complete",
@@ -149,8 +146,8 @@ public class DetailedInfo extends Activity{
         t13.setText(("Players: " + g.getPlayers()));
         t14.setText(("ESRB Rating: " + g.getEsrb()));
         t15.setText(("ESRB Descriptors: " + g.getEsrbDescriptor()));
-        t15.setText(("Launch Count: " + g.launchCount));
-        t15.setText(("Description: " + g.getDescription()));
+        t16.setText(("Launch Count: " + g.launchCount));
+        t17.setText(("Description: " + g.getDescription()));
         if(g.getFav()>0) {
             c1.setChecked(true);
         }
@@ -204,6 +201,9 @@ public class DetailedInfo extends Activity{
         b22 = (Button) findViewById(R.id.button22);
         c1 = (CheckBox) findViewById(R.id.checkBox);
         b17.setVisibility(View.INVISIBLE);
+        i2.bringToFront();
+        i3.bringToFront();
+        i4.bringToFront();
 
         b22.setVisibility(View.INVISIBLE);
 

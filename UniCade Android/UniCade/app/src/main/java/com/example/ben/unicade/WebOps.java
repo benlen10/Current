@@ -86,7 +86,7 @@ public class WebOps {
             if (s.contains("Everyone")) {
                 g.setEsrb("Everyone");
             } else if (s.contains("Kids to Adults")) {
-                g.setEsrb("Everyone (KA)");
+                g.setEsrb("Everyone");
             } else if (s.contains("Everyone 10+")) {
                 g.setEsrb("Everyone 10+");
             } else if (s.contains("Teen")) {
