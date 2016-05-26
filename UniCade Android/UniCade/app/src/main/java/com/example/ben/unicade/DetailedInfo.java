@@ -249,7 +249,7 @@ public class DetailedInfo extends Activity{
             params.width = 1500;
             params.height = 1500;
             i2.setLayoutParams(params);
-            b17.setText("Set BoxFront");
+            b22.setText("Set BoxFront");
             b17.setVisibility(View.VISIBLE);
             b22.setVisibility(View.VISIBLE);
             viewStatus = "boxfront";
@@ -274,7 +274,7 @@ public class DetailedInfo extends Activity{
             params.width = 1500;
             params.height = 1500;
             i3.setLayoutParams(params);
-            b17.setText("Set BoxBack");
+            b22.setText("Set BoxBack");
             b17.setVisibility(View.VISIBLE);
             b22.setVisibility(View.VISIBLE);
             boxbackFull = true;
@@ -298,7 +298,7 @@ public class DetailedInfo extends Activity{
             params.width = 1500;
             params.height = 1500;
             i4.setLayoutParams(params);
-            b17.setText("Set Screenshot");
+            b22.setText("Set Screenshot");
             b17.setVisibility(View.VISIBLE);
             b22.setVisibility(View.VISIBLE);
             viewStatus = "screenshot";
