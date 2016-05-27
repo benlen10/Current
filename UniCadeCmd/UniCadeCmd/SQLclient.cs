@@ -142,17 +142,25 @@ namespace UniCadeCmd
                 connectSQL();
             }
 
-            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM users WHERE username = " + "\"" + user + "\"" + " OR email = " + "\"" + user + "\"" + ";", conn);
+            string command = "Use unicade;" + "select * FROM users WHERE username = " + "\"" + user + "\"" + " OR email = " + "\"" + user + "\"" + ";";
+            MySqlCommand myCommand = new MySqlCommand(command, conn);
 
-
+            System.Console.WriteLine("YES1");
             MySqlDataReader myReader = myCommand.ExecuteReader();
+            System.Console.WriteLine("YES2");
             myReader.Read();
+            System.Console.WriteLine("YES3");
+            System.Console.WriteLine("GETPASS: " + SafeGetString(myReader, 2));
             if(pass.Equals(SafeGetString(myReader, 2), StringComparison.InvariantCultureIgnoreCase)){
                 sqlUser = user;
+                myReader.Close();
+                myCommand.Dispose();
                 return true;
             }
             else
             {
+                myReader.Close();
+                myCommand.Dispose();
                 return false;
             }
 
@@ -165,6 +173,7 @@ namespace UniCadeCmd
             {
                 connectSQL();
             }
+
             return false;
         }
 
@@ -182,6 +191,8 @@ namespace UniCadeCmd
                 myReader.Read();
             if ((SafeGetString(myReader, 1).Equals(username, StringComparison.InvariantCultureIgnoreCase)) || (SafeGetString(myReader, 3).Equals(email, StringComparison.InvariantCultureIgnoreCase))){
                 System.Console.WriteLine("User Already Exists");
+                myReader.Close();
+                myCommand.Dispose();
                 return false;
             }
 
@@ -225,6 +236,8 @@ DROP TABLE IF EXISTS games;
             myCommand = new MySqlCommand(command, conn);
             myCommand.ExecuteNonQuery();
 
+            myReader.Close();
+            myCommand.Dispose();
             return true;
         }
 
@@ -234,6 +247,7 @@ DROP TABLE IF EXISTS games;
             {
                 connectSQL();
             }
+
             return false;
         }
 

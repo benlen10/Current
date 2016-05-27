@@ -1270,13 +1270,13 @@ namespace UniCadeCmd
             ua.ShowDialog();
         }
 
-        private void button29_Click_1(object sender, EventArgs e)
+        private void button29_Click_1(object sender, EventArgs e)  //Login button
         {
             Login l = new Login();
             l.ShowDialog();
             if (SQLclient.sqlUser != null)
             {
-                label56.Text = SQLclient.sqlUser;
+                label56.Text = "Current User: " + SQLclient.sqlUser;
             }
 
         }

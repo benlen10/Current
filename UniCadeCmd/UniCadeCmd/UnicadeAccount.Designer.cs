@@ -141,6 +141,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "UnicadeAccount";
             this.Text = "UniCade Web Account";
+            this.Load += new System.EventHandler(this.UnicadeAccount_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

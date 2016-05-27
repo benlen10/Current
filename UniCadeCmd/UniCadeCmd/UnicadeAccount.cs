@@ -24,12 +24,17 @@ namespace UniCadeCmd
                 MessageBox.Show("Fields cannot be empty");
                 return;
             }
-            SQLclient.createUser(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, "Null", "NullProfPath");
+            SQLclient.createUser(textBox1.Text, textBox3.Text, textBox2.Text, textBox4.Text, "Null", "NullProfPath");
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void UnicadeAccount_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

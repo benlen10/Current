@@ -31,8 +31,10 @@ namespace UniCadeCmd
         {
             if((textBox1.Text==null)|| (textBox2.Text == null))
             {
-
+                MessageBox.Show("Fields cannot be blank");
+                return;
             }
+           
             if (SQLclient.authiencateUser(textBox1.Text, textBox2.Text))
             {
                 Close();
