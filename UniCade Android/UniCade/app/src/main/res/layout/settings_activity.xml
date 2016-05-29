@@ -150,6 +150,15 @@
             android:layout_above="@+id/editText"
             android:layout_toEndOf="@+id/checkBox4" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete All Local Images"
+            android:id="@+id/button8"
+            android:layout_above="@+id/button7"
+            android:layout_alignStart="@+id/button7"
+            android:onClick="deleteImagesButton" />
+
     </RelativeLayout>
 
 </LinearLayout>

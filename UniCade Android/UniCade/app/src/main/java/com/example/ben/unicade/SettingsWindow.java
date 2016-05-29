@@ -3,6 +3,8 @@ package com.example.ben.unicade;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+
+import java.io.File;
 import java.util.ArrayList;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -140,6 +144,16 @@ public class SettingsWindow extends Activity {
         };
         dlg.show();
 
+    }
+    public void deleteImagesButton(View v){
+        deleteAllImages();
+    }
+    public void deleteAllImages(){
+        File dir = null;
+         dir = new File(Environment.getExternalStorageDirectory() + "/UniCade/Media/");
+        for(File file: dir.listFiles()){
+            file.delete();
+        }
     }
 
     public void showInputDialog(){
