@@ -26,6 +26,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.app.Fragment;
+import android.widget.Toast;
 
 /**
  * Created by Ben on 12/18/2015.
@@ -154,6 +155,8 @@ public class SettingsWindow extends Activity {
         for(File file: dir.listFiles()){
             file.delete();
         }
+        Toast.makeText(this, "All local images deleted.",
+                Toast.LENGTH_LONG).show();
     }
 
     public void showInputDialog(){
