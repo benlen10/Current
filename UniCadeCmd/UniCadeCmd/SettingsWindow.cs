@@ -1221,6 +1221,11 @@ namespace UniCadeCmd
 
         private void button30_Click(object sender, EventArgs e)
         {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
             richTextBox2.Text = null;
             if (textBox14.Text.Length < 2)
             {
@@ -1232,6 +1237,11 @@ namespace UniCadeCmd
 
         private void button31_Click(object sender, EventArgs e)
         {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
            Game g =    SQLclient.getSingleGame(textBox34.Text, textBox35.Text);
             if (g != null)
             {
@@ -1283,8 +1293,51 @@ namespace UniCadeCmd
 
         private void button39_Click(object sender, EventArgs e)  //Logout button (SQL)
         {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("User is already logged out");
+                label56.Text = "Current User: Null";
+                return;
+            }
             SQLclient.sqlUser = null;
             label56.Text = "Current User: Null";
+        }
+
+        private void button36_Click(object sender, EventArgs e)
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
+        }
+
+        private void button35_Click(object sender, EventArgs e)  //Delete user button
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
+
+            if (SQLclient.deleteUser())
+            {
+                label56.Text = "Current User: Null";
+            }
+        }
+
+        private void button38_Click(object sender, EventArgs e)
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
+        }
+
+        private void button37_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 

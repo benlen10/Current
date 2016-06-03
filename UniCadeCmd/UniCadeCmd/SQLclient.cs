@@ -188,16 +188,21 @@ namespace UniCadeCmd
 
 
             MySqlDataReader myReader = myCommand.ExecuteReader();
-                myReader.Read();
-            if ((SafeGetString(myReader, 1).Equals(username, StringComparison.InvariantCultureIgnoreCase)) || (SafeGetString(myReader, 3).Equals(email, StringComparison.InvariantCultureIgnoreCase))){
-                System.Console.WriteLine("User Already Exists");
-                myReader.Close();
-                myCommand.Dispose();
-                return false;
+            if (myReader.Read())
+            {
+                if ((SafeGetString(myReader, 1).Equals(username, StringComparison.InvariantCultureIgnoreCase)) || (SafeGetString(myReader, 3).Equals(email, StringComparison.InvariantCultureIgnoreCase)))
+                {
+                    System.Console.WriteLine("User Already Exists");
+                    myReader.Close();
+                    myCommand.Dispose();
+                    return false;
+                }
             }
+            myReader.Close();
+            myCommand.Dispose();
 
 
-                string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,launchcount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
+            string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,launchcount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
              myCommand = new MySqlCommand(command,conn);
             myCommand.ExecuteNonQuery();
             command = @"USE unicade;
@@ -247,32 +252,48 @@ DROP TABLE IF EXISTS games;
             {
                 connectSQL();
             }
+            string command = "Use unicade;" + "DELETE FROM users WHERE username = "  + "\"" + sqlUser + "\";";
+            MySqlCommand myCommand = new MySqlCommand(command, conn);
+            myCommand.ExecuteNonQuery();
+            myCommand.Dispose();
 
-            return false;
+            command = "Use unicade;" + "DROP TABLE " +  sqlUser + "_games;";
+            myCommand = new MySqlCommand(command, conn);
+            myCommand.ExecuteNonQuery();
+            myCommand.Dispose();
+
+            sqlUser = null;
+
+            return true;
         }
 
         public static string SafeGetString(MySqlDataReader reader, int colIndex)
         {
-            if (conn == null)
-            {
-                connectSQL();
+            try {
+
+                if (!reader.IsDBNull(colIndex))
+                    return reader.GetString(colIndex);
+                else
+                    return string.Empty;
             }
-            if (!reader.IsDBNull(colIndex))
-                return reader.GetString(colIndex);
-            else
-                return string.Empty;
-        }
+            catch( Exception e)
+            {
+                return null;
+            }
+            }
 
         public static int SafeGetInt32(MySqlDataReader reader, int colIndex)
         {
-            if (conn == null)
-            {
-                connectSQL();
+            try {
+                if (!reader.IsDBNull(colIndex))
+                    return reader.GetInt32(colIndex);
+                else
+                    return 0;
             }
-            if (!reader.IsDBNull(colIndex))
-                return reader.GetInt32(colIndex);
-            else
+            catch (Exception e)
+            {
                 return 0;
+            }
         }
 
     }

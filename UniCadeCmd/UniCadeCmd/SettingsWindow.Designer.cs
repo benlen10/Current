@@ -1964,21 +1964,23 @@
             // 
             // button35
             // 
-            this.button35.Location = new System.Drawing.Point(574, 468);
+            this.button35.Location = new System.Drawing.Point(574, 461);
             this.button35.Name = "button35";
-            this.button35.Size = new System.Drawing.Size(172, 99);
+            this.button35.Size = new System.Drawing.Size(172, 112);
             this.button35.TabIndex = 9;
             this.button35.Text = "Delete Current User";
             this.button35.UseVisualStyleBackColor = true;
+            this.button35.Click += new System.EventHandler(this.button35_Click);
             // 
             // button36
             // 
-            this.button36.Location = new System.Drawing.Point(373, 468);
+            this.button36.Location = new System.Drawing.Point(373, 461);
             this.button36.Name = "button36";
-            this.button36.Size = new System.Drawing.Size(172, 99);
+            this.button36.Size = new System.Drawing.Size(172, 112);
             this.button36.TabIndex = 10;
             this.button36.Text = "Edit Current User";
             this.button36.UseVisualStyleBackColor = true;
+            this.button36.Click += new System.EventHandler(this.button36_Click);
             // 
             // button37
             // 
@@ -1988,15 +1990,17 @@
             this.button37.TabIndex = 11;
             this.button37.Text = "Close";
             this.button37.UseVisualStyleBackColor = true;
+            this.button37.Click += new System.EventHandler(this.button37_Click);
             // 
             // button38
             // 
             this.button38.Location = new System.Drawing.Point(770, 468);
             this.button38.Name = "button38";
-            this.button38.Size = new System.Drawing.Size(172, 80);
+            this.button38.Size = new System.Drawing.Size(172, 99);
             this.button38.TabIndex = 12;
             this.button38.Text = "Commit Changes";
             this.button38.UseVisualStyleBackColor = true;
+            this.button38.Click += new System.EventHandler(this.button38_Click);
             // 
             // label56
             // 
