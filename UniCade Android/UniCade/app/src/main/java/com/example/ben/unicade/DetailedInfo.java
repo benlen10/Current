@@ -70,7 +70,7 @@ public class DetailedInfo extends Activity{
     private android.view.ViewGroup.LayoutParams origParams;
     private String imgDecodableString;
     private static int RESULT_LOAD_IMG = 1;
-    private static String viewStatus = null;
+    private static String viewStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,6 +240,7 @@ public class DetailedInfo extends Activity{
             i2.setLayoutParams(params);
             b17.setVisibility(View.INVISIBLE);
             b22.setVisibility(View.INVISIBLE);
+            viewStatus = " ";
             boxfrontFull = false;
         }
         else{
@@ -264,7 +265,7 @@ public class DetailedInfo extends Activity{
             i3.setLayoutParams(params);
             b17.setVisibility(View.INVISIBLE);
             b22.setVisibility(View.INVISIBLE);
-
+            viewStatus = "boxback";
             boxbackFull = false;
         }
         else{
@@ -276,7 +277,6 @@ public class DetailedInfo extends Activity{
             b22.setText("Set BoxBack");
             b17.setVisibility(View.VISIBLE);
             b22.setVisibility(View.VISIBLE);
-            viewStatus = "boxback";
             boxbackFull = true;
         }
     }
@@ -289,6 +289,7 @@ public class DetailedInfo extends Activity{
             i4.setLayoutParams(params);
             b17.setVisibility(View.INVISIBLE);
             b22.setVisibility(View.INVISIBLE);
+            viewStatus = " ";
             screenshotFull = false;
         }
         else{
@@ -326,17 +327,19 @@ public class DetailedInfo extends Activity{
     public void toggleFav(View v){
         if(c1.isChecked()){
             curGame.setFav(1);
+            System.err.println("IS FAV");
         }
         else
         {
             curGame.setFav(0);
+            System.err.println("IS NOT FAV");
         }
     }
 
 
 
     public void editRelease(View v){
-        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.Edit, R.string.ReleaseDate) {
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
             @Override
             public boolean onOkClicked(String input) {
                 curGame.setReleaseDate(input);
@@ -350,7 +353,7 @@ public class DetailedInfo extends Activity{
     }
 
     public void editPublisher(View v){
-        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.Edit, R.string.Publisher) {
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
             @Override
             public boolean onOkClicked(String input) {
                 curGame.setPublisher(input);
@@ -363,7 +366,7 @@ public class DetailedInfo extends Activity{
     }
 
     public void editScore(View v){
-        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.Edit, R.string.EditScore) {
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
             @Override
             public boolean onOkClicked(String input) {
                 curGame.setCriticScore(input);
@@ -376,7 +379,7 @@ public class DetailedInfo extends Activity{
     }
 
     public void editPlayers(View v){
-        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.Edit, R.string.Players) {
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
             @Override
             public boolean onOkClicked(String input) {
                 curGame.setPlayers(input);
@@ -389,7 +392,7 @@ public class DetailedInfo extends Activity{
     }
 
     public void editEsrb(View v){
-        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.Edit, R.string.ESRBRating) {
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
             @Override
             public boolean onOkClicked(String input) {
                 curGame.setEsrb(input);
@@ -402,7 +405,7 @@ public class DetailedInfo extends Activity{
     }
 
     public void editEsrbDescriptors(View v){
-        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.Edit, R.string.ESRBDescriptors) {
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
             @Override
             public boolean onOkClicked(String input) {
                 curGame.setEsrbDescriptors(input);
@@ -415,7 +418,7 @@ public class DetailedInfo extends Activity{
     }
 
     public void editLaunchCount(View v){
-        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.Edit, R.string.LaunchCount) {
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
             @Override
             public boolean onOkClicked(String input) {
                 curGame.launchCount = safeParse(input);
@@ -428,7 +431,7 @@ public class DetailedInfo extends Activity{
     }
 
     public void editDescription(View v){
-        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.Edit, R.string.Description) {
+        PromptDialog dlg = new PromptDialog(DetailedInfo.this, R.string.ok, R.string.cancel) {
             @Override
             public boolean onOkClicked(String input) {
                 curGame.setDescription(input);

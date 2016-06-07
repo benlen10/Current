@@ -75,13 +75,4 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="Edit">Edit</string>
-    <string name="EditScore">Edit Score</string>
-    <string name="Publisher">Publisher</string>
-    <string name="ReleaseDate">Release Date</string>
-    <string name="Players">Players</string>
-    <string name="ESRBRating">ESRB Rating</string>
-    <string name="ESRBDescriptors">ESRB Descriptors</string>
-    <string name="Description">Description</string>
-    <string name="LaunchCount">Launch Count</string>
 </resources>
