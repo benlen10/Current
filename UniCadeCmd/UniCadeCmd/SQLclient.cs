@@ -66,16 +66,16 @@ namespace UniCadeCmd
 
         }
 
-        public static string uploadGame(Game g)
+        public static bool uploadGame(Game g)
         {
             if (conn == null)
             {
                 connectSQL();
             }
-            String command = "Use unicade;" + " INSERT INTO games" + "(filename,title, Console, launchcount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite)" + " VALUES (" + "\"" + g.getFileName() + "\",\"" + g.getTitle() + "\",\"" + g.getConsole() + "\",\"" + g.launchCount + "\",\"" + g.getReleaseDate() + "\",\"" + g.getPublisher() + "\",\"" + g.getDeveloper() + "\",\"" + g.getUserScore() + "\",\"" + g.getCriticScore() + "\",\"" + g.getPlayers() + "\",\"" + g.getTrivia() + "\",\"" + g.getEsrb() + "\",\"" + g.getEsrbDescriptor() + "\",\"" + g.getEsrbSummary() + "\",\"" + g.getDescription() + "\",\"" + g.getGenres() + "\",\"" + g.getTags() + "\",\"" + g.getFav() + "\");";
+            String command = "Use unicade;" + " INSERT INTO " +sqlUser+ "_games (filename,title, Console, launchcount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite)" + " VALUES (" + "\"" + g.getFileName() + "\",\"" + g.getTitle() + "\",\"" + g.getConsole() + "\",\"" + g.launchCount + "\",\"" + g.getReleaseDate() + "\",\"" + g.getPublisher() + "\",\"" + g.getDeveloper() + "\",\"" + g.getUserScore() + "\",\"" + g.getCriticScore() + "\",\"" + g.getPlayers() + "\",\"" + g.getTrivia() + "\",\"" + g.getEsrb() + "\",\"" + g.getEsrbDescriptor() + "\",\"" + g.getEsrbSummary() + "\",\"" + g.getDescription() + "\",\"" + g.getGenres() + "\",\"" + g.getTags() + "\",\"" + g.getFav() + "\");";
             MySqlCommand myCommand = new MySqlCommand(command, conn);
             myCommand.ExecuteNonQuery();
-            return command;
+            return true;
         }
 
         public static string getGameByConsole(string con)

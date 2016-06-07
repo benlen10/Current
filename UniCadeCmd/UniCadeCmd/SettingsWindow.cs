@@ -1269,9 +1269,12 @@ namespace UniCadeCmd
 
         private void button33_Click(object sender, EventArgs e)  //Upload game button
         {
-            SQLclient.connectSQL();
-            String c = SQLclient.uploadGame(curGame);
-            richTextBox2.Text = c;
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("SQL login required");
+                return;
+            }
+            SQLclient.uploadGame(curGame);
         }
 
         private void button34_Click(object sender, EventArgs e)
