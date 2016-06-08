@@ -205,6 +205,10 @@
             this.button38 = new System.Windows.Forms.Button();
             this.label56 = new System.Windows.Forms.Label();
             this.button39 = new System.Windows.Forms.Button();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.button40 = new System.Windows.Forms.Button();
+            this.button41 = new System.Windows.Forms.Button();
+            this.checkBox25 = new System.Windows.Forms.CheckBox();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1825,6 +1829,10 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.checkBox25);
+            this.tabPage7.Controls.Add(this.button41);
+            this.tabPage7.Controls.Add(this.button40);
+            this.tabPage7.Controls.Add(this.checkBox16);
             this.tabPage7.Controls.Add(this.button39);
             this.tabPage7.Controls.Add(this.label56);
             this.tabPage7.Controls.Add(this.button38);
@@ -1954,7 +1962,7 @@
             // 
             // button29
             // 
-            this.button29.Location = new System.Drawing.Point(752, 335);
+            this.button29.Location = new System.Drawing.Point(750, 299);
             this.button29.Name = "button29";
             this.button29.Size = new System.Drawing.Size(172, 48);
             this.button29.TabIndex = 8;
@@ -2014,13 +2022,51 @@
             // 
             // button39
             // 
-            this.button39.Location = new System.Drawing.Point(965, 335);
+            this.button39.Location = new System.Drawing.Point(963, 299);
             this.button39.Name = "button39";
             this.button39.Size = new System.Drawing.Size(172, 48);
             this.button39.TabIndex = 14;
             this.button39.Text = "Logout";
             this.button39.UseVisualStyleBackColor = true;
             this.button39.Click += new System.EventHandler(this.button39_Click);
+            // 
+            // checkBox16
+            // 
+            this.checkBox16.AutoSize = true;
+            this.checkBox16.Location = new System.Drawing.Point(1022, 378);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.Size = new System.Drawing.Size(294, 29);
+            this.checkBox16.TabIndex = 15;
+            this.checkBox16.Text = "Overwrite Games In Cloud";
+            this.checkBox16.UseVisualStyleBackColor = true;
+            // 
+            // button40
+            // 
+            this.button40.Location = new System.Drawing.Point(982, 474);
+            this.button40.Name = "button40";
+            this.button40.Size = new System.Drawing.Size(172, 99);
+            this.button40.TabIndex = 16;
+            this.button40.Text = "Commit Changes";
+            this.button40.UseVisualStyleBackColor = true;
+            // 
+            // button41
+            // 
+            this.button41.Location = new System.Drawing.Point(1208, 474);
+            this.button41.Name = "button41";
+            this.button41.Size = new System.Drawing.Size(172, 99);
+            this.button41.TabIndex = 17;
+            this.button41.Text = "Commit Changes";
+            this.button41.UseVisualStyleBackColor = true;
+            // 
+            // checkBox25
+            // 
+            this.checkBox25.AutoSize = true;
+            this.checkBox25.Location = new System.Drawing.Point(1022, 422);
+            this.checkBox25.Name = "checkBox25";
+            this.checkBox25.Size = new System.Drawing.Size(388, 29);
+            this.checkBox25.TabIndex = 18;
+            this.checkBox25.Text = "Overwrite Games In Local Database";
+            this.checkBox25.UseVisualStyleBackColor = true;
             // 
             // SettingsWindow
             // 
@@ -2233,5 +2279,9 @@
         private System.Windows.Forms.Button button29;
         private System.Windows.Forms.Label label56;
         private System.Windows.Forms.Button button39;
+        private System.Windows.Forms.CheckBox checkBox25;
+        private System.Windows.Forms.Button button41;
+        private System.Windows.Forms.Button button40;
+        private System.Windows.Forms.CheckBox checkBox16;
     }
 }
