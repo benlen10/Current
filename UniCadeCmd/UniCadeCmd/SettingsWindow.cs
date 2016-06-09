@@ -1336,11 +1336,25 @@ namespace UniCadeCmd
                 MessageBox.Show("Login Required");
                 return;
             }
+            SQLclient.uploadAllGames();
+            MessageBox.Show("Library successfully uploaded");
         }
 
         private void button37_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void button41_Click(object sender, EventArgs e)//Delete all games in sql cloud button
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
+            SQLclient.deletegames();
+            MessageBox.Show("Library successfully deleted");
+
         }
     }
 

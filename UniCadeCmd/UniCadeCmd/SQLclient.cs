@@ -66,6 +66,19 @@ namespace UniCadeCmd
 
         }
 
+        public static bool uploadAllGames()
+        {
+            foreach (Console c in Program.dat.consoleList)
+            {
+                    foreach (Game g in c.getGameList())
+                    {
+                    uploadGame(g);
+                    }
+                }
+            return true;
+        }
+
+
         public static bool uploadGame(Game g)
         {
             if (conn == null)
@@ -242,6 +255,21 @@ DROP TABLE IF EXISTS games;
             myCommand.ExecuteNonQuery();
 
             myReader.Close();
+            myCommand.Dispose();
+            return true;
+        }
+
+        public static bool deletegames()
+        {
+            if (conn == null)
+            {
+                connectSQL();
+            }
+
+            string command = "Use unicade;" + "DELETE FROM " + sqlUser + "_games WHERE id>0;";
+            MySqlCommand myCommand = new MySqlCommand(command, conn);
+            myCommand.ExecuteNonQuery();
+
             myCommand.Dispose();
             return true;
         }

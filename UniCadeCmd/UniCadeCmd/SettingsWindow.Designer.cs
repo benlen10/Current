@@ -2006,7 +2006,7 @@
             this.button38.Name = "button38";
             this.button38.Size = new System.Drawing.Size(172, 99);
             this.button38.TabIndex = 12;
-            this.button38.Text = "Commit Changes";
+            this.button38.Text = "Upload All Games";
             this.button38.UseVisualStyleBackColor = true;
             this.button38.Click += new System.EventHandler(this.button38_Click);
             // 
@@ -2046,17 +2046,18 @@
             this.button40.Name = "button40";
             this.button40.Size = new System.Drawing.Size(172, 99);
             this.button40.TabIndex = 16;
-            this.button40.Text = "Commit Changes";
+            this.button40.Text = "Download All Games";
             this.button40.UseVisualStyleBackColor = true;
             // 
             // button41
             // 
-            this.button41.Location = new System.Drawing.Point(1208, 474);
+            this.button41.Location = new System.Drawing.Point(1194, 474);
             this.button41.Name = "button41";
-            this.button41.Size = new System.Drawing.Size(172, 99);
+            this.button41.Size = new System.Drawing.Size(202, 99);
             this.button41.TabIndex = 17;
-            this.button41.Text = "Commit Changes";
+            this.button41.Text = "Delete All Games In Cloud";
             this.button41.UseVisualStyleBackColor = true;
+            this.button41.Click += new System.EventHandler(this.button41_Click);
             // 
             // checkBox25
             // 
