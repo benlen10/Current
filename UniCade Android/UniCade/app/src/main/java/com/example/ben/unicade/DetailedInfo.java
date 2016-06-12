@@ -290,9 +290,9 @@ public class DetailedInfo extends Activity{
             b17.setVisibility(View.INVISIBLE);
             b22.setVisibility(View.INVISIBLE);
             screenshotFull = false;
+            viewStatus = "screenshot";
         }
         else{
-
             android.view.ViewGroup.LayoutParams params = i4.getLayoutParams();
             params.width = 1500;
             params.height = 1500;
