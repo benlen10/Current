@@ -63,6 +63,21 @@ namespace UniCadeCmd
             return emuPath;
         }
 
+        public bool addGame(Game gam)
+        {
+            if (!gam.getConsole().Equals(name))
+            {
+                return false;
+            }
+            foreach(Game g in gameList)
+            {
+                if (g.getFileName().Equals(gam.getFileName())){
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public string getPrefPath()
         {
             return prefPath;

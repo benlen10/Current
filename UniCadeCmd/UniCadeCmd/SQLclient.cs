@@ -92,7 +92,7 @@ namespace UniCadeCmd
             MySqlDataReader myReader = myCommand.ExecuteReader();
             if (myReader.Read())
             {
-                if ((SafeGetString(myReader, 1).Equals(g.getFileName(), StringComparison.InvariantCultureIgnoreCase)) || (SafeGetString(myReader, 3).Equals(email, StringComparison.InvariantCultureIgnoreCase)))
+                if ((SafeGetString(myReader, 1).Equals(g.getFileName(), StringComparison.InvariantCultureIgnoreCase)))
                 {
                     System.Console.WriteLine("User Already Exists");
                     myReader.Close();
@@ -224,7 +224,7 @@ namespace UniCadeCmd
             {
                 if ((SafeGetString(myReader, 1).Equals(username, StringComparison.InvariantCultureIgnoreCase)) || (SafeGetString(myReader, 3).Equals(email, StringComparison.InvariantCultureIgnoreCase)))
                 {
-                    System.Console.WriteLine("User Already Exists");
+
                     myReader.Close();
                     myCommand.Dispose();
                     return false;

@@ -25,6 +25,7 @@ namespace UniCadeCmd
                 return;
             }
             SQLclient.createUser(textBox1.Text, textBox3.Text, textBox2.Text, textBox4.Text, "Null", "NullProfPath");
+            Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
