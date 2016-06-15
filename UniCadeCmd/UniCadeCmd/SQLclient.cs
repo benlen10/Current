@@ -79,6 +79,27 @@ namespace UniCadeCmd
         }
 
 
+        public static bool downloadAllGames()
+        {
+            foreach (Console c in Program.dat.consoleList)
+            {
+                foreach (Game g in c.getGameList())
+                {
+
+                   Game gam = getSingleGame(c.getName(), g.getTitle());
+                    if (gam != null)
+                    {
+                        c.getGameList().Remove(g);
+                        c.getGameList().Add(gam);
+                    }
+                    return true;   //Only scrape one console
+                }
+            }
+
+            return true;
+
+        }
+
         public static bool uploadGame(Game g)
         {
             if (conn == null)
@@ -122,11 +143,11 @@ namespace UniCadeCmd
                 connectSQL();
             }
             MySqlCommand myCommand = new MySqlCommand("Use unicade;"+ "select * FROM games WHERE title = "+ "\""+ gam + "\""+ " AND console = " + "\""+ con + "\""  +  ";", conn);
-
+            MySqlDataReader myReader = null;
             StringBuilder sb = new StringBuilder();
             try
             {
-                MySqlDataReader myReader = null;
+                
 
                 myReader = myCommand.ExecuteReader();
                 int col = 1;
@@ -143,7 +164,8 @@ namespace UniCadeCmd
             catch (Exception e)
             {
                 System.Console.WriteLine(e.ToString());
-
+                myReader.Close();
+                myCommand.Dispose();
                 return null;
             }
 

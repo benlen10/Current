@@ -2048,6 +2048,7 @@
             this.button40.TabIndex = 16;
             this.button40.Text = "Download All Games";
             this.button40.UseVisualStyleBackColor = true;
+            this.button40.Click += new System.EventHandler(this.button40_Click);
             // 
             // button41
             // 

@@ -1356,6 +1356,12 @@ namespace UniCadeCmd
             MessageBox.Show("Library successfully deleted");
 
         }
+
+        private void button40_Click(object sender, EventArgs e)  //Download all games function
+        {
+            SQLclient.downloadAllGames();
+            MessageBox.Show("Library metadata sucuessfully updated");
+        }
     }
 
     }
