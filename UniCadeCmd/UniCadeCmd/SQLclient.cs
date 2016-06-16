@@ -83,17 +83,26 @@ namespace UniCadeCmd
         {
             foreach (Console c in Program.dat.consoleList)
             {
+                System.Console.WriteLine("DONWLOAD CONSOLE:" + c.getName());
                 foreach (Game g in c.getGameList())
                 {
-
-                   Game gam = getSingleGame(c.getName(), g.getTitle());
+                    System.Console.WriteLine("LOOP");
+                    Game gam = null;
+                    gam = getSingleGame(g.getConsole(), g.getTitle());
                     if (gam != null)
                     {
-                        c.getGameList().Remove(g);
-                        c.getGameList().Add(gam);
+                        if (gam.getFileName().Length > 3)
+                        {
+                            System.Console.WriteLine("BEFORE" + c.getGameList().Count);
+                            c.getGameList().Remove(g);
+                            System.Console.WriteLine("AFTER" + c.getGameList().Count);
+
+                            c.addGame(g);
+                        }
                     }
-                    return true;   //Only scrape one console
+                   
                 }
+                return true;   //Only scrape one console
             }
 
             return true;
@@ -138,25 +147,29 @@ namespace UniCadeCmd
 
         public static Game getSingleGame(string con, string gam)
         {
+            System.Console.WriteLine("SINGLE GAME: " + con + gam);
             if (conn == null)
             {
                 connectSQL();
             }
             MySqlCommand myCommand = new MySqlCommand("Use unicade;"+ "select * FROM games WHERE title = "+ "\""+ gam + "\""+ " AND console = " + "\""+ con + "\""  +  ";", conn);
-            MySqlDataReader myReader = null;
-            StringBuilder sb = new StringBuilder();
+            MySqlDataReader myReader = myCommand.ExecuteReader();
             try
             {
                 
-
-                myReader = myCommand.ExecuteReader();
-                int col = 1;
-                myReader.Read();
-                Game g = new Game(SafeGetString(myReader,1), SafeGetString(myReader,3), SafeGetInt32(myReader,4), SafeGetString(myReader, 5), SafeGetString(myReader, 6), SafeGetString(myReader, 7), SafeGetString(myReader, 8), SafeGetString(myReader, 9), SafeGetString(myReader, 10), SafeGetString(myReader,11), SafeGetString(myReader, 12), SafeGetString(myReader, 13), SafeGetString(myReader, 14), SafeGetString(myReader, 15), SafeGetString(myReader, 16), SafeGetString(myReader, 17), SafeGetInt32(myReader, 18));
-                while (myReader.Read())
+                
+                Game g = null;
+                if (myReader.Read())
                 {
-                    sb.Append(myReader.GetString(col));
+                     g = new Game(SafeGetString(myReader, 1), SafeGetString(myReader, 3), SafeGetInt32(myReader, 4), SafeGetString(myReader, 5), SafeGetString(myReader, 6), SafeGetString(myReader, 7), SafeGetString(myReader, 8), SafeGetString(myReader, 9), SafeGetString(myReader, 10), SafeGetString(myReader, 11), SafeGetString(myReader, 12), SafeGetString(myReader, 13), SafeGetString(myReader, 14), SafeGetString(myReader, 15), SafeGetString(myReader, 16), SafeGetString(myReader, 17), SafeGetInt32(myReader, 18));
                 }
+                else
+                {
+                    myCommand.Dispose();
+                    myReader.Close();
+                    return null;
+                }
+
                 myReader.Close();
                 myCommand.Dispose();
                 return g;
@@ -165,7 +178,6 @@ namespace UniCadeCmd
             {
                 System.Console.WriteLine(e.ToString());
                 myReader.Close();
-                myCommand.Dispose();
                 return null;
             }
 

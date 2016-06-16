@@ -69,7 +69,10 @@ namespace UniCadeCmd
             this.esrbSummary = esrbSummary;
             this.genres = genres;
             this.tags = tags;
-            title = fileName.Substring(0, fileName.IndexOf('.'));
+            if (fileName.Length > 2)
+            {
+                title = fileName.Substring(0, fileName.IndexOf('.'));
+            }
         }
 
         //Methods 
