@@ -83,26 +83,22 @@ namespace UniCadeCmd
         {
             foreach (Console c in Program.dat.consoleList)
             {
-                System.Console.WriteLine("DONWLOAD CONSOLE:" + c.getName());
-                foreach (Game g in c.getGameList())
+                
+                for(int i = 0; i<c.getGameList().Count; i++)
                 {
-                    System.Console.WriteLine("LOOP");
+                    Game g = (Game) c.getGameList()[i];
                     Game gam = null;
                     gam = getSingleGame(g.getConsole(), g.getTitle());
                     if (gam != null)
                     {
                         if (gam.getFileName().Length > 3)
                         {
-                            System.Console.WriteLine("BEFORE" + c.getGameList().Count);
-                            c.getGameList().Remove(g);
-                            System.Console.WriteLine("AFTER" + c.getGameList().Count);
-
-                            c.addGame(g);
+                            c.getGameList()[i] = gam;
                         }
                     }
                    
                 }
-                return true;   //Only scrape one console
+
             }
 
             return true;
@@ -147,17 +143,18 @@ namespace UniCadeCmd
 
         public static Game getSingleGame(string con, string gam)
         {
-            System.Console.WriteLine("SINGLE GAME: " + con + gam);
+            //System.Console.WriteLine("SINGLE GAME: " + con +", "+ gam);
             if (conn == null)
             {
                 connectSQL();
             }
-            MySqlCommand myCommand = new MySqlCommand("Use unicade;"+ "select * FROM games WHERE title = "+ "\""+ gam + "\""+ " AND console = " + "\""+ con + "\""  +  ";", conn);
-            MySqlDataReader myReader = myCommand.ExecuteReader();
+            MySqlCommand myCommand = new MySqlCommand("Use unicade;"+ "select * FROM " + sqlUser + "_games WHERE title = "+ "\""+ gam + "\""+ " AND console = " + "\""+ con + "\""  +  ";", conn);
+            MySqlDataReader myReader = null;
             try
             {
-                
-                
+                 myReader = myCommand.ExecuteReader();
+
+
                 Game g = null;
                 if (myReader.Read())
                 {
