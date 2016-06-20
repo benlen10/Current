@@ -1362,6 +1362,55 @@ namespace UniCadeCmd
             SQLclient.downloadAllGames();
             MessageBox.Show("Library metadata sucuessfully updated");
         }
+
+        private void button44_Click(object sender, EventArgs e)  //Download game button
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
+
+            if (curGame == null)
+            {
+                MessageBox.Show("Must select a game");
+                return;
+            }
+
+            Game g = SQLclient.getSingleGame(curGame.getConsole(), curGame.getTitle());
+            int i = curConsole.getGameList().IndexOf(curGame);
+            if (g != null)
+            {
+                if (i > 0)
+                {
+                    curConsole.getGameList().Remove(i);
+                }
+                curConsole.getGameList().Add(g);
+                MessageBox.Show("Download successful")
+            }
+
+
+        }
+
+        private void button42_Click(object sender, EventArgs e)  //Upload console button
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
+
+        }
+
+        private void button43_Click(object sender, EventArgs e)  //Download console button
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
+
+        }
     }
 
     }

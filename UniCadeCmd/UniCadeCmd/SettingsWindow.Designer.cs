@@ -80,6 +80,10 @@
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -186,6 +190,18 @@
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.checkBox25 = new System.Windows.Forms.CheckBox();
+            this.button41 = new System.Windows.Forms.Button();
+            this.button40 = new System.Windows.Forms.Button();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.button39 = new System.Windows.Forms.Button();
+            this.label56 = new System.Windows.Forms.Label();
+            this.button38 = new System.Windows.Forms.Button();
+            this.button37 = new System.Windows.Forms.Button();
+            this.button36 = new System.Windows.Forms.Button();
+            this.button35 = new System.Windows.Forms.Button();
+            this.button29 = new System.Windows.Forms.Button();
+            this.button34 = new System.Windows.Forms.Button();
             this.button31 = new System.Windows.Forms.Button();
             this.textBox35 = new System.Windows.Forms.TextBox();
             this.textBox34 = new System.Windows.Forms.TextBox();
@@ -193,34 +209,21 @@
             this.button30 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button34 = new System.Windows.Forms.Button();
-            this.button29 = new System.Windows.Forms.Button();
-            this.button35 = new System.Windows.Forms.Button();
-            this.button36 = new System.Windows.Forms.Button();
-            this.button37 = new System.Windows.Forms.Button();
-            this.button38 = new System.Windows.Forms.Button();
-            this.label56 = new System.Windows.Forms.Label();
-            this.button39 = new System.Windows.Forms.Button();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
-            this.button40 = new System.Windows.Forms.Button();
-            this.button41 = new System.Windows.Forms.Button();
-            this.checkBox25 = new System.Windows.Forms.CheckBox();
+            this.button42 = new System.Windows.Forms.Button();
+            this.button43 = new System.Windows.Forms.Button();
+            this.button44 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPage6.SuspendLayout();
-            this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.tabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage2
@@ -606,6 +609,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button44);
+            this.tabPage3.Controls.Add(this.button43);
+            this.tabPage3.Controls.Add(this.button42);
             this.tabPage3.Controls.Add(this.button33);
             this.tabPage3.Controls.Add(this.button32);
             this.tabPage3.Controls.Add(this.button28);
@@ -664,7 +670,7 @@
             // 
             // button33
             // 
-            this.button33.Location = new System.Drawing.Point(512, 594);
+            this.button33.Location = new System.Drawing.Point(1300, 511);
             this.button33.Name = "button33";
             this.button33.Size = new System.Drawing.Size(181, 43);
             this.button33.TabIndex = 74;
@@ -674,7 +680,7 @@
             // 
             // button32
             // 
-            this.button32.Location = new System.Drawing.Point(511, 533);
+            this.button32.Location = new System.Drawing.Point(506, 599);
             this.button32.Name = "button32";
             this.button32.Size = new System.Drawing.Size(187, 41);
             this.button32.TabIndex = 73;
@@ -750,7 +756,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(1313, 76);
+            this.label26.Location = new System.Drawing.Point(1313, 5);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(92, 25);
             this.label26.TabIndex = 65;
@@ -759,7 +765,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(1479, 76);
+            this.label25.Location = new System.Drawing.Point(1479, 5);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(95, 25);
             this.label25.TabIndex = 64;
@@ -768,7 +774,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(1390, 328);
+            this.label24.Location = new System.Drawing.Point(1390, 257);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(121, 25);
             this.label24.TabIndex = 63;
@@ -777,11 +783,51 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(1422, 520);
+            this.label23.Location = new System.Drawing.Point(1546, 441);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(69, 25);
             this.label23.TabIndex = 62;
             this.label23.Text = "ESRB";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Location = new System.Drawing.Point(1498, 471);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(175, 160);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 61;
+            this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Location = new System.Drawing.Point(1289, 294);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(307, 140);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 60;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(1460, 57);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(125, 192);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 59;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(1300, 56);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(125, 193);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 58;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // textBox16
             // 
@@ -963,7 +1009,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(1113, 637);
+            this.button6.Location = new System.Drawing.Point(1101, 637);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(188, 73);
             this.button6.TabIndex = 25;
@@ -1855,6 +1901,126 @@
             this.tabPage7.Text = "UniCade Server";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // checkBox25
+            // 
+            this.checkBox25.AutoSize = true;
+            this.checkBox25.Location = new System.Drawing.Point(1022, 422);
+            this.checkBox25.Name = "checkBox25";
+            this.checkBox25.Size = new System.Drawing.Size(388, 29);
+            this.checkBox25.TabIndex = 18;
+            this.checkBox25.Text = "Overwrite Games In Local Database";
+            this.checkBox25.UseVisualStyleBackColor = true;
+            // 
+            // button41
+            // 
+            this.button41.Location = new System.Drawing.Point(1194, 474);
+            this.button41.Name = "button41";
+            this.button41.Size = new System.Drawing.Size(202, 99);
+            this.button41.TabIndex = 17;
+            this.button41.Text = "Delete All Games In Cloud";
+            this.button41.UseVisualStyleBackColor = true;
+            this.button41.Click += new System.EventHandler(this.button41_Click);
+            // 
+            // button40
+            // 
+            this.button40.Location = new System.Drawing.Point(982, 474);
+            this.button40.Name = "button40";
+            this.button40.Size = new System.Drawing.Size(172, 99);
+            this.button40.TabIndex = 16;
+            this.button40.Text = "Download All Games";
+            this.button40.UseVisualStyleBackColor = true;
+            this.button40.Click += new System.EventHandler(this.button40_Click);
+            // 
+            // checkBox16
+            // 
+            this.checkBox16.AutoSize = true;
+            this.checkBox16.Location = new System.Drawing.Point(1022, 378);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.Size = new System.Drawing.Size(294, 29);
+            this.checkBox16.TabIndex = 15;
+            this.checkBox16.Text = "Overwrite Games In Cloud";
+            this.checkBox16.UseVisualStyleBackColor = true;
+            // 
+            // button39
+            // 
+            this.button39.Location = new System.Drawing.Point(963, 299);
+            this.button39.Name = "button39";
+            this.button39.Size = new System.Drawing.Size(172, 48);
+            this.button39.TabIndex = 14;
+            this.button39.Text = "Logout";
+            this.button39.UseVisualStyleBackColor = true;
+            this.button39.Click += new System.EventHandler(this.button39_Click);
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.Location = new System.Drawing.Point(175, 45);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(201, 25);
+            this.label56.TabIndex = 13;
+            this.label56.Text = "Current User: Null";
+            // 
+            // button38
+            // 
+            this.button38.Location = new System.Drawing.Point(770, 468);
+            this.button38.Name = "button38";
+            this.button38.Size = new System.Drawing.Size(172, 99);
+            this.button38.TabIndex = 12;
+            this.button38.Text = "Upload All Games";
+            this.button38.UseVisualStyleBackColor = true;
+            this.button38.Click += new System.EventHandler(this.button38_Click);
+            // 
+            // button37
+            // 
+            this.button37.Location = new System.Drawing.Point(166, 661);
+            this.button37.Name = "button37";
+            this.button37.Size = new System.Drawing.Size(172, 48);
+            this.button37.TabIndex = 11;
+            this.button37.Text = "Close";
+            this.button37.UseVisualStyleBackColor = true;
+            this.button37.Click += new System.EventHandler(this.button37_Click);
+            // 
+            // button36
+            // 
+            this.button36.Location = new System.Drawing.Point(373, 461);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(172, 112);
+            this.button36.TabIndex = 10;
+            this.button36.Text = "Edit Current User";
+            this.button36.UseVisualStyleBackColor = true;
+            this.button36.Click += new System.EventHandler(this.button36_Click);
+            // 
+            // button35
+            // 
+            this.button35.Location = new System.Drawing.Point(574, 461);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(172, 112);
+            this.button35.TabIndex = 9;
+            this.button35.Text = "Delete Current User";
+            this.button35.UseVisualStyleBackColor = true;
+            this.button35.Click += new System.EventHandler(this.button35_Click);
+            // 
+            // button29
+            // 
+            this.button29.Location = new System.Drawing.Point(750, 299);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(172, 48);
+            this.button29.TabIndex = 8;
+            this.button29.Text = "Login";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click_1);
+            // 
+            // button34
+            // 
+            this.button34.Location = new System.Drawing.Point(195, 461);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(172, 112);
+            this.button34.TabIndex = 7;
+            this.button34.Text = "Create new account";
+            this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
+            // 
             // button31
             // 
             this.button31.Location = new System.Drawing.Point(866, 109);
@@ -1908,167 +2074,37 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // pictureBox4
+            // button42
             // 
-            this.pictureBox4.Location = new System.Drawing.Point(1386, 560);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(144, 142);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 61;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
+            this.button42.Location = new System.Drawing.Point(1300, 637);
+            this.button42.Name = "button42";
+            this.button42.Size = new System.Drawing.Size(222, 43);
+            this.button42.TabIndex = 75;
+            this.button42.Text = "Upload Console";
+            this.button42.UseVisualStyleBackColor = true;
+            this.button42.Click += new System.EventHandler(this.button42_Click);
             // 
-            // pictureBox3
+            // button43
             // 
-            this.pictureBox3.Location = new System.Drawing.Point(1289, 365);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(307, 140);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 60;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            this.button43.Location = new System.Drawing.Point(1300, 691);
+            this.button43.Name = "button43";
+            this.button43.Size = new System.Drawing.Size(222, 43);
+            this.button43.TabIndex = 76;
+            this.button43.Text = "Download Console";
+            this.button43.UseVisualStyleBackColor = true;
+            this.button43.Click += new System.EventHandler(this.button43_Click);
             // 
-            // pictureBox2
+            // button44
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(1460, 128);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(125, 192);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 59;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(1300, 127);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(125, 193);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 58;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // button34
-            // 
-            this.button34.Location = new System.Drawing.Point(195, 461);
-            this.button34.Name = "button34";
-            this.button34.Size = new System.Drawing.Size(172, 112);
-            this.button34.TabIndex = 7;
-            this.button34.Text = "Create new account";
-            this.button34.UseVisualStyleBackColor = true;
-            this.button34.Click += new System.EventHandler(this.button34_Click);
-            // 
-            // button29
-            // 
-            this.button29.Location = new System.Drawing.Point(750, 299);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(172, 48);
-            this.button29.TabIndex = 8;
-            this.button29.Text = "Login";
-            this.button29.UseVisualStyleBackColor = true;
-            this.button29.Click += new System.EventHandler(this.button29_Click_1);
-            // 
-            // button35
-            // 
-            this.button35.Location = new System.Drawing.Point(574, 461);
-            this.button35.Name = "button35";
-            this.button35.Size = new System.Drawing.Size(172, 112);
-            this.button35.TabIndex = 9;
-            this.button35.Text = "Delete Current User";
-            this.button35.UseVisualStyleBackColor = true;
-            this.button35.Click += new System.EventHandler(this.button35_Click);
-            // 
-            // button36
-            // 
-            this.button36.Location = new System.Drawing.Point(373, 461);
-            this.button36.Name = "button36";
-            this.button36.Size = new System.Drawing.Size(172, 112);
-            this.button36.TabIndex = 10;
-            this.button36.Text = "Edit Current User";
-            this.button36.UseVisualStyleBackColor = true;
-            this.button36.Click += new System.EventHandler(this.button36_Click);
-            // 
-            // button37
-            // 
-            this.button37.Location = new System.Drawing.Point(166, 661);
-            this.button37.Name = "button37";
-            this.button37.Size = new System.Drawing.Size(172, 48);
-            this.button37.TabIndex = 11;
-            this.button37.Text = "Close";
-            this.button37.UseVisualStyleBackColor = true;
-            this.button37.Click += new System.EventHandler(this.button37_Click);
-            // 
-            // button38
-            // 
-            this.button38.Location = new System.Drawing.Point(770, 468);
-            this.button38.Name = "button38";
-            this.button38.Size = new System.Drawing.Size(172, 99);
-            this.button38.TabIndex = 12;
-            this.button38.Text = "Upload All Games";
-            this.button38.UseVisualStyleBackColor = true;
-            this.button38.Click += new System.EventHandler(this.button38_Click);
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label56.Location = new System.Drawing.Point(175, 45);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(201, 25);
-            this.label56.TabIndex = 13;
-            this.label56.Text = "Current User: Null";
-            // 
-            // button39
-            // 
-            this.button39.Location = new System.Drawing.Point(963, 299);
-            this.button39.Name = "button39";
-            this.button39.Size = new System.Drawing.Size(172, 48);
-            this.button39.TabIndex = 14;
-            this.button39.Text = "Logout";
-            this.button39.UseVisualStyleBackColor = true;
-            this.button39.Click += new System.EventHandler(this.button39_Click);
-            // 
-            // checkBox16
-            // 
-            this.checkBox16.AutoSize = true;
-            this.checkBox16.Location = new System.Drawing.Point(1022, 378);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(294, 29);
-            this.checkBox16.TabIndex = 15;
-            this.checkBox16.Text = "Overwrite Games In Cloud";
-            this.checkBox16.UseVisualStyleBackColor = true;
-            // 
-            // button40
-            // 
-            this.button40.Location = new System.Drawing.Point(982, 474);
-            this.button40.Name = "button40";
-            this.button40.Size = new System.Drawing.Size(172, 99);
-            this.button40.TabIndex = 16;
-            this.button40.Text = "Download All Games";
-            this.button40.UseVisualStyleBackColor = true;
-            this.button40.Click += new System.EventHandler(this.button40_Click);
-            // 
-            // button41
-            // 
-            this.button41.Location = new System.Drawing.Point(1194, 474);
-            this.button41.Name = "button41";
-            this.button41.Size = new System.Drawing.Size(202, 99);
-            this.button41.TabIndex = 17;
-            this.button41.Text = "Delete All Games In Cloud";
-            this.button41.UseVisualStyleBackColor = true;
-            this.button41.Click += new System.EventHandler(this.button41_Click);
-            // 
-            // checkBox25
-            // 
-            this.checkBox25.AutoSize = true;
-            this.checkBox25.Location = new System.Drawing.Point(1022, 422);
-            this.checkBox25.Name = "checkBox25";
-            this.checkBox25.Size = new System.Drawing.Size(388, 29);
-            this.checkBox25.TabIndex = 18;
-            this.checkBox25.Text = "Overwrite Games In Local Database";
-            this.checkBox25.UseVisualStyleBackColor = true;
+            this.button44.Location = new System.Drawing.Point(1300, 570);
+            this.button44.Name = "button44";
+            this.button44.Size = new System.Drawing.Size(181, 43);
+            this.button44.TabIndex = 77;
+            this.button44.Text = "Download Game";
+            this.button44.UseVisualStyleBackColor = true;
+            this.button44.Click += new System.EventHandler(this.button44_Click);
             // 
             // SettingsWindow
             // 
@@ -2087,6 +2123,10 @@
             this.Us.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -2095,10 +2135,6 @@
             this.tabPage6.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2285,5 +2321,8 @@
         private System.Windows.Forms.Button button41;
         private System.Windows.Forms.Button button40;
         private System.Windows.Forms.CheckBox checkBox16;
+        private System.Windows.Forms.Button button44;
+        private System.Windows.Forms.Button button43;
+        private System.Windows.Forms.Button button42;
     }
 }
