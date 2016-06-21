@@ -1399,6 +1399,12 @@ namespace UniCadeCmd
                 MessageBox.Show("Login Required");
                 return;
             }
+            foreach (Game g in curConsole.getGameList())
+            {
+                SQLclient.uploadGame(g);
+            }
+            System.Console.WriteLine("All " + curConsole.getName() + " Uploaded");
+
 
         }
 
