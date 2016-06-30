@@ -1386,7 +1386,7 @@ namespace UniCadeCmd
                     curConsole.getGameList().Remove(i);
                 }
                 curConsole.getGameList().Add(g);
-                MessageBox.Show("Download successful")
+                MessageBox.Show("Download successful");
             }
 
 
@@ -1416,6 +1416,22 @@ namespace UniCadeCmd
                 return;
             }
 
+            for (int i = 0; i < curConsole.getGameList().Count; i++)
+            {
+                Game g = (Game)curConsole.getGameList()[i];
+                Game gam = null;
+                gam = SQLclient.getSingleGame(g.getConsole(), g.getTitle());
+                if (gam != null)
+                {
+                    if (gam.getFileName().Length > 3)
+                    {
+                        curConsole.getGameList()[i] = gam;
+                    }
+                }
+
+            }
+
+            MessageBox.Show("Download successful");
         }
     }
 
