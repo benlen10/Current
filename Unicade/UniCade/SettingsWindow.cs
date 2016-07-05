@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UniCade
+namespace UniCadeCmd
 {
     public partial class SettingsWindow : Form
     {
@@ -476,11 +476,11 @@ namespace UniCade
 
                 if (SettingsWindow.playtime > 0)
                 {
-                   // Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
+                    Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
                 }
                 else if (SettingsWindow.coins > 0)
                 {
-                    //Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
+                    Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
                 }
 
             }
@@ -584,19 +584,19 @@ namespace UniCade
             else
             {
                 payPerPlay = 0;
-               // Program.gui.closePayNotification();
+                Program.gui.closePayNotification();
             }
 
             if (SettingsWindow.payPerPlay > 0)
             {
-                //Program.gui.closePayNotification();
+                Program.gui.closePayNotification();
                 if (SettingsWindow.playtime > 0)
                 {
-                    //Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
+                    Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
                 }
                 else if (SettingsWindow.coins > 0)
                 {
-                   // Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
+                    Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
                 }
 
             }
@@ -616,17 +616,17 @@ namespace UniCade
                 playtime = Int32.Parse(textBox30.Text);
             }
 
-            //Program.gui.closePayNotification();
+            Program.gui.closePayNotification();
             if (SettingsWindow.payPerPlay > 0)
             {
 
                 if (SettingsWindow.playtime > 0)
                 {
-                    //Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
+                    Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
                 }
                 else if (SettingsWindow.coins > 0)
                 {
-                    //Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
+                    Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
                 }
 
             }
@@ -640,17 +640,17 @@ namespace UniCade
             {
                 coins = Int32.Parse(textBox29.Text);
             }
-            //Program.gui.closePayNotification();
+            Program.gui.closePayNotification();
             if (SettingsWindow.payPerPlay > 0)
             {
 
                 if (SettingsWindow.playtime > 0)
                 {
-                    //Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
+                    Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
                 }
                 else if (SettingsWindow.coins > 0)
                 {
-                   // Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
+                    Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
                 }
 
             }

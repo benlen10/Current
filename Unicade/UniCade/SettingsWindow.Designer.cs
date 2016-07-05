@@ -1,4 +1,4 @@
-﻿namespace UniCade
+﻿namespace UniCadeCmd
 {
     partial class SettingsWindow
     {
@@ -204,9 +204,6 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.textBox34 = new System.Windows.Forms.TextBox();
-            this.textBox35 = new System.Windows.Forms.TextBox();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -337,7 +334,7 @@
             this.tabPage1.Location = new System.Drawing.Point(8, 39);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1763, 760);
+            this.tabPage1.Size = new System.Drawing.Size(1679, 752);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Emulators";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1136,7 +1133,7 @@
             this.tabPage5.Location = new System.Drawing.Point(8, 39);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1763, 760);
+            this.tabPage5.Size = new System.Drawing.Size(1679, 752);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Users";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1376,7 +1373,7 @@
             this.tabPage4.Location = new System.Drawing.Point(8, 39);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1763, 760);
+            this.tabPage4.Size = new System.Drawing.Size(1679, 752);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Global Settings";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1712,7 +1709,7 @@
             this.tabPage6.Location = new System.Drawing.Point(8, 39);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1763, 760);
+            this.tabPage6.Size = new System.Drawing.Size(1679, 752);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Web Options";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1900,9 +1897,6 @@
             // 
             // tabPage7
             // 
-            this.tabPage7.Controls.Add(this.textBox35);
-            this.tabPage7.Controls.Add(this.textBox34);
-            this.tabPage7.Controls.Add(this.textBox14);
             this.tabPage7.Controls.Add(this.button41);
             this.tabPage7.Controls.Add(this.button40);
             this.tabPage7.Controls.Add(this.button39);
@@ -2024,27 +2018,6 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
-            // 
-            // textBox14
-            // 
-            this.textBox14.Location = new System.Drawing.Point(975, 365);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(100, 31);
-            this.textBox14.TabIndex = 18;
-            // 
-            // textBox34
-            // 
-            this.textBox34.Location = new System.Drawing.Point(831, 365);
-            this.textBox34.Name = "textBox34";
-            this.textBox34.Size = new System.Drawing.Size(100, 31);
-            this.textBox34.TabIndex = 19;
-            // 
-            // textBox35
-            // 
-            this.textBox35.Location = new System.Drawing.Point(1122, 365);
-            this.textBox35.Name = "textBox35";
-            this.textBox35.Size = new System.Drawing.Size(100, 31);
-            this.textBox35.TabIndex = 20;
             // 
             // SettingsWindow
             // 
@@ -2256,8 +2229,5 @@
         private System.Windows.Forms.Button button44;
         private System.Windows.Forms.Button button43;
         private System.Windows.Forms.Button button42;
-        private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.TextBox textBox35;
-        private System.Windows.Forms.TextBox textBox34;
     }
 }
