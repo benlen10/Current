@@ -57,7 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Splash.Designer.cs" />
+    <Compile Include="PassWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SQLclient.cs" />
     <Compile Include="Taskbar.cs" />
     <Compile Include="TextFiles.cs" />
@@ -94,7 +96,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login.Designer.cs" />
-    <Compile Include="PassWindow.cs" />
     <Compile Include="PassWindow.Designer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Review.cs" />

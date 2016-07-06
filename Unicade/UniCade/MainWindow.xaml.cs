@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UniCade;
 
 namespace WpfApplication1
 {
@@ -20,7 +21,7 @@ namespace WpfApplication1
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static SettingsWindow sw;
+        //public static SettingsWindow sw;
 
         public MainWindow()
         {

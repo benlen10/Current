@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UniCadeCmd
+namespace UniCade
 {
     public partial class UnicadeAccount : Form
     {

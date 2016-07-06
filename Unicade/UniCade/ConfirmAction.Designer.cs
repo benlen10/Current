@@ -1,4 +1,4 @@
-﻿namespace UniCadeCmd
+﻿namespace UniCade
 {
     partial class ConfirmAction
     {

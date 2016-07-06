@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace UniCadeCmd
+namespace UniCade
 {
     public class BackgroundThread
     {
@@ -15,7 +15,7 @@ namespace UniCadeCmd
                 System.Console.WriteLine("Thread Loop");
 
                 Thread.Sleep(5000);
-                Program.gui.activate();
+                //Program.gui.activate();
             }
         }
 
