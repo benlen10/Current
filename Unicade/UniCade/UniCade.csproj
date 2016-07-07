@@ -7,8 +7,8 @@
     <ProjectGuid>{1C74E928-6F81-48E3-AF22-85FC82403FD8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WpfApplication1</RootNamespace>
-    <AssemblyName>WpfApplication1</AssemblyName>
+    <RootNamespace>UniCade</RootNamespace>
+    <AssemblyName>UniCade</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -33,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>UniCade.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
