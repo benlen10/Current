@@ -12,6 +12,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+		The main class of the program. Parses an input txt file to create the inital resources and events.
+		 Parses user commands to preform operations on the databse
+*/
+
+//Title:            Scheduler
+//Files:            Event.java, Interval.java, IntervalBST.java, IntervalBSTIterator.java, IntervalBSTnode.java, IntervalConflictException.java, Resource.java, Scheduler.java, SchedulerDB.java, SortedListADT.java
+//Semester:     Fall 2015
+//Author:         Ben Lenington
+//Email:           lenington@wisc.edu
+//CS Login:      lenington
+//Lecturer's Name:  Jim Skrentny
+
 public class Scheduler {
 	
 	private static SchedulerDB schedulerDB = new SchedulerDB();
@@ -35,7 +48,9 @@ public class Scheduler {
 
 		processUserCommands();
 	}
-	
+	/**
+	*		Parse the input txt file to generate resource and event objects. All all new events to the database
+	*/
 	private static boolean initializeFromInputFile(String resourceListFile) {
 		long start;
 		long end;
@@ -70,13 +85,18 @@ public class Scheduler {
 	}
 	
 
-	
-	public static String parseDate(long l){                    //Custom method
+	/**
+	*		A custom method to create a Date object from a timestamp value
+	*/
+	public static String parseDate(long l){                    
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy,kk:mm");
 		Date d = new Date((l * 1000));
 		return sdf.format(d);
 	}
 	
+	/**
+	*		Process user commands from the command line
+	*/
 	private static void processUserCommands() {
 		scanner = new Scanner(System.in);
 		String command = null;		
@@ -132,6 +152,9 @@ public class Scheduler {
 	}
 	
 	
+	/**
+	*		Display a list of events
+	*/
 	private static void processDisplayCommand() {
 		String restOfLine = scanner.next();
 		Scanner in = new Scanner(restOfLine);
@@ -165,6 +188,9 @@ public class Scheduler {
 		in.close();
 	}
 	
+	/**
+	*		Add events to the database
+	*/
 	private static void processAddCommand(){
 		String restOfLine = scanner.next();
 		Scanner in = new Scanner(restOfLine);
@@ -198,6 +224,9 @@ public class Scheduler {
 	
 
 	
+	/**
+	*		delete an event from the database
+	*/
 	private static void processDeleteCommand(){
 		String restOfLine = scanner.next();
 		Scanner in = new Scanner(restOfLine);
@@ -224,6 +253,9 @@ public class Scheduler {
 		in.close();
 	}
 	
+	/**
+	*		Print a list of the current available resources
+	*/
 	private static void printResourceList(List<Resource> list){
 		Iterator<Resource> itr = list.iterator();
 		if(!itr.hasNext()){
@@ -234,6 +266,9 @@ public class Scheduler {
 		}
 	}
 	
+	/**
+	*		Print a list of the existing events 
+	*/
 	private static void printEventList(List<Event> list){
 		Iterator<Event> itr = list.iterator();
 		if(!itr.hasNext()){
@@ -244,6 +279,9 @@ public class Scheduler {
 		}
 	}
 	
+	/**
+	*		Convert a string representation to a timestamp in long format
+	*/
 	private static long convertToTime(String time){
 		long result = 0;
     	Format format = new SimpleDateFormat("MM/dd/yyyy,HH:mm");

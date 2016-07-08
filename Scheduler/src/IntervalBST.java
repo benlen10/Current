@@ -1,10 +1,29 @@
 import java.util.Iterator;
 
+//Main Class File:   Scheduler
+//File:                  IntervalBST.java
+//Semester:          Fall 2015
+
+//Author:         Ben Leninton
+//Email:           lenington@wisc.edu
+//CS Login:      lenington
+//Lecturer's Name:  Jim Skrentny
+
+/**
+	Provides the essential BST functions for a BST of Interval nodes
+*/
+
 public class IntervalBST<K extends Interval> implements SortedListADT<K> {
     private IntervalBSTnode<K> root;
     public IntervalBST() {
 	}
 
+    	
+    /**
+     * Inserts the given key into the Sorted List.
+     * 
+     * @param key the key value to insert into the Sorted List
+     */
 	public void insert(K key){
 		if (root == null){
 			root = new IntervalBSTnode<K>(key);
@@ -16,6 +35,16 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 		}
 	}
 
+	
+	/**
+     * Deletes the given key from the Sorted List.  If the key is in the Sorted
+     * List, the key is deleted and true is returned.  If the key is not in the
+     * Sorted List, the Sorted List is unchanged and false is returned.
+     * @param key the key value to delete from the Sorted List
+     * @return true if the deletion is successful (i.e., the key was in the 
+     * Sorted List and has been removed), false otherwise (i.e., the key was not
+     * in the Sorted List)
+     */
 	public boolean delete(K key) {
 		root =  deleteRec(root, key);
 		if(root==null){
@@ -26,14 +55,31 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 		}
 	}
 	
+	
+	 /**
+     * Searches for the given key in the Sorted List and returns it.  If the 
+     * key is not in the Sorted List, null is returned.
+     * @param key the key to search for
+     * @return the key from the Sorted List, if it is there; null if the key is
+     * not in the Sorted List
+     */
 	public K lookup(K key) {
 		return lookupRec(root, key);
 	}
 
+	
+	/**
+     * Returns the number of items in the Sorted List.
+     * @return the number of items in the Sorted List
+     */
 	public int size() {
 	return sizeRec(root);
 	}
 
+	 /**
+     * Returns true if and only if the Sorted List is empty.
+     * @return true if the Sorted List is empty, false otherwise
+     */
 	public boolean isEmpty() {
 	if(root==null){
 		return true;
@@ -43,12 +89,21 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 	}
 	}
 
+	/**
+     * Returns an iterator over the Sorted List that iterates over the items in 
+     * the Sorted List from smallest to largest.
+     * @return an iterator over the Sorted List
+     */
 	public Iterator<K> iterator() {
 		return new IntervalBSTIterator<K>(root);
 	}
 	
 	
 	//Recursive Methods
+	
+	/**
+     * Recursive helper function for insert()
+     */
 	public IntervalBSTnode<K> insertRec(IntervalBSTnode<K> n, K key) {  //throws DuplicateException
 		 if (n == null) {
 		        return new IntervalBSTnode<K>(key);
@@ -70,6 +125,9 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 		    }
 	  }
 	
+	/**
+     * Recursive helper function for lookup()
+     */
 	public K lookupRec(IntervalBSTnode<K> n, K key){
 		if (n == null) {
 	        return null;
@@ -97,6 +155,10 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 		  return c;
 	}
 	
+	
+	/**
+     * Recursive helper function for delete()
+     */
 	public IntervalBSTnode<K> deleteRec(IntervalBSTnode<K> n, K key){
 		 if (n == null) {
 		        return null;
@@ -114,7 +176,6 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 		            return n.getLeft();
 		        }
 		       
-		        // if we get here, then n has 2 children
 		        K smallVal = smallest(n.getRight());
 		        n.setKey(smallVal);
 		        n.setRight( deleteRec(n.getRight(), smallVal) );
@@ -132,6 +193,9 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 		    }
 		    }
 		    
+	/**
+     * Recursive helper function for deleteRec()
+     */
 	private K smallest(IntervalBSTnode<K> n) {
 	    if (n.getLeft() == null) {
 	        return n.getKey();

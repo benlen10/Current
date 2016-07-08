@@ -1,5 +1,14 @@
 import java.util.Iterator;
 
+//Main Class File:   Scheduler
+//File:                  SortedListADT.java
+//Semester:          Fall 2015
+
+//Author:         Ben Leninton
+//Email:           lenington@wisc.edu
+//CS Login:      lenington
+//Lecturer's Name:  Jim Skrentny
+
 /**
  * The Sorted List ADT represents a sorted list, that is, a list in which the
  * elements are kept in order from smallest to largest (based on the ordering
