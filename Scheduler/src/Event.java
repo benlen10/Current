@@ -73,7 +73,7 @@ private String description;
 		sb.append(String.format("In: %s\n", resource));
 		sb.append(String.format("Start: %s\n", Scheduler.parseDate(start)));
 		sb.append(String.format("End: %s\n", Scheduler.parseDate(end)));
-		sb.append(String.format("Description: %s\n", description));
+		sb.append(String.format("Description: %s", description));
 		return sb.toString();
 	}
 }
