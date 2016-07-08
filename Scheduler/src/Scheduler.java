@@ -86,7 +86,7 @@ public class Scheduler {
 	public static String parseDate(long l){                    //Custom method
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy,kk:mm");
 		Date d = new Date(l);
-		System.err.printf("Timestamp: %d, Date: %s\n",l,sdf.format(d));
+		//System.err.printf("Timestamp: %d, Date: %s\n",l,sdf.format(d));
 		return sdf.format(d);
 	}
 	

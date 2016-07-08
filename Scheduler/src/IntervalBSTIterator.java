@@ -27,13 +27,11 @@ public class IntervalBSTIterator<K extends Interval> implements Iterator<K> {
     }
     
     public void buildStack(IntervalBSTnode<K> p){
-        if(p.getLeft()!=null)
-            buildStack(p.getLeft());
- 
-        stack.push(p);
- 
-        if(p.getRight()!=null)
+        if(p!=null){
             buildStack(p.getRight());
+            stack.push(p);
+            buildStack(p.getLeft());
+    }
     }
     
 }

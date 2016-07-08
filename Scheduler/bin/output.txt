@@ -5,12 +5,12 @@ Fork Lift
 Adventure Centre
 
 Please Enter a command ([H]elp):
-Homecoming Dance
-By: BAM
+Google Speech
+By: Madison Tech
 In: Main Hall
-Start: 12/25/2015,19:15
-End: 12/25/2015,21:45
-Description: Ballroom dances all night.  Will need access to sound system. 
+Start: 12/19/2015,15:00
+End: 12/19/2015,16:30
+Description: CEO of GoogleMadison will speak on the latest and greatest from GoogleMadison.  Projector needed.
 
 
 Luncheon
@@ -21,20 +21,12 @@ End: 12/20/2015,01:00
 Description: To celebrate their outstanding alumni.
 
 
-Google Speech
-By: Madison Tech
+Homecoming Dance
+By: BAM
 In: Main Hall
-Start: 12/19/2015,15:00
-End: 12/19/2015,16:30
-Description: CEO of GoogleMadison will speak on the latest and greatest from GoogleMadison.  Projector needed.
-
-
-Moving Office
-By: Multicultural Centre
-In: Fork Lift
-Start: 12/26/2015,10:00
-End: 12/28/2015,17:30
-Description: Moving all office furniture and supplies.
+Start: 12/25/2015,19:15
+End: 12/25/2015,21:45
+Description: Ballroom dances all night.  Will need access to sound system. 
 
 
 Being Repaired
@@ -45,12 +37,12 @@ End: 12/24/2015,20:00
 Description: n/a
 
 
-Happy Hour
-By: Madtown Singers
-In: Adventure Centre
-Start: 12/20/2015,12:00
-End: 12/20/2015,01:00
-Description: Combination of food and entertainment.  They need a full set-up.
+Moving Office
+By: Multicultural Centre
+In: Fork Lift
+Start: 12/26/2015,10:00
+End: 12/28/2015,17:30
+Description: Moving all office furniture and supplies.
 
 
 Poetry Hour
@@ -61,13 +53,21 @@ End: 12/19/2015,16:30
 Description: Private event.  No loud noises during this event.
 
 
+Happy Hour
+By: Madtown Singers
+In: Adventure Centre
+Start: 12/20/2015,12:00
+End: 12/20/2015,01:00
+Description: Combination of food and entertainment.  They need a full set-up.
+
+
 Please Enter a command ([H]elp):
-Homecoming Dance
-By: BAM
+Google Speech
+By: Madison Tech
 In: Main Hall
-Start: 12/25/2015,19:15
-End: 12/25/2015,21:45
-Description: Ballroom dances all night.  Will need access to sound system. 
+Start: 12/19/2015,15:00
+End: 12/19/2015,16:30
+Description: CEO of GoogleMadison will speak on the latest and greatest from GoogleMadison.  Projector needed.
 
 
 Luncheon
@@ -78,29 +78,29 @@ End: 12/20/2015,01:00
 Description: To celebrate their outstanding alumni.
 
 
-Google Speech
-By: Madison Tech
+Homecoming Dance
+By: BAM
 In: Main Hall
-Start: 12/19/2015,15:00
-End: 12/19/2015,16:30
-Description: CEO of GoogleMadison will speak on the latest and greatest from GoogleMadison.  Projector needed.
+Start: 12/25/2015,19:15
+End: 12/25/2015,21:45
+Description: Ballroom dances all night.  Will need access to sound system. 
 
 
 Please Enter a command ([H]elp):
-Moving Office
-By: Multicultural Centre
-In: Fork Lift
-Start: 12/26/2015,10:00
-End: 12/28/2015,17:30
-Description: Moving all office furniture and supplies.
-
-
 Being Repaired
 By: Mickey's Shop
 In: Fork Lift
 Start: 12/20/2015,09:00
 End: 12/24/2015,20:00
 Description: n/a
+
+
+Moving Office
+By: Multicultural Centre
+In: Fork Lift
+Start: 12/26/2015,10:00
+End: 12/28/2015,17:30
+Description: Moving all office furniture and supplies.
 
 
 Please Enter a command ([H]elp):
@@ -150,20 +150,12 @@ Description: Paintball party.  Food will be provided outside.  Blacklights neede
 Please Enter a command ([H]elp):Successfully added event.
 
 Please Enter a command ([H]elp):
-Homecoming Dance
-By: BAM
+New Year's Kickoff with Chancellor
+By: UW-Madison office of the Dean of Students
 In: Main Hall
-Start: 12/25/2015,19:15
-End: 12/25/2015,21:45
-Description: Ballroom dances all night.  Will need access to sound system. 
-
-
-Luncheon
-By: Golden Key Society
-In: Main Hall
-Start: 12/20/2015,12:00
-End: 12/20/2015,01:00
-Description: To celebrate their outstanding alumni.
+Start: 01/17/1970,13:14
+End: 01/17/1970,13:14
+Description: Long speech with few refreshments.
 
 
 Google Speech
@@ -174,12 +166,20 @@ End: 12/19/2015,16:30
 Description: CEO of GoogleMadison will speak on the latest and greatest from GoogleMadison.  Projector needed.
 
 
-New Year's Kickoff with Chancellor
-By: UW-Madison office of the Dean of Students
+Luncheon
+By: Golden Key Society
 In: Main Hall
-Start: 01/17/1970,13:14
-End: 01/17/1970,13:14
-Description: Long speech with few refreshments.
+Start: 12/20/2015,12:00
+End: 12/20/2015,01:00
+Description: To celebrate their outstanding alumni.
+
+
+Homecoming Dance
+By: BAM
+In: Main Hall
+Start: 12/25/2015,19:15
+End: 12/25/2015,21:45
+Description: Ballroom dances all night.  Will need access to sound system. 
 
 
 Please Enter a command ([H]elp):
@@ -201,4 +201,47 @@ Description: Paintball party.  Food will be provided outside.  Blacklights neede
 
 Please Enter a command ([H]elp):Could not delete. Resource not found.
 
+Please Enter a command ([H]elp):Successfully deleted event.
+
+Please Enter a command ([H]elp):Successfully deleted resource.
+
+Please Enter a command ([H]elp):Fork Lift
+Adventure Centre
+Paintball Room
+
+Please Enter a command ([H]elp):Successfully deleted resource.
+
 Please Enter a command ([H]elp):
+Being Repaired
+By: Mickey's Shop
+In: Fork Lift
+Start: 12/20/2015,09:00
+End: 12/24/2015,20:00
+Description: n/a
+
+
+Moving Office
+By: Multicultural Centre
+In: Fork Lift
+Start: 12/26/2015,10:00
+End: 12/28/2015,17:30
+Description: Moving all office furniture and supplies.
+
+
+Poetry Hour
+By: Society of Literary Arts of UW-Madison
+In: Adventure Centre
+Start: 12/19/2015,15:00
+End: 12/19/2015,16:30
+Description: Private event.  No loud noises during this event.
+
+
+Happy Hour
+By: Madtown Singers
+In: Adventure Centre
+Start: 12/20/2015,12:00
+End: 12/20/2015,01:00
+Description: Combination of food and entertainment.  They need a full set-up.
+
+
+Please Enter a command ([H]elp):Quit

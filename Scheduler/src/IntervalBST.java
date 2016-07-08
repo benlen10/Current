@@ -1,12 +1,8 @@
 import java.util.Iterator;
 
-
-
 public class IntervalBST<K extends Interval> implements SortedListADT<K> {
     private IntervalBSTnode<K> root;
-	
     public IntervalBST() {
-		
 	}
 
 	public void insert(K key){
@@ -16,9 +12,8 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 		}
 		else{
 			IntervalBSTnode<K> n = new IntervalBSTnode<K>(key);
-			insertRec(root,n);
+			insertRec(root,key);
 		}
-		
 	}
 
 	public boolean delete(K key) {
@@ -32,8 +27,7 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 	}
 	
 	public K lookup(K key) {
-		IntervalBSTnode<K> n = new IntervalBSTnode<K>(key);
-		return lookupRec(n, key);
+		return lookupRec(root, key);
 	}
 
 	public int size() {
@@ -54,48 +48,43 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 	}
 	
 	//Recursive Methods
-	public void insertRec(IntervalBSTnode<K> recRoot, IntervalBSTnode<K> node){
-
-	    if ( recRoot.getData().compareTo(node.getData())>0){
-	    	
-	      if ( recRoot.getLeft() == null ){
-	        recRoot.setLeft(node);
-	        return;
-	      }
-	      else{
-	        insertRec(recRoot.getLeft(), node);
-	      }
-	    }
-	    else{
-	      if (recRoot.getRight() == null){
-	        recRoot.setRight(node);
-	        return;
-	      }
-	      else{
-	        insertRec(recRoot.getRight(), node);
-	      }
-	    }
+	public IntervalBSTnode<K> insertRec(IntervalBSTnode<K> n, K key) {  //throws DuplicateException
+		 if (n == null) {
+		        return new IntervalBSTnode<K>(key);
+		    }
+		     
+		    if (n.getKey().equals(key)) {
+		        //throw new DuplicateException();
+		    	return new IntervalBSTnode<K>(key);
+		    }
+		    
+		    if (key.compareTo(n.getKey()) < 0) {
+		        n.setLeft( insertRec(n.getLeft(), key) );
+		        return n;
+		    }
+		    
+		    else {
+		        n.setRight( insertRec(n.getRight(), key) );
+		        return n;
+		    }
 	  }
 	
 	public K lookupRec(IntervalBSTnode<K> n, K key){
-		if(n.getData().equals(key)){
-			return  (K) n.getData();
-		}
-		else if(n.getData().compareTo(key)>0){
-			if(n.getRight()==null){
-				return null;
-			}
-				lookupRec(n.getRight(),key);
-			}
-			else if(n.getData().compareTo(key)<0){
-				if(n.getLeft()==null){
-					return null;
-				}
-			lookupRec(n.getLeft(),key);
-			}
-	
-			return n.getData();             //Fix This line: (This avoids the error "must return type k")
-		
+		if (n == null) {
+	        return null;
+	    }
+	    
+	    if (n.getKey().equals(key)) {
+	        return key;
+	    }
+	    
+	    if (key.compareTo(n.getKey()) < 0) {
+	        return lookupRec(n.getLeft(), key);
+	    }
+	    
+	    else {
+	        return lookupRec(n.getRight(), key);
+	    }
 	}
 	
 	public int sizeRec(IntervalBSTnode<K> n){
@@ -109,39 +98,45 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 	
 	public IntervalBSTnode<K> deleteRec(IntervalBSTnode<K> n, K key){
 		 if (n == null) {
-		        return n;
-		    }
-		 if(key.compareTo((Interval) n)>0){
-			 n.setRight(deleteRec(n.getRight(),key));
-		 }
-		 else if(key.compareTo((Interval) n)<0){
-			 n.setLeft(deleteRec(n.getLeft(), key)) ;
-		 }
-
-		 else  {                                             //if (key.equals(n.getKey()))
-
-		    	if(n.getLeft()==null){
-		    		return n.getRight();
-		    	}
-		    	if(n.getRight()==null){
-		    		return n.getLeft();
-		    	}
-		    	
-		    		IntervalBSTnode<K> r = root.getLeft();
-		    		while(r.getRight()!=null){
-		    			r = r.getRight();
-		    		}
-		    		return r;
-
-		    }
-		 		return n;
+		        return null;
 		    }
 		    
-		    public K minValue(IntervalBSTnode<K> n) {
-	            if (n.getLeft()== null)
-	                  return  n.getKey();
-	            else
-	                  return minValue(n.getLeft());
-	      }
+		    if (key.equals(n.getKey())) {
+		        // n is the node to be removed
+		        if (n.getLeft() == null && n.getRight() == null) {
+		            return null;
+		        }
+		        if (n.getLeft() == null) {
+		            return n.getRight();
+		        }
+		        if (n.getRight() == null) {
+		            return n.getLeft();
+		        }
+		       
+		        // if we get here, then n has 2 children
+		        K smallVal = smallest(n.getRight());
+		        n.setKey(smallVal);
+		        n.setRight( deleteRec(n.getRight(), smallVal) );
+		        return n; 
+		    }
+		    
+		    else if (key.compareTo(n.getKey()) < 0) {
+		        n.setLeft( deleteRec(n.getLeft(), key) );
+		        return n;
+		    }
+		    
+		    else {
+		        n.setRight( deleteRec(n.getRight(), key) );
+		        return n;
+		    }
+		    }
+		    
+	private K smallest(IntervalBSTnode<K> n) {
+	    if (n.getLeft() == null) {
+	        return n.getKey();
+	    } else {
+	        return smallest(n.getLeft());
+	    }
+	}
 
 }
