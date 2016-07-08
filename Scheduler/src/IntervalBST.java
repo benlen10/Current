@@ -15,6 +15,7 @@ import java.util.Iterator;
 
 public class IntervalBST<K extends Interval> implements SortedListADT<K> {
     private IntervalBSTnode<K> root;
+    private boolean deleteFail = false;
     public IntervalBST() {
 	}
 
@@ -47,7 +48,7 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
      */
 	public boolean delete(K key) {
 		root =  deleteRec(root, key);
-		if(root==null){
+		if(deleteFail){
 			return false;
 		}
 		else{
@@ -167,6 +168,7 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 		    if (key.equals(n.getKey())) {
 		        // n is the node to be removed
 		        if (n.getLeft() == null && n.getRight() == null) {
+		        	deleteFail = true;
 		            return null;
 		        }
 		        if (n.getLeft() == null) {

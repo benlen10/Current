@@ -24,6 +24,9 @@ private String description;
  * Constructor for event object
  */
 	Event(long start, long end, String name, String resource, String organization, String description){
+		if((name==null)||(resource==null)||(organization==null)||(description==null)){
+			throw new IllegalArgumentException();
+		}
 		this.start = start;
 		this.end =end;
 		this.name=name;
@@ -87,10 +90,7 @@ private String description;
 	 */
 	@Override
 	public boolean overlap(Interval e) {
-		if((e.getStart()>start)&&(e.getStart()<end)){
-			return true;
-		}
-		else if((start>e.getStart())&&(start<e.getEnd())){
+		if(((e.getStart()<=end)&&(e.getStart()>=start))||((e.getEnd()>=start)&&(e.getEnd()<=end))||((e.getStart()<=start)&&(e.getEnd()>=end))){  
 			return true;
 		}
 		else{

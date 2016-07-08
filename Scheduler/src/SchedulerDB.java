@@ -65,6 +65,13 @@ public class SchedulerDB {
 		while(it.hasNext()){
 			Resource res =it.next();
 			if(res.getName().equals(r)){
+				Iterator<Event> it2 = res.iterator();
+				while(it2.hasNext()){
+					Event ev =it2.next();
+					if(ev.overlap(e)){
+						throw new IntervalConflictException();
+					}
+				}
 				res.addEvent(e);
 				return true;
 			}
