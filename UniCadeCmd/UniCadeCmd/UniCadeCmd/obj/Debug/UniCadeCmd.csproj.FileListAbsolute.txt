@@ -1,6 +1,0 @@
-C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\bin\Debug\UniCadeCmd.exe.config
-C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\bin\Debug\UniCadeCmd.exe
-C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\bin\Debug\UniCadeCmd.pdb
-C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.csprojResolveAssemblyReference.cache
-C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.exe
-C:\Users\Ben\Dropbox\Workspace\UniCadeCmd\UniCadeCmd\obj\Debug\UniCadeCmd.pdb
