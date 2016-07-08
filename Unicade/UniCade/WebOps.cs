@@ -7,7 +7,7 @@ using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace UniCadeCmd
+namespace UniCade
 {
     class WebOps
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 
-namespace UniCadeCmd
+namespace UniCade
 {
     class Database
     {

@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UniCade;
 
-namespace UniCade
+namespace WpfApplication1
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

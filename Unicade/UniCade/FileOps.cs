@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 
-namespace UniCadeCmd
+namespace UniCade
 {
     class FileOps
     {
@@ -399,14 +399,14 @@ namespace UniCadeCmd
         public static void launch(Game g, Console c)
         {
             
-            Program.gui.TopMost = false;
+           // Program.gui.TopMost = false;
             if (SettingsWindow.restrictESRB > 0)
             {
                 int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
                 if (EsrbNum >= SettingsWindow.restrictESRB)
                 {
                     System.Console.WriteLine("\n***Rating " + g.getEsrb() + " Is restricted***\n");
-                   Program.gui.createNotification("\n***Rating " + g.getEsrb() + " Is restricted***\n");
+                   //Program.gui.createNotification("\n***Rating " + g.getEsrb() + " Is restricted***\n");
                     return;
                 }
 
@@ -427,7 +427,7 @@ namespace UniCadeCmd
                 {
                     if (!Program.playtimeRemaining)
                     {
-                        Program.gui.createNotification("Playtime Expired: Insert More coins");
+                       // Program.gui.createNotification("Playtime Expired: Insert More coins");
                         return;
                     }
                 }
@@ -437,7 +437,7 @@ namespace UniCadeCmd
                     if (Program.coins < SettingsWindow.coins)
                     {
 
-                        Program.gui.createNotification("Insert Coins");
+                        //Program.gui.createNotification("Insert Coins");
                         return;
                     }
 
@@ -447,11 +447,11 @@ namespace UniCadeCmd
                         {
                             Program.coins--;
                             i++;
-                            Program.gui.displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                            //Program.gui.displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
                         }
                         else
                         {
-                            Program.gui.createNotification("Insert Coins");
+                           // Program.gui.createNotification("Insert Coins");
                             return;
                         }
                     }
@@ -491,7 +491,7 @@ namespace UniCadeCmd
 
         public static void killLaunch()
         {
-            Program.gui.TopMost = true;
+            //Program.gui.TopMost = true;
             processActive = false;
             proc.Kill();
         }

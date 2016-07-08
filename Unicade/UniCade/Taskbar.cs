@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System;
 using System.Runtime.InteropServices;
 
-namespace UniCadeCmd
+namespace UniCade
 {
 
 

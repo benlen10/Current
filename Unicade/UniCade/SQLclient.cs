@@ -4,19 +4,92 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
 
 
-namespace UniCadeCmd
+namespace UniCade
 {
     class SQLclient
     {
-        public static MySqlConnection conn;
-        public static string sqlUser;
 
         public static string connectSQL()
         {
-            
+            return "null";
+        }
+
+        public static string processSQLcommand(string s)
+        {
+            return "null";
+                }
+
+        public static bool uploadAllGames()
+        {
+            return true;
+        }
+
+        public static bool downloadAllGames()
+        {
+            return true;
+        }
+
+        public static bool uploadGame(Game g)
+        {
+            return true;
+        }
+
+        public static string getAllGames()
+        {
+            return null;
+        }
+
+        public static string getUser()
+        {
+            return null;
+        }
+
+        public static bool createUser(string username, string pass, string email, string info, string esrb, string profPic)
+        {
+            return true;
+        }
+
+        public static bool createUser(User u)
+        {
+            return true;
+        }
+
+        public static bool deletegames()
+        {
+            return true;
+        }
+
+        public static bool deleteUser()
+        {
+            return true;
+        }
+
+        public static bool authiencateUser(string user, string pass)
+        {
+            return true;
+        }
+
+        public static Game getSingleGame(string con, string gam)
+        {
+            return null;
+        }
+
+        public static bool sqlUSer()
+        {
+            return true;
+        }
+
+
+        public static string sqlUser;
+        //public static MySqlConnection conn;
+        /*
+
+        public static string connectSQL()
+        {
+
             conn = new MySqlConnection("server=127.0.0.1;"+ "uid=root;" +"pwd=Star6120;"+"database=unicade;");
 
             try
@@ -81,9 +154,10 @@ namespace UniCadeCmd
 
         public static bool downloadAllGames()
         {
+
             foreach (Console c in Program.dat.consoleList)
             {
-                
+
                 for(int i = 0; i<c.getGameList().Count; i++)
                 {
                     Game g = (Game) c.getGameList()[i];
@@ -96,7 +170,7 @@ namespace UniCadeCmd
                             c.getGameList()[i] = gam;
                         }
                     }
-                   
+
                 }
 
             }
@@ -228,7 +302,7 @@ namespace UniCadeCmd
                 return false;
             }
 
-            
+
         }
 
         public static bool createUser(User u)
@@ -293,7 +367,7 @@ DROP TABLE IF EXISTS games;
   genres          varchar(255),      # Main genres associated with the game
   tags            varchar(255),      # Revelant game tags
   favorite       smallint(127),     # int value describing the favorite status
-  
+
 
   PRIMARY KEY(id)
             );
@@ -373,7 +447,7 @@ DROP TABLE IF EXISTS games;
             {
                 return 0;
             }
-        }
+        }*/
 
     }
 }

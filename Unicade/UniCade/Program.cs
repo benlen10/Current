@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 
-namespace UniCadeCmd
+namespace UniCade
 {
     class Program
     {
@@ -22,7 +22,7 @@ namespace UniCadeCmd
         public static User curUser;
         public static int coins = 0;
         public static bool playtimeRemaining = true;
-        public static GUI gui;
+        //public static GUI gui;
         public static string userLicenseName;
         public static string userLicenseKey;
         public static bool validLicense;
@@ -74,8 +74,8 @@ namespace UniCadeCmd
             }
             if (SettingsWindow.cmdOrGui < 1)
             {
-                gui = new GUI();
-                gui.ShowDialog();
+                //gui = new GUI();
+                //gui.ShowDialog();
             }
             displayConsoles(); 
 
@@ -173,8 +173,8 @@ namespace UniCadeCmd
                 }
                 else if (input.Contains("(g)"))
                 {
-                    GUI gui = new GUI();
-                    gui.ShowDialog();
+                    //GUI gui = new GUI();
+                    //gui.ShowDialog();
                 }
                 else if (input.Contains("(u)"))
                 {
