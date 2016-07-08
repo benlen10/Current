@@ -96,7 +96,9 @@ public class SchedulerDB {
 				Iterator<Event> it2 = res.iterator();
 				while(it2.hasNext()){
 					Event e = it2.next();
-					if((e.getStart()>=start)&&(e.getEnd()<=end)){
+				
+					if(((e.getStart()<=end)&&(e.getStart()>=start))||((e.getEnd()>=start)&&(e.getEnd()<=end))||((e.getStart()<=start)&&(e.getEnd()>=end))){  
+					
 					events.add(e);
 					}
 				}
@@ -113,7 +115,7 @@ public class SchedulerDB {
 				Iterator<Event> it2 = res.iterator();
 				while(it2.hasNext()){
 					Event e = it2.next();
-					if((e.getStart()>=start)&&(e.getEnd()<=end)){
+					if(((e.getStart()<=end)&&(e.getStart()>=start))||((e.getEnd()>=start)&&(e.getEnd()<=end))||((e.getStart()<=start)&&(e.getEnd()>=end))){  
 					events.add(e);
 					}
 				}

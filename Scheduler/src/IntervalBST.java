@@ -47,6 +47,7 @@ public class IntervalBST<K extends Interval> implements SortedListADT<K> {
 		return new IntervalBSTIterator<K>(root);
 	}
 	
+	
 	//Recursive Methods
 	public IntervalBSTnode<K> insertRec(IntervalBSTnode<K> n, K key) {  //throws DuplicateException
 		 if (n == null) {
