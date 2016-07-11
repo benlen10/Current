@@ -27,7 +27,7 @@ namespace UniCade
         public static string userLicenseKey;
         public static bool validLicense;
 
-        static void Main(string[] args)
+        public void run()
         {
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
 
