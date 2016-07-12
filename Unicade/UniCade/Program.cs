@@ -27,7 +27,7 @@ namespace UniCade
         public static string userLicenseKey;
         public static bool validLicense;
 
-        public void run()
+        public static void Main(string[] args)
         {
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
 
@@ -77,7 +77,9 @@ namespace UniCade
                 //gui = new GUI();
                 //gui.ShowDialog();
             }
-            displayConsoles(); 
+            //displayConsoles(); 
+            MainWindow mw = new MainWindow();
+            mw.ShowDialog();
 
         }
 
@@ -118,102 +120,7 @@ namespace UniCade
             }
         }
 
-        public static void displayConsoles()
-        {
-            while (true)
-            {
-                System.Console.WriteLine("{"+ curUser.getUsername()+ "} Available Consoles:   [Exit: (c), Rescan (r):, Info: (i), GUI (g), Switch User (u), (s) Settings, (uf) User Favs (d) Download Info <Console>");
-                string list = "";
-                foreach (Console c in dat.consoleList)
-                {
-                    list = list + " " + "["+ c.getName()  + "]";
-                }
-                System.Console.WriteLine(list);
-
-                string input = System.Console.ReadLine();
-                if (input.Equals("(c)"))
-                {
-                    FileOps.saveDatabase(databasePath);
-                    FileOps.savePreferences(prefPath);
-                    return;
-                }
-                else if (input.Contains("(r)"))
-                {
-                    FileOps.scan(romPath);
-                }
-
-                else if (input.Equals("(uf)"))
-                {
-                    displayUserFavs();
-                }
-
-
-                else if (input.Contains("(s)"))
-                {
-                    if (SettingsWindow.passProtect>0)
-                    {
-                        System.Console.WriteLine("Enter Password");
-                        string inp = System.Console.ReadLine();
-                        int n;
-                        Int32.TryParse(inp, out n);
-                        if (n>0) {
-                            if (Int32.Parse(inp).Equals(SettingsWindow.passProtect))
-                            {
-                                SettingsWindow sw = new SettingsWindow();
-                                sw.ShowDialog();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        SettingsWindow sw = new SettingsWindow();
-
-                       sw.ShowDialog();
-                    }
-                }
-                else if (input.Contains("(g)"))
-                {
-                    //GUI gui = new GUI();
-                    //gui.ShowDialog();
-                }
-                else if (input.Contains("(u)"))
-                {
-                    login();
-                }
-                else if (input.Contains("(d)"))
-                {
-
-                    foreach (Console c in dat.consoleList)
-                    {
-                        if (input.Contains(c.getName()))
-                        {
-                            foreach (Game g in c.getGameList())
-                            {
-                                WebOps.scrapeInfo(g);
-                            }
-                        }
-                    }
-                    
-                }
-                else if (input.Contains("(i)"))
-                {
-                    foreach (Console c in dat.consoleList)
-                    {
-                        if (input.Contains(c.getName()))
-                        {
-                            displayConsoleInfo(c);
-                        }
-                    }
-                }
-                    foreach (Console c in dat.consoleList)
-                {
-                    if (input.Equals(c.getName()))
-                    {
-                        displayGameList(c);
-                    }
-                }
-            }
-        }
+        
 
         public static void displayGameList(Console c)
         {
