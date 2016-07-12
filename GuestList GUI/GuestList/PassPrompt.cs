@@ -25,6 +25,7 @@ namespace GuestList
         private void button1_Click(object sender, EventArgs e)
         {
             Form1.setPass(textBox1.Text);
+            Form1.user = textBox2.Text;
             Close();
             
         }
