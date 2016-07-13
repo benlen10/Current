@@ -27,13 +27,20 @@ namespace GuestList
             PassPrompt passWindow = new PassPrompt();
             passWindow.ShowDialog();
             string resultTxt;
-            if(pass == realPass){
-                 resultTxt = string.Format("Password: {1} is VALID", pass);
+            if(pass.Equals(realPass)){
+                 resultTxt = string.Format("Password: {0} is VALID", pass);
             }
             else{
-                 resultTxt = string.Format("Password: %s is INVALID", pass);
+                 resultTxt = string.Format("Password: {0} is INVALID", pass);
+                
             }
             MessageBox.Show(resultTxt);
+            while (!pass.Equals(realPass))
+            {
+                passWindow.ShowDialog();
+                MessageBox.Show(resultTxt);
+            }
+            
             
 
         }
