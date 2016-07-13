@@ -26,6 +26,7 @@ namespace UniCade
         public static string userLicenseName;
         public static string userLicenseKey;
         public static bool validLicense;
+        [STAThread()]
 
         public static void Main(string[] args)
         {
