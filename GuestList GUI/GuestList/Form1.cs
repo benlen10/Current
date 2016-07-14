@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace GuestList
 {
      partial class Form1 : Form
@@ -15,6 +16,8 @@ namespace GuestList
          protected static string pass;
         public static string user;
         private string realPass = "temp";
+        const int maxUsers =100;
+        System.Collections.ArrayList users;
 
 
         public Form1()
@@ -27,19 +30,28 @@ namespace GuestList
             PassPrompt passWindow = new PassPrompt();
             passWindow.ShowDialog();
             string resultTxt;
-            if(pass.Equals(realPass)){
+            users = new System.Collections.ArrayList();
+            users.Add("User 1\n");
+            users.Add("User 2\n");
+            if (pass.Equals(realPass)){
                  resultTxt = string.Format("Password: {0} is VALID", pass);
             }
             else{
                  resultTxt = string.Format("Password: {0} is INVALID", pass);
                 
             }
-            MessageBox.Show(resultTxt);
+            //MessageBox.Show(resultTxt);
             while (!pass.Equals(realPass))
             {
                 passWindow.ShowDialog();
                 MessageBox.Show(resultTxt);
             }
+            string contents = "Guest\n";
+            foreach (string s in users)
+            {
+                contents = contents + s;
+            }
+                richTextBox1.Text = contents;
             
             
 
@@ -48,6 +60,11 @@ namespace GuestList
         static public void setPass(string p)
         {
             pass = p;
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
