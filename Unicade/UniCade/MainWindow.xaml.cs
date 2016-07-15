@@ -22,14 +22,25 @@ namespace UniCade
     public partial class MainWindow : Window
     {
         //public static SettingsWindow sw;
-
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+
+        public void loadImage() {
+
+            BitmapImage b = new BitmapImage();
+            b.BeginInit();
+            b.UriSource = new Uri("C:\\Users\\Ben\\Dropbox\\Workspace\\Unicade\\UniCade\\Images\\Arcade.jpg");
+            b.EndInit();
+            image.Source = b;
+            
+        }
+
+        private void button_Click_1(object sender, RoutedEventArgs e)
         {
+            loadImage();
             SettingsWindow sw = new SettingsWindow();
             sw.ShowDialog();
         }

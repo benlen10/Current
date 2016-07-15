@@ -5,15 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniCade"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="442.105" Width="788.199">
     <Window.Background>
         <ImageBrush ImageSource="C:\Users\Ben\Dropbox\Workspace\Unicade\UniCade\Images\Background.png"/>
     </Window.Background>
-    <Grid Margin="0,0,48,0.5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="button" Content="Settings" HorizontalAlignment="Left" Margin="293,215,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Height="20"/>
-
+    <Grid HorizontalAlignment="Left" Height="401" Margin="8,6,-3,0" VerticalAlignment="Top" Width="778">
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="693,371,0,0" VerticalAlignment="Top" Width="75" Click="button_Click_1"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="302,154,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>
