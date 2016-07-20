@@ -40,6 +40,7 @@ namespace UniCade
         public MainWindow()
         {
             InitializeComponent();
+            System.Diagnostics.Debug.WriteLine("YES");
             //Taskbar.Hide();
 
             conList = new ArrayList();
@@ -75,6 +76,7 @@ namespace UniCade
 
         private void Window_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("KeyDown");
             if (e.KeyCode == Keys.Left)
             {
                 if (!gameSelectionActive)
@@ -310,21 +312,20 @@ namespace UniCade
             //System.Console.WriteLine(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png");
             if ((File.Exists(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png")))
             {
-                pictureBox1.Load(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png");
+                image.Source = new BitmapImage(new Uri(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png", UriKind.Relative));
                 if (File.Exists(@"C: \UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png"))
                 {
-                    pictureBox3.Load(@"C: \UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png");
+                    image.Source = new BitmapImage(new Uri(@"C: \UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png", UriKind.Relative));
                 }
                 else
                 {
-                    pictureBox3.Image.Dispose();
-                    pictureBox3.Image = null;
+                    image.Source = null;
                 }
             }
             else
             {
-                pictureBox1.Image.Dispose();
-                pictureBox1.Image = null;
+                image.Source = null;
+                image.Source = null;
             }
 
 
@@ -333,17 +334,17 @@ namespace UniCade
         private void openGameSelection()
         {
             gameSelectionActive = true;
-            pictureBox1.Visible = false;
-            listBox1.Items.Clear();
+            image.Visibility = Visibility.Hidden;
+            //listBox1.Items.Clear();
             foreach (Console c in Program.dat.consoleList)
             {
                 if (c.getName().Equals(conList[index]))
                 {
                     gameSelectionConsole = c;
-                    label1.Text = c.getName() + " Game Count: " + c.gameCount;
+                    //label1.Text = c.getName() + " Game Count: " + c.gameCount;
                     if (fav)
                     {
-                        listBox1.Items.Add(c.getName() + " Favorites:\n\n");
+                        //listBox1.Items.Add(c.getName() + " Favorites:\n\n");
                     }
                     foreach (Game g in c.getGameList())
                     {
@@ -352,19 +353,19 @@ namespace UniCade
 
                             if (g.getFav() == 1)
                             {
-                                listBox1.Items.Add(g.getTitle());
+                                //listBox1.Items.Add(g.getTitle());
                             }
                         }
                         else
                         {
-                            listBox1.Items.Add(g.getTitle());
+                            //listBox1.Items.Add(g.getTitle());
                         }
                     }
                     break;
                 }
             }
 
-            listBox1.Visible = true;
+            //listBox1.Visible = true;
         }
 
 
@@ -373,20 +374,20 @@ namespace UniCade
 
         private void launchGame()
         {
-            foreach (Game g in gameSelectionConsole.getGameList())
+            /*foreach (Game g in gameSelectionConsole.getGameList())
             {
                 if (listBox1.SelectedItem.ToString().Equals(g.getTitle()))
                 {
                     FileOps.launch(g, gameSelectionConsole);
                     break;
                 }
-            }
+            }*/
 
         }
 
         private void displayGameInfo()
         {
-            if (listBox1.SelectedItem == null)
+           /* if (listBox1.SelectedItem == null)
             {
                 return;
             }
@@ -402,7 +403,7 @@ namespace UniCade
             {
                 if (listBox1.SelectedItem.ToString().Equals(g.getTitle()))
                 {
-                    richTextBox1.Text = Program.displayGameInfo(g);
+                    //richTextBox1.Text = Program.displayGameInfo(g);
 
                     if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png"))
                     {
@@ -423,53 +424,54 @@ namespace UniCade
                     }
 
                     break;
-                }
+                }*/
             }
 
 
 
 
-            richTextBox1.Visible = true;
-        }
+            
+        
 
         private void displayConsoleInfo()
         {
-            foreach (Console c in Program.dat.consoleList)
+            /*foreach (Console c in Program.dat.consoleList)
             {
                 if (c.getName().Equals(conList[index]))
                 {
                     Program.displayConsoleInfo(c);
                     break;
                 }
-            }
+            }*/
 
         }
 
-        ublic void createNotification(String notification)
+        public void createNotification(String notification)
         {
-            label2.Visible = true;
+            /*label2.Visible = true;
             label2.Text = notification;
             label2.Focus();
             label2.BringToFront();
+            */
         }
 
         public void closeNotification()
         {
-            label2.Text = null;
-            label2.Visible = false;
+            //label2.Text = null;
+            //label2.Visible = false;
         }
 
         public void displayPayNotification(String s)
         {
-            label2.Focus();
+            /*label2.Focus();
             label2.BringToFront();
             label3.Visible = true;
-            label3.Text = s;
+            label3.Text = s;*/
         }
         public void closePayNotification()
         {
-            label3.Visible = false;
-            label3.Text = null;
+           // label3.Visible = false;
+          //  label3.Text = null;
         }
 
 
