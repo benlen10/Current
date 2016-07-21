@@ -16,7 +16,7 @@ namespace GuestList
         private int status;
 
 
-        User(string firstName, string lastName, string birthday, int priority)
+        public User(string firstName, string lastName, string birthday, int priority)
         {
             status = 0;
             blacklist = false;

@@ -31,8 +31,8 @@ namespace GuestList
             passWindow.ShowDialog();
             string resultTxt;
             users = new System.Collections.ArrayList();
-            users.Add("User 1\n");
-            users.Add("User 2\n");
+            users.Add(new User("Ben", "Len", "6-20-1995" , 1);
+
             if (pass.Equals(realPass)){
                  resultTxt = string.Format("Password: {0} is VALID", pass);
             }
@@ -41,25 +41,28 @@ namespace GuestList
                 
             }
             //MessageBox.Show(resultTxt);
-            while (!pass.Equals(realPass))
+            while (!pass.Equals(realPass))    //Loop until correct pass is entered
             {
                 passWindow.ShowDialog();
                 MessageBox.Show(resultTxt);
             }
-            string contents = "Guest\n";
-            foreach (string s in users)
-            {
-                contents = contents + s;
-            }
-                richTextBox1.Text = contents;
-            
-            
+
 
         }
 
         static public void setPass(string p)
         {
             pass = p;
+        }
+
+        public void refreshList()
+        {
+            string contents = "Guest\n";
+            foreach (string s in users)
+            {
+                contents = contents + s;
+            }
+            richTextBox1.Text = contents;
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
