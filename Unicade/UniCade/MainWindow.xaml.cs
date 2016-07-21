@@ -11,7 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
@@ -40,6 +40,7 @@ namespace UniCade
         public MainWindow()
         {
             InitializeComponent();
+            this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
             System.Diagnostics.Debug.WriteLine("YES");
             //Taskbar.Hide();
 
@@ -74,24 +75,24 @@ namespace UniCade
 
 
 
-        private void Window_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void OnButtonKeyDown(object sender, KeyEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("KeyDown");
-            if (e.KeyCode == Keys.Left)
+            if (e.Key == Key.Left)
             {
                 if (!gameSelectionActive)
                 {
                     left();
                 }
             }
-            else if (e.KeyCode == Keys.Right)
+            else if (e.Key == Key.Right)
             {
                 if (!gameSelectionActive)
                 {
                     right();
                 }
             }
-            else if (e.KeyCode == Keys.Enter)
+            else if (e.Key == Key.Enter)
             {
                 if (gameSelectionActive)
                 {
@@ -105,7 +106,7 @@ namespace UniCade
                 }
 
             }
-            else if (e.KeyCode == Keys.I)  //Display info
+            else if (e.Key == Key.I)  //Display info
             {
                 if (gameSelectionActive)
                 {
@@ -129,7 +130,7 @@ namespace UniCade
                 }
             }
 
-           /* else if (e.KeyCode == Keys.Space)  //Add or remove favorites
+           /* else if (e.Key == Keys.Space)  //Add or remove favorites
             {
                 if (gameSelectionActive)
                 {
@@ -155,7 +156,7 @@ namespace UniCade
                     }
                 }
             }*/
-            else if (e.KeyCode == Keys.F10)  // Insert coin
+            else if (e.Key == Key.F10)  // Insert coin
             {
                 Program.coins++;
                 if (SettingsWindow.payPerPlay > 0)
@@ -174,7 +175,7 @@ namespace UniCade
                 createNotification("Coin Inserted - Total Coins: " + Program.coins);
             }
 
-            else if (e.KeyCode == Keys.F)  //Toggle Favorites view
+            else if (e.Key == Key.F)  //Toggle Favorites view
             {
                 if (gameSelectionActive)
                 {
@@ -189,19 +190,19 @@ namespace UniCade
                     openGameSelection();
                 }
             }
-            else if (e.Alt && (e.KeyCode == Keys.C))  //Display Command line and close gui
+            else if ((e.Key == Key.LeftAlt) && (e.Key == Key.C))  //Display Command line and close gui
             {
                 Taskbar.Show();
                 //Application.Exit();
             }
 
-            else if (e.Alt && (e.KeyCode == Keys.P))  //Display preferences window
+            else if ((e.Key == Key.LeftAlt) && (e.Key == Key.P))  //Display preferences window
             {
 
                 if (SettingsWindow.passProtect > 0)
                 {
                     PassWindow pw = new PassWindow();
-                    DialogResult result = pw.ShowDialog();
+                    //DialogResult result = pw.ShowDialog();
 
                     if (true)//result == DialogResult.OK)
                     {
@@ -216,12 +217,12 @@ namespace UniCade
                 }
 
             }
-            else if (e.Alt && (e.KeyCode == Keys.X))  //Close current process
+            else if ((e.Key == Key.LeftAlt) && (e.Key == Key.X))  //Close current process
             {
 
             }
 
-            else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Current Window
+            else if ((e.Key == Key.Escape) || (e.Key == Key.Delete) || (e.Key == Key.Back))  //Close Current Window
             {
 
                 closeNotification();
@@ -304,18 +305,29 @@ namespace UniCade
 
         private void updateGUI()
         {
+            BitmapImage b;
+            
             if (!FileOps.processActive)
             {
                 //Program.gui.TopMost = true;
             }
             curCon = (string)conList[index];
-            //System.Console.WriteLine(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png");
-            if ((File.Exists(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png")))
+            System.Console.WriteLine(@"C:\UniCade\Media\Consoles\" + conList[index] + ".png");
+            if ((File.Exists(@"C:\UniCade\Media\Consoles\" + conList[index] + ".png")))
             {
-                image.Source = new BitmapImage(new Uri(@"C: \UniCade\Media\Consoles\" + conList[index] + ".png", UriKind.Relative));
-                if (File.Exists(@"C: \UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png"))
+                b = new BitmapImage();
+                b.BeginInit();
+                b.UriSource = new Uri(@"C:\UniCade\Media\Consoles\" + conList[index] + ".png");
+                b.EndInit();
+                image.Source = b;
+
+                if (File.Exists(@"C:\UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png"))
                 {
-                    image.Source = new BitmapImage(new Uri(@"C: \UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png", UriKind.Relative));
+                    b = new BitmapImage();
+                    b.BeginInit();
+                    b.UriSource = new Uri(@"C:\UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png");
+                    b.EndInit();
+                    image.Source = b;
                 }
                 else
                 {
