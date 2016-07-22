@@ -48,9 +48,9 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(98, 123);
+            this.textBox2.Location = new System.Drawing.Point(285, 49);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(39, 31);
+            this.textBox2.Size = new System.Drawing.Size(189, 31);
             this.textBox2.TabIndex = 1;
             // 
             // textBox3
@@ -62,9 +62,9 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(285, 49);
+            this.textBox4.Location = new System.Drawing.Point(98, 126);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(189, 31);
+            this.textBox4.Size = new System.Drawing.Size(39, 31);
             this.textBox4.TabIndex = 3;
             // 
             // label1
@@ -102,6 +102,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "Create";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -111,6 +112,7 @@
             this.button2.TabIndex = 8;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // newUser
             // 

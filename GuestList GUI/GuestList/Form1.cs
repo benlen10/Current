@@ -17,7 +17,7 @@ namespace GuestList
         public static string user;
         private string realPass = "temp";
         const int maxUsers =100;
-        System.Collections.ArrayList users;
+        public static System.Collections.ArrayList users;
 
 
         public Form1()
@@ -31,7 +31,7 @@ namespace GuestList
             passWindow.ShowDialog();
             string resultTxt;
             users = new System.Collections.ArrayList();
-            users.Add(new User("Ben", "Len", "6-20-1995" , 1);
+            users.Add(new User("Ben", "Len", "6-20-1995" , 1));
 
             if (pass.Equals(realPass)){
                  resultTxt = string.Format("Password: {0} is VALID", pass);
@@ -82,7 +82,8 @@ namespace GuestList
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            newUser nu = new newUser();
+            nu.ShowDialog();
         }
 
         private void label1_Click(object sender, EventArgs e)

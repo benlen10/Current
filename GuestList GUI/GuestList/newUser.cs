@@ -16,5 +16,16 @@ namespace GuestList
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form1.users.Add(new User(textBox1.Text, textBox4.Text, textBox3.Text, Int32.Parse(textBox2.Text)));
+            Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
