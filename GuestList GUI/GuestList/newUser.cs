@@ -19,8 +19,16 @@ namespace GuestList
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1.users.Add(new User(textBox1.Text, textBox4.Text, textBox3.Text, Int32.Parse(textBox2.Text)));
-            Close();
+            
+            if ((textBox1.Text.Length < 1) || (textBox2.Text.Length < 1) || (textBox4.Text.Length < 1))
+            {
+                MessageBox.Show("Invalid Input");
+            }
+            else
+            {
+                Form1.users.Add(new User(textBox1.Text, textBox2.Text, maskedTextBox1.Text, Int32.Parse(textBox4.Text)));
+                Close();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
