@@ -56,6 +56,14 @@ namespace UniCade {
         #line default
         #line hidden
         
+        
+        #line 19 "..\..\MainWindow.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Image image1;
+        
+        #line default
+        #line hidden
+        
         private bool _contentLoaded;
         
         /// <summary>
@@ -97,6 +105,9 @@ namespace UniCade {
             return;
             case 2:
             this.image = ((System.Windows.Controls.Image)(target));
+            return;
+            case 3:
+            this.image1 = ((System.Windows.Controls.Image)(target));
             return;
             }
             this._contentLoaded = true;

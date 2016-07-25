@@ -42,6 +42,7 @@ namespace UniCade
             InitializeComponent();
             this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
             System.Diagnostics.Debug.WriteLine("YES");
+            this.AllowsTransparency = true;
             //Taskbar.Hide();
 
             conList = new ArrayList();
@@ -327,7 +328,7 @@ namespace UniCade
                     b.BeginInit();
                     b.UriSource = new Uri(@"C:\UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png");
                     b.EndInit();
-                    image.Source = b;
+                    image1.Source = b;
                 }
                 else
                 {
@@ -490,19 +491,9 @@ namespace UniCade
 
 
 
-        public void loadImage() {
-
-            BitmapImage b = new BitmapImage();
-            b.BeginInit();
-            b.UriSource = new Uri("C:\\Users\\Ben\\Dropbox\\Workspace\\Unicade\\UniCade\\Images\\Arcade.jpg");
-            b.EndInit();
-            image.Source = b;
-            
-        }
 
         private void button_Click_1(object sender, RoutedEventArgs e)
         {
-            loadImage();
             SettingsWindow sw = new SettingsWindow();
             sw.ShowDialog();
         }
