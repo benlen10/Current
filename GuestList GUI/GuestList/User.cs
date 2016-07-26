@@ -25,5 +25,10 @@ namespace GuestList
             this.birthday = birthday;
             this.priority = priority;
         }
+
+        public string getFullName()
+        {
+            return (firstName + lastName);
+        }
     }
 }

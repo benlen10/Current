@@ -57,10 +57,11 @@ namespace GuestList
 
         public void refreshList()
         {
-            string contents = "Guest\n";
-            foreach (string s in users)
+            string contents = "";
+
+            foreach (User u in users)
             {
-                contents = contents + s;
+                contents = contents + u.getFullName();
             }
             richTextBox1.Text = contents;
         }
