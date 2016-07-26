@@ -11,6 +11,15 @@
     </Window.Background>
     <Grid HorizontalAlignment="Left" Height="401" Margin="8,6,-3,0" VerticalAlignment="Top" Width="778">
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="693,371,0,0" VerticalAlignment="Top" Width="75" Click="button_Click_1"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="302,154,0,0" VerticalAlignment="Top" Width="100"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="285" Margin="241,24,0,0" VerticalAlignment="Top" Width="256">
+            <Image.Effect>
+                <BlurEffect/>
+            </Image.Effect>
+        </Image>
+        <Image x:Name="image1" HorizontalAlignment="Left" Height="56" Margin="241,335,0,0" VerticalAlignment="Top" Width="256">
+            <Image.Effect>
+                <BlurEffect/>
+            </Image.Effect>
+        </Image>
     </Grid>
 </Window>

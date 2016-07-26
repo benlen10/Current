@@ -42,7 +42,7 @@ namespace UniCade
             InitializeComponent();
             this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
             System.Diagnostics.Debug.WriteLine("YES");
-            this.AllowsTransparency = true;
+            //this.AllowsTransparency = true;
             //Taskbar.Hide();
 
             conList = new ArrayList();
