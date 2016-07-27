@@ -41,7 +41,6 @@ namespace UniCade
         {
             InitializeComponent();
             this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
-            System.Diagnostics.Debug.WriteLine("YES");
             //this.AllowsTransparency = true;
             //Taskbar.Hide();
 
@@ -72,13 +71,14 @@ namespace UniCade
             {
                 //label3.Visible = false;
             }
+
+            updateGUI();
         }
 
 
 
         private void OnButtonKeyDown(object sender, KeyEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("KeyDown");
             if (e.Key == Key.Left)
             {
                 if (!gameSelectionActive)
@@ -191,18 +191,19 @@ namespace UniCade
                     openGameSelection();
                 }
             }
-            else if ((e.Key == Key.LeftAlt) && (e.Key == Key.C))  //Display Command line and close gui
+            else if ((e.Key == Key.C) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display Command line and close gui
             {
                 Taskbar.Show();
-                //Application.Exit();
+                Application.Current.Shutdown();
             }
 
-            else if ((e.Key == Key.LeftAlt) && (e.Key == Key.P))  //Display preferences window
+            else if ( (e.Key == Key.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
             {
 
                 if (SettingsWindow.passProtect > 0)
                 {
                     PassWindow pw = new PassWindow();
+                    pw.ShowDialog();
                     //DialogResult result = pw.ShowDialog();
 
                     if (true)//result == DialogResult.OK)
@@ -218,7 +219,7 @@ namespace UniCade
                 }
 
             }
-            else if ((e.Key == Key.LeftAlt) && (e.Key == Key.X))  //Close current process
+            else if ((e.Key == Key.X) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Close current process
             {
 
             }
@@ -492,10 +493,5 @@ namespace UniCade
 
 
 
-        private void button_Click_1(object sender, RoutedEventArgs e)
-        {
-            SettingsWindow sw = new SettingsWindow();
-            sw.ShowDialog();
-        }
     }
 }
