@@ -30,5 +30,40 @@ namespace GuestList
         {
             return (firstName + lastName);
         }
+
+        public string getFirstName()
+        {
+            return firstName);
+        }
+
+        public string getLastName()
+        {
+            return lastName;
+        }
+
+        public string getBirthday()
+        {
+            return birthday;
+        }
+
+        public int getStatus()
+        {
+            return status;
+        }
+
+        public int getPriority()
+        {
+            return priority;
+        }
+
+        public void SetPriority(int i)
+        {
+            priority=i;
+        }
+
+        public void SetStatus(int i)
+        {
+            status = i;
+        }
     }
 }
