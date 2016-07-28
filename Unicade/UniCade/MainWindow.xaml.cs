@@ -94,6 +94,7 @@ namespace UniCade
                 }
             }
             else if (e.Key == Key.Enter)
+
             {
                 if (gameSelectionActive)
                 {
@@ -135,11 +136,11 @@ namespace UniCade
             {
                 if (gameSelectionActive)
                 {
-                    if (listBox1.SelectedItem != null)
+                    if (listBox.SelectedItem != null)
                     {
                         foreach (Game g in gameSelectionConsole.getGameList())
                         {
-                            if (listBox1.SelectedItem.ToString().Equals(g.getTitle()))
+                            if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                             {
                                 if (g.getFav() > 0)
                                 {
@@ -233,13 +234,14 @@ namespace UniCade
                     if (infoWindowActive)
                     {
                         //richTextBox1.Visible = false;  //Close Info Window
-                        //listBox1.Visible = true;
+                        //listBox.Visible = true;
                         infoWindowActive = false;
                     }
                     else
                     {
-                        //listBox1.Visible = false;  //Close Game Selection window
-                        //pictureBox1.Visible = true;
+                        listBox.Visibility = Visibility.Hidden;  //Close Game Selection window
+                        image.Visibility = Visibility.Visible;
+                        image.Visibility = Visibility.Visible;
                         gameSelectionActive = false;
                         //label1.Text = "Total Game Count: " + Database.totalGameCount;
                         //pictureBox4.Image = null;
@@ -295,15 +297,7 @@ namespace UniCade
             updateGUI();
         }
 
-        private void enter()
-        {
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)  //Select/Enter
-        {
-
-        }
 
         private void updateGUI()
         {
@@ -349,7 +343,8 @@ namespace UniCade
         {
             gameSelectionActive = true;
             image.Visibility = Visibility.Hidden;
-            //listBox1.Items.Clear();
+            image1.Visibility = Visibility.Hidden;
+            listBox.Items.Clear();
             foreach (Console c in Program.dat.consoleList)
             {
                 if (c.getName().Equals(conList[index]))
@@ -358,7 +353,7 @@ namespace UniCade
                     //label1.Text = c.getName() + " Game Count: " + c.gameCount;
                     if (fav)
                     {
-                        //listBox1.Items.Add(c.getName() + " Favorites:\n\n");
+                        listBox.Items.Add(c.getName() + " Favorites:\n\n");
                     }
                     foreach (Game g in c.getGameList())
                     {
@@ -367,19 +362,19 @@ namespace UniCade
 
                             if (g.getFav() == 1)
                             {
-                                //listBox1.Items.Add(g.getTitle());
+                                listBox.Items.Add(g.getTitle());
                             }
                         }
                         else
                         {
-                            //listBox1.Items.Add(g.getTitle());
+                            listBox.Items.Add(g.getTitle());
                         }
                     }
                     break;
                 }
             }
 
-            //listBox1.Visible = true;
+            listBox.Visibility = Visibility.Visible;
         }
 
 
@@ -390,7 +385,7 @@ namespace UniCade
         {
             /*foreach (Game g in gameSelectionConsole.getGameList())
             {
-                if (listBox1.SelectedItem.ToString().Equals(g.getTitle()))
+                if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                 {
                     FileOps.launch(g, gameSelectionConsole);
                     break;
@@ -401,7 +396,7 @@ namespace UniCade
 
         private void displayGameInfo()
         {
-           /* if (listBox1.SelectedItem == null)
+           /* if (listBox.SelectedItem == null)
             {
                 return;
             }
@@ -415,7 +410,7 @@ namespace UniCade
 
             foreach (Game g in gameSelectionConsole.getGameList())
             {
-                if (listBox1.SelectedItem.ToString().Equals(g.getTitle()))
+                if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                 {
                     //richTextBox1.Text = Program.displayGameInfo(g);
 
