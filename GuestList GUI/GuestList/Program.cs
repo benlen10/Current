@@ -6,8 +6,10 @@ using System.Windows.Forms;
 
 namespace GuestList
 {
+    
     static class Program
     {
+        public static Form1 f1;
 
         /// <summary>
         /// The main entry point for the application.
@@ -17,7 +19,8 @@ namespace GuestList
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            f1 = new Form1();
+            Application.Run(f1);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace GuestList
 
         public string getFirstName()
         {
-            return firstName);
+            return firstName;
         }
 
         public string getLastName()

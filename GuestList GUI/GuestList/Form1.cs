@@ -61,7 +61,7 @@ namespace GuestList
 
             foreach (User u in users)
             {
-                contents = contents + u.getFullName();
+                contents = contents + u.getFullName() +"\n";
             }
             richTextBox1.Text = contents;
         }
