@@ -12,6 +12,10 @@
     <Grid HorizontalAlignment="Left" Height="401" Margin="8,6,-3,0" VerticalAlignment="Top" Width="778">
         <Image x:Name="image" HorizontalAlignment="Left" Height="285" Margin="241,24,0,0" VerticalAlignment="Top" Width="256"/>
         <Image x:Name="image1" HorizontalAlignment="Left" Height="56" Margin="241,335,0,0" VerticalAlignment="Top" Width="256"/>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="323" Margin="33,24,0,0" VerticalAlignment="Top" Width="132" Opacity="0"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="323" Margin="33,24,0,0" VerticalAlignment="Top" Width="132">
+            <ListBox.Background>
+                <SolidColorBrush Color="White" Opacity="0"/>
+            </ListBox.Background>
+        </ListBox>
     </Grid>
 </Window>

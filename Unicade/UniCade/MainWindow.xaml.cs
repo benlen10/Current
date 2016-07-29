@@ -241,7 +241,7 @@ namespace UniCade
                     {
                         listBox.Visibility = Visibility.Hidden;  //Close Game Selection window
                         image.Visibility = Visibility.Visible;
-                        image.Visibility = Visibility.Visible;
+                        image1.Visibility = Visibility.Visible;
                         gameSelectionActive = false;
                         //label1.Text = "Total Game Count: " + Database.totalGameCount;
                         //pictureBox4.Image = null;
