@@ -28,7 +28,7 @@ namespace GuestList
 
         public string getFullName()
         {
-            return (firstName + lastName);
+            return (firstName + " " + lastName);
         }
 
         public string getFirstName()

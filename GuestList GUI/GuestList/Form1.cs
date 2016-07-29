@@ -31,7 +31,7 @@ namespace GuestList
             passWindow.ShowDialog();
             string resultTxt;
             users = new System.Collections.ArrayList();
-            users.Add(new User("Ben", "Len", "6-20-1995" , 1));
+            
 
             if (pass.Equals(realPass)){
                  resultTxt = string.Format("Password: {0} is VALID", pass);
@@ -46,9 +46,11 @@ namespace GuestList
                 passWindow.ShowDialog();
                 MessageBox.Show(resultTxt);
             }
-
+            users.Add(new User("Ben", "Len", "6-20-1995", 1));
+            refreshList();
 
         }
+        // METHOD DECLARATION
 
         static public void setPass(string p)
         {
@@ -58,12 +60,21 @@ namespace GuestList
         public void refreshList()
         {
             string contents = "";
+            string contents2 = "";
 
             foreach (User u in users)
             {
-                contents = contents + u.getFullName() +"\n";
+                if (u.getStatus() == 0)
+                {
+                    contents = contents + u.getFullName() + "\n";
+                }
+                else
+                {
+                    contents2 = contents2 + u.getFullName() + "\n";
+                }
             }
             richTextBox1.Text = contents;
+            richTextBox2.Text = contents2;
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -94,7 +105,21 @@ namespace GuestList
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            foreach(User u in users)
+            {
+                if (u.getFullName().Equals(textBox1.Text))
+                {
+                    if (u.getStatus() == 0)
+                    {
+                        u.SetStatus(1);
+                    }
+                    else
+                    {
+                        u.SetStatus(0);
+                    }
+                }
+            }
+            refreshList();
         }
     }
 }
