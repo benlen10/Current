@@ -41,7 +41,9 @@ namespace UniCade
         {
             InitializeComponent();
             this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
-            //this.AllowsTransparency = true;
+            listBox.Visibility = Visibility.Hidden;
+            listBox.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
+            listBox.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
             //Taskbar.Hide();
 
             conList = new ArrayList();
