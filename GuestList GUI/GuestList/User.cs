@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GuestList
 {
-    class User
+    public class User
     {
         private string firstName;
         private string lastName;
