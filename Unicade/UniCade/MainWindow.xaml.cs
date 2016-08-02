@@ -375,8 +375,31 @@ namespace UniCade
                     break;
                 }
             }
-
             listBox.Visibility = Visibility.Visible;
+            if (listBox.Items.Count > 0)               //Auto set initial index to first item
+            {
+                listBox.SelectedIndex = 0;
+                ListBoxItem item = (ListBoxItem)listBox.ItemContainerGenerator.ContainerFromIndex(0);
+                Keyboard.Focus(listBox);
+                Keyboard.Focus(item);
+            }
+
+            /*if (listBox.ItemContainerGenerator.Status == System.Windows.Controls.Primitives.GeneratorStatus.ContainersGenerated)
+            {
+                var index = listBox.SelectedIndex;
+                if (index >= 0)
+                {
+                    var item = listBox.ItemContainerGenerator.ContainerFromIndex(index) as ListBoxItem;
+                    if (item != null) item.Focus();
+                }
+            }*/
+            //listBox.Focus();
+            //listBox.SelectedIndex = 0;
+            //ListBoxItem lb = (ListBoxItem)listBox.ItemContainerGenerator.ContainerFromIndex(listBox.SelectedIndex);
+            //lb.Focus();
+            //((ListBoxItem)lbActions.SelectedItem).Focus();
+
+
         }
 
 
