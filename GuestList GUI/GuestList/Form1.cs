@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace GuestList
 {
-     partial class Form1 : Form
+    partial class Form1 : Form
     {
-         protected static string pass;
+        protected static string pass;
         public static string user;
         private string realPass = "temp";
-        const int maxUsers =100;
+        const int maxUsers = 100;
         public static System.Collections.ArrayList users;
 
 
@@ -31,14 +31,16 @@ namespace GuestList
             passWindow.ShowDialog();
             string resultTxt;
             users = new System.Collections.ArrayList();
-            
 
-            if (pass.Equals(realPass)){
-                 resultTxt = string.Format("Password: {0} is VALID", pass);
+
+            if (pass.Equals(realPass))
+            {
+                resultTxt = string.Format("Password: {0} is VALID", pass);
             }
-            else{
-                 resultTxt = string.Format("Password: {0} is INVALID", pass);
-                
+            else
+            {
+                resultTxt = string.Format("Password: {0} is INVALID", pass);
+
             }
             //MessageBox.Show(resultTxt);
             while (!pass.Equals(realPass))    //Loop until correct pass is entered
@@ -105,7 +107,7 @@ namespace GuestList
 
         private void button5_Click(object sender, EventArgs e)
         {
-            foreach(User u in users)
+            foreach (User u in users)
             {
                 if (u.getFullName().Equals(textBox1.Text))
                 {
@@ -120,6 +122,24 @@ namespace GuestList
                 }
             }
             refreshList();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            bool found = false;
+            foreach (User u in users)
+            {
+                if (u.getFullName().Equals(textBox1.Text))
+                {
+                    GuestInfo gi = new GuestInfo(u);
+                    found = true;
+                    gi.ShowDialog();
+                }
+            }
+            if (!found)
+            {
+                MessageBox.Show("User Not Found");
+            }
         }
     }
 }
