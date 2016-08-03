@@ -65,5 +65,15 @@ namespace GuestList
         {
             status = i;
         }
+
+        public void SetFirstName(string s)
+        {
+            firstName = s;
+        }
+
+        public void SetLastName(string s)
+        {
+            lastName = s;
+        }
     }
 }

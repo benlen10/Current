@@ -384,21 +384,6 @@ namespace UniCade
                 Keyboard.Focus(item);
             }
 
-            /*if (listBox.ItemContainerGenerator.Status == System.Windows.Controls.Primitives.GeneratorStatus.ContainersGenerated)
-            {
-                var index = listBox.SelectedIndex;
-                if (index >= 0)
-                {
-                    var item = listBox.ItemContainerGenerator.ContainerFromIndex(index) as ListBoxItem;
-                    if (item != null) item.Focus();
-                }
-            }*/
-            //listBox.Focus();
-            //listBox.SelectedIndex = 0;
-            //ListBoxItem lb = (ListBoxItem)listBox.ItemContainerGenerator.ContainerFromIndex(listBox.SelectedIndex);
-            //lb.Focus();
-            //((ListBoxItem)lbActions.SelectedItem).Focus();
-
 
         }
 
@@ -408,14 +393,14 @@ namespace UniCade
 
         private void launchGame()
         {
-            /*foreach (Game g in gameSelectionConsole.getGameList())
+            foreach (Game g in gameSelectionConsole.getGameList())
             {
                 if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                 {
                     FileOps.launch(g, gameSelectionConsole);
                     break;
                 }
-            }*/
+            }
 
         }
 

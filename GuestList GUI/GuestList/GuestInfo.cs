@@ -12,21 +12,41 @@ namespace GuestList
 {
     public partial class GuestInfo : Form
     {
+        User u;
         public GuestInfo(User u)
         {
+            this.u = u;
             InitializeComponent();
-            textBox1.Text = u.getFullName();
+            textBox1.Text = u.getFirstName();
+            textBox6.Text = u.getLastName();
             textBox2.Text = "ID Number";
             textBox3.Text = u.getBirthday();
             textBox4.Text = "Pending";
             textBox5.Text = u.getPriority().ToString();
-                
-
 
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)  //Close button
+        {
+            Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)  //Update Guest Info
+        {
+            if((textBox1.Text.Length<1)|| (textBox5.Text.Length < 1) || (textBox6.Text.Length < 1) || (textBox7.Text.Length < 1))
+            {
+                MessageBox.Show("Invalid Info");
+            }
+            u.SetFirstName(textBox1.Text);
+            u.SetLastName(textBox6.Text);
+            u.SetPriority(Int32.Parse(textBox5.Text));
+            u.SetStatus(Int32.Parse(textBox7.Text));
+            Close();
 
         }
     }
