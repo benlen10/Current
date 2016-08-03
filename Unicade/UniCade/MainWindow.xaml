@@ -9,7 +9,7 @@
     <Window.Background>
         <ImageBrush ImageSource="C:\Users\Ben\Dropbox\Workspace\Unicade\UniCade\Images\Background.png"/>
     </Window.Background>
-    <Grid HorizontalAlignment="Left" Height="401" Margin="8,6,-3,0" VerticalAlignment="Top" Width="778">
+    <Grid HorizontalAlignment="Left" Height="409" Margin="8,6,-3,-0.5" VerticalAlignment="Top" Width="778">
         <Image x:Name="image" HorizontalAlignment="Left" Height="285" Margin="241,24,0,0" VerticalAlignment="Top" Width="256"/>
         <Image x:Name="image1" HorizontalAlignment="Left" Height="56" Margin="241,335,0,0" VerticalAlignment="Top" Width="256"/>
         <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="367" Margin="10,24,0,0" VerticalAlignment="Top" Width="231" FontSize="18.667" Foreground="White">
@@ -20,5 +20,6 @@
                 <SolidColorBrush Color="White" Opacity="0"/>
             </ListBox.Background>
         </ListBox>
+        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="547,379,0,0" VerticalAlignment="Top" Height="22" Width="221" Foreground="White" FontSize="9.333"/>
     </Grid>
 </Window>

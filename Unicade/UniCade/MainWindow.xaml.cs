@@ -245,7 +245,7 @@ namespace UniCade
                         image.Visibility = Visibility.Visible;
                         image1.Visibility = Visibility.Visible;
                         gameSelectionActive = false;
-                        //label1.Text = "Total Game Count: " + Database.totalGameCount;
+                        label.Content = "Total Game Count: " + Database.totalGameCount;
                         //pictureBox4.Image = null;
                     }
 
@@ -267,7 +267,7 @@ namespace UniCade
 
 
         FileOps.refreshGameCount();
-            //label1.Text = "Total Game Count: " + Database.totalGameCount;
+            label.Content = "Total Game Count: " + Database.totalGameCount;
 
         }
 
@@ -352,7 +352,7 @@ namespace UniCade
                 if (c.getName().Equals(conList[index]))
                 {
                     gameSelectionConsole = c;
-                    //label1.Text = c.getName() + " Game Count: " + c.gameCount;
+                    label.Content = c.getName() + " Game Count: " + c.gameCount;
                     if (fav)
                     {
                         listBox.Items.Add(c.getName() + " Favorites:\n\n");
