@@ -74,6 +74,9 @@ namespace UniCade
                 //label3.Visible = false;
             }
 
+
+            FileOps.refreshGameCount();
+            label.Content = "Total Game Count: " + Database.totalGameCount;
             updateGUI();
         }
 
@@ -264,10 +267,6 @@ namespace UniCade
 
 
             updateGUI();
-
-
-        FileOps.refreshGameCount();
-            label.Content = "Total Game Count: " + Database.totalGameCount;
 
         }
 
