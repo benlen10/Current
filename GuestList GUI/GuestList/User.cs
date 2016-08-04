@@ -75,5 +75,22 @@ namespace GuestList
         {
             lastName = s;
         }
+
+        public bool blacklistStat()
+        {
+            return blacklist;
+        }
+
+        public void setBlacklist()
+        {
+            if (blacklist)
+            {
+                blacklist = false;
+            }
+            else
+            {
+                blacklist = true;
+            }
+        }
     }
 }
