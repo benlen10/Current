@@ -309,7 +309,7 @@ namespace UniCade
                 //Program.gui.TopMost = true;
             }
             curCon = (string)conList[index];
-            System.Console.WriteLine(@"C:\UniCade\Media\Consoles\" + conList[index] + ".png");
+            //System.Console.WriteLine(@"C:\UniCade\Media\Consoles\" + conList[index] + ".png");
             if ((File.Exists(@"C:\UniCade\Media\Consoles\" + conList[index] + ".png")))
             {
                 b = new BitmapImage();
@@ -345,6 +345,8 @@ namespace UniCade
             gameSelectionActive = true;
             image.Visibility = Visibility.Hidden;
             image1.Visibility = Visibility.Hidden;
+            image2.Visibility = Visibility.Hidden;
+
             listBox.Items.Clear();
             foreach (Console c in Program.dat.consoleList)
             {
@@ -374,6 +376,21 @@ namespace UniCade
                     break;
                 }
             }
+
+            if (File.Exists(@"C:\UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png"))
+            {
+
+                BitmapImage b = new BitmapImage();
+                b.BeginInit();
+                b.UriSource = new Uri(@"C:\UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png");
+                b.EndInit();
+                image2.Source = b;
+            }
+            else
+            {
+                image.Source = null;
+            }
+
             listBox.Visibility = Visibility.Visible;
             if (listBox.Items.Count > 0)               //Auto set initial index to first item
             {

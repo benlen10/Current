@@ -72,6 +72,22 @@ namespace UniCade {
         #line default
         #line hidden
         
+        
+        #line 24 "..\..\MainWindow.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Image image2;
+        
+        #line default
+        #line hidden
+        
+        
+        #line 25 "..\..\MainWindow.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Label label1;
+        
+        #line default
+        #line hidden
+        
         private bool _contentLoaded;
         
         /// <summary>
@@ -113,6 +129,12 @@ namespace UniCade {
             return;
             case 4:
             this.label = ((System.Windows.Controls.Label)(target));
+            return;
+            case 5:
+            this.image2 = ((System.Windows.Controls.Image)(target));
+            return;
+            case 6:
+            this.label1 = ((System.Windows.Controls.Label)(target));
             return;
             }
             this._contentLoaded = true;
