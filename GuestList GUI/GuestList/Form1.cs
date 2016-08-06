@@ -61,6 +61,7 @@ namespace GuestList
 
         public void refreshList()
         {
+            label2.Text = "Checked In";
             string contents = "";
             string contents2 = "";
 
