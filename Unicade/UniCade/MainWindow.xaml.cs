@@ -44,6 +44,8 @@ namespace UniCade
             listBox.Visibility = Visibility.Hidden;
             listBox.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
             listBox.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
+            image2.Visibility = Visibility.Hidden;
+            label1.Visibility = Visibility.Hidden;
             //Taskbar.Hide();
 
             conList = new ArrayList();
@@ -345,7 +347,9 @@ namespace UniCade
             gameSelectionActive = true;
             image.Visibility = Visibility.Hidden;
             image1.Visibility = Visibility.Hidden;
-            image2.Visibility = Visibility.Hidden;
+            image2.Visibility = Visibility.Visible;
+            image1.Visibility = Visibility.Visible;
+            label1.Content = (conList[index] + "Library");
 
             listBox.Items.Clear();
             foreach (Console c in Program.dat.consoleList)
@@ -385,11 +389,14 @@ namespace UniCade
                 b.UriSource = new Uri(@"C:\UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png");
                 b.EndInit();
                 image2.Source = b;
+
+                label1.Content = (conList[index] + "Library");
             }
             else
             {
                 image.Source = null;
             }
+            
 
             listBox.Visibility = Visibility.Visible;
             if (listBox.Items.Count > 0)               //Auto set initial index to first item
