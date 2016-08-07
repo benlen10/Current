@@ -23,6 +23,7 @@ namespace GuestList
             textBox3.Text = u.getBirthday();
             textBox4.Text = "Pending";
             textBox5.Text = u.getPriority().ToString();
+            richTextBox1.Text = u.getNotes();
 
         }
 
@@ -46,7 +47,28 @@ namespace GuestList
             u.SetLastName(textBox6.Text);
             u.SetPriority(Int32.Parse(textBox5.Text));
             u.SetStatus(Int32.Parse(textBox7.Text));
+            u.setNotes(richTextBox1.Text);
             Close();
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string text = "";
+            u.setBlacklist();
+            if (u.blacklistStat())
+            {
+                text = "Guest is on Blacklist";
+            }
+            else
+            {
+                text = "Guest is clear";
+            }
+            MessageBox.Show(text);
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

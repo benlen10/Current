@@ -14,6 +14,7 @@ namespace GuestList
         private bool blacklist;
         private int priority;
         private int status;
+        private string notes;
 
 
         public User(string firstName, string lastName, string birthday, int priority)
@@ -91,6 +92,16 @@ namespace GuestList
             {
                 blacklist = true;
             }
+        }
+
+        public string getNotes()
+        {
+            return notes;
+        }
+
+        public void setNotes(string s)
+        {
+            notes = s;
         }
     }
 }
