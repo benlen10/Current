@@ -247,8 +247,11 @@ namespace UniCade
                     else
                     {
                         listBox.Visibility = Visibility.Hidden;  //Close Game Selection window
+                        image2.Visibility = Visibility.Hidden;
+                        label1.Visibility = Visibility.Hidden;
                         image.Visibility = Visibility.Visible;
                         image1.Visibility = Visibility.Visible;
+                        
                         gameSelectionActive = false;
                         label.Content = "Total Game Count: " + Database.totalGameCount;
                         //pictureBox4.Image = null;
@@ -348,7 +351,7 @@ namespace UniCade
             image.Visibility = Visibility.Hidden;
             image1.Visibility = Visibility.Hidden;
             image2.Visibility = Visibility.Visible;
-            image1.Visibility = Visibility.Visible;
+            label1.Visibility = Visibility.Visible;
             label1.Content = (conList[index] + "Library");
 
             listBox.Items.Clear();
