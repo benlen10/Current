@@ -23,6 +23,7 @@ namespace GuestList
             textBox3.Text = u.getBirthday();
             textBox4.Text = "Pending";
             textBox5.Text = u.getPriority().ToString();
+            textBox7.Text = u.getStatus().ToString();
             richTextBox1.Text = u.getNotes();
 
         }

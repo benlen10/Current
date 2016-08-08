@@ -92,18 +92,26 @@ namespace GuestList
 
         private void button3_Click(object sender, EventArgs e)  //Blacklist 
         {
-            string contents = "";
-            label2.Text = "BLACKLIST";
-
-            foreach (User u in users)
+            if (!label2.Text.Equals("BLACKLIST"))
             {
-                if (u.blacklistStat())
-                {
-                    contents = contents + u.getFullName() + "\n";
-                }
+                string contents = "";
+                label2.Text = "BLACKLIST";
 
+                foreach (User u in users)
+                {
+                    if (u.blacklistStat())
+                    {
+                        contents = contents + u.getFullName() + "\n";
+                    }
+
+                }
+                richTextBox2.Text = contents;
             }
-            richTextBox2.Text = contents;
+            else
+            {
+                label2.Text = "Checked In";
+                refreshList();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
