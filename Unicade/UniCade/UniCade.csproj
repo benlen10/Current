@@ -60,8 +60,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="NotificationWindow.xaml.cs">
+      <DependentUpon>NotificationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PassWindow.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassWindow.Designer.cs">
+      <DependentUpon>PassWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLclient.cs" />
     <Compile Include="Taskbar.cs" />
@@ -99,7 +105,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login.Designer.cs" />
-    <Compile Include="PassWindow.Designer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Review.cs" />
     <Compile Include="SettingsWindow.cs">
@@ -112,6 +117,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NotificationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -130,7 +139,9 @@
     <EmbeddedResource Include="ConfirmAction.resx" />
     <EmbeddedResource Include="LicenseEntry.resx" />
     <EmbeddedResource Include="Login.resx" />
-    <EmbeddedResource Include="PassWindow.resx" />
+    <EmbeddedResource Include="PassWindow.resx">
+      <DependentUpon>PassWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

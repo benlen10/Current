@@ -17,6 +17,9 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Threading;
 using UniCade;
+using UniCade;
+using System.Windows.Threading;
+using Unicade;
 
 namespace UniCade
 {
@@ -30,6 +33,7 @@ namespace UniCade
         public static ArrayList conList;
         public static int index;
         public static string curCon;
+        public static bool passValid;
         public static bool gameSelectionActive;
         public static bool infoWindowActive;
         public Console gameSelectionConsole;
@@ -134,12 +138,11 @@ namespace UniCade
                 else
                 {
                     infoWindowActive = true;
-                    displayConsoleInfo();
 
                 }
             }
 
-           /* else if (e.Key == Keys.Space)  //Add or remove favorites
+            else if (e.Key == Key.Space)  //Add or remove favorites
             {
                 if (gameSelectionActive)
                 {
@@ -164,8 +167,8 @@ namespace UniCade
                         }
                     }
                 }
-            }*/
-            else if (e.Key == Key.F10)  // Insert coin
+            }
+            /*else if (e.Key == Key.F10)  // Insert coin
             {
                 Program.coins++;
                 if (SettingsWindow.payPerPlay > 0)
@@ -182,7 +185,7 @@ namespace UniCade
 
                 }
                 createNotification("Coin Inserted - Total Coins: " + Program.coins);
-            }
+            }*/
 
             else if (e.Key == Key.F)  //Toggle Favorites view
             {
@@ -202,7 +205,7 @@ namespace UniCade
             else if ((e.Key == Key.C) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display Command line and close gui
             {
                 Taskbar.Show();
-                Application.Current.Shutdown();
+                System.Windows.Application.Current.Shutdown();
             }
 
             else if ( (e.Key == Key.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
@@ -210,11 +213,13 @@ namespace UniCade
 
                 if (SettingsWindow.passProtect > 0)
                 {
+                    passValid = false;
                     PassWindow pw = new PassWindow();
                     pw.ShowDialog();
-                    //DialogResult result = pw.ShowDialog();
 
-                    if (true)//result == DialogResult.OK)
+
+                  
+                    if (passValid)
                     {
                         SettingsWindow sw = new SettingsWindow();
                         sw.ShowDialog();
@@ -291,6 +296,8 @@ namespace UniCade
 
         private void left()
         {
+            NotificationWindow nfw = new NotificationWindow();
+            nfw.Show();
             closeNotification();
             if (index > 0)
             {
@@ -352,7 +359,7 @@ namespace UniCade
             image1.Visibility = Visibility.Hidden;
             image2.Visibility = Visibility.Visible;
             label1.Visibility = Visibility.Visible;
-            label1.Content = (conList[index] + "Library");
+            label1.Content = (conList[index] + " Library");
 
             listBox.Items.Clear();
             foreach (Console c in Program.dat.consoleList)
@@ -478,18 +485,8 @@ namespace UniCade
             
         
 
-        private void displayConsoleInfo()
-        {
-            /*foreach (Console c in Program.dat.consoleList)
-            {
-                if (c.getName().Equals(conList[index]))
-                {
-                    Program.displayConsoleInfo(c);
-                    break;
-                }
-            }*/
 
-        }
+
 
         public void createNotification(String notification)
         {
@@ -518,6 +515,8 @@ namespace UniCade
            // label3.Visible = false;
           //  label3.Text = null;
         }
+
+ 
 
 
 

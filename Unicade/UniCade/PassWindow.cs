@@ -15,15 +15,9 @@ namespace UniCade
         public PassWindow()
         {
             InitializeComponent();
-
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
         {
             int n;
             Int32.TryParse(textBox1.Text, out n);
@@ -32,15 +26,18 @@ namespace UniCade
                 if (Int32.Parse(textBox1.Text) == SettingsWindow.passProtect)
                 {
                     DialogResult = DialogResult.OK;
+                    MainWindow.passValid = true;
                 }
 
             }
             textBox1.Text = null;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
+            Close();
 
         }
     }
+
 }

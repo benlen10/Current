@@ -193,6 +193,9 @@
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.textBox35 = new System.Windows.Forms.TextBox();
+            this.textBox34 = new System.Windows.Forms.TextBox();
+            this.textBox14 = new System.Windows.Forms.TextBox();
             this.button41 = new System.Windows.Forms.Button();
             this.button40 = new System.Windows.Forms.Button();
             this.button39 = new System.Windows.Forms.Button();
@@ -204,9 +207,6 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.textBox34 = new System.Windows.Forms.TextBox();
-            this.textBox35 = new System.Windows.Forms.TextBox();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1400,6 +1400,7 @@
             this.label39.Size = new System.Drawing.Size(208, 25);
             this.label39.TabIndex = 90;
             this.label39.Text = "PayPerPlay Settings";
+            this.label39.Visible = false;
             // 
             // button20
             // 
@@ -1540,6 +1541,7 @@
             this.label50.Size = new System.Drawing.Size(100, 25);
             this.label50.TabIndex = 20;
             this.label50.Text = "Playtime ";
+            this.label50.Visible = false;
             // 
             // label49
             // 
@@ -1549,6 +1551,7 @@
             this.label49.Size = new System.Drawing.Size(85, 25);
             this.label49.TabIndex = 19;
             this.label49.Text = "# Coins";
+            this.label49.Visible = false;
             // 
             // textBox30
             // 
@@ -1556,6 +1559,7 @@
             this.textBox30.Name = "textBox30";
             this.textBox30.Size = new System.Drawing.Size(100, 31);
             this.textBox30.TabIndex = 18;
+            this.textBox30.Visible = false;
             this.textBox30.TextChanged += new System.EventHandler(this.textBox30_TextChanged);
             // 
             // textBox29
@@ -1564,6 +1568,7 @@
             this.textBox29.Name = "textBox29";
             this.textBox29.Size = new System.Drawing.Size(100, 31);
             this.textBox29.TabIndex = 17;
+            this.textBox29.Visible = false;
             this.textBox29.TextChanged += new System.EventHandler(this.textBox29_TextChanged);
             // 
             // label48
@@ -1584,6 +1589,7 @@
             this.checkBox14.TabIndex = 12;
             this.checkBox14.Text = "Enable PayPerPlay";
             this.checkBox14.UseVisualStyleBackColor = true;
+            this.checkBox14.Visible = false;
             this.checkBox14.CheckedChanged += new System.EventHandler(this.checkBox14_CheckedChanged);
             // 
             // checkBox13
@@ -1921,6 +1927,27 @@
             this.tabPage7.Text = "UniCade Server";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // textBox35
+            // 
+            this.textBox35.Location = new System.Drawing.Point(1122, 365);
+            this.textBox35.Name = "textBox35";
+            this.textBox35.Size = new System.Drawing.Size(100, 31);
+            this.textBox35.TabIndex = 20;
+            // 
+            // textBox34
+            // 
+            this.textBox34.Location = new System.Drawing.Point(831, 365);
+            this.textBox34.Name = "textBox34";
+            this.textBox34.Size = new System.Drawing.Size(100, 31);
+            this.textBox34.TabIndex = 19;
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(975, 365);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(100, 31);
+            this.textBox14.TabIndex = 18;
+            // 
             // button41
             // 
             this.button41.Location = new System.Drawing.Point(1037, 528);
@@ -2023,28 +2050,7 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
-            // 
-            // textBox14
-            // 
-            this.textBox14.Location = new System.Drawing.Point(975, 365);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(100, 31);
-            this.textBox14.TabIndex = 18;
-            // 
-            // textBox34
-            // 
-            this.textBox34.Location = new System.Drawing.Point(831, 365);
-            this.textBox34.Name = "textBox34";
-            this.textBox34.Size = new System.Drawing.Size(100, 31);
-            this.textBox34.TabIndex = 19;
-            // 
-            // textBox35
-            // 
-            this.textBox35.Location = new System.Drawing.Point(1122, 365);
-            this.textBox35.Name = "textBox35";
-            this.textBox35.Size = new System.Drawing.Size(100, 31);
-            this.textBox35.TabIndex = 20;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // SettingsWindow
             // 
