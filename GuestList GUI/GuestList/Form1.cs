@@ -147,19 +147,27 @@ namespace GuestList
         private void button4_Click(object sender, EventArgs e)
         {
             bool found = false;
-            foreach (User u in users)
+            if (users.Count > 0)
             {
-                if (u.getFullName().Equals(textBox1.Text))
+                foreach (User u in users)
                 {
-                    GuestInfo gi = new GuestInfo(u);
-                    found = true;
-                    gi.ShowDialog();
+                    if (u.getFullName().Equals(textBox1.Text))
+                    {
+                        GuestInfo gi = new GuestInfo(u);
+                        found = true;
+                        gi.ShowDialog();
+                    }
+                }
+                if (!found)
+                {
+                    MessageBox.Show("User Not Found");
                 }
             }
-            if (!found)
-            {
-                MessageBox.Show("User Not Found");
-            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

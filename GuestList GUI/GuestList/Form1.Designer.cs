@@ -50,9 +50,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(574, 130);
+            this.button1.Location = new System.Drawing.Point(574, 99);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(161, 34);
+            this.button1.Size = new System.Drawing.Size(161, 49);
             this.button1.TabIndex = 1;
             this.button1.Text = "Create User";
             this.button1.UseVisualStyleBackColor = true;
@@ -71,16 +71,17 @@
             // textBox1
             // 
             this.textBox1.AcceptsReturn = true;
-            this.textBox1.Location = new System.Drawing.Point(574, 313);
+            this.textBox1.Location = new System.Drawing.Point(574, 331);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(161, 31);
             this.textBox1.TabIndex = 4;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(574, 257);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(161, 38);
+            this.button4.Size = new System.Drawing.Size(161, 43);
             this.button4.TabIndex = 5;
             this.button4.Text = "Guest Info";
             this.button4.UseVisualStyleBackColor = true;
@@ -116,9 +117,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(574, 170);
+            this.button5.Location = new System.Drawing.Point(574, 154);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(161, 32);
+            this.button5.Size = new System.Drawing.Size(161, 48);
             this.button5.TabIndex = 9;
             this.button5.Text = "Check In/Out";
             this.button5.UseVisualStyleBackColor = true;
