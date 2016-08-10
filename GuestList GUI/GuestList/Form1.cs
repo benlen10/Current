@@ -156,12 +156,17 @@ namespace GuestList
                         GuestInfo gi = new GuestInfo(u);
                         found = true;
                         gi.ShowDialog();
+                        break;
                     }
                 }
                 if (!found)
                 {
                     MessageBox.Show("User Not Found");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Guest List is Empty");
             }
         }
 

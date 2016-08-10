@@ -76,6 +76,7 @@ namespace GuestList
         private void button4_Click(object sender, EventArgs e)
         {
             Form1.users.Remove(u);
+            Program.f1.refreshList();
             Close();
         }
     }
