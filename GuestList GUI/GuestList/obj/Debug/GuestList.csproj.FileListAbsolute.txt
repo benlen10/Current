@@ -10,3 +10,4 @@ C:\Users\Ben\Dropbox\Workspace\GuestList\GuestList\obj\Debug\GuestList.pdb
 C:\Users\Ben\Dropbox\Workspace\GuestList\GuestList\obj\Debug\GuestList.PassPrompt.resources
 C:\Users\Ben\Dropbox\Workspace\GuestList\GuestList\obj\Debug\GuestList.newUser.resources
 C:\Users\Ben\Dropbox\Workspace\GuestList\GuestList\obj\Debug\GuestList.GuestInfo.resources
+C:\Users\Ben\Dropbox\Workspace\GuestList\GuestList\obj\Debug\GuestList.AdvSettings.resources

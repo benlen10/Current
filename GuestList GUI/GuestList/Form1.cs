@@ -174,5 +174,20 @@ namespace GuestList
         {
 
         }
+
+        public void saveDatabase()
+        {
+
+        }
+        public void loadDatabase()
+        {
+
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            AdvSettings av = new AdvSettings();
+            av.ShowDialog();
+        }
     }
 }
