@@ -155,12 +155,15 @@ namespace UniCade
                                 if (g.getFav() > 0)
                                 {
                                     g.setFav(0);
-                                    createNotification("Removed from Favorites");
+                                    NotificationWindow nfw = new NotificationWindow("UniCade", "Removed From Favorites");
+                                    nfw.Show();
                                 }
                                 else
                                 {
                                     g.setFav(1);
-                                    createNotification("Added to Favorites");
+                                    NotificationWindow nfw = new NotificationWindow("UniCade", "Added To Favorites");
+                                    nfw.Show();
+
                                 }
                                 break;
                             }
@@ -214,6 +217,8 @@ namespace UniCade
                 if (SettingsWindow.passProtect > 0)
                 {
                     passValid = false;
+                    NotificationWindow nfw = new NotificationWindow("Security", "Enter Password");
+                    nfw.Show();
                     PassWindow pw = new PassWindow();
                     pw.ShowDialog();
 
@@ -240,7 +245,7 @@ namespace UniCade
             else if ((e.Key == Key.Escape) || (e.Key == Key.Delete) || (e.Key == Key.Back))  //Close Current Window
             {
 
-                closeNotification();
+               
                 if (gameSelectionActive)
                 {
                     if (infoWindowActive)
@@ -282,7 +287,7 @@ namespace UniCade
 
         private void right()
         {
-            closeNotification();
+            
             if (index < (conCount - 1))
             {
                 index++;
@@ -296,9 +301,7 @@ namespace UniCade
 
         private void left()
         {
-            NotificationWindow nfw = new NotificationWindow();
-            nfw.Show();
-            closeNotification();
+            
             if (index > 0)
             {
                 index--;
@@ -430,6 +433,8 @@ namespace UniCade
             {
                 if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                 {
+                    NotificationWindow nfw = new NotificationWindow("System", "Loading ROM File");
+                    nfw.Show();
                     FileOps.launch(g, gameSelectionConsole);
                     break;
                 }
@@ -488,7 +493,7 @@ namespace UniCade
 
 
 
-        public void createNotification(String notification)
+        public void createPermNotification(String notification)
         {
             /*label2.Visible = true;
             label2.Text = notification;
@@ -497,7 +502,7 @@ namespace UniCade
             */
         }
 
-        public void closeNotification()
+        public void closePermNotification()
         {
             //label2.Text = null;
             //label2.Visible = false;
