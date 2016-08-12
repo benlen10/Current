@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 
 namespace GuestList
@@ -177,7 +178,16 @@ namespace GuestList
 
         public void saveDatabase()
         {
+            string path = @"C:\Users\Ben\Desktop\Database.txt";
+            if (!File.Exists(path))
+            {
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    sw.WriteLine("Test\n");
 
+                }
+
+            }
         }
         public void loadDatabase()
         {

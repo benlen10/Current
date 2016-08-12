@@ -21,5 +21,10 @@ namespace GuestList
         {
 
         }
+
+        private void button8_Click(object sender, EventArgs e)  //Save Database
+        {
+            Program.f1.saveDatabase();
+        }
     }
 }

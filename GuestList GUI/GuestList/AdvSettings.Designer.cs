@@ -110,8 +110,9 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(242, 47);
             this.button8.TabIndex = 7;
-            this.button8.Text = "Temp";
+            this.button8.Text = "Save Database";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
@@ -119,7 +120,7 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(242, 47);
             this.button9.TabIndex = 8;
-            this.button9.Text = "Temp";
+            this.button9.Text = "Load Database";
             this.button9.UseVisualStyleBackColor = true;
             // 
             // button10
@@ -128,7 +129,7 @@
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(242, 47);
             this.button10.TabIndex = 9;
-            this.button10.Text = "Temp";
+            this.button10.Text = "License Info";
             this.button10.UseVisualStyleBackColor = true;
             // 
             // AdvSettings
