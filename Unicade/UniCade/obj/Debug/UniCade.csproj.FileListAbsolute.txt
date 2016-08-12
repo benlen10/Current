@@ -20,3 +20,5 @@ C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\UniCade.exe
 C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\UniCade.pdb
 C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\NotificationWindow.baml
 C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\NotificationWindow.g.cs
+C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\Splash.baml
+C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\Splash.g.cs

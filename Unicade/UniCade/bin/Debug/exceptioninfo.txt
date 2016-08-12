@@ -1,0 +1,6 @@
+
+Unhandled Exception
+  Code: 0xC0000005
+Call stack info: 
+     0xDD1AC3F9 : ?
+     0x0B969EA0 : ?

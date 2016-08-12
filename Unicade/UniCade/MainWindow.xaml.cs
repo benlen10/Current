@@ -20,6 +20,7 @@ using UniCade;
 using UniCade;
 using System.Windows.Threading;
 using Unicade;
+using System.Diagnostics;
 
 namespace UniCade
 {
@@ -435,6 +436,8 @@ namespace UniCade
                 {
                     NotificationWindow nfw = new NotificationWindow("System", "Loading ROM File");
                     nfw.Show();
+                    //pause(3000);
+                    Task.Delay(3000);
                     FileOps.launch(g, gameSelectionConsole);
                     break;
                 }
@@ -519,6 +522,28 @@ namespace UniCade
         {
            // label3.Visible = false;
           //  label3.Text = null;
+        }
+
+        public static void pause(int time)
+        {
+
+            Stopwatch sw = new Stopwatch(); // sw cotructor
+            sw.Start(); // starts the stopwatch
+            for (int i = 0; ; i++)
+            {
+                if (i % 1000 == 0) 
+                {
+                    sw.Stop(); 
+                    if (sw.ElapsedMilliseconds > time) 
+                    {
+                        break; 
+                    }
+                    else
+                    {
+                        sw.Start(); 
+                    }
+                }
+            }
         }
 
  

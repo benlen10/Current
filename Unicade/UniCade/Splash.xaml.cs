@@ -6,16 +6,14 @@ using System.Windows.Threading;
     /// <summary>
     /// Interaction logic for Notification.xaml
     /// </summary>
-    public partial class NotificationWindow : Window
+    public partial class Splash : Window
     {
-        public NotificationWindow(String title, String body)
+        public Splash()
         {
             InitializeComponent();
 
             Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
             {
-                textBlock11.Text = title;
-                textBlock0.Text = body;
                 var workingArea = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea;
                 var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
                 var corner = transform.Transform(new Point(workingArea.Right, workingArea.Bottom));
