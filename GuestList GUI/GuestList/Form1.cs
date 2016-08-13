@@ -49,7 +49,7 @@ namespace GuestList
                 passWindow.ShowDialog();
                 MessageBox.Show(resultTxt);
             }
-            users.Add(new User("Ben", "Len", "6-20-1995", 1));
+            users.Add(new User("Ben", "Len", "6-20-1995", 1,1," ", " "));
             refreshList();
 
         }
@@ -184,6 +184,12 @@ namespace GuestList
                 using (StreamWriter sw = File.CreateText(path))
                 {
                     sw.WriteLine("Test\n");
+                    foreach (User u in users)
+                    {
+                        string txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{7}|", u.getFirstName(), u.getLastName(), u.getBirthday(), 0, u.getPriority(), u.getStatus(),u.getId(), u.getNotes());
+                        sw.WriteLine(txt);
+
+                    }
 
                 }
 
@@ -191,6 +197,16 @@ namespace GuestList
         }
         public void loadDatabase()
         {
+            
+            string line;
+            char[] sep = { '|' };
+            string[] r = {" "};
+            System.IO.StreamReader file = new System.IO.StreamReader("c:\\test.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                r = line.Split(sep);
+            }
+            users.Add(new User(r[0], r[1], r[3], Int32.Parse(r[4]), Int32.Parse(r[5]), r[6], r[7]));
 
         }
 

@@ -22,5 +22,9 @@ namespace GuestList
             f1 = new Form1();
             Application.Run(f1);
         }
+        /*static void OnProcessExit(object sender, EventArgs e)
+        {
+            f1.saveDatabase();
+        }*/
     }
 }

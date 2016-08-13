@@ -26,7 +26,7 @@ namespace GuestList
             }
             else
             {
-                Form1.users.Add(new User(textBox1.Text, textBox2.Text, maskedTextBox1.Text, Int32.Parse(textBox4.Text)));
+                Form1.users.Add(new User(textBox1.Text, textBox2.Text, maskedTextBox1.Text, Int32.Parse(textBox4.Text),0," ", " "));
                 Program.f1.refreshList();
                 Close();
             }

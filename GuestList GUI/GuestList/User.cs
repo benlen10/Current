@@ -11,20 +11,23 @@ namespace GuestList
         private string firstName;
         private string lastName;
         private string birthday;
+        private string Id;
         private bool blacklist;
         private int priority;
         private int status;
         private string notes;
 
 
-        public User(string firstName, string lastName, string birthday, int priority)
+        public User(string firstName, string lastName, string birthday, int priority, int status, string Id, string notes)
         {
-            status = 0;
             blacklist = false;
             this.firstName = firstName;
             this.lastName = lastName;
             this.birthday = birthday;
             this.priority = priority;
+            this.status = status;
+            this.Id = Id;
+            this.notes = notes;
         }
 
         public string getFullName()
@@ -102,6 +105,15 @@ namespace GuestList
         public void setNotes(string s)
         {
             notes = s;
+        }
+
+        public string getId()
+        {
+            return Id;
+        }
+        public void SetId(string s)
+        {
+            Id = s;
         }
     }
 }
