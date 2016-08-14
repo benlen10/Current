@@ -59,7 +59,7 @@ namespace UniCade {
         
         #line 12 "..\..\GameInfo.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.Image image1_Copy;
+        internal System.Windows.Controls.Image image2;
         
         #line default
         #line hidden
@@ -67,7 +67,7 @@ namespace UniCade {
         
         #line 13 "..\..\GameInfo.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.Image image1_Copy1;
+        internal System.Windows.Controls.Image image3;
         
         #line default
         #line hidden
@@ -83,7 +83,7 @@ namespace UniCade {
         
         #line 15 "..\..\GameInfo.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.TextBlock textBlock_Copy;
+        internal System.Windows.Controls.TextBlock textBlock1;
         
         #line default
         #line hidden
@@ -125,16 +125,16 @@ namespace UniCade {
             this.image1 = ((System.Windows.Controls.Image)(target));
             return;
             case 3:
-            this.image1_Copy = ((System.Windows.Controls.Image)(target));
+            this.image2 = ((System.Windows.Controls.Image)(target));
             return;
             case 4:
-            this.image1_Copy1 = ((System.Windows.Controls.Image)(target));
+            this.image3 = ((System.Windows.Controls.Image)(target));
             return;
             case 5:
             this.textBlock = ((System.Windows.Controls.TextBlock)(target));
             return;
             case 6:
-            this.textBlock_Copy = ((System.Windows.Controls.TextBlock)(target));
+            this.textBlock1 = ((System.Windows.Controls.TextBlock)(target));
             return;
             }
             this._contentLoaded = true;

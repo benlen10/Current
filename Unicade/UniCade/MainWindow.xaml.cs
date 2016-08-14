@@ -447,23 +447,19 @@ namespace UniCade
 
         private void displayGameInfo()
         {
-           /* if (listBox.SelectedItem == null)
+            if (listBox.SelectedItem == null)
             {
                 return;
             }
-            pictureBox5.Visible = true;
-            pictureBox6.Visible = true;
-            pictureBox7.Visible = true;
 
-            pictureBox5.Image = null;
-            pictureBox6.Image = null;
-            pictureBox7.Image = null;
+            GameInfo gi = new GameInfo();
+                gi.ShowDialog();
 
             foreach (Game g in gameSelectionConsole.getGameList())
             {
                 if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                 {
-                    //richTextBox1.Text = Program.displayGameInfo(g);
+                    gi.textBlock.Text = g.getConsole() + " - " + g.getTitle();
 
                     if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png"))
                     {
