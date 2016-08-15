@@ -451,9 +451,10 @@ namespace UniCade
             {
                 return;
             }
+            BitmapImage b;
 
             GameInfo gi = new GameInfo();
-                gi.ShowDialog();
+            gi.ShowDialog();
 
             foreach (Game g in gameSelectionConsole.getGameList())
             {
@@ -463,25 +464,38 @@ namespace UniCade
 
                     if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png"))
                     {
-                        //pictureBox5.Load(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png");
+                        b = new BitmapImage();
+                        b.BeginInit();
+                        b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png");
+                        b.EndInit();
+                        image.Source = b;
 
                     }
 
                     if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxBack.png"))
                     {
-                        //pictureBox6.Load(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxBack.png");
+                        b = new BitmapImage();
+                        b.BeginInit();
+                        b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxBack.png");
+                        b.EndInit();
+                        image1.Source = b;
 
                     }
 
                     if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png"))
                     {
-                        //pictureBox7.Load(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png");
+                        b = new BitmapImage();
+                        b.BeginInit();
+                        b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png");
+                        b.EndInit();
+                        image2.Source = b;
 
                     }
 
-                    break;
-                }*/
+
+                }
             }
+        }
 
 
 
