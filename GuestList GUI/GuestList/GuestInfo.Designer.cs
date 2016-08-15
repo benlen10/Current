@@ -113,8 +113,9 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(183, 159);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 31);
+            this.textBox3.Size = new System.Drawing.Size(129, 31);
             this.textBox3.TabIndex = 7;
+            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // textBox4
             // 
@@ -176,7 +177,9 @@
             // richTextBox1
             // 
             this.richTextBox1.Location = new System.Drawing.Point(401, 55);
+            this.richTextBox1.Multiline = false;
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.richTextBox1.Size = new System.Drawing.Size(211, 344);
             this.richTextBox1.TabIndex = 15;
             this.richTextBox1.Text = "";

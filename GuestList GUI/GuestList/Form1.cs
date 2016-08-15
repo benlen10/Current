@@ -208,8 +208,11 @@ namespace GuestList
             while ((line = file.ReadLine()) != null)
             {
                 r = line.Split(sep);
-                Console.WriteLine("Length: " + r.Length);
-                users.Add(new User(r[0], r[1], r[3], Int32.Parse(r[4]), Int32.Parse(r[5]), r[6], r[7]));
+                //Console.WriteLine("Length: " + r.Length);
+                if (r.Length >= 7)
+                {
+                    users.Add(new User(r[0], r[1], r[2], Int32.Parse(r[3]), Int32.Parse(r[4]), r[5], r[6]));
+                }
             }
             file.Close();
 

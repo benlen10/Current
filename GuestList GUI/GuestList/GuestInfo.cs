@@ -20,11 +20,26 @@ namespace GuestList
             textBox1.Text = u.getFirstName();
             textBox6.Text = u.getLastName();
             textBox2.Text = "ID Number";
-            textBox3.Text = u.getBirthday();
-            textBox4.Text = "Pending";
+            textBox4.Text = u.getBirthday();
             textBox5.Text = u.getPriority().ToString();
             textBox7.Text = u.getStatus().ToString();
             richTextBox1.Text = u.getNotes();
+            string s = u.getBirthday();
+            if (u.getBirthday().Length == 10)
+            {
+                if (int.Parse(s.Substring(6)) < 1995)
+                {
+                    textBox3.Text = "Over 21";
+                }
+                else
+                {
+                    textBox3.Text = "Under 21";
+                }
+            }
+            else
+            {
+                textBox3.Text = "Invalid";
+            }
 
         }
 
@@ -78,6 +93,11 @@ namespace GuestList
             Form1.users.Remove(u);
             Program.f1.refreshList();
             Close();
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
