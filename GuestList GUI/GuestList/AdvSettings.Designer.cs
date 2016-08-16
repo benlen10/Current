@@ -58,6 +58,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "Database File Path";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -122,6 +123,7 @@
             this.button9.TabIndex = 8;
             this.button9.Text = "Load Database";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
             // 
@@ -131,6 +133,7 @@
             this.button10.TabIndex = 9;
             this.button10.Text = "License Info";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // AdvSettings
             // 

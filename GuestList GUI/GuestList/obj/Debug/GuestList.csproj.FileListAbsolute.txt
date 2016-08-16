@@ -11,3 +11,4 @@ C:\Users\Ben\Dropbox\Workspace\GuestList\GuestList\obj\Debug\GuestList.PassPromp
 C:\Users\Ben\Dropbox\Workspace\GuestList\GuestList\obj\Debug\GuestList.newUser.resources
 C:\Users\Ben\Dropbox\Workspace\GuestList\GuestList\obj\Debug\GuestList.GuestInfo.resources
 C:\Users\Ben\Dropbox\Workspace\GuestList\GuestList\obj\Debug\GuestList.AdvSettings.resources
+C:\Users\Ben\Dropbox\Workspace\GuestList\GuestList\obj\Debug\GuestList.TextEntry.resources

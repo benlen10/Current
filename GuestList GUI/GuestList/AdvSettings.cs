@@ -26,5 +26,22 @@ namespace GuestList
         {
             Program.f1.saveDatabase();
         }
+
+        private void button9_Click(object sender, EventArgs e)  //Load Databse
+        {
+            Program.f1.loadDatabase();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Developed by Benjamin Lenington\nFree and open source");
+        }
+
+        private void button2_Click(object sender, EventArgs e)  //Change database path
+        {
+            TextEntry te = new TextEntry();
+            te.ShowDialog();
+
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace GuestList
         private string realPass = "temp";
         const int maxUsers = 100;
         public static System.Collections.ArrayList users;
+        public string path = @"C:\Users\Ben\Desktop\Database.txt";
 
 
         public Form1()
@@ -179,7 +180,7 @@ namespace GuestList
 
         public void saveDatabase()
         {
-            string path = @"C:\Users\Ben\Desktop\Database.txt";
+            
             if (File.Exists(path))
             {
                 File.Delete(path);
