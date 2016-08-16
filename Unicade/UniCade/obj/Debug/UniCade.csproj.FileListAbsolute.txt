@@ -22,3 +22,5 @@ C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\NotificationWindow.baml
 C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\NotificationWindow.g.cs
 C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\Splash.baml
 C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\Splash.g.cs
+C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\GameInfo.g.cs
+C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\GameInfo.baml

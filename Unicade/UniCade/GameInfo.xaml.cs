@@ -19,9 +19,11 @@ namespace UniCade
     /// </summary>
     public partial class GameInfo : Window
     {
+
         public GameInfo()
         {
             InitializeComponent();
+            
         }
     }
 }

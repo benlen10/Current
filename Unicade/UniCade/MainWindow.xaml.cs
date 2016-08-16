@@ -11,12 +11,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Threading;
-using UniCade;
 using UniCade;
 using System.Windows.Threading;
 using Unicade;
@@ -492,10 +490,47 @@ namespace UniCade
 
                     }
 
+                    String EsrbPath = "";
+                    if (g.getEsrb().Equals("Everyone"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
+                    }
+                    else if (g.getEsrb().Equals("Everyone (KA)"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
+                    }
+                    else if (g.getEsrb().Equals("Everyone 10+"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone 10+.png";
+                    }
+                    else if (g.getEsrb().Equals("Teen"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Teen.png";
+                    }
+                    else if (g.getEsrb().Equals("Mature"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Mature.png";
+                    }
+                    if (g.getEsrb().Equals("Adults Only (AO)"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Adults Only (AO).png";
+                    }
+
+                    b = new BitmapImage();
+                    b.BeginInit();
+                    b.UriSource = new Uri(EsrbPath);
+                    b.EndInit();
+                    image2.Source = b;
 
                 }
             }
         }
+                
+            
+
+
+    
+       
 
 
 
