@@ -249,8 +249,7 @@ namespace UniCade
                 {
                     if (infoWindowActive)
                     {
-                        //richTextBox1.Visible = false;  //Close Info Window
-                        //listBox.Visible = true;
+                        Close();
                         infoWindowActive = false;
                     }
                     else
@@ -449,6 +448,7 @@ namespace UniCade
             {
                 return;
             }
+            infoWindowActive = true;
             BitmapImage b;
 
             GameInfo gi = new GameInfo();
@@ -489,7 +489,6 @@ namespace UniCade
                         image2.Source = b;
 
                     }
-
                     String EsrbPath = "";
                     if (g.getEsrb().Equals("Everyone"))
                     {
@@ -516,11 +515,14 @@ namespace UniCade
                         EsrbPath = @"C:\UniCade\Media\Esrb\Adults Only (AO).png";
                     }
 
-                    b = new BitmapImage();
-                    b.BeginInit();
-                    b.UriSource = new Uri(EsrbPath);
-                    b.EndInit();
-                    image2.Source = b;
+                    if (EsrbPath.Length > 2)
+                    {
+                        b = new BitmapImage();
+                        b.BeginInit();
+                        b.UriSource = new Uri(@EsrbPath);
+                        b.EndInit();
+                        image2.Source = b;
+                    }
 
                 }
             }

@@ -20,10 +20,21 @@ namespace UniCade
     public partial class GameInfo : Window
     {
 
+
         public GameInfo()
         {
             InitializeComponent();
-            
+            this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
+
+        }
+
+        private void OnButtonKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key == Key.Escape) || (e.Key == Key.Back))
+            {
+                Close();
+
+            }
         }
     }
 }
