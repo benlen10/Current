@@ -43,6 +43,7 @@ namespace UniCade
         public MainWindow()
         {
             InitializeComponent();
+            sw = new SettingsWindow();
             this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
             listBox.Visibility = Visibility.Hidden;
             listBox.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
@@ -122,22 +123,7 @@ namespace UniCade
             {
                 if (gameSelectionActive)
                 {
-                    if (!infoWindowActive)
-                    {
-                        displayGameInfo();
-                        infoWindowActive = true;
-                    }
-                    else
-                    {
-                          //Close Info Window
-
-                        infoWindowActive = false;
-                    }
-                }
-                else
-                {
-                    infoWindowActive = true;
-
+                    displayGameInfo();
                 }
             }
 
@@ -210,7 +196,7 @@ namespace UniCade
                 System.Windows.Application.Current.Shutdown();
             }
 
-            else if ( (e.Key == Key.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
+            else if ((e.Key == Key.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
             {
 
                 if (SettingsWindow.passProtect > 0)
@@ -222,16 +208,16 @@ namespace UniCade
                     pw.ShowDialog();
 
 
-                  
+
                     if (passValid)
                     {
-                        SettingsWindow sw = new SettingsWindow();
+                        //SettingsWindow sw = new SettingsWindow();
                         sw.ShowDialog();
                     }
                 }
                 else
                 {
-                    sw = new SettingsWindow();
+                    //sw = new SettingsWindow();
                     sw.ShowDialog();
                 }
 
@@ -244,37 +230,28 @@ namespace UniCade
             else if ((e.Key == Key.Escape) || (e.Key == Key.Delete) || (e.Key == Key.Back))  //Close Current Window
             {
 
-               
+
                 if (gameSelectionActive)
                 {
-                    if (infoWindowActive)
-                    {
-                        Close();
-                        infoWindowActive = false;
-                    }
-                    else
+
                     {
                         listBox.Visibility = Visibility.Hidden;  //Close Game Selection window
                         image2.Visibility = Visibility.Hidden;
                         label1.Visibility = Visibility.Hidden;
                         image.Visibility = Visibility.Visible;
                         image1.Visibility = Visibility.Visible;
-                        
+
                         gameSelectionActive = false;
                         label.Content = "Total Game Count: " + Database.totalGameCount;
                         //pictureBox4.Image = null;
                     }
 
                 }
-                else
-                {
-
-                    //richTextBox1.Visible = false;  //Close Info Window
-                    //pictureBox1.Visible = true;
-                    infoWindowActive = false;
-                }
-
             }
+            
+
+
+            
         
 
 
@@ -448,17 +425,20 @@ namespace UniCade
             {
                 return;
             }
-            infoWindowActive = true;
+            //infoWindowActive = true;
             BitmapImage b;
 
             GameInfo gi = new GameInfo();
-            gi.ShowDialog();
+            
 
             foreach (Game g in gameSelectionConsole.getGameList())
             {
                 if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                 {
-                    gi.textBlock.Text = g.getConsole() + " - " + g.getTitle();
+                    
+                    gi.textBlock1.Text = g.getConsole() + " - " + g.getTitle();
+                    NotificationWindow nfw = new NotificationWindow("UniCade" ,g.getConsole() + " - " + g.getTitle());
+                    nfw.Show();
 
                     if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png"))
                     {
@@ -517,15 +497,13 @@ namespace UniCade
 
                     if (EsrbPath.Length > 2)
                     {
-                        b = new BitmapImage();
-                        b.BeginInit();
-                        b.UriSource = new Uri(@EsrbPath);
-                        b.EndInit();
-                        image2.Source = b;
+
+                        gi.displayEsrb(EsrbPath);
                     }
 
                 }
             }
+            gi.ShowDialog();
         }
                 
             
