@@ -19,6 +19,7 @@ namespace UniCade
     /// </summary>
     public partial class GameInfo : Window
     {
+        bool enlarge = false;
 
 
         public GameInfo()
@@ -36,6 +37,7 @@ namespace UniCade
             b.UriSource = new Uri(@esrb);
             b.EndInit();
             image3.Source = b;
+            
         }
 
         private void OnButtonKeyDown(object sender, KeyEventArgs e)
@@ -45,6 +47,25 @@ namespace UniCade
                 Close();
 
             }
+
+            if ((e.Key == Key.Tab) )
+            {
+                if (!enlarge)
+                {
+                    image3.Width = 500;
+                    image3.Height = 500;
+                    enlarge = true;
+                }
+                else
+                {
+                    image3.Width = 200;
+                    image3.Height = 200;
+                    enlarge = false;
+                }
+
+            }
+
+
         }
     }
 }

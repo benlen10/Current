@@ -437,8 +437,8 @@ namespace UniCade
                 {
                     
                     gi.textBlock1.Text = g.getConsole() + " - " + g.getTitle();
-                    NotificationWindow nfw = new NotificationWindow("UniCade" ,g.getConsole() + " - " + g.getTitle());
-                    nfw.Show();
+                    //NotificationWindow nfw = new NotificationWindow("UniCade" ,g.getConsole() + " - " + g.getTitle());
+                    //nfw.Show();
 
                     if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png"))
                     {
