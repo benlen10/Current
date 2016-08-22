@@ -68,16 +68,16 @@ namespace UniCade
                 {
                     //displayPayNotification("(PayPerPlay) Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + SettingsWindow.coins);
                 }
-                else if (SettingsWindow.coins > 0)
+                 if (SettingsWindow.coins > 0)
                 {
-
-                    // displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                    label2.Visibility = Visibility.Visible;
+                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
                 }
 
             }
             else
             {
-                //label3.Visible = false;
+                label2.Visibility = Visibility.Hidden;
             }
 
 
@@ -156,7 +156,7 @@ namespace UniCade
                     }
                 }
             }
-            /*else if (e.Key == Key.F10)  // Insert coin
+            else if (e.Key == Key.F10)  // Insert coin
             {
                 Program.coins++;
                 if (SettingsWindow.payPerPlay > 0)
@@ -164,16 +164,22 @@ namespace UniCade
 
                     if (SettingsWindow.playtime > 0)
                     {
-                        displayPayNotification("(PayPerPlay) Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + Program.coins);
+                        //displayPayNotification("(PayPerPlay) Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + Program.coins);
                     }
                     else if (SettingsWindow.coins > 0)
                     {
                        displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
                     }
-
+                    NotificationWindow nfw = new NotificationWindow("Pay Per Play", "Coin Inserted/n Current: " + Program.coins);
+                    nfw.Show();
                 }
-                createNotification("Coin Inserted - Total Coins: " + Program.coins);
-            }*/
+                else
+                {
+                    NotificationWindow nfw = new NotificationWindow("UniCade", "Free Play Enabled. NO COIN REQUIRED");
+                    nfw.Show();
+                }
+                
+            }
 
             else if (e.Key == Key.F)  //Toggle Favorites view
             {
