@@ -142,9 +142,7 @@
             this.label38 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.button26 = new System.Windows.Forms.Button();
-            this.label39 = new System.Windows.Forms.Label();
             this.button20 = new System.Windows.Forms.Button();
-            this.label45 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.listBox6 = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -1341,9 +1339,7 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.button26);
-            this.tabPage4.Controls.Add(this.label39);
             this.tabPage4.Controls.Add(this.button20);
-            this.tabPage4.Controls.Add(this.label45);
             this.tabPage4.Controls.Add(this.label4);
             this.tabPage4.Controls.Add(this.listBox6);
             this.tabPage4.Controls.Add(this.label5);
@@ -1392,16 +1388,6 @@
             this.button26.UseVisualStyleBackColor = true;
             this.button26.Click += new System.EventHandler(this.button26_Click);
             // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(673, 548);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(208, 25);
-            this.label39.TabIndex = 90;
-            this.label39.Text = "PayPerPlay Settings";
-            this.label39.Visible = false;
-            // 
             // button20
             // 
             this.button20.Location = new System.Drawing.Point(1075, 549);
@@ -1411,15 +1397,6 @@
             this.button20.Text = "Refresh Favorites";
             this.button20.UseVisualStyleBackColor = true;
             this.button20.Click += new System.EventHandler(this.button20_Click);
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(738, 463);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(169, 25);
-            this.label45.TabIndex = 88;
-            this.label45.Text = "Global Favorites";
             // 
             // label4
             // 
@@ -1551,7 +1528,6 @@
             this.label49.Size = new System.Drawing.Size(85, 25);
             this.label49.TabIndex = 19;
             this.label49.Text = "# Coins";
-            this.label49.Visible = false;
             // 
             // textBox30
             // 
@@ -1568,7 +1544,6 @@
             this.textBox29.Name = "textBox29";
             this.textBox29.Size = new System.Drawing.Size(100, 31);
             this.textBox29.TabIndex = 17;
-            this.textBox29.Visible = false;
             this.textBox29.TextChanged += new System.EventHandler(this.textBox29_TextChanged);
             // 
             // label48
@@ -1583,13 +1558,12 @@
             // checkBox14
             // 
             this.checkBox14.AutoSize = true;
-            this.checkBox14.Location = new System.Drawing.Point(31, 688);
+            this.checkBox14.Location = new System.Drawing.Point(663, 548);
             this.checkBox14.Name = "checkBox14";
             this.checkBox14.Size = new System.Drawing.Size(229, 29);
             this.checkBox14.TabIndex = 12;
             this.checkBox14.Text = "Enable PayPerPlay";
             this.checkBox14.UseVisualStyleBackColor = true;
-            this.checkBox14.Visible = false;
             this.checkBox14.CheckedChanged += new System.EventHandler(this.checkBox14_CheckedChanged);
             // 
             // checkBox13
@@ -2214,7 +2188,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox listBox6;
         private System.Windows.Forms.Button button20;
-        private System.Windows.Forms.Label label45;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.TextBox textBox15;
@@ -2236,7 +2209,6 @@
         private System.Windows.Forms.CheckBox checkBox23;
         private System.Windows.Forms.Button button23;
         private System.Windows.Forms.Button button22;
-        private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Button button25;
         private System.Windows.Forms.Button button24;
         private System.Windows.Forms.TextBox textBox8;
