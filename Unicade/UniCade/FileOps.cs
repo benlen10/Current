@@ -421,42 +421,7 @@ namespace UniCade
                 }
             }
 
-            if (SettingsWindow.payPerPlay > 0)
-            {
-                if (SettingsWindow.playtime>0)
-                {
-                    if (!Program.playtimeRemaining)
-                    {
-                       // Program.gui.createNotification("Playtime Expired: Insert More coins");
-                        return;
-                    }
-                }
-                else if (SettingsWindow.coins > 0)
-                {
-                    int i = 0;
-                    if (Program.coins < SettingsWindow.coins)
-                    {
-
-                        //Program.gui.createNotification("Insert Coins");
-                        return;
-                    }
-
-                        while (i < SettingsWindow.coins)
-                    {
-                        if (Program.coins > 0)
-                        {
-                            Program.coins--;
-                            i++;
-                            //Program.gui.displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
-                        }
-                        else
-                        {
-                           // Program.gui.createNotification("Insert Coins");
-                            return;
-                        }
-                    }
-                }
-            }
+          
             g.launchCount++;
             Program.curUser.totalLaunchCount++;
             proc = new System.Diagnostics.Process();

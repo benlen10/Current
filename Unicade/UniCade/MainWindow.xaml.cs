@@ -64,10 +64,6 @@ namespace UniCade
             if (SettingsWindow.payPerPlay > 0)
             {
 
-                if (SettingsWindow.playtime > 0)
-                {
-                    //displayPayNotification("(PayPerPlay) Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + SettingsWindow.coins);
-                }
                  if (SettingsWindow.coins > 0)
                 {
                     label2.Visibility = Visibility.Visible;
@@ -156,7 +152,7 @@ namespace UniCade
                     }
                 }
             }
-            else if (e.Key == Key.F10)  // Insert coin
+            else if (e.Key == Key.Tab)  // Insert coin
             {
                 Program.coins++;
                 if (SettingsWindow.payPerPlay > 0)
@@ -298,6 +294,20 @@ namespace UniCade
 
         private void updateGUI()
         {
+
+            if (SettingsWindow.payPerPlay > 0)
+            {
+                if (SettingsWindow.coins > 0)
+                {
+                    label2.Visibility = Visibility.Visible;
+                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                }
+            }
+            else
+            {
+                label2.Visibility = Visibility.Hidden;
+            }
+
             BitmapImage b;
             
             if (!FileOps.processActive)
@@ -410,6 +420,36 @@ namespace UniCade
 
         private void launchGame()
         {
+
+            if (SettingsWindow.payPerPlay > 0)
+            {
+                if (SettingsWindow.playtime > 0)
+                {
+                    if (!Program.playtimeRemaining)
+                    {
+                        // Program.gui.createNotification("Playtime Expired: Insert More coins");
+                        return;
+                    }
+                }
+                if (SettingsWindow.coins > 0)
+                {
+
+                    if (Program.coins < SettingsWindow.coins)
+                    {
+
+                        NotificationWindow nfw = new NotificationWindow("Pay Per Play", "Insert Coins");
+                        nfw.Show();
+                        return;
+                    }
+
+                    Program.coins = Program.coins - SettingsWindow.coins;
+                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+
+
+                }
+            }
+
+            
             foreach (Game g in gameSelectionConsole.getGameList())
             {
                 if (listBox.SelectedItem.ToString().Equals(g.getTitle()))

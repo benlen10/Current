@@ -12,7 +12,7 @@
     <Grid HorizontalAlignment="Left" Height="409" Margin="8,6,-3,-0.5" VerticalAlignment="Top" Width="778">
         <Image x:Name="image" HorizontalAlignment="Left" Height="285" Margin="241,24,0,0" VerticalAlignment="Top" Width="256"/>
         <Image x:Name="image1" HorizontalAlignment="Left" Height="56" Margin="241,335,0,0" VerticalAlignment="Top" Width="256"/>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="367" Margin="10,24,0,0" VerticalAlignment="Top" Width="276" FontSize="18.667" Foreground="White">
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="362" Margin="10,24,0,0" VerticalAlignment="Top" Width="276" FontSize="18.667" Foreground="White">
             <ListBox.BorderBrush>
                 <SolidColorBrush Color="#FFABADB3" Opacity="0"/>
             </ListBox.BorderBrush>
@@ -20,8 +20,13 @@
                 <SolidColorBrush Color="White" Opacity="0"/>
             </ListBox.Background>
         </ListBox>
-        <Label x:Name="label" Content="Game Count" HorizontalAlignment="Left" Margin="547,379,0,0" VerticalAlignment="Top" Height="30" Width="221" Foreground="White"/>
+        <Label x:Name="label" Content="Game Count" HorizontalAlignment="Left" Margin="547,379,0,0" VerticalAlignment="Top" Height="30" Width="131" Foreground="White"/>
         <Image x:Name="image2" HorizontalAlignment="Left" Height="57" Margin="332,10,0,0" VerticalAlignment="Top" Width="419"/>
         <Label x:Name="label1" Content="" HorizontalAlignment="Left" Margin="332,72,0,0" VerticalAlignment="Top" Height="48" Width="346" FontSize="24" Foreground="White"/>
+        <Label x:Name="label2" Content="PayPerPlay" HorizontalAlignment="Left" Margin="0,386,0,0" VerticalAlignment="Top" Width="137" Height="23" FontSize="10">
+            <Label.Background>
+                <SolidColorBrush Color="#FFE81A1A" Opacity="0.6"/>
+            </Label.Background>
+        </Label>
     </Grid>
 </Window>
