@@ -1,1 +1,0 @@
-GuestList GUI Features List:
