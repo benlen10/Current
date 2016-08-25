@@ -23,7 +23,7 @@
         <Label x:Name="label" Content="Game Count" HorizontalAlignment="Left" Margin="547,379,0,0" VerticalAlignment="Top" Height="30" Width="131" Foreground="White"/>
         <Image x:Name="image2" HorizontalAlignment="Left" Height="57" Margin="332,10,0,0" VerticalAlignment="Top" Width="419"/>
         <Label x:Name="label1" Content="" HorizontalAlignment="Left" Margin="332,72,0,0" VerticalAlignment="Top" Height="48" Width="346" FontSize="24" Foreground="White"/>
-        <Label x:Name="label2" Content="PayPerPlay" HorizontalAlignment="Left" Margin="0,386,0,0" VerticalAlignment="Top" Width="137" Height="23" FontSize="10">
+        <Label x:Name="label2" Content="" HorizontalAlignment="Left" Margin="0,386,0,0" VerticalAlignment="Top" Width="200" Height="23" FontSize="10">
             <Label.Background>
                 <SolidColorBrush Color="#FFE81A1A" Opacity="0.6"/>
             </Label.Background>

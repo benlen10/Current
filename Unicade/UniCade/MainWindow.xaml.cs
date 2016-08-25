@@ -66,7 +66,7 @@ namespace UniCade
 
                  if (SettingsWindow.coins > 0)
                 {
-                    label2.Visibility = Visibility.Visible;
+                    //label2.Visibility = Visibility.Visible;
                     displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
                 }
 
@@ -162,11 +162,13 @@ namespace UniCade
                     {
                         //displayPayNotification("(PayPerPlay) Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + Program.coins);
                     }
-                    else if (SettingsWindow.coins > 0)
+                    if (SettingsWindow.coins > 0)
                     {
-                       displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                        //displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                        label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins;
+                        
                     }
-                    NotificationWindow nfw = new NotificationWindow("Pay Per Play", "Coin Inserted/n Current: " + Program.coins);
+                    NotificationWindow nfw = new NotificationWindow("Pay Per Play", "Coin Inserted\n Current: " + Program.coins);
                     nfw.Show();
                 }
                 else
@@ -299,8 +301,8 @@ namespace UniCade
             {
                 if (SettingsWindow.coins > 0)
                 {
-                    label2.Visibility = Visibility.Visible;
-                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                    //label2.Visibility = Visibility.Visible;
+                    label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins;
                 }
             }
             else
@@ -567,33 +569,14 @@ namespace UniCade
 
 
 
-        public void createPermNotification(String notification)
-        {
-            /*label2.Visible = true;
-            label2.Text = notification;
-            label2.Focus();
-            label2.BringToFront();
-            */
-        }
 
-        public void closePermNotification()
-        {
-            //label2.Text = null;
-            //label2.Visible = false;
-        }
+
 
         public void displayPayNotification(String s)
         {
-            /*label2.Focus();
-            label2.BringToFront();
-            label3.Visible = true;
-            label3.Text = s;*/
+            label2.Content = s;
         }
-        public void closePayNotification()
-        {
-           // label3.Visible = false;
-          //  label3.Text = null;
-        }
+
 
         public static void pause(int time)
         {

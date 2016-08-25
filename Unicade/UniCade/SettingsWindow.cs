@@ -459,12 +459,12 @@ namespace UniCade
             Int32.TryParse(textBox29.Text, out n);
             if (n > 0)
             {
-                coins = Int32.Parse(textBox7.Text);
+                coins = Int32.Parse(textBox29.Text);
             }
             Int32.TryParse(textBox30.Text, out n);
             if (n > 0)
             {
-                playtime = Int32.Parse(textBox7.Text);
+                playtime = Int32.Parse(textBox30.Text);
             }
             if (comboBox1.SelectedItem != null)
             {
