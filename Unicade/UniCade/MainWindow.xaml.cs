@@ -485,6 +485,8 @@ namespace UniCade
                 {
                     
                     gi.textBlock1.Text = g.getConsole() + " - " + g.getTitle();
+                    gi.textBlock.Text = Program.displayGameInfo(g);
+
                     //NotificationWindow nfw = new NotificationWindow("UniCade" ,g.getConsole() + " - " + g.getTitle());
                     //nfw.Show();
 
