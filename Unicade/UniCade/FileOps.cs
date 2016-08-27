@@ -399,14 +399,13 @@ namespace UniCade
         public static void launch(Game g, Console c)
         {
             
-           // Program.gui.TopMost = false;
             if (SettingsWindow.restrictESRB > 0)
             {
                 int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
                 if (EsrbNum >= SettingsWindow.restrictESRB)
                 {
-                    System.Console.WriteLine("\n***Rating " + g.getEsrb() + " Is restricted***\n");
-                   //Program.gui.createNotification("\n***Rating " + g.getEsrb() + " Is restricted***\n");
+                    NotificationWindow nfw = new NotificationWindow("NOTICE" , "ESRB " + g.getEsrb() + " Is Restricted\n");
+                    nfw.Show();
                     return;
                 }
 
@@ -416,7 +415,8 @@ namespace UniCade
                 int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
                 if (EsrbNum >= SettingsWindow.calcEsrb(Program.curUser.getAllowedEsrb()))
                 {
-                    System.Console.WriteLine("\n***Rating " + g.getEsrb() + " Is restricted***\n");
+                    NotificationWindow nfw = new NotificationWindow("NOTICE", "ESRB " + g.getEsrb() + " Is Restricted\n");
+                    nfw.Show();
                     return;
                 }
             }
