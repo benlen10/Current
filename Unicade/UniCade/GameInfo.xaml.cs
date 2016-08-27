@@ -20,6 +20,9 @@ namespace UniCade
     public partial class GameInfo : Window
     {
         bool enlarge = false;
+        bool enlarge1 = false;
+        bool enlarge2 = false;
+        bool enlarge3 = false;
 
 
         public GameInfo()
@@ -48,21 +51,80 @@ namespace UniCade
 
             }
 
-            if ((e.Key == Key.Tab) )
+            if ((e.Key == Key.E) )
             {
-                if (!enlarge)
+                if (!enlarge3 && !enlarge1 && !enlarge2)
                 {
-                    image3.Width = 500;
-                    image3.Height = 500;
-                    enlarge = true;
+                    if (!enlarge)
+                    {
+                        image.Width = 500;
+                        image.Height = 500;
+                        enlarge = true;
+                    }
+                    else
+                    {
+                        image.Width = 200;
+                        image.Height = 200;
+                        enlarge = false;
+                    }
                 }
-                else
-                {
-                    image3.Width = 200;
-                    image3.Height = 200;
-                    enlarge = false;
-                }
+            }
 
+            if ((e.Key == Key.E))
+            {
+                if (!enlarge3 && !enlarge1 && !enlarge2)
+                {
+                    if (!enlarge1)
+                    {
+                        image1.Width = 500;
+                        image1.Height = 500;
+                        enlarge1 = true;
+                    }
+                    else
+                    {
+                        image1.Width = 200;
+                        image1.Height = 200;
+                        enlarge1 = false;
+                    }
+                }
+            }
+
+            if ((e.Key == Key.E))
+            {
+                if (!enlarge3 && !enlarge1 && !enlarge)
+                {
+                    if (!enlarge2)
+                    {
+                        image2.Width = 500;
+                        image2.Height = 500;
+                        enlarge2 = true;
+                    }
+                    else
+                    {
+                        image2.Width = 200;
+                        image2.Height = 200;
+                        enlarge2 = false;
+                    }
+                }
+            }
+
+            if ((e.Key == Key.E))
+            {
+                if (!enlarge && !enlarge1 && !enlarge2)
+                {
+                    if (!enlarge3)
+                    {
+                        image3.Width = 500;
+                        image3.Height = 500;
+                        enlarge = true;
+                    }
+                    else
+                    {
+                        image3.Width = 200;
+                        image3.Height = 200;
+                        enlarge = false;
+                    }
+                }
             }
 
 
