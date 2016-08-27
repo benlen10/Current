@@ -51,7 +51,7 @@ namespace UniCade
 
             }
 
-            if ((e.Key == Key.E) )
+            if ((e.Key == Key.F) )
             {
                 if (!enlarge3 && !enlarge1 && !enlarge2)
                 {
@@ -70,7 +70,7 @@ namespace UniCade
                 }
             }
 
-            if ((e.Key == Key.E))
+            if ((e.Key == Key.B))
             {
                 if (!enlarge3 && !enlarge1 && !enlarge2)
                 {
@@ -89,7 +89,7 @@ namespace UniCade
                 }
             }
 
-            if ((e.Key == Key.E))
+            if ((e.Key == Key.S))
             {
                 if (!enlarge3 && !enlarge1 && !enlarge)
                 {
