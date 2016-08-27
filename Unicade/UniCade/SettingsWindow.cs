@@ -290,8 +290,10 @@ namespace UniCade
 
         private void button5_Click(object sender, EventArgs e)  //Close Button
         {
-            Cursor.Hide();
-            this.Hide();
+            //Cursor.Hide();
+            //this.Hide();
+            saveGameInfo();
+
         }
 
         private void button1_Click(object sender, EventArgs e)   //Rescrape Game Info Button
@@ -313,6 +315,12 @@ namespace UniCade
 
         private void button6_Click(object sender, EventArgs e)  //Save to Database Button
         {
+            saveGameInfo();
+
+        }
+
+        private void saveGameInfo()
+        {
             curGame.setReleaseDate(textBox12.Text);
             curGame.setCriticScore(textBox15.Text);
             curGame.setPublisher(textBox11.Text);
@@ -320,8 +328,8 @@ namespace UniCade
             curGame.setEsrb(textBox6.Text);
             curGame.setPlayers(textBox17.Text);
             curGame.setDescription(textBox18.Text);
+            curGame.setEsrbDescriptors(textBox19.Text);
             FileOps.saveDatabase(Program.databasePath);
-
         }
 
         private void button3_Click(object sender, EventArgs e)  //Restore default console settings

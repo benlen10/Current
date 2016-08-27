@@ -495,7 +495,7 @@ namespace UniCade
                         b.BeginInit();
                         b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png");
                         b.EndInit();
-                        image.Source = b;
+                        gi.image.Source = b;
 
                     }
 
@@ -505,7 +505,7 @@ namespace UniCade
                         b.BeginInit();
                         b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxBack.png");
                         b.EndInit();
-                        image1.Source = b;
+                        gi.image1.Source = b;
 
                     }
 
@@ -515,7 +515,7 @@ namespace UniCade
                         b.BeginInit();
                         b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png");
                         b.EndInit();
-                        image2.Source = b;
+                        gi.image2.Source = b;
 
                     }
                     String EsrbPath = "";
