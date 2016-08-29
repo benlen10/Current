@@ -11,7 +11,7 @@
     </Window.Background>
     <Grid HorizontalAlignment="Left" Height="409" Margin="8,6,-3,-0.5" VerticalAlignment="Top" Width="778">
         <Image x:Name="image" HorizontalAlignment="Left" Height="285" Margin="241,24,0,0" VerticalAlignment="Top" Width="256"/>
-        <Image x:Name="image1" HorizontalAlignment="Left" Height="56" Margin="241,335,0,0" VerticalAlignment="Top" Width="256"/>
+        <Image x:Name="image1" HorizontalAlignment="Left" Height="56" Margin="241,330,0,0" VerticalAlignment="Top" Width="256"/>
         <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="362" Margin="10,24,0,0" VerticalAlignment="Top" Width="276" FontSize="18.667" Foreground="White">
             <ListBox.BorderBrush>
                 <SolidColorBrush Color="#FFABADB3" Opacity="0"/>
@@ -26,6 +26,11 @@
         <Label x:Name="label2" Content="" HorizontalAlignment="Left" Margin="0,386,0,0" VerticalAlignment="Top" Width="200" Height="23" FontSize="10">
             <Label.Background>
                 <SolidColorBrush Color="#FFE81A1A" Opacity="0.6"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="label3" Content="" HorizontalAlignment="Left" Margin="286,391,0,0" VerticalAlignment="Top" Width="162" Height="18" FontSize="8">
+            <Label.Background>
+                <SolidColorBrush Color="#FFE81A1A" Opacity="0.8"/>
             </Label.Background>
         </Label>
     </Grid>

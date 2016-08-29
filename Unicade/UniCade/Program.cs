@@ -25,7 +25,7 @@ namespace UniCade
         //public static GUI gui;
         public static string userLicenseName;
         public static string userLicenseKey;
-        public static bool validLicense;
+        public static bool validLicense = true;
         [STAThread()]
 
         public static void Main(string[] args)
@@ -45,16 +45,19 @@ namespace UniCade
                 nfw.Show();
             }
 
+            
             if(!ValidateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))
             {
-                MessageBox.Show("Invalid License Key");
+                validLicense = false;
+                /*MessageBox.Show("Invalid License Key");
                 LicenseEntry le = new LicenseEntry();
 
                     le.ShowDialog();
                 if (!validLicense)
                 {
                     return;
-                }
+                }*/
+
             }
 
             if (!FileOps.loadDatabase(databasePath))
