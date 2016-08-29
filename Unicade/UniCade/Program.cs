@@ -41,7 +41,8 @@ namespace UniCade
                 
                 
                 FileOps.defaultPreferences();
-                System.Console.WriteLine("Preference file not found. Loading default values");
+                NotificationWindow nfw = new NotificationWindow("WARNING", "Preference file not found.\n Loading defaults...");
+                nfw.Show();
             }
 
             if(!ValidateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))
@@ -58,9 +59,12 @@ namespace UniCade
 
             if (!FileOps.loadDatabase(databasePath))
             {
+
                 FileOps.loadDefaultConsoles();
                 FileOps.scan(romPath);
                 FileOps.saveDatabase(databasePath);
+                NotificationWindow nfw = new NotificationWindow("WARNING", "Database file not found.\n Loading defaults...");
+                nfw.Show();
             }
 
             if (curUser == null)

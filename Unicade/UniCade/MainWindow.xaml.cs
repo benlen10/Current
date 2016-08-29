@@ -50,6 +50,13 @@ namespace UniCade
             listBox.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
             image2.Visibility = Visibility.Hidden;
             label1.Visibility = Visibility.Hidden;
+
+            label3.Content = "Unlicensed Version";
+
+            if (Program.validLicense)
+            {
+                label3.Visibility = Visibility.Hidden;
+            }
             //Taskbar.Hide();
 
             conList = new ArrayList();

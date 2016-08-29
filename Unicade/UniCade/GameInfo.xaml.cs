@@ -63,8 +63,8 @@ namespace UniCade
                     }
                     else
                     {
-                        image.Width = 200;
-                        image.Height = 200;
+                        image.Width = 100;
+                        image.Height = 100;
                         enlarge = false;
                     }
                 }
@@ -72,7 +72,7 @@ namespace UniCade
 
             if ((e.Key == Key.B))
             {
-                if (!enlarge3 && !enlarge1 && !enlarge2)
+                if (!enlarge3 && !enlarge && !enlarge2)
                 {
                     if (!enlarge1)
                     {
@@ -82,8 +82,8 @@ namespace UniCade
                     }
                     else
                     {
-                        image1.Width = 200;
-                        image1.Height = 200;
+                        image1.Width = 100;
+                        image1.Height = 100;
                         enlarge1 = false;
                     }
                 }
@@ -101,8 +101,8 @@ namespace UniCade
                     }
                     else
                     {
-                        image2.Width = 200;
-                        image2.Height = 200;
+                        image2.Width = 100;
+                        image2.Height = 100;
                         enlarge2 = false;
                     }
                 }
@@ -120,8 +120,8 @@ namespace UniCade
                     }
                     else
                     {
-                        image3.Width = 200;
-                        image3.Height = 200;
+                        image3.Width = 100;
+                        image3.Height = 100;
                         enlarge = false;
                     }
                 }
