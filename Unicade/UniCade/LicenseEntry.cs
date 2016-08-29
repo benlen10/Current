@@ -17,37 +17,28 @@ namespace UniCade
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)  //Validate button
+        private void button1_Click(object sender, EventArgs e)
         {
+            if ((textBox1.Text == null) || (textBox2.Text == null))
+            {
+                MessageBox.Show("Missing Required Fields");
+                return;
+            }
+            Program.userLicenseName = textBox1.Text;
+            Program.userLicenseKey = textBox2.Text;
 
-                if ((textBox1.Text == null) || (textBox2.Text == null))
-                {
-                    MessageBox.Show("Missing Required Fields");
-                    return;
-                }
-                Program.userLicenseName = textBox1.Text;
-                Program.userLicenseKey = textBox2.Text;
-                
 
-                if (Program.ValidateSHA256(Program.userLicenseName + Database.getHashKey() , Program.userLicenseKey))
-                {
+            if (Program.ValidateSHA256(Program.userLicenseName + Database.getHashKey(), Program.userLicenseKey))
+            {
                 MessageBox.Show("License is VALID");
                 Program.validLicense = true;
                 FileOps.savePreferences(Program.prefPath);
                 Close();
-                }
+            }
             else
             {
                 MessageBox.Show("License is INVALID");
             }
-
-
-            
-        }
-
-        private void button1_Click(object sender, EventArgs e)  //Close button
-        {
-            Close();
         }
     }
 }
