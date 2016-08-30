@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace UniCade
 {
     public partial class LicenseEntry : Form
@@ -23,7 +24,7 @@ namespace UniCade
         {
             if ((textBox1.Text == null) || (textBox2.Text == null))
             {
-                MessageBox.Show("Missing Required Fields");
+                System.Windows.MessageBox.Show("Missing Required Fields");
                 return;
             }
             Program.userLicenseName = textBox1.Text;
@@ -32,7 +33,7 @@ namespace UniCade
 
             if (Program.ValidateSHA256(Program.userLicenseName + Database.getHashKey(), Program.userLicenseKey))
             {
-                MessageBox.Show("License is VALID");
+                MessageBox.Show(this,"License is VALID");
                 Program.validLicense = true;
                 FileOps.savePreferences(Program.prefPath);
                 Close();
@@ -41,7 +42,7 @@ namespace UniCade
             {
                 Program.validLicense = false;
                 FileOps.savePreferences(Program.prefPath);
-                MessageBox.Show("License is INVALID");
+                MessageBox.Show(this,"License is INVALID");
                 Close();
             }
         }

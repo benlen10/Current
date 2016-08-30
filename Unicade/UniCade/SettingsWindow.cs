@@ -178,9 +178,9 @@ namespace UniCade
             refreshGlobalFavs();
 
 
-            this.Activate();
-            this.Focus();
-            this.TopMost = true;
+            //this.Activate();
+            //this.Focus();
+            //this.TopMost = true;
 
             //Pupulate License info
             label35.Text = "Licensed to: " + Program.userLicenseName;
@@ -188,7 +188,6 @@ namespace UniCade
             label37.Text = "License Key: " + Program.userLicenseKey;
 
 
-            Cursor.Show();
         }
 
 
@@ -1487,6 +1486,7 @@ namespace UniCade
         private void button30_Click_1(object sender, EventArgs e)
         {
             LicenseEntry le = new LicenseEntry();
+            le.Owner = this;
             le.ShowDialog();
             label35.Text = "Licensed to: " + Program.userLicenseName;
             label37.Text = "License Key: " + Program.userLicenseKey;
