@@ -184,7 +184,7 @@ namespace UniCade
 
             //Pupulate License info
             label35.Text = "Licensed to: " + Program.userLicenseName;
-            label34.Text = "License Type: Full Version";
+            label34.Text = "License Status: Full Version";
             label37.Text = "License Key: " + Program.userLicenseKey;
 
 
@@ -1481,6 +1481,23 @@ namespace UniCade
 
                     }
          
+
+        }
+
+        private void button30_Click_1(object sender, EventArgs e)
+        {
+            LicenseEntry le = new LicenseEntry();
+            le.ShowDialog();
+            label35.Text = "Licensed to: " + Program.userLicenseName;
+            label37.Text = "License Key: " + Program.userLicenseKey;
+            if (Program.validLicense)
+            {
+                label34.Text = "License Status: Full Version";
+            }
+            else
+            {
+                label34.Text = "License Status: INVALID";
+            }
 
         }
     }

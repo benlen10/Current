@@ -15,6 +15,8 @@ namespace UniCade
         public LicenseEntry()
         {
             InitializeComponent();
+            textBox1.Text = Program.userLicenseName;
+            textBox2.Text = Program.userLicenseKey;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -37,8 +39,16 @@ namespace UniCade
             }
             else
             {
+                Program.validLicense = false;
+                FileOps.savePreferences(Program.prefPath);
                 MessageBox.Show("License is INVALID");
+                Close();
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

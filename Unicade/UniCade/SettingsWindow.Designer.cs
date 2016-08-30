@@ -205,6 +205,7 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button30 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -221,6 +222,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button30);
             this.tabPage2.Controls.Add(this.button16);
             this.tabPage2.Controls.Add(this.label37);
             this.tabPage2.Controls.Add(this.label35);
@@ -259,7 +261,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(34, 605);
+            this.label35.Location = new System.Drawing.Point(35, 650);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(136, 25);
             this.label35.TabIndex = 4;
@@ -268,7 +270,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(34, 652);
+            this.label34.Location = new System.Drawing.Point(35, 604);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(84, 25);
             this.label34.TabIndex = 3;
@@ -2024,7 +2026,17 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
+            // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(952, 572);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(189, 44);
+            this.button30.TabIndex = 83;
+            this.button30.Text = "Enter License";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click_1);
             // 
             // SettingsWindow
             // 
@@ -2237,5 +2249,6 @@
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.TextBox textBox35;
         private System.Windows.Forms.TextBox textBox34;
+        private System.Windows.Forms.Button button30;
     }
 }

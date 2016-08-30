@@ -231,6 +231,14 @@ namespace UniCade
                     //sw = new SettingsWindow();
                     sw.ShowDialog();
                 }
+                if (Program.validLicense)
+                {
+                    label3.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    label3.Visibility = Visibility.Visible;
+                }
 
             }
             else if ((e.Key == Key.X) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Close current process
