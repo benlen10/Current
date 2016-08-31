@@ -222,13 +222,13 @@ namespace UniCade
 
                     if (passValid)
                     {
-                        //SettingsWindow sw = new SettingsWindow();
+                        SettingsWindow sw = new SettingsWindow();
                         sw.ShowDialog();
                     }
                 }
                 else
                 {
-                    //sw = new SettingsWindow();
+                    sw = new SettingsWindow();
                     sw.ShowDialog();
                 }
                 if (Program.validLicense)

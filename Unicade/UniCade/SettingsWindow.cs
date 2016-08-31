@@ -158,7 +158,7 @@ namespace UniCade
             {
                 checkBox1.Checked = true;
             }
-            if (cmdOrGui == 1)
+            if (viewEsrb == 1)
             {
                 checkBox13.Checked = true;
             }
@@ -292,6 +292,7 @@ namespace UniCade
             //Cursor.Hide();
             //this.Hide();
             saveGameInfo();
+            Close();
 
         }
 
@@ -573,11 +574,11 @@ namespace UniCade
         {
             if (checkBox13.Checked)
             {
-                cmdOrGui = 1;
+                viewEsrb = 1;
             }
             else
             {
-                cmdOrGui = 0;
+                viewEsrb = 0;
             }
         }
 
