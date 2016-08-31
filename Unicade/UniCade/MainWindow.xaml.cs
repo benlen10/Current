@@ -259,6 +259,7 @@ namespace UniCade
                         label1.Visibility = Visibility.Hidden;
                         image.Visibility = Visibility.Visible;
                         image1.Visibility = Visibility.Visible;
+                        image3.Visibility = Visibility.Hidden;
 
                         gameSelectionActive = false;
                         label.Content = "Total Game Count: " + Database.totalGameCount;
@@ -370,6 +371,8 @@ namespace UniCade
             image1.Visibility = Visibility.Hidden;
             image2.Visibility = Visibility.Visible;
             label1.Visibility = Visibility.Visible;
+            image3.Visibility = Visibility.Visible;
+            image3.Source = null;
             label1.Content = (conList[index] + " Library");
 
             listBox.Items.Clear();
@@ -426,6 +429,66 @@ namespace UniCade
                 ListBoxItem item = (ListBoxItem)listBox.ItemContainerGenerator.ContainerFromIndex(0);
                 Keyboard.Focus(listBox);
                 Keyboard.Focus(item);
+            }
+
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SettingsWindow.viewEsrb > 0) {
+                foreach (Game g in gameSelectionConsole.getGameList())
+                {
+
+                    if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
+                    {
+
+                    }
+                    String EsrbPath = "";
+                    if (g.getEsrb().Equals("Everyone"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
+                    }
+                    else if (g.getEsrb().Equals("Everyone (KA)"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
+                    }
+                    else if (g.getEsrb().Equals("Everyone 10+"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone 10+.png";
+                    }
+                    else if (g.getEsrb().Equals("Teen"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Teen.png";
+                    }
+                    else if (g.getEsrb().Equals("Mature"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Mature.png";
+                    }
+                    if (g.getEsrb().Equals("Adults Only (AO)"))
+                    {
+                        EsrbPath = @"C:\UniCade\Media\Esrb\Adults Only (AO).png";
+                    }
+
+                    if (EsrbPath.Length > 2)
+                    {
+                        BitmapImage b = new BitmapImage();
+                        b.BeginInit();
+                        b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png");
+                        b.EndInit();
+                        image3.Source = b;
+                    }
+                    else
+                    {
+                        image3.Source = null;
+                    }
+
+                
+                }
+            }
+            else
+            {
+                image3.Visibility = Visibility.Hidden;
             }
 
 

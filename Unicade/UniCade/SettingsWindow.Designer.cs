@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button30 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.label37 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -205,7 +206,6 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button30 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -238,6 +238,16 @@
             this.tabPage2.Text = "About";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(952, 572);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(189, 44);
+            this.button30.TabIndex = 83;
+            this.button30.Text = "Enter License";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click_1);
             // 
             // button16
             // 
@@ -1573,9 +1583,9 @@
             this.checkBox13.AutoSize = true;
             this.checkBox13.Location = new System.Drawing.Point(31, 653);
             this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(392, 29);
+            this.checkBox13.Size = new System.Drawing.Size(325, 29);
             this.checkBox13.TabIndex = 11;
-            this.checkBox13.Text = "Display cmd line interface on startup";
+            this.checkBox13.Text = "Display ESRB while browsing";
             this.checkBox13.UseVisualStyleBackColor = true;
             this.checkBox13.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
             // 
@@ -2027,16 +2037,6 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
-            // 
-            // button30
-            // 
-            this.button30.Location = new System.Drawing.Point(952, 572);
-            this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(189, 44);
-            this.button30.TabIndex = 83;
-            this.button30.Text = "Enter License";
-            this.button30.UseVisualStyleBackColor = true;
-            this.button30.Click += new System.EventHandler(this.button30_Click_1);
             // 
             // SettingsWindow
             // 
