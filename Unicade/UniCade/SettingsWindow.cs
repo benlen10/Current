@@ -243,7 +243,7 @@ namespace UniCade
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Cursor.Hide();
+            //Cursor.Hide();
             this.Hide();
         }
 
@@ -394,7 +394,7 @@ namespace UniCade
 
         private void button13_Click(object sender, EventArgs e)
         {
-            Cursor.Hide();
+            //Cursor.Hide();
             this.Hide();
         }
 
@@ -437,13 +437,13 @@ namespace UniCade
 
         private void button16_Click(object sender, EventArgs e)
         {
-            Cursor.Hide();
+            //Cursor.Hide();
             this.Hide();
         }
 
         private void button14_Click(object sender, EventArgs e)
         {
-            Cursor.Hide();
+            //Cursor.Hide();
             this.Hide();
 
         }
@@ -1065,7 +1065,7 @@ namespace UniCade
 
         private void button23_Click(object sender, EventArgs e)
         {
-            Cursor.Hide();
+            //Cursor.Hide();
             this.Hide();
         }
 

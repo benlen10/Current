@@ -157,11 +157,11 @@ namespace UniCade
             r = line.Split(sep);
             if (r[1].Contains("1"))
             {
-                SettingsWindow.cmdOrGui = 1;
+                SettingsWindow.viewEsrb = 1;
             }
             else
             {
-                SettingsWindow.cmdOrGui = 0;
+                SettingsWindow.viewEsrb = 0;
             }
 
             line = file.ReadLine();

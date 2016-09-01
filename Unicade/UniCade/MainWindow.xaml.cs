@@ -434,49 +434,51 @@ namespace UniCade
 
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (SettingsWindow.viewEsrb > 0) {
+                NotificationWindow nfw = new NotificationWindow("TEST", " ");
+                nfw.Show();
                 foreach (Game g in gameSelectionConsole.getGameList())
                 {
 
                     if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                     {
+                        String EsrbPath = "";
+                        if (g.getEsrb().Equals("Everyone"))
+                        {
+                            EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
+                        }
+                        else if (g.getEsrb().Equals("Everyone (KA)"))
+                        {
+                            EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
+                        }
+                        else if (g.getEsrb().Equals("Everyone 10+"))
+                        {
+                            EsrbPath = @"C:\UniCade\Media\Esrb\Everyone 10+.png";
+                        }
+                        else if (g.getEsrb().Equals("Teen"))
+                        {
+                            EsrbPath = @"C:\UniCade\Media\Esrb\Teen.png";
+                        }
+                        else if (g.getEsrb().Equals("Mature"))
+                        {
+                            EsrbPath = @"C:\UniCade\Media\Esrb\Mature.png";
+                        }
+                        if (g.getEsrb().Equals("Adults Only (AO)"))
+                        {
+                            EsrbPath = @"C:\UniCade\Media\Esrb\Adults Only (AO).png";
+                        }
 
-                    }
-                    String EsrbPath = "";
-                    if (g.getEsrb().Equals("Everyone"))
-                    {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
-                    }
-                    else if (g.getEsrb().Equals("Everyone (KA)"))
-                    {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
-                    }
-                    else if (g.getEsrb().Equals("Everyone 10+"))
-                    {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone 10+.png";
-                    }
-                    else if (g.getEsrb().Equals("Teen"))
-                    {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Teen.png";
-                    }
-                    else if (g.getEsrb().Equals("Mature"))
-                    {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Mature.png";
-                    }
-                    if (g.getEsrb().Equals("Adults Only (AO)"))
-                    {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Adults Only (AO).png";
-                    }
-
-                    if (EsrbPath.Length > 2)
-                    {
-                        BitmapImage b = new BitmapImage();
-                        b.BeginInit();
-                        b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png");
-                        b.EndInit();
-                        image3.Source = b;
+                        if (EsrbPath.Length > 2)
+                        {
+                            BitmapImage b = new BitmapImage();
+                            b.BeginInit();
+                            b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png");
+                            b.EndInit();
+                            image3.Source = b;
+                        }
                     }
                     else
                     {
