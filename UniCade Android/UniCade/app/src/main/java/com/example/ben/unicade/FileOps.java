@@ -25,6 +25,7 @@ public class FileOps {
 
 
             if (!f.exists()) {
+                System.err.println("Database file does not exist");
                 return false;
             }
 

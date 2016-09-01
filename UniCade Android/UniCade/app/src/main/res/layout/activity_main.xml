@@ -123,9 +123,7 @@
         android:id="@+id/editText2"
         android:layout_alignBottom="@+id/listView"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/listView"
-        android:singleLine="true"
-        android:maxLength="20" />
+        android:layout_toEndOf="@+id/listView" />
 
     <CheckBox
         android:layout_width="wrap_content"
