@@ -63,6 +63,8 @@
     <Compile Include="GameInfo.xaml.cs">
       <DependentUpon>GameInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="KeyboardHook.cs" />
+    <Compile Include="KeyHandler.cs" />
     <Compile Include="LicenseEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,7 +114,6 @@
     <Compile Include="Database.cs" />
     <Compile Include="FileOps.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="KeyHandler.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

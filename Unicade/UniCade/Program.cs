@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Input;
 using System.Collections;
 using System.Diagnostics;
 using System.Security.Cryptography;
@@ -26,11 +27,12 @@ namespace UniCade
         public static string userLicenseName;
         public static string userLicenseKey;
         public static bool validLicense = true;
-        [STAThread()]
+        [System.STAThreadAttribute]
 
         public static void Main(string[] args)
         {
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+
 
 
 
@@ -86,8 +88,15 @@ namespace UniCade
                 //gui.ShowDialog();
             }
             //displayConsoles(); 
-            MainWindow mw = new MainWindow();
-            mw.ShowDialog();
+            //MainWindow mw = new MainWindow();
+            //mw.ShowDialog();
+            using (var hook = new KeyboardHook { SelectedKey = Key.A })
+            {
+                var app = new App(hook);
+                app.InitializeComponent();
+                app.Run();
+            }
+
 
         }
 

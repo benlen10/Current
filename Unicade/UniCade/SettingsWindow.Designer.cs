@@ -1587,6 +1587,7 @@
             this.checkBox13.TabIndex = 11;
             this.checkBox13.Text = "Display ESRB while browsing";
             this.checkBox13.UseVisualStyleBackColor = true;
+            this.checkBox13.Visible = false;
             this.checkBox13.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
             // 
             // checkBox12

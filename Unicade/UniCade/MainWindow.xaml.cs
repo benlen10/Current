@@ -28,6 +28,7 @@ namespace UniCade
     public partial class MainWindow : Window
     {
 
+        private DispatcherTimer tm;
         private KeyHandler ghk;
         public static ArrayList conList;
         public static int index;
@@ -51,7 +52,11 @@ namespace UniCade
             image2.Visibility = Visibility.Hidden;
             label1.Visibility = Visibility.Hidden;
 
-            label3.Content = "Unlicensed Version";
+
+
+
+
+        label3.Content = "Unlicensed Version";
 
             if (Program.validLicense)
             {
@@ -71,7 +76,7 @@ namespace UniCade
             if (SettingsWindow.payPerPlay > 0)
             {
 
-                 if (SettingsWindow.coins > 0)
+                if (SettingsWindow.coins > 0)
                 {
                     //label2.Visibility = Visibility.Visible;
                     displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
@@ -88,6 +93,8 @@ namespace UniCade
             label.Content = "Total Game Count: " + Database.totalGameCount;
             updateGUI();
         }
+
+        
 
 
 
@@ -173,7 +180,7 @@ namespace UniCade
                     {
                         //displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
                         label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins;
-                        
+
                     }
                     NotificationWindow nfw = new NotificationWindow("Pay Per Play", "Coin Inserted\n Current: " + Program.coins);
                     nfw.Show();
@@ -182,8 +189,9 @@ namespace UniCade
                 {
                     NotificationWindow nfw = new NotificationWindow("UniCade", "Free Play Enabled. NO COIN REQUIRED");
                     nfw.Show();
+                    this.Activate();
                 }
-                
+
             }
 
             else if (e.Key == Key.F)  //Toggle Favorites view
@@ -259,7 +267,6 @@ namespace UniCade
                         label1.Visibility = Visibility.Hidden;
                         image.Visibility = Visibility.Visible;
                         image1.Visibility = Visibility.Visible;
-                        image3.Visibility = Visibility.Hidden;
 
                         gameSelectionActive = false;
                         label.Content = "Total Game Count: " + Database.totalGameCount;
@@ -268,11 +275,11 @@ namespace UniCade
 
                 }
             }
-            
 
 
-            
-        
+
+
+
 
 
 
@@ -282,7 +289,7 @@ namespace UniCade
 
         private void right()
         {
-            
+
             if (index < (conCount - 1))
             {
                 index++;
@@ -296,7 +303,7 @@ namespace UniCade
 
         private void left()
         {
-            
+
             if (index > 0)
             {
                 index--;
@@ -327,7 +334,7 @@ namespace UniCade
             }
 
             BitmapImage b;
-            
+
             if (!FileOps.processActive)
             {
                 //Program.gui.TopMost = true;
@@ -364,6 +371,8 @@ namespace UniCade
 
         }
 
+
+
         private void openGameSelection()
         {
             gameSelectionActive = true;
@@ -371,8 +380,6 @@ namespace UniCade
             image1.Visibility = Visibility.Hidden;
             image2.Visibility = Visibility.Visible;
             label1.Visibility = Visibility.Visible;
-            image3.Visibility = Visibility.Visible;
-            image3.Source = null;
             label1.Content = (conList[index] + " Library");
 
             listBox.Items.Clear();
@@ -420,7 +427,7 @@ namespace UniCade
             {
                 image.Source = null;
             }
-            
+
 
             listBox.Visibility = Visibility.Visible;
             if (listBox.Items.Count > 0)               //Auto set initial index to first item
@@ -430,79 +437,12 @@ namespace UniCade
                 Keyboard.Focus(listBox);
                 Keyboard.Focus(item);
             }
-
-
         }
-
-        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            if (SettingsWindow.viewEsrb > 0) {
-                NotificationWindow nfw = new NotificationWindow("TEST", " ");
-                nfw.Show();
-                foreach (Game g in gameSelectionConsole.getGameList())
-                {
-
-                    if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
-                    {
-                        String EsrbPath = "";
-                        if (g.getEsrb().Equals("Everyone"))
-                        {
-                            EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
-                        }
-                        else if (g.getEsrb().Equals("Everyone (KA)"))
-                        {
-                            EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
-                        }
-                        else if (g.getEsrb().Equals("Everyone 10+"))
-                        {
-                            EsrbPath = @"C:\UniCade\Media\Esrb\Everyone 10+.png";
-                        }
-                        else if (g.getEsrb().Equals("Teen"))
-                        {
-                            EsrbPath = @"C:\UniCade\Media\Esrb\Teen.png";
-                        }
-                        else if (g.getEsrb().Equals("Mature"))
-                        {
-                            EsrbPath = @"C:\UniCade\Media\Esrb\Mature.png";
-                        }
-                        if (g.getEsrb().Equals("Adults Only (AO)"))
-                        {
-                            EsrbPath = @"C:\UniCade\Media\Esrb\Adults Only (AO).png";
-                        }
-
-                        if (EsrbPath.Length > 2)
-                        {
-                            BitmapImage b = new BitmapImage();
-                            b.BeginInit();
-                            b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png");
-                            b.EndInit();
-                            image3.Source = b;
-                        }
-                    }
-                    else
-                    {
-                        image3.Source = null;
-                    }
-
-                
-                }
-            }
-            else
-            {
-                image3.Visibility = Visibility.Hidden;
-            }
-
-
-        }
-
-
 
 
 
         private void launchGame()
         {
-
             if (SettingsWindow.payPerPlay > 0)
             {
                 if (SettingsWindow.playtime > 0)
