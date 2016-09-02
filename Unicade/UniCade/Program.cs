@@ -32,8 +32,7 @@ namespace UniCade
         public static void Main(string[] args)
         {
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
-
-
+            
 
 
             dat = new Database();

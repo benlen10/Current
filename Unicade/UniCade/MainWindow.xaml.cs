@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,18 +46,25 @@ namespace UniCade
         {
             InitializeComponent();
             sw = new SettingsWindow();
-            this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
+            this.KeyDown += new System.Windows.Input.KeyEventHandler(OnButtonKeyDown);
             listBox.Visibility = Visibility.Hidden;
             listBox.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
             listBox.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
             image2.Visibility = Visibility.Hidden;
             label1.Visibility = Visibility.Hidden;
 
+            globalKeyboardHook gkh = new globalKeyboardHook();
+
+            gkh.HookedKeys.Add(Keys.A);
+            gkh.HookedKeys.Add(Keys.B);
+            gkh.KeyDown += new System.Windows.Forms.KeyEventHandler(gkh_KeyDown);
+            gkh.KeyUp += new System.Windows.Forms.KeyEventHandler(gkh_KeyUp);
 
 
 
 
-        label3.Content = "Unlicensed Version";
+
+            label3.Content = "Unlicensed Version";
 
             if (Program.validLicense)
             {
@@ -94,11 +102,22 @@ namespace UniCade
             updateGUI();
         }
 
-        
+
+        void gkh_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            //lstLog.Items.Add("Up\t" + e.KeyCode.ToString());
+            e.Handled = true;
+        }
+
+        void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            System.Console.WriteLine("KEY DOWN");
+            //lstLog.Items.Add("Down\t" + e.KeyCode.ToString());
+            e.Handled = true;
+        }
 
 
-
-        private void OnButtonKeyDown(object sender, KeyEventArgs e)
+        private void OnButtonKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Left)
             {
