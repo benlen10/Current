@@ -109,31 +109,35 @@ namespace UniCade
             e.Handled = true;
         }
 
-        void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-            System.Console.WriteLine("KEY DOWN");
-            //lstLog.Items.Add("Down\t" + e.KeyCode.ToString());
-            e.Handled = true;
-        }
+
+
+
 
 
         private void OnButtonKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == Key.Left)
+            //Old method
+        }
+
+        void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) { 
+        
+            System.Console.WriteLine("KEY DOWN");
+            e.Handled = true;
+            if (e.KeyCode == Keys.Left)
             {
                 if (!gameSelectionActive)
                 {
                     left();
                 }
             }
-            else if (e.Key == Key.Right)
+            else if (e.KeyCode == Keys.Right)
             {
                 if (!gameSelectionActive)
                 {
                     right();
                 }
             }
-            else if (e.Key == Key.Enter)
+            else if (e.KeyCode == Keys.Enter)
 
             {
                 if (gameSelectionActive)
@@ -148,7 +152,7 @@ namespace UniCade
                 }
 
             }
-            else if (e.Key == Key.I)  //Display info
+            else if (e.KeyCode == Keys.I)  //Display info
             {
                 if (gameSelectionActive)
                 {
@@ -156,7 +160,7 @@ namespace UniCade
                 }
             }
 
-            else if (e.Key == Key.Space)  //Add or remove favorites
+            else if (e.KeyCode == Keys.Space)  //Add or remove favorites
             {
                 if (gameSelectionActive)
                 {
@@ -185,7 +189,7 @@ namespace UniCade
                     }
                 }
             }
-            else if (e.Key == Key.Tab)  // Insert coin
+            else if (e.KeyCode == Keys.Tab)  // Insert coin
             {
                 Program.coins++;
                 if (SettingsWindow.payPerPlay > 0)
@@ -213,7 +217,7 @@ namespace UniCade
 
             }
 
-            else if (e.Key == Key.F)  //Toggle Favorites view
+            else if (e.KeyCode == Keys.F)  //Toggle Favorites view
             {
                 if (gameSelectionActive)
                 {
@@ -228,13 +232,13 @@ namespace UniCade
                     openGameSelection();
                 }
             }
-            else if ((e.Key == Key.C) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display Command line and close gui
+            else if ((e.KeyCode == Keys.C) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display Command line and close gui
             {
                 Taskbar.Show();
                 System.Windows.Application.Current.Shutdown();
             }
 
-            else if ((e.Key == Key.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
+            else if ((e.KeyCode == Keys.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
             {
 
                 if (SettingsWindow.passProtect > 0)
@@ -268,12 +272,12 @@ namespace UniCade
                 }
 
             }
-            else if ((e.Key == Key.X) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Close current process
+            else if ((e.KeyCode == Keys.X) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Close current process
             {
 
             }
 
-            else if ((e.Key == Key.Escape) || (e.Key == Key.Delete) || (e.Key == Key.Back))  //Close Current Window
+            else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Current Window
             {
 
 
