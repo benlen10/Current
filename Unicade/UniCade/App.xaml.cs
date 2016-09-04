@@ -17,10 +17,14 @@ namespace UniCade
     {
         private MainWindow window;
 
-        public App(KeyboardHook keyboardHook)
+        /*public App(KeyboardHook keyboardHook)
         {
             if (keyboardHook == null) throw new ArgumentNullException("keyboardHook");
             keyboardHook.KeyCombinationPressed += KeyCombinationPressed;
+        }*/
+
+        public App()
+        {
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -30,7 +34,7 @@ namespace UniCade
 
             window.Show();
         }
-
+        /*
         void KeyCombinationPressed(object sender, EventArgs e)
         {
             System.Console.WriteLine("HOOK");
@@ -40,7 +44,7 @@ namespace UniCade
         private void ShowMainWindow()
         {
             KeyboardHook.ActivateWindow(window);
-        }
+        }*/
 
         internal void InitializeComponent()
         {

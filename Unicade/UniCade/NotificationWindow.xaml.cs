@@ -11,8 +11,6 @@ using System.Windows.Threading;
         public NotificationWindow(String title, String body)
         {
             InitializeComponent();
-        this.Topmost = true;
-        this.Topmost = false;
 
         Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
             {

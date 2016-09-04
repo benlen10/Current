@@ -46,7 +46,7 @@ namespace UniCade
         {
             InitializeComponent();
             sw = new SettingsWindow();
-            this.KeyDown += new System.Windows.Input.KeyEventHandler(OnButtonKeyDown);
+            //this.KeyDown += new System.Windows.Input.KeyEventHandler(OnButtonKeyDown);
             listBox.Visibility = Visibility.Hidden;
             listBox.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
             listBox.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
@@ -57,6 +57,12 @@ namespace UniCade
 
             gkh.HookedKeys.Add(Keys.A);
             gkh.HookedKeys.Add(Keys.B);
+            gkh.HookedKeys.Add(Keys.Left);
+            gkh.HookedKeys.Add(Keys.Right);
+            gkh.HookedKeys.Add(Keys.Enter);
+            gkh.HookedKeys.Add(Keys.I);
+            gkh.HookedKeys.Add(Keys.Back);
+            gkh.HookedKeys.Add(Keys.Tab);
             gkh.KeyDown += new System.Windows.Forms.KeyEventHandler(gkh_KeyDown);
             gkh.KeyUp += new System.Windows.Forms.KeyEventHandler(gkh_KeyUp);
 
@@ -114,10 +120,10 @@ namespace UniCade
 
 
 
-        private void OnButtonKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        /*private void OnButtonKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             //Old method
-        }
+        }*/
 
         void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) { 
         
@@ -191,6 +197,7 @@ namespace UniCade
             }
             else if (e.KeyCode == Keys.Tab)  // Insert coin
             {
+                //this.Activate();
                 Program.coins++;
                 if (SettingsWindow.payPerPlay > 0)
                 {
@@ -212,7 +219,7 @@ namespace UniCade
                 {
                     NotificationWindow nfw = new NotificationWindow("UniCade", "Free Play Enabled. NO COIN REQUIRED");
                     nfw.Show();
-                    this.Activate();
+                    //this.Activate();
                 }
 
             }

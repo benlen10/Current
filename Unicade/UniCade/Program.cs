@@ -87,14 +87,7 @@ namespace UniCade
                 //gui.ShowDialog();
             }
             //displayConsoles(); 
-            //MainWindow mw = new MainWindow();
-            //mw.ShowDialog();
-            using (var hook = new KeyboardHook { SelectedKey = Key.A })
-            {
-                var app = new App(hook);
-                app.InitializeComponent();
-                app.Run();
-            }
+
 
 
         }

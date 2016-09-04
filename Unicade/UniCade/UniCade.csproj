@@ -64,7 +64,6 @@
       <DependentUpon>GameInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="globalKeyboardHook.cs" />
-    <Compile Include="KeyboardHook.cs" />
     <Compile Include="KeyHandler.cs" />
     <Compile Include="LicenseEntry.cs">
       <SubType>Form</SubType>
