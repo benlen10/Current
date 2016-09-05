@@ -3,14 +3,16 @@ using System.Windows;
 using System.Windows.Threading;
 
 
-    /// <summary>
-    /// Interaction logic for Notification.xaml
-    /// </summary>
-    public partial class NotificationWindow : Window
+/// <summary>
+/// Interaction logic for Notification.xaml
+/// </summary>
+public partial class NotificationWindow : Window
+{
+    public NotificationWindow(String title, String body)
     {
-        public NotificationWindow(String title, String body)
-        {
-            InitializeComponent();
+     
+
+        InitializeComponent();
 
         Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
             {
@@ -23,6 +25,13 @@ using System.Windows.Threading;
                 this.Left = corner.X - this.ActualWidth - 100;
                 this.Top = corner.Y - this.ActualHeight;
             }));
-        }
     }
+
+    private void DoubleAnimationCompleted(object sender, EventArgs e)
+    {
+
+        this.Close();
+
+    }
+}
 

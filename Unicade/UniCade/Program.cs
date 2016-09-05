@@ -87,6 +87,9 @@ namespace UniCade
                 //gui.ShowDialog();
             }
             //displayConsoles(); 
+            var app = new App();
+            app.InitializeComponent();
+            app.Run();
 
 
 
