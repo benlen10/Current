@@ -151,10 +151,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void favCheckChange(View v){
-        updateGameList();
+
         if(dat.totalGameCount<1){
             return;
         }
+        updateGameList();
     }
 
 
