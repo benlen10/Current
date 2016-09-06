@@ -63,6 +63,13 @@ namespace UniCade
             gkh.HookedKeys.Add(Keys.I);
             gkh.HookedKeys.Add(Keys.Back);
             gkh.HookedKeys.Add(Keys.Tab);
+            gkh.HookedKeys.Add(Keys.Escape);
+            gkh.HookedKeys.Add(Keys.Delete);
+            gkh.HookedKeys.Add(Keys.F);
+            gkh.HookedKeys.Add(Keys.P);
+            gkh.HookedKeys.Add(Keys.B);
+            gkh.HookedKeys.Add(Keys.S);
+            gkh.HookedKeys.Add(Keys.E);
             gkh.KeyDown += new System.Windows.Forms.KeyEventHandler(gkh_KeyDown);
             gkh.KeyUp += new System.Windows.Forms.KeyEventHandler(gkh_KeyUp);
 
@@ -127,7 +134,7 @@ namespace UniCade
 
         void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) { 
         
-            System.Console.WriteLine("KEY DOWN");
+            //System.Console.WriteLine("KEY DOWN");
             e.Handled = true;
             if (e.KeyCode == Keys.Left)
             {

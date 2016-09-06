@@ -45,7 +45,7 @@ namespace UniCade
 
         private void OnButtonKeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.Key == Key.Escape) || (e.Key == Key.Back)|| (e.Key == Key.I))
+            if ((e.Key == Key.Escape) || (e.Key == Key.Back))
             {
                 Close();
 
