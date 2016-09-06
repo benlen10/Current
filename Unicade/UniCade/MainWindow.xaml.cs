@@ -36,6 +36,7 @@ namespace UniCade
         public static string curCon;
         public static bool passValid;
         public static bool gameSelectionActive;
+        public static bool gameRunning = false;
         public static bool infoWindowActive;
         public Console gameSelectionConsole;
         public static bool fav;
@@ -132,75 +133,154 @@ namespace UniCade
             //Old method
         }*/
 
-        void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) { 
-        
+        void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) {
+
             //System.Console.WriteLine("KEY DOWN");
             e.Handled = true;
-            if (e.KeyCode == Keys.Left)
-            {
-                if (!gameSelectionActive)
-                {
-                    left();
-                }
-            }
-            else if (e.KeyCode == Keys.Right)
-            {
-                if (!gameSelectionActive)
-                {
-                    right();
-                }
-            }
-            else if (e.KeyCode == Keys.Enter)
 
+            if ((!gameRunning) && (!infoWindowActive))
             {
-                if (gameSelectionActive)
+                if (e.KeyCode == Keys.Left)
                 {
-
-                    launchGame();
-                }
-                else
-                {
-                    openGameSelection();
-                    gameSelectionActive = true;
-                }
-
-            }
-            else if (e.KeyCode == Keys.I)  //Display info
-            {
-                if (gameSelectionActive)
-                {
-                    displayGameInfo();
-                }
-            }
-
-            else if (e.KeyCode == Keys.Space)  //Add or remove favorites
-            {
-                if (gameSelectionActive)
-                {
-                    if (listBox.SelectedItem != null)
+                    if (!gameSelectionActive)
                     {
-                        foreach (Game g in gameSelectionConsole.getGameList())
-                        {
-                            if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
-                            {
-                                if (g.getFav() > 0)
-                                {
-                                    g.setFav(0);
-                                    NotificationWindow nfw = new NotificationWindow("UniCade", "Removed From Favorites");
-                                    nfw.Show();
-                                }
-                                else
-                                {
-                                    g.setFav(1);
-                                    NotificationWindow nfw = new NotificationWindow("UniCade", "Added To Favorites");
-                                    nfw.Show();
+                        left();
+                    }
+                }
+                else if (e.KeyCode == Keys.Right)
+                {
+                    if (!gameSelectionActive)
+                    {
+                        right();
+                    }
+                }
+                else if (e.KeyCode == Keys.Enter)
 
+                {
+                    if (gameSelectionActive)
+                    {
+
+                        launchGame();
+                    }
+                    else
+                    {
+                        openGameSelection();
+                        gameSelectionActive = true;
+                    }
+
+                }
+                else if (e.KeyCode == Keys.I)  //Display info
+                {
+                    if (gameSelectionActive)
+                    {
+                        displayGameInfo();
+                    }
+                }
+
+                else if (e.KeyCode == Keys.Space)  //Add or remove favorites
+                {
+                    if (gameSelectionActive)
+                    {
+                        if (listBox.SelectedItem != null)
+                        {
+                            foreach (Game g in gameSelectionConsole.getGameList())
+                            {
+                                if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
+                                {
+                                    if (g.getFav() > 0)
+                                    {
+                                        g.setFav(0);
+                                        NotificationWindow nfw = new NotificationWindow("UniCade", "Removed From Favorites");
+                                        nfw.Show();
+                                    }
+                                    else
+                                    {
+                                        g.setFav(1);
+                                        NotificationWindow nfw = new NotificationWindow("UniCade", "Added To Favorites");
+                                        nfw.Show();
+
+                                    }
+                                    break;
                                 }
-                                break;
                             }
                         }
                     }
                 }
+                else if (e.KeyCode == Keys.F)  //Toggle Favorites view
+                {
+                    if (gameSelectionActive)
+                    {
+                        if (fav)
+                        {
+                            fav = false;
+                        }
+                        else
+                        {
+                            fav = true;
+                        }
+                        openGameSelection();
+                    }
+                }
+                else if ((e.KeyCode == Keys.C) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display Command line and close gui
+                {
+                    Taskbar.Show();
+                    System.Windows.Application.Current.Shutdown();
+                }
+
+                else if ((e.KeyCode == Keys.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
+                {
+
+                    if (SettingsWindow.passProtect > 0)
+                    {
+                        passValid = false;
+                        NotificationWindow nfw = new NotificationWindow("Security", "Enter Password");
+                        nfw.Show();
+                        PassWindow pw = new PassWindow();
+                        pw.ShowDialog();
+
+
+
+                        if (passValid)
+                        {
+                            SettingsWindow sw = new SettingsWindow();
+                            sw.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        sw = new SettingsWindow();
+                        sw.ShowDialog();
+                    }
+                    if (Program.validLicense)
+                    {
+                        label3.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        label3.Visibility = Visibility.Visible;
+                    }
+
+                }
+                else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Game Selection Window
+                {
+
+
+                    listBox.Visibility = Visibility.Hidden;  //Close Game Selection window
+                    image2.Visibility = Visibility.Hidden;
+                    label1.Visibility = Visibility.Hidden;
+                    image.Visibility = Visibility.Visible;
+                    image1.Visibility = Visibility.Visible;
+
+                    gameSelectionActive = false;
+                    label.Content = "Total Game Count: " + Database.totalGameCount;
+
+                }
+
+
+
+
+
+
             }
             else if (e.KeyCode == Keys.Tab)  // Insert coin
             {
@@ -231,98 +311,21 @@ namespace UniCade
 
             }
 
-            else if (e.KeyCode == Keys.F)  //Toggle Favorites view
-            {
-                if (gameSelectionActive)
-                {
-                    if (fav)
-                    {
-                        fav = false;
-                    }
-                    else
-                    {
-                        fav = true;
-                    }
-                    openGameSelection();
-                }
-            }
-            else if ((e.KeyCode == Keys.C) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display Command line and close gui
-            {
-                Taskbar.Show();
-                System.Windows.Application.Current.Shutdown();
-            }
-
-            else if ((e.KeyCode == Keys.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
-            {
-
-                if (SettingsWindow.passProtect > 0)
-                {
-                    passValid = false;
-                    NotificationWindow nfw = new NotificationWindow("Security", "Enter Password");
-                    nfw.Show();
-                    PassWindow pw = new PassWindow();
-                    pw.ShowDialog();
-
-
-
-                    if (passValid)
-                    {
-                        SettingsWindow sw = new SettingsWindow();
-                        sw.ShowDialog();
-                    }
-                }
-                else
-                {
-                    sw = new SettingsWindow();
-                    sw.ShowDialog();
-                }
-                if (Program.validLicense)
-                {
-                    label3.Visibility = Visibility.Hidden;
-                }
-                else
-                {
-                    label3.Visibility = Visibility.Visible;
-                }
-
-            }
+            
             else if ((e.KeyCode == Keys.X) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Close current process
             {
 
             }
-
-            else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Current Window
-            {
-
-
-                if (gameSelectionActive)
-                {
-
-                    {
-                        listBox.Visibility = Visibility.Hidden;  //Close Game Selection window
-                        image2.Visibility = Visibility.Hidden;
-                        label1.Visibility = Visibility.Hidden;
-                        image.Visibility = Visibility.Visible;
-                        image1.Visibility = Visibility.Visible;
-
-                        gameSelectionActive = false;
-                        label.Content = "Total Game Count: " + Database.totalGameCount;
-                        //pictureBox4.Image = null;
-                    }
-
-                }
-            }
-
-
-
-
-
 
 
 
             updateGUI();
 
         }
+
+
+            
+        
 
         private void right()
         {
