@@ -28,7 +28,6 @@ namespace UniCade
         public GameInfo()
         {
             InitializeComponent();
-            this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
 
 
         }
@@ -43,16 +42,9 @@ namespace UniCade
 
         }
 
-        private void OnButtonKeyDown(object sender, KeyEventArgs e)
-        {
-            if ((e.Key == Key.Escape) || (e.Key == Key.Back) || (e.Key == Key.I))
-            {
-                Close();
 
-            }
 
-            if ((e.Key == Key.F))
-            {
+            public void expand() { 
                 if (!enlarge3 && !enlarge1 && !enlarge2)
                 {
                     if (!enlarge)
@@ -70,7 +62,8 @@ namespace UniCade
                 }
             }
 
-            if ((e.Key == Key.B))
+        public void expand1()
+        {
             {
                 if (!enlarge3 && !enlarge && !enlarge2)
                 {
@@ -88,8 +81,10 @@ namespace UniCade
                     }
                 }
             }
+        }
 
-            if ((e.Key == Key.S))
+        public void expand2()
+        {
             {
                 if (!enlarge3 && !enlarge1 && !enlarge)
                 {
@@ -107,8 +102,10 @@ namespace UniCade
                     }
                 }
             }
+        }
+            
 
-            if ((e.Key == Key.E))
+            public void expand4() { 
             {
                 if (!enlarge && !enlarge1 && !enlarge2)
                 {

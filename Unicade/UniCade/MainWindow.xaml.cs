@@ -56,6 +56,7 @@ namespace UniCade
             listBox.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
             image2.Visibility = Visibility.Hidden;
             label1.Visibility = Visibility.Hidden;
+            gi = new GameInfo();
 
             globalKeyboardHook gkh = new globalKeyboardHook();
 
@@ -277,8 +278,9 @@ namespace UniCade
 
                 if (infoWindowActive)
                 {
-                    //App.Current.Windows[1].Hide();
-                    gi.Close();
+
+
+                    gi.Hide();
                     infoWindowActive = false;
                 }
                 else
@@ -548,8 +550,15 @@ namespace UniCade
             infoWindowActive = true;
             BitmapImage b;
 
-             gi = new GameInfo();
-            
+            //gi = new GameInfo();
+            gi.textBlock1.Text = null;
+            gi.textBlock.Text = null;
+            gi.image.Source = null;
+            gi.image1.Source = null;
+            gi.image2.Source = null;
+            gi.image3.Source = null;
+
+
 
             foreach (Game g in gameSelectionConsole.getGameList())
             {
