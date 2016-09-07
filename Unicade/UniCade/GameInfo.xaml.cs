@@ -40,18 +40,18 @@ namespace UniCade
             b.UriSource = new Uri(@esrb);
             b.EndInit();
             image3.Source = b;
-            
+
         }
 
         private void OnButtonKeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.Key == Key.Escape) || (e.Key == Key.Back))
+            if ((e.Key == Key.Escape) || (e.Key == Key.Back) || (e.Key == Key.I))
             {
                 Close();
 
             }
 
-            if ((e.Key == Key.F) )
+            if ((e.Key == Key.F))
             {
                 if (!enlarge3 && !enlarge1 && !enlarge2)
                 {

@@ -42,6 +42,9 @@ namespace UniCade
         public static bool fav;
         public static SettingsWindow sw;
         int conCount;
+        GameInfo gi;
+
+
 
         public MainWindow()
         {
@@ -261,10 +264,25 @@ namespace UniCade
                     }
 
                 }
-                else if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Game Selection Window
+                
+
+
+
+
+
+
+            }
+            if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Game Selection Window
+            {
+
+                if (infoWindowActive)
                 {
-
-
+                    //App.Current.Windows[1].Hide();
+                    gi.Close();
+                    infoWindowActive = false;
+                }
+                else
+                {
                     listBox.Visibility = Visibility.Hidden;  //Close Game Selection window
                     image2.Visibility = Visibility.Hidden;
                     label1.Visibility = Visibility.Hidden;
@@ -273,13 +291,7 @@ namespace UniCade
 
                     gameSelectionActive = false;
                     label.Content = "Total Game Count: " + Database.totalGameCount;
-
                 }
-
-
-
-
-
 
             }
             else if (e.KeyCode == Keys.Tab)  // Insert coin
@@ -533,10 +545,10 @@ namespace UniCade
             {
                 return;
             }
-            //infoWindowActive = true;
+            infoWindowActive = true;
             BitmapImage b;
 
-            GameInfo gi = new GameInfo();
+             gi = new GameInfo();
             
 
             foreach (Game g in gameSelectionConsole.getGameList())
@@ -612,7 +624,7 @@ namespace UniCade
 
                 }
             }
-            gi.ShowDialog();
+            gi.Show();
         }
                 
             
