@@ -36,7 +36,7 @@ namespace UniCade
         public static string curCon;
         public static bool passValid;
         public static bool gameSelectionActive;
-        public static bool gameRunning = false;
+        public static bool gameRunning;
         public static bool infoWindowActive;
         public Console gameSelectionConsole;
         public static bool fav;
@@ -50,6 +50,7 @@ namespace UniCade
         {
             InitializeComponent();
             sw = new SettingsWindow();
+            gameRunning = false;
             //this.KeyDown += new System.Windows.Input.KeyEventHandler(OnButtonKeyDown);
             listBox.Visibility = Visibility.Hidden;
             listBox.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
@@ -75,6 +76,9 @@ namespace UniCade
             gkh.HookedKeys.Add(Keys.B);
             gkh.HookedKeys.Add(Keys.S);
             gkh.HookedKeys.Add(Keys.E);
+            gkh.HookedKeys.Add(Keys.Q);
+            gkh.HookedKeys.Add(Keys.F10);
+            gkh.HookedKeys.Add(Keys.F1);
             gkh.KeyDown += new System.Windows.Forms.KeyEventHandler(gkh_KeyDown);
             gkh.KeyUp += new System.Windows.Forms.KeyEventHandler(gkh_KeyUp);
 
@@ -142,6 +146,19 @@ namespace UniCade
             //System.Console.WriteLine("KEY DOWN");
             e.Handled = true;
 
+            
+                if (e.KeyCode == Keys.F10)  
+                {
+                if (gameRunning)
+                {
+                    System.Console.WriteLine("KILL");
+                    NotificationWindow nfw = new NotificationWindow("UniCade", "Kill Process");
+                    nfw.Show();
+                    FileOps.killProcess();
+                    this.Activate();
+                }
+            }
+
             if ((!gameRunning) && (!infoWindowActive))
             {
                 if (e.KeyCode == Keys.Left)
@@ -179,6 +196,7 @@ namespace UniCade
                     {
                         displayGameInfo();
                     }
+                    //if(infoWindo)
                 }
 
                 else if (e.KeyCode == Keys.Space)  //Add or remove favorites
@@ -338,16 +356,13 @@ namespace UniCade
                 }
 
             }
-
             
-            else if ((e.KeyCode == Keys.X) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Close current process
-            {
-
-            }
 
 
 
-            updateGUI();
+
+
+                updateGUI();
 
         }
 

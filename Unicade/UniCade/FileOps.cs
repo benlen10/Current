@@ -443,6 +443,7 @@ namespace UniCade
                 proc.StartInfo.FileName = c.getEmuPath();
                 proc.StartInfo.Arguments = args;
                 processActive = true;
+            MainWindow.gameRunning = true;
             System.Console.WriteLine(args);
                 proc.Start();
 
@@ -454,10 +455,11 @@ namespace UniCade
         }
 
 
-        public static void killLaunch()
+        public static void killProcess()
         {
             //Program.gui.TopMost = true;
             processActive = false;
+            MainWindow.gameRunning = false;
             proc.Kill();
         }
 

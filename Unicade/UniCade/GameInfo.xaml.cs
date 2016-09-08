@@ -105,7 +105,7 @@ namespace UniCade
         }
             
 
-            public void expand4() { 
+            public void expand3() { 
             {
                 if (!enlarge && !enlarge1 && !enlarge2)
                 {
