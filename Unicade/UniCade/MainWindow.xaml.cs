@@ -265,11 +265,25 @@ namespace UniCade
                     }
 
                 }
-                
-
-
-
-
+            }
+            if (!gameRunning && infoWindowActive)
+            {
+                if (e.KeyCode == Keys.F)
+                {
+                    gi.expand();
+                }
+                else if (e.KeyCode == Keys.B)
+                {
+                    gi.expand1();
+                }
+                else if (e.KeyCode == Keys.S)
+                {
+                    gi.expand2();
+                }
+                else if (e.KeyCode == Keys.E)
+                {
+                    gi.expand3();
+                }
 
 
             }
