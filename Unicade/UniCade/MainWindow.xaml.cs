@@ -152,7 +152,7 @@ namespace UniCade
                 if (gameRunning)
                 {
                     System.Console.WriteLine("KILL");
-                    NotificationWindow nfw = new NotificationWindow("UniCade", "Kill Process");
+                    NotificationWindow nfw = new NotificationWindow("UniCade System", "Game Successfully Closed");
                     nfw.Show();
                     FileOps.killProcess();
                     this.Activate();

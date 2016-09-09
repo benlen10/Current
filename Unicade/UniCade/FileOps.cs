@@ -459,8 +459,14 @@ namespace UniCade
         {
             //Program.gui.TopMost = true;
             processActive = false;
-            MainWindow.gameRunning = false;
+            
+            if (proc.HasExited)
+            {
+                return;
+                MainWindow.gameRunning = false;
+            }
             proc.Kill();
+            MainWindow.gameRunning = false;
         }
 
         public static void loadDefaultConsoles()
