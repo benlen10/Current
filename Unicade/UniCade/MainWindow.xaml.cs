@@ -196,7 +196,11 @@ namespace UniCade
                     {
                         displayGameInfo();
                     }
-                    //if(infoWindo)
+                    else if (infoWindowActive)
+                    {
+                        gi.Hide();
+                        infoWindowActive = false;
+                    }
                 }
 
                 else if (e.KeyCode == Keys.Space)  //Add or remove favorites
@@ -310,8 +314,6 @@ namespace UniCade
 
                 if (infoWindowActive)
                 {
-
-
                     gi.Hide();
                     infoWindowActive = false;
                 }
