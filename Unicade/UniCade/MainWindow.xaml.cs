@@ -39,6 +39,7 @@ namespace UniCade
         public static bool gameRunning;
         public static bool infoWindowActive;
         public Console gameSelectionConsole;
+        public static bool settingsWindowActive;
         public static bool fav;
         public static SettingsWindow sw;
         int conCount;
@@ -145,6 +146,11 @@ namespace UniCade
 
             //System.Console.WriteLine("KEY DOWN");
             e.Handled = true;
+
+            if (settingsWindowActive)
+            {
+                return;
+            }
 
             
                 if (e.KeyCode == Keys.F10)  
@@ -268,13 +274,16 @@ namespace UniCade
 
                         if (passValid)
                         {
-                            SettingsWindow sw = new SettingsWindow();
+                            sw = new SettingsWindow();
+                            settingsWindowActive = true;
                             sw.ShowDialog();
+                            
                         }
                     }
                     else
                     {
                         sw = new SettingsWindow();
+                        settingsWindowActive = true;
                         sw.ShowDialog();
                     }
                     if (Program.validLicense)
