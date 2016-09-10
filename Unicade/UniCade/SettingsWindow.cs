@@ -244,7 +244,8 @@ namespace UniCade
         private void button2_Click(object sender, EventArgs e)
         {
             //Cursor.Hide();
-            this.Hide();
+            MainWindow.settingsWindowActive = false;
+            this.Close();
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -290,8 +291,9 @@ namespace UniCade
         private void button5_Click(object sender, EventArgs e)  //Close Button
         {
             //Cursor.Hide();
-            //this.Hide();
+            //this.Close();
             saveGameInfo();
+            MainWindow.settingsWindowActive = false;
             Close();
 
         }
@@ -395,7 +397,8 @@ namespace UniCade
         private void button13_Click(object sender, EventArgs e)
         {
             //Cursor.Hide();
-            this.Hide();
+            MainWindow.settingsWindowActive = false;
+            this.Close();
         }
 
         //Extra Methods
@@ -438,13 +441,15 @@ namespace UniCade
         private void button16_Click(object sender, EventArgs e)
         {
             //Cursor.Hide();
-            this.Hide();
+            MainWindow.settingsWindowActive = false;
+            this.Close();
         }
 
         private void button14_Click(object sender, EventArgs e)
         {
             //Cursor.Hide();
-            this.Hide();
+            MainWindow.settingsWindowActive = false;
+            this.Close();
 
         }
 
@@ -1066,7 +1071,8 @@ namespace UniCade
         private void button23_Click(object sender, EventArgs e)
         {
             //Cursor.Hide();
-            this.Hide();
+            MainWindow.settingsWindowActive = false;
+            this.Close();
         }
 
         private void SettingsWindow_Load(object sender, EventArgs e)
@@ -1319,7 +1325,8 @@ namespace UniCade
 
         private void button37_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            MainWindow.settingsWindowActive = false;
+            this.Close();
         }
 
         private void button41_Click(object sender, EventArgs e)//Delete all games in sql cloud button
@@ -1482,6 +1489,12 @@ namespace UniCade
                     }
          
 
+        }
+
+        void SettingsWindow_Closing(object sender, CancelEventArgs e)
+        {
+            MainWindow.settingsWindowActive = false;
+        
         }
 
         private void button30_Click_1(object sender, EventArgs e)

@@ -30,7 +30,6 @@ namespace UniCade
     {
 
         private DispatcherTimer tm;
-        private KeyHandler ghk;
         public static ArrayList conList;
         public static int index;
         public static string curCon;
@@ -43,6 +42,7 @@ namespace UniCade
         public static bool fav;
         public static SettingsWindow sw;
         int conCount;
+        globalKeyboardHook gkh;
         GameInfo gi;
 
 
@@ -60,7 +60,7 @@ namespace UniCade
             label1.Visibility = Visibility.Hidden;
             gi = new GameInfo();
 
-            globalKeyboardHook gkh = new globalKeyboardHook();
+            gkh = new globalKeyboardHook();
 
             gkh.HookedKeys.Add(Keys.A);
             gkh.HookedKeys.Add(Keys.B);
@@ -145,10 +145,11 @@ namespace UniCade
         void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) {
 
             //System.Console.WriteLine("KEY DOWN");
-            e.Handled = true;
+            
 
             if (settingsWindowActive)
             {
+                e.Handled = true;
                 return;
             }
 
@@ -275,6 +276,7 @@ namespace UniCade
                         if (passValid)
                         {
                             sw = new SettingsWindow();
+                            gkh.unhook();
                             settingsWindowActive = true;
                             sw.ShowDialog();
                             
@@ -284,6 +286,7 @@ namespace UniCade
                     {
                         sw = new SettingsWindow();
                         settingsWindowActive = true;
+                        gkh.unhook();
                         sw.ShowDialog();
                     }
                     if (Program.validLicense)
