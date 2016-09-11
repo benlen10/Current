@@ -12,6 +12,7 @@ namespace UniCade
     {
         public static bool processActive;
         public static System.Diagnostics.Process proc;
+        public static bool urlLaunch;
 
 
         public static bool loadDatabase(string path)
@@ -443,6 +444,10 @@ namespace UniCade
             if (c.getName().Equals("PC"))
             {
                 proc.StartInfo.FileName =  args ;
+                if (args.Contains("url"))
+                {
+                    urlLaunch = true;
+                }
                 
             }
             else
@@ -450,9 +455,10 @@ namespace UniCade
                 proc.StartInfo.FileName = c.getEmuPath();
                 proc.StartInfo.Arguments = args;
             }
+            MainWindow.gkh.unhook();
             proc.Start();
-            NotificationWindow nfw = new NotificationWindow("UniCade System", args);
-            nfw.Show();
+
+
             processActive = true;
             MainWindow.gameRunning = true;
           
@@ -469,20 +475,27 @@ namespace UniCade
 
         public static void killProcess()
         {
-            //Program.gui.TopMost = true;
 
-            Process currentProcess = Process.GetCurrentProcess();
-            currentProcess.Kill();
-
-            /*if (proc.HasExited)
+            if (urlLaunch)
             {
+                //System.Windows.unForms.SendKeys.SendWait("%{F4}");
+                //Process[] steam = Process.GetProcessesByName("Steam");
+                //team[0].Kill();
+                System.Windows.Forms.SendKeys.SendWait("^%{F4}");
+
                 MainWindow.gameRunning = false;
                 processActive = false;
+                MainWindow.gkh.hook();
                 return;
-            }*/
+            }
+            else if (proc.HasExited)
+            {
+                return;
+            }
                 
             
-            //proc.Kill();
+            proc.Kill();
+            MainWindow.gkh.hook();
             MainWindow.gameRunning = false;
             processActive = false;
         }
