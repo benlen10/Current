@@ -16,8 +16,10 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                
             }
             base.Dispose(disposing);
+            closeSettings();
         }
 
         #region Windows Form Designer generated code

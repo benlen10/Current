@@ -404,8 +404,8 @@ namespace UniCade
                 int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
                 if (EsrbNum >= SettingsWindow.restrictESRB)
                 {
-                    NotificationWindow nfw = new NotificationWindow("NOTICE" , "ESRB " + g.getEsrb() + " Is Restricted\n");
-                    nfw.Show();
+                    NotificationWindow nfw1 = new NotificationWindow("NOTICE" , "ESRB " + g.getEsrb() + " Is Restricted\n");
+                    nfw1.Show();
                     return;
                 }
 
@@ -415,8 +415,8 @@ namespace UniCade
                 int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
                 if (EsrbNum >= SettingsWindow.calcEsrb(Program.curUser.getAllowedEsrb()))
                 {
-                    NotificationWindow nfw = new NotificationWindow("NOTICE", "ESRB " + g.getEsrb() + " Is Restricted\n");
-                    nfw.Show();
+                    NotificationWindow nfw2 = new NotificationWindow("NOTICE", "ESRB " + g.getEsrb() + " Is Restricted\n");
+                    nfw2.Show();
                     return;
                 }
             }
@@ -440,17 +440,29 @@ namespace UniCade
 
                 proc.EnableRaisingEvents = true;
                 proc.Exited += new EventHandler(proc_Exited);
+            if (c.getName().Equals("PC"))
+            {
+                proc.StartInfo.FileName =  args ;
+                
+            }
+            else
+            {
                 proc.StartInfo.FileName = c.getEmuPath();
                 proc.StartInfo.Arguments = args;
-                processActive = true;
+            }
+            proc.Start();
+            NotificationWindow nfw = new NotificationWindow("UniCade System", args);
+            nfw.Show();
+            processActive = true;
             MainWindow.gameRunning = true;
-            System.Console.WriteLine(args);
-                proc.Start();
+          
+                
 
         }
 
         private static void proc_Exited(object sender, System.EventArgs e)
         {
+            MainWindow.gameRunning = false;
             processActive = false;
         }
 
@@ -458,15 +470,21 @@ namespace UniCade
         public static void killProcess()
         {
             //Program.gui.TopMost = true;
-            processActive = false;
-            
-            if (proc.HasExited)
+
+            Process currentProcess = Process.GetCurrentProcess();
+            currentProcess.Kill();
+
+            /*if (proc.HasExited)
             {
-                return;
                 MainWindow.gameRunning = false;
-            }
-            proc.Kill();
+                processActive = false;
+                return;
+            }*/
+                
+            
+            //proc.Kill();
             MainWindow.gameRunning = false;
+            processActive = false;
         }
 
         public static void loadDefaultConsoles()

@@ -42,7 +42,7 @@ namespace UniCade
         public static bool fav;
         public static SettingsWindow sw;
         int conCount;
-        globalKeyboardHook gkh;
+        public static globalKeyboardHook gkh;
         GameInfo gi;
 
 

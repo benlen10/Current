@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace UniCade
 {
@@ -245,6 +246,7 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
+            MainWindow.gkh.hook();
             this.Close();
         }
 
@@ -294,6 +296,7 @@ namespace UniCade
             //this.Close();
             saveGameInfo();
             MainWindow.settingsWindowActive = false;
+            MainWindow.gkh.hook();
             Close();
 
         }
@@ -398,6 +401,7 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
+            MainWindow.gkh.hook();
             this.Close();
         }
 
@@ -442,6 +446,7 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
+            MainWindow.gkh.hook();
             this.Close();
         }
 
@@ -449,6 +454,7 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
+            MainWindow.gkh.hook();
             this.Close();
 
         }
@@ -1072,6 +1078,7 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
+            MainWindow.gkh.hook();
             this.Close();
         }
 
@@ -1326,6 +1333,7 @@ namespace UniCade
         private void button37_Click(object sender, EventArgs e)
         {
             MainWindow.settingsWindowActive = false;
+            MainWindow.gkh.hook();
             this.Close();
         }
 
@@ -1494,7 +1502,14 @@ namespace UniCade
         void SettingsWindow_Closing(object sender, CancelEventArgs e)
         {
             MainWindow.settingsWindowActive = false;
-        
+            MainWindow.gkh.hook();
+
+        }
+
+        void closeSettings()
+        {
+            MainWindow.settingsWindowActive = false;
+            MainWindow.gkh.hook();
         }
 
         private void button30_Click_1(object sender, EventArgs e)

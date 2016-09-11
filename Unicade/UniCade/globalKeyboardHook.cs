@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace UniCade {
 
-	class globalKeyboardHook {
+	public class globalKeyboardHook {
 		#region Constant, Structure and Delegate Definitions
 		/// <summary>
 		/// defines the callback type for the hook
