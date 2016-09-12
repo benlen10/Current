@@ -276,7 +276,7 @@ namespace UniCade
                         if (passValid)
                         {
                             sw = new SettingsWindow();
-                            gkh.unhook();
+                            unhookKeys();
                             settingsWindowActive = true;
                             sw.ShowDialog();
                             
@@ -286,7 +286,7 @@ namespace UniCade
                     {
                         sw = new SettingsWindow();
                         settingsWindowActive = true;
-                        gkh.unhook();
+                        unhookKeys();
                         sw.ShowDialog();
                     }
                     if (Program.validLicense)
@@ -680,7 +680,7 @@ namespace UniCade
         }
 
 
-        public void hookKeys()
+        public static void hookKeys()
         {
             gkh.HookedKeys.Add(Keys.A);
             gkh.HookedKeys.Add(Keys.B);
@@ -702,7 +702,7 @@ namespace UniCade
 
         }
 
-        public void UnhookKeys()
+        public static void unhookKeys()
         {
             gkh.HookedKeys.Remove(Keys.A);
             gkh.HookedKeys.Remove(Keys.B);

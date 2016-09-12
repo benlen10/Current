@@ -42,6 +42,7 @@ namespace UniCade
         {
 
             InitializeComponent();
+            this.FormClosing += SettingsWindow_FormClosing;
             populate();
 
         }
@@ -246,7 +247,6 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
-            MainWindow.gkh.hook();
             this.Close();
         }
 
@@ -296,7 +296,6 @@ namespace UniCade
             //this.Close();
             saveGameInfo();
             MainWindow.settingsWindowActive = false;
-            MainWindow.gkh.hook();
             Close();
 
         }
@@ -401,7 +400,7 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
-            MainWindow.gkh.hook();
+
             this.Close();
         }
 
@@ -446,7 +445,6 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
-            MainWindow.gkh.hook();
             this.Close();
         }
 
@@ -454,7 +452,6 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
-            MainWindow.gkh.hook();
             this.Close();
 
         }
@@ -1078,7 +1075,6 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
-            MainWindow.gkh.hook();
             this.Close();
         }
 
@@ -1333,7 +1329,6 @@ namespace UniCade
         private void button37_Click(object sender, EventArgs e)
         {
             MainWindow.settingsWindowActive = false;
-            MainWindow.gkh.hook();
             this.Close();
         }
 
@@ -1499,18 +1494,13 @@ namespace UniCade
 
         }
 
-        void SettingsWindow_Closing(object sender, CancelEventArgs e)
+        private void SettingsWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             MainWindow.settingsWindowActive = false;
-            MainWindow.gkh.hook();
-
+            MainWindow.hookKeys();
         }
 
-        void closeSettings()
-        {
-            MainWindow.settingsWindowActive = false;
-            MainWindow.gkh.hook();
-        }
+
 
         private void button30_Click_1(object sender, EventArgs e)
         {

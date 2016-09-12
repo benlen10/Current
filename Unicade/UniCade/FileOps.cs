@@ -455,7 +455,7 @@ namespace UniCade
                 proc.StartInfo.FileName = c.getEmuPath();
                 proc.StartInfo.Arguments = args;
             }
-            MainWindow.gkh.unhook();
+            MainWindow.unhookKeys();
             proc.Start();
 
 
@@ -482,10 +482,12 @@ namespace UniCade
                 //Process[] steam = Process.GetProcessesByName("Steam");
                 //team[0].Kill();
                 System.Windows.Forms.SendKeys.SendWait("^%{F4}");
+                NotificationWindow nfw2 = new NotificationWindow("UniCade System" , "Attempting Force Close");
+                nfw2.Show();
 
                 MainWindow.gameRunning = false;
                 processActive = false;
-                MainWindow.gkh.hook();
+                MainWindow.hookKeys();
                 return;
             }
             else if (proc.HasExited)
@@ -495,7 +497,7 @@ namespace UniCade
                 
             
             proc.Kill();
-            MainWindow.gkh.hook();
+            MainWindow.hookKeys();
             MainWindow.gameRunning = false;
             processActive = false;
         }

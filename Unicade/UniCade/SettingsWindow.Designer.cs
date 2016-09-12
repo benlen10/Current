@@ -19,7 +19,6 @@
                 
             }
             base.Dispose(disposing);
-            closeSettings();
         }
 
         #region Windows Form Designer generated code
