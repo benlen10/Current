@@ -678,18 +678,63 @@ namespace UniCade
             }
             gi.Show();
         }
-                
-            
 
 
-    
-       
+        public void hookKeys()
+        {
+            gkh.HookedKeys.Add(Keys.A);
+            gkh.HookedKeys.Add(Keys.B);
+            gkh.HookedKeys.Add(Keys.Left);
+            gkh.HookedKeys.Add(Keys.Right);
+            gkh.HookedKeys.Add(Keys.Enter);
+            gkh.HookedKeys.Add(Keys.I);
+            gkh.HookedKeys.Add(Keys.Back);
+            gkh.HookedKeys.Add(Keys.Tab);
+            gkh.HookedKeys.Add(Keys.Escape);
+            gkh.HookedKeys.Add(Keys.Delete);
+            gkh.HookedKeys.Add(Keys.F);
+            gkh.HookedKeys.Add(Keys.P);
+            gkh.HookedKeys.Add(Keys.B);
+            gkh.HookedKeys.Add(Keys.S);
+            gkh.HookedKeys.Add(Keys.E);
+            gkh.HookedKeys.Add(Keys.Q);
+            gkh.HookedKeys.Add(Keys.F1);
+
+        }
+
+        public void UnhookKeys()
+        {
+            gkh.HookedKeys.Remove(Keys.A);
+            gkh.HookedKeys.Remove(Keys.B);
+            gkh.HookedKeys.Remove(Keys.Left);
+            gkh.HookedKeys.Remove(Keys.Right);
+            gkh.HookedKeys.Remove(Keys.Enter);
+            gkh.HookedKeys.Remove(Keys.I);
+            gkh.HookedKeys.Remove(Keys.Back);
+            gkh.HookedKeys.Remove(Keys.Tab);
+            gkh.HookedKeys.Remove(Keys.Escape);
+            gkh.HookedKeys.Remove(Keys.Delete);
+            gkh.HookedKeys.Remove(Keys.F);
+            gkh.HookedKeys.Remove(Keys.P);
+            gkh.HookedKeys.Remove(Keys.B);
+            gkh.HookedKeys.Remove(Keys.S);
+            gkh.HookedKeys.Remove(Keys.E);
+            gkh.HookedKeys.Remove(Keys.Q);
+            gkh.HookedKeys.Remove(Keys.F1);
+
+        }
 
 
 
 
-            
-        
+
+
+
+
+
+
+
+
 
 
 
