@@ -23,7 +23,6 @@ namespace UniCade
         public static User curUser;
         public static int coins = 0;
         public static bool playtimeRemaining = true;
-        //public static GUI gui;
         public static string userLicenseName;
         public static string userLicenseKey;
         public static bool validLicense = true;
@@ -50,14 +49,7 @@ namespace UniCade
             if(!ValidateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))
             {
                 validLicense = false;
-                /*MessageBox.Show("Invalid License Key");
-                LicenseEntry le = new LicenseEntry();
 
-                    le.ShowDialog();
-                if (!validLicense)
-                {
-                    return;
-                }*/
 
             }
 
