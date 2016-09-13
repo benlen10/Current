@@ -31,7 +31,7 @@ namespace UniCade
 
         public static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+
             
 
 
@@ -77,16 +77,6 @@ namespace UniCade
                 dat.userList.Add(curUser);
             }
 
-            if (SettingsWindow.requireLogin == 1)
-            {
-                login();
-            }
-            if (SettingsWindow.cmdOrGui < 1)
-            {
-                //gui = new GUI();
-                //gui.ShowDialog();
-            }
-            //displayConsoles(); 
             var app = new App();
             app.InitializeComponent();
             app.Run();
@@ -95,219 +85,11 @@ namespace UniCade
 
         }
 
-        //Methods
-
-       public static void login()
-        {
-            while (true)
-            {
-                System.Console.WriteLine("Please enter username (Type x to exit)");
-                string userName = System.Console.ReadLine();
-                if (userName.Equals("x"))
-                {
-                    return;
-                }
-                foreach (User u in dat.userList)
-                {
-                    if (userName.Equals(u.getUsername()))
-                    {
-                        while (true)
-                        {
-                            string ps = System.Console.ReadLine();
-                            System.Console.WriteLine("Please enter password");
-                            if (ps.Equals("x"))
-                            {
-                                return;
-                            }
-                            if (ps.Equals(u.getPass()))
-                            {
-                                System.Console.WriteLine("Password Accepted");
-                                curUser = u;
-                                curUser.loginCount++;
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        
-
-        public static void displayGameList(Console c)
-        {
-            bool fav = false;
-            while (true)
-            {
-                
-                string text = string.Format("{0} (Total Games: {1})", c.getName(), c.gameCount);
-                System.Console.WriteLine(text);
-                System.Console.WriteLine("Additional Options:Info: (i) <game>, Close (c),Global Fav (gf), (uf) Add User Fav, Display Favorites (f) Console Info (ci)\n");
-
-                //Display Game List
-                foreach (Game g in c.getGameList())
-                {
-                    if (fav)
-                    {
-                        if (g.getFav() == 1)
-                        {
-                            System.Console.WriteLine(g.getTitle());
-                        }
-                    }
-                    else if (SettingsWindow.viewEsrb > 1)
-                    {
-                        if (SettingsWindow.calcEsrb(g.getEsrb()) <= SettingsWindow.restrictESRB)
-                        {
-                            System.Console.WriteLine(g.getTitle());
-                        }
-                    }
-                    else
-                    {
-                        System.Console.WriteLine(g.getTitle());
-                    }
-
-                }
-
-
-                string input = System.Console.ReadLine();
-                string s = input.Substring(3);
-                if (input.Contains("(i)"))
-                {
-                    foreach (Game g in c.getGameList())
-                    {
-                        if (s.Contains(g.getTitle()))
-                        {
-                            System.Console.Write(displayGameInfo(g));
-                            string inp = System.Console.ReadLine();
-                            while (true)
-                            {
-                                inp = System.Console.ReadLine();
-                                if (inp.Equals("(c)"))
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (input.Equals("(ci)"))
-                {
-                    displayConsoleInfo(c);
-                }
-                else if (input.Equals("(f)"))
-                {
-                    if (!fav)
-                    {
-                        fav = true;
-                    }
-                    else
-                    {
-                        fav = false;
-                    }
-                }
-                else if (input.Contains("(uf)"))
-                {
-                    curUser.favorites.Add(c.getName() + "*" + input.Substring(5));
-                    System.Console.WriteLine("\n***Added to User Favorites***\n");
-                }
-                else if (input.Contains("(gf)"))
-                {
-                    foreach (Game g in c.getGameList())
-                    {
-                        if (input.Substring(4).Contains(g.getTitle()))
-                        {
-                            if (g.getFav() < 1)
-                            {
-                                g.setFav(1);
-                                System.Console.WriteLine("\n***Added to Favorites***\n");
-                            }
-                            else
-                            {
-                                g.setFav(0);
-                                System.Console.WriteLine("\n***Removed From Favorites***\n");
-                            }
-                            break;
-                        }
-                    }
-                }
-
-                else if (input.Equals("(c)"))
-                {
-                    return;
-                }
-                else
-
-
-
-
-                {
-                    //System.Console.WriteLine("YES\n\n\n\n\n");
-                    foreach (Game g1 in c.getGameList())
-                    {
-                        if (input.Contains(g1.getTitle()))
-                        {
-                            FileOps.launch(g1, c);
-
-                        }
-                    }
-                }
-            }
-
-        }
-
-        public static void displayUserFavs()
-        {
-            string str = "";
-            foreach (string s in curUser.favorites)
-            {
-                string[] st = s.Split('*');
-                if (st.Length > 1)
-                {
-                    str += (st[0] + " " + st[1]+"\n");
-                }
-            }
-            while (true)
-            {
-                System.Console.WriteLine("[Type (c) to close info window]\n");
-                System.Console.WriteLine(str);
-                string input = System.Console.ReadLine();
-                if (input.Equals("(c)"))
-                {
-                    return;
-                }
-                //Check for matching input string to launch
-                foreach (string s in curUser.favorites)
-                {
-                    string[] st = s.Split('*');
-                    if (st.Length > 1)
-                    {
-                        str = (st[0] + " " + st[1] + "\n");
-                        if (str.Contains(input))
-                        {
-                            foreach(Console c in Program.dat.consoleList)
-                            {
-                                if (c.getName().Equals(st[0]))
-                                {
-                                    foreach (Game g in c.getGameList()){
-                                        if (st[1].Contains(g.getTitle())){
-                                            FileOps.launch(g, c);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
 
        public static string displayGameInfo(Game g)
         {
             string txt = "";
-
-                txt = txt +("[Type (c) to close info window]\n");
-                txt = txt + ("\nTitle: " + g.getTitle() +"\n");
                 txt = txt + ("\nRelease Date: " + g.getReleaseDate() + "\n");
                 txt = txt + ("\nDeveloper: " + g.getDeveloper() + "\n");
                 txt = txt + ("\nPublisher: " + g.getPublisher() + "\n");
@@ -319,33 +101,7 @@ namespace UniCade
                 txt = txt + ("\nmame Description: " + g.getDescription() + "\n");
                 return txt;
             }
-        public static void displayConsoleInfo(Console c)
-        {
-            while (true)
-            {
-                System.Console.WriteLine("[Type (c) to close info window]\n");
-                System.Console.WriteLine("Console: " + c.getName());
-                System.Console.WriteLine("Release Date: " + c.getReleaseDate());
-                System.Console.WriteLine("Emulator Path: " + c.getEmuPath());
-                System.Console.WriteLine("Rom Path: " + c.getRomPath());
-                System.Console.WriteLine("Rom Extension: " + c.getRomExt());
-                System.Console.WriteLine("Launch Param: " + c.getLaunchParam());
-                System.Console.WriteLine("Console Info: " + c.getConsoleInfo());
-                string input = System.Console.ReadLine();
-                if (input.Equals("(c)"))
-                {
-                    return;
-                }
-            }
-        }
 
-        static void OnProcessExit(object sender, EventArgs e)
-        {
-            Taskbar.Show();
-        }
-        protected virtual void OnClosing() {
-            Taskbar.Show();
-        }
 
         public static string SHA256Hash(string data)
         {
