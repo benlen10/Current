@@ -69,6 +69,7 @@ namespace UniCade
             gkh.HookedKeys.Add(Keys.Enter);
             gkh.HookedKeys.Add(Keys.I);
             gkh.HookedKeys.Add(Keys.Back);
+            gkh.HookedKeys.Add(Keys.Space);
             gkh.HookedKeys.Add(Keys.Tab);
             gkh.HookedKeys.Add(Keys.Escape);
             gkh.HookedKeys.Add(Keys.Delete);
@@ -689,6 +690,7 @@ namespace UniCade
             gkh.HookedKeys.Add(Keys.Enter);
             gkh.HookedKeys.Add(Keys.I);
             gkh.HookedKeys.Add(Keys.Back);
+            gkh.HookedKeys.Add(Keys.Space);
             gkh.HookedKeys.Add(Keys.Tab);
             gkh.HookedKeys.Add(Keys.Escape);
             gkh.HookedKeys.Add(Keys.Delete);
@@ -709,6 +711,7 @@ namespace UniCade
             gkh.HookedKeys.Remove(Keys.Left);
             gkh.HookedKeys.Remove(Keys.Right);
             gkh.HookedKeys.Remove(Keys.Enter);
+            gkh.HookedKeys.Add(Keys.Space);
             gkh.HookedKeys.Remove(Keys.I);
             gkh.HookedKeys.Remove(Keys.Back);
             gkh.HookedKeys.Remove(Keys.Tab);
