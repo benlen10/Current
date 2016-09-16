@@ -711,7 +711,7 @@ namespace UniCade
             gkh.HookedKeys.Remove(Keys.Left);
             gkh.HookedKeys.Remove(Keys.Right);
             gkh.HookedKeys.Remove(Keys.Enter);
-            gkh.HookedKeys.Add(Keys.Space);
+            gkh.HookedKeys.Remove(Keys.Space);
             gkh.HookedKeys.Remove(Keys.I);
             gkh.HookedKeys.Remove(Keys.Back);
             gkh.HookedKeys.Remove(Keys.Tab);

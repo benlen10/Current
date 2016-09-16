@@ -1519,6 +1519,11 @@ namespace UniCade
             }
 
         }
+
+        private void button31_Click_1(object sender, EventArgs e)
+        {
+            SQLclient.connectSQL();
+        }
     }
 }
 

@@ -207,6 +207,7 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button31 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1894,6 +1895,7 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.button31);
             this.tabPage7.Controls.Add(this.textBox35);
             this.tabPage7.Controls.Add(this.textBox34);
             this.tabPage7.Controls.Add(this.textBox14);
@@ -2039,6 +2041,16 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
+            // 
+            // button31
+            // 
+            this.button31.Location = new System.Drawing.Point(948, 207);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(227, 42);
+            this.button31.TabIndex = 21;
+            this.button31.Text = "Connect";
+            this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.button31_Click_1);
             // 
             // SettingsWindow
             // 
@@ -2252,5 +2264,6 @@
         private System.Windows.Forms.TextBox textBox35;
         private System.Windows.Forms.TextBox textBox34;
         private System.Windows.Forms.Button button30;
+        private System.Windows.Forms.Button button31;
     }
 }
