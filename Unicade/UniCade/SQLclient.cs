@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-//using MySql.Data.MySqlClient;
+
 
 
 namespace UniCade
@@ -12,85 +12,17 @@ namespace UniCade
     class SQLclient
     {
 
-        public static string connectSQL()
-        {
-            return "null";
-        }
 
-        public static string processSQLcommand(string s)
-        {
-            return "null";
-                }
-
-        public static bool uploadAllGames()
-        {
-            return true;
-        }
-
-        public static bool downloadAllGames()
-        {
-            return true;
-        }
-
-        public static bool uploadGame(Game g)
-        {
-            return true;
-        }
-
-        public static string getAllGames()
-        {
-            return null;
-        }
-
-        public static string getUser()
-        {
-            return null;
-        }
-
-        public static bool createUser(string username, string pass, string email, string info, string esrb, string profPic)
-        {
-            return true;
-        }
-
-        public static bool createUser(User u)
-        {
-            return true;
-        }
-
-        public static bool deletegames()
-        {
-            return true;
-        }
-
-        public static bool deleteUser()
-        {
-            return true;
-        }
-
-        public static bool authiencateUser(string user, string pass)
-        {
-            return true;
-        }
-
-        public static Game getSingleGame(string con, string gam)
-        {
-            return null;
-        }
-
-        public static bool sqlUSer()
-        {
-            return true;
-        }
 
 
         public static string sqlUser;
-        //public static MySqlConnection conn;
-        /*
+        public static SqlConnection conn;
+        
 
         public static string connectSQL()
         {
 
-            conn = new MySqlConnection("server=127.0.0.1;"+ "uid=root;" +"pwd=Star6120;"+"database=unicade;");
+            conn = new SqlConnection("server=127.0.0.1;"+ "uid=root;" +"pwd=Star6120;"+"database=unicade;");
 
             try
             {
@@ -112,12 +44,12 @@ namespace UniCade
             {
                 connectSQL();
             }
-            MySqlCommand myCommand = new MySqlCommand(s, conn);
+           SqlCommand myCommand = new SqlCommand(s, conn);
 
             StringBuilder sb = new StringBuilder();
             try
             {
-                MySqlDataReader myReader = null;
+                SqlDataReader myReader = null;
 
                  myReader= myCommand.ExecuteReader();
                 int col = 0;
@@ -132,7 +64,6 @@ namespace UniCade
             catch (Exception e)
             {
                 System.Console.WriteLine(e.ToString());
-                GUI.sw.richTextBox2.Text = e.ToString();
                 return e.ToString();
             }
 
@@ -186,10 +117,10 @@ namespace UniCade
                 connectSQL();
             }
 
-            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM "+ sqlUser+ "_games WHERE filename = " + "\"" + g.getFileName() + "\"" + " AND console = " + "\"" + g.getConsole() + "\"" + ";", conn);
+            SqlCommand myCommand = new SqlCommand("Use unicade;" + "select * FROM "+ sqlUser+ "_games WHERE filename = " + "\"" + g.getFileName() + "\"" + " AND console = " + "\"" + g.getConsole() + "\"" + ";", conn);
 
 
-            MySqlDataReader myReader = myCommand.ExecuteReader();
+            SqlDataReader myReader = myCommand.ExecuteReader();
             if (myReader.Read())
             {
                 if ((SafeGetString(myReader, 1).Equals(g.getFileName(), StringComparison.InvariantCultureIgnoreCase)))
@@ -205,7 +136,7 @@ namespace UniCade
 
 
             string command = "Use unicade;" + " INSERT INTO " +sqlUser+ "_games (filename,title, Console, launchcount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite)" + " VALUES (" + "\"" + g.getFileName() + "\",\"" + g.getTitle() + "\",\"" + g.getConsole() + "\",\"" + g.launchCount + "\",\"" + g.getReleaseDate() + "\",\"" + g.getPublisher() + "\",\"" + g.getDeveloper() + "\",\"" + g.getUserScore() + "\",\"" + g.getCriticScore() + "\",\"" + g.getPlayers() + "\",\"" + g.getTrivia() + "\",\"" + g.getEsrb() + "\",\"" + g.getEsrbDescriptor() + "\",\"" + g.getEsrbSummary() + "\",\"" + g.getDescription() + "\",\"" + g.getGenres() + "\",\"" + g.getTags() + "\",\"" + g.getFav() + "\");";
-             myCommand = new MySqlCommand(command, conn);
+             myCommand = new SqlCommand(command, conn);
             myCommand.ExecuteNonQuery();
             return true;
         }
@@ -222,8 +153,8 @@ namespace UniCade
             {
                 connectSQL();
             }
-            MySqlCommand myCommand = new MySqlCommand("Use unicade;"+ "select * FROM " + sqlUser + "_games WHERE title = "+ "\""+ gam + "\""+ " AND console = " + "\""+ con + "\""  +  ";", conn);
-            MySqlDataReader myReader = null;
+            SqlCommand myCommand = new SqlCommand("Use unicade;"+ "select * FROM " + sqlUser + "_games WHERE title = "+ "\""+ gam + "\""+ " AND console = " + "\""+ con + "\""  +  ";", conn);
+            SqlDataReader myReader = null;
             try
             {
                  myReader = myCommand.ExecuteReader();
@@ -248,7 +179,6 @@ namespace UniCade
             catch (Exception e)
             {
                 System.Console.WriteLine(e.ToString());
-                GUI.sw.richTextBox2.Text = e.ToString();
                 myReader.Close();
                 return null;
             }
@@ -281,10 +211,10 @@ namespace UniCade
             }
 
             string command = "Use unicade;" + "select * FROM users WHERE username = " + "\"" + user + "\"" + " OR email = " + "\"" + user + "\"" + ";";
-            MySqlCommand myCommand = new MySqlCommand(command, conn);
+            SqlCommand myCommand = new SqlCommand(command, conn);
 
             System.Console.WriteLine("YES1");
-            MySqlDataReader myReader = myCommand.ExecuteReader();
+            SqlDataReader myReader = myCommand.ExecuteReader();
             System.Console.WriteLine("YES2");
             myReader.Read();
             System.Console.WriteLine("YES3");
@@ -322,10 +252,10 @@ namespace UniCade
                 connectSQL();
             }
 
-            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM users WHERE username = " + "\"" + username + "\"" + " OR email = " + "\"" + email + "\"" + ";", conn);
+            SqlCommand myCommand = new SqlCommand("Use unicade;" + "select * FROM users WHERE username = " + "\"" + username + "\"" + " OR email = " + "\"" + email + "\"" + ";", conn);
 
 
-            MySqlDataReader myReader = myCommand.ExecuteReader();
+            SqlDataReader myReader = myCommand.ExecuteReader();
             if (myReader.Read())
             {
                 if ((SafeGetString(myReader, 1).Equals(username, StringComparison.InvariantCultureIgnoreCase)) || (SafeGetString(myReader, 3).Equals(email, StringComparison.InvariantCultureIgnoreCase)))
@@ -341,7 +271,7 @@ namespace UniCade
 
 
             string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,launchcount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
-             myCommand = new MySqlCommand(command,conn);
+             myCommand = new SqlCommand(command,conn);
             myCommand.ExecuteNonQuery();
             command = @"USE unicade;
 
@@ -376,7 +306,7 @@ DROP TABLE IF EXISTS games;
 #18 total fields";
 
             command = command.Replace("games", (username + "_games"));
-            myCommand = new MySqlCommand(command, conn);
+            myCommand = new SqlCommand(command, conn);
             myCommand.ExecuteNonQuery();
 
             myReader.Close();
@@ -392,7 +322,7 @@ DROP TABLE IF EXISTS games;
             }
 
             string command = "Use unicade;" + "DELETE FROM " + sqlUser + "_games WHERE id>0;";
-            MySqlCommand myCommand = new MySqlCommand(command, conn);
+            SqlCommand myCommand = new SqlCommand(command, conn);
             myCommand.ExecuteNonQuery();
 
             myCommand.Dispose();
@@ -406,12 +336,12 @@ DROP TABLE IF EXISTS games;
                 connectSQL();
             }
             string command = "Use unicade;" + "DELETE FROM users WHERE username = "  + "\"" + sqlUser + "\";";
-            MySqlCommand myCommand = new MySqlCommand(command, conn);
+            SqlCommand myCommand = new SqlCommand(command, conn);
             myCommand.ExecuteNonQuery();
             myCommand.Dispose();
 
             command = "Use unicade;" + "DROP TABLE " +  sqlUser + "_games;";
-            myCommand = new MySqlCommand(command, conn);
+            myCommand = new SqlCommand(command, conn);
             myCommand.ExecuteNonQuery();
             myCommand.Dispose();
 
@@ -420,7 +350,7 @@ DROP TABLE IF EXISTS games;
             return true;
         }
 
-        public static string SafeGetString(MySqlDataReader reader, int colIndex)
+        public static string SafeGetString(SqlDataReader reader, int colIndex)
         {
             try {
 
@@ -435,7 +365,7 @@ DROP TABLE IF EXISTS games;
             }
             }
 
-        public static int SafeGetInt32(MySqlDataReader reader, int colIndex)
+        public static int SafeGetInt32(SqlDataReader reader, int colIndex)
         {
             try {
                 if (!reader.IsDBNull(colIndex))
@@ -447,7 +377,7 @@ DROP TABLE IF EXISTS games;
             {
                 return 0;
             }
-        }*/
+        }
 
     }
 }
