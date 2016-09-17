@@ -29,6 +29,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.app.FragmentTransaction;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -146,7 +147,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         if(SettingsWindow.autoLoadDatabase==1) {
-            FileOps.loadDatabase("Database.txt");
+            if(!FileOps.loadDatabase("Database.txt")){
+                Toast.makeText(this, "Database File Does not exist",
+                        Toast.LENGTH_LONG).show();
+                FileOps.saveDatabase("Database.txt");
+                Toast.makeText(this, "Empty Database File Generated",
+                        Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 
