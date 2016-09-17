@@ -66,6 +66,9 @@ namespace UniCade
             comboBox2.Items.Add("Teen");
             comboBox2.Items.Add("Mature");
             comboBox2.Items.Add("Adults Only (AO)");
+            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox5.Load(@"C:\UniCade\Media\Backgrounds\UniCade Logo.png");
+
 
             richTextBox1.Text = TextFiles.features + "\n\n\n\n\n\n" + TextFiles.instructions;
 
@@ -1346,6 +1349,12 @@ namespace UniCade
 
         private void button40_Click(object sender, EventArgs e)  //Download all games function
         {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
+
             SQLclient.downloadAllGames();
             MessageBox.Show("Library metadata sucuessfully updated");
         }
