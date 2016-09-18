@@ -87,11 +87,22 @@ public class SettingsWindow extends Activity {
     }
 
     public void loadBackup(View v){
-        FileOps.loadDatabase("Database_backup.txt");
+        if(FileOps.loadDatabase("Database_backup.txt")){
+            Toast.makeText(this, "Backup databasae loaded successfully",
+                    Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this, "Backup database does not exist",
+                    Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     public void saveBackup(View v){
         FileOps.loadDatabase("Database_backup.txt");
+        Toast.makeText(this, "Backup database saved successfully",
+                Toast.LENGTH_LONG).show();
     }
 
     public void loadView() {
