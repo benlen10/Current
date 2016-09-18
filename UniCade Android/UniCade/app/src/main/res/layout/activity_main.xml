@@ -133,7 +133,7 @@
         android:text="Global Search"
         android:id="@+id/checkBox6"
         android:layout_above="@+id/editText2"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignStart="@+id/checkBox15" />
 
     <CheckBox
         android:layout_width="wrap_content"
