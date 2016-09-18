@@ -71,11 +71,22 @@ public class SettingsWindow extends Activity {
     }
 
     public void saveDatabase(View v){
+
         FileOps.saveDatabase("Database.txt");
+        Toast.makeText(this, "Database saved successfully",
+                Toast.LENGTH_LONG).show();
     }
 
     public void loadDatabase(View v){
-        FileOps.loadDatabase("Database.txt");
+
+        if(FileOps.loadDatabase("Database.txt")){
+            Toast.makeText(this, "Databasae loaded successfully",
+                    Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this, "Database does not exist",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     public void loadPrefs(View v){
