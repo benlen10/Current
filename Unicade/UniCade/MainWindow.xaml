@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniCade"
         mc:Ignorable="d"
-        Title="MainWindow" Height="442.105" Width="788.199">
+        Title="MainWindow" Height="442.105" Width="788.199" WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized">
     <Window.Background>
         <ImageBrush ImageSource="C:\Users\Ben\Dropbox\Workspace\Unicade\UniCade\Images\Background.png"/>
     </Window.Background>
