@@ -74,6 +74,7 @@ namespace UniCade
             gkh.HookedKeys.Add(Keys.Escape);
             gkh.HookedKeys.Add(Keys.Delete);
             gkh.HookedKeys.Add(Keys.F);
+            gkh.HookedKeys.Add(Keys.C);
             gkh.HookedKeys.Add(Keys.P);
             gkh.HookedKeys.Add(Keys.B);
             gkh.HookedKeys.Add(Keys.S);
@@ -257,7 +258,6 @@ namespace UniCade
                 }
                 else if ((e.KeyCode == Keys.C) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display Command line and close gui
                 {
-                    Taskbar.Show();
                     System.Windows.Application.Current.Shutdown();
                 }
 
@@ -695,6 +695,7 @@ namespace UniCade
             gkh.HookedKeys.Add(Keys.Escape);
             gkh.HookedKeys.Add(Keys.Delete);
             gkh.HookedKeys.Add(Keys.F);
+            gkh.HookedKeys.Add(Keys.C);
             gkh.HookedKeys.Add(Keys.P);
             gkh.HookedKeys.Add(Keys.B);
             gkh.HookedKeys.Add(Keys.S);
@@ -719,6 +720,7 @@ namespace UniCade
             gkh.HookedKeys.Remove(Keys.Delete);
             gkh.HookedKeys.Remove(Keys.F);
             gkh.HookedKeys.Remove(Keys.P);
+            gkh.HookedKeys.Remove(Keys.C);
             gkh.HookedKeys.Remove(Keys.B);
             gkh.HookedKeys.Remove(Keys.S);
             gkh.HookedKeys.Remove(Keys.E);
