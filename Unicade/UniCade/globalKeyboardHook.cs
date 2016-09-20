@@ -59,7 +59,7 @@ namespace UniCade {
 		public void unhook() {
             if (callbackDelegate == null) return;
             bool ok = UnhookWindowsHookEx(hhook);
-            if (!ok) throw new Win32Exception();
+            //if (!ok) throw new Win32Exception();
             callbackDelegate = null;
         }
 
