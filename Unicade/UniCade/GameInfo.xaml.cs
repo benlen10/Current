@@ -50,8 +50,8 @@ namespace UniCade
                 {
                     if (!enlarge)
                     {
-                        image.Width = 500;
-                        image.Height = 500;
+                        image.Width = 1000;
+                        image.Height = 1000;
                         enlarge = true;
                     }
                     else
@@ -70,8 +70,8 @@ namespace UniCade
                 {
                     if (!enlarge1)
                     {
-                        image1.Width = 500;
-                        image1.Height = 500;
+                        image1.Width = 1000;
+                        image1.Height = 1000;
                         enlarge1 = true;
                     }
                     else
@@ -91,8 +91,8 @@ namespace UniCade
                 {
                     if (!enlarge2)
                     {
-                        image2.Width = 500;
-                        image2.Height = 500;
+                        image2.Width = 1000;
+                        image2.Height = 1000;
                         enlarge2 = true;
                     }
                     else
@@ -108,21 +108,21 @@ namespace UniCade
 
             public void expand3() { 
             {
-                if (!enlarge && !enlarge1 && !enlarge2)
+               /* if (!enlarge && !enlarge1 && !enlarge2)
                 {
                     if (!enlarge3)
                     {
-                        image3.Width = 500;
-                        image3.Height = 500;
-                        enlarge = true;
+                        image3.Width = 1000;
+                        image3.Height = 1000;
+                        enlarge3 = true;
                     }
                     else
                     {
                         image3.Width = 100;
                         image3.Height = 100;
-                        enlarge = false;
+                        enlarge3 = false;
                     }
-                }
+                }*/
             }
 
 
