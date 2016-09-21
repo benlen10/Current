@@ -27,6 +27,7 @@ namespace UniCade
 
         public GameInfo()
         {
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
 
 
