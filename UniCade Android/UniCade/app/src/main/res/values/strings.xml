@@ -85,4 +85,6 @@
     <string name="Description">Description</string>
     <string name="LaunchCount">Launch Count</string>
     <string name="LicenseKey">License Key</string>
+    <string name="SEcurity">Security</string>
+    <string name="EnterPass">Enter Password</string>
 </resources>

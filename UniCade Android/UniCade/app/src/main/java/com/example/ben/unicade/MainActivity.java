@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void launchSettings(View view){
         if(SettingsWindow.passProtect>0) {
-            PromptDialog dlg = new PromptDialog(MainActivity.this, R.string.ok, R.string.cancel) {
+            PromptDialog dlg = new PromptDialog(MainActivity.this, R.string.SEcurity, R.string.EnterPass) {
 
                 @Override
                 public boolean onOkClicked(String input) {

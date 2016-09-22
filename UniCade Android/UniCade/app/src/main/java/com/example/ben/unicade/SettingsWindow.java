@@ -111,7 +111,7 @@ public class SettingsWindow extends Activity {
     }
 
     public void saveBackup(View v){
-        FileOps.loadDatabase("Database_backup.txt");
+        FileOps.saveDatabase("Database_backup.txt");
         Toast.makeText(this, "Backup database saved successfully",
                 Toast.LENGTH_LONG).show();
     }

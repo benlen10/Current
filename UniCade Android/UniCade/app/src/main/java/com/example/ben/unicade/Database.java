@@ -9,6 +9,7 @@ public class Database {
     public ArrayList<User> userList;
     public ArrayList reviewList;
     public static int totalGameCount;
+    public static int conCount;
     private static String hashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
 
     public Database() {

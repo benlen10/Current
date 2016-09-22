@@ -44,6 +44,7 @@ public class FileOps {
                     conCount++;
                 } else {
                     c.getGameList().add(new Game(r[0], r[1], safeParse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], safeParse(r[16])));
+                    Database.totalGameCount++;
                     //System.out.println(r[0]);
                 }
             }
@@ -333,7 +334,7 @@ public class FileOps {
 
     public static void refreshGameCount()
     {
-
+        Database.totalGameCount = 0;
         for (Console c : MainActivity.dat.consoleList)
         {
 
@@ -347,7 +348,10 @@ public class FileOps {
     }
 
     public static void clearLibrary(){
+
         MainActivity.dat.consoleList.clear();
+        Database.totalGameCount = 0;
+
     }
 
     public static void defaultPreferences()
