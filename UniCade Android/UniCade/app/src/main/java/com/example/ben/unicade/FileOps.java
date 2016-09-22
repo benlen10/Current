@@ -30,18 +30,17 @@ public class FileOps {
 
             BufferedReader file = new BufferedReader(new FileReader(f));
             String line;
-            int conCount = 0;
             Console c = new Console();
             String[] r = null;
             clearLibrary();
             while ((line = file.readLine()) != null) {
                 r = line.split("\\|");
                 if (line.substring(0, 5).contains("***")) {
-                    if (conCount > 0) {
+                    if (Database.conCount > 0) {
                         MainActivity.dat.consoleList.add(c);
                     }
                     c = new Console(r[0].substring(3), r[1], r[2], r[3], r[4], safeParse(r[5]) , r[6], r[7], r[8]);
-                    conCount++;
+                    Database.conCount++;
                 } else {
                     c.getGameList().add(new Game(r[0], r[1], safeParse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], safeParse(r[16])));
                     Database.totalGameCount++;
@@ -119,7 +118,6 @@ public class FileOps {
 
             BufferedReader file = new BufferedReader(new FileReader(f));
 
-            int conCount = 0;
             Console c = new Console();
             String[] tmp = { "tmp" };
 
@@ -317,8 +315,8 @@ public class FileOps {
         MainActivity.dat.consoleList.add(new Console("MAME", "C:\\UniCade\\Emulators\\MAME\\mame.bat", "C:\\UniCade\\Emulators\\MAME\\roms\\", "prefPath", ".zip", 0, "consoleInfo", "", "1980")); //%file -skip_gameinfo -nowindow
         MainActivity.dat.consoleList.add(new Console("PC", "C:\\Windows\\explorer.exe", "C:\\UniCade\\ROMS\\PC\\", "prefPath", ".lnk*.url", 0, "consoleInfo", "%file", "1980"));
         Console c1 = new Console("GBA", "C:\\UniCade\\Emulators\\GBA\\VisualBoyAdvance.exe", "C:\\UniCade\\ROMS\\GBA\\", "prefPath", ".gba", 0, "consoleInfo", "%file", "2001");
-        c1.getGameList().add(new Game("Mario.zip", "GBA"));
-        c1.getGameList().add(new Game("Mario2.zip", "GBA"));
+        //c1.getGameList().add(new Game("Mario.zip", "GBA"));
+        //c1.getGameList().add(new Game("Mario2.zip", "GBA"));
         MainActivity.dat.consoleList.add(c1);
         MainActivity.dat.consoleList.add(new Console("Gamecube", "C:\\UniCade\\Emulators\\Dolphin\\dolphin.exe", "C:\\UniCade\\ROMS\\Gamecube\\", "prefPath", ".iso*.gcz", 0, "consoleInfo", "/b /e %file", "2001"));
         MainActivity.dat.consoleList.add(new Console("NES", "C:\\UniCade\\Emulators\\NES\\Jnes.exe", "C:\\UniCade\\ROMS\\NES\\", "prefPath", ".nes", 0, "consoleInfo", "%file", "1983"));
@@ -329,7 +327,7 @@ public class FileOps {
         MainActivity.dat.consoleList.add(new Console("Atari 2600", "C:\\UniCade\\Emulators\\Stella\\Stella.exe", "C:\\UniCade\\ROMS\\Atari 2600\\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "file", "1977"));
         MainActivity.dat.consoleList.add(new Console("Dreamcast", "C:\\UniCade\\Emulators\\NullDC\\nullDC_Win32_Release-NoTrace.exe", "C:\\UniCade\\ROMS\\Dreamcast\\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "-config ImageReader:defaultImage=%file", "1998"));
         MainActivity.dat.consoleList.add(new Console("PSP", "C:\\UniCade\\Emulators\\PPSSPP\\PPSSPPWindows64.exe", "C:\\UniCade\\ROMS\\PSP\\", "prefPath", ".iso*.cso", 0, "consoleInfo", "%file", "2005"));
-
+        Database.conCount = 16;
     }
 
     public static void refreshGameCount()
@@ -349,7 +347,11 @@ public class FileOps {
 
     public static void clearLibrary(){
 
+        for(Console c : MainActivity.dat.consoleList){
+            c.getGameList().clear();
+        }
         MainActivity.dat.consoleList.clear();
+        Database.conCount = 0;
         Database.totalGameCount = 0;
 
     }
