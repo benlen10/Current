@@ -149,7 +149,7 @@ public class SettingsWindow extends Activity {
     }
 
     public void enterLicense(View v){
-        PromptDialog dlg = new PromptDialog(SettingsWindow.this, R.string.ok, R.string.cancel) {
+        PromptDialog dlg = new PromptDialog(SettingsWindow.this, R.string.Edit, R.string.LicenseKey) {
             @Override
             public boolean onOkClicked(String input) {
                 MainActivity.userLicenseKey = input;

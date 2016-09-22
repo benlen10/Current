@@ -84,4 +84,5 @@
     <string name="ESRBDescriptors">ESRB Descriptors</string>
     <string name="Description">Description</string>
     <string name="LaunchCount">Launch Count</string>
+    <string name="LicenseKey">License Key</string>
 </resources>
