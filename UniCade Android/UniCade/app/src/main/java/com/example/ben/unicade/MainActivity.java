@@ -79,7 +79,14 @@ public class MainActivity extends AppCompatActivity {
         obj = this;
          findView();
         t4.setHorizontallyScrolling(true);
-        FileOps.loadPreferences("Preferences.txt");
+        if(!FileOps.loadPreferences("Preferences.txt")){
+            Toast.makeText(this, "Preferences file does not exist. Loading default.",
+                    Toast.LENGTH_LONG).show();
+            FileOps.defaultPreferences();
+            FileOps.savePreferences("Preferences.txt");
+        }
+
+
         if(validateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))
         {
             validLicense = true;
