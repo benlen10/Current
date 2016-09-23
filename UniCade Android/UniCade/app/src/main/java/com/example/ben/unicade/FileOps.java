@@ -8,6 +8,7 @@ import android.content.Context.*;
 import android.os.Environment;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by Ben on 12/17/2015.
@@ -117,6 +118,16 @@ public class FileOps {
             }
 
             BufferedReader file = new BufferedReader(new FileReader(f));
+            BufferedReader file2 = new BufferedReader(new FileReader(f));
+
+            int lines = 0;
+            while (file2.readLine() != null) lines++;
+            file2.close();
+            if(lines<3){
+                System.err.println("Database file CORRUPT");
+                f.delete();
+                return false;
+            }
 
             Console c = new Console();
             String[] tmp = { "tmp" };
@@ -293,9 +304,48 @@ public class FileOps {
 
     }
 
-    
 
 
+    public static void saveDefaultPreferences(String name) {
+        try{
+        File sdCard = Environment.getExternalStorageDirectory();
+        File dir = new File (sdCard.getAbsolutePath() + "/UniCade");
+        dir.mkdirs();
+        File file = new File(dir, name);
+        if (!file.exists()) {
+            file.createNewFile();
+        } else {
+            file.delete();
+            file.createNewFile();
+        }
+
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter sw = new BufferedWriter(fw);
+
+        sw.write("PassProtect|" + SettingsWindow.passProtect + "\n");
+        sw.write("ScanOnStartup|" + SettingsWindow.scanOnStartup+ "\n");
+        sw.write("AutoLoadDatabse|" + SettingsWindow.autoLoadDatabase+ "\n");
+        sw.write("EnforceExt|" + SettingsWindow.enforceExt + "\n");
+        sw.write("DisplayConImage|" + SettingsWindow.displayConImage + "\n");
+        sw.write("DisplayESRBLogo|" + SettingsWindow.displayESRBLogo + "\n");
+        sw.write("License Key|" + MainActivity.userLicenseName + "|" + MainActivity.userLicenseKey + "\n");
+
+
+        sw.write("***UserData***");
+        for (User u : MainActivity.dat.userList)
+        {
+            String favs = "";
+            for (String s : u.favorites)
+            {
+                favs += (s + "#");
+            }
+            sw.write( u.getUsername() +"|"+ u.getPass() +"|"+ u.getLoginCount() +"|"+ u.getEmail() +"|"+ u.getLaunchCount()+"|"+ u.getUserInfo()+"|"+ u.getAllowedEsrb()+"|"+ u.getProfPic()+ "\n");
+        }
+        sw.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    }
 
 
 
