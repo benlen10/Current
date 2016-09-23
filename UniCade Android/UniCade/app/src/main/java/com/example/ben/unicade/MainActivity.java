@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Preferences file does not exist. Loading default.",
                     Toast.LENGTH_LONG).show();
             FileOps.defaultPreferences();
-            FileOps.savePreferences("Preferences.txt");
+            FileOps.saveDefaultPreferences("Preferences.txt");
         }
 
 

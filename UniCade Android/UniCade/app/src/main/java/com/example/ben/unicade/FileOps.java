@@ -411,11 +411,11 @@ public class FileOps {
 
         SettingsWindow.defaultUser = "UniCade";
         SettingsWindow.scanOnStartup = 0;
-        SettingsWindow.autoLoadDatabase = 0;
+        SettingsWindow.autoLoadDatabase = 1;
         SettingsWindow.passProtect = 0;
         SettingsWindow.enforceExt = 0;
-        SettingsWindow.displayESRBLogo = 0;
-        SettingsWindow.displayConImage = 0;
+        SettingsWindow.displayESRBLogo = 1;
+        SettingsWindow.displayConImage = 1;
 
     }
 
