@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="511dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal">
 
         <TextView
@@ -23,15 +23,17 @@
             android:text="Close"
             android:id="@+id/button14"
             android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/button16" />
+            android:layout_toEndOf="@+id/button21"
+            android:onClick="closeScrapingSettings" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Global Rescrape"
+            android:text="Global Rescrape (Beta)"
             android:id="@+id/button16"
+            android:onClick="rescrapeGlobal"
             android:layout_alignParentBottom="true"
-            android:onClick="rescrapeGlobal" />
+            android:layout_alignParentStart="true" />
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -118,8 +120,17 @@
             android:layout_height="100dp"
             android:id="@+id/imageView9"
             android:layout_above="@+id/button14"
-            android:layout_alignStart="@+id/button14"
             android:layout_alignEnd="@+id/checkBox18"
-            android:layout_below="@+id/checkBox14" />
+            android:layout_toEndOf="@+id/button16"
+            android:layout_alignStart="@+id/button14" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apply"
+            android:id="@+id/button21"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/button16"
+            android:onClick="applyWebSettings" />
     </RelativeLayout>
 </LinearLayout>
