@@ -1,5 +1,7 @@
 package com.example.ben.unicade;
 
+import android.os.NetworkOnMainThreadException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,6 +75,9 @@ public class WebOps {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (NetworkOnMainThreadException e){
             e.printStackTrace();
         }
         try{

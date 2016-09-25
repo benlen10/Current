@@ -150,11 +150,13 @@ public class SettingsWindow extends Activity {
             t3.setText("License: Full");
         }
         else{
-            t3.setText("License: None");
+            t3.setText("License: Invalid");
         }
     }
 
     public void enterLicense(View v){
+        Toast.makeText(this, ("Current license key: " + MainActivity.userLicenseKey),
+                Toast.LENGTH_LONG).show();
         PromptDialog dlg = new PromptDialog(SettingsWindow.this, R.string.Edit, R.string.LicenseKey) {
             @Override
             public boolean onOkClicked(String input) {
