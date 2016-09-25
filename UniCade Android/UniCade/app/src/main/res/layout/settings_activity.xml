@@ -121,7 +121,7 @@
             android:layout_height="wrap_content"
             android:text="Apply"
             android:id="@+id/button15"
-            android:onClick="sa"
+            android:onClick="applyPrefs"
             android:layout_alignParentBottom="true"
             android:layout_toStartOf="@+id/button3" />
 

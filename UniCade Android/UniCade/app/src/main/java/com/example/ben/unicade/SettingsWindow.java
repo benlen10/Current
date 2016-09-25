@@ -66,6 +66,12 @@ public class SettingsWindow extends Activity {
         super.onBackPressed();
     }
 
+    public void applyPrefs(View v){
+        FileOps.savePreferences("Preferences.txt");
+        Toast.makeText(this, "Preferences saved successfully",
+                Toast.LENGTH_LONG).show();
+    }
+
     public void launchWebSettings(View v){
         startActivity(new Intent(getApplicationContext(), WebSettings.class));
     }
