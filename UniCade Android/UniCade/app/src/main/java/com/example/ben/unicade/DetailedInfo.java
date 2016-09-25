@@ -120,7 +120,9 @@ public class DetailedInfo extends Activity{
         }
         for(Game g : curConsole.getGameList()) {
             WebOps.scrapeInfo(g);
-            String text = ("Game " + Integer.toString(i) + "of" + Integer.toString(MainActivity.curConsole.gameCount));
+            if(curConsole!=null) {
+                String text = ("Game " + Integer.toString(i) + "of" + Integer.toString(MainActivity.curConsole.gameCount));
+            }
             //Toast.makeText(this, text,Toast.LENGTH_LONG).show();
         }
         WebOps.scrapeInfo(curGame);
