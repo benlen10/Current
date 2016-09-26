@@ -82,6 +82,7 @@ namespace UniCade
        public static string displayGameInfo(Game g)
         {
             string txt = "";
+                txt = txt + ("\nTitle: " + g.getTitle() + "\n");
                 txt = txt + ("\nRelease Date: " + g.getReleaseDate() + "\n");
                 txt = txt + ("\nDeveloper: " + g.getDeveloper() + "\n");
                 txt = txt + ("\nPublisher: " + g.getPublisher() + "\n");
