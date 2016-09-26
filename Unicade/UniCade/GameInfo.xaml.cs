@@ -50,15 +50,22 @@ namespace UniCade
                 {
                     if (!enlarge)
                     {
-                        image.Width = 1000;
-                        image.Height = 1000;
-                        enlarge = true;
-                    }
+                        image.Width = 700;
+                        image.Height = 700;
+                    textBlock.Visibility = Visibility.Hidden;
+                    image1.Visibility = Visibility.Hidden;
+                    image2.Visibility = Visibility.Hidden;
+                    enlarge = true;
+
+                }
                     else
                     {
-                        image.Width = 100;
-                        image.Height = 100;
-                        enlarge = false;
+                        image.Width = 180;
+                        image.Height = 180;
+                    textBlock.Visibility = Visibility.Visible;
+                    image1.Visibility = Visibility.Visible;
+                    image2.Visibility = Visibility.Visible;
+                    enlarge = false;
                     }
                 }
             }
@@ -70,14 +77,22 @@ namespace UniCade
                 {
                     if (!enlarge1)
                     {
-                        image1.Width = 1000;
-                        image1.Height = 1000;
+                        image1.Width = 700;
+                        image1.Height = 700;
+                        textBlock.Visibility = Visibility.Hidden;
+                        image.Visibility = Visibility.Hidden;
+                        image2.Visibility = Visibility.Hidden;
+                        image3.Visibility = Visibility.Hidden;
                         enlarge1 = true;
                     }
                     else
                     {
-                        image1.Width = 100;
-                        image1.Height = 100;
+                        image1.Width = 180;
+                        image1.Height = 180;
+                        textBlock.Visibility = Visibility.Visible;
+                        image.Visibility = Visibility.Visible;
+                        image2.Visibility = Visibility.Visible;
+                        image3.Visibility = Visibility.Visible;
                         enlarge1 = false;
                     }
                 }
@@ -91,14 +106,22 @@ namespace UniCade
                 {
                     if (!enlarge2)
                     {
-                        image2.Width = 1000;
-                        image2.Height = 1000;
+                        image2.Width = 700;
+                        image2.Height = 700;
+                        textBlock.Visibility = Visibility.Hidden;
+                        image.Visibility = Visibility.Hidden;
+                        image1.Visibility = Visibility.Hidden;
+                        image3.Visibility = Visibility.Hidden;
                         enlarge2 = true;
                     }
                     else
                     {
-                        image2.Width = 100;
-                        image2.Height = 100;
+                        image2.Width = 180;
+                        image2.Height = 180;
+                        textBlock.Visibility = Visibility.Visible;
+                        image.Visibility = Visibility.Visible;
+                        image1.Visibility = Visibility.Visible;
+                        image3.Visibility = Visibility.Visible;
                         enlarge2 = false;
                     }
                 }
@@ -108,21 +131,23 @@ namespace UniCade
 
             public void expand3() { 
             {
-               /* if (!enlarge && !enlarge1 && !enlarge2)
-                {
-                    if (!enlarge3)
-                    {
-                        image3.Width = 1000;
-                        image3.Height = 1000;
-                        enlarge3 = true;
-                    }
-                    else
-                    {
-                        image3.Width = 100;
-                        image3.Height = 100;
-                        enlarge3 = false;
-                    }
-                }*/
+                /* if (!enlarge && !enlarge1 && !enlarge2)
+                 {
+                     if (!enlarge3)
+                     {
+                         image3.Width = 700;
+                         image3.Height = 700;
+                         textBlock.Visibility = Visibility.Hidden;
+                         enlarge3 = true;
+                     }
+                     else
+                     {
+                         image3.Width = 180;
+                         image3.Height = 180;
+                         textBlock.Visibility = Visibility.Visible;
+                         enlarge3 = false;
+                     }
+                 }*/
             }
 
 
