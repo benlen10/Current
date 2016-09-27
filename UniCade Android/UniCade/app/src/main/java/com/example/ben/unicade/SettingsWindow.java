@@ -27,6 +27,9 @@ import android.widget.TextView;
 import android.widget.ImageView;
 import android.app.Fragment;
 import android.widget.Toast;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Created by Ben on 12/18/2015.
@@ -155,7 +158,7 @@ public class SettingsWindow extends Activity {
     }
 
     public void connectSQL(View v){
-        if(SQLclass.connectSql()){
+        if(connectSQL()){
             Toast.makeText(this, ("Connection successful"),
                     Toast.LENGTH_LONG).show();
         }
@@ -213,6 +216,44 @@ public class SettingsWindow extends Activity {
 
 
     }
+
+    public boolean connectSQL(){
+        boolean isSuccess = false;
+        String z ="";
+        try {
+            SQLclass sql;
+            sql = new SQLclass();
+            Connection con = sql.CONN();
+            String userid = "root";
+            String password = "Star6120";
+            if (con == null) {
+                z = "Error in connection with SQL server";
+            } else {
+                String query = "select * from Usertbl where UserId='" + userid + "' and password='" + password + "'";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                if(rs.next())
+                {
+                    z = "Login successfull";
+                    isSuccess=true;
+                }
+                else
+                {
+                    z = "Invalid Credentials";
+                    isSuccess = false;
+                }
+            }
+            return isSuccess;
+        }
+        catch (Exception ex)
+        {
+            isSuccess = false;
+            z = "Exceptions";
+            return isSuccess;
+        }
     }
+    }
+
+
 
 
