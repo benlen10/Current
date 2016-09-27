@@ -160,6 +160,14 @@
             android:layout_alignStart="@+id/button7"
             android:onClick="deleteImagesButton" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button23"
+            android:layout_alignBottom="@+id/button8"
+            android:layout_toEndOf="@+id/button8" />
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -154,6 +154,17 @@ public class SettingsWindow extends Activity {
         }
     }
 
+    public void connectSQL(View v){
+        if(SQLclass.connectSql()){
+            Toast.makeText(this, ("Connection successful"),
+                    Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this, ("Connection failed"),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
     public void enterLicense(View v){
         Toast.makeText(this, ("Current license key: " + MainActivity.userLicenseKey),
                 Toast.LENGTH_LONG).show();

@@ -16,8 +16,8 @@ public class SQLclass {
 
     Connection conn = null;
 
-    public static void connectSql() {
-        String url = "jdbc:mysql://72.33.70.240:3306/";
+    public static boolean connectSql() {
+        String url = "jdbc:mysql://72.33.2.117:3306/";
         String dbName = "unicade";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "root";
@@ -33,8 +33,10 @@ public class SQLclass {
             }
 
             conn.close();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
