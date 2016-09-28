@@ -84,14 +84,17 @@ namespace UniCade
             string txt = "";
                 txt = txt + ("\nTitle: " + g.getTitle() + "\n");
                 txt = txt + ("\nRelease Date: " + g.getReleaseDate() + "\n");
+                txt = txt + ("\nConsole: " + g.getConsole() + "\n");
+                txt = txt + ("\nLaunch Count: " + g.launchCount.ToString() + "\n");
                 txt = txt + ("\nDeveloper: " + g.getDeveloper() + "\n");
                 txt = txt + ("\nPublisher: " + g.getPublisher() + "\n");
                 txt = txt + ("\nPlayers: " + g.getPlayers() + "\n");
                 txt = txt + ("\nUser Score: " + g.getUserScore() + "\n");
                 txt = txt + ("\nCritic Score: " + g.getCriticScore() + "\n");
-                txt = txt + ("\nESRB Rating: " + g.getEsrb() + "\n");
+                txt = txt + ("\nCritic Score: " + g.getCriticScore() + "\n");
+                txt = txt + ("\nESRB Rating: " + g.getTags() + "\n");
                 txt = txt + ("\nESRB Descriptors: " + g.getEsrbDescriptor() + "\n");
-                txt = txt + ("\nmame Description: " + g.getDescription() + "\n");
+                txt = txt + ("\Game Description: " + g.getDescription() + "\n");
                 return txt;
             }
 
