@@ -94,7 +94,7 @@ namespace UniCade
                 txt = txt + ("\nCritic Score: " + g.getCriticScore() + "\n");
                 txt = txt + ("\nESRB Rating: " + g.getTags() + "\n");
                 txt = txt + ("\nESRB Descriptors: " + g.getEsrbDescriptor() + "\n");
-                txt = txt + ("\Game Description: " + g.getDescription() + "\n");
+                txt = txt + ("\nGame Description: " + g.getDescription() + "\n");
                 return txt;
             }
 

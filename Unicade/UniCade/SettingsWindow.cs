@@ -54,13 +54,11 @@ namespace UniCade
                 listBox1.Items.Add(c.getName());
                 listBox2.Items.Add(c.getName());
             }
-            comboBox1.Items.Add("None");
             comboBox1.Items.Add("Everyone");
             comboBox1.Items.Add("Everyone 10+");
             comboBox1.Items.Add("Teen");
             comboBox1.Items.Add("Mature");
             comboBox1.Items.Add("Adults Only (AO)");
-            comboBox2.Items.Add("None");
             comboBox2.Items.Add("Everyone");
             comboBox2.Items.Add("Everyone 10+");
             comboBox2.Items.Add("Teen");
