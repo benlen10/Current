@@ -12,8 +12,10 @@ namespace UniCade
 {
     public partial class UnicadeAccount : Form
     {
-        public UnicadeAccount()
+        int type;
+        public UnicadeAccount(int type)
         {
+            this.type = type;
             InitializeComponent();
         }
 
@@ -24,7 +26,15 @@ namespace UniCade
                 MessageBox.Show("Fields cannot be empty");
                 return;
             }
-            SQLclient.createUser(textBox1.Text, textBox3.Text, textBox2.Text, textBox4.Text, "Null", "NullProfPath");
+            if (type == 0)
+            {
+                SQLclient.createUser(textBox1.Text, textBox3.Text, textBox2.Text, textBox4.Text, "Null", "NullProfPath");
+            }
+            else
+            {
+                User u = new User(textBox1.Text, textBox3.Text, 0, textBox2.Text, 0, textBox4.Text, "Mature", "null");
+                Program.dat.userList.Add(u);
+            }
             Close();
         }
 

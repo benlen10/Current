@@ -724,8 +724,8 @@ namespace UniCade
 
         private void button10_Click(object sender, EventArgs e)  //Create new user
         {
-            User u = new User();
-            Program.dat.userList.Add(u);
+            UnicadeAccount uc = new UnicadeAccount(1);
+            uc.ShowDialog();
 
             listBox4.Items.Clear();
             foreach (User us in Program.dat.userList)
@@ -1264,9 +1264,9 @@ namespace UniCade
             MessageBox.Show("Game Uploaded");
         }
 
-        private void button34_Click(object sender, EventArgs e)
+        private void button34_Click(object sender, EventArgs e)//Create new web user
         {
-            UnicadeAccount ua = new UnicadeAccount();
+            UnicadeAccount ua = new UnicadeAccount(0);
             ua.ShowDialog();
         }
 

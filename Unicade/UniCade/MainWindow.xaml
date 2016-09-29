@@ -23,12 +23,12 @@
         <Label x:Name="label" Content="Game Count" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Bottom" Height="46" Width="246" Foreground="White" FontSize="20"/>
         <Image x:Name="image2" HorizontalAlignment="Right" Margin="0,24,108,0" Width="470" Height="142" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="" HorizontalAlignment="Right" Margin="0,166,10,0" Width="419" FontSize="24" Foreground="White" Height="64" VerticalAlignment="Top"/>
-        <Label x:Name="label2" Content="" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Bottom" Width="282" Height="41" FontSize="10">
+        <Label x:Name="label2" Content="" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Bottom" Width="282" Height="41" FontSize="16">
             <Label.Background>
                 <SolidColorBrush Color="#FFE81A1A" Opacity="0.6"/>
             </Label.Background>
         </Label>
-        <Label x:Name="label3" Content="" HorizontalAlignment="Left" Margin="582,0,0,0" VerticalAlignment="Bottom" Width="204" Height="34" FontSize="8">
+        <Label x:Name="label3" Content="" HorizontalAlignment="Left" Margin="582,0,0,0" VerticalAlignment="Bottom" Width="260" Height="41" FontSize="14">
             <Label.Background>
                 <SolidColorBrush Color="#FFE81A1A" Opacity="0.8"/>
             </Label.Background>
