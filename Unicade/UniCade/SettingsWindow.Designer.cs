@@ -208,6 +208,7 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button31 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1124,6 +1125,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.button31);
             this.tabPage5.Controls.Add(this.button21);
             this.tabPage5.Controls.Add(this.button17);
             this.tabPage5.Controls.Add(this.comboBox2);
@@ -1301,9 +1303,9 @@
             this.label43.AutoSize = true;
             this.label43.Location = new System.Drawing.Point(349, 111);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(106, 25);
+            this.label43.Size = new System.Drawing.Size(65, 25);
             this.label43.TabIndex = 64;
-            this.label43.Text = "Password";
+            this.label43.Text = "Email";
             // 
             // label42
             // 
@@ -2051,6 +2053,16 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
             // 
+            // button31
+            // 
+            this.button31.Location = new System.Drawing.Point(668, 334);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(171, 54);
+            this.button31.TabIndex = 84;
+            this.button31.Text = "Login";
+            this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.button31_Click_2);
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -2265,5 +2277,6 @@
         private System.Windows.Forms.TextBox textBox34;
         private System.Windows.Forms.Button button30;
         private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Button button31;
     }
 }

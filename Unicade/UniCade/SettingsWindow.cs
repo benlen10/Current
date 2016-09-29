@@ -694,7 +694,7 @@ namespace UniCade
             if (curUser != null)
             {
 
-                if (listBox4.SelectedIndex > 0)
+                if (comboBox2.SelectedItem!=null)
                 {
                     curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
                 }
@@ -1530,6 +1530,12 @@ namespace UniCade
         private void button31_Click_1(object sender, EventArgs e)
         {
             SQLclient.connectSQL();
+        }
+
+        private void button31_Click_2(object sender, EventArgs e)
+        {
+            Login l = new Login();
+            l.ShowDialog();
         }
     }
 }
