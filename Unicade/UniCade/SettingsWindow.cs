@@ -706,7 +706,7 @@ namespace UniCade
                 {
                     curUser = u;
                     textBox23.Text = u.getUsername();
-                    textBox24.Text = u.getPass();
+                    textBox24.Text = u.getEmail();
                     textBox26.Text = u.getUserInfo();
                     textBox27.Text = u.getLoginCount().ToString();
                     textBox28.Text = u.getLaunchCount().ToString();
@@ -735,12 +735,15 @@ namespace UniCade
 
         }
 
-        private void button11_Click(object sender, EventArgs e)
+        private void button11_Click(object sender, EventArgs e)  //Save
         {
             curUser.setName(textBox23.Text);
-            curUser.setpass(textBox24.Text);
+            curUser.setEmail(textBox24.Text);
             curUser.setUserInfo(textBox26.Text);
-            curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
+            if (comboBox2 != null)
+            {
+                curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
+            }
             FileOps.saveDatabase(Program.databasePath);
         }
 

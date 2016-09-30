@@ -55,15 +55,18 @@ namespace UniCade
                 {
                     if (u.getUsername().Equals(textBox1.Text))
                     {
-                        if (u.getPass().Equals(textBox2))
+                        if (u.getPass().Equals(textBox2.Text))
                         {
                             SettingsWindow.curUser = u;
                             Close();
                         }
+                        MessageBox.Show(this, "Incorrect Password");
+                        return;
                     }
+                    MessageBox.Show(this, "User does not exist");
+                    return;
                 }
-                MessageBox.Show(this, "User does not exist");
-                return;
+                
 
             }
         }
