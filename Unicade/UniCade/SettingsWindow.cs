@@ -17,7 +17,7 @@ namespace UniCade
         Console curConsole2;
         Console curConsole;
         public Game curGame;
-        User curUser;
+        public static User curUser;
 
         //Preference Data
 
@@ -1272,7 +1272,7 @@ namespace UniCade
 
         private void button29_Click_1(object sender, EventArgs e)  //Login button
         {
-            Login l = new Login();
+            Login l = new Login(0);
             l.ShowDialog();
             if (SQLclient.sqlUser != null)
             {
@@ -1534,8 +1534,12 @@ namespace UniCade
 
         private void button31_Click_2(object sender, EventArgs e)
         {
-            Login l = new Login();
+            Login l = new Login(1);
             l.ShowDialog();
+            if (curUser != null)
+            {
+                label38.Text = "Current User: " + curUser.getUsername();
+            }
         }
     }
 }

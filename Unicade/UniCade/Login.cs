@@ -12,8 +12,11 @@ namespace UniCade
 {
     public partial class Login : Form
     {
-        public Login()
+        int type;
+
+        public Login(int type)
         {
+            this.type = type;
             InitializeComponent();
         }
 
@@ -29,19 +32,39 @@ namespace UniCade
 
         private void button2_Click(object sender, EventArgs e)  //Login button
         {
-            if((textBox1.Text==null)|| (textBox2.Text == null))
+            if ((textBox1.Text == null) || (textBox2.Text == null))
             {
                 MessageBox.Show("Fields cannot be blank");
                 return;
             }
-           
-            if (SQLclient.authiencateUser(textBox1.Text, textBox2.Text))
+
+            if (type == 0)
             {
-                Close();
+                if (SQLclient.authiencateUser(textBox1.Text, textBox2.Text))
+                {
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show(this, "Incorrect login details");
+                }
             }
             else
             {
-                MessageBox.Show(this,"Incorrect login details");
+                foreach (User u in Program.dat.userList)
+                {
+                    if (u.getUsername().Equals(textBox1.Text))
+                    {
+                        if (u.getPass().Equals(textBox2))
+                        {
+                            SettingsWindow.curUser = u;
+                            Close();
+                        }
+                    }
+                }
+                MessageBox.Show(this, "User does not exist");
+                return;
+
             }
         }
     }

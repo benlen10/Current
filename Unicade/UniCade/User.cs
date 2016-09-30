@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace UniCade
 {
-    class User
+    public class User
     {
         private string userName;
         private string pass;
