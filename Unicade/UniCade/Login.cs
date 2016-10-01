@@ -59,14 +59,20 @@ namespace UniCade
                         {
                             SettingsWindow.curUser = u;
                             Close();
+                            return;
                         }
-                        MessageBox.Show(this, "Incorrect Password");
-                        return;
+                        else
+                        {
+                            MessageBox.Show(this, "Incorrect Password");
+                            return;
+                        }
+                        
                     }
-                    MessageBox.Show(this, "User does not exist");
-                    return;
+                    
                 }
-                
+                MessageBox.Show(this, "User does not exist");
+                return;
+
 
             }
         }
