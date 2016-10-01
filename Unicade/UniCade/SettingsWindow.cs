@@ -67,6 +67,13 @@ namespace UniCade
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.Load(@"C:\UniCade\Media\Backgrounds\UniCade Logo.png");
 
+            textBox23.Enabled = false;  //Disable editing user info unless logged in
+            textBox24.Enabled = false;
+            textBox26.Enabled = false;
+            textBox27.Enabled = false;
+            textBox28.Enabled = false;
+            comboBox2.Enabled = false;
+
 
             richTextBox1.Text = TextFiles.features + "\n\n\n\n\n\n" + TextFiles.instructions;
 
@@ -689,7 +696,7 @@ namespace UniCade
             Program.mediaPath = textBox32.Text;
         }
 
-        private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBox4_SelectedIndexChanged(object sender, EventArgs e)  //User listbox changed
         {
             if (curUser != null)
             {
@@ -710,6 +717,27 @@ namespace UniCade
                     textBox26.Text = u.getUserInfo();
                     textBox27.Text = u.getLoginCount().ToString();
                     textBox28.Text = u.getLaunchCount().ToString();
+                    comboBox2.Text = u.getAllowedEsrb();
+                }
+                if (u.getUsername().Equals(curUser.getUsername()))
+                {
+                    textBox23.Enabled = true;
+                    textBox24.Enabled = true;
+                    textBox26.Enabled = true;
+                    textBox27.Enabled = true;
+                    textBox28.Enabled = true;
+                    comboBox2.Enabled = true;
+
+                }
+                else
+                {
+                    textBox23.Enabled = false;
+                    textBox24.Enabled = false;
+                    textBox26.Enabled = false;
+                    textBox27.Enabled = false;
+                    textBox28.Enabled = false;
+                    comboBox2.Enabled = false;
+
                 }
             }
             listBox5.Items.Clear();
@@ -762,6 +790,11 @@ namespace UniCade
 
         private void button17_Click(object sender, EventArgs e)
         {
+            if (!curUser.getUsername().Equals(listBox4.SelectedItem.ToString()))
+            {
+                MessageBox.Show("Must Login First");
+                return;
+            }
             curUser.setName(textBox23.Text);
             curUser.setpass(textBox24.Text);
             curUser.setUserInfo(textBox26.Text);
