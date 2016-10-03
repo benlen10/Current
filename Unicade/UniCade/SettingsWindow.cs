@@ -754,6 +754,10 @@ namespace UniCade
         {
             UnicadeAccount uc = new UnicadeAccount(1);
             uc.ShowDialog();
+            if (curUser != null)
+            {
+                label38.Text = "Current User: " + curUser.getUsername();
+            }
 
             listBox4.Items.Clear();
             foreach (User us in Program.dat.userList)
@@ -1312,7 +1316,7 @@ namespace UniCade
             l.ShowDialog();
             if (SQLclient.sqlUser != null)
             {
-                label56.Text = "Current User: " + SQLclient.sqlUser;
+                label56.Text = "Current Web User: " + SQLclient.sqlUser;
             }
 
         }
@@ -1322,11 +1326,11 @@ namespace UniCade
             if (SQLclient.sqlUser == null)
             {
                 MessageBox.Show("User is already logged out");
-                label56.Text = "Current User: Null";
+                label56.Text = "Current Web User: ";
                 return;
             }
             SQLclient.sqlUser = null;
-            label56.Text = "Current User: Null";
+            label56.Text = "Current Web User: ";
         }
 
         private void button36_Click(object sender, EventArgs e)
@@ -1348,7 +1352,7 @@ namespace UniCade
 
             if (SQLclient.deleteUser())
             {
-                label56.Text = "Current User: Null";
+                label56.Text = "Current Web User: ";
             }
         }
 
@@ -1576,6 +1580,13 @@ namespace UniCade
             {
                 label38.Text = "Current User: " + curUser.getUsername();
             }
+        }
+
+        private void button36_Click_1(object sender, EventArgs e)
+        {
+            curUser = null;
+            label38.Text = "Current User:";
+            listBox4.SelectedIndex = 0;
         }
     }
 }

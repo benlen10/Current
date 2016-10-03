@@ -209,6 +209,7 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button36 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1125,6 +1126,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.button36);
             this.tabPage5.Controls.Add(this.button31);
             this.tabPage5.Controls.Add(this.button21);
             this.tabPage5.Controls.Add(this.button17);
@@ -1158,7 +1160,7 @@
             // 
             // button31
             // 
-            this.button31.Location = new System.Drawing.Point(668, 334);
+            this.button31.Location = new System.Drawing.Point(539, 334);
             this.button31.Name = "button31";
             this.button31.Size = new System.Drawing.Size(171, 54);
             this.button31.TabIndex = 84;
@@ -1178,7 +1180,7 @@
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(472, 334);
+            this.button17.Location = new System.Drawing.Point(379, 334);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(135, 54);
             this.button17.TabIndex = 82;
@@ -1196,7 +1198,7 @@
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(721, 508);
+            this.button13.Location = new System.Drawing.Point(710, 508);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(135, 54);
             this.button13.TabIndex = 80;
@@ -1331,9 +1333,9 @@
             this.label41.AutoSize = true;
             this.label41.Location = new System.Drawing.Point(917, 32);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(101, 25);
+            this.label41.Size = new System.Drawing.Size(152, 25);
             this.label41.TabIndex = 62;
-            this.label41.Text = "Favorites";
+            this.label41.Text = "User Favorites";
             // 
             // label40
             // 
@@ -1358,7 +1360,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(38, 29);
+            this.label38.Location = new System.Drawing.Point(6, 13);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(212, 33);
             this.label38.TabIndex = 0;
@@ -1996,9 +1998,9 @@
             this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label56.Location = new System.Drawing.Point(33, 84);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(201, 25);
+            this.label56.Size = new System.Drawing.Size(207, 25);
             this.label56.TabIndex = 13;
-            this.label56.Text = "Current User: Null";
+            this.label56.Text = "Current Web User:";
             // 
             // button38
             // 
@@ -2063,6 +2065,16 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
+            // 
+            // button36
+            // 
+            this.button36.Location = new System.Drawing.Point(734, 334);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(171, 54);
+            this.button36.TabIndex = 85;
+            this.button36.Text = "Logout";
+            this.button36.UseVisualStyleBackColor = true;
+            this.button36.Click += new System.EventHandler(this.button36_Click_1);
             // 
             // SettingsWindow
             // 
@@ -2279,5 +2291,6 @@
         private System.Windows.Forms.Button button30;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Button button31;
+        private System.Windows.Forms.Button button36;
     }
 }
