@@ -781,6 +781,11 @@ namespace UniCade
 
         private void button12_Click(object sender, EventArgs e)
         {
+            if (Program.dat.userList.Count <= 1)
+            {
+                MessageBox.Show("Must at least have one user");
+                return;
+            }
             Program.dat.userList.Remove(curUser);
             listBox4.Items.Clear();
             curUser = null;
