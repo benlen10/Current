@@ -144,10 +144,11 @@ namespace UniCade
             //Old method
         }*/
 
-        void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) {
+        void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
 
             //System.Console.WriteLine("KEY DOWN");
-            
+
 
             if (settingsWindowActive)
             {
@@ -155,9 +156,9 @@ namespace UniCade
                 return;
             }
 
-            
-                if (e.KeyCode == Keys.F10)  
-                {
+
+            if (e.KeyCode == Keys.F10)
+            {
                 if (gameRunning)
                 {
                     System.Console.WriteLine("KILL");
@@ -222,20 +223,24 @@ namespace UniCade
                             {
                                 if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                                 {
-                                    if (g.getFav() > 0)
+                                    foreach (Game g1 in SettingsWindow.curUser.favorites)
                                     {
-                                        g.setFav(0);
-                                        NotificationWindow nfw = new NotificationWindow("UniCade", "Removed From Favorites");
-                                        nfw.Show();
-                                    }
-                                    else
-                                    {
-                                        g.setFav(1);
-                                        NotificationWindow nfw = new NotificationWindow("UniCade", "Added To Favorites");
-                                        nfw.Show();
+                                        if (g1.getTitle().Equals(g.getTitle()) && g.getConsole().Equals(g1.getConsole()))
+                                        {
+                                            SettingsWindow.curUser.favorites.Add(g);
+                                            NotificationWindow nfw = new NotificationWindow("UniCade", SettingsWindow.curUser.getUsername() + " :Removed From Favorites");
+                                            nfw.Show();
+                                        }
 
+                                        else
+                                        {
+                                            SettingsWindow.curUser.favorites.Add(g);
+                                            NotificationWindow nfw = new NotificationWindow("UniCade", SettingsWindow.curUser.getUsername() + " :Added To Favorites");
+                                            nfw.Show();
+
+                                        }
+                                        break;
                                     }
-                                    break;
                                 }
                             }
                         }
@@ -280,7 +285,7 @@ namespace UniCade
                             unhookKeys();
                             settingsWindowActive = true;
                             sw.ShowDialog();
-                            
+
                         }
                     }
                     else
@@ -300,78 +305,78 @@ namespace UniCade
                     }
 
                 }
-            }
-            if (!gameRunning && infoWindowActive)
-            {
-                if (e.KeyCode == Keys.F)
-                {
-                    gi.expand();
                 }
-                else if (e.KeyCode == Keys.B)
+                if (!gameRunning && infoWindowActive)
                 {
-                    gi.expand1();
-                }
-                else if (e.KeyCode == Keys.S)
-                {
-                    gi.expand2();
-                }
-                else if (e.KeyCode == Keys.E)
-                {
-                    gi.expand3();
-                }
-
-
-            }
-            if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Game Selection Window
-            {
-
-                if (infoWindowActive)
-                {
-                    gi.Hide();
-                    infoWindowActive = false;
-                }
-                else
-                {
-                    listBox.Visibility = Visibility.Hidden;  //Close Game Selection window
-                    image2.Visibility = Visibility.Hidden;
-                    label1.Visibility = Visibility.Hidden;
-                    image.Visibility = Visibility.Visible;
-                    image1.Visibility = Visibility.Visible;
-
-                    gameSelectionActive = false;
-                    label.Content = "Total Game Count: " + Database.totalGameCount;
-                }
-
-            }
-            else if (e.KeyCode == Keys.Tab)  // Insert coin
-            {
-                //this.Activate();
-                Program.coins++;
-                if (SettingsWindow.payPerPlay > 0)
-                {
-
-                    if (SettingsWindow.playtime > 0)
+                    if (e.KeyCode == Keys.F)
                     {
-                        //displayPayNotification("(PayPerPlay) Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + Program.coins);
+                        gi.expand();
                     }
-                    if (SettingsWindow.coins > 0)
+                    else if (e.KeyCode == Keys.B)
                     {
-                        //displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
-                        label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins;
-
+                        gi.expand1();
                     }
-                    NotificationWindow nfw = new NotificationWindow("Pay Per Play", "Coin Inserted\n Current: " + Program.coins);
-                    nfw.Show();
+                    else if (e.KeyCode == Keys.S)
+                    {
+                        gi.expand2();
+                    }
+                    else if (e.KeyCode == Keys.E)
+                    {
+                        gi.expand3();
+                    }
+
+
                 }
-                else
+                if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  //Close Game Selection Window
                 {
-                    NotificationWindow nfw = new NotificationWindow("UniCade", "Free Play Enabled. NO COIN REQUIRED");
-                    nfw.Show();
+
+                    if (infoWindowActive)
+                    {
+                        gi.Hide();
+                        infoWindowActive = false;
+                    }
+                    else
+                    {
+                        listBox.Visibility = Visibility.Hidden;  //Close Game Selection window
+                        image2.Visibility = Visibility.Hidden;
+                        label1.Visibility = Visibility.Hidden;
+                        image.Visibility = Visibility.Visible;
+                        image1.Visibility = Visibility.Visible;
+
+                        gameSelectionActive = false;
+                        label.Content = "Total Game Count: " + Database.totalGameCount;
+                    }
+
+                }
+                else if (e.KeyCode == Keys.Tab)  // Insert coin
+                {
                     //this.Activate();
+                    Program.coins++;
+                    if (SettingsWindow.payPerPlay > 0)
+                    {
+
+                        if (SettingsWindow.playtime > 0)
+                        {
+                            //displayPayNotification("(PayPerPlay) Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + Program.coins);
+                        }
+                        if (SettingsWindow.coins > 0)
+                        {
+                            //displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                            label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins;
+
+                        }
+                        NotificationWindow nfw = new NotificationWindow("Pay Per Play", "Coin Inserted\n Current: " + Program.coins);
+                        nfw.Show();
+                    }
+                    else
+                    {
+                        NotificationWindow nfw = new NotificationWindow("UniCade", "Free Play Enabled. NO COIN REQUIRED");
+                        nfw.Show();
+                        //this.Activate();
+                    }
+
                 }
 
-            }
-            
 
 
 
@@ -379,7 +384,8 @@ namespace UniCade
 
                 updateGUI();
 
-        }
+            }
+        
 
 
             
@@ -495,11 +501,17 @@ namespace UniCade
                     {
                         if (fav)
                         {
-
-                            if (g.getFav() == 1)
+                            foreach(Game g1 in SettingsWindow.curUser.favorites)
                             {
-                                listBox.Items.Add(g.getTitle());
+                                if (g.getTitle().Equals(g1.getTitle()) && g.getConsole().Equals(g1.getConsole()))
+                                {
+                                    listBox.Items.Add(g);
+                                    break;
+                                }
                             }
+                            
+                                
+                            
                         }
                         else
                         {

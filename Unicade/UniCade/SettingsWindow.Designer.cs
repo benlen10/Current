@@ -120,6 +120,7 @@
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.button36 = new System.Windows.Forms.Button();
             this.button31 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
@@ -209,7 +210,6 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button36 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1158,6 +1158,16 @@
             this.tabPage5.Text = "Users";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // button36
+            // 
+            this.button36.Location = new System.Drawing.Point(734, 334);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(171, 54);
+            this.button36.TabIndex = 85;
+            this.button36.Text = "Logout";
+            this.button36.UseVisualStyleBackColor = true;
+            this.button36.Click += new System.EventHandler(this.button36_Click_1);
+            // 
             // button31
             // 
             this.button31.Location = new System.Drawing.Point(539, 334);
@@ -2065,16 +2075,6 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
-            // 
-            // button36
-            // 
-            this.button36.Location = new System.Drawing.Point(734, 334);
-            this.button36.Name = "button36";
-            this.button36.Size = new System.Drawing.Size(171, 54);
-            this.button36.TabIndex = 85;
-            this.button36.Text = "Logout";
-            this.button36.UseVisualStyleBackColor = true;
-            this.button36.Click += new System.EventHandler(this.button36_Click_1);
             // 
             // SettingsWindow
             // 
