@@ -40,6 +40,7 @@ namespace UniCade
                 
                 
                 FileOps.defaultPreferences();
+                FileOps.savePreferences(prefPath);
                 NotificationWindow nfw = new NotificationWindow("WARNING", "Preference file not found.\n Loading defaults...");
                 nfw.Show();
             }

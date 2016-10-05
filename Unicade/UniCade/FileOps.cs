@@ -228,7 +228,7 @@ namespace UniCade
                 Program.dat.userList.Add(u);
                 if (r[0].Equals("UniCade"))
                 {
-                    Program.curUser = u;
+                    SettingsWindow.curUser = u;
                 }
             }
             file.Close();
@@ -411,10 +411,10 @@ namespace UniCade
                 }
 
             }
-            if (Program.curUser.getAllowedEsrb().Length > 1)
+            if (SettingsWindow.curUser.getAllowedEsrb().Length > 1)
             {
                 int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
-                if (EsrbNum >= SettingsWindow.calcEsrb(Program.curUser.getAllowedEsrb()))
+                if (EsrbNum >= SettingsWindow.calcEsrb(SettingsWindow.curUser.getAllowedEsrb()))
                 {
                     NotificationWindow nfw2 = new NotificationWindow("NOTICE", "ESRB " + g.getEsrb() + " Is Restricted\n");
                     nfw2.Show();
@@ -424,7 +424,7 @@ namespace UniCade
 
           
             g.launchCount++;
-            Program.curUser.totalLaunchCount++;
+            SettingsWindow.curUser.totalLaunchCount++;
             proc = new System.Diagnostics.Process();
             string gamePath = ("\"" + c.getRomPath() + g.getFileName() + "\"");
             string args = "";

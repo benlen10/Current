@@ -757,6 +757,7 @@ namespace UniCade
             if (curUser != null)
             {
                 label38.Text = "Current User: " + curUser.getUsername();
+                FileOps.savePreferences(Program.prefPath);
             }
 
             listBox4.Items.Clear();
@@ -1584,6 +1585,7 @@ namespace UniCade
             if (curUser != null)
             {
                 label38.Text = "Current User: " + curUser.getUsername();
+                FileOps.savePreferences(Program.prefPath);
             }
         }
 
