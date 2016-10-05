@@ -101,8 +101,8 @@ namespace UniCade
             {
                 if (u.getUsername().Equals(r[1]))   //Set curUser to default user
                 {
-                    Program.curUser = u;
-                    System.Console.WriteLine("Current user change to " + u.getUsername());
+                    SettingsWindow.curUser = u;
+                    //System.Console.WriteLine("Current user change to " + u.getUsername());
                 }
             }
             line = file.ReadLine();
@@ -245,7 +245,7 @@ namespace UniCade
             using (StreamWriter sw = File.CreateText(path))
             {
 
-                sw.WriteLine("DefaultUser|" + SettingsWindow.defaultUser);
+                sw.WriteLine("CurrentUser|" + SettingsWindow.curUser);
                 sw.WriteLine("DatabasePath|" + Program.databasePath);
                 sw.WriteLine("EmulatorFolderPath|" + Program.emuPath);
                 sw.WriteLine("MediaFolderPath|" + Program.mediaPath);
@@ -546,7 +546,8 @@ namespace UniCade
         public static void defaultPreferences()
         {
 
-            SettingsWindow.defaultUser = "UniCade";
+            SettingsWindow.curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
+            Program.dat.userList.Add(SettingsWindow.curUser);
             SettingsWindow.showSplash = 0;
             SettingsWindow.scanOnStartup = 0;
             SettingsWindow.restrictESRB = 0;

@@ -20,7 +20,6 @@ namespace UniCade
         public static string mediaPath = @"C:\UniCade\Media";
         public static string emuPath = @"C:\UniCade\Emulators";
         public static string prefPath = @"C:\UniCade\Preferences.txt";
-        public static User curUser;
         public static int coins = 0;
         public static bool playtimeRemaining = true;
         public static string userLicenseName;
@@ -63,11 +62,6 @@ namespace UniCade
                 nfw.Show();
             }
 
-            if (curUser == null)
-            {
-                curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "","");
-                dat.userList.Add(curUser);
-            }
 
             var app = new App();
             app.InitializeComponent();
