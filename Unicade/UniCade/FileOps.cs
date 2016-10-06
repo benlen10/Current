@@ -219,10 +219,16 @@ namespace UniCade
                 if (r[6].Length > 0)
                 {
                     string[] st = r[6].Split('#');
-
+                    String st1 = "";
+                    int i = 0;
                     foreach (string s in st)
                     {
-                        u.favorites.Add(s);
+                        st1 = st1 + st + "#";
+                        if (i % 2 == 0)
+                        {
+                            u.favorites.Add(st1);
+                            st1 = "";
+                        }
                     }
                 }
                 Program.dat.userList.Add(u);

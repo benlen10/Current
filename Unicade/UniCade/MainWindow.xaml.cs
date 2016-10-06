@@ -58,6 +58,7 @@ namespace UniCade
             listBox.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
             image2.Visibility = Visibility.Hidden;
             label1.Visibility = Visibility.Hidden;
+            //SettingsWindow.label38.Text = "Current User: " + SettingsWindow.curUser.getUsername();
             gi = new GameInfo();
 
             gkh = new globalKeyboardHook();

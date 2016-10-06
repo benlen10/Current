@@ -45,8 +45,8 @@ namespace UniCade
                 nfw.Show();
             }
 
-            
-            if(!ValidateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))
+
+            if (!ValidateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))
             {
                 validLicense = false;
 

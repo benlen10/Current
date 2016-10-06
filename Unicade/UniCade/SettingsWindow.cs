@@ -14,9 +14,9 @@ namespace UniCade
 {
     public partial class SettingsWindow : Form
     {
-        Console curConsole2;
-        Console curConsole;
-        public Game curGame;
+        static Console curConsole2;
+        static Console curConsole;
+        public static Game curGame;
         public static User curUser;
 
         //Preference Data
@@ -54,7 +54,6 @@ namespace UniCade
                 listBox1.Items.Add(c.getName());
                 listBox2.Items.Add(c.getName());
             }
-            label38.Text = "Current User: " + curUser.getUsername();
             comboBox1.Items.Add("Everyone");
             comboBox1.Items.Add("Everyone 10+");
             comboBox1.Items.Add("Teen");
@@ -197,6 +196,7 @@ namespace UniCade
             label35.Text = "Licensed to: " + Program.userLicenseName;
             label34.Text = "License Status: Full Version";
             label37.Text = "License Key: " + Program.userLicenseKey;
+            label38.Text = "Current User: " + curUser.getUsername();
 
 
         }
