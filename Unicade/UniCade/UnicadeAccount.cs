@@ -34,6 +34,7 @@ namespace UniCade
             {
                 User u = new User(textBox1.Text, textBox3.Text, 0, textBox2.Text, 0, textBox4.Text, "Mature", "null");
                 Program.dat.userList.Add(u);
+                SettingsWindow.curUser = u;
             }
             Close();
         }

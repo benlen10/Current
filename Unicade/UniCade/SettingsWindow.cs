@@ -54,6 +54,7 @@ namespace UniCade
                 listBox1.Items.Add(c.getName());
                 listBox2.Items.Add(c.getName());
             }
+            label38.Text = "Current User: " + curUser.getUsername();
             comboBox1.Items.Add("Everyone");
             comboBox1.Items.Add("Everyone 10+");
             comboBox1.Items.Add("Teen");
@@ -754,11 +755,9 @@ namespace UniCade
         {
             UnicadeAccount uc = new UnicadeAccount(1);
             uc.ShowDialog();
-            if (curUser != null)
-            {
+
                 label38.Text = "Current User: " + curUser.getUsername();
                 FileOps.savePreferences(Program.prefPath);
-            }
 
             listBox4.Items.Clear();
             foreach (User us in Program.dat.userList)
@@ -1594,6 +1593,11 @@ namespace UniCade
             curUser = null;
             label38.Text = "Current User:";
             listBox4.SelectedIndex = 0;
+        }
+
+        private void button45_Click(object sender, EventArgs e)
+        {
+            label38.Text = "Current User: " + curUser.getUsername();
         }
     }
 }

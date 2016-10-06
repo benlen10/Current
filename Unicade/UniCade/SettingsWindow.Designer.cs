@@ -210,6 +210,7 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button45 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1126,6 +1127,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.button45);
             this.tabPage5.Controls.Add(this.button36);
             this.tabPage5.Controls.Add(this.button31);
             this.tabPage5.Controls.Add(this.button21);
@@ -2076,6 +2078,16 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
             // 
+            // button45
+            // 
+            this.button45.Location = new System.Drawing.Point(520, 439);
+            this.button45.Name = "button45";
+            this.button45.Size = new System.Drawing.Size(150, 39);
+            this.button45.TabIndex = 86;
+            this.button45.Text = "Refresh";
+            this.button45.UseVisualStyleBackColor = true;
+            this.button45.Click += new System.EventHandler(this.button45_Click);
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -2198,7 +2210,7 @@
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.ListBox listBox4;
-        private System.Windows.Forms.Label label38;
+        public System.Windows.Forms.Label label38;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button10;
@@ -2292,5 +2304,6 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Button button31;
         private System.Windows.Forms.Button button36;
+        private System.Windows.Forms.Button button45;
     }
 }

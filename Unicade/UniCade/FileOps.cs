@@ -245,7 +245,7 @@ namespace UniCade
             using (StreamWriter sw = File.CreateText(path))
             {
 
-                sw.WriteLine("CurrentUser|" + SettingsWindow.curUser);
+                sw.WriteLine("CurrentUser|" + SettingsWindow.curUser.getUsername());
                 sw.WriteLine("DatabasePath|" + Program.databasePath);
                 sw.WriteLine("EmulatorFolderPath|" + Program.emuPath);
                 sw.WriteLine("MediaFolderPath|" + Program.mediaPath);
