@@ -246,6 +246,17 @@ namespace UniCade
                 File.Delete(path);
             }
 
+            foreach (User us in Program.dat.userList)
+            {
+                if (SettingsWindow.curUser.getUsername().Equals(us.getUsername()))
+                {
+                    Program.dat.userList.Remove(us);
+                    Program.dat.userList.Add(SettingsWindow.curUser);
+                    break;
+
+                }
+            }
+
             using (StreamWriter sw = File.CreateText(path))
             {
 

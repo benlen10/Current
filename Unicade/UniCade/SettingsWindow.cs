@@ -720,27 +720,27 @@ namespace UniCade
                     textBox27.Text = u.getLoginCount().ToString();
                     textBox28.Text = u.getLaunchCount().ToString();
                     comboBox2.Text = u.getAllowedEsrb();
-                }
-                if (u.getUsername().Equals(curUser.getUsername()))
-                {
-                    textBox23.Enabled = true;
-                    textBox24.Enabled = true;
-                    textBox26.Enabled = true;
-                    textBox27.Enabled = true;
-                    textBox28.Enabled = true;
-                    comboBox2.Enabled = true;
+                    if (u.getUsername().Equals(curUser.getUsername()))
+                    {
+                        textBox23.Enabled = true;
+                        textBox24.Enabled = true;
+                        textBox26.Enabled = true;
+                        textBox27.Enabled = true;
+                        textBox28.Enabled = true;
+                        comboBox2.Enabled = true;
 
+                    }
+                    else
+                    {
+                        textBox23.Enabled = false;
+                        textBox24.Enabled = false;
+                        textBox26.Enabled = false;
+                        textBox27.Enabled = false;
+                        textBox28.Enabled = false;
+                        comboBox2.Enabled = false;
+                    }
                 }
-                else
-                {
-                    textBox23.Enabled = false;
-                    textBox24.Enabled = false;
-                    textBox26.Enabled = false;
-                    textBox27.Enabled = false;
-                    textBox28.Enabled = false;
-                    comboBox2.Enabled = false;
-
-                }
+                
             }
             listBox5.Items.Clear();
             foreach (Game g in curUser.favorites)
@@ -754,7 +754,19 @@ namespace UniCade
 
         private void button10_Click(object sender, EventArgs e)  //Create new user
         {
-            UnicadeAccount uc = new UnicadeAccount(1);
+
+            foreach (User us in Program.dat.userList)
+            {
+                if (curUser.getUsername().Equals(us.getUsername()))
+                {
+                    Program.dat.userList.Remove(us);
+                    Program.dat.userList.Add(curUser);
+                    break;
+
+                }
+            }
+
+                UnicadeAccount uc = new UnicadeAccount(1);
             uc.ShowDialog();
 
                 label38.Text = "Current User: " + curUser.getUsername();
@@ -770,14 +782,14 @@ namespace UniCade
 
         private void button11_Click(object sender, EventArgs e)  //Save
         {
-            curUser.setName(textBox23.Text);
+            /*curUser.setName(textBox23.Text);
             curUser.setEmail(textBox24.Text);
             curUser.setUserInfo(textBox26.Text);
             if (comboBox2 != null)
             {
                 curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
-            }
-            FileOps.saveDatabase(Program.databasePath);
+            }*/
+            FileOps.savePreferences(Program.prefPath);
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -1578,8 +1590,21 @@ namespace UniCade
             SQLclient.connectSQL();
         }
 
-        private void button31_Click_2(object sender, EventArgs e)
+        private void button31_Click_2(object sender, EventArgs e)  //Login local user
         {
+
+            foreach (User us in Program.dat.userList)
+            {
+                if (curUser.getUsername().Equals(us.getUsername()))   //Save curuser to datalist
+                {
+                    Program.dat.userList.Remove(us);
+                    Program.dat.userList.Add(curUser);
+                    break;
+
+                }
+            }
+
+
             Login l = new Login(1);
             l.ShowDialog();
             if (curUser != null)
@@ -1589,12 +1614,7 @@ namespace UniCade
             }
         }
 
-        private void button36_Click_1(object sender, EventArgs e)
-        {
-            curUser = null;
-            label38.Text = "Current User:";
-            listBox4.SelectedIndex = 0;
-        }
+
 
         private void button45_Click(object sender, EventArgs e)
         {

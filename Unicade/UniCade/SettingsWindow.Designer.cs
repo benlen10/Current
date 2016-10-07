@@ -120,7 +120,7 @@
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.button36 = new System.Windows.Forms.Button();
+            this.button45 = new System.Windows.Forms.Button();
             this.button31 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
@@ -210,7 +210,6 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button45 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -1128,7 +1127,6 @@
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.button45);
-            this.tabPage5.Controls.Add(this.button36);
             this.tabPage5.Controls.Add(this.button31);
             this.tabPage5.Controls.Add(this.button21);
             this.tabPage5.Controls.Add(this.button17);
@@ -1160,15 +1158,15 @@
             this.tabPage5.Text = "Users";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // button36
+            // button45
             // 
-            this.button36.Location = new System.Drawing.Point(734, 334);
-            this.button36.Name = "button36";
-            this.button36.Size = new System.Drawing.Size(171, 54);
-            this.button36.TabIndex = 85;
-            this.button36.Text = "Logout";
-            this.button36.UseVisualStyleBackColor = true;
-            this.button36.Click += new System.EventHandler(this.button36_Click_1);
+            this.button45.Location = new System.Drawing.Point(736, 334);
+            this.button45.Name = "button45";
+            this.button45.Size = new System.Drawing.Size(161, 54);
+            this.button45.TabIndex = 86;
+            this.button45.Text = "Refresh";
+            this.button45.UseVisualStyleBackColor = true;
+            this.button45.Click += new System.EventHandler(this.button45_Click);
             // 
             // button31
             // 
@@ -1234,7 +1232,7 @@
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(196, 54);
             this.button11.TabIndex = 78;
-            this.button11.Text = "Save Database";
+            this.button11.Text = "Save All Users";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
@@ -2078,16 +2076,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
             // 
-            // button45
-            // 
-            this.button45.Location = new System.Drawing.Point(520, 439);
-            this.button45.Name = "button45";
-            this.button45.Size = new System.Drawing.Size(150, 39);
-            this.button45.TabIndex = 86;
-            this.button45.Text = "Refresh";
-            this.button45.UseVisualStyleBackColor = true;
-            this.button45.Click += new System.EventHandler(this.button45_Click);
-            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -2303,7 +2291,6 @@
         private System.Windows.Forms.Button button30;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Button button31;
-        private System.Windows.Forms.Button button36;
         private System.Windows.Forms.Button button45;
     }
 }

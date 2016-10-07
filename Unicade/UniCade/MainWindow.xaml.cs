@@ -148,15 +148,6 @@ namespace UniCade
         void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
 
-            //System.Console.WriteLine("KEY DOWN");
-
-
-            if (settingsWindowActive)
-            {
-                e.Handled = true;
-                return;
-            }
-
 
             if (e.KeyCode == Keys.F10)
             {
@@ -224,6 +215,13 @@ namespace UniCade
                             {
                                 if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                                 {
+                                    if (SettingsWindow.curUser.favorites.Count < 1)
+                                    {
+                                        SettingsWindow.curUser.favorites.Add(g);
+                                        NotificationWindow nfw = new NotificationWindow("UniCade", SettingsWindow.curUser.getUsername() + " :Added To Favorites");
+                                        nfw.Show();
+                                        return;
+                                    }
                                     foreach (Game g1 in SettingsWindow.curUser.favorites)
                                     {
                                         if (g1.getTitle().Equals(g.getTitle()) && g.getConsole().Equals(g1.getConsole()))
@@ -240,7 +238,7 @@ namespace UniCade
                                             nfw.Show();
 
                                         }
-                                        break;
+                                        return;
                                     }
                                 }
                             }
