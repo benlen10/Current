@@ -44,6 +44,10 @@ namespace UniCade
                 NotificationWindow nfw = new NotificationWindow("WARNING", "Preference file not found.\n Loading defaults...");
                 nfw.Show();
             }
+            if (SettingsWindow.curUser == null)
+            {
+                SettingsWindow.curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
+            }
 
 
             if (!ValidateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))

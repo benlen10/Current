@@ -215,27 +215,25 @@ namespace UniCade
             
                 r = line.Split(sep);
 
-                User u = new User(r[0], r[1], Int32.Parse(r[2]), r[3], Int32.Parse(r[4]), r[5], r[6], r[7]);
+                User u = new User(r[0], r[1], Int32.Parse(r[2]), r[3], Int32.Parse(r[4]), r[5], r[6], "null");
                 if (r[6].Length > 0)
                 {
-                    string[] st = r[6].Split('#');
+                    string[] st = r[7].Split('#');
                     String st1 = "";
                     int i = 0;
+
                     foreach (string s in st)
                     {
-                        st1 = st1 + st + "#";
+                        st1 = s + ".zip";
                         if (i % 2 == 0)
                         {
-                            u.favorites.Add(st1);
-                            st1 = "";
+                            u.favorites.Add(new Game(st1, s, 0));
+
                         }
                     }
                 }
                 Program.dat.userList.Add(u);
-                if (r[0].Equals("UniCade"))
-                {
-                    SettingsWindow.curUser = u;
-                }
+
             }
             file.Close();
             return true;
@@ -268,11 +266,11 @@ namespace UniCade
                 foreach (User u in Program.dat.userList)
                 {
                     string favs = "";
-                        foreach(string s in u.favorites)
+                        foreach(Game g in u.favorites)
                     {
-                        favs += (s + "#");
+                        favs += (g.getTitle() + "#" + g.getConsole()+ "#");
                     }
-                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}", u.getUsername(), u.getPass(), u.getLoginCount(), u.getEmail(), u.getLaunchCount(), u.getUserInfo(), u.getAllowedEsrb(), u.getProfPic());
+                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", u.getUsername(), u.getPass(), u.getLoginCount(), u.getEmail(), u.getLaunchCount(), u.getUserInfo(), u.getAllowedEsrb(), favs);
                 }
             }
 

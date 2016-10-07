@@ -196,7 +196,7 @@ namespace UniCade
             label35.Text = "Licensed to: " + Program.userLicenseName;
             label34.Text = "License Status: Full Version";
             label37.Text = "License Key: " + Program.userLicenseKey;
-            label38.Text = "Current User: " + curUser.getUsername();
+            
 
 
         }
@@ -699,8 +699,10 @@ namespace UniCade
 
         private void listBox4_SelectedIndexChanged(object sender, EventArgs e)  //User listbox changed
         {
+
             if (curUser != null)
             {
+                label38.Text = "Current User: " + curUser.getUsername();
 
                 if (comboBox2.SelectedItem!=null)
                 {
@@ -712,7 +714,6 @@ namespace UniCade
             {
                 if (u.getUsername().Equals(listBox4.SelectedItem.ToString()))
                 {
-                    curUser = u;
                     textBox23.Text = u.getUsername();
                     textBox24.Text = u.getEmail();
                     textBox26.Text = u.getUserInfo();
@@ -742,9 +743,9 @@ namespace UniCade
                 }
             }
             listBox5.Items.Clear();
-            foreach (string s in curUser.favorites)
+            foreach (Game g in curUser.favorites)
             {
-                listBox5.Items.Add(s.Replace('*', '-'));
+                listBox5.Items.Add(g.getTitle() + "-" + g.getConsole());
             }
 
         }
