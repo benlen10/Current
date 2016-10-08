@@ -714,6 +714,13 @@ namespace UniCade
             {
                 if (u.getUsername().Equals(listBox4.SelectedItem.ToString()))
                 {
+
+                    listBox5.Items.Clear();
+                    foreach (Game g in curUser.favorites)
+                    {
+                        listBox5.Items.Add(g.getTitle() + "-" + g.getConsole());
+                    }
+
                     textBox23.Text = u.getUsername();
                     textBox24.Text = u.getEmail();
                     textBox26.Text = u.getUserInfo();
@@ -742,11 +749,7 @@ namespace UniCade
                 }
                 
             }
-            listBox5.Items.Clear();
-            foreach (Game g in curUser.favorites)
-            {
-                listBox5.Items.Add(g.getTitle() + "-" + g.getConsole());
-            }
+            
 
         }
 
