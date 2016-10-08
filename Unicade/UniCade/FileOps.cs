@@ -97,14 +97,8 @@ namespace UniCade
 
 
             r = line.Split(sep);
-            foreach (User u in Program.dat.userList)
-            {
-                if (u.getUsername().Equals(r[1]))   //Set curUser to default user
-                {
-                    SettingsWindow.curUser = u;
-                    //System.Console.WriteLine("Current user change to " + u.getUsername());
-                }
-            }
+            String currentUser = r[1];
+            
             line = file.ReadLine();
             r = line.Split(sep);
             Program.databasePath = r[1];
@@ -235,6 +229,15 @@ namespace UniCade
                 Program.dat.userList.Add(u);
 
             }
+            foreach (User u in Program.dat.userList)
+            {
+                if (u.getUsername().Equals(currentUser))   //Set curUser to default user
+                {
+                    SettingsWindow.curUser = u;
+                    //System.Console.WriteLine("Current user change to " + u.getUsername());
+                }
+            }
+
             file.Close();
             return true;
         }
