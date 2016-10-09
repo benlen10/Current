@@ -214,16 +214,17 @@ namespace UniCade
                 {
                     string[] st = r[7].Split('#');
                     String st1 = "";
-                    int i = 0;
+                    int i = 1;
 
                     foreach (string s in st)
                     {
                         st1 = s + ".zip";
-                        if (i % 2 == 0)
+                        if ((i % 2 == 0)&&(i>1))
                         {
                             u.favorites.Add(new Game(st1, s, 0));
 
                         }
+                        i++;
                     }
                 }
                 Program.dat.userList.Add(u);
