@@ -700,6 +700,8 @@ namespace UniCade
         private void listBox4_SelectedIndexChanged(object sender, EventArgs e)  //User listbox changed
         {
 
+            listBox5.Items.Clear();
+
             if (curUser != null)
             {
                 label38.Text = "Current User: " + curUser.getUsername();
@@ -715,10 +717,12 @@ namespace UniCade
                 if (u.getUsername().Equals(listBox4.SelectedItem.ToString()))
                 {
 
-                    listBox5.Items.Clear();
-                    foreach (Game g in curUser.favorites)
+                    if (u.favorites.Count > 0)
                     {
-                        listBox5.Items.Add(g.getTitle() + "-" + g.getConsole());
+                        foreach (Game g in u.favorites)
+                        {
+                            listBox5.Items.Add(g.getTitle() + "-" + g.getConsole());
+                        }
                     }
 
                     textBox23.Text = u.getUsername();
