@@ -218,12 +218,13 @@ namespace UniCade
 
                     foreach (string s in st)
                     {
-                        st1 = s + ".zip";
+                        
                         if ((i % 2 == 0)&&(i>1))
                         {
                             u.favorites.Add(new Game(st1, s, 0));
 
                         }
+                        st1 = s + ".zip";
                         i++;
                     }
                 }
