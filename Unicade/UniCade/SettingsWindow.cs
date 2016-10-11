@@ -721,7 +721,7 @@ namespace UniCade
                     {
                         foreach (Game g in u.favorites)
                         {
-                            listBox5.Items.Add(g.getTitle() + "-" + g.getConsole());
+                            listBox5.Items.Add(g.getTitle() + " - " + g.getConsole());
                         }
                     }
 
