@@ -227,14 +227,14 @@ namespace UniCade
                                         if (g1.getTitle().Equals(g.getTitle()) && g.getConsole().Equals(g1.getConsole()))
                                         {
                                             SettingsWindow.curUser.favorites.Add(g);
-                                            NotificationWindow nfw = new NotificationWindow("UniCade", SettingsWindow.curUser.getUsername() + " :Removed From Favorites");
+                                            NotificationWindow nfw = new NotificationWindow("UniCade", SettingsWindow.curUser.getUsername() + ": Removed From Favorites");
                                             nfw.Show();
                                         }
 
                                         else
                                         {
                                             SettingsWindow.curUser.favorites.Add(g);
-                                            NotificationWindow nfw = new NotificationWindow("UniCade", SettingsWindow.curUser.getUsername() + " :Added To Favorites");
+                                            NotificationWindow nfw = new NotificationWindow("UniCade", SettingsWindow.curUser.getUsername() + ": Added To Favorites");
                                             nfw.Show();
 
                                         }
@@ -492,10 +492,7 @@ namespace UniCade
                 {
                     gameSelectionConsole = c;
                     label.Content = c.getName() + " Game Count: " + c.gameCount;
-                    if (fav)
-                    {
-                        listBox.Items.Add(c.getName() + " Favorites:\n\n");
-                    }
+
                     foreach (Game g in c.getGameList())
                     {
                         if (fav)
@@ -504,12 +501,10 @@ namespace UniCade
                             {
                                 if (g.getTitle().Equals(g1.getTitle()) && g.getConsole().Equals(g1.getConsole()))
                                 {
-                                    listBox.Items.Add(g);
+                                    listBox.Items.Add(g.getTitle());
                                     break;
                                 }
-                            }
-                            
-                                
+                            }         
                             
                         }
                         else

@@ -73,6 +73,7 @@ namespace UniCade
             textBox27.Enabled = false;
             textBox28.Enabled = false;
             comboBox2.Enabled = false;
+            listBox5.Enabled = false;
 
 
             richTextBox1.Text = TextFiles.features + "\n\n\n\n\n\n" + TextFiles.instructions;
@@ -739,6 +740,7 @@ namespace UniCade
                         textBox27.Enabled = true;
                         textBox28.Enabled = true;
                         comboBox2.Enabled = true;
+                        listBox5.Enabled = true;
 
                     }
                     else
@@ -749,6 +751,7 @@ namespace UniCade
                         textBox27.Enabled = false;
                         textBox28.Enabled = false;
                         comboBox2.Enabled = false;
+                        listBox5.Enabled = false;
                     }
                 }
                 
@@ -927,6 +930,13 @@ namespace UniCade
 
         private void button21_Click(object sender, EventArgs e)  //Delete User Favorite
         {
+
+            if (!curUser.getUsername().Equals(listBox4.SelectedItem.ToString()))
+            {
+                MessageBox.Show("Must Login First");
+                return;
+            }
+
             curUser.favorites.RemoveAt(listBox5.SelectedIndex);
             listBox5.Items.Clear();
             foreach (string s in curUser.favorites)
