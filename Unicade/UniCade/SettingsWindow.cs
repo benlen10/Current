@@ -410,6 +410,7 @@ namespace UniCade
         {
             //Cursor.Hide();
             MainWindow.settingsWindowActive = false;
+            FileOps.savePreferences(Program.prefPath);
 
             this.Close();
         }
@@ -939,9 +940,9 @@ namespace UniCade
 
             curUser.favorites.RemoveAt(listBox5.SelectedIndex);
             listBox5.Items.Clear();
-            foreach (string s in curUser.favorites)
+            foreach (Game g in curUser.favorites)
             {
-                listBox5.Items.Add(s.Replace('*', '-'));
+                listBox5.Items.Add(g.getTitle() + " - " + g.getConsole());
             }
         }
 
