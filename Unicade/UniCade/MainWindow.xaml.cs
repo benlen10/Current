@@ -251,12 +251,15 @@ namespace UniCade
                     {
                         if (fav)
                         {
+                            label1.Content = conList[index] + "Library";
                             fav = false;
                         }
                         else
                         {
-                            fav = true;
+                            label1.Content = SettingsWindow.curUser.getUsername() + "'s Favorites List"
+                           fav = true;
                         }
+                       
                         openGameSelection();
                     }
                 }
