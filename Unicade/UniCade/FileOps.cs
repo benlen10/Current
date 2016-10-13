@@ -419,8 +419,18 @@ namespace UniCade
 
         public static void launch(Game g, Console c)
         {
-            
-            if (SettingsWindow.restrictESRB > 0)
+
+            if (SettingsWindow.curUser.getAllowedEsrb().Length > 1)
+            {
+                int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
+                if (EsrbNum >= SettingsWindow.calcEsrb(SettingsWindow.curUser.getAllowedEsrb()))
+                {
+                    NotificationWindow nfw2 = new NotificationWindow("NOTICE", "ESRB " + g.getEsrb() + " Is Restricted for" + SettingsWindow.curUser.getUsername());
+                    nfw2.Show();
+                    return;
+                }
+            }
+            else if(SettingsWindow.restrictESRB > 0)
             {
                 int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
                 if (EsrbNum >= SettingsWindow.restrictESRB)
@@ -431,16 +441,7 @@ namespace UniCade
                 }
 
             }
-            if (SettingsWindow.curUser.getAllowedEsrb().Length > 1)
-            {
-                int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
-                if (EsrbNum >= SettingsWindow.calcEsrb(SettingsWindow.curUser.getAllowedEsrb()))
-                {
-                    NotificationWindow nfw2 = new NotificationWindow("NOTICE", "ESRB " + g.getEsrb() + " Is Restricted\n");
-                    nfw2.Show();
-                    return;
-                }
-            }
+            
 
           
             g.launchCount++;

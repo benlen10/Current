@@ -256,7 +256,7 @@ namespace UniCade
                         }
                         else
                         {
-                            label1.Content = SettingsWindow.curUser.getUsername() + "'s Favorites List"
+                            label1.Content = SettingsWindow.curUser.getUsername() + "'s Favorites List";
                            fav = true;
                         }
                        
