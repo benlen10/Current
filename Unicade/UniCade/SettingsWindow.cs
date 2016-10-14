@@ -708,10 +708,7 @@ namespace UniCade
             {
                 label38.Text = "Current User: " + curUser.getUsername();
 
-                if (comboBox2.SelectedItem!=null)
-                {
-                    curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
-                }
+                
 
             }
             foreach (User u in Program.dat.userList)
@@ -828,6 +825,11 @@ namespace UniCade
                 MessageBox.Show("Must Login First");
                 return;
             }
+            if (comboBox2.SelectedItem != null)
+            {
+                curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
+            }
+
             curUser.setName(textBox23.Text);
             curUser.setpass(textBox24.Text);
             curUser.setUserInfo(textBox26.Text);
