@@ -477,6 +477,8 @@ namespace UniCade
                 proc.StartInfo.Arguments = args;
             }
             MainWindow.unhookKeys();
+            NotificationWindow nfw = new NotificationWindow("System", "Loading ROM File");
+            nfw.Show();
             proc.Start();
 
 
