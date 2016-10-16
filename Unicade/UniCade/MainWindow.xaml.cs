@@ -251,12 +251,12 @@ namespace UniCade
                     {
                         if (fav)
                         {
-                            label1.Content = conList[index] + "Library";
+                            
                             fav = false;
                         }
                         else
                         {
-                            label1.Content = SettingsWindow.curUser.getUsername() + "'s Favorites List";
+                            
                            fav = true;
                         }
                        
@@ -486,7 +486,15 @@ namespace UniCade
             image1.Visibility = Visibility.Hidden;
             image2.Visibility = Visibility.Visible;
             label1.Visibility = Visibility.Visible;
-            label1.Content = (conList[index] + " Library");
+
+            if (!fav)
+            {
+                label1.Content = (conList[index] + " Library");
+            }
+            else
+            {
+                label1.Content = SettingsWindow.curUser.getUsername() + "'s Favorites List";
+            }
 
             listBox.Items.Clear();
             foreach (Console c in Program.dat.consoleList)
@@ -583,8 +591,7 @@ namespace UniCade
             {
                 if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
                 {
-                    NotificationWindow nfw = new NotificationWindow("System", "Loading ROM File");
-                    nfw.Show();
+                    
                     //pause(3000);
                     Task.Delay(3000);
                     FileOps.launch(g, gameSelectionConsole);
