@@ -66,6 +66,8 @@ namespace UniCade
             comboBox2.Items.Add("Adults Only (AO)");
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.Load(@"C:\UniCade\Media\Backgrounds\UniCade Logo.png");
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.Load(@"C:\UniCade\Media\Backgrounds\UniCade Logo.png");
 
             textBox23.Enabled = false;  //Disable editing user info unless logged in
             textBox24.Enabled = false;

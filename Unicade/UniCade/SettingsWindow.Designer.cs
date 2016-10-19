@@ -210,6 +210,7 @@
             this.button34 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Us.SuspendLayout();
@@ -223,6 +224,7 @@
             this.tabPage6.SuspendLayout();
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage2
@@ -248,9 +250,9 @@
             // 
             this.button30.Location = new System.Drawing.Point(952, 572);
             this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(189, 44);
+            this.button30.Size = new System.Drawing.Size(189, 73);
             this.button30.TabIndex = 83;
-            this.button30.Text = "Enter License";
+            this.button30.Text = "Enter License Key";
             this.button30.UseVisualStyleBackColor = true;
             this.button30.Click += new System.EventHandler(this.button30_Click_1);
             // 
@@ -1713,6 +1715,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.pictureBox6);
             this.tabPage6.Controls.Add(this.button23);
             this.tabPage6.Controls.Add(this.button22);
             this.tabPage6.Controls.Add(this.checkBox24);
@@ -1974,9 +1977,9 @@
             // 
             // button41
             // 
-            this.button41.Location = new System.Drawing.Point(1037, 528);
+            this.button41.Location = new System.Drawing.Point(1037, 515);
             this.button41.Name = "button41";
-            this.button41.Size = new System.Drawing.Size(202, 99);
+            this.button41.Size = new System.Drawing.Size(202, 112);
             this.button41.TabIndex = 17;
             this.button41.Text = "Delete All Games In Cloud";
             this.button41.UseVisualStyleBackColor = true;
@@ -1984,9 +1987,9 @@
             // 
             // button40
             // 
-            this.button40.Location = new System.Drawing.Point(825, 528);
+            this.button40.Location = new System.Drawing.Point(825, 515);
             this.button40.Name = "button40";
-            this.button40.Size = new System.Drawing.Size(172, 99);
+            this.button40.Size = new System.Drawing.Size(172, 112);
             this.button40.TabIndex = 16;
             this.button40.Text = "Download All Games";
             this.button40.UseVisualStyleBackColor = true;
@@ -2005,18 +2008,18 @@
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label56.Location = new System.Drawing.Point(33, 84);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(207, 25);
+            this.label56.Size = new System.Drawing.Size(345, 42);
             this.label56.TabIndex = 13;
             this.label56.Text = "Current Web User:";
             // 
             // button38
             // 
-            this.button38.Location = new System.Drawing.Point(613, 522);
+            this.button38.Location = new System.Drawing.Point(613, 515);
             this.button38.Name = "button38";
-            this.button38.Size = new System.Drawing.Size(172, 99);
+            this.button38.Size = new System.Drawing.Size(172, 112);
             this.button38.TabIndex = 12;
             this.button38.Text = "Upload All Games";
             this.button38.UseVisualStyleBackColor = true;
@@ -2038,7 +2041,7 @@
             this.button35.Name = "button35";
             this.button35.Size = new System.Drawing.Size(172, 112);
             this.button35.TabIndex = 9;
-            this.button35.Text = "Delete Current User";
+            this.button35.Text = "Delete Current Account";
             this.button35.UseVisualStyleBackColor = true;
             this.button35.Click += new System.EventHandler(this.button35_Click);
             // 
@@ -2054,11 +2057,11 @@
             // 
             // button34
             // 
-            this.button34.Location = new System.Drawing.Point(38, 515);
+            this.button34.Location = new System.Drawing.Point(167, 515);
             this.button34.Name = "button34";
-            this.button34.Size = new System.Drawing.Size(172, 112);
+            this.button34.Size = new System.Drawing.Size(202, 112);
             this.button34.TabIndex = 7;
-            this.button34.Text = "Create new account";
+            this.button34.Text = "Create New UniCade Account";
             this.button34.UseVisualStyleBackColor = true;
             this.button34.Click += new System.EventHandler(this.button34_Click);
             // 
@@ -2075,6 +2078,14 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(86, 4);
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Location = new System.Drawing.Point(1216, 18);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(506, 731);
+            this.pictureBox6.TabIndex = 22;
+            this.pictureBox6.TabStop = false;
             // 
             // SettingsWindow
             // 
@@ -2106,6 +2117,7 @@
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2292,5 +2304,6 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Button button31;
         private System.Windows.Forms.Button button45;
+        private System.Windows.Forms.PictureBox pictureBox6;
     }
 }
