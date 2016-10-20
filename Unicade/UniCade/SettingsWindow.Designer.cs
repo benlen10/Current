@@ -160,9 +160,7 @@
             this.textBox32 = new System.Windows.Forms.TextBox();
             this.textBox31 = new System.Windows.Forms.TextBox();
             this.textBox25 = new System.Windows.Forms.TextBox();
-            this.label50 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
-            this.textBox30 = new System.Windows.Forms.TextBox();
             this.textBox29 = new System.Windows.Forms.TextBox();
             this.label48 = new System.Windows.Forms.Label();
             this.checkBox14 = new System.Windows.Forms.CheckBox();
@@ -171,8 +169,6 @@
             this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label31 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -1395,9 +1391,7 @@
             this.tabPage4.Controls.Add(this.textBox32);
             this.tabPage4.Controls.Add(this.textBox31);
             this.tabPage4.Controls.Add(this.textBox25);
-            this.tabPage4.Controls.Add(this.label50);
             this.tabPage4.Controls.Add(this.label49);
-            this.tabPage4.Controls.Add(this.textBox30);
             this.tabPage4.Controls.Add(this.textBox29);
             this.tabPage4.Controls.Add(this.label48);
             this.tabPage4.Controls.Add(this.checkBox14);
@@ -1406,8 +1400,6 @@
             this.tabPage4.Controls.Add(this.checkBox11);
             this.tabPage4.Controls.Add(this.checkBox10);
             this.tabPage4.Controls.Add(this.label36);
-            this.tabPage4.Controls.Add(this.checkBox7);
-            this.tabPage4.Controls.Add(this.checkBox6);
             this.tabPage4.Controls.Add(this.checkBox2);
             this.tabPage4.Controls.Add(this.label31);
             this.tabPage4.Controls.Add(this.comboBox1);
@@ -1478,7 +1470,7 @@
             // 
             this.textBox7.Location = new System.Drawing.Point(252, 219);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 31);
+            this.textBox7.Size = new System.Drawing.Size(234, 31);
             this.textBox7.TabIndex = 83;
             // 
             // button15
@@ -1530,7 +1522,7 @@
             // 
             // textBox32
             // 
-            this.textBox32.Location = new System.Drawing.Point(337, 367);
+            this.textBox32.Location = new System.Drawing.Point(337, 373);
             this.textBox32.Name = "textBox32";
             this.textBox32.Size = new System.Drawing.Size(535, 31);
             this.textBox32.TabIndex = 33;
@@ -1552,16 +1544,6 @@
             this.textBox25.TabIndex = 31;
             this.textBox25.TextChanged += new System.EventHandler(this.textBox25_TextChanged);
             // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(869, 612);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(100, 25);
-            this.label50.TabIndex = 20;
-            this.label50.Text = "Playtime ";
-            this.label50.Visible = false;
-            // 
             // label49
             // 
             this.label49.AutoSize = true;
@@ -1570,15 +1552,6 @@
             this.label49.Size = new System.Drawing.Size(85, 25);
             this.label49.TabIndex = 19;
             this.label49.Text = "# Coins";
-            // 
-            // textBox30
-            // 
-            this.textBox30.Location = new System.Drawing.Point(975, 609);
-            this.textBox30.Name = "textBox30";
-            this.textBox30.Size = new System.Drawing.Size(100, 31);
-            this.textBox30.TabIndex = 18;
-            this.textBox30.Visible = false;
-            this.textBox30.TextChanged += new System.EventHandler(this.textBox30_TextChanged);
             // 
             // textBox29
             // 
@@ -1661,28 +1634,6 @@
             this.label36.Size = new System.Drawing.Size(209, 25);
             this.label36.TabIndex = 5;
             this.label36.Text = "Password Protection";
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(492, 127);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(146, 29);
-            this.checkBox7.TabIndex = 4;
-            this.checkBox7.Text = "To Launch";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(666, 128);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(121, 29);
-            this.checkBox6.TabIndex = 3;
-            this.checkBox6.Text = "To View";
-            this.checkBox6.UseVisualStyleBackColor = true;
-            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -2189,8 +2140,6 @@
         private System.Windows.Forms.TextBox textBox22;
         private System.Windows.Forms.TextBox textBox21;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -2226,9 +2175,7 @@
         private System.Windows.Forms.CheckBox checkBox13;
         private System.Windows.Forms.CheckBox checkBox12;
         private System.Windows.Forms.CheckBox checkBox11;
-        private System.Windows.Forms.Label label50;
         private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.TextBox textBox30;
         private System.Windows.Forms.TextBox textBox29;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.ComboBox comboBox2;

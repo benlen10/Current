@@ -75,6 +75,7 @@ namespace UniCade
             gkh.HookedKeys.Add(Keys.Escape);
             gkh.HookedKeys.Add(Keys.Delete);
             gkh.HookedKeys.Add(Keys.F);
+            gkh.HookedKeys.Add(Keys.G);
             gkh.HookedKeys.Add(Keys.C);
             gkh.HookedKeys.Add(Keys.P);
             gkh.HookedKeys.Add(Keys.B);
@@ -161,6 +162,22 @@ namespace UniCade
                 }
             }
 
+            if ((!gameRunning))
+            {
+                if (e.KeyCode == Keys.I)  //Display info
+                {
+                    if (gameSelectionActive)
+                    {
+                        displayGameInfo();
+                    }
+                    else if (infoWindowActive)
+                    {
+                        gi.Hide();
+                        infoWindowActive = false;
+                    }
+                }
+            }
+
             if ((!gameRunning) && (!infoWindowActive))
             {
                 if (e.KeyCode == Keys.Left)
@@ -192,18 +209,7 @@ namespace UniCade
                     }
 
                 }
-                else if (e.KeyCode == Keys.I)  //Display info
-                {
-                    if (gameSelectionActive)
-                    {
-                        displayGameInfo();
-                    }
-                    else if (infoWindowActive)
-                    {
-                        gi.Hide();
-                        infoWindowActive = false;
-                    }
-                }
+                
 
                 else if (e.KeyCode == Keys.Space)  //Add or remove favorites
                 {
@@ -701,6 +707,7 @@ namespace UniCade
         {
             gkh.HookedKeys.Add(Keys.A);
             gkh.HookedKeys.Add(Keys.B);
+            gkh.HookedKeys.Add(Keys.G);
             gkh.HookedKeys.Add(Keys.Left);
             gkh.HookedKeys.Add(Keys.Right);
             gkh.HookedKeys.Add(Keys.Enter);
@@ -725,6 +732,7 @@ namespace UniCade
         {
             gkh.HookedKeys.Remove(Keys.A);
             gkh.HookedKeys.Remove(Keys.B);
+            gkh.HookedKeys.Add(Keys.G);
             gkh.HookedKeys.Remove(Keys.Left);
             gkh.HookedKeys.Remove(Keys.Right);
             gkh.HookedKeys.Remove(Keys.Enter);
