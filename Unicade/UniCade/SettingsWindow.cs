@@ -80,10 +80,6 @@ namespace UniCade
 
             richTextBox1.Text = TextFiles.features + "\n\n\n\n\n\n" + TextFiles.instructions;
 
-            if (restrictESRB == 1)
-            {
-                checkBox7.Checked = true;
-            }
             if (viewEsrb > 0)
             {
                 checkBox6.Checked = true;
@@ -518,27 +514,17 @@ namespace UniCade
 
 
 
-        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox7.Checked)
+            if (checkBox6.Checked)
             {
                 viewEsrb = 1;
             }
             else
             {
                 viewEsrb = 0;
-            }
-        }
-
-        private void checkBox6_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox6.Checked)
-            {
-                restrictESRB = 1;
-            }
-            else
-            {
-                restrictESRB = 0;
             }
 
         }

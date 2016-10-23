@@ -171,7 +171,6 @@
             this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label31 = new System.Windows.Forms.Label();
@@ -1406,7 +1405,6 @@
             this.tabPage4.Controls.Add(this.checkBox11);
             this.tabPage4.Controls.Add(this.checkBox10);
             this.tabPage4.Controls.Add(this.label36);
-            this.tabPage4.Controls.Add(this.checkBox7);
             this.tabPage4.Controls.Add(this.checkBox6);
             this.tabPage4.Controls.Add(this.checkBox2);
             this.tabPage4.Controls.Add(this.label31);
@@ -1661,17 +1659,6 @@
             this.label36.Size = new System.Drawing.Size(209, 25);
             this.label36.TabIndex = 5;
             this.label36.Text = "Password Protection";
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(502, 129);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(146, 29);
-            this.checkBox7.TabIndex = 4;
-            this.checkBox7.Text = "To Launch";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
             // checkBox6
             // 
@@ -2189,7 +2176,6 @@
         private System.Windows.Forms.TextBox textBox22;
         private System.Windows.Forms.TextBox textBox21;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Label label31;

@@ -538,22 +538,33 @@ namespace UniCade
                     {
                         if (fav)
                         {
-                            foreach(Game g1 in SettingsWindow.curUser.favorites)
+                            foreach (Game g1 in SettingsWindow.curUser.favorites)
                             {
                                 if (g.getTitle().Equals(g1.getTitle()) && g.getConsole().Equals(g1.getConsole()))
                                 {
                                     listBox.Items.Add(g.getTitle());
                                     break;
                                 }
-                            }         
-                            
+                            }
+
                         }
                         else
                         {
-                            listBox.Items.Add(g.getTitle());
+                            if (SettingsWindow.viewEsrb > 0)
+                            {
+                                int EsrbNum = SettingsWindow.calcEsrb(g.getEsrb());
+                                if (EsrbNum <= SettingsWindow.calcEsrb(SettingsWindow.curUser.getAllowedEsrb()))
+                                {
+                                    listBox.Items.Add(g.getTitle());
+                                }
+                            }
+                            else
+                            {
+                                listBox.Items.Add(g.getTitle());
+                            }
                         }
+                        //break;
                     }
-                    break;
                 }
             }
 
