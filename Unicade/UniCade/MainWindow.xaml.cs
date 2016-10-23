@@ -209,7 +209,7 @@ namespace UniCade
                     }
 
                 }
-                
+
 
                 else if (e.KeyCode == Keys.Space)  //Add or remove favorites
                 {
@@ -251,21 +251,45 @@ namespace UniCade
                         }
                     }
                 }
+                else if (e.KeyCode == Keys.G)  //Add or remove global favorite
+                {
+                    if (gameSelectionActive)
+                    {
+                        foreach (Game g in gameSelectionConsole.getGameList())
+                        {
+                            if (listBox.SelectedItem.ToString().Equals(g.getTitle()))
+                            {
+                                if (g.getFav() > 0)
+                                {
+                                    g.setFav(0);
+                                    NotificationWindow nfw = new NotificationWindow("UniCade","Removed From Global Favorites");
+                                    nfw.Show();
+                                }
+                                else
+                                {
+                                    g.setFav(1);
+                                    NotificationWindow nfw = new NotificationWindow("UniCade", "Added To Global Favorites");
+                                    nfw.Show();
+                                }
+                            }
+                        }
+                    }
+                }
                 else if (e.KeyCode == Keys.F)  //Toggle Favorites view
                 {
                     if (gameSelectionActive)
                     {
                         if (fav)
                         {
-                            
+
                             fav = false;
                         }
                         else
                         {
-                            
-                           fav = true;
+
+                            fav = true;
                         }
-                       
+
                         openGameSelection();
                     }
                 }
