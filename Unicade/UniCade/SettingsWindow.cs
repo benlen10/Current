@@ -853,12 +853,25 @@ namespace UniCade
             {
                 MessageBox.Show("Release Date score must be only digits");
             }
-            
-            curGame.setCriticScore(textBox15.Text);
-            if (curGame.getPublisher() != null)
+
+            if (isAllDigits(textBox12.Text))
             {
-                curGame.setPublisher(textBox11.Text);
+                if (textBox12.TextLength < 5)
+                {
+                    curGame.setCriticScore(textBox15.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Critic Score Invalid");
+                }
             }
+            else
+            {
+                MessageBox.Show("Critic Score must be only digits");
+            }
+            
+                curGame.setPublisher(textBox11.Text);
+
             if (curGame.getDeveloper() != null)
             {
                 curGame.setDeveloper(textBox10.Text);
