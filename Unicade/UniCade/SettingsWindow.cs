@@ -826,9 +826,34 @@ namespace UniCade
             }
         }
 
+        bool isAllDigits(string s)
+        {
+            foreach (char c in s)
+            {
+                if (!char.IsDigit(c))
+                    return false;
+            }
+            return true;
+        }
+
         private void button18_Click(object sender, EventArgs e)
         {
-            curGame.setReleaseDate(textBox12.Text);
+            if (isAllDigits(textBox12.Text))
+            {
+                if (textBox12.TextLength < 5)
+                {
+                    curGame.setReleaseDate(textBox12.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Release Date Invalid");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Release Date score must be only digits");
+            }
+            
             curGame.setCriticScore(textBox15.Text);
             if (curGame.getPublisher() != null)
             {
