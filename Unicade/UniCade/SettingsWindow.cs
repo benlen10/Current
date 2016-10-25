@@ -333,12 +333,65 @@ namespace UniCade
 
         private void saveGameInfo()
         {
-            curGame.setReleaseDate(textBox12.Text);
-            curGame.setCriticScore(textBox15.Text);
+
+            if (isAllDigits(textBox12.Text))
+            {
+                if (textBox12.TextLength < 5)
+                {
+                    curGame.setReleaseDate(textBox12.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Release Date Invalid");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Release Date score must be only digits");
+            }
+
+            if (isAllDigits(textBox12.Text))
+            {
+                if (textBox12.TextLength < 5)
+                {
+                    curGame.setCriticScore(textBox15.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Critic Score Invalid");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Critic Score must be only digits");
+            }
+
+            if (isAllDigits(textBox12.Text))
+            {
+                if (textBox12.TextLength < 5)
+                {
+                    curGame.setPlayers(textBox17.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Players Invalid");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Players must be only digits");
+            }
+            
+
+
             curGame.setPublisher(textBox11.Text);
+
             curGame.setDeveloper(textBox10.Text);
+
+
             curGame.setEsrb(textBox6.Text);
-            curGame.setPlayers(textBox17.Text);
+            
+
             curGame.setDescription(textBox18.Text);
             curGame.setEsrbDescriptors(textBox19.Text);
             FileOps.saveDatabase(Program.databasePath);
@@ -836,55 +889,9 @@ namespace UniCade
             return true;
         }
 
-        private void button18_Click(object sender, EventArgs e)
+        private void button18_Click(object sender, EventArgs e)  //Save game info
         {
-            if (isAllDigits(textBox12.Text))
-            {
-                if (textBox12.TextLength < 5)
-                {
-                    curGame.setReleaseDate(textBox12.Text);
-                }
-                else
-                {
-                    MessageBox.Show("Release Date Invalid");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Release Date score must be only digits");
-            }
-
-            if (isAllDigits(textBox12.Text))
-            {
-                if (textBox12.TextLength < 5)
-                {
-                    curGame.setCriticScore(textBox15.Text);
-                }
-                else
-                {
-                    MessageBox.Show("Critic Score Invalid");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Critic Score must be only digits");
-            }
-            
-                curGame.setPublisher(textBox11.Text);
-
-            if (curGame.getDeveloper() != null)
-            {
-                curGame.setDeveloper(textBox10.Text);
-            }
-            if (curGame.getEsrb() != null)
-            {
-                curGame.setEsrb(textBox6.Text);
-            }
-            curGame.setPlayers(textBox17.Text);
-            if (curGame.getTrivia() != null)
-            {
-                curGame.setTrivia(textBox18.Text);
-            }
+            saveGameInfo();
 
         }
 
