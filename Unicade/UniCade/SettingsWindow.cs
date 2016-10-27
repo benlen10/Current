@@ -368,7 +368,7 @@ namespace UniCade
 
             if (isAllDigits(textBox12.Text))
             {
-                if (textBox12.TextLength < 5)
+                if (textBox12.TextLength < 2)
                 {
                     curGame.setPlayers(textBox17.Text);
                 }
@@ -381,19 +381,22 @@ namespace UniCade
             {
                 MessageBox.Show("Players must be only digits");
             }
-            
 
 
-            curGame.setPublisher(textBox11.Text);
 
-            curGame.setDeveloper(textBox10.Text);
+            if (textBox10.Text.Contains("|") || textBox11.Text.Contains("|") || textBox6.Text.Contains("|") || textBox18.Text.Contains("|") || textBox19.Text.Contains("|"))
+            {
+                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            }
+            else
+            {
+                curGame.setPublisher(textBox11.Text);
+                curGame.setDeveloper(textBox10.Text);
+                curGame.setEsrb(textBox6.Text);
+                curGame.setDescription(textBox18.Text);
+                curGame.setEsrbDescriptors(textBox19.Text);
+            }
 
-
-            curGame.setEsrb(textBox6.Text);
-            
-
-            curGame.setDescription(textBox18.Text);
-            curGame.setEsrbDescriptors(textBox19.Text);
             FileOps.saveDatabase(Program.databasePath);
         }
 
