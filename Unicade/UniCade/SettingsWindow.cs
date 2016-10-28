@@ -390,11 +390,27 @@ namespace UniCade
             }
             else
             {
-                curGame.setPublisher(textBox11.Text);
-                curGame.setDeveloper(textBox10.Text);
-                curGame.setEsrb(textBox6.Text);
-                curGame.setDescription(textBox18.Text);
-                curGame.setEsrbDescriptors(textBox19.Text);
+                if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("L") || textBox6.Text.Contains("|"))
+                {
+                    curGame.setEsrb(textBox6.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid ESRB Rating");
+                }
+
+                if ((textBox10.Text.Length > 20) || (textBox11.Text.Length > 20) || (textBox18.Text.Length > 20) || (textBox19.Text.Length > 20))
+                {
+                    MessageBox.Show("Invalid Length");
+                }
+                else
+                {
+                    curGame.setPublisher(textBox11.Text);
+                    curGame.setDeveloper(textBox10.Text);
+
+                    curGame.setDescription(textBox18.Text);
+                    curGame.setEsrbDescriptors(textBox19.Text);
+                }
             }
 
             FileOps.saveDatabase(Program.databasePath);
