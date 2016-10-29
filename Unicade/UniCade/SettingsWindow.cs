@@ -916,13 +916,23 @@ namespace UniCade
 
         private void button19_Click(object sender, EventArgs e)  //Consoles - Save Info Button
         {
-            curConsole.setName(textBox9.Text);
-            curConsole.setEmuPath(textBox1.Text);
-            //curConsole.setRomPath(textBox3.Text);
-            curConsole.setRomExt(textBox4.Text);
-            curConsole.setLaunchParam(textBox5.Text);
-            curConsole.setReleaseDate(textBox22.Text);
-            curConsole.setConsoleInfo(textBox20.Text);
+            if (textBox9.Text.Contains("|") || textBox1.Text.Contains("|") || textBox3.Text.Contains("|") || textBox4.Text.Contains("|") || textBox5.Text.Contains("|") || textBox22.Text.Contains("|") || textBox20.Text.Contains("|"))
+            {
+                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            }
+            else
+            {
+
+                curConsole.setReleaseDate(textBox22.Text);
+
+                curConsole.setName(textBox9.Text);
+                curConsole.setEmuPath(textBox1.Text);
+                //curConsole.setRomPath(textBox3.Text);
+                curConsole.setRomExt(textBox4.Text);
+                curConsole.setLaunchParam(textBox5.Text);
+                curConsole.setConsoleInfo(textBox20.Text);
+            }
+
             listBox1.Items.Clear();
             foreach (Console c in Program.dat.consoleList)
             {
