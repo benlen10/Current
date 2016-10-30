@@ -923,7 +923,22 @@ namespace UniCade
             else
             {
 
-                curConsole.setReleaseDate(textBox22.Text);
+                if (isAllDigits(textBox12.Text))
+                {
+                    if (textBox12.TextLength < 5)
+                    {
+                        curConsole.setReleaseDate(textBox22.Text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Release Date Invalid");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Release Date score must be only digits");
+                }
+                
 
                 curConsole.setName(textBox9.Text);
                 curConsole.setEmuPath(textBox1.Text);
