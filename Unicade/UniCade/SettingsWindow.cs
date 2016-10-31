@@ -938,14 +938,21 @@ namespace UniCade
                 {
                     MessageBox.Show("Release Date score must be only digits");
                 }
-                
 
-                curConsole.setName(textBox9.Text);
-                curConsole.setEmuPath(textBox1.Text);
-                //curConsole.setRomPath(textBox3.Text);
-                curConsole.setRomExt(textBox4.Text);
-                curConsole.setLaunchParam(textBox5.Text);
-                curConsole.setConsoleInfo(textBox20.Text);
+
+                if ((textBox9.Text.Length > 20) || (textBox1.Text.Length > 100) || (textBox3.Text.Length > 100) || (textBox4.Text.Length > 30) || (textBox3.Text.Length > 40) || (textBox4.Text.Length > 300))
+                {
+                    MessageBox.Show("Invalid Length");
+                }
+                else
+                {
+                    curConsole.setName(textBox9.Text);
+                    curConsole.setEmuPath(textBox1.Text);
+                    //curConsole.setRomPath(textBox3.Text);
+                    curConsole.setRomExt(textBox4.Text);
+                    curConsole.setLaunchParam(textBox5.Text);
+                    curConsole.setConsoleInfo(textBox20.Text);
+                }
             }
 
             listBox1.Items.Clear();
