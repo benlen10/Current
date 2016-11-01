@@ -876,22 +876,36 @@ namespace UniCade
 
         }
 
-        private void button17_Click(object sender, EventArgs e)
+        private void button17_Click(object sender, EventArgs e)               //Save local user info
         {
             if (!curUser.getUsername().Equals(listBox4.SelectedItem.ToString()))
             {
                 MessageBox.Show("Must Login First");
                 return;
             }
-            if (comboBox2.SelectedItem != null)
-            {
-                curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
-            }
 
-            curUser.setName(textBox23.Text);
-            curUser.setpass(textBox24.Text);
-            curUser.setUserInfo(textBox26.Text);
+            
+           
+
+            if (comboBox2.SelectedItem.ToString().Contains("|") || textBox23.Text.Contains("|") || textBox24.Text.Contains("|") || textBox26.Text.Contains("|"))
+            {
+                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            }
+            else
+            {
+                curUser.setName(textBox23.Text);
+                curUser.setpass(textBox24.Text);
+                curUser.setUserInfo(textBox26.Text);
+
+                
+                if (comboBox2.SelectedItem != null)
+                {
+                    curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
+                }
+            }
             listBox4.Items.Clear();
+
+
             foreach (User us in Program.dat.userList)
             {
                 listBox4.Items.Add(us.getUsername());
