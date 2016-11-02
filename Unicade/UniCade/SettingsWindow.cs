@@ -897,11 +897,19 @@ namespace UniCade
                 curUser.setpass(textBox24.Text);
                 curUser.setUserInfo(textBox26.Text);
 
-                
-                if (comboBox2.SelectedItem != null)
+
+                if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("L") || textBox6.Text.Contains("|"))
                 {
-                    curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
+                    if (comboBox2.SelectedItem != null)
+                    {
+                        curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("Invalid ESRB Rating");
+                }
+                
             }
             listBox4.Items.Clear();
 
