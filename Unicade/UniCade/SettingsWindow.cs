@@ -893,10 +893,16 @@ namespace UniCade
             }
             else
             {
-                curUser.setName(textBox23.Text);
-                curUser.setpass(textBox24.Text);
-                curUser.setUserInfo(textBox26.Text);
-
+                if ((textBox23.Text.Length > 20) || (textBox24.Text.Length > 20) || (textBox26.Text.Length > 50))
+                {
+                    MessageBox.Show("Invalid Length");
+                }
+                else
+                {
+                    curUser.setName(textBox23.Text);
+                    curUser.setpass(textBox24.Text);
+                    curUser.setUserInfo(textBox26.Text);
+                }
 
                 if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("L") || textBox6.Text.Contains("|"))
                 {
