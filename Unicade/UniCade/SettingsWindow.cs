@@ -74,6 +74,8 @@ namespace UniCade
             textBox26.Enabled = false;
             textBox27.Enabled = false;
             textBox28.Enabled = false;
+            textBox25.Enabled = false;
+            textBox31.Enabled = false;
             comboBox2.Enabled = false;
             listBox5.Enabled = false;
 
