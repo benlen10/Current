@@ -392,7 +392,7 @@ namespace UniCade
             }
             else
             {
-                if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("L") || textBox6.Text.Contains("|"))
+                if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("Adults"))
                 {
                     curGame.setEsrb(textBox6.Text);
                 }
@@ -541,10 +541,30 @@ namespace UniCade
 
         private void button15_Click(object sender, EventArgs e)  //Save Global Settings 
         {
-            Program.databasePath = textBox31.Text;
-            Program.emuPath = textBox25.Text;
-            Program.mediaPath = textBox32.Text;
-            Program.romPath = textBox33.Text;
+            if (comboBox1.SelectedItem.ToString().Contains("|") || textBox25.Text.Contains("|") || textBox32.Text.Contains("|") || textBox33.Text.Contains("|"))
+            {
+                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            }
+            else
+            {
+                if (comboBox1.SelectedItem.ToString().Contains("Everyone") || comboBox1.SelectedItem.ToString().Contains("Teen") || comboBox1.SelectedItem.ToString().Contains("Mature") || comboBox1.SelectedItem.ToString().Contains("Adults"))
+                {
+                    curGame.setEsrb(textBox6.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid ESRB Rating");
+                }
+                if ((textBox25.Text.Length > 150) || (textBox32.Text.Length > 150) || (textBox33.Text.Length > 150))
+                {
+                    MessageBox.Show("Invalid Length");
+                }
+                else
+                {
+                    Program.emuPath = textBox25.Text;
+                Program.mediaPath = textBox32.Text;
+                Program.romPath = textBox33.Text;
+            }
 
 
 
