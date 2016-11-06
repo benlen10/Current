@@ -26,7 +26,17 @@ namespace UniCade
                 MessageBox.Show("Fields cannot be empty");
                 return;
             }
-            if (type == 0)
+            if ((textBox1.TextLength>30) || (textBox2.Text.Length>30) || (textBox3.Text.Length>30) || (textBox4.Text.Length>100))//verify lengh. Description can be up to 100chars
+            {
+                MessageBox.Show("Invalid Length");
+                return;
+            }
+            if (!textBox2.Text.Contains("@"))
+            {
+                MessageBox.Show("Invalid Email");
+                return;
+            }
+                if (type == 0)
             {
                 SQLclient.createUser(textBox1.Text, textBox3.Text, textBox2.Text, textBox4.Text, "Null", "NullProfPath");
             }
