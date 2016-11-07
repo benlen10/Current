@@ -562,48 +562,49 @@ namespace UniCade
                 else
                 {
                     Program.emuPath = textBox25.Text;
-                Program.mediaPath = textBox32.Text;
-                Program.romPath = textBox33.Text;
-            }
-
-
-
-
-            int n = 0;
-            Int32.TryParse(textBox7.Text, out n);
-            if (n > 0)
-            {
-                passProtect = Int32.Parse(textBox7.Text);
-            }
-            Int32.TryParse(textBox29.Text, out n);
-            if (n > 0)
-            {
-                coins = Int32.Parse(textBox29.Text);
-            }
-            Int32.TryParse(textBox30.Text, out n);
-            if (n > 0)
-            {
-                playtime = Int32.Parse(textBox30.Text);
-            }
-            if (comboBox1.SelectedItem != null)
-            {
-                restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
-            }
-
-            if (SettingsWindow.payPerPlay > 0)
-            {
-
-                if (SettingsWindow.playtime > 0)
-                {
-                   // Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
-                }
-                else if (SettingsWindow.coins > 0)
-                {
-                    //Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
+                    Program.mediaPath = textBox32.Text;
+                    Program.romPath = textBox33.Text;
                 }
 
+
+
+
+                int n = 0;
+                Int32.TryParse(textBox7.Text, out n);
+                if (n > 0)
+                {
+                    passProtect = Int32.Parse(textBox7.Text);
+                }
+                Int32.TryParse(textBox29.Text, out n);
+                if (n > 0)
+                {
+                    coins = Int32.Parse(textBox29.Text);
+                }
+                Int32.TryParse(textBox30.Text, out n);
+                if (n > 0)
+                {
+                    playtime = Int32.Parse(textBox30.Text);
+                }
+                if (comboBox1.SelectedItem != null)
+                {
+                    restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
+                }
+
+                if (SettingsWindow.payPerPlay > 0)
+                {
+
+                    if (SettingsWindow.playtime > 0)
+                    {
+                        // Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
+                    }
+                    else if (SettingsWindow.coins > 0)
+                    {
+                        //Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
+                    }
+
+                }
+                FileOps.savePreferences(Program.prefPath);
             }
-            FileOps.savePreferences(Program.prefPath);
         }
 
 

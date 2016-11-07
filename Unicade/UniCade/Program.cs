@@ -88,8 +88,6 @@ namespace UniCade
                 txt = txt + ("\nDeveloper: " + g.getDeveloper() + "\n");
                 txt = txt + ("\nPublisher: " + g.getPublisher() + "\n");
                 txt = txt + ("\nPlayers: " + g.getPlayers() + "\n");
-                txt = txt + ("\nUser Score: " + g.getUserScore() + "\n");
-                txt = txt + ("\nCritic Score: " + g.getCriticScore() + "\n");
                 txt = txt + ("\nCritic Score: " + g.getCriticScore() + "\n");
                 txt = txt + ("\nESRB Rating: " + g.getTags() + "\n");
                 txt = txt + ("\nESRB Descriptors: " + g.getEsrbDescriptor() + "\n");
