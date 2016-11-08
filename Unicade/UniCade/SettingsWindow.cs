@@ -335,6 +335,11 @@ namespace UniCade
 
         private void saveGameInfo()
         {
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
 
             if (isAllDigits(textBox12.Text))
             {
