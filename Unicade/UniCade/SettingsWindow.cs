@@ -1407,6 +1407,12 @@ namespace UniCade
 
         private void button28_Click(object sender, EventArgs e)
         {
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+
             MessageBox.Show("This may take a while... Please wait for a completed nofication.");
             foreach (Game g1 in curConsole2.getGameList())
             {
@@ -1616,6 +1622,11 @@ namespace UniCade
 
         private void button42_Click(object sender, EventArgs e)  //Upload console button
         {
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
 
             if (curConsole2 == null)
             {
@@ -1640,6 +1651,13 @@ namespace UniCade
 
         private void button43_Click(object sender, EventArgs e)  //Download console button
         {
+
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+
             if (SQLclient.sqlUser == null)
             {
                 MessageBox.Show("Login Required");
