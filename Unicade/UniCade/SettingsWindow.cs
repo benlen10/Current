@@ -278,6 +278,7 @@ namespace UniCade
                     }
                 }
             }
+            listBox3.SelectedIndex = 0;
         }
 
         private void tabPage3_Click(object sender, EventArgs e)
@@ -304,7 +305,6 @@ namespace UniCade
         {
             //Cursor.Hide();
             //this.Close();
-            saveGameInfo();
             MainWindow.settingsWindowActive = false;
             Close();
 
@@ -312,6 +312,12 @@ namespace UniCade
 
         private void button1_Click(object sender, EventArgs e)   //Rescrape Game Info Button
         {
+
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console/game");
+                return;
+            }
             Game g = curGame;
             WebOps.scrapeInfo(g);
             textBox2.Text = g.getTitle();
@@ -329,6 +335,11 @@ namespace UniCade
 
         private void button6_Click(object sender, EventArgs e)  //Save to Database Button
         {
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console/game");
+                return;
+            }
             saveGameInfo();
 
         }
@@ -966,6 +977,11 @@ namespace UniCade
 
         private void button18_Click(object sender, EventArgs e)  //Save game info
         {
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
             saveGameInfo();
 
         }
@@ -1407,6 +1423,13 @@ namespace UniCade
 
         private void button28_Click(object sender, EventArgs e)
         {
+
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+
             if (listBox2.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console");
@@ -1468,6 +1491,11 @@ namespace UniCade
 
         private void button32_Click(object sender, EventArgs e)  //Delete game button
         {
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console/game");
+                return;
+            }
             if (curGame != null)
             {
                 curConsole.getGameList().Remove(curGame);
@@ -1477,9 +1505,16 @@ namespace UniCade
 
         private void button33_Click(object sender, EventArgs e)  //Upload game button
         {
+
             if (SQLclient.sqlUser == null)
             {
                 MessageBox.Show("SQL login required");
+                return;
+            }
+
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
                 return;
             }
             SQLclient.uploadGame(curGame);
@@ -1587,6 +1622,12 @@ namespace UniCade
                 return;
             }
 
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+
             if (curGame == null)
             {
                 MessageBox.Show("Must select a game");
@@ -1622,21 +1663,16 @@ namespace UniCade
 
         private void button42_Click(object sender, EventArgs e)  //Upload console button
         {
-            if (listBox2.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console");
-                return;
-            }
 
-            if (curConsole2 == null)
-            {
-                MessageBox.Show("Please select console");
-                return;
-            }
 
             if (SQLclient.sqlUser == null)
             {
                 MessageBox.Show("Login Required");
+                return;
+            }
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
                 return;
             }
             foreach (Game g in curConsole2.getGameList())
