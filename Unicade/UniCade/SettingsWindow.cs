@@ -278,7 +278,22 @@ namespace UniCade
                     }
                 }
             }
-            listBox3.SelectedIndex = 0;
+            if (listBox3.Items.Count > 0)
+            {
+                listBox3.SelectedIndex = 0;
+                foreach (Game g in curConsole2.getGameList())
+                {
+                    if (g.getTitle().Equals(listBox3.SelectedItem.ToString()))
+                    {
+                        curGame = g;
+                    }
+                }
+            }
+            else
+            {
+                refreshGameInfo(null);
+            }
+
         }
 
         private void tabPage3_Click(object sender, EventArgs e)
@@ -1454,7 +1469,7 @@ namespace UniCade
         {
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("Login Required");
+                MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
             richTextBox2.Text = null;
@@ -1470,7 +1485,7 @@ namespace UniCade
         {
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("Login Required");
+                MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
             Game g = SQLclient.getSingleGame(textBox34.Text, textBox35.Text);
@@ -1496,11 +1511,14 @@ namespace UniCade
                 MessageBox.Show("Must select a console/game");
                 return;
             }
-            if (curGame != null)
+            if (listBox3.Items.Count < 1)
             {
+                MessageBox.Show("No games to delete");
+            }
                 curConsole.getGameList().Remove(curGame);
                 MessageBox.Show("Game Removed");
-            }
+            
+            
         }
 
         private void button33_Click(object sender, EventArgs e)  //Upload game button
@@ -1508,13 +1526,13 @@ namespace UniCade
 
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("SQL login required");
+                MessageBox.Show("UniCade Cloud login required");
                 return;
             }
 
             if (listBox2.SelectedItem == null)
             {
-                MessageBox.Show("Must select a console");
+                MessageBox.Show("Must select a console/game");
                 return;
             }
             SQLclient.uploadGame(curGame);
@@ -1554,7 +1572,7 @@ namespace UniCade
         {
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("Login Required");
+                MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
         }
@@ -1563,7 +1581,7 @@ namespace UniCade
         {
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("Login Required");
+                MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
 
@@ -1577,7 +1595,7 @@ namespace UniCade
         {
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("Login Required");
+                MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
             SQLclient.uploadAllGames();
@@ -1594,7 +1612,7 @@ namespace UniCade
         {
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("Login Required");
+                MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
             SQLclient.deletegames();
@@ -1606,7 +1624,7 @@ namespace UniCade
         {
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("Login Required");
+                MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
 
@@ -1618,13 +1636,13 @@ namespace UniCade
         {
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("Login Required");
+                MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
 
             if (listBox2.SelectedItem == null)
             {
-                MessageBox.Show("Must select a console");
+                MessageBox.Show("Must select a console/game");
                 return;
             }
 
@@ -1727,7 +1745,21 @@ namespace UniCade
 
         public void refreshGameInfo(Game g)
         {
-            
+            if (g == null)
+                    {
+                textBox2.Text = null;
+                    textBox13.Text = null;
+                textBox12.Text = null;
+                textBox15.Text = null;
+                textBox11.Text = null;
+                textBox10.Text = null;
+                textBox6.Text = null;
+                textBox17.Text = null;
+                textBox19.Text = null;
+                textBox18.Text = null;
+                return;
+
+            }
                     textBox2.Text = g.getTitle();
                     textBox13.Text = g.getConsole();
                     textBox12.Text = g.getReleaseDate();
