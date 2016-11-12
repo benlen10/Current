@@ -994,9 +994,16 @@ namespace UniCade
         {
             if (listBox2.SelectedItem == null)
             {
-                MessageBox.Show("Must select a console");
+                MessageBox.Show("Must select a console/game");
                 return;
             }
+            if (listBox3.Items.Count < 1)
+            {
+                MessageBox.Show("No games to save");
+                return;
+            }
+
+
             saveGameInfo();
 
         }
@@ -1514,6 +1521,7 @@ namespace UniCade
             if (listBox3.Items.Count < 1)
             {
                 MessageBox.Show("No games to delete");
+                return;
             }
                 curConsole.getGameList().Remove(curGame);
                 MessageBox.Show("Game Removed");
@@ -1527,6 +1535,12 @@ namespace UniCade
             if (SQLclient.sqlUser == null)
             {
                 MessageBox.Show("UniCade Cloud login required");
+                return;
+            }
+
+            if (listBox3.Items.Count < 1)
+            {
+                MessageBox.Show("No games to upload");
                 return;
             }
 
@@ -1640,6 +1654,12 @@ namespace UniCade
                 return;
             }
 
+            if (listBox3.Items.Count < 1)
+            {
+                MessageBox.Show("No games to download");
+                return;
+            }
+
             if (listBox2.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
@@ -1693,6 +1713,12 @@ namespace UniCade
                 MessageBox.Show("Must select a console");
                 return;
             }
+
+            if (listBox3.Items.Count < 1)
+            {
+                MessageBox.Show("No games to upload");
+                return;
+            }
             foreach (Game g in curConsole2.getGameList())
             {
                 SQLclient.uploadGame(g);
@@ -1715,6 +1741,12 @@ namespace UniCade
             if (SQLclient.sqlUser == null)
             {
                 MessageBox.Show("Login Required");
+                return;
+            }
+
+            if (listBox3.Items.Count < 1)
+            {
+                MessageBox.Show("No games to delete");
                 return;
             }
 
