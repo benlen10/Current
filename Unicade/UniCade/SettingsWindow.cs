@@ -423,7 +423,7 @@ namespace UniCade
             }
             else
             {
-                if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("Adults"))
+                if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("Adults")||textBox6.TextLength<1)
                 {
                     curGame.setEsrb(textBox6.Text);
                 }
@@ -578,7 +578,7 @@ namespace UniCade
             }
             else
             {
-                if (comboBox1.SelectedItem.ToString().Contains("Everyone") || comboBox1.SelectedItem.ToString().Contains("Teen") || comboBox1.SelectedItem.ToString().Contains("Mature") || comboBox1.SelectedItem.ToString().Contains("Adults"))
+                if (comboBox1.SelectedItem.ToString().Contains("Everyone") || comboBox1.SelectedItem.ToString().Contains("Teen") || comboBox1.SelectedItem.ToString().Contains("Mature") || comboBox1.SelectedItem.ToString().Contains("Adults") || textBox6.TextLength < 1)
                 {
                     curGame.setEsrb(textBox6.Text);
                 }
@@ -958,7 +958,7 @@ namespace UniCade
                     curUser.setUserInfo(textBox26.Text);
                 }
 
-                if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("L") || textBox6.Text.Contains("|"))
+                if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("Adults") || textBox6.TextLength < 1)
                 {
                     if (comboBox2.SelectedItem != null)
                     {
