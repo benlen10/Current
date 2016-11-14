@@ -1511,23 +1511,7 @@ namespace UniCade
             }
         }
 
-        private void button32_Click(object sender, EventArgs e)  //Delete game button
-        {
-            if (listBox2.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console/game");
-                return;
-            }
-            if (listBox3.Items.Count < 1)
-            {
-                MessageBox.Show("No games to delete");
-                return;
-            }
-                curConsole.getGameList().Remove(curGame);
-                MessageBox.Show("Game Removed");
-            
-            
-        }
+        
 
         private void button33_Click(object sender, EventArgs e)  //Upload game button
         {

@@ -73,7 +73,6 @@
             this.button43 = new System.Windows.Forms.Button();
             this.button42 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
-            this.button32 = new System.Windows.Forms.Button();
             this.button28 = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -624,7 +623,6 @@
             this.tabPage3.Controls.Add(this.button43);
             this.tabPage3.Controls.Add(this.button42);
             this.tabPage3.Controls.Add(this.button33);
-            this.tabPage3.Controls.Add(this.button32);
             this.tabPage3.Controls.Add(this.button28);
             this.tabPage3.Controls.Add(this.textBox8);
             this.tabPage3.Controls.Add(this.textBox3);
@@ -718,16 +716,6 @@
             this.button33.Text = "Upload Game";
             this.button33.UseVisualStyleBackColor = true;
             this.button33.Click += new System.EventHandler(this.button33_Click);
-            // 
-            // button32
-            // 
-            this.button32.Location = new System.Drawing.Point(506, 599);
-            this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(187, 41);
-            this.button32.TabIndex = 73;
-            this.button32.Text = "Delete Game";
-            this.button32.UseVisualStyleBackColor = true;
-            this.button32.Click += new System.EventHandler(this.button32_Click);
             // 
             // button28
             // 
@@ -2270,7 +2258,6 @@
         private System.Windows.Forms.TabPage tabPage7;
         public System.Windows.Forms.RichTextBox richTextBox2;  //public 
         private System.Windows.Forms.Button button33;
-        private System.Windows.Forms.Button button32;
         private System.Windows.Forms.Button button34;
         private System.Windows.Forms.Button button38;
         private System.Windows.Forms.Button button37;
