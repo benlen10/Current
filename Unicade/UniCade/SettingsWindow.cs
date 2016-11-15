@@ -367,6 +367,12 @@ namespace UniCade
                 return;
             }
 
+            if (listBox3.Items.Count<1)
+            {
+                
+                return;
+            }
+
             if (isAllDigits(textBox12.Text))
             {
                 if (textBox12.TextLength < 5)
