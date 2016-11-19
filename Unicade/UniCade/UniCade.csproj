@@ -9,11 +9,27 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UniCade</RootNamespace>
     <AssemblyName>UniCade</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,106 +53,129 @@
   <PropertyGroup>
     <StartupObject>UniCade.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\PrivateAssemblies\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Resources\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GameInfo.xaml.cs">
+    <Compile Include="Windows\GameInfo.xaml.cs">
       <DependentUpon>GameInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="globalKeyboardHook.cs" />
-    <Compile Include="LicenseEntry.cs">
+    <Compile Include="Backend\GlobalKeyboardHook.cs" />
+    <Compile Include="Windows\LicenseEntry.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LicenseEntry.Designer.cs">
+    <Compile Include="Windows\LicenseEntry.Designer.cs">
       <DependentUpon>LicenseEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Splash.xaml.cs">
-      <DependentUpon>Splash.xaml</DependentUpon>
+    <Compile Include="Windows\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="NotificationWindow.xaml.cs">
+    <Compile Include="Windows\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PassWindow.cs">
+    <Compile Include="Windows\PassWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PassWindow.Designer.cs">
+    <Compile Include="Windows\PassWindow.Designer.cs">
       <DependentUpon>PassWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="SQLclient.cs" />
-    <Compile Include="Taskbar.cs" />
-    <Compile Include="TextFiles.cs" />
-    <Compile Include="UnicadeAccount.cs">
+    <Compile Include="Network\SQLclient.cs" />
+    <Compile Include="Backend\Taskbar.cs" />
+    <Compile Include="Backend\TextFiles.cs" />
+    <Compile Include="Backend\User.cs" />
+    <Compile Include="Network\WebOps.cs" />
+    <Compile Include="Windows\UnicadeAccount.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UnicadeAccount.Designer.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="WebOps.cs" />
-    <Page Include="GameInfo.xaml">
+    <Compile Include="Windows\UnicadeAccount.designer.cs">
+      <DependentUpon>UnicadeAccount.cs</DependentUpon>
+    </Compile>
+    <Page Include="Windows\GameInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Resources\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BackgroundThread.cs" />
-    <Compile Include="ConfirmAction.cs">
+    <Compile Include="Backend\Console.cs" />
+    <Compile Include="Backend\Constants.cs" />
+    <Compile Include="Backend\Database.cs" />
+    <Compile Include="Backend\FileOps.cs" />
+    <Compile Include="Backend\Game.cs" />
+    <Compile Include="Windows\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConfirmAction.Designer.cs" />
-    <Compile Include="Console.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="Database.cs" />
-    <Compile Include="FileOps.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Login.cs">
+    <Compile Include="Backend\Program.cs" />
+    <Compile Include="Windows\SettingsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Review.cs" />
-    <Compile Include="SettingsWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SettingsWindow.Designer.cs">
+    <Compile Include="Windows\SettingsWindow.Designer.cs">
       <DependentUpon>SettingsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Splash.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NotificationWindow.xaml">
+    <Page Include="Windows\NotificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,20 +194,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="ConfirmAction.resx" />
-    <EmbeddedResource Include="LicenseEntry.resx">
+    <EmbeddedResource Include="Windows\LicenseEntry.resx">
       <DependentUpon>LicenseEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx" />
-    <EmbeddedResource Include="PassWindow.resx">
+    <EmbeddedResource Include="Windows\PassWindow.resx">
       <DependentUpon>PassWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsWindow.resx" />
-    <EmbeddedResource Include="UnicadeAccount.resx" />
+    <EmbeddedResource Include="Windows\SettingsWindow.resx" />
+    <EmbeddedResource Include="Windows\UnicadeAccount.resx">
+      <DependentUpon>UnicadeAccount.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -176,8 +215,24 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Resources\App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\InterfaceBackground.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

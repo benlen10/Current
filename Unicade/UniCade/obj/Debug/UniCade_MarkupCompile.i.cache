@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\obj\Debug\
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\
 UniCade
 none
 false
 DEBUG;TRACE
-C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\App.xaml
-41252655978
+C:\Users\Ben\Workspace\Unicade\UniCade\Resources\App.xaml
+32115436557
+11074149209
+33-1170345603
+16991112455
+Windows\GameInfo.xaml;MainWindow.xaml;Windows\NotificationWindow.xaml;
 
-381297773992
-161628290857
-GameInfo.xaml;MainWindow.xaml;Splash.xaml;NotificationWindow.xaml;
-
-True
+False
 
