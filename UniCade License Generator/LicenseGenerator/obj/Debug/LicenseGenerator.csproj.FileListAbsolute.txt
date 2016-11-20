@@ -1,9 +1,0 @@
-C:\Users\Ben\Dropbox\Workspace\LicenseGenerator\LicenseGenerator\bin\Debug\LicenseGenerator.exe.config
-C:\Users\Ben\Dropbox\Workspace\LicenseGenerator\LicenseGenerator\bin\Debug\LicenseGenerator.exe
-C:\Users\Ben\Dropbox\Workspace\LicenseGenerator\LicenseGenerator\bin\Debug\LicenseGenerator.pdb
-C:\Users\Ben\Dropbox\Workspace\LicenseGenerator\LicenseGenerator\obj\Debug\LicenseGenerator.csprojResolveAssemblyReference.cache
-C:\Users\Ben\Dropbox\Workspace\LicenseGenerator\LicenseGenerator\obj\Debug\LicenseGenerator.Form1.resources
-C:\Users\Ben\Dropbox\Workspace\LicenseGenerator\LicenseGenerator\obj\Debug\LicenseGenerator.Properties.Resources.resources
-C:\Users\Ben\Dropbox\Workspace\LicenseGenerator\LicenseGenerator\obj\Debug\LicenseGenerator.csproj.GenerateResource.Cache
-C:\Users\Ben\Dropbox\Workspace\LicenseGenerator\LicenseGenerator\obj\Debug\LicenseGenerator.exe
-C:\Users\Ben\Dropbox\Workspace\LicenseGenerator\LicenseGenerator\obj\Debug\LicenseGenerator.pdb
