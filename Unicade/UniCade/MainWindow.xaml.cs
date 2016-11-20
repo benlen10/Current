@@ -369,7 +369,8 @@ namespace UniCade
         /// <summary>
         /// Navigate to the right on the home console selection screen
         /// </summary>
-        private void Left() { 
+        private new void Left()
+        {
             if (_index > 0)
                 _index--;
             else
