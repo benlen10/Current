@@ -438,7 +438,7 @@ namespace UniCade
         {
             if (SettingsWindow.curUser.AllowedEsrb.Length > 1)
             {
-                if (SettingsWindow.calcEsrb(game.Esrb) >= SettingsWindow.calcEsrb(SettingsWindow.curUser.AllowedEsrb))
+                if (SettingsWindow.CalcEsrb(game.Esrb) >= SettingsWindow.CalcEsrb(SettingsWindow.curUser.AllowedEsrb))
                 {
                     showNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted for" + SettingsWindow.curUser.Username);
                     return;
@@ -447,7 +447,7 @@ namespace UniCade
 
             else if (SettingsWindow.restrictESRB > 0)
             {
-                if (SettingsWindow.calcEsrb(game.Esrb) >= SettingsWindow.restrictESRB)
+                if (SettingsWindow.CalcEsrb(game.Esrb) >= SettingsWindow.restrictESRB)
                 {
                     showNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted\n");
                     return;

@@ -260,7 +260,7 @@ namespace UniCade
                 }
             }
             RefreshGameInfo(curGame);
-            refreshEsrbIcon(curGame);
+            RefreshEsrbIcon(curGame);
         }
 
         private void Button5_Click(object sender, EventArgs e)  //Close Button
@@ -294,7 +294,7 @@ namespace UniCade
             textBox17.Text = curGame.Players;
             textBox19.Text = curGame.EsrbDescriptor;
             textBox18.Text = curGame.Description;
-            refreshEsrbIcon(curGame);
+            RefreshEsrbIcon(curGame);
         }
 
         /// <summary>
@@ -308,7 +308,7 @@ namespace UniCade
                 MessageBox.Show("Must select a console/game");
                 return;
             }
-            saveGameInfo();
+            SaveGameInfo();
         }
 
         /// <summary>
@@ -558,7 +558,7 @@ namespace UniCade
                 MessageBox.Show("No games to save");
                 return;
             }
-            saveGameInfo();
+            SaveGameInfo();
         }
 
         /// <summary>
@@ -1134,7 +1134,7 @@ namespace UniCade
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
+            restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -1300,7 +1300,7 @@ namespace UniCade
         /// <summary>
         /// Toggle description checkbox
         /// </summary>
-        private void checkBox21_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox21_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox21.Checked)
                 WebOps.description = 1;
@@ -1311,7 +1311,7 @@ namespace UniCade
         /// <summary>
         /// Toggle boxfront checkbox
         /// </summary>
-        private void checkBox23_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox23_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox23.Checked)
                 WebOps.boxFront = 1;
@@ -1322,7 +1322,7 @@ namespace UniCade
         /// <summary>
         /// Toggle box back checkbox
         /// </summary>
-        private void checkBox22_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox22_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox22.Checked)
                 WebOps.boxBack = 1;
@@ -1333,7 +1333,7 @@ namespace UniCade
         /// <summary>
         /// Toggle screenshot textbox
         /// </summary>
-        private void checkBox24_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox24_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox24.Checked)
                 WebOps.screenshot = 1;
@@ -1344,7 +1344,7 @@ namespace UniCade
         /// <summary>
         /// Close button
         /// </summary>
-        private void button23_Click(object sender, EventArgs e)
+        private void Button23_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
             this.Close();
@@ -1357,14 +1357,14 @@ namespace UniCade
         /// <summary>
         /// Save Global Settings button
         /// </summary>
-        private void button15_Click(object sender, EventArgs e)
+        private void Button15_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem.ToString().Contains("|") || textBox25.Text.Contains("|") || textBox32.Text.Contains("|") || textBox33.Text.Contains("|"))
                 MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
             else
             {
                 if (comboBox1.SelectedItem.ToString().Contains("Everyone") || comboBox1.SelectedItem.ToString().Contains("Teen") || comboBox1.SelectedItem.ToString().Contains("Mature") || comboBox1.SelectedItem.ToString().Contains("Adults") || textBox6.TextLength < 1)
-                    restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
+                    restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
                 else
                     MessageBox.Show("Invalid ESRB Rating");
                 if ((textBox25.Text.Length > 150) || (textBox32.Text.Length > 150) || (textBox33.Text.Length > 150))
@@ -1376,15 +1376,14 @@ namespace UniCade
                     Program._romPath = textBox33.Text;
                 }
 
-                int n = 0;
-                Int32.TryParse(textBox7.Text, out n);
+                Int32.TryParse(textBox7.Text, out int n);
                 if (n > 0)
                     passProtect = Int32.Parse(textBox7.Text);
                 Int32.TryParse(textBox29.Text, out n);
                 if (n > 0)
                     coins = Int32.Parse(textBox29.Text);
                 if (comboBox1.SelectedItem != null)
-                    restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
+                    restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
 
                 //Save all active preferences to the local preferences file
                 FileOps.savePreferences(Program._prefPath);
@@ -1394,7 +1393,7 @@ namespace UniCade
         /// <summary>
         /// Toggle viewEsrb checkbox
         /// </summary>
-        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox6_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox6.Checked)
                 viewEsrb = 1;
@@ -1405,7 +1404,7 @@ namespace UniCade
         /// <summary>
         /// Toggle splash screen checkbox
         /// </summary>
-        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox10_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox10.Checked)
                 showSplash = 1;
@@ -1416,7 +1415,7 @@ namespace UniCade
         /// <summary>
         /// Toggle show loading screen checkbox
         /// </summary>
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked)
                 showLoading = 1;
@@ -1427,7 +1426,7 @@ namespace UniCade
         /// <summary>
         /// Toggle require login checkbox
         /// </summary>
-        private void checkBox11_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox11_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox11.Checked)
                 requireLogin = 1;
@@ -1438,7 +1437,7 @@ namespace UniCade
         /// <summary>
         /// Toggle scan on startup checkbox
         /// </summary>
-        private void checkBox12_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox12_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox12.Checked)
                 scanOnStartup = 1;
@@ -1449,7 +1448,7 @@ namespace UniCade
         /// <summary>
         /// Toggle view ESRB checkbox
         /// </summary>
-        private void checkBox13_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox13_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox13.Checked)
                 viewEsrb = 1;
@@ -1460,7 +1459,7 @@ namespace UniCade
         /// <summary>
         /// Toggle payPerPlay checkbox
         /// </summary>
-        private void checkBox14_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox14_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox14.Checked)
                 payPerPlay = 1;
@@ -1485,7 +1484,7 @@ namespace UniCade
             return true;
         }
 
-        public static int calcEsrb(String esrb)
+        public static int CalcEsrb(String esrb)
         {
             int EsrbNum = 0;
             if (esrb.Equals("Everyone"))
@@ -1509,7 +1508,7 @@ namespace UniCade
         /// Save the current game info to the database file
         /// Display an error popup if any of the inputs contain invalid data
         /// </summary>
-        private void saveGameInfo()
+        private void SaveGameInfo()
         {
             //Invalid input checks
             if (listBox3.Items.Count < 1)
@@ -1578,7 +1577,7 @@ namespace UniCade
         /// <summary>
         /// Refresh the ESRB rating icon to the current ESRB rating
         /// </summary>
-        public void refreshEsrbIcon(Game g)
+        public void RefreshEsrbIcon(Game g)
         {
             pictureBox4.Image = null;
             if (g.Esrb.Equals("Everyone"))
