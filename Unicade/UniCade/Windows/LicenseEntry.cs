@@ -22,7 +22,7 @@ namespace UniCade
         /// This function will validate the license key and if valid, will save the key to the preferences file
         /// and close the current window
         /// </summary>
-        private void Button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             //Bad input checks
             if ((textBox1.Text == null) || (textBox2.Text == null))
@@ -55,7 +55,7 @@ namespace UniCade
         /// <summary>
         /// Close button
         /// </summary>
-        private void Button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             Close();
         }

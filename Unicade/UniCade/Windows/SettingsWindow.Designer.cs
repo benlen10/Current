@@ -256,7 +256,7 @@
             this.button30.TabIndex = 83;
             this.button30.Text = "Enter License Key";
             this.button30.UseVisualStyleBackColor = true;
-            this.button30.Click += new System.EventHandler(this.Button30_Click_1);
+            this.button30.Click += new System.EventHandler(this.button30_Click_1);
             // 
             // button16
             // 
@@ -266,7 +266,7 @@
             this.button16.TabIndex = 82;
             this.button16.Text = "Close";
             this.button16.UseVisualStyleBackColor = true;
-            this.button16.Click += new System.EventHandler(this.Button16_Click);
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // label37
             // 
@@ -367,7 +367,7 @@
             this.button25.TabIndex = 37;
             this.button25.Text = "Global Rescan";
             this.button25.UseVisualStyleBackColor = true;
-            this.button25.Click += new System.EventHandler(this.Button25_Click);
+            this.button25.Click += new System.EventHandler(this.button25_Click);
             // 
             // button24
             // 
@@ -377,7 +377,7 @@
             this.button24.TabIndex = 36;
             this.button24.Text = "Rescan Single Console";
             this.button24.UseVisualStyleBackColor = true;
-            this.button24.Click += new System.EventHandler(this.Button24_Click);
+            this.button24.Click += new System.EventHandler(this.button24_Click);
             // 
             // checkBox1
             // 
@@ -388,7 +388,7 @@
             this.checkBox1.TabIndex = 35;
             this.checkBox1.Text = "Enforce ROM file extension";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // button19
             // 
@@ -398,7 +398,7 @@
             this.button19.TabIndex = 34;
             this.button19.Text = "Save Info";
             this.button19.UseVisualStyleBackColor = true;
-            this.button19.Click += new System.EventHandler(this.Button19_Click);
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // button9
             // 
@@ -408,7 +408,7 @@
             this.button9.TabIndex = 33;
             this.button9.Text = "Force Global Metadata Rescrape";
             this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.Button9_Click);
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // label30
             // 
@@ -492,7 +492,7 @@
             this.button8.TabIndex = 23;
             this.button8.Text = "Delete Console";
             this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.Button8_Click);
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button7
             // 
@@ -502,7 +502,7 @@
             this.button7.TabIndex = 22;
             this.button7.Text = "Add new Console";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.Button7_Click);
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button4
             // 
@@ -512,7 +512,7 @@
             this.button4.TabIndex = 21;
             this.button4.Text = "Save Database File";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button2
             // 
@@ -522,7 +522,7 @@
             this.button2.TabIndex = 19;
             this.button2.Text = "Close";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // listBox1
             // 
@@ -532,7 +532,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(253, 479);
             this.listBox1.TabIndex = 17;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -664,7 +664,7 @@
             this.button44.TabIndex = 77;
             this.button44.Text = "Download Game";
             this.button44.UseVisualStyleBackColor = true;
-            this.button44.Click += new System.EventHandler(this.Button44_Click);
+            this.button44.Click += new System.EventHandler(this.button44_Click);
             // 
             // button43
             // 
@@ -674,7 +674,7 @@
             this.button43.TabIndex = 76;
             this.button43.Text = "Download Console";
             this.button43.UseVisualStyleBackColor = true;
-            this.button43.Click += new System.EventHandler(this.Button43_Click);
+            this.button43.Click += new System.EventHandler(this.button43_Click);
             // 
             // button42
             // 
@@ -684,7 +684,7 @@
             this.button42.TabIndex = 75;
             this.button42.Text = "Upload Console";
             this.button42.UseVisualStyleBackColor = true;
-            this.button42.Click += new System.EventHandler(this.Button42_Click);
+            this.button42.Click += new System.EventHandler(this.button42_Click);
             // 
             // button33
             // 
@@ -694,7 +694,7 @@
             this.button33.TabIndex = 74;
             this.button33.Text = "Upload Game";
             this.button33.UseVisualStyleBackColor = true;
-            this.button33.Click += new System.EventHandler(this.Button33_Click);
+            this.button33.Click += new System.EventHandler(this.button33_Click);
             // 
             // button28
             // 
@@ -704,7 +704,7 @@
             this.button28.TabIndex = 72;
             this.button28.Text = "Rescrape Console Metadata";
             this.button28.UseVisualStyleBackColor = true;
-            this.button28.Click += new System.EventHandler(this.Button28_Click);
+            this.button28.Click += new System.EventHandler(this.button28_Click);
             // 
             // textBox8
             // 
@@ -749,7 +749,7 @@
             this.checkBox3.TabIndex = 67;
             this.checkBox3.Text = "Favorite";
             this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.CheckBox3_CheckedChanged);
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // button18
             // 
@@ -759,7 +759,7 @@
             this.button18.TabIndex = 66;
             this.button18.Text = "Save Info";
             this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.Button18_Click);
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // label26
             // 
@@ -814,7 +814,7 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 60;
             this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.PictureBox3_Click);
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // pictureBox2
             // 
@@ -824,7 +824,7 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 59;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.PictureBox2_Click);
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // pictureBox1
             // 
@@ -834,7 +834,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 58;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // textBox16
             // 
@@ -1022,7 +1022,7 @@
             this.button6.TabIndex = 25;
             this.button6.Text = "Save to Database";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.Button6_Click);
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
             // 
@@ -1032,7 +1032,7 @@
             this.button5.TabIndex = 24;
             this.button5.Text = "Close";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Button5_Click);
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button1
             // 
@@ -1042,7 +1042,7 @@
             this.button1.TabIndex = 23;
             this.button1.Text = "Rescrape Game Metadata";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label8
             // 
@@ -1079,7 +1079,7 @@
             this.listBox3.Name = "listBox3";
             this.listBox3.Size = new System.Drawing.Size(253, 629);
             this.listBox3.TabIndex = 19;
-            this.listBox3.SelectedIndexChanged += new System.EventHandler(this.ListBox3_SelectedIndexChanged);
+            this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
             // 
             // listBox2
             // 
@@ -1089,7 +1089,7 @@
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(231, 629);
             this.listBox2.TabIndex = 18;
-            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.ListBox2_SelectedIndexChanged);
+            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // tabPage5
             // 
@@ -1133,7 +1133,7 @@
             this.button45.TabIndex = 86;
             this.button45.Text = "Refresh";
             this.button45.UseVisualStyleBackColor = true;
-            this.button45.Click += new System.EventHandler(this.Button45_Click);
+            this.button45.Click += new System.EventHandler(this.button45_Click);
             // 
             // button31
             // 
@@ -1143,7 +1143,7 @@
             this.button31.TabIndex = 84;
             this.button31.Text = "Login";
             this.button31.UseVisualStyleBackColor = true;
-            this.button31.Click += new System.EventHandler(this.Button31_Click_2);
+            this.button31.Click += new System.EventHandler(this.button31_Click_2);
             // 
             // button21
             // 
@@ -1153,7 +1153,7 @@
             this.button21.TabIndex = 83;
             this.button21.Text = "Delete Favorite";
             this.button21.UseVisualStyleBackColor = true;
-            this.button21.Click += new System.EventHandler(this.Button21_Click);
+            this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
             // button17
             // 
@@ -1163,7 +1163,7 @@
             this.button17.TabIndex = 82;
             this.button17.Text = "Save";
             this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.Button17_Click);
+            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // comboBox2
             // 
@@ -1181,7 +1181,7 @@
             this.button13.TabIndex = 80;
             this.button13.Text = "Close";
             this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.Button13_Click);
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button12
             // 
@@ -1191,7 +1191,7 @@
             this.button12.TabIndex = 79;
             this.button12.Text = "Delete User";
             this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.Button12_Click);
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // button11
             // 
@@ -1201,7 +1201,7 @@
             this.button11.TabIndex = 78;
             this.button11.Text = "Save All Users";
             this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.Button11_Click);
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button10
             // 
@@ -1211,7 +1211,7 @@
             this.button10.TabIndex = 77;
             this.button10.Text = "New User";
             this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.Button10_Click);
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // textBox28
             // 
@@ -1330,7 +1330,7 @@
             this.listBox4.Name = "listBox4";
             this.listBox4.Size = new System.Drawing.Size(253, 379);
             this.listBox4.TabIndex = 18;
-            this.listBox4.SelectedIndexChanged += new System.EventHandler(this.ListBox4_SelectedIndexChanged);
+            this.listBox4.SelectedIndexChanged += new System.EventHandler(this.listBox4_SelectedIndexChanged);
             // 
             // label38
             // 
@@ -1389,7 +1389,7 @@
             this.button20.TabIndex = 89;
             this.button20.Text = "Refresh Favorites";
             this.button20.UseVisualStyleBackColor = true;
-            this.button20.Click += new System.EventHandler(this.Button20_Click);
+            this.button20.Click += new System.EventHandler(this.button20_Click);
             // 
             // label4
             // 
@@ -1450,7 +1450,7 @@
             this.button14.TabIndex = 81;
             this.button14.Text = "Close";
             this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.Button14_Click);
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // label53
             // 
@@ -1648,7 +1648,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(138, 33);
             this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // tabPage6
             // 
@@ -1758,7 +1758,7 @@
             this.checkBox20.TabIndex = 10;
             this.checkBox20.Text = "Players";
             this.checkBox20.UseVisualStyleBackColor = true;
-            this.checkBox20.CheckedChanged += new System.EventHandler(this.CheckBox20_CheckedChanged);
+            this.checkBox20.CheckedChanged += new System.EventHandler(this.checkBox20_CheckedChanged);
             // 
             // checkBox19
             // 
@@ -1769,7 +1769,7 @@
             this.checkBox19.TabIndex = 9;
             this.checkBox19.Text = "ESRB Descriptor";
             this.checkBox19.UseVisualStyleBackColor = true;
-            this.checkBox19.CheckedChanged += new System.EventHandler(this.CheckBox19_CheckedChanged);
+            this.checkBox19.CheckedChanged += new System.EventHandler(this.checkBox19_CheckedChanged);
             // 
             // checkBox18
             // 
@@ -1780,7 +1780,7 @@
             this.checkBox18.TabIndex = 8;
             this.checkBox18.Text = "ESRB Rating";
             this.checkBox18.UseVisualStyleBackColor = true;
-            this.checkBox18.CheckedChanged += new System.EventHandler(this.CheckBox18_CheckedChanged);
+            this.checkBox18.CheckedChanged += new System.EventHandler(this.checkBox18_CheckedChanged);
             // 
             // label21
             // 
@@ -1800,7 +1800,7 @@
             this.checkBox17.TabIndex = 6;
             this.checkBox17.Text = "Developer";
             this.checkBox17.UseVisualStyleBackColor = true;
-            this.checkBox17.CheckedChanged += new System.EventHandler(this.CheckBox17_CheckedChanged);
+            this.checkBox17.CheckedChanged += new System.EventHandler(this.checkBox17_CheckedChanged);
             // 
             // checkBox15
             // 
@@ -1811,7 +1811,7 @@
             this.checkBox15.TabIndex = 5;
             this.checkBox15.Text = "Publisher";
             this.checkBox15.UseVisualStyleBackColor = true;
-            this.checkBox15.CheckedChanged += new System.EventHandler(this.CheckBox15_CheckedChanged_1);
+            this.checkBox15.CheckedChanged += new System.EventHandler(this.checkBox15_CheckedChanged_1);
             // 
             // checkBox9
             // 
@@ -1822,7 +1822,7 @@
             this.checkBox9.TabIndex = 4;
             this.checkBox9.Text = "Critic Score";
             this.checkBox9.UseVisualStyleBackColor = true;
-            this.checkBox9.CheckedChanged += new System.EventHandler(this.CheckBox9_CheckedChanged);
+            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
             // 
             // checkBox8
             // 
@@ -1833,7 +1833,7 @@
             this.checkBox8.TabIndex = 3;
             this.checkBox8.Text = "Release Date";
             this.checkBox8.UseVisualStyleBackColor = true;
-            this.checkBox8.CheckedChanged += new System.EventHandler(this.CheckBox8_CheckedChanged);
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
             // checkBox5
             // 
@@ -1844,7 +1844,7 @@
             this.checkBox5.TabIndex = 2;
             this.checkBox5.Text = "Scrape MobyGames";
             this.checkBox5.UseVisualStyleBackColor = true;
-            this.checkBox5.CheckedChanged += new System.EventHandler(this.CheckBox5_CheckedChanged);
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
             // checkBox4
             // 
@@ -1855,7 +1855,7 @@
             this.checkBox4.TabIndex = 1;
             this.checkBox4.Text = "Scrape Metacritic";
             this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.CheckBox4_CheckedChanged);
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // label19
             // 
@@ -1903,7 +1903,7 @@
             this.button41.TabIndex = 17;
             this.button41.Text = "Delete All Games In Cloud";
             this.button41.UseVisualStyleBackColor = true;
-            this.button41.Click += new System.EventHandler(this.Button41_Click);
+            this.button41.Click += new System.EventHandler(this.button41_Click);
             // 
             // button40
             // 
@@ -1913,7 +1913,7 @@
             this.button40.TabIndex = 16;
             this.button40.Text = "Download All Games";
             this.button40.UseVisualStyleBackColor = true;
-            this.button40.Click += new System.EventHandler(this.Button40_Click);
+            this.button40.Click += new System.EventHandler(this.button40_Click);
             // 
             // button39
             // 
@@ -1923,7 +1923,7 @@
             this.button39.TabIndex = 14;
             this.button39.Text = "Logout";
             this.button39.UseVisualStyleBackColor = true;
-            this.button39.Click += new System.EventHandler(this.Button39_Click);
+            this.button39.Click += new System.EventHandler(this.button39_Click);
             // 
             // label56
             // 
@@ -1943,7 +1943,7 @@
             this.button38.TabIndex = 12;
             this.button38.Text = "Upload All Games";
             this.button38.UseVisualStyleBackColor = true;
-            this.button38.Click += new System.EventHandler(this.Button38_Click);
+            this.button38.Click += new System.EventHandler(this.button38_Click);
             // 
             // button37
             // 
@@ -1953,7 +1953,7 @@
             this.button37.TabIndex = 11;
             this.button37.Text = "Close";
             this.button37.UseVisualStyleBackColor = true;
-            this.button37.Click += new System.EventHandler(this.Button37_Click);
+            this.button37.Click += new System.EventHandler(this.button37_Click);
             // 
             // button35
             // 
@@ -1963,7 +1963,7 @@
             this.button35.TabIndex = 9;
             this.button35.Text = "Delete Current Account";
             this.button35.UseVisualStyleBackColor = true;
-            this.button35.Click += new System.EventHandler(this.Button35_Click);
+            this.button35.Click += new System.EventHandler(this.button35_Click);
             // 
             // button29
             // 
@@ -1973,7 +1973,7 @@
             this.button29.TabIndex = 8;
             this.button29.Text = "Login";
             this.button29.UseVisualStyleBackColor = true;
-            this.button29.Click += new System.EventHandler(this.Button29_Click_1);
+            this.button29.Click += new System.EventHandler(this.button29_Click_1);
             // 
             // button34
             // 
@@ -1983,7 +1983,7 @@
             this.button34.TabIndex = 7;
             this.button34.Text = "Create New UniCade Account";
             this.button34.UseVisualStyleBackColor = true;
-            this.button34.Click += new System.EventHandler(this.Button34_Click);
+            this.button34.Click += new System.EventHandler(this.button34_Click);
             // 
             // richTextBox2
             // 
