@@ -20,7 +20,7 @@ namespace UniCade
         /// <summary>
         /// Create account button
         /// </summary>
-        private void Button1_Click(object sender, EventArgs e) 
+        private void button1_Click(object sender, EventArgs e) 
         {
             //Check for invalid input
             if ((textBox1.Text == null) || (textBox2.Text == null)|| (textBox3.Text == null)|| (textBox4.Text == null))
@@ -55,7 +55,7 @@ namespace UniCade
         /// <summary>
         /// Close button
         /// </summary>
-        private void Button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             Close();
         }

@@ -1440,7 +1440,7 @@
             this.button15.TabIndex = 82;
             this.button15.Text = "Save Preferences File";
             this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.Button15_Click);
+            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // button14
             // 
@@ -1552,7 +1552,7 @@
             this.checkBox14.TabIndex = 12;
             this.checkBox14.Text = "Enable PayPerPlay";
             this.checkBox14.UseVisualStyleBackColor = true;
-            this.checkBox14.CheckedChanged += new System.EventHandler(this.CheckBox14_CheckedChanged);
+            this.checkBox14.CheckedChanged += new System.EventHandler(this.checkBox14_CheckedChanged);
             // 
             // checkBox13
             // 
@@ -1564,7 +1564,7 @@
             this.checkBox13.Text = "Display ESRB while browsing";
             this.checkBox13.UseVisualStyleBackColor = true;
             this.checkBox13.Visible = false;
-            this.checkBox13.CheckedChanged += new System.EventHandler(this.CheckBox13_CheckedChanged);
+            this.checkBox13.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
             // 
             // checkBox12
             // 
@@ -1575,7 +1575,7 @@
             this.checkBox12.TabIndex = 10;
             this.checkBox12.Text = "Rescan all libraries on startup";
             this.checkBox12.UseVisualStyleBackColor = true;
-            this.checkBox12.CheckedChanged += new System.EventHandler(this.CheckBox12_CheckedChanged);
+            this.checkBox12.CheckedChanged += new System.EventHandler(this.checkBox12_CheckedChanged);
             // 
             // checkBox11
             // 
@@ -1587,7 +1587,7 @@
             this.checkBox11.Text = "Require login on startup";
             this.checkBox11.UseVisualStyleBackColor = true;
             this.checkBox11.Visible = false;
-            this.checkBox11.CheckedChanged += new System.EventHandler(this.CheckBox11_CheckedChanged);
+            this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
             // 
             // checkBox10
             // 
@@ -1599,7 +1599,7 @@
             this.checkBox10.Text = "Display splash";
             this.checkBox10.UseVisualStyleBackColor = true;
             this.checkBox10.Visible = false;
-            this.checkBox10.CheckedChanged += new System.EventHandler(this.CheckBox10_CheckedChanged);
+            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
             // 
             // label36
             // 
@@ -1619,7 +1619,7 @@
             this.checkBox6.TabIndex = 3;
             this.checkBox6.Text = "To View";
             this.checkBox6.UseVisualStyleBackColor = true;
-            this.checkBox6.CheckedChanged += new System.EventHandler(this.CheckBox6_CheckedChanged);
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -1630,7 +1630,7 @@
             this.checkBox2.TabIndex = 2;
             this.checkBox2.Text = "Display loading screen";
             this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // label31
             // 
@@ -1694,7 +1694,7 @@
             this.button23.TabIndex = 16;
             this.button23.Text = "Close";
             this.button23.UseVisualStyleBackColor = true;
-            this.button23.Click += new System.EventHandler(this.Button23_Click);
+            this.button23.Click += new System.EventHandler(this.button23_Click);
             // 
             // button22
             // 
@@ -1714,7 +1714,7 @@
             this.checkBox24.TabIndex = 14;
             this.checkBox24.Text = "(Media) Screenshot";
             this.checkBox24.UseVisualStyleBackColor = true;
-            this.checkBox24.CheckedChanged += new System.EventHandler(this.CheckBox24_CheckedChanged);
+            this.checkBox24.CheckedChanged += new System.EventHandler(this.checkBox24_CheckedChanged);
             // 
             // checkBox23
             // 
@@ -1725,7 +1725,7 @@
             this.checkBox23.TabIndex = 13;
             this.checkBox23.Text = "(Media) Box Front";
             this.checkBox23.UseVisualStyleBackColor = true;
-            this.checkBox23.CheckedChanged += new System.EventHandler(this.CheckBox23_CheckedChanged);
+            this.checkBox23.CheckedChanged += new System.EventHandler(this.checkBox23_CheckedChanged);
             // 
             // checkBox22
             // 
@@ -1736,7 +1736,7 @@
             this.checkBox22.TabIndex = 12;
             this.checkBox22.Text = "(Media) Box Back";
             this.checkBox22.UseVisualStyleBackColor = true;
-            this.checkBox22.CheckedChanged += new System.EventHandler(this.CheckBox22_CheckedChanged);
+            this.checkBox22.CheckedChanged += new System.EventHandler(this.checkBox22_CheckedChanged);
             // 
             // checkBox21
             // 
@@ -1747,7 +1747,7 @@
             this.checkBox21.TabIndex = 11;
             this.checkBox21.Text = "Description";
             this.checkBox21.UseVisualStyleBackColor = true;
-            this.checkBox21.CheckedChanged += new System.EventHandler(this.CheckBox21_CheckedChanged);
+            this.checkBox21.CheckedChanged += new System.EventHandler(this.checkBox21_CheckedChanged);
             // 
             // checkBox20
             // 

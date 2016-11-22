@@ -86,7 +86,7 @@ namespace UniCade
             if (SettingsWindow.payPerPlay > 0)
             {
                 if (SettingsWindow.coins > 0)
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins);
+                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins);
             }
             else
                 label2.Visibility = Visibility.Hidden;
@@ -94,7 +94,7 @@ namespace UniCade
             //Refresh the current gamecount and update the GUI
             FileOps.RefreshGameCount();
             label.Content = "Total Game Count: " + Database.TotalGameCount;
-            UpdateGUI();
+            updateGUI();
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace UniCade
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Gkh_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        void gkh_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             e.Handled = true;
         }
@@ -125,7 +125,7 @@ namespace UniCade
         /// <summary>
         /// Handle the key down event for hooked keys
         /// </summary>
-        void Gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             //If F10 is pressed, kill the currently running game process
             if (e.KeyCode == Keys.F10)
@@ -179,7 +179,7 @@ namespace UniCade
                 else if (e.KeyCode == Keys.Enter)
                 {
                     if (_gameSelectionActive)
-                        LaunchGame();
+                        launchGame();
                     else
                     {
                         OpenGameSelection();
@@ -276,7 +276,7 @@ namespace UniCade
                         if (_validPAss)
                         {
                             sw = new SettingsWindow();
-                            UnhookKeys();
+                            unhookKeys();
                             _settingsWindowActive = true;
                             sw.ShowDialog();
                         }
@@ -285,7 +285,7 @@ namespace UniCade
                     {
                         sw = new SettingsWindow();
                         _settingsWindowActive = true;
-                        UnhookKeys();
+                        unhookKeys();
                         sw.ShowDialog();
                     }
                     if (Program._validLicense)
@@ -350,7 +350,7 @@ namespace UniCade
                 else
                     ShowNotification("UniCade", "Free Play Enabled. NO COIN REQUIRED");
             }
-            UpdateGUI();
+            updateGUI();
         }
 
         /// <summary>
@@ -363,7 +363,7 @@ namespace UniCade
             else
                 _index = 0;
 
-            UpdateGUI();
+            updateGUI();
         }
 
         /// <summary>
@@ -376,13 +376,13 @@ namespace UniCade
             else
                 _index = (_consoleCount - 1);
 
-            UpdateGUI();
+            updateGUI();
         }
 
         /// <summary>
         /// Update the info on the primary GUI
         /// </summary>
-        private void UpdateGUI()
+        private void updateGUI()
         {
             //Update payPerPlay notifications
             if (SettingsWindow.payPerPlay > 0)
@@ -470,7 +470,7 @@ namespace UniCade
                             if (SettingsWindow.viewEsrb > 0)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (SettingsWindow.CalcEsrb(g.Esrb) <= SettingsWindow.CalcEsrb(SettingsWindow.curUser.AllowedEsrb))
+                                if (SettingsWindow.calcEsrb(g.Esrb) <= SettingsWindow.calcEsrb(SettingsWindow.curUser.AllowedEsrb))
                                     listBox.Items.Add(g.Title);
                             }
                             else
@@ -510,7 +510,7 @@ namespace UniCade
         /// <summary>
         /// Launch the currently selected games using the specified emulator
         /// </summary>
-        private void LaunchGame()
+        private void launchGame()
         {
             if (SettingsWindow.payPerPlay > 0)
                 if (SettingsWindow.coins > 0)
@@ -519,7 +519,7 @@ namespace UniCade
                         return;
                     }
                     Program._coins = Program._coins - SettingsWindow.coins;
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins);
+                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins);
 
             //Search for the selected game title within the game library
             foreach (Game g in _gameSelectionConsole.GameList)
@@ -630,8 +630,8 @@ namespace UniCade
             gkh.HookedKeys.Add(Keys.Q);
             gkh.HookedKeys.Add(Keys.F10);
             gkh.HookedKeys.Add(Keys.F1);
-            gkh.KeyDown += new System.Windows.Forms.KeyEventHandler(Gkh_KeyDown);
-            gkh.KeyUp += new System.Windows.Forms.KeyEventHandler(Gkh_KeyUp);
+            gkh.KeyDown += new System.Windows.Forms.KeyEventHandler(gkh_KeyDown);
+            gkh.KeyUp += new System.Windows.Forms.KeyEventHandler(gkh_KeyUp);
         }
 
         /// <summary>
@@ -664,7 +664,7 @@ namespace UniCade
         /// <summary>
         /// Unhook specified global hotkeys when lunching
         /// </summary>
-        public static void UnhookKeys()
+        public static void unhookKeys()
         {
             gkh.HookedKeys.Remove(Keys.A);
             gkh.HookedKeys.Remove(Keys.B);
@@ -700,7 +700,7 @@ namespace UniCade
         /// <summary>
         /// Display a fide payPerPlay notification within the main GUI
         /// </summary>
-        private void DisplayPayNotification(String s)
+        private void displayPayNotification(String s)
         {
             label2.Content = s;
         }
