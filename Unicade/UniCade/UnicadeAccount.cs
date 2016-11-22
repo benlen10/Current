@@ -21,7 +21,7 @@ namespace UniCade
 
         private void button1_Click(object sender, EventArgs e)  //Create account button
         {
-            if ((textBox1.Text == null) || (textBox2.Text == null)|| (textBox3.Text == null)|| (textBox4.Text == null))
+            if ((textBox1.Text.Length < 1) || (textBox2.Text.Length < 1) || (textBox3.Text.Length < 1) || (textBox4.Text.Length < 1))
             {
                 MessageBox.Show("Fields cannot be empty");
                 return;
@@ -36,13 +36,37 @@ namespace UniCade
                 MessageBox.Show("Invalid Email");
                 return;
             }
-                if (type == 0)
+            if (!textBox2.Text.Contains("@")||textBox2.Text.Length<5)
+            {
+                MessageBox.Show("Invalid Email Length");
+                return;
+            }
+            if (!textBox2.Text.Contains("@") || textBox3.Text.Length < 4)
+            {
+                MessageBox.Show("Password Must be at least 4 chars");
+                return;
+            }
+            if (textBox1.Text.Length<3)
+            {
+                MessageBox.Show("Username must be at least 3 chars");
+                return;
+            }
+            if (type == 0)
             {
                 SQLclient.createUser(textBox1.Text, textBox3.Text, textBox2.Text, textBox4.Text, "Null", "NullProfPath");
             }
             else
             {
+                
                 User u = new User(textBox1.Text, textBox3.Text, 0, textBox2.Text, 0, textBox4.Text, "Mature", "null");
+                foreach (User us in Program.dat.userList)
+                {
+                    if (us.getUsername().Equals(u.getUsername()))
+                    {
+                        MessageBox.Show("Error: Username already exists");
+                        return;
+                    }
+                }
                 Program.dat.userList.Add(u);
                 SettingsWindow.curUser = u;
             }

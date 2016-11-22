@@ -15,11 +15,12 @@ namespace UniCade
     class Program
     {
         public static Database dat;
-        public static string databasePath = @"C:\UniCade\Databse.txt";
+        
+        public static string databasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
         public static string romPath = @"C:\UniCade\ROMS";
         public static string mediaPath = @"C:\UniCade\Media";
         public static string emuPath = @"C:\UniCade\Emulators";
-        public static string prefPath = @"C:\UniCade\Preferences.txt";
+        public static string prefPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
         public static int coins = 0;
         public static bool playtimeRemaining = true;
         public static string userLicenseName;
@@ -30,8 +31,7 @@ namespace UniCade
         public static void Main(string[] args)
         {
 
-            
-
+            //MessageBox.Show(Directory.GetCurrentDirectory());
 
             dat = new Database();
             
@@ -44,6 +44,28 @@ namespace UniCade
                 NotificationWindow nfw = new NotificationWindow("WARNING", "Preference file not found.\n Loading defaults...");
                 nfw.Show();
             }
+
+            if (!Directory.Exists(romPath))
+            {
+                Directory.CreateDirectory(romPath);
+                FileOps.createNewROMdirectory();
+                //MessageBox.Show("ROM directory not found. Creating new directory structure");
+
+            }
+            if (!Directory.Exists(emuPath))
+            {
+                Directory.CreateDirectory(emuPath);
+                FileOps.createNewEmudirectory();
+                //MessageBox.Show("Emulator directory not found. Creating new directory structure");
+            }
+
+            if (!FileOps.VerifyMediaDirectory())
+            {
+                return;
+            }
+                
+            
+
             if (SettingsWindow.curUser == null)
             {
                 SettingsWindow.curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
@@ -62,7 +84,14 @@ namespace UniCade
 
                 FileOps.loadDefaultConsoles();
                 FileOps.scan(romPath);
-                FileOps.saveDatabase(databasePath);
+                try
+                {
+                    FileOps.saveDatabase(databasePath);
+                }
+                catch(Exception  e)
+                {
+                    MessageBox.Show("Error Saving Database");
+                }
                 NotificationWindow nfw = new NotificationWindow("WARNING", "Database file not found.\n Loading defaults...");
                 nfw.Show();
             }

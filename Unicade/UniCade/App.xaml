@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:UniCade"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <BitmapImage x:Key="InterfaceBackground" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Ben\Dropbox\Workspace\Unicade\UniCade\Images\Background.png"/>
+        <BitmapImage x:Key="InterfaceBackground2" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Ben\Dropbox\Workspace\Unicade\UniCade\Images\Background.png"/>
+
     </Application.Resources>
 </Application>

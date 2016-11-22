@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
-
+using System.Windows.Forms;
 
 namespace UniCade
 {
@@ -30,6 +29,7 @@ namespace UniCade
             {
                 System.Console.WriteLine(e.ToString());
                 return e.ToString();
+                MessageBox.Show("UniCade Cloud connection Error");
             }
 
         }
@@ -209,12 +209,8 @@ namespace UniCade
             string command = "Use unicade;" + "select * FROM users WHERE username = " + "\"" + user + "\"" + " OR email = " + "\"" + user + "\"" + ";";
             MySqlCommand myCommand = new MySqlCommand(command, conn);
 
-            System.Console.WriteLine("YES1");
             MySqlDataReader myReader = myCommand.ExecuteReader();
-            System.Console.WriteLine("YES2");
             myReader.Read();
-            System.Console.WriteLine("YES3");
-            System.Console.WriteLine("GETPASS: " + SafeGetString(myReader, 2));
             if(pass.Equals(SafeGetString(myReader, 2), StringComparison.InvariantCultureIgnoreCase)){
                 sqlUser = user;
                 myReader.Close();

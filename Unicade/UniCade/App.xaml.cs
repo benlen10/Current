@@ -29,22 +29,12 @@ namespace UniCade
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
+            //base.OnStartup(e);
             window = new MainWindow();
 
             window.Show();
         }
-        /*
-        void KeyCombinationPressed(object sender, EventArgs e)
-        {
-            System.Console.WriteLine("HOOK");
-            Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(ShowMainWindow));
-        }
 
-        private void ShowMainWindow()
-        {
-            KeyboardHook.ActivateWindow(window);
-        }*/
 
         internal void InitializeComponent()
         {

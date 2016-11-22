@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace UniCade
 {
@@ -31,36 +32,52 @@ namespace UniCade
         public static int maxDescriptionLength = 5000;
 
 
-        public static void scrapeInfo(Game g)
+        public static bool scrapeInfo(Game g)
         {
             gameName = g.getTitle().Replace(" - ", " ");
             gameName = gameName.Replace(" ", "-");
             gameName = gameName.Replace("'", "");
             if (mobyg > 0)
             {
-                scrapeMobyGames(g);
+                if (!scrapeMobyGames(g))
+                {
+                    return false;
+                }
             }
             if (metac > 0)
             {
-                scrapeMetacritic(g);
+                if (!scrapeMetacritic(g))
+                {
+                    return false;
+                }
             }
+            return true;
 
         }
 
 
 
-        public static void scrapeMobyGames(Game g)
+        public static bool scrapeMobyGames(Game g)
         {
             if (g == null)
             {
-                return;
+                MessageBox.Show("Invalid game");
+                return false;
             }
             string url = ("http://www.mobygames.com/game/" + g.getConsole() + "/" + gameName);
             url = url.ToLower();
 
             WebClient site = new WebClient();
-
-            string html = site.DownloadString(url);
+            string html = "";
+            try
+            {
+                html = site.DownloadString(url);
+            }
+            catch(System.Net.WebException e)
+            {
+                MessageBox.Show("Connection Error");
+                return false;
+            }
 
             //Parse ESRB
             if (esrb > 0)
@@ -181,10 +198,11 @@ namespace UniCade
                     }
                 }
             }
+            return true;
         }
 
 
-        public static void scrapeMetacritic(Game g)
+        public static bool scrapeMetacritic(Game g)
         {
             //Metacritic Scraper
 
@@ -227,7 +245,7 @@ namespace UniCade
 
             if (metaCon.Length < 1)
             {
-                return;
+                return false;
             }
 
             string url = ("http://www.metacritic.com/game/" + metaCon + "/" + gameName + "/details");
@@ -246,7 +264,8 @@ namespace UniCade
             catch (WebException ex)
             {
 
-                return;
+                MessageBox.Show("Connection Error");
+                return false;
             }
 
 
@@ -284,29 +303,29 @@ namespace UniCade
                 }
             }
 
-           
 
-                //Parse Developer (Metacritic)
-                /*if (developer > 0)
-                { 
-                    int tmp = 0;
-                    tmp = html.IndexOf("/company/",6850 );
-                    int tmp2 = html.IndexOf("/company/", (tmp+30));
-                    System.Console.WriteLine("Length" + tmp2);
-                    if (tmp > 0)
+
+            //Parse Developer (Metacritic)
+            /*if (developer > 0)
+            { 
+                int tmp = 0;
+                tmp = html.IndexOf("/company/",6850 );
+                int tmp2 = html.IndexOf("/company/", (tmp+30));
+                System.Console.WriteLine("Length" + tmp2);
+                if (tmp > 0)
+                {
+                    //System.Console.WriteLine("YEs1");
+                    int tmp3 = html.Substring(tmp).IndexOf(">");
+                    if (true) //tmp2 > 0)
                     {
-                        //System.Console.WriteLine("YEs1");
-                        int tmp3 = html.Substring(tmp).IndexOf(">");
-                        if (true) //tmp2 > 0)
-                        {
-                            string dev = html.Substring((tmp2+9), 5);
-                            System.Console.WriteLine(dev);
-                            g.setDeveloper(dev);
-                        }
+                        string dev = html.Substring((tmp2+9), 5);
+                        System.Console.WriteLine(dev);
+                        g.setDeveloper(dev);
                     }
                 }
-            }*/
-
+            }
+        }*/
+            return true;
             }
     }
 }

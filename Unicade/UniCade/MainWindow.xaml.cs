@@ -41,7 +41,7 @@ namespace UniCade
         public static bool settingsWindowActive;
         public static bool fav;
         public static SettingsWindow sw;
-        int conCount;
+        public static int conCount;
         public static globalKeyboardHook gkh;
         GameInfo gi;
 
@@ -49,7 +49,19 @@ namespace UniCade
 
         public MainWindow()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show("Fatal Error");
+                return;
+            }
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource =
+                new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\Interface Background.png"));
+            this.Background = myBrush;
             sw = new SettingsWindow();
             gameRunning = false;
             //this.KeyDown += new System.Windows.Input.KeyEventHandler(OnButtonKeyDown);
@@ -99,14 +111,7 @@ namespace UniCade
             }
             //Taskbar.Hide();
 
-            conList = new ArrayList();
-            conCount = 0;
-            index = 0;
-            foreach (Console c in Program.dat.consoleList)
-            {
-                conList.Add(c.getName());
-                conCount++;
-            }
+            refreshConList();
 
             if (SettingsWindow.payPerPlay > 0)
             {
@@ -134,6 +139,18 @@ namespace UniCade
         {
             //lstLog.Items.Add("Up\t" + e.KeyCode.ToString());
             e.Handled = true;
+        }
+
+        public static void refreshConList()
+        {
+            conList = new ArrayList();
+            conCount = 0;
+            index = 0;
+            foreach (Console c in Program.dat.consoleList)
+            {
+                conList.Add(c.getName());
+                conCount++;
+            }
         }
 
 
@@ -477,31 +494,29 @@ namespace UniCade
             }
             curCon = (string)conList[index];
             //System.Console.WriteLine(@"C:\UniCade\Media\Consoles\" + conList[index] + ".png");
-            if ((File.Exists(@"C:\UniCade\Media\Consoles\" + conList[index] + ".png")))
+            if ((File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\" + conList[index] + ".png"))&& (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png")))
             {
+                label1.Visibility = Visibility.Hidden;
                 b = new BitmapImage();
                 b.BeginInit();
-                b.UriSource = new Uri(@"C:\UniCade\Media\Consoles\" + conList[index] + ".png");
+                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\" + conList[index] + ".png");
                 b.EndInit();
                 image.Source = b;
 
-                if (File.Exists(@"C:\UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png"))
-                {
+
                     b = new BitmapImage();
                     b.BeginInit();
-                    b.UriSource = new Uri(@"C:\UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png");
+                    b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png");
                     b.EndInit();
                     image1.Source = b;
-                }
-                else
-                {
-                    image.Source = null;
-                }
+              
             }
             else
             {
                 image.Source = null;
-                image.Source = null;
+                image1.Source = null;
+                label1.Content = conList[index] + " Missing Console Image/Logo ";
+                label1.Visibility = Visibility.Visible;
             }
 
 
@@ -568,12 +583,12 @@ namespace UniCade
                 }
             }
 
-            if (File.Exists(@"C:\UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png"))
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png"))
             {
 
                 BitmapImage b = new BitmapImage();
                 b.BeginInit();
-                b.UriSource = new Uri(@"C:\UniCade\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png");
+                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + conList[index] + " Logo" + ".png");
                 b.EndInit();
                 image2.Source = b;
 
@@ -671,31 +686,31 @@ namespace UniCade
 
                     
 
-                    if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png"))
                     {
                         b = new BitmapImage();
                         b.BeginInit();
-                        b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png");
+                        b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxFront.png");
                         b.EndInit();
                         gi.image.Source = b;
 
                     }
 
-                    if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxBack.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxBack.png"))
                     {
                         b = new BitmapImage();
                         b.BeginInit();
-                        b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxBack.png");
+                        b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_BoxBack.png");
                         b.EndInit();
                         gi.image1.Source = b;
 
                     }
 
-                    if (File.Exists(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png"))
                     {
                         b = new BitmapImage();
                         b.BeginInit();
-                        b.UriSource = new Uri(@"C:\UniCade\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png");
+                        b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + gameSelectionConsole.getName() + "\\" + g.getTitle() + "_Screenshot.png");
                         b.EndInit();
                         gi.image2.Source = b;
 
@@ -703,27 +718,27 @@ namespace UniCade
                     String EsrbPath = "";
                     if (g.getEsrb().Equals("Everyone"))
                     {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
+                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
                     }
                     else if (g.getEsrb().Equals("Everyone (KA)"))
                     {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone.png";
+                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
                     }
                     else if (g.getEsrb().Equals("Everyone 10+"))
                     {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Everyone 10+.png";
+                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png";
                     }
                     else if (g.getEsrb().Equals("Teen"))
                     {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Teen.png";
+                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png";
                     }
                     else if (g.getEsrb().Equals("Mature"))
                     {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Mature.png";
+                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png";
                     }
                     if (g.getEsrb().Equals("Adults Only (AO)"))
                     {
-                        EsrbPath = @"C:\UniCade\Media\Esrb\Adults Only (AO).png";
+                        EsrbPath = Directory.GetCurrentDirectory() +  @"\Media\Esrb\Adults Only (AO).png";
                     }
 
                     if (EsrbPath.Length > 2)

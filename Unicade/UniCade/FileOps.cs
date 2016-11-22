@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace UniCade
 {
@@ -49,13 +50,24 @@ namespace UniCade
                     //System.Console.WriteLine(r[0]);
                 }
             }
+            if (conCount > 0)
+            {
+                Program.dat.consoleList.Add(c);
+            }
+
+            if (conCount < 1)
+            {
+                MessageBox.Show("Fatal Error: Database File is corrupt");
+                return false;
+            }
             file.Close();
             return true;
         }
 
 
 
-        public static void saveDatabase(string path)
+        public static void 
+            saveDatabase(string path)
         {
             Console con = new Console();
             if (File.Exists(path))
@@ -69,11 +81,14 @@ namespace UniCade
                 {
                     string txt = string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, "Console Info", c.getLaunchParam(), c.getReleaseDate());
                     sw.WriteLine(txt);
-                    foreach (Game g in c.getGameList())
+                    if (c.gameCount > 0)
                     {
-                        txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", g.getFileName(), g.getConsole(), g.launchCount, g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), "Trivia", g.getEsrb(), g.getEsrbDescriptor(), g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags(), g.getFav());
-                        sw.WriteLine(txt);
+                        foreach (Game g in c.getGameList())
+                        {
+                            txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", g.getFileName(), g.getConsole(), g.launchCount, g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), "Trivia", g.getEsrb(), g.getEsrbDescriptor(), g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags(), g.getFav());
+                            sw.WriteLine(txt);
 
+                        }
                     }
                 }
 
@@ -294,14 +309,23 @@ namespace UniCade
 
 
 
-        public static void scan(string targetDirectory)
+        public static bool scan(string targetDirectory)
         {
-            string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
+            string[] subdirectoryEntries = null;
+            try
+            {
+             subdirectoryEntries = Directory.GetDirectories(targetDirectory);
+            }catch(Exception e)
+            {
+                MessageBox.Show("Directory Not Found: " + targetDirectory);
+                return false;
+            }
             foreach (string subdirectory in subdirectoryEntries)
                 scanDirectory(subdirectory, targetDirectory);
+            return true;
         }
 
-        public static void scanDirectory(string path, string directory)
+        public static bool scanDirectory(string path, string directory)  //Scan console
         {
             string emuName = new DirectoryInfo(path).Name;
             bool foundCon = false;
@@ -322,10 +346,18 @@ namespace UniCade
             if (!foundCon)
             {
                 //System.Console.WriteLine("Console not found");
-                return;
+                return false;
             }
-            string[] fileEntries = Directory.GetFiles(path);
+            string[] fileEntries = null;
             string[] exs = con.getRomExt().Split('*');
+            try { 
+                fileEntries = Directory.GetFiles(path);
+            
+        }catch(Exception e)
+            {
+                MessageBox.Show("Directory Not Found: " + path);
+                return false;
+            }
             foreach (string fileName in fileEntries)
             {
                 if (SettingsWindow.enforceExt > 0)
@@ -391,6 +423,7 @@ namespace UniCade
                 }
             }
             refreshGameCount();
+            return true;
         }
 
 
@@ -473,6 +506,12 @@ namespace UniCade
             }
             else
             {
+                if (!File.Exists(c.getEmuPath())){
+                    NotificationWindow nfw1 = new NotificationWindow("System", "Launch Failed");
+                    nfw1.Show();
+                    MessageBox.Show("Emulator does not exist. Launch failed");
+                    return;
+                }
                 proc.StartInfo.FileName = c.getEmuPath();
                 proc.StartInfo.Arguments = args;
             }
@@ -525,6 +564,8 @@ namespace UniCade
             processActive = false;
         }
 
+
+
         public static void loadDefaultConsoles()
         {
             Program.dat.consoleList.Add(new Console("Sega Genisis", @"C:\UniCade\Emulators\Fusion\Fusion.exe", @"C:\UniCade\ROMS\Sega Genisis\", "prefPath", ".bin*.iso*.gen*.32x", 0, "consoleInfo", "%file -gen -auto -fullscreen", "1990"));
@@ -548,11 +589,14 @@ namespace UniCade
             Program.dat.consoleList.Add(new Console("Wii U", @"C:\UniCade\Emulators\WiiU\cemu.exe", @"C:\UniCade\ROMS\Atari 2600\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "file", "2012"));
             Program.dat.consoleList.Add(new Console("Xbox 360", @"C:\UniCade\Emulators\X360\x360.exe", @"C:\UniCade\ROMS\X360\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "%file", "2005"));
             Program.dat.consoleList.Add(new Console("PS3", @"C:\UniCade\Emulators\PS3\ps3.exe", @"C:\UniCade\ROMS\PS3\", "prefPath", ".iso", 0, "consoleInfo", "%file", "2009"));
+            Program.dat.consoleList.Add(new Console("3DS", @"C:\UniCade\Emulators\PS3\3ds.exe", @"C:\UniCade\ROMS\3DS\", "prefPath", ".iso", 0, "consoleInfo", "%file", "2014"));
+
 
         }
 
         public static void refreshGameCount()
         {
+            Database.totalGameCount = 0; ;
 
             foreach (Console c in Program.dat.consoleList)
             {
@@ -564,6 +608,111 @@ namespace UniCade
                 }
             }
             
+        }
+
+        public static bool VerifyMediaDirectory()
+        {
+            if(!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media"))
+            {
+                MessageBox.Show("Media directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                return false;
+            }
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles"))
+            {
+                MessageBox.Show("Media (Consoles) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                return false;
+            }
+            if (Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Media\Consoles").Length<4)
+            {
+                MessageBox.Show("Media (Consoles) directory is corrupt. Please reinstall or download UniCade Media Package to the current working directory");
+                return false;
+            }
+            if (Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos").Length < 4)
+            {
+                MessageBox.Show("Media (Console Logos) directory is corrupt. Please reinstall or download UniCade Media Package to the current working directory");
+                return false;
+            }
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos"))
+            {
+                MessageBox.Show("Media (Console Logos) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                return false;
+            }
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Games"))
+            {
+                MessageBox.Show("Media (Games) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                return false;
+            }
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds"))
+            {
+                MessageBox.Show("Media (Backgrounds) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                return false;
+            }
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb"))
+            {
+                MessageBox.Show("Media (ESRB) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                return false;
+            }
+            if (!File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png")|| !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\Interface Background.png")|| !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Marquee.png")|| !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Icon.ico"))
+            {
+                MessageBox.Show("Media (Backgrounds) directory is corrupt. Please reinstall or download UniCade Media Package to the current working directory");
+                return false;
+            }
+
+            if (!File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (AO).png"))
+            {
+                MessageBox.Show("Media (ESRB) directory is corrupt. Please reinstall or download UniCade Media Package to the current working directory");
+                return false;
+            }
+
+            return true;
+        }
+
+        public static void createNewROMdirectory()
+        {
+            Directory.CreateDirectory(Program.romPath + @"\Sega Genisis");
+            Directory.CreateDirectory(Program.romPath + @"\Wii");
+            Directory.CreateDirectory(Program.romPath + @"\NDS");
+            Directory.CreateDirectory(Program.romPath + @"\GBC");
+            Directory.CreateDirectory(Program.romPath + @"\MAME");
+            Directory.CreateDirectory(Program.romPath + @"\PC");
+            Directory.CreateDirectory(Program.romPath + @"\GBA");
+            Directory.CreateDirectory(Program.romPath + @"\Gamecube");
+            Directory.CreateDirectory(Program.romPath + @"\NES");
+            Directory.CreateDirectory(Program.romPath + @"\SNES");
+            Directory.CreateDirectory(Program.romPath + @"\N64");
+            Directory.CreateDirectory(Program.romPath + @"\PS1");
+            Directory.CreateDirectory(Program.romPath + @"\PS2");
+            Directory.CreateDirectory(Program.romPath + @"\PS3");
+            Directory.CreateDirectory(Program.romPath + @"\Atari 2600");
+            Directory.CreateDirectory(Program.romPath + @"\Dreamcast");
+            Directory.CreateDirectory(Program.romPath + @"\PSP");
+            Directory.CreateDirectory(Program.romPath + @"\Wii U");
+            Directory.CreateDirectory(Program.romPath + @"\Xbox 360");
+            Directory.CreateDirectory(Program.romPath + @"\3DS");
+
+        }
+
+        public static void createNewEmudirectory()
+        {
+            Directory.CreateDirectory(Program.emuPath + @"\Sega Genisis");
+            Directory.CreateDirectory(Program.emuPath + @"\Wii");
+            Directory.CreateDirectory(Program.emuPath + @"\NDS");
+            Directory.CreateDirectory(Program.emuPath + @"\GBC");
+            Directory.CreateDirectory(Program.emuPath + @"\MAME");
+            Directory.CreateDirectory(Program.emuPath + @"\GBA");
+            Directory.CreateDirectory(Program.emuPath + @"\Gamecube");
+            Directory.CreateDirectory(Program.emuPath + @"\NES");
+            Directory.CreateDirectory(Program.emuPath + @"\SNES");
+            Directory.CreateDirectory(Program.emuPath + @"\N64");
+            Directory.CreateDirectory(Program.emuPath + @"\PS1");
+            Directory.CreateDirectory(Program.emuPath + @"\PS2");
+            Directory.CreateDirectory(Program.emuPath + @"\PS3");
+            Directory.CreateDirectory(Program.emuPath + @"\Atari 2600");
+            Directory.CreateDirectory(Program.emuPath + @"\Dreamcast");
+            Directory.CreateDirectory(Program.emuPath + @"\PSP");
+            Directory.CreateDirectory(Program.emuPath + @"\Wii U");
+            Directory.CreateDirectory(Program.emuPath + @"\Xbox 360");
+            Directory.CreateDirectory(Program.emuPath + @"\3DS");
         }
 
         public static void defaultPreferences()
