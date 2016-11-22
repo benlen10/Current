@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="771.796" Width="1365.094" WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized">
     <Window.Background>
-        <ImageBrush ImageSource="{DynamicResource InterfaceBackground}"/>
+        <ImageBrush ImageSource="C:\Users\Ben\Dropbox\Workspace\Unicade\UniCade\Images\Background.png"/>
     </Window.Background>
     <Grid Margin="0,0,10,10">
         <Image x:Name="image" Margin="442,97,453,224"/>
