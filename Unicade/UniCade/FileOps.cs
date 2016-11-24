@@ -17,7 +17,7 @@ namespace UniCade
 
 
         public static bool loadDatabase(string path)
-            
+
         {
             if (!File.Exists(path))
             {
@@ -30,7 +30,7 @@ namespace UniCade
             char[] sep = { '|' };
             string[] r = { " " };
             StreamReader file = new StreamReader(path);
-          
+
             while ((line = file.ReadLine()) != null)
             {
                 r = line.Split(sep);
@@ -66,7 +66,7 @@ namespace UniCade
 
 
 
-        public static void 
+        public static void
             saveDatabase(string path)
         {
             Console con = new Console();
@@ -75,25 +75,37 @@ namespace UniCade
                 File.Delete(path);
             }
 
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                foreach (Console c in Program.dat.consoleList)
-                {
-                    string txt = string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, "Console Info", c.getLaunchParam(), c.getReleaseDate());
-                    sw.WriteLine(txt);
-                    if (c.gameCount > 0)
-                    {
-                        foreach (Game g in c.getGameList())
-                        {
-                            txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", g.getFileName(), g.getConsole(), g.launchCount, g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), "Trivia", g.getEsrb(), g.getEsrbDescriptor(), g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags(), g.getFav());
-                            sw.WriteLine(txt);
 
+            try
+            {
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    foreach (Console c in Program.dat.consoleList)
+                    {
+                        string txt = string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", c.getName(), c.getEmuPath(), c.getRomPath(), c.getPrefPath(), c.getRomExt(), c.gameCount, "Console Info", c.getLaunchParam(), c.getReleaseDate());
+                        sw.WriteLine(txt);
+                        if (c.gameCount > 0)
+                        {
+                            foreach (Game g in c.getGameList())
+                            {
+                                txt = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", g.getFileName(), g.getConsole(), g.launchCount, g.getReleaseDate(), g.getPublisher(), g.getDeveloper(), g.getUserScore(), g.getCriticScore(), g.getPlayers(), "Trivia", g.getEsrb(), g.getEsrbDescriptor(), g.getEsrbSummary(), g.getDescription(), g.getGenres(), g.getTags(), g.getFav());
+                                sw.WriteLine(txt);
+
+                            }
                         }
                     }
-                }
 
+                }
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error saving database. Check path");
+                return;
             }
         }
+
+
 
         public static bool loadPreferences(String path)
         {
@@ -481,6 +493,13 @@ namespace UniCade
             SettingsWindow.curUser.totalLaunchCount++;
             proc = new System.Diagnostics.Process();
             string gamePath = ("\"" + c.getRomPath() + g.getFileName() + "\"");
+            string testGamePath = ( c.getRomPath() + g.getFileName());
+            if (!File.Exists(testGamePath))
+            {
+                NotificationWindow nfw1 = new NotificationWindow("System", "ROM does not exist. Launch Failed");
+                nfw1.Show();
+                return;
+            }
             string args = "";
             if (c.getName().Equals("MAME"))
             {
@@ -507,9 +526,8 @@ namespace UniCade
             else
             {
                 if (!File.Exists(c.getEmuPath())){
-                    NotificationWindow nfw1 = new NotificationWindow("System", "Launch Failed");
+                    NotificationWindow nfw1 = new NotificationWindow("System", "Emulator does not exist. Launch Failed");
                     nfw1.Show();
-                    MessageBox.Show("Emulator does not exist. Launch failed");
                     return;
                 }
                 proc.StartInfo.FileName = c.getEmuPath();
