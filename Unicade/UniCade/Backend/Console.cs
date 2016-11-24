@@ -1,144 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
+﻿using System.Collections.Generic;
 
 namespace UniCade
 {
     public class Console
     {
-        private string name;
-        private string emuPath;
-        private string romPath;
-        private string prefPath;
-        private string romExt;
-        private string consoleInfo;
-        private string releaseDate;
-        private string launchParam;
-        private ArrayList gameList;
-        public int gameCount;
-
-        // Methods
+        #region Constructors 
 
         public Console()
         {
-            name = "null";
+            Name = "null";
         }
-
+        
         public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam, string releaseDate)
         {
-            this.name = name;
-            this.emuPath = emuPath;
-            this.romPath = romPath;
-            this.prefPath = prefPath;
-            this.romExt = romExt;
-            this.gameCount = gameCount;
-            this.consoleInfo = consoleInfo;
-            this.launchParam = launchParam;
-            this.releaseDate = releaseDate;
-            gameList = new ArrayList();
-
+            Name = name;
+            EmuPath = emuPath;
+            RomPath = romPath;
+            PrefPath = prefPath;
+            RomExt = romExt;
+            GameCount = gameCount;
+            ConsoleInfo = consoleInfo;
+            LaunchParam = launchParam;
+            ReleaseDate = releaseDate;
+            GameList = new List<Game>();
         }
 
-        public string getName()
-        {
-            return name;
-        }
+        #endregion 
 
-        public string getReleaseDate()
-        {
-            return releaseDate;
-        }
+        #region Properties
 
+        public string Name { get; set; }
+        public string ReleaseDate { get; set; } 
+        public List<Game> GameList { get; private set; }
+        public string EmuPath { get; set; }
+        public string PrefPath { get; set; }
+        public string RomPath { get; set; }
+        public string RomExt { get; set; }
+        public string ConsoleInfo { get; set; }
+        public string LaunchParam { get; set; }
+        public int GameCount { get; private set; }
 
-        public ArrayList getGameList()
-        {
-            return gameList;
-        }
+        #endregion
 
-        public string getEmuPath()
-        {
-            return emuPath;
-        }
+        #region Public Methods
 
-        public bool addGame(Game gam)
+        public bool addGame(Game game)
         {
-            if (!gam.getConsole().Equals(name))
-            {
+            //If the game console does not match the current console, return false
+            if (!game.getConsole().Equals(Name))
                 return false;
-            }
-            foreach(Game g in gameList)
-            {
-                if (g.getFileName().Equals(gam.getFileName())){
-                    return false;
-                }
-            }
+            
+            //If a game with an identical file name already exists, return false
+            if (GameList.Find(e => e.getFileName().Equals(game.getFileName())) != null)
+                return false;
+
+            //If all conditions are passed, add the game, increment the game count and return true
+            GameList.Add(game);
+            GameCount++;
             return true;
         }
 
-        public string getPrefPath()
-        {
-            return prefPath;
-        }
-
-        public string getRomPath()
-        {
-            return romPath;
-        }
-
-        public string getRomExt()
-        {
-            return romExt;
-        }
-
-        public string getConsoleInfo()
-        {
-            return consoleInfo;
-        }
-
-        public string getLaunchParam()
-        {
-            return launchParam;
-        }
-
-        public void setName(string s)
-        {
-            name = s;
-        }
-
-        public void setEmuPath(string s)
-        {
-            emuPath = s;
-        }
-
-        public void setReleaseDate(string s)
-        {
-            releaseDate = s;
-        }
-
-        public void setRomPath(string s)
-        {
-            romPath = s;
-        }
-
-        public void setRomExt(string s)
-        {
-           romExt  = s;
-        }
-
-        public void setConsoleInfo(string s)
-        {
-            consoleInfo = s;
-        }
-
-        public void setLaunchParam(string s)
-        {
-            launchParam = s;
-        }
-
-
+        #endregion
     }
-
 }
