@@ -1,133 +1,114 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Windows.Input;
-using System.Collections;
-using System.Diagnostics;
+﻿using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace UniCade
 {
-    class Program
+    public class Program
     {
-        public static Database dat;
-        
-        public static string databasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
-        public static string romPath = @"C:\UniCade\ROMS";
-        public static string mediaPath = @"C:\UniCade\Media";
-        public static string emuPath = @"C:\UniCade\Emulators";
-        public static string prefPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
-        public static int coins = 0;
-        public static bool playtimeRemaining = true;
-        public static string userLicenseName;
-        public static string userLicenseKey;
-        public static bool validLicense = true;
+        #region Global Variables
+        public static Database _database;
+        public static string _databasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
+        public static string _romPath = @"C:\UniCade\ROMS";
+        public static string _mediaPath = @"C:\UniCade\Media";
+        public static string _emuPath = @"C:\UniCade\Emulators";
+        public static string _prefPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
+        public static int _coins = 0;
+        public static bool _playtimeRemaining = true;
+        public static string _userLicenseName;
+        public static string _userLicenseKey;
+        public static bool _validLicense = true;
+
+        #endregion
+
         [System.STAThreadAttribute]
 
         public static void Main(string[] args)
         {
+            _database = new Database();
 
-            //MessageBox.Show(Directory.GetCurrentDirectory());
-
-            dat = new Database();
-            
-            if (!FileOps.loadPreferences(prefPath))
+            //If preferences file does not exist, load default preference values and save a new file
+            if (!FileOps.loadPreferences(_prefPath))
             {
-                
-                
                 FileOps.defaultPreferences();
-                FileOps.savePreferences(prefPath);
-                NotificationWindow nfw = new NotificationWindow("WARNING", "Preference file not found.\n Loading defaults...");
-                nfw.Show();
+                FileOps.savePreferences(_prefPath);
+                showNotification("WARNING", "Preference file not found.\n Loading defaults...");
             }
 
-            if (!Directory.Exists(romPath))
+            //If the specified rom directory does not exist, creat a new one in with the default path
+            if (!Directory.Exists(_romPath))
             {
-                Directory.CreateDirectory(romPath);
+                Directory.CreateDirectory(_romPath);
                 FileOps.createNewROMdirectory();
-                //MessageBox.Show("ROM directory not found. Creating new directory structure");
-
             }
-            if (!Directory.Exists(emuPath))
+
+            //If the specified emulator directory does not exist, creat a new one in with the default path
+            if (!Directory.Exists(_emuPath))
             {
-                Directory.CreateDirectory(emuPath);
+                Directory.CreateDirectory(_emuPath);
                 FileOps.createNewEmudirectory();
                 //MessageBox.Show("Emulator directory not found. Creating new directory structure");
             }
 
+            //Verify the integrity of the local media directory and end the program if corruption is dectected  
             if (!FileOps.VerifyMediaDirectory())
             {
                 return;
             }
-                
-            
 
+            //If the current user is null, generate the default UniCade user and set as the current user  
             if (SettingsWindow.curUser == null)
             {
                 SettingsWindow.curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
             }
 
-
-            if (!ValidateSHA256(userLicenseName + Database.getHashKey(), userLicenseKey))
+            //Verify the current user license and set flag
+            if (!ValidateSHA256(_userLicenseName + Database.getHashKey(), _userLicenseKey))
             {
-                validLicense = false;
-
-
+                _validLicense = false;
             }
 
-            if (!FileOps.loadDatabase(databasePath))
+            //If the database file does not exist in the specified location, load default values and rescan rom directories
+            if (!FileOps.loadDatabase(_databasePath))
             {
-
                 FileOps.loadDefaultConsoles();
-                FileOps.scan(romPath);
+                FileOps.scan(_romPath);
                 try
                 {
-                    FileOps.saveDatabase(databasePath);
+                    FileOps.saveDatabase(_databasePath);
                 }
-                catch(Exception  e)
+                catch
                 {
                     MessageBox.Show("Error Saving Database");
                 }
-                NotificationWindow nfw = new NotificationWindow("WARNING", "Database file not found.\n Loading defaults...");
-                nfw.Show();
+                showNotification("WARNING", "Database file not found.\n Loading defaults...");
             }
-
-
             var app = new App();
             app.InitializeComponent();
             app.Run();
-
-
-
         }
 
-
-
-       public static string displayGameInfo(Game g)
+        public static string displayGameInfo(Game g)
         {
             string txt = "";
-                txt = txt + ("\nTitle: " + g.getTitle() + "\n");
-                txt = txt + ("\nRelease Date: " + g.getReleaseDate() + "\n");
-                txt = txt + ("\nConsole: " + g.getConsole() + "\n");
-                txt = txt + ("\nLaunch Count: " + g.launchCount.ToString() + "\n");
-                txt = txt + ("\nDeveloper: " + g.getDeveloper() + "\n");
-                txt = txt + ("\nPublisher: " + g.getPublisher() + "\n");
-                txt = txt + ("\nPlayers: " + g.getPlayers() + "\n");
-                txt = txt + ("\nCritic Score: " + g.getCriticScore() + "\n");
-                txt = txt + ("\nESRB Rating: " + g.getTags() + "\n");
-                txt = txt + ("\nESRB Descriptors: " + g.getEsrbDescriptor() + "\n");
-                txt = txt + ("\nGame Description: " + g.getDescription() + "\n");
-                return txt;
-            }
-
+            txt = txt + ("\nTitle: " + g.getTitle() + "\n");
+            txt = txt + ("\nRelease Date: " + g.getReleaseDate() + "\n");
+            txt = txt + ("\nConsole: " + g.getConsole() + "\n");
+            txt = txt + ("\nLaunch Count: " + g.launchCount.ToString() + "\n");
+            txt = txt + ("\nDeveloper: " + g.getDeveloper() + "\n");
+            txt = txt + ("\nPublisher: " + g.getPublisher() + "\n");
+            txt = txt + ("\nPlayers: " + g.getPlayers() + "\n");
+            txt = txt + ("\nCritic Score: " + g.getCriticScore() + "\n");
+            txt = txt + ("\nESRB Rating: " + g.getTags() + "\n");
+            txt = txt + ("\nESRB Descriptors: " + g.getEsrbDescriptor() + "\n");
+            txt = txt + ("\nGame Description: " + g.getDescription() + "\n");
+            return txt;
+        }
 
         public static string SHA256Hash(string data)
         {
-            if(data == null)
+            if (data == null)
             {
                 return null;
             }
@@ -142,7 +123,6 @@ namespace UniCade
             return returnValue.ToString();
         }
 
-
         public static bool ValidateSHA256(string input, string storedHashData)
         {
             string getHashInputData = SHA256Hash(input);
@@ -156,10 +136,17 @@ namespace UniCade
             }
         }
 
+        #region Helper Methods
 
+        /// <summary>
+        /// Display a timed notification in the bottom left corner of the interface 
+        /// </summary>
+        private static void showNotification(string title, string body)
+        {
+            NotificationWindow nfw = new NotificationWindow(title, body);
+            nfw.Show();
+        }
 
-
-
+        #endregion
     }
-
-    }
+}

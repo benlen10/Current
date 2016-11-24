@@ -1,25 +1,14 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using System.Threading;
-using UniCade;
-using System.Windows.Threading;
-using Unicade;
-using System.Diagnostics;
 
 namespace UniCade
 {
@@ -29,7 +18,6 @@ namespace UniCade
     public partial class MainWindow : Window
     {
 
-        private DispatcherTimer tm;
         public static ArrayList conList;
         public static int index;
         public static string curCon;
@@ -53,7 +41,7 @@ namespace UniCade
             {
                 InitializeComponent();
             }
-            catch (Exception e)
+            catch
             {
                 System.Windows.Forms.MessageBox.Show("Fatal Error");
                 return;
@@ -105,7 +93,7 @@ namespace UniCade
 
             label3.Content = "Unlicensed Version";
 
-            if (Program.validLicense)
+            if (Program._validLicense)
             {
                 label3.Visibility = Visibility.Hidden;
             }
@@ -119,7 +107,7 @@ namespace UniCade
                 if (SettingsWindow.coins > 0)
                 {
                     //label2.Visibility = Visibility.Visible;
-                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins);
                 }
 
             }
@@ -146,7 +134,7 @@ namespace UniCade
             conList = new ArrayList();
             conCount = 0;
             index = 0;
-            foreach (Console c in Program.dat.consoleList)
+            foreach (Console c in Program._database.consoleList)
             {
                 conList.Add(c.getName());
                 conCount++;
@@ -344,7 +332,7 @@ namespace UniCade
                         unhookKeys();
                         sw.ShowDialog();
                     }
-                    if (Program.validLicense)
+                    if (Program._validLicense)
                     {
                         label3.Visibility = Visibility.Hidden;
                     }
@@ -400,7 +388,7 @@ namespace UniCade
                 else if (e.KeyCode == Keys.Tab)  // Insert coin
                 {
                     //this.Activate();
-                    Program.coins++;
+                    Program._coins++;
                     if (SettingsWindow.payPerPlay > 0)
                     {
 
@@ -411,10 +399,10 @@ namespace UniCade
                         if (SettingsWindow.coins > 0)
                         {
                             //displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
-                            label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins;
+                            label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins;
 
                         }
-                        NotificationWindow nfw = new NotificationWindow("Pay Per Play", "Coin Inserted\n Current: " + Program.coins);
+                        NotificationWindow nfw = new NotificationWindow("Pay Per Play", "Coin Inserted\n Current: " + Program._coins);
                         nfw.Show();
                     }
                     else
@@ -478,7 +466,7 @@ namespace UniCade
                 if (SettingsWindow.coins > 0)
                 {
                     //label2.Visibility = Visibility.Visible;
-                    label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins;
+                    label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins;
                 }
             }
             else
@@ -542,7 +530,7 @@ namespace UniCade
             }
 
             listBox.Items.Clear();
-            foreach (Console c in Program.dat.consoleList)
+            foreach (Console c in Program._database.consoleList)
             {
                 if (c.getName().Equals(conList[index]))
                 {
@@ -618,7 +606,7 @@ namespace UniCade
             {
                 if (SettingsWindow.playtime > 0)
                 {
-                    if (!Program.playtimeRemaining)
+                    if (!Program._playtimeRemaining)
                     {
                         // Program.gui.createNotification("Playtime Expired: Insert More coins");
                         return;
@@ -627,7 +615,7 @@ namespace UniCade
                 if (SettingsWindow.coins > 0)
                 {
 
-                    if (Program.coins < SettingsWindow.coins)
+                    if (Program._coins < SettingsWindow.coins)
                     {
 
                         NotificationWindow nfw = new NotificationWindow("Pay Per Play", "Insert Coins");
@@ -635,8 +623,8 @@ namespace UniCade
                         return;
                     }
 
-                    Program.coins = Program.coins - SettingsWindow.coins;
-                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program.coins);
+                    Program._coins = Program._coins - SettingsWindow.coins;
+                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins);
 
 
                 }

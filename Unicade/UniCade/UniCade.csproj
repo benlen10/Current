@@ -54,7 +54,8 @@
     <StartupObject>UniCade.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>UniCadeIcon2.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
@@ -105,42 +106,44 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Resources\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GameInfo.xaml.cs">
+    <Compile Include="Windows\GameInfo.xaml.cs">
       <DependentUpon>GameInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="globalKeyboardHook.cs" />
-    <Compile Include="LicenseEntry.cs">
+    <Compile Include="Backend\globalKeyboardHook.cs" />
+    <Compile Include="Windows\LicenseEntry.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LicenseEntry.Designer.cs">
+    <Compile Include="Windows\LicenseEntry.Designer.cs">
       <DependentUpon>LicenseEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Splash.xaml.cs">
-      <DependentUpon>Splash.xaml</DependentUpon>
+    <Compile Include="Windows\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="NotificationWindow.xaml.cs">
+    <Compile Include="Windows\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PassWindow.cs">
+    <Compile Include="Windows\PassWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PassWindow.Designer.cs">
+    <Compile Include="Windows\PassWindow.Designer.cs">
       <DependentUpon>PassWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="SQLclient.cs" />
-    <Compile Include="Taskbar.cs" />
-    <Compile Include="TextFiles.cs" />
-    <Compile Include="UnicadeAccount.cs">
+    <Compile Include="Network\SQLclient.cs" />
+    <Compile Include="Backend\Taskbar.cs" />
+    <Compile Include="Backend\TextFiles.cs" />
+    <Compile Include="Backend\User.cs" />
+    <Compile Include="Network\WebOps.cs" />
+    <Compile Include="Windows\UnicadeAccount.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UnicadeAccount.Designer.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="WebOps.cs" />
-    <Page Include="GameInfo.xaml">
+    <Compile Include="Windows\UnicadeAccount.designer.cs">
+      <DependentUpon>UnicadeAccount.cs</DependentUpon>
+    </Compile>
+    <Page Include="Windows\GameInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,41 +152,31 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Resources\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BackgroundThread.cs" />
-    <Compile Include="ConfirmAction.cs">
+    <Compile Include="Backend\Console.cs" />
+    <Compile Include="Backend\Constants.cs" />
+    <Compile Include="Backend\Database.cs" />
+    <Compile Include="Backend\FileOps.cs" />
+    <Compile Include="Backend\Game.cs" />
+    <Compile Include="Windows\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConfirmAction.Designer.cs" />
-    <Compile Include="Console.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="Database.cs" />
-    <Compile Include="FileOps.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Login.Designer.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Review.cs" />
-    <Compile Include="SettingsWindow.cs">
+    <Compile Include="Backend\Review.cs" />
+    <Compile Include="Windows\SettingsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsWindow.Designer.cs">
+    <Compile Include="Windows\SettingsWindow.Designer.cs">
       <DependentUpon>SettingsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Splash.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NotificationWindow.xaml">
+    <Page Include="Windows\NotificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,20 +195,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="ConfirmAction.resx" />
-    <EmbeddedResource Include="LicenseEntry.resx">
+    <EmbeddedResource Include="Windows\LicenseEntry.resx">
       <DependentUpon>LicenseEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx" />
-    <EmbeddedResource Include="PassWindow.resx">
+    <EmbeddedResource Include="Windows\PassWindow.resx">
       <DependentUpon>PassWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsWindow.resx" />
-    <EmbeddedResource Include="UnicadeAccount.resx" />
+    <EmbeddedResource Include="Windows\SettingsWindow.resx" />
+    <EmbeddedResource Include="Windows\UnicadeAccount.resx">
+      <DependentUpon>UnicadeAccount.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -223,10 +216,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UniCadeIcon.ico" />
+    <None Include="Resources\App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -241,11 +231,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UniCadeIcon2.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Resources\InterfaceBackground.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
