@@ -10,7 +10,7 @@ namespace UniCade
         {
             Name = "null";
         }
-        
+
         public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam, string releaseDate)
         {
             Name = name;
@@ -30,7 +30,7 @@ namespace UniCade
         #region Properties
 
         public string Name { get; set; }
-        public string ReleaseDate { get; set; } 
+        public string ReleaseDate { get; set; }
         public List<Game> GameList { get; private set; }
         public string EmuPath { get; set; }
         public string PrefPath { get; set; }
@@ -49,7 +49,7 @@ namespace UniCade
             //If the game console does not match the current console, return false
             if (!game.getConsole().Equals(Name))
                 return false;
-            
+
             //If a game with an identical file name already exists, return false
             if (GameList.Find(e => e.getFileName().Equals(game.getFileName())) != null)
                 return false;
