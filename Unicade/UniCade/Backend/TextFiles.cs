@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace UniCade
 {
     class TextFiles
-
     {
-        
+        #region Raw Text 
+              
         public static string instructions = @"GUI Operation
 o	Use the left and right arrow keys to select your console
 o	Press the “I” key to display Console Info. Press I again or escape to close the info window. 
@@ -50,8 +50,6 @@ o	 To rescrape info for a single game, navigate to the Games tab and click “Re
 o	To rescrape metadata for all games and consoles, navigate to the Emulators tab and click “Force Global Metadata Rescrape” 
 ";
 
-
-
         public static string ImportantNotes = @"-	Preinstalled Consoles: Game Boy Advance, NES, SNES, Nintendo 64, PlayStation 1, PlayStation 2, Atari 2600, Dreamcast, PlayStation Portable, Sega Genesis, Nintendo Wii, NDS, GBC and PC Game Support
 -	The default working directory for the program is “C:\UniCade” (This directory must have access privileges by the current user)
 -	The UniCade directory includes 7 items (Database.txt, Preferences.txt as well as the directories: Media, ROMS, Frontend, Emulators and MAME)
@@ -61,16 +59,14 @@ o	To rescrape metadata for all games and consoles, navigate to the Emulators tab
 -	Ensure that the case matches for all custom paths
 ";
 
-
         public static string description = @"";
-
 
         public static string troubleshooting = @"-	If the program crashes on startup. Delete the Database and Preferences txt files. 
 -	Skipping or hanging emulator/logo images when browsing. Ensure that the emulator name in the Preferences file. 
 ";
 
-
         public static string licenseInfo = @"© Lenington Design ";
+
         public static string features = @"UniCade Interface (© Lenington Design) 
 - Includes 15 preconfigured consoles
 - Command line based interface supports virtually the same feature set as the GUI version (With the exception of displaying game media images)
@@ -115,5 +111,6 @@ o	To rescrape metadata for all games and consoles, navigate to the Emulators tab
 - Various system wide hotkeys and key combos such as Alt F4 are intercepted and disabled in real time to prevent circumvention of the interface
 - During operation, the windows task bar is completely disabled.
 ";
+        #endregion
     }
 }

@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace UniCade {
 
-	public class globalKeyboardHook {
+	public class GlobalKeyboardHook {
 
 		public delegate int keyboardHookProc(int code, int wParam, ref keyboardHookStruct lParam);
         private static keyboardHookProc callbackDelegate;
@@ -38,11 +38,11 @@ namespace UniCade {
 
 		public event KeyEventHandler KeyUp;
 
-		public globalKeyboardHook() {
+		public GlobalKeyboardHook() {
 			hook();
 		}
 
-		~globalKeyboardHook() {
+		~GlobalKeyboardHook() {
 			unhook();
 		}
 

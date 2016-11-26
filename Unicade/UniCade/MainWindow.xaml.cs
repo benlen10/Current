@@ -30,7 +30,7 @@ namespace UniCade
         public static bool fav;
         public static SettingsWindow sw;
         public static int conCount;
-        public static globalKeyboardHook gkh;
+        public static GlobalKeyboardHook gkh;
         GameInfo gi;
 
 
@@ -61,7 +61,7 @@ namespace UniCade
             //SettingsWindow.label38.Text = "Current User: " + SettingsWindow.curUser.getUsername();
             gi = new GameInfo();
 
-            gkh = new globalKeyboardHook();
+            gkh = new GlobalKeyboardHook();
 
             gkh.HookedKeys.Add(Keys.A);
             gkh.HookedKeys.Add(Keys.B);
