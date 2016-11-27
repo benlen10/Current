@@ -9,22 +9,19 @@ namespace UniCade
 {
     public class Database
     {
-        public ArrayList consoleList;
-        public ArrayList userList;
-        public ArrayList reviewList;
-        public static int totalGameCount;
-        private static string hashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
-
-    public Database() {
-            consoleList = new ArrayList();
-            userList = new ArrayList();
-            reviewList = new ArrayList();
-        }
-
-        public static string getHashKey()
+        public Database()
         {
-            return hashKey;
+            ConsoleList = new List<Console>();
+            UserList = new List<User>();
         }
 
+        #region Properties
+
+        public List<Console> ConsoleList { get; set; }
+        public List<User> UserList { get; set; }
+        public static int TotalGameCount { get; set; }
+        public static string HashKey { get; set; }
+
+        #endregion
     }
 }
