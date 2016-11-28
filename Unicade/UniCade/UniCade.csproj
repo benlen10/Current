@@ -113,7 +113,7 @@
     <Compile Include="Windows\GameInfo.xaml.cs">
       <DependentUpon>GameInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Backend\globalKeyboardHook.cs" />
+    <Compile Include="Backend\GlobalKeyboardHook.cs" />
     <Compile Include="Windows\LicenseEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,7 +165,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Backend\Review.cs" />
     <Compile Include="Windows\SettingsWindow.cs">
       <SubType>Form</SubType>
     </Compile>

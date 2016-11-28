@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
+﻿using System.Collections.Generic;
 
 namespace UniCade
 {
@@ -19,8 +14,8 @@ namespace UniCade
 
         public List<Console> ConsoleList { get; set; }
         public List<User> UserList { get; set; }
-        public static int TotalGameCount { get; set; }
-        public static string HashKey { get; set; }
+        public int TotalGameCount { get; set; }
+        public string HashKey { get; set; }
 
         #endregion
     }

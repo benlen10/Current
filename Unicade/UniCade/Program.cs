@@ -8,7 +8,8 @@ namespace UniCade
     public class Program
     {
         #region Global Variables
-        public static Database _database;
+
+        Database _database;
         public static string _databasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
         public static string _romPath = @"C:\UniCade\ROMS";
         public static string _mediaPath = @"C:\UniCade\Media";
@@ -24,7 +25,7 @@ namespace UniCade
 
         [System.STAThreadAttribute]
 
-        public static void Main(string[] args)
+        public void Main(string[] args)
         {
             _database = new Database();
             _database.HashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
@@ -65,7 +66,7 @@ namespace UniCade
             }
 
             //Verify the current user license and set flag
-            if (!ValidateSHA256(_userLicenseName + Database.getHashKey(), _userLicenseKey))
+            if (!ValidateSHA256(_userLicenseName + _database.HashKey, _userLicenseKey))
             {
                 _validLicense = false;
             }
@@ -90,20 +91,20 @@ namespace UniCade
             app.Run();
         }
 
-        public static string displayGameInfo(Game g)
+        public string displayGameInfo(Game game)
         {
             string txt = "";
-            txt = txt + ("\nTitle: " + g.getTitle() + "\n");
-            txt = txt + ("\nRelease Date: " + g.getReleaseDate() + "\n");
-            txt = txt + ("\nConsole: " + g.getConsole() + "\n");
-            txt = txt + ("\nLaunch Count: " + g.launchCount.ToString() + "\n");
-            txt = txt + ("\nDeveloper: " + g.getDeveloper() + "\n");
-            txt = txt + ("\nPublisher: " + g.getPublisher() + "\n");
-            txt = txt + ("\nPlayers: " + g.getPlayers() + "\n");
-            txt = txt + ("\nCritic Score: " + g.getCriticScore() + "\n");
-            txt = txt + ("\nESRB Rating: " + g.getTags() + "\n");
-            txt = txt + ("\nESRB Descriptors: " + g.getEsrbDescriptor() + "\n");
-            txt = txt + ("\nGame Description: " + g.getDescription() + "\n");
+            txt = txt + ("\nTitle: " + game.Title + "\n");
+            txt = txt + ("\nRelease Date: " + game.ReleaseDate + "\n");
+            txt = txt + ("\nConsole: " + game.Console + "\n");
+            txt = txt + ("\nLaunch Count: " + game.LaunchCount.ToString() + "\n");
+            txt = txt + ("\nDeveloper: " + game.Developer + "\n");
+            txt = txt + ("\nPublisher: " + game.Publisher + "\n");
+            txt = txt + ("\nPlayers: " + game.Players + "\n");
+            txt = txt + ("\nCritic Score: " + game.CriticScore + "\n");
+            txt = txt + ("\nESRB Rating: " + game.Tags + "\n");
+            txt = txt + ("\nESRB Descriptors: " + game.EsrbDescriptor + "\n");
+            txt = txt + ("\nGame Description: " + game.Description + "\n");
             return txt;
         }
 
