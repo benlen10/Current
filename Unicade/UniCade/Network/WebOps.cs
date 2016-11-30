@@ -59,7 +59,7 @@ namespace UniCade
                 MessageBox.Show("Invalid game");
                 return false;
             }
-            string url = ("http://www.mobygames.com/game/" + g.getConsole() + "/" + gameName);
+            string url = ("http://www.mobygames.com/game/" + g.Console + "/" + gameName);
             url = url.ToLower();
 
             WebClient site = new WebClient();
@@ -112,9 +112,9 @@ namespace UniCade
                     g.setEsrb("AO (Adults Only)");
                 }
 
-                if (g.getEsrb().Length > 2)
+                if (g.Esrb.Length > 2)
                 {
-                    System.Console.WriteLine(g.getEsrb());
+                    System.Console.WriteLine(g.Esrb);
                 }
                 else
                 {
@@ -133,7 +133,7 @@ namespace UniCade
 
                     string releaseDate = html.Substring((indexB + 14), 4);
                     g.setReleaseDate(releaseDate);
-                    System.Console.WriteLine(g.getReleaseDate());
+                    System.Console.WriteLine(g.ReleaseDate);
                 }
 
                 //Parse Critic Scores
@@ -202,35 +202,35 @@ namespace UniCade
             //Metacritic Scraper
 
             string metaCon = "";
-            if (g.getConsole().Equals("PS1"))
+            if (g.Console.Equals("PS1"))
             {
                 metaCon = "playstation";
             }
-            else if (g.getConsole().Equals("N64"))
+            else if (g.Console.Equals("N64"))
             {
                 metaCon = "nintendo-64";
             }
-            else if (g.getConsole().Equals("GBA"))
+            else if (g.Console.Equals("GBA"))
             {
                 metaCon = "game-boy-advance";
             }
-            else if (g.getConsole().Equals("PSP"))
+            else if (g.Console.Equals("PSP"))
             {
                 metaCon = "psp";
             }
-            else if (g.getConsole().Equals("Gamecube"))
+            else if (g.Console.Equals("Gamecube"))
             {
                 metaCon = "gamecube";
             }
-            else if (g.getConsole().Equals("Wii"))
+            else if (g.Console.Equals("Wii"))
             {
                 metaCon = "wii";
             }
-            else if (g.getConsole().Equals("NDS"))
+            else if (g.Console.Equals("NDS"))
             {
                 metaCon = "ds";
             }
-            else if (g.getConsole().Equals("Dreamcast"))
+            else if (g.Console.Equals("Dreamcast"))
             {
                 metaCon = "dreamcast";
             }

@@ -24,13 +24,13 @@ namespace UniCade
         #region Properties
 
         public string Username { get; set; }
-        private string Pass { get; set; }
+        public string Pass { get; set; }
         public int LoginCount { get; set; }
         public int TotalLaunchCount { get; set; }
-        private string UserInfo { get; set; }
-        private string AllowedEsrb { get; set; }
-        private string Email { get; set; }
-        private string ProfilePic { get; set; }
+        public string UserInfo { get; set; }
+        public string AllowedEsrb { get; set; }
+        public string Email { get; set; }
+        public string ProfilePic { get; set; }
         public List<Game> Favorites { get; set; }
 
         #endregion

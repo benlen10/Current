@@ -9,7 +9,7 @@ namespace UniCade
     {
         #region Global Variables
 
-        Database _database;
+        public static Database _database;
         public static string _databasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
         public static string _romPath = @"C:\UniCade\ROMS";
         public static string _mediaPath = @"C:\UniCade\Media";
@@ -25,9 +25,8 @@ namespace UniCade
 
         [System.STAThreadAttribute]
 
-        public void Main(string[] args)
+        public static void Main(string[] args)
         {
-            _database = new Database();
             _database.HashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
 
             //If preferences file does not exist, load default preference values and save a new file

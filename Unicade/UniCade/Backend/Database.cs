@@ -2,20 +2,14 @@
 
 namespace UniCade
 {
-    public class Database
+    public static class Database
     {
-        public Database()
-        {
-            ConsoleList = new List<Console>();
-            UserList = new List<User>();
-        }
-
         #region Properties
 
-        public List<Console> ConsoleList { get; set; }
-        public List<User> UserList { get; set; }
-        public int TotalGameCount { get; set; }
-        public string HashKey { get; set; }
+        public static List<Console> ConsoleList { get; set; }
+        public static List<User> UserList { get; set; }
+        public static int TotalGameCount { get; set; }
+        public static string HashKey { get; set; }
 
         #endregion
     }
