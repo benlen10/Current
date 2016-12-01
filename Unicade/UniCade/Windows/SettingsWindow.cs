@@ -115,7 +115,7 @@ namespace UniCade
 
 
 
-            textBox31.Text = DatabasePath;
+            textBox31.Text = Program._databasePath;
             textBox25.Text = Program._emuPath;
             textBox32.Text = Program._mediaPath;
             textBox33.Text = Program._romPath;
@@ -253,11 +253,10 @@ namespace UniCade
                     curConsole = c;
                     textBox9.Text = c.Name;
                     textBox1.Text = c.EmuPath;
-                    //textBox3.Text = c.RomPath;
                     textBox4.Text = c.RomExt;
                     textBox5.Text = c.LaunchParam;
-                    textBox20.Text = c.getConsoleInfo();
-                    textBox21.Text = c.gameCount.ToString();
+                    textBox20.Text = c.ConsoleInfo;
+                    textBox21.Text = c.GameCount.ToString();
                     textBox22.Text = c.ReleaseDate;
 
                 }
@@ -268,13 +267,12 @@ namespace UniCade
         private void button4_Click(object sender, EventArgs e)   //Save current console info to database
         {
             curConsole.Name =textBox9.Text;
-            curConsole.setEmuPath(textBox1.Text);
-            //curConsole.setRomPath(textBox3.Text);
-            curConsole.setRomExt(textBox4.Text);
-            curConsole.setLaunchParam(textBox5.Text);
-            curConsole.setReleaseDate(textBox22.Text);
-            curConsole.setConsoleInfo(textBox20.Text);
-            FileOps.saveDatabase(DatabasePath);
+            curConsole.EmuPath = textBox1.Text;
+            curConsole.RomExt = textBox4.Text;
+            curConsole.LaunchParam = textBox5.Text;
+            curConsole.ReleaseDate = textBox22.Text;
+            curConsole.ConsoleInfo=  textBox20.Text;
+            FileOps.saveDatabase(Program._databasePath);
             MainWindow.refreshConList();
         }
 
@@ -295,13 +293,13 @@ namespace UniCade
                 if (c.Name.Equals(curItem))
                 {
                     curConsole2 = c;
-                    textBox8.Text = c.gameCount.ToString();
-                    textBox3.Text = Database.totalGameCount.ToString();
-                    if (c.gameCount > 0)
+                    textBox8.Text = c.GameCount.ToString();
+                    textBox3.Text = Database.TotalGameCount.ToString();
+                    if (c.GameCount > 0)
                     {
-                        foreach (Game g in c.getGameList())
+                        foreach (Game g in c.GameList)
                         {
-                            listBox3.Items.Add(g.getTitle());
+                            listBox3.Items.Add(g.Title);
                         }
                     }
                 }
@@ -309,9 +307,9 @@ namespace UniCade
             if (listBox3.Items.Count > 0)
             {
                 listBox3.SelectedIndex = 0;
-                foreach (Game g in curConsole2.getGameList())
+                foreach (Game g in curConsole2.GameList)
                 {
-                    if (g.getTitle().Equals(listBox3.SelectedItem.ToString()))
+                    if (g.Title.Equals(listBox3.SelectedItem.ToString()))
                     {
                         curGame = g;
                     }
@@ -332,9 +330,9 @@ namespace UniCade
         private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             string curItem = listBox3.SelectedItem.ToString();
-            foreach (Game g in curConsole2.getGameList())
+            foreach (Game g in curConsole2.GameList)
             {
-                if (g.getTitle().Equals(curItem))
+                if (g.Title.Equals(curItem))
                 {
                     curGame = g;
                 }
@@ -363,7 +361,7 @@ namespace UniCade
             }
             Game g = curGame;
             WebOps.scrapeInfo(g);
-            textBox2.Text = g.getTitle();
+            textBox2.Text = g.Title;
             textBox13.Text = g.Console;
             textBox12.Text = g.ReleaseDate;
             textBox15.Text = g.CriticScore;
@@ -405,7 +403,7 @@ namespace UniCade
             {
                 if (textBox12.TextLength < 5)
                 {
-                    curGame.setReleaseDate(textBox12.Text);
+                    curGame.ReleaseDate = textBox12.Text;
                 }
                 else
                 {
@@ -421,7 +419,7 @@ namespace UniCade
             {
                 if (textBox12.TextLength < 5)
                 {
-                    curGame.setCriticScore(textBox15.Text);
+                    curGame.CriticScore = textBox15.Text;
                 }
                 else
                 {
@@ -437,7 +435,7 @@ namespace UniCade
             {
                 if (textBox12.TextLength < 2)
                 {
-                    curGame.setPlayers(textBox17.Text);
+                    curGame.Players = textBox17.Text;
                 }
                 else
                 {
@@ -459,7 +457,7 @@ namespace UniCade
             {
                 if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("Adults")||textBox6.TextLength<1)
                 {
-                    curGame.setEsrb(textBox6.Text);
+                    curGame.Esrb = textBox6.Text;
                 }
                 else
                 {
@@ -472,15 +470,15 @@ namespace UniCade
                 }
                 else
                 {
-                    curGame.setPublisher(textBox11.Text);
-                    curGame.setDeveloper(textBox10.Text);
+                    curGame.Publisher = textBox11.Text;
+                    curGame.Developer = textBox10.Text;
 
-                    curGame.setDescription(textBox18.Text);
-                    curGame.setEsrbDescriptors(textBox19.Text);
+                    curGame.Description = textBox18.Text;
+                    curGame.EsrbDescriptor = textBox19.Text;
                 }
             }
 
-            FileOps.saveDatabase(DatabasePath);
+            FileOps.saveDatabase(Program._databasePath);
         }
 
 
@@ -511,14 +509,13 @@ namespace UniCade
         private void button7_Click(object sender, EventArgs e)  //Add new emulator/Console
         {
             textBox1.Text = null;
-            //textBox3.Text = null;
             textBox4.Text = null;
             textBox5.Text = null;
             textBox20.Text = null;
             textBox21.Text = null;
             textBox22.Text = null;
             Console c = new Console();
-            c.setName("New Console");
+            c.Name = "New Console";
             Database.ConsoleList.Add(c);
             listBox1.Items.Clear();
             listBox2.Items.Clear();
@@ -529,12 +526,11 @@ namespace UniCade
             }
             listBox2.SelectedIndex = (listBox2.Items.Count - 1);
             MainWindow.refreshConList();
-            //FileOps.saveDatabase(Program.databasePath);
         }
 
         private void button9_Click(object sender, EventArgs e)  //Force metadata rescrape (All games from console)
         {
-            foreach (Game g in curConsole.getGameList())
+            foreach (Game g in curConsole.GameList)
             {
                 if (!WebOps.scrapeInfo(g))
                 {
@@ -843,7 +839,7 @@ namespace UniCade
 
         private void textBox31_TextChanged(object sender, EventArgs e)
         {
-            DatabasePath = textBox31.Text;
+            Program._databasePath = textBox31.Text;
         }
 
         private void textBox25_TextChanged(object sender, EventArgs e)
@@ -877,7 +873,7 @@ namespace UniCade
                     {
                         foreach (Game g in u.Favorites)
                         {
-                            listBox5.Items.Add(g.getTitle() + " - " + g.Console);
+                            listBox5.Items.Add(g.Title + " - " + g.Console);
                         }
                     }
 
@@ -885,7 +881,7 @@ namespace UniCade
                     textBox24.Text = u.Email;
                     textBox26.Text = u.UserInfo;
                     textBox27.Text = u.LoginCount.ToString();
-                    textBox28.Text = u.LaunchCount.ToString();
+                    textBox28.Text = u.TotalLaunchCount.ToString();
                     comboBox2.Text = u.AllowedEsrb;
                     if (u.Username.Equals(curUser.Username))
                     {
@@ -996,16 +992,16 @@ namespace UniCade
                 }
                 else
                 {
-                    curUser.setName(textBox23.Text);
-                    curUser.setpass(textBox24.Text);
-                    curUser.setUserInfo(textBox26.Text);
+                    curUser.Username = textBox23.Text;
+                    curUser.Pass = textBox24.Text;
+                    curUser.UserInfo = textBox26.Text;
                 }
 
                 if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("Adults") || textBox6.TextLength < 1)
                 {
                     if (comboBox2.SelectedItem != null)
                     {
-                        curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
+                        curUser.AllowedEsrb = comboBox2.SelectedItem.ToString();
                     }
                 }
                 else
@@ -1064,7 +1060,7 @@ namespace UniCade
                 {
                     if (textBox12.TextLength < 5)
                     {
-                        curConsole.setReleaseDate(textBox22.Text);
+                        curConsole.ReleaseDate = textBox22.Text;
                     }
                     else
                     {
@@ -1083,12 +1079,11 @@ namespace UniCade
                 }
                 else
                 {
-                    curConsole.setName(textBox9.Text);
-                    curConsole.setEmuPath(textBox1.Text);
-                    //curConsole.setRomPath(textBox3.Text);
-                    curConsole.setRomExt(textBox4.Text);
-                    curConsole.setLaunchParam(textBox5.Text);
-                    curConsole.setConsoleInfo(textBox20.Text);
+                    curConsole.Name = textBox9.Text;
+                    curConsole.EmuPath = textBox1.Text;
+                    curConsole.RomExt = textBox4.Text;
+                    curConsole.LaunchParam = textBox5.Text;
+                    curConsole.ConsoleInfo = textBox20.Text;
                 }
 
                 MainWindow.refreshConList();
@@ -1129,13 +1124,13 @@ namespace UniCade
             listBox6.Items.Clear();
             foreach (Console c in Database.ConsoleList)
             {
-                if (c.gameCount > 0)
+                if (c.GameCount > 0)
                 {
-                    foreach (Game g in c.getGameList())
+                    foreach (Game g in c.GameList)
                     {
-                        if (g.Fav > 0)
+                        if (g.Favorite > 0)
                         {
-                            listBox6.Items.Add(g.getTitle() + " (" + g.Console + ")");
+                            listBox6.Items.Add(g.Title + " (" + g.Console + ")");
                         }
                     }
                 }
@@ -1151,11 +1146,11 @@ namespace UniCade
             }
             if (checkBox3.Checked)
             {
-                curGame.setFav(1);
+                curGame.Favorite = 1;
             }
             else
             {
-                curGame.setFav(0);
+                curGame.Favorite = 0;
             }
 
         }
@@ -1173,7 +1168,7 @@ namespace UniCade
             listBox5.Items.Clear();
             foreach (Game g in curUser.Favorites)
             {
-                listBox5.Items.Add(g.getTitle() + " - " + g.Console);
+                listBox5.Items.Add(g.Title + " - " + g.Console);
             }
         }
 
@@ -1476,7 +1471,7 @@ namespace UniCade
         {
             foreach (Console c in Database.ConsoleList)
             {
-                c.getGameList().Clear();
+                c.GameList.Clear();
             }
             MessageBox.Show("Game library successfully cleared");
         }
@@ -1492,7 +1487,7 @@ namespace UniCade
             {
                 if (c.Name.Equals(listBox1.SelectedItem.ToString()))
                 {
-                    c.getGameList().Clear();
+                    c.GameList.Clear();
                     MessageBox.Show(c.Name + " Library cleared");
                     break;
                 }
@@ -1516,7 +1511,7 @@ namespace UniCade
             }
 
             MessageBox.Show("This may take a while... Please wait for a completed nofication.");
-            foreach (Game g1 in curConsole2.getGameList())
+            foreach (Game g1 in curConsole2.GameList)
             {
                 WebOps.scrapeInfo(g1);
             }
@@ -1681,16 +1676,16 @@ namespace UniCade
 
 
             Game gam = null;
-            gam = SQLclient.getSingleGame(curGame.Console, curGame.getTitle());
+            gam = SQLclient.getSingleGame(curGame.Console, curGame.Title);
             if (gam != null)
             {
 
-                for (int i = 0; i < curConsole2.getGameList().Count; i++)
+                for (int i = 0; i < curConsole2.GameList.Count; i++)
                 {
-                    Game g = (Game)curConsole2.getGameList()[i];
+                    Game g = (Game)curConsole2.GameList[i];
                     if (gam.FileName.Equals(g.FileName))
                     {
-                        curConsole2.getGameList()[i] = gam;
+                        curConsole2.GameList[i] = gam;
                         refreshGameInfo(gam);
                         MessageBox.Show("Game Metadata Downloaded");
                         return;
@@ -1725,7 +1720,7 @@ namespace UniCade
                 MessageBox.Show("No games to upload");
                 return;
             }
-            foreach (Game g in curConsole2.getGameList())
+            foreach (Game g in curConsole2.GameList)
             {
                 SQLclient.uploadGame(g);
                 MessageBox.Show("Console Uploaded");
@@ -1762,16 +1757,16 @@ namespace UniCade
                 return;
             }
 
-            for (int i = 0; i < curConsole2.getGameList().Count; i++)
+            for (int i = 0; i < curConsole2.GameList.Count; i++)
             {
-                Game g = (Game)curConsole2.getGameList()[i];
+                Game g = (Game)curConsole2.GameList[i];
                 Game gam = null;
-                gam = SQLclient.getSingleGame(g.Console, g.getTitle());
+                gam = SQLclient.getSingleGame(g.Console, g.Title);
                 if (gam != null)
                 {
                     if (gam.FileName.Length > 3)
                     {
-                        curConsole2.getGameList()[i] = gam;
+                        curConsole2.GameList[i] = gam;
                     }
                 }
 
@@ -1798,7 +1793,7 @@ namespace UniCade
                 return;
 
             }
-                    textBox2.Text = g.getTitle();
+                    textBox2.Text = g.Title;
                     textBox13.Text = g.Console;
                     textBox12.Text = g.ReleaseDate;
                     textBox15.Text = g.CriticScore;
@@ -1808,7 +1803,7 @@ namespace UniCade
                     textBox17.Text = g.Players;
                     textBox19.Text = g.EsrbDescriptor;
                     textBox18.Text = g.Description;
-                    if (g.Fav == 1)
+                    if (g.Favorite == 1)
                     {
                         checkBox3.Checked = true;
                     }
@@ -1820,21 +1815,21 @@ namespace UniCade
                     pictureBox2.Image = null;
                     pictureBox3.Image = null;
 
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.getTitle() + "_BoxFront.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.Title + "_BoxFront.png"))
                     {
-                        pictureBox1.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.getTitle() + "_BoxFront.png");
+                        pictureBox1.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.Title + "_BoxFront.png");
 
                     }
 
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.getTitle() + "_BoxBack.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.Title + "_BoxBack.png"))
                     {
-                        pictureBox2.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.getTitle() + "_BoxBack.png");
+                        pictureBox2.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.Title + "_BoxBack.png");
 
                     }
 
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.getTitle() + "_Screenshot.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.Title + "_Screenshot.png"))
                     {
-                        pictureBox3.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.getTitle() + "_Screenshot.png");
+                        pictureBox3.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + curConsole2.Name + "\\" + g.Title + "_Screenshot.png");
 
                     }
          

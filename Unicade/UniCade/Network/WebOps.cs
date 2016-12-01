@@ -29,7 +29,7 @@ namespace UniCade
 
         public static bool scrapeInfo(Game g)
         {
-            gameName = g.getTitle().Replace(" - ", " ");
+            gameName = g.Title.Replace(" - ", " ");
             gameName = gameName.Replace(" ", "-");
             gameName = gameName.Replace("'", "");
             if (mobyg > 0)
