@@ -43,7 +43,7 @@ namespace UniCade
             else
             {
                 User u = new User(textBox1.Text, textBox3.Text, 0, textBox2.Text, 0, textBox4.Text, "Mature", "null");
-                Program._database.userList.Add(u);
+                Database.UserList.Add(u);
                 SettingsWindow.curUser = u;
             }
             Close();

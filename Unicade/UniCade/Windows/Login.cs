@@ -18,19 +18,28 @@ namespace UniCade
 
         }
 
-        private void button1_Click(object sender, EventArgs e)  //Close button
+        /// <summary>
+        /// Close button
+        /// </summary>
+        private void button1_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)  //Login button
+        /// <summary>
+        /// Login button
+        /// Checks for bad user input and authenticates the user against the database
+        /// </summary>
+        private void button2_Click(object sender, EventArgs e)
         {
+            //Bad input checks
             if ((textBox1.Text == null) || (textBox2.Text == null))
             {
                 MessageBox.Show("Fields cannot be blank");
                 return;
             }
 
+            //If the user is a SQL client, preform SQL user authentication 
             if (type == 0)
             {
                 if (SQLclient.authiencateUser(textBox1.Text, textBox2.Text))
@@ -42,13 +51,15 @@ namespace UniCade
                     MessageBox.Show(this, "Incorrect login details");
                 }
             }
+
+            //If the user is a local account, validate the info and close the window if sucuessful 
             else
             {
-                foreach (User u in Program._database.userList)
+                foreach (User u in Database.UserList)
                 {
-                    if (u.getUsername().Equals(textBox1.Text))
+                    if (u.Username.Equals(textBox1.Text))
                     {
-                        if (u.getPass().Equals(textBox2.Text))
+                        if (u.Pass.Equals(textBox2.Text))
                         {
                             SettingsWindow.curUser = u;
                             Close();

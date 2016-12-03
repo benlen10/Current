@@ -126,7 +126,7 @@ namespace UniCade
             
             line = file.ReadLine();
             r = line.Split(sep);
-            DatabasePath = r[1];
+            Program._databasePath = r[1];
 
             line = file.ReadLine();
             r = line.Split(sep);
@@ -291,7 +291,7 @@ namespace UniCade
             {
 
                 sw.WriteLine("CurrentUser|" + SettingsWindow.curUser.Username);
-                sw.WriteLine("DatabasePath|" + DatabasePath);
+                sw.WriteLine("_databasePath|" + Program._databasePath);
                 sw.WriteLine("EmulatorFolderPath|" + Program._emuPath);
                 sw.WriteLine("MediaFolderPath|" + Program._mediaPath);
                 sw.WriteLine("ShowSplash|" + SettingsWindow.showSplash);

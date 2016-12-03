@@ -68,9 +68,9 @@ namespace UniCade
 
         public static bool uploadAllGames()
         {
-            foreach (Console c in Program._database.consoleList)
+            foreach (Console c in Database.ConsoleList)
             {
-                    foreach (Game g in c.getGameList())
+                    foreach (Game g in c.GameList)
                     {
                     uploadGame(g);
                     }
@@ -82,19 +82,19 @@ namespace UniCade
         public static bool downloadAllGames()
         {
 
-            foreach (Console c in Program._database.consoleList)
+            foreach (Console c in Database.ConsoleList)
             {
 
-                for(int i = 0; i<c.getGameList().Count; i++)
+                for(int i = 0; i<c.GameList.Count; i++)
                 {
-                    Game g = (Game) c.getGameList()[i];
+                    Game g = (Game) c.GameList[i];
                     Game gam = null;
-                    gam = getSingleGame(g.getConsole(), g.getTitle());
+                    gam = getSingleGame(g.Console, g.Title);
                     if (gam != null)
                     {
-                        if (gam.getFileName().Length > 3)
+                        if (gam.FileName.Length > 3)
                         {
-                            c.getGameList()[i] = gam;
+                            c.GameList[i] = gam;
                         }
                     }
 
@@ -113,13 +113,13 @@ namespace UniCade
                 connectSQL();
             }
 
-            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM "+ sqlUser+ "_games WHERE filename = " + "\"" + g.getFileName() + "\"" + " AND console = " + "\"" + g.getConsole() + "\"" + ";", conn);
+            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM "+ sqlUser+ "_games WHERE filename = " + "\"" + g.FileName + "\"" + " AND console = " + "\"" + g.Console + "\"" + ";", conn);
 
 
             MySqlDataReader myReader = myCommand.ExecuteReader();
             if (myReader.Read())
             {
-                if ((SafeGetString(myReader, 1).Equals(g.getFileName(), StringComparison.InvariantCultureIgnoreCase)))
+                if ((SafeGetString(myReader, 1).Equals(g.FileName, StringComparison.InvariantCultureIgnoreCase)))
                 {
                     System.Console.WriteLine("User Already Exists");
                     myReader.Close();
@@ -131,7 +131,7 @@ namespace UniCade
             myCommand.Dispose();
 
 
-            string command = "Use unicade;" + " INSERT INTO " +sqlUser+ "_games (filename,title, Console, launchcount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite)" + " VALUES (" + "\"" + g.getFileName() + "\",\"" + g.getTitle() + "\",\"" + g.getConsole() + "\",\"" + g.launchCount + "\",\"" + g.getReleaseDate() + "\",\"" + g.getPublisher() + "\",\"" + g.getDeveloper() + "\",\"" + g.getUserScore() + "\",\"" + g.getCriticScore() + "\",\"" + g.getPlayers() + "\",\"" + g.getTrivia() + "\",\"" + g.getEsrb() + "\",\"" + g.getEsrbDescriptor() + "\",\"" + g.getEsrbSummary() + "\",\"" + g.getDescription() + "\",\"" + g.getGenres() + "\",\"" + g.getTags() + "\",\"" + g.getFav() + "\");";
+            string command = "Use unicade;" + " INSERT INTO " +sqlUser+ "_games (filename,title, Console, LaunchCount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite)" + " VALUES (" + "\"" + g.FileName + "\",\"" + g.Title + "\",\"" + g.Console + "\",\"" + g.LaunchCount + "\",\"" + g.ReleaseDate + "\",\"" + g.Publisher + "\",\"" + g.Developer + "\",\"" + g.UserScore + "\",\"" + g.CriticScore + "\",\"" + g.Players + "\",\"" + g.Trivia + "\",\"" + g.Esrb + "\",\"" + g.EsrbDescriptor + "\",\"" + g.EsrbSummary + "\",\"" + g.Description + "\",\"" + g.Genres + "\",\"" + g.Tags + "\",\"" + g.Favorite + "\");";
              myCommand = new MySqlCommand(command, conn);
             myCommand.ExecuteNonQuery();
             return true;
@@ -262,7 +262,7 @@ namespace UniCade
             myCommand.Dispose();
 
 
-            string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,launchcount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
+            string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,LaunchCount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
              myCommand = new MySqlCommand(command,conn);
             myCommand.ExecuteNonQuery();
             command = @"USE unicade;
@@ -274,7 +274,7 @@ DROP TABLE IF EXISTS games;
   filename        varchar(255),     # full ROM filename
   title           varchar(255),     # Game title
   Console         varchar(255),     # Console game
-  launchcount     smallint(127),     # Number of times the game has been launched
+  LaunchCount     smallint(127),     # Number of times the game has been launched
   releaseDate     varchar(255),      # Release date
   publisher       varchar(255),      # Game publisher
   developer       varchar(255),      # Game developer

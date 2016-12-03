@@ -4,7 +4,7 @@
     {
         #region Constructors
 
-        public Game(string fileName, string con, int launchCount)
+        public Game(string fileName, string con, int LaunchCount)
         {
             FileName = fileName;
             Console = con;

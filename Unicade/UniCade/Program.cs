@@ -19,6 +19,7 @@ namespace UniCade
         public static string _userLicenseName;
         public static string _userLicenseKey;
         public static bool _validLicense = true;
+        public User _user;
 
         #endregion
 
@@ -26,8 +27,8 @@ namespace UniCade
 
         public static void Main(string[] args)
         {
+            Database.Initialize();
             Database.HashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
-
             //If preferences file does not exist, load default preference values and save a new file
             if (!FileOps.loadPreferences(_prefPath))
             {
@@ -89,7 +90,7 @@ namespace UniCade
             app.Run();
         }
 
-        public string displayGameInfo(Game game)
+        public static string displayGameInfo(Game game)
         {
             string txt = "";
             txt = txt + ("\nTitle: " + game.Title + "\n");

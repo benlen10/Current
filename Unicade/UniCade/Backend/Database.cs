@@ -12,5 +12,20 @@ namespace UniCade
         public static string HashKey { get; set; }
 
         #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Initialize the static database members
+        /// </summary>
+        public static void Initialize()
+        {
+            TotalGameCount = 0;
+            HashKey = null;
+            ConsoleList = new List<Console>();
+            UserList = new List<User>();
+        }
+
+        #endregion
     }
 }

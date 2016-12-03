@@ -50,8 +50,6 @@ namespace UniCade
 
         }
 
-
-
         public static bool scrapeMobyGames(Game g)
         {
             if (g == null)
@@ -85,31 +83,31 @@ namespace UniCade
                 string s = html; //html.Substring(indexA, indexA + 50);
                 if (s.Contains("Everyone"))
                 {
-                    g.setEsrb("Everyone");
+                    g.Esrb = "Everyone";
                 }
                 else if (s.Contains("Kids to Adults"))
                 {
-                    g.setEsrb("Everyone (KA)");
+                    g.Esrb = "Everyone (KA)";
                 }
                 else if (s.Contains("Everyone 10+"))
                 {
-                    g.setEsrb("Everyone 10+");
+                    g.Esrb = "Everyone 10+";
                 }
                 else if (s.Contains("Teen"))
                 {
-                    g.setEsrb("Teen");
+                    g.Esrb = "Teen";
                 }
                 else if (s.Contains("Mature"))
                 {
-                    g.setEsrb("Mature");
+                    g.Esrb = "Mature";
                 }
                 else if (s.Contains("Mature"))
                 {
-                    g.setEsrb("Mature");
+                    g.Esrb = "Mature";
                 }
                 else if (s.Contains("Adults Only"))
                 {
-                    g.setEsrb("AO (Adults Only)");
+                    g.Esrb = "AO (Adults Only)";
                 }
 
                 if (g.Esrb.Length > 2)
@@ -118,7 +116,7 @@ namespace UniCade
                 }
                 else
                 {
-                    g.setEsrb("Unrated");
+                    g.Esrb = "Unrated";
                 }
             }
 
@@ -132,7 +130,7 @@ namespace UniCade
                     int indexB = html.IndexOf("release-info", (tmp + 20));
 
                     string releaseDate = html.Substring((indexB + 14), 4);
-                    g.setReleaseDate(releaseDate);
+                    g.ReleaseDate = releaseDate;
                     System.Console.WriteLine(g.ReleaseDate);
                 }
 
@@ -144,11 +142,10 @@ namespace UniCade
                 {
                     string criticScore = html.Substring((tmp + 9), 2);
                     string s2 = html.Substring((tmp + 9));
-                    g.setCriticScore(criticScore);
+                    g.CriticScore = criticScore;
 
                 }
             }
-
 
             //Parse Publisher
             if (publisher > 0)
@@ -158,14 +155,8 @@ namespace UniCade
                 if (tmp > 0)
                 {
                     int tmp2 = html.IndexOf("-", tmp + 10);
-                    //System.Console.WriteLine(tmp);
-
-
-
                     string publisher = html.Substring((tmp + 9), tmp2 - (tmp + 9));
-                    g.setPublisher(publisher);
-                    System.Console.WriteLine(publisher);
-
+                    g.Publisher = publisher;
                 }
             }
 
@@ -189,7 +180,7 @@ namespace UniCade
                         {
                             description = description.Substring(0, maxDescriptionLength);
                         }
-                        g.setDescription(description);
+                        g.Description = description;
                     }
                 }
             }
@@ -276,7 +267,7 @@ namespace UniCade
                     if (tmp2 > 0)
                     {
                         string descriptors = html.Substring((tmp + 26), tmp2 - (tmp + 26));
-                        g.setEsrbDescriptors(descriptors);
+                        g.Description = descriptors;
                     }
                 }
             }
@@ -293,7 +284,7 @@ namespace UniCade
                     if (tmp2 > 0)
                     {
                         string players = html.Substring((tmp + 17), tmp2 - (tmp + 17));
-                        g.setPlayers(players);
+                        g.Players = players;
                     }
                 }
             }
