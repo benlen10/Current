@@ -117,7 +117,7 @@ namespace UniCade
             }
 
 
-            FileOps.refreshGameCount();
+            FileOps.RefreshGameCount();
             label.Content = "Total Game Count: " + Database.TotalGameCount;
             updateGUI();
         }
@@ -162,7 +162,7 @@ namespace UniCade
                     System.Console.WriteLine("KILL");
                     NotificationWindow nfw = new NotificationWindow("UniCade System", "Game Successfully Closed");
                     nfw.Show();
-                    FileOps.killProcess();
+                    FileOps.KillProcess();
                     this.Activate();
                 }
             }

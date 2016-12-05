@@ -6,13 +6,12 @@ namespace UniCade
 {
     public partial class SettingsWindow : Form
     {
-        static Console curConsole2;
-        static Console curConsole;
+        #region Properties
+
         public static Game curGame;
         public static User curUser;
-
-        //Preference Data
-
+        static Console curConsole2;
+        static Console curConsole;
         public static string defaultUser;
         public static int showSplash;
         public static int scanOnStartup;
@@ -28,20 +27,17 @@ namespace UniCade
         public static int passProtect;
         public static int enforceExt;
 
-
+        #endregion
 
         public SettingsWindow()
         {
-
             InitializeComponent();
-            this.FormClosing += SettingsWindow_FormClosing;
-            populate();
-
+            FormClosing += SettingsWindow_FormClosing;
+            Populate();
         }
 
-        private void populate()
+        private void Populate()
         {
-
             foreach (Console c in Database.ConsoleList)
             {
                 listBox1.Items.Add(c.Name);

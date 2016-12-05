@@ -27,12 +27,13 @@ namespace UniCade
 
         public static void Main(string[] args)
         {
+            //Initialize the static database
             Database.Initialize();
-            Database.HashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
+
             //If preferences file does not exist, load default preference values and save a new file
             if (!FileOps.loadPreferences(_prefPath))
             {
-                FileOps.defaultPreferences();
+                FileOps.RestoreDefaultPreferences();
                 FileOps.savePreferences(_prefPath);
                 showNotification("WARNING", "Preference file not found.\n Loading defaults...");
             }
@@ -41,14 +42,14 @@ namespace UniCade
             if (!Directory.Exists(_romPath))
             {
                 Directory.CreateDirectory(_romPath);
-                FileOps.createNewROMdirectory();
+                FileOps.CreateNewRomDirectory();
             }
 
             //If the specified emulator directory does not exist, creat a new one in with the default path
             if (!Directory.Exists(_emuPath))
             {
                 Directory.CreateDirectory(_emuPath);
-                FileOps.createNewEmudirectory();
+                FileOps.CreateNewEmuDirectory();
                 //MessageBox.Show("Emulator directory not found. Creating new directory structure");
             }
 
@@ -73,7 +74,7 @@ namespace UniCade
             //If the database file does not exist in the specified location, load default values and rescan rom directories
             if (!FileOps.loadDatabase(_databasePath))
             {
-                FileOps.loadDefaultConsoles();
+                FileOps.RestoreDefaultConsoles();
                 FileOps.scan(_romPath);
                 try
                 {

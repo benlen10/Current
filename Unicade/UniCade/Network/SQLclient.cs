@@ -10,13 +10,18 @@ namespace UniCade
 {
     class SQLclient
     {
+        #region Global Variables
+
         public static string sqlUser;
         public static MySqlConnection conn;
-        
+
+        #endregion
+
+        #region Public Methods
 
         public static string connectSQL()
         {
-
+            //Generate a new SQL connection
             conn = new MySqlConnection("server=127.0.0.1;"+ "uid=root;" +"pwd=Star6120;"+"database=unicade;");
 
             try
