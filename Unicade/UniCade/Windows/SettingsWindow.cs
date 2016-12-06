@@ -35,9 +35,12 @@ namespace UniCade
             FormClosing += SettingsWindow_FormClosing;
             Populate();
         }
-
+        /// <summary>
+        /// Populate settings window fields under all tabs
+        /// </summary>
         private void Populate()
         {
+            //Populate console lists
             foreach (Console c in Database.ConsoleList)
             {
                 listBox1.Items.Add(c.Name);
@@ -56,7 +59,7 @@ namespace UniCade
             comboBox2.Items.Add("Mature");
             comboBox2.Items.Add("Adults Only (AO)");
             comboBox2.Items.Add("None");
-            //comboBox2.Text = restrictESRB);
+
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.Load(Directory.GetCurrentDirectory()+ @"\Media\Backgrounds\UniCade Logo.png");
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1596,7 +1599,7 @@ namespace UniCade
                 return;
             }
 
-            if (SQLclient.deleteUser())
+            if (SQLclient.DeleteUser())
             {
                 label56.Text = "Current Web User: ";
             }
@@ -1626,7 +1629,7 @@ namespace UniCade
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
-            SQLclient.deletegames();
+            SQLclient.Deletegames();
             MessageBox.Show("Library successfully deleted");
 
         }
@@ -1639,7 +1642,7 @@ namespace UniCade
                 return;
             }
 
-            SQLclient.downloadAllGames();
+            SQLclient.DownloadAllGames();
             MessageBox.Show("Library metadata sucuessfully updated");
         }
 

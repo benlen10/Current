@@ -42,7 +42,7 @@ namespace UniCade
             //If the user is a SQL client, preform SQL user authentication 
             if (type == 0)
             {
-                if (SQLclient.authiencateUser(textBox1.Text, textBox2.Text))
+                if (SQLclient.AuthiencateUser(textBox1.Text, textBox2.Text))
                 {
                     Close();
                 }

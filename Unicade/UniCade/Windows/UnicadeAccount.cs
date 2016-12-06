@@ -38,7 +38,7 @@ namespace UniCade
             }
                 if (type == 0)
             {
-                SQLclient.createUser(textBox1.Text, textBox3.Text, textBox2.Text, textBox4.Text, "Null", "NullProfPath");
+                SQLclient.CreateUser(textBox1.Text, textBox3.Text, textBox2.Text, textBox4.Text, "Null", "NullProfPath");
             }
             else
             {
