@@ -22,7 +22,7 @@ namespace UniCade
                 if (Int32.Parse(textBox1.Text) == SettingsWindow.passProtect)
                 {
                     DialogResult = DialogResult.OK;
-                    MainWindow.passValid = true;
+                    MainWindow._validPAss = true;
                 }
 
             }

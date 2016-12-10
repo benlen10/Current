@@ -272,13 +272,13 @@ namespace UniCade
             curConsole.ReleaseDate = textBox22.Text;
             curConsole.ConsoleInfo=  textBox20.Text;
             FileOps.saveDatabase(Program._databasePath);
-            MainWindow.refreshConList();
+            MainWindow.RefreshConsoleList();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             //Cursor.Hide();
-            MainWindow.settingsWindowActive = false;
+            MainWindow._settingsWindowActive = false;
             this.Close();
         }
 
@@ -345,7 +345,7 @@ namespace UniCade
         {
             //Cursor.Hide();
             //this.Close();
-            MainWindow.settingsWindowActive = false;
+            MainWindow._settingsWindowActive = false;
             Close();
 
         }
@@ -501,7 +501,7 @@ namespace UniCade
             }
             listBox1.SelectedIndex = 0;
 
-            MainWindow.refreshConList();
+            MainWindow.RefreshConsoleList();
 
         }
 
@@ -524,7 +524,7 @@ namespace UniCade
                 listBox2.Items.Add(con.Name);
             }
             listBox2.SelectedIndex = (listBox2.Items.Count - 1);
-            MainWindow.refreshConList();
+            MainWindow.RefreshConsoleList();
         }
 
         private void button9_Click(object sender, EventArgs e)  //Force metadata rescrape (All games from console)
@@ -546,7 +546,7 @@ namespace UniCade
         private void button13_Click(object sender, EventArgs e)
         {
             //Cursor.Hide();
-            MainWindow.settingsWindowActive = false;
+            MainWindow._settingsWindowActive = false;
             FileOps.savePreferences(Program._prefPath);
 
             this.Close();
@@ -596,14 +596,14 @@ namespace UniCade
         private void button16_Click(object sender, EventArgs e)
         {
             //Cursor.Hide();
-            MainWindow.settingsWindowActive = false;
+            MainWindow._settingsWindowActive = false;
             this.Close();
         }
 
         private void button14_Click(object sender, EventArgs e)
         {
             //Cursor.Hide();
-            MainWindow.settingsWindowActive = false;
+            MainWindow._settingsWindowActive = false;
             this.Close();
 
         }
@@ -1085,7 +1085,7 @@ namespace UniCade
                     curConsole.ConsoleInfo = textBox20.Text;
                 }
 
-                MainWindow.refreshConList();
+                MainWindow.RefreshConsoleList();
             }
 
             listBox1.Items.Clear();
@@ -1376,7 +1376,7 @@ namespace UniCade
         private void button23_Click(object sender, EventArgs e)
         {
             //Cursor.Hide();
-            MainWindow.settingsWindowActive = false;
+            MainWindow._settingsWindowActive = false;
             this.Close();
         }
 
@@ -1618,7 +1618,7 @@ namespace UniCade
 
         private void button37_Click(object sender, EventArgs e)
         {
-            MainWindow.settingsWindowActive = false;
+            MainWindow._settingsWindowActive = false;
             this.Close();
         }
 
@@ -1837,8 +1837,8 @@ namespace UniCade
 
         private void SettingsWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MainWindow.settingsWindowActive = false;
-            MainWindow.hookKeys();
+            MainWindow._settingsWindowActive = false;
+            MainWindow.ReHookKeys();
         }
 
 
