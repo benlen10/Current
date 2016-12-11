@@ -1,26 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace UniCade
 {
     public partial class UnicadeAccount : Form
     {
-        int type;
+        #region Properties
+
+        int AccountType;
+
+        #endregion
+
         public UnicadeAccount(int type)
         {
-            this.type = type;
+            this.AccountType = type;
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)  //Create account button
+        /// <summary>
+        /// Create account button
+        /// </summary>
+        private void button1_Click(object sender, EventArgs e) 
         {
+            //Check for invalid input
             if ((textBox1.Text == null) || (textBox2.Text == null)|| (textBox3.Text == null)|| (textBox4.Text == null))
             {
                 MessageBox.Show("Fields cannot be empty");
@@ -36,12 +38,13 @@ namespace UniCade
                 MessageBox.Show("Invalid Email");
                 return;
             }
-                if (type == 0)
-            {
+
+            //Create a new SQL user if the account type is UniCade Cloud
+                if (AccountType == 0)
                 SQLclient.CreateUser(textBox1.Text, textBox3.Text, textBox2.Text, textBox4.Text, "Null", "NullProfPath");
-            }
             else
             {
+                //Create a new local user if the account type standard Unicade
                 User u = new User(textBox1.Text, textBox3.Text, 0, textBox2.Text, 0, textBox4.Text, "Mature", "null");
                 Database.UserList.Add(u);
                 SettingsWindow.curUser = u;
@@ -49,6 +52,9 @@ namespace UniCade
             Close();
         }
 
+        /// <summary>
+        /// Close button
+        /// </summary>
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
@@ -56,7 +62,6 @@ namespace UniCade
 
         private void UnicadeAccount_Load(object sender, EventArgs e)
         {
-
         }
     }
 }
