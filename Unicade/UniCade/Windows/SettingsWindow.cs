@@ -40,12 +40,14 @@ namespace UniCade
         /// </summary>
         private void Populate()
         {
-            //Populate console lists
+            //Populate console list with the currently active games
             foreach (Console c in Database.ConsoleList)
             {
                 listBox1.Items.Add(c.Name);
                 listBox2.Items.Add(c.Name);
             }
+
+            //Poplate ESRB dropdown combo boxes
             listBox1.SelectedIndex = 0;
             comboBox1.Items.Add("Everyone");
             comboBox1.Items.Add("Everyone 10+");
@@ -60,39 +62,33 @@ namespace UniCade
             comboBox2.Items.Add("Adults Only (AO)");
             comboBox2.Items.Add("None");
 
+            //Load UniCade Logo images within the settings window
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.Load(Directory.GetCurrentDirectory()+ @"\Media\Backgrounds\UniCade Logo.png");
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox6.Load(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png");
             pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox7.Load(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png");
+
+            //Populate the 'Allowed ESRB' combo box with the specified rating
             if (restrictESRB == 0)
-            {
                 comboBox1.Text = "None";
-            }
             else if(restrictESRB == 1)
-                {
                 comboBox1.Text = "Everyone";
-            }
             else if (restrictESRB == 2)
-            {
                 comboBox1.Text = "Everyone 10+";
-            }
             else if (restrictESRB == 3)
-            {
                 comboBox1.Text = "Teen";
-            }
             else if (restrictESRB == 4)
-            {
                 comboBox1.Text = "Mature";
-            }
             else if (restrictESRB == 5)
-            {
                 comboBox1.Text = "Adults Only (AO)";
-            }
+            if (viewEsrb > 0)
+                checkBox6.Checked = true;
 
-
-            textBox23.Enabled = false;  //Disable editing user info unless logged in
+            //Disable editing userinfo unless logged in
+            textBox23.Enabled = false;  
             textBox24.Enabled = false;
             textBox26.Enabled = false;
             textBox27.Enabled = false;
@@ -102,127 +98,74 @@ namespace UniCade
             comboBox2.Enabled = false;
             listBox5.Enabled = false;
 
-
+            //Populate features textbox under the About tab
             richTextBox1.Text = TextFiles.features + "\n\n\n\n\n\n" + TextFiles.instructions;
 
-            if (viewEsrb > 0)
-            {
-                checkBox6.Checked = true;
-            }
+            //Populate textbox fields
             textBox7.Text = passProtect.ToString();
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-
-
-
             textBox31.Text = Program._databasePath;
             textBox25.Text = Program._emuPath;
             textBox32.Text = Program._mediaPath;
             textBox33.Text = Program._romPath;
+
+            //Check specified boxes under the Web tab
             if (WebOps.releaseDate > 0)
-            {
                 checkBox8.Checked = true;
-            }
             if (WebOps.critic > 0)
-            {
                 checkBox9.Checked = true;
-            }
             if (WebOps.publisher > 0)
-            {
                 checkBox15.Checked = true;
-            }
             if (WebOps.developer > 0)
-            {
                 checkBox17.Checked = true;
-            }
             if (WebOps.esrb > 0)
-            {
                 checkBox18.Checked = true;
-            }
             if (WebOps.esrbDescriptor > 0)
-            {
                 checkBox19.Checked = true;
-            }
             if (WebOps.players > 0)
-            {
                 checkBox20.Checked = true;
-            }
             if (WebOps.description > 0)
-            {
                 checkBox21.Checked = true;
-            }
             if (WebOps.boxFront > 0)
-            {
                 checkBox22.Checked = true;
-            }
             if (WebOps.boxBack > 0)
-            {
                 checkBox23.Checked = true;
-            }
             if (WebOps.screenshot > 0)
-            {
                 checkBox24.Checked = true;
-            }
             if (WebOps.metac > 0)
-            {
                 checkBox4.Checked = true;
-            }
             if (WebOps.mobyg > 0)
-            {
                 checkBox5.Checked = true;
-            }
 
-
+            //Populate Global Settings checkboxes
             if (showSplash > 0)
-            {
                 checkBox10.Checked = true;
-            }
             if (showLoading > 0)
-            {
                 checkBox2.Checked = true;
-            }
             if (requireLogin > 0)
-            {
                 checkBox11.Checked = true;
-            }
             if (scanOnStartup > 0)
-            {
                 checkBox12.Checked = true;
-            }
             if (enforceExt > 0)
-            {
                 checkBox1.Checked = true;
-            }
             if (viewEsrb == 1)
-            {
                 checkBox13.Checked = true;
-            }
             if (payPerPlay > 0)
-            {
                 checkBox14.Checked = true;
-            }
 
+            //Populate payPerPlay fields
             textBox29.Text = coins.ToString();
             textBox30.Text = playtime.ToString();
 
             foreach (User u in Database.UserList)
-            {
                 listBox4.Items.Add(u.Username);
-            }
 
+            //Refresh the global favorites list
             refreshGlobalFavs();
 
-
-            //this.Activate();
-            //this.Focus();
-            //this.TopMost = true;
-
-            //Pupulate License info
+            //Populate user license info
             label35.Text = "Licensed to: " + Program._userLicenseName;
             label34.Text = "License Status: Full Version";
             label37.Text = "License Key: " + Program._userLicenseKey;
-            
-
-
         }
 
 
@@ -257,7 +200,6 @@ namespace UniCade
                     textBox20.Text = c.ConsoleInfo;
                     textBox21.Text = c.GameCount.ToString();
                     textBox22.Text = c.ReleaseDate;
-
                 }
             }
         }
@@ -277,7 +219,6 @@ namespace UniCade
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Cursor.Hide();
             MainWindow._settingsWindowActive = false;
             this.Close();
         }
@@ -343,37 +284,43 @@ namespace UniCade
 
         private void button5_Click(object sender, EventArgs e)  //Close Button
         {
-            //Cursor.Hide();
-            //this.Close();
             MainWindow._settingsWindowActive = false;
             Close();
-
         }
 
-        private void button1_Click(object sender, EventArgs e)   //Rescrape Game Info Button
+        /// <summary>
+        /// Rescrape game info button.
+        /// Rescrapes info the the specified game from the web
+        /// </summary>
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            //Require that a user select a valid game to rescrape
             if (listBox2.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
             }
-            Game g = curGame;
-            WebOps.scrapeInfo(g);
-            textBox2.Text = g.Title;
-            textBox13.Text = g.Console;
-            textBox12.Text = g.ReleaseDate;
-            textBox15.Text = g.CriticScore;
-            textBox11.Text = g.Publisher;
-            textBox10.Text = g.Developer;
-            textBox6.Text = g.Esrb;
-            textBox17.Text = g.Players;
-            textBox19.Text = g.EsrbDescriptor;
-            textBox18.Text = g.Description;
-            refreshEsrbIcon(g);
+
+            //Scrape info and populate local fields
+            WebOps.scrapeInfo(curGame);
+            textBox2.Text = curGame.Title;
+            textBox13.Text = curGame.Console;
+            textBox12.Text = curGame.ReleaseDate;
+            textBox15.Text = curGame.CriticScore;
+            textBox11.Text = curGame.Publisher;
+            textBox10.Text = curGame.Developer;
+            textBox6.Text = curGame.Esrb;
+            textBox17.Text = curGame.Players;
+            textBox19.Text = curGame.EsrbDescriptor;
+            textBox18.Text = curGame.Description;
+            refreshEsrbIcon(curGame);
         }
 
-        private void button6_Click(object sender, EventArgs e)  //Save to Database Button
+        /// <summary>
+        /// Save database button
+        /// Save all active info to the text databse
+        /// </summary>
+        private void button6_Click(object sender, EventArgs e) 
         {
             if (listBox2.SelectedItem == null)
             {
@@ -381,7 +328,6 @@ namespace UniCade
                 return;
             }
             saveGameInfo();
-
         }
 
         private void saveGameInfo()
@@ -393,33 +339,22 @@ namespace UniCade
             }
 
             if (listBox3.Items.Count<1)
-            {
-                
                 return;
-            }
 
             if (isAllDigits(textBox12.Text))
             {
                 if (textBox12.TextLength < 5)
-                {
                     curGame.ReleaseDate = textBox12.Text;
-                }
                 else
-                {
                     MessageBox.Show("Release Date Invalid");
-                }
             }
             else
-            {
                 MessageBox.Show("Release Date score must be only digits");
-            }
 
             if (isAllDigits(textBox12.Text))
             {
                 if (textBox12.TextLength < 5)
-                {
                     curGame.CriticScore = textBox15.Text;
-                }
                 else
                 {
                     MessageBox.Show("Critic Score Invalid");
@@ -471,17 +406,12 @@ namespace UniCade
                 {
                     curGame.Publisher = textBox11.Text;
                     curGame.Developer = textBox10.Text;
-
                     curGame.Description = textBox18.Text;
                     curGame.EsrbDescriptor = textBox19.Text;
                 }
             }
-
             FileOps.saveDatabase(Program._databasePath);
         }
-
-
-
 
 
         private void button8_Click(object sender, EventArgs e)  //Delete console
@@ -502,7 +432,6 @@ namespace UniCade
             listBox1.SelectedIndex = 0;
 
             MainWindow.RefreshConsoleList();
-
         }
 
         private void button7_Click(object sender, EventArgs e)  //Add new emulator/Console
