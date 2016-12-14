@@ -204,8 +204,11 @@ namespace UniCade
             }
         }
 
-
-        private void button4_Click(object sender, EventArgs e)   //Save current console info to database
+        /// <summary>
+        /// Save console button
+        /// Save current console info to database file
+        /// </summary>
+        private void button4_Click(object sender, EventArgs e)
         {
             curConsole.Name = textBox9.Text;
             curConsole.EmuPath = textBox1.Text;
@@ -217,6 +220,9 @@ namespace UniCade
             MainWindow.RefreshConsoleList();
         }
 
+        /// <summary>
+        /// Close button
+        /// </summary>
         private void button2_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
@@ -225,7 +231,6 @@ namespace UniCade
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             string curItem = listBox2.SelectedItem.ToString();
             listBox3.Items.Clear();
             foreach (Console c in Database.ConsoleList)
@@ -259,12 +264,10 @@ namespace UniCade
             {
                 refreshGameInfo(null);
             }
-
         }
 
         private void tabPage3_Click(object sender, EventArgs e)
         {
-
         }
 
         private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -279,7 +282,6 @@ namespace UniCade
             }
             refreshGameInfo(curGame);
             refreshEsrbIcon(curGame);
-
         }
 
         private void button5_Click(object sender, EventArgs e)  //Close Button
@@ -330,8 +332,13 @@ namespace UniCade
             saveGameInfo();
         }
 
-        private void button8_Click(object sender, EventArgs e)  //Delete console
+        /// <summary>
+        /// Delete console button
+        /// Deletes a consle and all associated games from the database
+        /// </summary>
+        private void button8_Click(object sender, EventArgs e)
         {
+            //Ensure that at least one console exists
             if (Database.ConsoleList.Count < 2)
             {
                 MessageBox.Show("Cannot have an empty console list");
@@ -350,14 +357,20 @@ namespace UniCade
             MainWindow.RefreshConsoleList();
         }
 
-        private void button7_Click(object sender, EventArgs e)  //Add new emulator/Console
+        /// <summary>
+        /// Add a new console
+        /// </summary>
+        private void button7_Click(object sender, EventArgs e)
         {
+            //Clear all text boxes initially 
             textBox1.Text = null;
             textBox4.Text = null;
             textBox5.Text = null;
             textBox20.Text = null;
             textBox21.Text = null;
             textBox22.Text = null;
+
+            //Create a new console and add it to the datbase
             Console c = new Console();
             c.Name = "New Console";
             Database.ConsoleList.Add(c);
@@ -384,11 +397,6 @@ namespace UniCade
             }
         }
 
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// Close and save button
         /// </summary>
@@ -399,292 +407,44 @@ namespace UniCade
             this.Close();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
-        }
-
+        /// <summary>
+        /// Close button
+        /// </summary>
         private void button16_Click(object sender, EventArgs e)
         {
-            //Cursor.Hide();
             MainWindow._settingsWindowActive = false;
             this.Close();
         }
 
+        /// <summary>
+        /// Close button
+        /// </summary>
         private void button14_Click(object sender, EventArgs e)
         {
-            //Cursor.Hide();
             MainWindow._settingsWindowActive = false;
             this.Close();
-
-        }
-
-        private void button15_Click(object sender, EventArgs e)  //Save Global Settings 
-        {
-            if (comboBox1.SelectedItem.ToString().Contains("|") || textBox25.Text.Contains("|") || textBox32.Text.Contains("|") || textBox33.Text.Contains("|"))
-            {
-                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
-            }
-            else
-            {
-                if (comboBox1.SelectedItem.ToString().Contains("Everyone") || comboBox1.SelectedItem.ToString().Contains("Teen") || comboBox1.SelectedItem.ToString().Contains("Mature") || comboBox1.SelectedItem.ToString().Contains("Adults") || textBox6.TextLength < 1)
-                {
-                    restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
-                }
-                else
-                {
-                    MessageBox.Show("Invalid ESRB Rating");
-                }
-                if ((textBox25.Text.Length > 150) || (textBox32.Text.Length > 150) || (textBox33.Text.Length > 150))
-                {
-                    MessageBox.Show("Invalid Length");
-                }
-                else
-                {
-                    Program._emuPath = textBox25.Text;
-                    Program._mediaPath = textBox32.Text;
-                    Program._romPath = textBox33.Text;
-                }
-
-
-
-
-                int n = 0;
-                Int32.TryParse(textBox7.Text, out n);
-                if (n > 0)
-                {
-                    passProtect = Int32.Parse(textBox7.Text);
-                }
-                Int32.TryParse(textBox29.Text, out n);
-                if (n > 0)
-                {
-                    coins = Int32.Parse(textBox29.Text);
-                }
-                Int32.TryParse(textBox30.Text, out n);
-                if (n > 0)
-                {
-                    playtime = Int32.Parse(textBox30.Text);
-                }
-                if (comboBox1.SelectedItem != null)
-                {
-                    restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
-                }
-
-                if (SettingsWindow.payPerPlay > 0)
-                {
-
-                    if (SettingsWindow.playtime > 0)
-                    {
-                        // Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
-                    }
-                    else if (SettingsWindow.coins > 0)
-                    {
-                        //Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
-                    }
-
-                }
-                FileOps.savePreferences(Program._prefPath);
-            }
         }
 
 
-
-
-
-        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Refresh user info under the User tab every time a new user is selected
+        /// </summary>
+        private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (checkBox6.Checked)
-            {
-                viewEsrb = 1;
-            }
-            else
-            {
-                viewEsrb = 0;
-            }
-
-        }
-
-        private void checkBox10_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox10.Checked)
-            {
-                showSplash = 1;
-            }
-            else
-            {
-                showSplash = 0;
-            }
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox2.Checked)
-            {
-                showLoading = 1;
-            }
-            else
-            {
-                showLoading = 0;
-            }
-        }
-
-        private void checkBox11_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox11.Checked)
-            {
-                requireLogin = 1;
-            }
-            else
-            {
-                requireLogin = 0;
-            }
-        }
-
-        private void checkBox12_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox12.Checked)
-            {
-                scanOnStartup = 1;
-            }
-            else
-            {
-                scanOnStartup = 0;
-            }
-        }
-
-        private void checkBox13_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox13.Checked)
-            {
-                viewEsrb = 1;
-            }
-            else
-            {
-                viewEsrb = 0;
-            }
-        }
-
-        private void checkBox14_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox14.Checked)
-            {
-                payPerPlay = 1;
-
-            }
-            else
-            {
-                payPerPlay = 0;
-                // Program.gui.closePayNotification();
-            }
-
-            if (SettingsWindow.payPerPlay > 0)
-            {
-                //Program.gui.closePayNotification();
-                if (SettingsWindow.playtime > 0)
-                {
-                    //Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
-                }
-                else if (SettingsWindow.coins > 0)
-                {
-                    // Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
-                }
-
-            }
-        }
-
-        private void checkBox15_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox30_TextChanged(object sender, EventArgs e)
-        {
-            int n = 0;
-            Int32.TryParse(textBox30.Text, out n);
-            if (n > 0)
-            {
-                playtime = Int32.Parse(textBox30.Text);
-            }
-
-            //Program.gui.closePayNotification();
-            if (SettingsWindow.payPerPlay > 0)
-            {
-
-                if (SettingsWindow.playtime > 0)
-                {
-                    //Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
-                }
-                else if (SettingsWindow.coins > 0)
-                {
-                    //Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
-                }
-
-            }
-        }
-
-        private void textBox29_TextChanged(object sender, EventArgs e)
-        {
-            int n = 0;
-            Int32.TryParse(textBox29.Text, out n);
-            if (n > 0)
-            {
-                coins = Int32.Parse(textBox29.Text);
-            }
-            //Program.gui.closePayNotification();
-            if (SettingsWindow.payPerPlay > 0)
-            {
-
-                if (SettingsWindow.playtime > 0)
-                {
-                    //Program.gui.displayPayNotification("PayPerPlay . Total Playtime: " + SettingsWindow.playtime + " Mins" + "Coins Required:" + coins);
-                }
-                else if (SettingsWindow.coins > 0)
-                {
-                    // Program.gui.displayPayNotification("PayPerPlay. Coins Per Launch: " + SettingsWindow.coins + "Current: " + Program.coins);
-                }
-
-            }
-
-        }
-
-        private void textBox31_TextChanged(object sender, EventArgs e)
-        {
-            Program._databasePath = textBox31.Text;
-        }
-
-        private void textBox25_TextChanged(object sender, EventArgs e)
-        {
-            Program._emuPath = textBox25.Text;
-        }
-
-        private void textBox32_TextChanged(object sender, EventArgs e)
-        {
-            Program._mediaPath = textBox32.Text;
-        }
-
-        private void listBox4_SelectedIndexChanged(object sender, EventArgs e)  //User listbox changed
-        {
-
-            listBox5.Items.Clear();
-
+            //Update the current user text         
             if (curUser != null)
-            {
                 label38.Text = "Current User: " + curUser.Username;
 
-
-
-            }
+            //Populate the favorites list for each user
+            listBox5.Items.Clear();
             foreach (User u in Database.UserList)
             {
                 if (u.Username.Equals(listBox4.SelectedItem.ToString()))
                 {
-
                     if (u.Favorites.Count > 0)
                     {
                         foreach (Game g in u.Favorites)
-                        {
                             listBox5.Items.Add(g.Title + " - " + g.Console);
-                        }
                     }
 
                     textBox23.Text = u.Username;
@@ -693,35 +453,25 @@ namespace UniCade
                     textBox27.Text = u.LoginCount.ToString();
                     textBox28.Text = u.TotalLaunchCount.ToString();
                     comboBox2.Text = u.AllowedEsrb;
-                    if (u.Username.Equals(curUser.Username))
-                    {
-                        textBox23.Enabled = true;
-                        textBox24.Enabled = true;
-                        textBox26.Enabled = true;
-                        textBox27.Enabled = true;
-                        textBox28.Enabled = true;
-                        comboBox2.Enabled = true;
-                        listBox5.Enabled = true;
 
-                    }
-                    else
-                    {
-                        textBox23.Enabled = false;
-                        textBox24.Enabled = false;
-                        textBox26.Enabled = false;
-                        textBox27.Enabled = false;
-                        textBox28.Enabled = false;
-                        comboBox2.Enabled = false;
-                        listBox5.Enabled = false;
-                    }
+                    //Only allow the current user to edit their own userdata
+                    bool editEnabled = u.Username.Equals(curUser.Username);
+                    textBox23.Enabled = editEnabled;
+                    textBox24.Enabled = editEnabled;
+                    textBox26.Enabled = editEnabled;
+                    textBox27.Enabled = editEnabled;
+                    textBox28.Enabled = editEnabled;
+                    comboBox2.Enabled = editEnabled;
+                    listBox5.Enabled = editEnabled;
                 }
-
             }
         }
 
-
-
-        private void button10_Click(object sender, EventArgs e)  //Create new user
+        /// <summary>
+        /// Create new user button
+        /// Create a new user and save the userdata to the preferences file
+        /// </summary>
+        private void button10_Click(object sender, EventArgs e)
         {
 
             foreach (User us in Database.UserList)
@@ -731,75 +481,66 @@ namespace UniCade
                     Database.UserList.Remove(us);
                     Database.UserList.Add(curUser);
                     break;
-
                 }
             }
 
             UnicadeAccount uc = new UnicadeAccount(1);
             uc.ShowDialog();
 
+            //Update the current labels and save the user info to the preferences file
             label38.Text = "Current User: " + curUser.Username;
             FileOps.savePreferences(Program._prefPath);
 
+            //Refresh the listbox contents
             listBox4.Items.Clear();
             foreach (User us in Database.UserList)
-            {
                 listBox4.Items.Add(us.Username);
-            }
-
         }
 
-        private void button11_Click(object sender, EventArgs e)  //Save
+        /// <summary>
+        /// Save button
+        /// </summary>
+        private void button11_Click(object sender, EventArgs e)
         {
-            /*curUser.setName(textBox23.Text);
-            curUser.setEmail(textBox24.Text);
-            curUser.setUserInfo(textBox26.Text);
-            if (comboBox2 != null)
-            {
-                curUser.setAllowedEsrb(comboBox2.SelectedItem.ToString());
-            }*/
             FileOps.savePreferences(Program._prefPath);
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
+            //Ensure that there is always at least one user present in the database
             if (Database.UserList.Count <= 1)
             {
                 MessageBox.Show("Must at least have one user");
                 return;
             }
+
+            //Remove the user and refresh the database
             Database.UserList.Remove(curUser);
             listBox4.Items.Clear();
             curUser = null;
             foreach (User us in Database.UserList)
-            {
                 listBox4.Items.Add(us.Username);
-            }
-
-
         }
 
-        private void button17_Click(object sender, EventArgs e)               //Save local user info
+        /// <summary>
+        /// Save button (Global Settings tab)
+        /// Save the current global settings to the preferences file
+        /// </summary>
+        private void button17_Click(object sender, EventArgs e)
         {
+            //Verify that a user is currently logged in
             if (!curUser.Username.Equals(listBox4.SelectedItem.ToString()))
             {
                 MessageBox.Show("Must Login First");
                 return;
             }
 
-
-
-
             if (textBox23.Text.Contains("|") || textBox24.Text.Contains("|") || textBox26.Text.Contains("|"))
-            {
                 MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
-            }
             else
             {
                 if ((textBox23.Text.Length > 20) || (textBox24.Text.Length > 20) || (textBox26.Text.Length > 50))
-                {
                     MessageBox.Show("Invalid Length");
-                }
                 else
                 {
                     curUser.Username = textBox23.Text;
@@ -810,36 +551,21 @@ namespace UniCade
                 if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("Adults") || textBox6.TextLength < 1)
                 {
                     if (comboBox2.SelectedItem != null)
-                    {
                         curUser.AllowedEsrb = comboBox2.SelectedItem.ToString();
-                    }
                 }
                 else
-                {
                     MessageBox.Show("Invalid ESRB Rating");
-                }
-
             }
             listBox4.Items.Clear();
 
-
             foreach (User us in Database.UserList)
-            {
                 listBox4.Items.Add(us.Username);
-            }
         }
 
-        bool isAllDigits(string s)
-        {
-            foreach (char c in s)
-            {
-                if (!char.IsDigit(c))
-                    return false;
-            }
-            return true;
-        }
-
-        private void button18_Click(object sender, EventArgs e)  //Save game info
+        /// <summary>
+        /// Save game info button
+        /// </summary>
+        private void button18_Click(object sender, EventArgs e)
         {
             if (listBox2.SelectedItem == null)
             {
@@ -851,10 +577,7 @@ namespace UniCade
                 MessageBox.Show("No games to save");
                 return;
             }
-
-
             saveGameInfo();
-
         }
 
         /// <summary>
@@ -881,6 +604,7 @@ namespace UniCade
                     MessageBox.Show("Invalid Length");
                 else
                 {
+                    //If all input checks are valid, set console into to the current text field values
                     curConsole.Name = textBox9.Text;
                     curConsole.EmuPath = textBox1.Text;
                     curConsole.RomExt = textBox4.Text;
@@ -909,7 +633,7 @@ namespace UniCade
         /// <summary>
         /// Refresh global favorites button
         /// </summary>
-        private void button20_Click(object sender, EventArgs e) 
+        private void button20_Click(object sender, EventArgs e)
         {
             RefreshGlobalFavs();
         }
@@ -997,8 +721,6 @@ namespace UniCade
         /// <summary>
         /// Global rescan button
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void button25_Click(object sender, EventArgs e)
         {
             if (FileOps.scan(Program._romPath))
@@ -1009,7 +731,7 @@ namespace UniCade
         /// Rescan console button
         /// Rescans all ROM files for the current console
         /// </summary>
-        private void button24_Click(object sender, EventArgs e)  
+        private void button24_Click(object sender, EventArgs e)
         {
             //Ensure that a console is currently selected
             if (listBox1.SelectedItem == null)
@@ -1155,7 +877,7 @@ namespace UniCade
         /// Logout button (UniCade Cloud tab)
         /// Logs out the current SQL user 
         /// </summary>
-        private void button39_Click(object sender, EventArgs e) 
+        private void button39_Click(object sender, EventArgs e)
         {
             //Check if a user is actually logged in
             if (SQLclient.sqlUser == null)
@@ -1254,7 +976,7 @@ namespace UniCade
         /// Download game button
         /// Download metadata for the selected game from UniCade Cloud
         /// </summary>
-        private void button44_Click(object sender, EventArgs e)  
+        private void button44_Click(object sender, EventArgs e)
         {
             //Check if a UniCade Cloud user is currently active
             if (SQLclient.sqlUser == null)
@@ -1304,7 +1026,7 @@ namespace UniCade
         /// Upload console button
         /// Upload all games from the selected console to UniCade Cloud
         /// </summary>
-        private void button42_Click(object sender, EventArgs e) 
+        private void button42_Click(object sender, EventArgs e)
         {
             //Invalid input checks
             if (SQLclient.sqlUser == null)
@@ -1590,8 +1312,6 @@ namespace UniCade
         /// <summary>
         /// Toggle description checkbox
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void checkBox21_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox21.Checked)
@@ -1644,7 +1364,138 @@ namespace UniCade
 
         #endregion
 
+        #region Global Settings Tab
+
+        /// <summary>
+        /// Save Global Settings button
+        /// </summary>
+        private void button15_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem.ToString().Contains("|") || textBox25.Text.Contains("|") || textBox32.Text.Contains("|") || textBox33.Text.Contains("|"))
+                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            else
+            {
+                if (comboBox1.SelectedItem.ToString().Contains("Everyone") || comboBox1.SelectedItem.ToString().Contains("Teen") || comboBox1.SelectedItem.ToString().Contains("Mature") || comboBox1.SelectedItem.ToString().Contains("Adults") || textBox6.TextLength < 1)
+                    restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
+                else
+                    MessageBox.Show("Invalid ESRB Rating");
+                if ((textBox25.Text.Length > 150) || (textBox32.Text.Length > 150) || (textBox33.Text.Length > 150))
+                    MessageBox.Show("Invalid Length");
+                else
+                {
+                    Program._emuPath = textBox25.Text;
+                    Program._mediaPath = textBox32.Text;
+                    Program._romPath = textBox33.Text;
+                }
+
+                int n = 0;
+                Int32.TryParse(textBox7.Text, out n);
+                if (n > 0)
+                    passProtect = Int32.Parse(textBox7.Text);
+                Int32.TryParse(textBox29.Text, out n);
+                if (n > 0)
+                    coins = Int32.Parse(textBox29.Text);
+                if (comboBox1.SelectedItem != null)
+                    restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
+
+                //Save all active preferences to the local preferences file
+                FileOps.savePreferences(Program._prefPath);
+            }
+        }
+
+        /// <summary>
+        /// Toggle viewEsrb checkbox
+        /// </summary>
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox6.Checked)
+                viewEsrb = 1;
+            else
+                viewEsrb = 0;
+        }
+
+        /// <summary>
+        /// Toggle splash screen checkbox
+        /// </summary>
+        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox10.Checked)
+                showSplash = 1;
+            else
+                showSplash = 0;
+        }
+
+        /// <summary>
+        /// Toggle show loading screen checkbox
+        /// </summary>
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked)
+                showLoading = 1;
+            else
+                showLoading = 0;
+        }
+
+        /// <summary>
+        /// Toggle require login checkbox
+        /// </summary>
+        private void checkBox11_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox11.Checked)
+                requireLogin = 1;
+            else
+                requireLogin = 0;
+        }
+
+        /// <summary>
+        /// Toggle scan on startup checkbox
+        /// </summary>
+        private void checkBox12_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox12.Checked)
+                scanOnStartup = 1;
+            else
+                scanOnStartup = 0;
+        }
+
+        /// <summary>
+        /// Toggle view ESRB checkbox
+        /// </summary>
+        private void checkBox13_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox13.Checked)
+                viewEsrb = 1;
+            else
+                viewEsrb = 0;
+        }
+
+        /// <summary>
+        /// Toggle payPerPlay checkbox
+        /// </summary>
+        private void checkBox14_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox14.Checked)
+                payPerPlay = 1;
+            else
+                payPerPlay = 0;
+        }
+
+        #endregion
+
         #region Helper Methods
+
+        /// <summary>
+        /// Verify that a string contains only numeric chars
+        /// </summary>
+        bool isAllDigits(string s)
+        {
+            foreach (char c in s)
+            {
+                if (!char.IsDigit(c))
+                    return false;
+            }
+            return true;
+        }
 
         public static int calcEsrb(String esrb)
         {
@@ -1732,14 +1583,13 @@ namespace UniCade
                 }
             }
 
-            //If all input is valid, save the database
+            //If all input fields are valid, save the database
             FileOps.saveDatabase(Program._databasePath);
         }
 
         /// <summary>
         /// Refresh the ESRB rating icon to the current ESRB rating
         /// </summary>
-        /// <param name="g"></param>
         public void refreshEsrbIcon(Game g)
         {
             pictureBox4.Image = null;
@@ -1756,7 +1606,6 @@ namespace UniCade
             if (g.Esrb.Equals("Adults Only (AO)"))
                 pictureBox4.Load(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (AO).png");
         }
-
 
         /// <summary>
         /// Refresh global favorites across all consoles and users
@@ -1781,12 +1630,18 @@ namespace UniCade
 
         #endregion
 
-        #region Extra Methods (Remove)
+        #region Extra Methods
 
-        private void pictureBox4_Click(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            restrictESRB = calcEsrb(comboBox1.SelectedItem.ToString());
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
         {
 
         }
+
 
         private void tabPage4_Click(object sender, EventArgs e)
         {
@@ -1798,18 +1653,7 @@ namespace UniCade
 
         }
 
-        private void textBox28_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void SettingsWindow_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -703,6 +703,8 @@ namespace UniCade
             SettingsWindow.perLaunch = 0;
         }
 
+        #endregion
+
         #region Helper Methods
 
         /// <summary>
