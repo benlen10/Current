@@ -659,7 +659,7 @@ namespace UniCade
         }
 
         /// <summary>
-        /// Unhook specified global hotkeys when lauching a game or the settings window
+        /// Unhook specified global hotkeys when lunching
         /// </summary>
         public static void unhookKeys()
         {

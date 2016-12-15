@@ -809,7 +809,6 @@
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 61;
             this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
             // pictureBox3
             // 
@@ -1225,7 +1224,6 @@
             this.textBox28.ReadOnly = true;
             this.textBox28.Size = new System.Drawing.Size(58, 31);
             this.textBox28.TabIndex = 76;
-            this.textBox28.TextChanged += new System.EventHandler(this.textBox28_TextChanged);
             // 
             // textBox27
             // 
@@ -1492,7 +1490,6 @@
             this.textBox32.Name = "textBox32";
             this.textBox32.Size = new System.Drawing.Size(535, 31);
             this.textBox32.TabIndex = 33;
-            this.textBox32.TextChanged += new System.EventHandler(this.textBox32_TextChanged);
             // 
             // textBox31
             // 
@@ -1500,7 +1497,6 @@
             this.textBox31.Name = "textBox31";
             this.textBox31.Size = new System.Drawing.Size(535, 31);
             this.textBox31.TabIndex = 32;
-            this.textBox31.TextChanged += new System.EventHandler(this.textBox31_TextChanged);
             // 
             // textBox25
             // 
@@ -1508,7 +1504,6 @@
             this.textBox25.Name = "textBox25";
             this.textBox25.Size = new System.Drawing.Size(535, 31);
             this.textBox25.TabIndex = 31;
-            this.textBox25.TextChanged += new System.EventHandler(this.textBox25_TextChanged);
             // 
             // label50
             // 
@@ -1536,7 +1531,6 @@
             this.textBox30.Size = new System.Drawing.Size(100, 31);
             this.textBox30.TabIndex = 18;
             this.textBox30.Visible = false;
-            this.textBox30.TextChanged += new System.EventHandler(this.textBox30_TextChanged);
             // 
             // textBox29
             // 
@@ -1544,7 +1538,6 @@
             this.textBox29.Name = "textBox29";
             this.textBox29.Size = new System.Drawing.Size(100, 31);
             this.textBox29.TabIndex = 17;
-            this.textBox29.TextChanged += new System.EventHandler(this.textBox29_TextChanged);
             // 
             // label48
             // 
