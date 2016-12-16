@@ -13,13 +13,12 @@ namespace UniCade
         /// <summary>
         /// Enter button. Check if the entered pass is valid, otherwise display an error
         /// </summary>
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            int n;
-            Int32.TryParse(textBox1.Text, out n);
+            Int32.TryParse(textBox1.Text, out int n);
             if (n > 0)
             {
-                if (Int32.Parse(textBox1.Text) == SettingsWindow.passProtect)
+                if (Int32.Parse(textBox1.Text) == SettingsWindow._passProtect)
                 {
                     DialogResult = DialogResult.OK;
                     MainWindow._validPAss = true;
@@ -32,7 +31,7 @@ namespace UniCade
         /// <summary>
         /// Close button
         /// </summary>
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             Close();
         }

@@ -20,7 +20,7 @@ namespace UniCade
         /// <summary>
         /// Create account button
         /// </summary>
-        private void button1_Click(object sender, EventArgs e) 
+        private void Button1_Click(object sender, EventArgs e) 
         {
             //Check for invalid input
             if ((textBox1.Text == null) || (textBox2.Text == null)|| (textBox3.Text == null)|| (textBox4.Text == null))
@@ -47,7 +47,7 @@ namespace UniCade
                 //Create a new local user if the account type standard Unicade
                 User u = new User(textBox1.Text, textBox3.Text, 0, textBox2.Text, 0, textBox4.Text, "Mature", "null");
                 Database.UserList.Add(u);
-                SettingsWindow.curUser = u;
+                SettingsWindow._curUser = u;
             }
             Close();
         }
@@ -55,7 +55,7 @@ namespace UniCade
         /// <summary>
         /// Close button
         /// </summary>
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             Close();
         }

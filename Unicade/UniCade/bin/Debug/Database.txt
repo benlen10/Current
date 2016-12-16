@@ -499,7 +499,7 @@ Yu-Gi-Oh! - The Eternal Duelist Soul.gba|GBA|0|||||||Trivia|||||||0
 Yu-Gi-Oh! - The Sacred Cards.gba|GBA|0|||||||Trivia|||||||0
 ***Gamecube|C:\UniCade\Emulators\Dolphin\dolphin.exe|C:\UniCade\ROMS\Gamecube\|prefPath|.iso*.gcz|4|Console Info|/b /e %file|2001|
 Game.gcz|Gamecube|0|||||||Trivia|||||||0
-Mario Kart - Double Dash.gcz|Gamecube|0|||||||Trivia|||||||0
+Mario Kart - Double Dash.gcz|Gamecube|0||||||2|Trivia|||||||0
 Paper Mario The Thousand Year Door.gcz|Gamecube|0|||||||Trivia|||||||0
 Super Smash Bros - Melee.gcz|Gamecube|0|||||||Trivia|||||||0
 ***NES|C:\UniCade\Emulators\NES\Jnes.exe|C:\UniCade\ROMS\NES\|prefPath|.nes|174|Console Info|%file|1983|

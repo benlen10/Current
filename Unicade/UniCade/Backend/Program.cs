@@ -60,9 +60,9 @@ namespace UniCade
             }
 
             //If the current user is null, generate the default UniCade user and set as the current user  
-            if (SettingsWindow.curUser == null)
+            if (SettingsWindow._curUser == null)
             {
-                SettingsWindow.curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
+                SettingsWindow._curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
             }
 
             //Verify the current user license and set flag
@@ -82,7 +82,7 @@ namespace UniCade
                 }
                 catch
                 {
-                    MessageBox.Show("Error Saving Database");
+                    MessageBox.Show("Error Saving Database\n" + _databasePath);
                 }
                 showNotification("WARNING", "Database file not found.\n Loading defaults...");
             }

@@ -21,7 +21,7 @@ namespace UniCade
         /// <summary>
         /// Close button
         /// </summary>
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -30,7 +30,7 @@ namespace UniCade
         /// Login button
         /// Checks for bad user input and authenticates the user against the database
         /// </summary>
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             //Bad input checks
             if ((textBox1.Text == null) || (textBox2.Text == null))
@@ -61,7 +61,7 @@ namespace UniCade
                     {
                         if (u.Pass.Equals(textBox2.Text))
                         {
-                            SettingsWindow.curUser = u;
+                            SettingsWindow._curUser = u;
                             Close();
                             return;
                         }

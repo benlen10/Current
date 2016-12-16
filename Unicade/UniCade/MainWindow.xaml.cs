@@ -50,8 +50,10 @@ namespace UniCade
         private void InitializeMainWindow()
         {
             //Load the GUI background image
-            ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\Interface Background.png"));
+            ImageBrush myBrush = new ImageBrush()
+            {
+                ImageSource = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\Interface Background.png"))
+            };
             this.Background = myBrush;
 
             //Intialize a new settings window instance
@@ -81,10 +83,10 @@ namespace UniCade
             RefreshConsoleList();
 
             //If payPerPlay setting is activated, display a notification in the main GUI
-            if (SettingsWindow.payPerPlay > 0)
+            if (SettingsWindow._payPerPlay > 0)
             {
-                if (SettingsWindow.coins > 0)
-                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins);
+                if (SettingsWindow._coins > 0)
+                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins);
             }
             else
                 label2.Visibility = Visibility.Hidden;
@@ -92,7 +94,7 @@ namespace UniCade
             //Refresh the current gamecount and update the GUI
             FileOps.RefreshGameCount();
             label.Content = "Total Game Count: " + Database.TotalGameCount;
-            updateGUI();
+            UpdateGUI();
         }
 
         /// <summary>
@@ -115,7 +117,7 @@ namespace UniCade
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void gkh_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        void Gkh_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             e.Handled = true;
         }
@@ -123,7 +125,7 @@ namespace UniCade
         /// <summary>
         /// Handle the key down event for hooked keys
         /// </summary>
-        void gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        void Gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             //If F10 is pressed, kill the currently running game process
             if (e.KeyCode == Keys.F10)
@@ -144,7 +146,7 @@ namespace UniCade
                     //Toggle info window visibility
                     if (_gameSelectionActive)
                     {
-                        displayGameInfo();
+                        DisplayGameInfo();
                     }
                     else if (_infoWindowActive)
                     {
@@ -177,7 +179,7 @@ namespace UniCade
                 else if (e.KeyCode == Keys.Enter)
                 {
                     if (_gameSelectionActive)
-                        launchGame();
+                        LaunchGame();
                     else
                     {
                         OpenGameSelection();
@@ -196,23 +198,23 @@ namespace UniCade
                             {
                                 if (listBox.SelectedItem.ToString().Equals(g.Title))
                                 {
-                                    if (SettingsWindow.curUser.Favorites.Count < 1)
+                                    if (SettingsWindow._curUser.Favorites.Count < 1)
                                     {
-                                        SettingsWindow.curUser.Favorites.Add(g);
-                                        ShowNotification("UniCade", SettingsWindow.curUser.Username + " :Added To Favorites");
+                                        SettingsWindow._curUser.Favorites.Add(g);
+                                        ShowNotification("UniCade", SettingsWindow._curUser.Username + " :Added To Favorites");
                                         return;
                                     }
-                                    foreach (Game g1 in SettingsWindow.curUser.Favorites)
+                                    foreach (Game g1 in SettingsWindow._curUser.Favorites)
                                     {
                                         if (g1.Title.Equals(g.Title) && g.Console.Equals(g1.Console))
                                         {
-                                            SettingsWindow.curUser.Favorites.Add(g);
-                                            ShowNotification("UniCade", SettingsWindow.curUser.Username + ": Removed From Favorites");
+                                            SettingsWindow._curUser.Favorites.Add(g);
+                                            ShowNotification("UniCade", SettingsWindow._curUser.Username + ": Removed From Favorites");
                                         }
                                         else
                                         {
-                                            SettingsWindow.curUser.Favorites.Add(g);
-                                            ShowNotification("UniCade", SettingsWindow.curUser.Username + ": Added To Favorites");
+                                            SettingsWindow._curUser.Favorites.Add(g);
+                                            ShowNotification("UniCade", SettingsWindow._curUser.Username + ": Added To Favorites");
                                         }
                                         return;
                                     }
@@ -263,7 +265,7 @@ namespace UniCade
                 //Launch the settings window
                 else if ((e.KeyCode == Keys.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
                 {
-                    if (SettingsWindow.passProtect > 0)
+                    if (SettingsWindow._passProtect > 0)
                     {
                         _validPAss = false;
                         NotificationWindow nfw = new NotificationWindow("Security", "Enter Password");
@@ -274,7 +276,7 @@ namespace UniCade
                         if (_validPAss)
                         {
                             sw = new SettingsWindow();
-                            unhookKeys();
+                            UnhookKeys();
                             _settingsWindowActive = true;
                             sw.ShowDialog();
                         }
@@ -283,7 +285,7 @@ namespace UniCade
                     {
                         sw = new SettingsWindow();
                         _settingsWindowActive = true;
-                        unhookKeys();
+                        UnhookKeys();
                         sw.ShowDialog();
                     }
                     if (Program._validLicense)
@@ -337,10 +339,10 @@ namespace UniCade
             else if (e.KeyCode == Keys.Tab)  
             {
                 Program._coins++;
-                if (SettingsWindow.payPerPlay > 0)
+                if (SettingsWindow._payPerPlay > 0)
                 {
-                    if (SettingsWindow.coins > 0)
-                        label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins;
+                    if (SettingsWindow._coins > 0)
+                        label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins;
 
                     //Display a popup payPerPlay notification
                     ShowNotification("Pay Per Play", "Coin Inserted\n Current: " + Program._coins);
@@ -348,7 +350,7 @@ namespace UniCade
                 else
                     ShowNotification("UniCade", "Free Play Enabled. NO COIN REQUIRED");
             }
-            updateGUI();
+            UpdateGUI();
         }
 
         /// <summary>
@@ -361,30 +363,31 @@ namespace UniCade
             else
                 _index = 0;
 
-            updateGUI();
+            UpdateGUI();
         }
 
         /// <summary>
         /// Navigate to the right on the home console selection screen
         /// </summary>
-        private void Left() { 
+        private new void Left()
+        {
             if (_index > 0)
                 _index--;
             else
                 _index = (_consoleCount - 1);
 
-            updateGUI();
+            UpdateGUI();
         }
 
         /// <summary>
         /// Update the info on the primary GUI
         /// </summary>
-        private void updateGUI()
+        private void UpdateGUI()
         {
             //Update payPerPlay notifications
-            if (SettingsWindow.payPerPlay > 0)
-                if (SettingsWindow.coins > 0)
-                    label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins;
+            if (SettingsWindow._payPerPlay > 0)
+                if (SettingsWindow._coins > 0)
+                    label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins;
             else
                 label2.Visibility = Visibility.Hidden;
 
@@ -434,7 +437,7 @@ namespace UniCade
             if (!_fav)
                 label1.Content = (_consoleList[_index] + " Library");
             else
-                label1.Content = SettingsWindow.curUser.Username + "'s Favorites List";
+                label1.Content = SettingsWindow._curUser.Username + "'s Favorites List";
 
             //Populate the game library 
             listBox.Items.Clear();
@@ -450,7 +453,7 @@ namespace UniCade
                         //Check if the global favorites filter is enabled
                         if (_fav)
                         {
-                            foreach (Game g1 in SettingsWindow.curUser.Favorites)
+                            foreach (Game g1 in SettingsWindow._curUser.Favorites)
                             {
                                 if (g.Title.Equals(g1.Title) && g.Console.Equals(g1.Console))
                                 {
@@ -464,10 +467,10 @@ namespace UniCade
                         else
                         {
                             //Filter the viewable games if the restrict esrb view filter is enabled
-                            if (SettingsWindow.viewEsrb > 0)
+                            if (SettingsWindow._viewEsrb > 0)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (SettingsWindow.calcEsrb(g.Esrb) <= SettingsWindow.calcEsrb(SettingsWindow.curUser.AllowedEsrb))
+                                if (SettingsWindow.CalcEsrb(g.Esrb) <= SettingsWindow.CalcEsrb(SettingsWindow._curUser.AllowedEsrb))
                                     listBox.Items.Add(g.Title);
                             }
                             else
@@ -507,16 +510,16 @@ namespace UniCade
         /// <summary>
         /// Launch the currently selected games using the specified emulator
         /// </summary>
-        private void launchGame()
+        private void LaunchGame()
         {
-            if (SettingsWindow.payPerPlay > 0)
-                if (SettingsWindow.coins > 0)
-                    if (Program._coins < SettingsWindow.coins) { 
+            if (SettingsWindow._payPerPlay > 0)
+                if (SettingsWindow._coins > 0)
+                    if (Program._coins < SettingsWindow._coins) { 
                         ShowNotification("Pay Per Play", "Insert Coins");
                         return;
                     }
-                    Program._coins = Program._coins - SettingsWindow.coins;
-                    displayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.coins + " Current: " + Program._coins);
+                    Program._coins = Program._coins - SettingsWindow._coins;
+                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins);
 
             //Search for the selected game title within the game library
             foreach (Game g in _gameSelectionConsole.GameList)
@@ -531,7 +534,7 @@ namespace UniCade
             }
         }
 
-        private void displayGameInfo()
+        private void DisplayGameInfo()
         {
             //Check for bad input or an empty game library
             if (listBox.SelectedItem == null)
@@ -627,8 +630,8 @@ namespace UniCade
             gkh.HookedKeys.Add(Keys.Q);
             gkh.HookedKeys.Add(Keys.F10);
             gkh.HookedKeys.Add(Keys.F1);
-            gkh.KeyDown += new System.Windows.Forms.KeyEventHandler(gkh_KeyDown);
-            gkh.KeyUp += new System.Windows.Forms.KeyEventHandler(gkh_KeyUp);
+            gkh.KeyDown += new System.Windows.Forms.KeyEventHandler(Gkh_KeyDown);
+            gkh.KeyUp += new System.Windows.Forms.KeyEventHandler(Gkh_KeyUp);
         }
 
         /// <summary>
@@ -661,7 +664,7 @@ namespace UniCade
         /// <summary>
         /// Unhook specified global hotkeys when lunching
         /// </summary>
-        public static void unhookKeys()
+        public static void UnhookKeys()
         {
             gkh.HookedKeys.Remove(Keys.A);
             gkh.HookedKeys.Remove(Keys.B);
@@ -697,7 +700,7 @@ namespace UniCade
         /// <summary>
         /// Display a fide payPerPlay notification within the main GUI
         /// </summary>
-        private void displayPayNotification(String s)
+        private void DisplayPayNotification(String s)
         {
             label2.Content = s;
         }

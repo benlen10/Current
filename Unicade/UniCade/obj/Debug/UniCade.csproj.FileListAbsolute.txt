@@ -47,7 +47,6 @@ C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\NotificationWindow.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Resources\App.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Resources\App.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\GameInfo.baml
-C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.Windows.Login.resources
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.Windows.SettingsWindow.resources
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.UnicadeAccount.resources
 C:\Users\Ben\Workspace\UniCade\UnicadeInterface\UniCade\bin\Debug\UniCade.exe.config

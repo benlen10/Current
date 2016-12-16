@@ -85,9 +85,9 @@ namespace UniCade
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
-                MessageBox.Show("Error saving database. Check path");
+                MessageBox.Show("Error saving database\n" + Program._databasePath + "\n"+ e.Message);
                 return;
             }
         }
@@ -126,84 +126,84 @@ namespace UniCade
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.showSplash = 1;
+                SettingsWindow._showSplash = 1;
             }
             else
             {
-                SettingsWindow.showSplash = 0;
+                SettingsWindow._showSplash = 0;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if ((tokenString[1].Contains("1")))
             {
-                SettingsWindow.scanOnStartup = 1;
+                SettingsWindow._scanOnStartup = 1;
             }
             else
             {
-                SettingsWindow.scanOnStartup = 0;
+                SettingsWindow._scanOnStartup = 0;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
-            SettingsWindow.restrictESRB = Int32.Parse(tokenString[1]);
+            SettingsWindow._restrictESRB = Int32.Parse(tokenString[1]);
 
             file.ReadLine();
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.requireLogin = 1;
+                SettingsWindow._requireLogin = 1;
             }
             else
             {
-                SettingsWindow.requireLogin = 0;
+                SettingsWindow._requireLogin = 0;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.viewEsrb = 1;
+                SettingsWindow._viewEsrb = 1;
             }
             else
             {
-                SettingsWindow.viewEsrb = 0;
+                SettingsWindow._viewEsrb = 0;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.showLoading = 1;
+                SettingsWindow._showLoading = 1;
             }
             else
             {
-                SettingsWindow.showLoading = 0;
+                SettingsWindow._showLoading = 0;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.payPerPlay = 1;
+                SettingsWindow._payPerPlay = 1;
             }
             else
             {
-                SettingsWindow.payPerPlay = 0;
+                SettingsWindow._payPerPlay = 0;
             }
 
             if (tokenString[2].Contains("1"))
             {
-                SettingsWindow.perLaunch = 1;
+                SettingsWindow._perLaunch = 1;
             }
             else
             {
-                SettingsWindow.perLaunch = 0;
+                SettingsWindow._perLaunch = 0;
             }
 
             //Parse coin count
-            SettingsWindow.coins = Int32.Parse(tokenString[3]);
-            SettingsWindow.playtime = Int32.Parse(tokenString[4]);
+            SettingsWindow._coins = Int32.Parse(tokenString[3]);
+            SettingsWindow._playtime = Int32.Parse(tokenString[4]);
 
             //Parse user license key
             line = file.ReadLine();
@@ -242,7 +242,7 @@ namespace UniCade
             {
                 if (u.Username.Equals(currentUser))
                 {
-                    SettingsWindow.curUser = u;
+                    SettingsWindow._curUser = u;
                 }
             }
             file.Close();
@@ -259,27 +259,27 @@ namespace UniCade
 
             foreach (User us in Database.UserList)
             {
-                if (SettingsWindow.curUser.Username.Equals(us.Username))
+                if (SettingsWindow._curUser.Username.Equals(us.Username))
                 {
                     Database.UserList.Remove(us);
-                    Database.UserList.Add(SettingsWindow.curUser);
+                    Database.UserList.Add(SettingsWindow._curUser);
                     break;
                 }
             }
 
             using (StreamWriter sw = File.CreateText(path))
             {
-                sw.WriteLine("CurrentUser|" + SettingsWindow.curUser.Username);
+                sw.WriteLine("CurrentUser|" + SettingsWindow._curUser.Username);
                 sw.WriteLine("_databasePath|" + Program._databasePath);
                 sw.WriteLine("EmulatorFolderPath|" + Program._emuPath);
                 sw.WriteLine("MediaFolderPath|" + Program._mediaPath);
-                sw.WriteLine("ShowSplash|" + SettingsWindow.showSplash);
-                sw.WriteLine("ScanOnStartup|" + SettingsWindow.scanOnStartup);
-                sw.WriteLine("RestrictESRB|" + SettingsWindow.restrictESRB);
-                sw.WriteLine("RequireLogin|" + SettingsWindow.requireLogin);
-                sw.WriteLine("CmdOrGui|" + SettingsWindow.cmdOrGui);
-                sw.WriteLine("LoadingScreen|" + SettingsWindow.showLoading);
-                sw.WriteLine("PaySettings|" + SettingsWindow.payPerPlay + "|" + SettingsWindow.perLaunch + "|" + SettingsWindow.coins + "|" + SettingsWindow.playtime);
+                sw.WriteLine("ShowSplash|" + SettingsWindow._showSplash);
+                sw.WriteLine("ScanOnStartup|" + SettingsWindow._scanOnStartup);
+                sw.WriteLine("RestrictESRB|" + SettingsWindow._restrictESRB);
+                sw.WriteLine("RequireLogin|" + SettingsWindow._requireLogin);
+                sw.WriteLine("CmdOrGui|" + SettingsWindow._cmdOrGui);
+                sw.WriteLine("LoadingScreen|" + SettingsWindow._showLoading);
+                sw.WriteLine("PaySettings|" + SettingsWindow._payPerPlay + "|" + SettingsWindow._perLaunch + "|" + SettingsWindow._coins + "|" + SettingsWindow._playtime);
                 sw.WriteLine("License Key|" + Program._userLicenseName + "|" + Program._userLicenseKey);
                 sw.WriteLine("***UserData***");
                 foreach (User u in Database.UserList)
@@ -352,7 +352,7 @@ namespace UniCade
             }
             foreach (string fileName in fileEntries)
             {
-                if (SettingsWindow.enforceExt > 0)
+                if (SettingsWindow._enforceExt > 0)
                 {
                     ext = fileName.Split('.');
                     foreach (string s in exs)
@@ -436,18 +436,18 @@ namespace UniCade
         /// </summary>
         public static void launch(Game game, Console console)
         {
-            if (SettingsWindow.curUser.AllowedEsrb.Length > 1)
+            if (SettingsWindow._curUser.AllowedEsrb.Length > 1)
             {
-                if (SettingsWindow.calcEsrb(game.Esrb) >= SettingsWindow.calcEsrb(SettingsWindow.curUser.AllowedEsrb))
+                if (SettingsWindow.CalcEsrb(game.Esrb) >= SettingsWindow.CalcEsrb(SettingsWindow._curUser.AllowedEsrb))
                 {
-                    showNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted for" + SettingsWindow.curUser.Username);
+                    showNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted for" + SettingsWindow._curUser.Username);
                     return;
                 }
             }
 
-            else if (SettingsWindow.restrictESRB > 0)
+            else if (SettingsWindow._restrictESRB > 0)
             {
-                if (SettingsWindow.calcEsrb(game.Esrb) >= SettingsWindow.restrictESRB)
+                if (SettingsWindow.CalcEsrb(game.Esrb) >= SettingsWindow._restrictESRB)
                 {
                     showNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted\n");
                     return;
@@ -455,7 +455,7 @@ namespace UniCade
             }
 
             game.LaunchCount++;
-            SettingsWindow.curUser.TotalLaunchCount++;
+            SettingsWindow._curUser.TotalLaunchCount++;
             process = new Process();
             string gamePath = ("\"" + console.RomPath + game.FileName + "\"");
             string testGamePath = (console.RomPath + game.FileName);
@@ -689,18 +689,18 @@ namespace UniCade
         /// </summary>
         public static void RestoreDefaultPreferences()
         {
-            SettingsWindow.curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
-            Database.UserList.Add(SettingsWindow.curUser);
-            SettingsWindow.showSplash = 0;
-            SettingsWindow.scanOnStartup = 0;
-            SettingsWindow.restrictESRB = 0;
-            SettingsWindow.requireLogin = 0;
-            SettingsWindow.cmdOrGui = 0;
-            SettingsWindow.showLoading = 0;
-            SettingsWindow.payPerPlay = 0;
-            SettingsWindow.coins = 1;
-            SettingsWindow.playtime = 15;
-            SettingsWindow.perLaunch = 0;
+            SettingsWindow._curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
+            Database.UserList.Add(SettingsWindow._curUser);
+            SettingsWindow._showSplash = 0;
+            SettingsWindow._scanOnStartup = 0;
+            SettingsWindow._restrictESRB = 0;
+            SettingsWindow._requireLogin = 0;
+            SettingsWindow._cmdOrGui = 0;
+            SettingsWindow._showLoading = 0;
+            SettingsWindow._payPerPlay = 0;
+            SettingsWindow._coins = 1;
+            SettingsWindow._playtime = 15;
+            SettingsWindow._perLaunch = 0;
         }
 
         #endregion
