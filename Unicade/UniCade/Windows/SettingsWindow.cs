@@ -172,7 +172,10 @@ namespace UniCade
             label37.Text = "License Key: " + Program._userLicenseKey;
         }
 
+        #region Games Tab
 
+
+        #endregion
 
 
         private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -219,7 +222,7 @@ namespace UniCade
             this.Close();
         }
 
-        private void ListBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void GamesTab_GamesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string curItem = listBox2.SelectedItem.ToString();
             listBox3.Items.Clear();
@@ -256,7 +259,7 @@ namespace UniCade
             }
         }
 
-        private void ListBox3_SelectedIndexChanged(object sender, EventArgs e)
+        private void GamesTab_ConsoleListBox__SelectedIndexChanged(object sender, EventArgs e)
         {
             string curItem = listBox3.SelectedItem.ToString();
             foreach (Game g in _curConsole2.GameList)
@@ -270,7 +273,7 @@ namespace UniCade
             RefreshEsrbIcon(_curGame);
         }
 
-        private void Button5_Click(object sender, EventArgs e)  //Close Button
+        private void GamesTab_CloseButton_Click(object sender, EventArgs e)  //Close Button
         {
             MainWindow._settingsWindowActive = false;
             Close();
@@ -280,7 +283,7 @@ namespace UniCade
         /// Rescrape game info button.
         /// Rescrapes info the the specified game from the web
         /// </summary>
-        private void Button1_Click(object sender, EventArgs e)
+        private void GamesTab_RescrapeGameButton_Click(object sender, EventArgs e)
         {
             //Require that a user select a valid game to rescrape
             if (listBox2.SelectedItem == null)
@@ -308,7 +311,7 @@ namespace UniCade
         /// Save database button
         /// Save all active info to the text databse
         /// </summary>
-        private void Button6_Click(object sender, EventArgs e)
+        private void GamesTab_SaveToDatabaseButton_Click(object sender, EventArgs e)
         {
             if (listBox2.SelectedItem == null)
             {
@@ -322,7 +325,7 @@ namespace UniCade
         /// Delete console button
         /// Deletes a consle and all associated games from the database
         /// </summary>
-        private void Button8_Click(object sender, EventArgs e)
+        private void EmulatorsTab_DeleteConsoleButton_Click(object sender, EventArgs e)
         {
             //Ensure that at least one console exists
             if (Database.ConsoleList.Count < 2)
@@ -346,7 +349,7 @@ namespace UniCade
         /// <summary>
         /// Add a new console
         /// </summary>
-        private void Button7_Click(object sender, EventArgs e)
+        private void EmulatorsTab_AddNewConsoleButton_Click(object sender, EventArgs e)
         {
             //Clear all text boxes initially 
             textBox1.Text = null;
@@ -376,7 +379,7 @@ namespace UniCade
         /// <summary>
         /// //Force metadata rescrape (All games within console)
         /// </summary>
-        private void Button9_Click(object sender, EventArgs e)
+        private void EmulatorsTab_ForceGlobalMetadataRescrapeButton_Click(object sender, EventArgs e)
         {
             foreach (Game g in _curConsole.GameList)
             {
@@ -388,7 +391,7 @@ namespace UniCade
         /// <summary>
         /// Close and save button
         /// </summary>
-        private void Button13_Click(object sender, EventArgs e)
+        private void UsersTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
             FileOps.savePreferences(Program._prefPath);
@@ -398,16 +401,7 @@ namespace UniCade
         /// <summary>
         /// Close button
         /// </summary>
-        private void Button16_Click(object sender, EventArgs e)
-        {
-            MainWindow._settingsWindowActive = false;
-            this.Close();
-        }
-
-        /// <summary>
-        /// Close button
-        /// </summary>
-        private void Button14_Click(object sender, EventArgs e)
+        private void GlobalSettingsTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
             this.Close();
@@ -417,7 +411,7 @@ namespace UniCade
         /// <summary>
         /// Refresh user info under the User tab every time a new user is selected
         /// </summary>
-        private void ListBox4_SelectedIndexChanged(object sender, EventArgs e)
+        private void UsersTab_UsersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Update the current user text         
             if (_curUser != null)
@@ -459,7 +453,7 @@ namespace UniCade
         /// Create new user button
         /// Create a new user and save the userdata to the preferences file
         /// </summary>
-        private void Button10_Click(object sender, EventArgs e)
+        private void UsersTab_NewUserButton_Click(object sender, EventArgs e)
         {
             foreach (User us in Database.UserList)
             {
