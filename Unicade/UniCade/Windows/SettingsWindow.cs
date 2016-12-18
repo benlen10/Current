@@ -482,12 +482,12 @@ namespace UniCade
         /// <summary>
         /// Save button
         /// </summary>
-        private void Button11_Click(object sender, EventArgs e)
+        private void UsersTab_SaveAllUsersButton_Click(object sender, EventArgs e)
         {
             FileOps.savePreferences(Program._prefPath);
         }
 
-        private void Button12_Click(object sender, EventArgs e)
+        private void UsersTab_DeleteUserButton_Click(object sender, EventArgs e)
         {
             //Ensure that there is always at least one user present in the database
             if (Database.UserList.Count <= 1)
@@ -508,7 +508,7 @@ namespace UniCade
         /// Save button (Global Settings tab)
         /// Save the current global settings to the preferences file
         /// </summary>
-        private void Button17_Click(object sender, EventArgs e)
+        private void UsersTab_SaveButton_Click(object sender, EventArgs e)
         {
             //Verify that a user is currently logged in
             if (!_curUser.Username.Equals(listBox4.SelectedItem.ToString()))
@@ -547,7 +547,7 @@ namespace UniCade
         /// <summary>
         /// Save game info button
         /// </summary>
-        private void Button18_Click(object sender, EventArgs e)
+        private void GamesTab_SaveInfoButton_Click(object sender, EventArgs e)
         {
             if (listBox2.SelectedItem == null)
             {
@@ -566,7 +566,7 @@ namespace UniCade
         /// Save info button (Consoles tab)
         /// Save all console data to the preferences text file
         /// </summary>
-        private void Button19_Click(object sender, EventArgs e)
+        private void EmulatorsTab_SaveInfoButton_Click(object sender, EventArgs e)
         {
             //Invalid input check
             if (textBox9.Text.Contains("|") || textBox1.Text.Contains("|") || textBox3.Text.Contains("|") || textBox4.Text.Contains("|") || textBox5.Text.Contains("|") || textBox22.Text.Contains("|") || textBox20.Text.Contains("|"))
@@ -604,7 +604,7 @@ namespace UniCade
         /// <summary>
         /// Toggle enforceExt checkbox
         /// </summary>
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        private void EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
                 _enforceExt = 1;
@@ -615,12 +615,12 @@ namespace UniCade
         /// <summary>
         /// Refresh global favorites button
         /// </summary>
-        private void Button20_Click(object sender, EventArgs e)
+        private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, EventArgs e)
         {
             RefreshGlobalFavs();
         }
 
-        private void CheckBox3_CheckedChanged(object sender, EventArgs e)
+        private void GamesTab_FavoriteCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             //Verify that a console/game is currently selected
             if (listBox2.SelectedItem == null)
@@ -638,7 +638,7 @@ namespace UniCade
         /// <summary>
         /// Delete user favorite
         /// </summary>
-        private void Button21_Click(object sender, EventArgs e)
+        private void UsersTab_DeleteFavoriteButton_Click(object sender, EventArgs e)
         {
             //Verify that a user is currenly logged in
             if (!_curUser.Username.Equals(listBox4.SelectedItem.ToString()))
@@ -658,7 +658,7 @@ namespace UniCade
         /// <summary>
         /// Expand game media image #1
         /// </summary>
-        private void PictureBox1_Click(object sender, EventArgs e)
+        private void GamesTab_BoxfrontImage_Click(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
             if (pb.Dock == DockStyle.None)
@@ -673,7 +673,7 @@ namespace UniCade
         /// <summary>
         /// Expand game media image #2
         /// </summary>
-        private void PictureBox2_Click(object sender, EventArgs e)
+        private void GamesTab_BoxbackImage_Click(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
             if (pb.Dock == DockStyle.None)
@@ -688,7 +688,7 @@ namespace UniCade
         /// <summary>
         /// Expand game media image #3
         /// </summary>
-        private void PictureBox3_Click(object sender, EventArgs e)
+        private void GamesTab_ScreenshotImage_Click(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
             if (pb.Dock == DockStyle.None)
@@ -703,7 +703,7 @@ namespace UniCade
         /// <summary>
         /// Global rescan button
         /// </summary>
-        private void Button25_Click(object sender, EventArgs e)
+        private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
         {
             if (FileOps.scan(Program._romPath))
                 MessageBox.Show("Global Rescan Successful");
@@ -713,7 +713,7 @@ namespace UniCade
         /// Rescan console button
         /// Rescans all ROM files for the current console
         /// </summary>
-        private void Button24_Click(object sender, EventArgs e)
+        private void EmulatorsTab_RescanSingleConsoleButton_Click(object sender, EventArgs e)
         {
             //Ensure that a console is currently selected
             if (listBox1.SelectedItem == null)
@@ -732,18 +732,6 @@ namespace UniCade
                     break;
                 }
             }
-        }
-
-        /// <summary>
-        /// Clear console button
-        /// </summary>
-        private void Button26_Click(object sender, EventArgs e)
-        {
-            foreach (Console c in Database.ConsoleList)
-            {
-                c.GameList.Clear();
-            }
-            MessageBox.Show("Game library successfully cleared");
         }
 
         /// <summary>

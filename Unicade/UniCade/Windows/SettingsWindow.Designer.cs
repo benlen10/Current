@@ -366,7 +366,7 @@
             this.button25.TabIndex = 37;
             this.button25.Text = "Global Rescan";
             this.button25.UseVisualStyleBackColor = true;
-            this.button25.Click += new System.EventHandler(this.Button25_Click);
+            this.button25.Click += new System.EventHandler(this.EmulatorsTab_GlobalRescanButton_Click);
             // 
             // button24
             // 
@@ -376,7 +376,7 @@
             this.button24.TabIndex = 36;
             this.button24.Text = "Rescan Single Console";
             this.button24.UseVisualStyleBackColor = true;
-            this.button24.Click += new System.EventHandler(this.Button24_Click);
+            this.button24.Click += new System.EventHandler(this.EmulatorsTab_RescanSingleConsoleButton_Click);
             // 
             // checkBox1
             // 
@@ -387,7 +387,7 @@
             this.checkBox1.TabIndex = 35;
             this.checkBox1.Text = "Enforce ROM file extension";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged);
             // 
             // button19
             // 
@@ -397,7 +397,7 @@
             this.button19.TabIndex = 34;
             this.button19.Text = "Save Info";
             this.button19.UseVisualStyleBackColor = true;
-            this.button19.Click += new System.EventHandler(this.Button19_Click);
+            this.button19.Click += new System.EventHandler(this.EmulatorsTab_SaveInfoButton_Click);
             // 
             // button9
             // 
@@ -748,7 +748,7 @@
             this.checkBox3.TabIndex = 67;
             this.checkBox3.Text = "Favorite";
             this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.CheckBox3_CheckedChanged);
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.GamesTab_FavoriteCheckbox_CheckedChanged);
             // 
             // button18
             // 
@@ -758,7 +758,7 @@
             this.button18.TabIndex = 66;
             this.button18.Text = "Save Info";
             this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.Button18_Click);
+            this.button18.Click += new System.EventHandler(this.GamesTab_SaveInfoButton_Click);
             // 
             // label26
             // 
@@ -813,7 +813,7 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 60;
             this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.PictureBox3_Click);
+            this.pictureBox3.Click += new System.EventHandler(this.GamesTab_ScreenshotImage_Click);
             // 
             // pictureBox2
             // 
@@ -823,7 +823,7 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 59;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.PictureBox2_Click);
+            this.pictureBox2.Click += new System.EventHandler(this.GamesTab_BoxbackImage_Click);
             // 
             // pictureBox1
             // 
@@ -833,7 +833,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 58;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
+            this.pictureBox1.Click += new System.EventHandler(this.GamesTab_BoxfrontImage_Click);
             // 
             // textBox16
             // 
@@ -1152,7 +1152,7 @@
             this.button21.TabIndex = 83;
             this.button21.Text = "Delete Favorite";
             this.button21.UseVisualStyleBackColor = true;
-            this.button21.Click += new System.EventHandler(this.Button21_Click);
+            this.button21.Click += new System.EventHandler(this.UsersTab_DeleteFavoriteButton_Click);
             // 
             // button17
             // 
@@ -1162,7 +1162,7 @@
             this.button17.TabIndex = 82;
             this.button17.Text = "Save";
             this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.Button17_Click);
+            this.button17.Click += new System.EventHandler(this.UsersTab_SaveButton_Click);
             // 
             // comboBox2
             // 
@@ -1190,7 +1190,7 @@
             this.button12.TabIndex = 79;
             this.button12.Text = "Delete User";
             this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.Button12_Click);
+            this.button12.Click += new System.EventHandler(this.UsersTab_DeleteUserButton_Click);
             // 
             // button11
             // 
@@ -1200,7 +1200,7 @@
             this.button11.TabIndex = 78;
             this.button11.Text = "Save All Users";
             this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.Button11_Click);
+            this.button11.Click += new System.EventHandler(this.UsersTab_SaveAllUsersButton_Click);
             // 
             // button10
             // 
@@ -1388,7 +1388,7 @@
             this.button20.TabIndex = 89;
             this.button20.Text = "Refresh Favorites";
             this.button20.UseVisualStyleBackColor = true;
-            this.button20.Click += new System.EventHandler(this.Button20_Click);
+            this.button20.Click += new System.EventHandler(this.GlobalSettingsTab_RefreshGlobalFavoritesButton_Click);
             // 
             // label4
             // 
