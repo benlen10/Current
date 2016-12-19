@@ -256,7 +256,7 @@
             this.button30.TabIndex = 83;
             this.button30.Text = "Enter License Key";
             this.button30.UseVisualStyleBackColor = true;
-            this.button30.Click += new System.EventHandler(this.Button30_Click_1);
+            this.button30.Click += new System.EventHandler(this.AboutTab_EnterLicenseButton_Click_1);
             // 
             // button16
             // 
@@ -663,7 +663,7 @@
             this.button44.TabIndex = 77;
             this.button44.Text = "Download Game";
             this.button44.UseVisualStyleBackColor = true;
-            this.button44.Click += new System.EventHandler(this.Button44_Click);
+            this.button44.Click += new System.EventHandler(this.GamesTab_DownloadGameButton_Click);
             // 
             // button43
             // 
@@ -673,7 +673,7 @@
             this.button43.TabIndex = 76;
             this.button43.Text = "Download Console";
             this.button43.UseVisualStyleBackColor = true;
-            this.button43.Click += new System.EventHandler(this.Button43_Click);
+            this.button43.Click += new System.EventHandler(this.GamesTab_DownloadConsoleButton_Click);
             // 
             // button42
             // 
@@ -683,7 +683,7 @@
             this.button42.TabIndex = 75;
             this.button42.Text = "Upload Console";
             this.button42.UseVisualStyleBackColor = true;
-            this.button42.Click += new System.EventHandler(this.Button42_Click);
+            this.button42.Click += new System.EventHandler(this.GamesTab_UploadConsoleButton_Click);
             // 
             // button33
             // 
@@ -693,7 +693,7 @@
             this.button33.TabIndex = 74;
             this.button33.Text = "Upload Game";
             this.button33.UseVisualStyleBackColor = true;
-            this.button33.Click += new System.EventHandler(this.Button33_Click);
+            this.button33.Click += new System.EventHandler(this.GamesTab_UploadButton_Click);
             // 
             // button28
             // 
@@ -703,7 +703,7 @@
             this.button28.TabIndex = 72;
             this.button28.Text = "Rescrape Console Metadata";
             this.button28.UseVisualStyleBackColor = true;
-            this.button28.Click += new System.EventHandler(this.Button28_Click);
+            this.button28.Click += new System.EventHandler(this.GamesTab_RescrapeConsoleMetadataButton_Click);
             // 
             // textBox8
             // 
@@ -1647,7 +1647,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(138, 33);
             this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged);
             // 
             // tabPage6
             // 
@@ -1902,7 +1902,7 @@
             this.button41.TabIndex = 17;
             this.button41.Text = "Delete All Games In Cloud";
             this.button41.UseVisualStyleBackColor = true;
-            this.button41.Click += new System.EventHandler(this.Button41_Click);
+            this.button41.Click += new System.EventHandler(this.CloudTab_DeleteAllCloudGamesButton_Click);
             // 
             // button40
             // 
@@ -1912,7 +1912,7 @@
             this.button40.TabIndex = 16;
             this.button40.Text = "Download All Games";
             this.button40.UseVisualStyleBackColor = true;
-            this.button40.Click += new System.EventHandler(this.Button40_Click);
+            this.button40.Click += new System.EventHandler(this.CloudTab_DownloadAllGamesButton_Click);
             // 
             // button39
             // 
@@ -1922,7 +1922,7 @@
             this.button39.TabIndex = 14;
             this.button39.Text = "Logout";
             this.button39.UseVisualStyleBackColor = true;
-            this.button39.Click += new System.EventHandler(this.Button39_Click);
+            this.button39.Click += new System.EventHandler(this.CloudTab_LogoutButton_Click);
             // 
             // label56
             // 
@@ -1942,7 +1942,7 @@
             this.button38.TabIndex = 12;
             this.button38.Text = "Upload All Games";
             this.button38.UseVisualStyleBackColor = true;
-            this.button38.Click += new System.EventHandler(this.Button38_Click);
+            this.button38.Click += new System.EventHandler(this.CloudTab_UploadAllGamesButton_Click);
             // 
             // button37
             // 
@@ -1952,7 +1952,7 @@
             this.button37.TabIndex = 11;
             this.button37.Text = "Close";
             this.button37.UseVisualStyleBackColor = true;
-            this.button37.Click += new System.EventHandler(this.Button37_Click);
+            this.button37.Click += new System.EventHandler(this.CloudTab_CloseButton_Click);
             // 
             // button35
             // 
@@ -1962,7 +1962,7 @@
             this.button35.TabIndex = 9;
             this.button35.Text = "Delete Current Account";
             this.button35.UseVisualStyleBackColor = true;
-            this.button35.Click += new System.EventHandler(this.Button35_Click);
+            this.button35.Click += new System.EventHandler(this.CloudTab_DeleteCurrentAccountButton_Click);
             // 
             // button29
             // 
@@ -1972,7 +1972,7 @@
             this.button29.TabIndex = 8;
             this.button29.Text = "Login";
             this.button29.UseVisualStyleBackColor = true;
-            this.button29.Click += new System.EventHandler(this.Button29_Click_1);
+            this.button29.Click += new System.EventHandler(this.CloudTab_LoginButton_Click);
             // 
             // button34
             // 
@@ -1982,7 +1982,7 @@
             this.button34.TabIndex = 7;
             this.button34.Text = "Create New UniCade Account";
             this.button34.UseVisualStyleBackColor = true;
-            this.button34.Click += new System.EventHandler(this.Button34_Click);
+            this.button34.Click += new System.EventHandler(this.CloudTab_CreateNewAccountButton_Click);
             // 
             // richTextBox2
             // 

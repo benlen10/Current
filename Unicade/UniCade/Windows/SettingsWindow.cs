@@ -29,6 +29,8 @@ namespace UniCade
 
         #endregion
 
+        #region Class Methods
+
         /// <summary>
         /// Public constructor
         /// </summary>
@@ -172,11 +174,18 @@ namespace UniCade
             label37.Text = "License Key: " + Program._userLicenseKey;
         }
 
+        private void SettingsWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MainWindow._settingsWindowActive = false;
+            MainWindow.ReHookKeys();
+        }
+
+        #endregion
+
         #region Games Tab
 
 
         #endregion
-
 
         private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -735,33 +744,10 @@ namespace UniCade
         }
 
         /// <summary>
-        /// Clear console button
-        /// </summary>
-        private void Button27_Click(object sender, EventArgs e)
-        {
-            //Verify that a console is selected
-            if (listBox1.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console");
-                return;
-            }
-
-            foreach (Console c in Database.ConsoleList)
-            {
-                if (c.Name.Equals(listBox1.SelectedItem.ToString()))
-                {
-                    c.GameList.Clear();
-                    MessageBox.Show(c.Name + " Library cleared");
-                    break;
-                }
-            }
-        }
-
-        /// <summary>
         /// Rescrape console button
         /// Rescrape metadata for all games within teh current console
         /// </summary>
-        private void Button28_Click(object sender, EventArgs e)
+        private void GamesTab_RescrapeConsoleMetadataButton_Click(object sender, EventArgs e)
         {
             if (listBox2.SelectedItem == null)
             {
@@ -783,19 +769,10 @@ namespace UniCade
         }
 
         /// <summary>
-        /// Connect button (UniCade cloud tab)
-        /// Connect to UniCade Cloud with the current user
-        /// </summary>
-        private void Button29_Click(object sender, EventArgs e)
-        {
-            richTextBox2.Text = SQLclient.connectSQL();
-        }
-
-        /// <summary>
         /// Uplod game button
         /// Upload the currently selected game to UniCade cloud
         /// </summary>
-        private void Button33_Click(object sender, EventArgs e)
+        private void GamesTab_UploadButton_Click(object sender, EventArgs e)
         {
 
             if (SQLclient.sqlUser == null)
@@ -823,7 +800,7 @@ namespace UniCade
         /// Create new user button (UniCade Cloud tab)
         /// Create a new SQL UniCade Cloud user
         /// </summary>
-        private void Button34_Click(object sender, EventArgs e)
+        private void CloudTab_CreateNewAccountButton_Click(object sender, EventArgs e)
         {
             UnicadeAccount ua = new UnicadeAccount(0);
             ua.ShowDialog();
@@ -833,7 +810,7 @@ namespace UniCade
         /// Login button (UniCade Cloud tab)
         /// Login a UniCade Cloud SQL user
         /// </summary>
-        private void Button29_Click_1(object sender, EventArgs e)
+        private void CloudTab_LoginButton_Click(object sender, EventArgs e)
         {
             Login l = new Login(0);
             l.ShowDialog();
@@ -847,7 +824,7 @@ namespace UniCade
         /// Logout button (UniCade Cloud tab)
         /// Logs out the current SQL user 
         /// </summary>
-        private void Button39_Click(object sender, EventArgs e)
+        private void CloudTab_LogoutButton_Click(object sender, EventArgs e)
         {
             //Check if a user is actually logged in
             if (SQLclient.sqlUser == null)
@@ -862,20 +839,11 @@ namespace UniCade
             label56.Text = "Current Web User: ";
         }
 
-        private void Button36_Click(object sender, EventArgs e)
-        {
-            if (SQLclient.sqlUser == null)
-            {
-                MessageBox.Show("UniCade Cloud Login Required");
-                return;
-            }
-        }
-
         /// <summary>
         /// Delete user button
         /// Delete the SQL user and update the interface
         /// </summary>
-        private void Button35_Click(object sender, EventArgs e)
+        private void CloudTab_DeleteCurrentAccountButton_Click(object sender, EventArgs e)
         {
             if (SQLclient.sqlUser == null)
             {
@@ -892,7 +860,7 @@ namespace UniCade
         /// Upload all games button
         /// Upload all games across all consoles to UniCade Cloud
         /// </summary>
-        private void Button38_Click(object sender, EventArgs e)
+        private void CloudTab_UploadAllGamesButton_Click(object sender, EventArgs e)
         {
             if (SQLclient.sqlUser == null)
             {
@@ -906,7 +874,7 @@ namespace UniCade
         /// <summary>
         /// Close button
         /// </summary>
-        private void Button37_Click(object sender, EventArgs e)
+        private void CloudTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
             this.Close();
@@ -915,7 +883,7 @@ namespace UniCade
         /// <summary>
         /// Delete all games from the current user's UniCade Cloud account
         /// </summary>
-        private void Button41_Click(object sender, EventArgs e)
+        private void CloudTab_DeleteAllCloudGamesButton_Click(object sender, EventArgs e)
         {
             //Check if a SQL user is currently logged in
             if (SQLclient.sqlUser == null)
@@ -931,7 +899,7 @@ namespace UniCade
         /// Download all games button
         /// Download all game metadata across all consoles
         /// </summary>
-        private void Button40_Click(object sender, EventArgs e)
+        private void CloudTab_DownloadAllGamesButton_Click(object sender, EventArgs e)
         {
             if (SQLclient.sqlUser == null)
             {
@@ -946,7 +914,7 @@ namespace UniCade
         /// Download game button
         /// Download metadata for the selected game from UniCade Cloud
         /// </summary>
-        private void Button44_Click(object sender, EventArgs e)
+        private void GamesTab_DownloadGameButton_Click(object sender, EventArgs e)
         {
             //Check if a UniCade Cloud user is currently active
             if (SQLclient.sqlUser == null)
@@ -996,7 +964,7 @@ namespace UniCade
         /// Upload console button
         /// Upload all games from the selected console to UniCade Cloud
         /// </summary>
-        private void Button42_Click(object sender, EventArgs e)
+        private void GamesTab_UploadConsoleButton_Click(object sender, EventArgs e)
         {
             //Invalid input checks
             if (SQLclient.sqlUser == null)
@@ -1027,7 +995,7 @@ namespace UniCade
         /// Download console info button
         /// Downloads all game metadata for the current console from the current user's Unicade Cloud account
         /// </summary>
-        private void Button43_Click(object sender, EventArgs e)
+        private void GamesTab_DownloadConsoleButton_Click(object sender, EventArgs e)
         {
             //Invalid input checks
             if (listBox2.SelectedItem == null)
@@ -1068,60 +1036,7 @@ namespace UniCade
             RefreshGameInfo(_curGame);
         }
 
-        public void RefreshGameInfo(Game game)
-        {
-            if (game == null)
-            {
-                //If no game is currently selected, set all info fields to null
-                textBox2.Text = null;
-                textBox13.Text = null;
-                textBox12.Text = null;
-                textBox15.Text = null;
-                textBox11.Text = null;
-                textBox10.Text = null;
-                textBox6.Text = null;
-                textBox17.Text = null;
-                textBox19.Text = null;
-                textBox18.Text = null;
-                return;
-            }
-
-            //If a valid game is selected, update all info fields
-            textBox2.Text = game.Title;
-            textBox13.Text = game.Console;
-            textBox12.Text = game.ReleaseDate;
-            textBox15.Text = game.CriticScore;
-            textBox11.Text = game.Publisher;
-            textBox10.Text = game.Developer;
-            textBox6.Text = game.Esrb;
-            textBox17.Text = game.Players;
-            textBox19.Text = game.EsrbDescriptor;
-            textBox18.Text = game.Description;
-
-            //Set favorite checkbox
-            if (game.Favorite == 1)
-                checkBox3.Checked = true;
-            else
-                checkBox3.Checked = false;
-
-            pictureBox1.Image = null;
-            pictureBox2.Image = null;
-            pictureBox3.Image = null;
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxFront.png"))
-                pictureBox1.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxFront.png");
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxBack.png"))
-                pictureBox2.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxBack.png");
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_Screenshot.png"))
-                pictureBox3.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_Screenshot.png");
-        }
-
-        private void SettingsWindow_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            MainWindow._settingsWindowActive = false;
-            MainWindow.ReHookKeys();
-        }
-
-        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
             _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
         }
@@ -1129,7 +1044,7 @@ namespace UniCade
         /// <summary>
         /// Enter license button
         /// </summary>
-        private void Button30_Click_1(object sender, EventArgs e)
+        private void AboutTab_EnterLicenseButton_Click_1(object sender, EventArgs e)
         {
             //Create a new license entry info and validate the key
             LicenseEntry le = new LicenseEntry()
@@ -1145,14 +1060,6 @@ namespace UniCade
                 label34.Text = "License Status: Full Version";
             else
                 label34.Text = "License Status: INVALID";
-        }
-
-        /// <summary>
-        /// Connect SQL button
-        /// </summary>
-        private void Button31_Click_1(object sender, EventArgs e)
-        {
-            SQLclient.connectSQL();
         }
 
         /// <summary>
@@ -1491,6 +1398,53 @@ namespace UniCade
             else
                 EsrbNum = 0;
             return EsrbNum;
+        }
+
+        public void RefreshGameInfo(Game game)
+        {
+            if (game == null)
+            {
+                //If no game is currently selected, set all info fields to null
+                textBox2.Text = null;
+                textBox13.Text = null;
+                textBox12.Text = null;
+                textBox15.Text = null;
+                textBox11.Text = null;
+                textBox10.Text = null;
+                textBox6.Text = null;
+                textBox17.Text = null;
+                textBox19.Text = null;
+                textBox18.Text = null;
+                return;
+            }
+
+            //If a valid game is selected, update all info fields
+            textBox2.Text = game.Title;
+            textBox13.Text = game.Console;
+            textBox12.Text = game.ReleaseDate;
+            textBox15.Text = game.CriticScore;
+            textBox11.Text = game.Publisher;
+            textBox10.Text = game.Developer;
+            textBox6.Text = game.Esrb;
+            textBox17.Text = game.Players;
+            textBox19.Text = game.EsrbDescriptor;
+            textBox18.Text = game.Description;
+
+            //Set favorite checkbox
+            if (game.Favorite == 1)
+                checkBox3.Checked = true;
+            else
+                checkBox3.Checked = false;
+
+            pictureBox1.Image = null;
+            pictureBox2.Image = null;
+            pictureBox3.Image = null;
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxFront.png"))
+                pictureBox1.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxFront.png");
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxBack.png"))
+                pictureBox2.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxBack.png");
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_Screenshot.png"))
+                pictureBox3.Load(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_Screenshot.png");
         }
 
         /// <summary>
