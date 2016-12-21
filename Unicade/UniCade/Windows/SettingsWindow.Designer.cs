@@ -1132,7 +1132,7 @@
             this.button45.TabIndex = 86;
             this.button45.Text = "Refresh";
             this.button45.UseVisualStyleBackColor = true;
-            this.button45.Click += new System.EventHandler(this.Button45_Click);
+            this.button45.Click += new System.EventHandler(this.UsersTab_RefreshButton_Click);
             // 
             // button31
             // 
@@ -1142,7 +1142,7 @@
             this.button31.TabIndex = 84;
             this.button31.Text = "Login";
             this.button31.UseVisualStyleBackColor = true;
-            this.button31.Click += new System.EventHandler(this.Button31_Click_2);
+            this.button31.Click += new System.EventHandler(this.UsersTab_LoginButton_Click);
             // 
             // button21
             // 
@@ -1439,7 +1439,7 @@
             this.button15.TabIndex = 82;
             this.button15.Text = "Save Preferences File";
             this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.Button15_Click);
+            this.button15.Click += new System.EventHandler(this.GlobalSettings_SavePreferenceFileButton_Click);
             // 
             // button14
             // 
@@ -1551,7 +1551,7 @@
             this.checkBox14.TabIndex = 12;
             this.checkBox14.Text = "Enable PayPerPlay";
             this.checkBox14.UseVisualStyleBackColor = true;
-            this.checkBox14.CheckedChanged += new System.EventHandler(this.CheckBox14_CheckedChanged);
+            this.checkBox14.CheckedChanged += new System.EventHandler(this.GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged);
             // 
             // checkBox13
             // 
@@ -1563,7 +1563,7 @@
             this.checkBox13.Text = "Display ESRB while browsing";
             this.checkBox13.UseVisualStyleBackColor = true;
             this.checkBox13.Visible = false;
-            this.checkBox13.CheckedChanged += new System.EventHandler(this.CheckBox13_CheckedChanged);
+            this.checkBox13.CheckedChanged += new System.EventHandler(this.GlobalSettingsTab_ToggleEsrbViewCheckbox_CheckedChanged);
             // 
             // checkBox12
             // 
@@ -1574,7 +1574,7 @@
             this.checkBox12.TabIndex = 10;
             this.checkBox12.Text = "Rescan all libraries on startup";
             this.checkBox12.UseVisualStyleBackColor = true;
-            this.checkBox12.CheckedChanged += new System.EventHandler(this.CheckBox12_CheckedChanged);
+            this.checkBox12.CheckedChanged += new System.EventHandler(this.GlobalSettingsTab_ToggleScanOnStartupCheckbox_CheckedChanged);
             // 
             // checkBox11
             // 
@@ -1586,7 +1586,7 @@
             this.checkBox11.Text = "Require login on startup";
             this.checkBox11.UseVisualStyleBackColor = true;
             this.checkBox11.Visible = false;
-            this.checkBox11.CheckedChanged += new System.EventHandler(this.CheckBox11_CheckedChanged);
+            this.checkBox11.CheckedChanged += new System.EventHandler(this.GlobalSettingsTab_ToggleRequireLoginCheckbox_CheckedChanged);
             // 
             // checkBox10
             // 
@@ -1598,7 +1598,7 @@
             this.checkBox10.Text = "Display splash";
             this.checkBox10.UseVisualStyleBackColor = true;
             this.checkBox10.Visible = false;
-            this.checkBox10.CheckedChanged += new System.EventHandler(this.CheckBox10_CheckedChanged);
+            this.checkBox10.CheckedChanged += new System.EventHandler(this.GlobalSettingsTab_ToggleSplashCheckbox_CheckedChanged);
             // 
             // label36
             // 
@@ -1618,7 +1618,7 @@
             this.checkBox6.TabIndex = 3;
             this.checkBox6.Text = "To View";
             this.checkBox6.UseVisualStyleBackColor = true;
-            this.checkBox6.CheckedChanged += new System.EventHandler(this.CheckBox6_CheckedChanged);
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.GlobalSettingsTab_AllowedToViewEsrbCheckbox_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -1629,7 +1629,7 @@
             this.checkBox2.TabIndex = 2;
             this.checkBox2.Text = "Display loading screen";
             this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.CheckBox2_CheckedChanged);
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.GlobalSettingsTab_ToggleLoadingCheckbox_CheckedChanged);
             // 
             // label31
             // 
@@ -1693,7 +1693,7 @@
             this.button23.TabIndex = 16;
             this.button23.Text = "Close";
             this.button23.UseVisualStyleBackColor = true;
-            this.button23.Click += new System.EventHandler(this.Button23_Click);
+            this.button23.Click += new System.EventHandler(this.WebOpsTab_CloseButton_Click);
             // 
             // button22
             // 

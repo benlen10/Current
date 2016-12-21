@@ -1065,7 +1065,7 @@ namespace UniCade
         /// <summary>
         /// Login local user button
         /// </summary>
-        private void Button31_Click_2(object sender, EventArgs e)
+        private void UsersTab_LoginButton_Click(object sender, EventArgs e)
         {
             foreach (User us in Database.UserList)
             {
@@ -1087,7 +1087,7 @@ namespace UniCade
             }
         }
 
-        private void Button45_Click(object sender, EventArgs e)
+        private void UsersTab_RefreshButton_Click(object sender, EventArgs e)
         {
             label38.Text = "Current User: " + _curUser.Username;
         }
@@ -1240,7 +1240,7 @@ namespace UniCade
         /// <summary>
         /// Close button
         /// </summary>
-        private void Button23_Click(object sender, EventArgs e)
+        private void WebOpsTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
             this.Close();
@@ -1253,7 +1253,7 @@ namespace UniCade
         /// <summary>
         /// Save Global Settings button
         /// </summary>
-        private void Button15_Click(object sender, EventArgs e)
+        private void GlobalSettings_SavePreferenceFileButton_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem.ToString().Contains("|") || textBox25.Text.Contains("|") || textBox32.Text.Contains("|") || textBox33.Text.Contains("|"))
                 MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
@@ -1289,7 +1289,7 @@ namespace UniCade
         /// <summary>
         /// Toggle viewEsrb checkbox
         /// </summary>
-        private void CheckBox6_CheckedChanged(object sender, EventArgs e)
+        private void GlobalSettingsTab_AllowedToViewEsrbCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox6.Checked)
                 _viewEsrb = 1;
@@ -1300,7 +1300,7 @@ namespace UniCade
         /// <summary>
         /// Toggle splash screen checkbox
         /// </summary>
-        private void CheckBox10_CheckedChanged(object sender, EventArgs e)
+        private void GlobalSettingsTab_ToggleSplashCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox10.Checked)
                 _showSplash = 1;
@@ -1311,7 +1311,7 @@ namespace UniCade
         /// <summary>
         /// Toggle show loading screen checkbox
         /// </summary>
-        private void CheckBox2_CheckedChanged(object sender, EventArgs e)
+        private void GlobalSettingsTab_ToggleLoadingCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked)
                 _showLoading = 1;
@@ -1322,7 +1322,7 @@ namespace UniCade
         /// <summary>
         /// Toggle require login checkbox
         /// </summary>
-        private void CheckBox11_CheckedChanged(object sender, EventArgs e)
+        private void GlobalSettingsTab_ToggleRequireLoginCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox11.Checked)
                 _requireLogin = 1;
@@ -1333,7 +1333,7 @@ namespace UniCade
         /// <summary>
         /// Toggle scan on startup checkbox
         /// </summary>
-        private void CheckBox12_CheckedChanged(object sender, EventArgs e)
+        private void GlobalSettingsTab_ToggleScanOnStartupCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox12.Checked)
                 _scanOnStartup = 1;
@@ -1344,7 +1344,7 @@ namespace UniCade
         /// <summary>
         /// Toggle view ESRB checkbox
         /// </summary>
-        private void CheckBox13_CheckedChanged(object sender, EventArgs e)
+        private void GlobalSettingsTab_ToggleEsrbViewCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox13.Checked)
                 _viewEsrb = 1;
@@ -1355,7 +1355,7 @@ namespace UniCade
         /// <summary>
         /// Toggle payPerPlay checkbox
         /// </summary>
-        private void CheckBox14_CheckedChanged(object sender, EventArgs e)
+        private void GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox14.Checked)
                 _payPerPlay = 1;
