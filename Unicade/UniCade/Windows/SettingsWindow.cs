@@ -542,6 +542,8 @@ namespace UniCade
 
         #endregion
 
+        #region Emulators Tab
+
         private void EmulatorsTab_ConsoleListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string curItem = listBox1.SelectedItem.ToString();
@@ -652,6 +654,88 @@ namespace UniCade
                     return;
             }
         }
+
+        private void EmulatorsTab_SaveInfoButton_Click(object sender, EventArgs e)
+        {
+            //Invalid input check
+            if (textBox9.Text.Contains("|") || textBox1.Text.Contains("|") || textBox3.Text.Contains("|") || textBox4.Text.Contains("|") || textBox5.Text.Contains("|") || textBox22.Text.Contains("|") || textBox20.Text.Contains("|"))
+                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            else
+            {
+                if (IsAllDigits(textBox12.Text))
+                {
+                    if (textBox12.TextLength < 5)
+                        _curConsole.ReleaseDate = textBox22.Text;
+                    else
+                        MessageBox.Show("Release Date Invalid");
+                }
+                else
+                    MessageBox.Show("Release Date score must be only digits");
+                if ((textBox9.Text.Length > 20) || (textBox1.Text.Length > 100) || (textBox3.Text.Length > 100) || (textBox4.Text.Length > 30) || (textBox3.Text.Length > 40) || (textBox4.Text.Length > 300))
+                    MessageBox.Show("Invalid Length");
+                else
+                {
+                    //If all input checks are valid, set console into to the current text field values
+                    _curConsole.Name = textBox9.Text;
+                    _curConsole.EmuPath = textBox1.Text;
+                    _curConsole.RomExt = textBox4.Text;
+                    _curConsole.LaunchParam = textBox5.Text;
+                    _curConsole.ConsoleInfo = textBox20.Text;
+                }
+                MainWindow.RefreshConsoleList();
+            }
+
+            listBox1.Items.Clear();
+            foreach (Console c in Database.ConsoleList)
+                listBox1.Items.Add(c.Name);
+        }
+
+        /// <summary>
+        /// Toggle enforceExt checkbox
+        /// </summary>
+        private void EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+                _enforceExt = 1;
+            else
+                _enforceExt = 0;
+        }
+
+        /// <summary>
+        /// Global rescan button
+        /// </summary>
+        private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
+        {
+            if (FileOps.scan(Program._romPath))
+                MessageBox.Show("Global Rescan Successful");
+        }
+
+        /// <summary>
+        /// Rescan console button
+        /// Rescans all ROM files for the current console
+        /// </summary>
+        private void EmulatorsTab_RescanSingleConsoleButton_Click(object sender, EventArgs e)
+        {
+            //Ensure that a console is currently selected
+            if (listBox1.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+            foreach (Console c in Database.ConsoleList)
+            {
+                if (c.Name.Equals(listBox1.SelectedItem.ToString()))
+                {
+                    if (FileOps.scanDirectory(c.RomPath, Program._romPath))
+                    {
+                        MessageBox.Show(c.Name + " Successfully Scanned");
+                    }
+                    break;
+                }
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Close and save button
@@ -809,56 +893,6 @@ namespace UniCade
         }
 
         /// <summary>
-        /// Save info button (Consoles tab)
-        /// Save all console data to the preferences text file
-        /// </summary>
-        private void EmulatorsTab_SaveInfoButton_Click(object sender, EventArgs e)
-        {
-            //Invalid input check
-            if (textBox9.Text.Contains("|") || textBox1.Text.Contains("|") || textBox3.Text.Contains("|") || textBox4.Text.Contains("|") || textBox5.Text.Contains("|") || textBox22.Text.Contains("|") || textBox20.Text.Contains("|"))
-                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
-            else
-            {
-                if (IsAllDigits(textBox12.Text))
-                {
-                    if (textBox12.TextLength < 5)
-                        _curConsole.ReleaseDate = textBox22.Text;
-                    else
-                        MessageBox.Show("Release Date Invalid");
-                }
-                else
-                    MessageBox.Show("Release Date score must be only digits");
-                if ((textBox9.Text.Length > 20) || (textBox1.Text.Length > 100) || (textBox3.Text.Length > 100) || (textBox4.Text.Length > 30) || (textBox3.Text.Length > 40) || (textBox4.Text.Length > 300))
-                    MessageBox.Show("Invalid Length");
-                else
-                {
-                    //If all input checks are valid, set console into to the current text field values
-                    _curConsole.Name = textBox9.Text;
-                    _curConsole.EmuPath = textBox1.Text;
-                    _curConsole.RomExt = textBox4.Text;
-                    _curConsole.LaunchParam = textBox5.Text;
-                    _curConsole.ConsoleInfo = textBox20.Text;
-                }
-                MainWindow.RefreshConsoleList();
-            }
-
-            listBox1.Items.Clear();
-            foreach (Console c in Database.ConsoleList)
-                listBox1.Items.Add(c.Name);
-        }
-
-        /// <summary>
-        /// Toggle enforceExt checkbox
-        /// </summary>
-        private void EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked)
-                _enforceExt = 1;
-            else
-                _enforceExt = 0;
-        }
-
-        /// <summary>
         /// Refresh global favorites button
         /// </summary>
         private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, EventArgs e)
@@ -883,40 +917,6 @@ namespace UniCade
             foreach (Game g in _curUser.Favorites)
             {
                 listBox5.Items.Add(g.Title + " - " + g.Console);
-            }
-        }
-
-        /// <summary>
-        /// Global rescan button
-        /// </summary>
-        private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
-        {
-            if (FileOps.scan(Program._romPath))
-                MessageBox.Show("Global Rescan Successful");
-        }
-
-        /// <summary>
-        /// Rescan console button
-        /// Rescans all ROM files for the current console
-        /// </summary>
-        private void EmulatorsTab_RescanSingleConsoleButton_Click(object sender, EventArgs e)
-        {
-            //Ensure that a console is currently selected
-            if (listBox1.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console");
-                return;
-            }
-            foreach (Console c in Database.ConsoleList)
-            {
-                if (c.Name.Equals(listBox1.SelectedItem.ToString()))
-                {
-                    if (FileOps.scanDirectory(c.RomPath, Program._romPath))
-                    {
-                        MessageBox.Show(c.Name + " Successfully Scanned");
-                    }
-                    break;
-                }
             }
         }
 
