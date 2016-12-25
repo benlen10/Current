@@ -737,6 +737,10 @@ namespace UniCade
 
         #endregion
 
+        #region Users Tab
+
+        #endregion
+
         /// <summary>
         /// Close and save button
         /// </summary>
@@ -744,15 +748,6 @@ namespace UniCade
         {
             MainWindow._settingsWindowActive = false;
             FileOps.savePreferences(Program._prefPath);
-            this.Close();
-        }
-
-        /// <summary>
-        /// Close button
-        /// </summary>
-        private void GlobalSettingsTab_CloseButton_Click(object sender, EventArgs e)
-        {
-            MainWindow._settingsWindowActive = false;
             this.Close();
         }
 
@@ -893,14 +888,6 @@ namespace UniCade
         }
 
         /// <summary>
-        /// Refresh global favorites button
-        /// </summary>
-        private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, EventArgs e)
-        {
-            RefreshGlobalFavs();
-        }
-
-        /// <summary>
         /// Delete user favorite
         /// </summary>
         private void UsersTab_DeleteFavoriteButton_Click(object sender, EventArgs e)
@@ -1032,11 +1019,6 @@ namespace UniCade
             }
             SQLclient.DownloadAllGames();
             MessageBox.Show("Library metadata sucuessfully updated");
-        }
-
-        private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -1248,6 +1230,11 @@ namespace UniCade
 
         #region Global Settings Tab
 
+        private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
+        }
+
         /// <summary>
         /// Save Global Settings button
         /// </summary>
@@ -1359,6 +1346,23 @@ namespace UniCade
                 _payPerPlay = 1;
             else
                 _payPerPlay = 0;
+        }
+
+        /// <summary>
+        /// Close button
+        /// </summary>
+        private void GlobalSettingsTab_CloseButton_Click(object sender, EventArgs e)
+        {
+            MainWindow._settingsWindowActive = false;
+            this.Close();
+        }
+
+        /// <summary>
+        /// Refresh global favorites button
+        /// </summary>
+        private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, EventArgs e)
+        {
+            RefreshGlobalFavs();
         }
 
         #endregion
