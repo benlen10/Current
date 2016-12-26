@@ -739,8 +739,6 @@ namespace UniCade
 
         #region Users Tab
 
-        #endregion
-
         /// <summary>
         /// Close and save button
         /// </summary>
@@ -908,6 +906,38 @@ namespace UniCade
         }
 
         /// <summary>
+        /// Login local user button
+        /// </summary>
+        private void UsersTab_LoginButton_Click(object sender, EventArgs e)
+        {
+            foreach (User us in Database.UserList)
+            {
+                if (_curUser.Username.Equals(us.Username))
+                {
+                    Database.UserList.Remove(us);
+                    Database.UserList.Add(_curUser);
+                    break;
+                }
+            }
+            //Display the login dialog
+            Login login = new Login(1);
+            login.ShowDialog();
+            if (_curUser != null)
+            {
+                //If the user is logged in sucuesfully, save the current user and preferences file
+                label38.Text = "Current User: " + _curUser.Username;
+                FileOps.savePreferences(Program._prefPath);
+            }
+        }
+
+        private void UsersTab_RefreshButton_Click(object sender, EventArgs e)
+        {
+            label38.Text = "Current User: " + _curUser.Username;
+        }
+
+        #endregion
+
+        /// <summary>
         /// Create new user button (UniCade Cloud tab)
         /// Create a new SQL UniCade Cloud user
         /// </summary>
@@ -1040,36 +1070,6 @@ namespace UniCade
                 label34.Text = "License Status: Full Version";
             else
                 label34.Text = "License Status: INVALID";
-        }
-
-        /// <summary>
-        /// Login local user button
-        /// </summary>
-        private void UsersTab_LoginButton_Click(object sender, EventArgs e)
-        {
-            foreach (User us in Database.UserList)
-            {
-                if (_curUser.Username.Equals(us.Username))
-                {
-                    Database.UserList.Remove(us);
-                    Database.UserList.Add(_curUser);
-                    break;
-                }
-            }
-            //Display the login dialog
-            Login login = new Login(1);
-            login.ShowDialog();
-            if (_curUser != null)
-            {
-                //If the user is logged in sucuesfully, save the current user and preferences file
-                label38.Text = "Current User: " + _curUser.Username;
-                FileOps.savePreferences(Program._prefPath);
-            }
-        }
-
-        private void UsersTab_RefreshButton_Click(object sender, EventArgs e)
-        {
-            label38.Text = "Current User: " + _curUser.Username;
         }
 
         #region WebOps Tab
