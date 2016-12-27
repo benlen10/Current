@@ -937,6 +937,8 @@ namespace UniCade
 
         #endregion
 
+        #region UniCade Cloud Tab
+
         /// <summary>
         /// Create new user button (UniCade Cloud tab)
         /// Create a new SQL UniCade Cloud user
@@ -1051,6 +1053,10 @@ namespace UniCade
             MessageBox.Show("Library metadata sucuessfully updated");
         }
 
+        #endregion
+
+        #region About Tab
+
         /// <summary>
         /// Enter license button
         /// </summary>
@@ -1071,6 +1077,8 @@ namespace UniCade
             else
                 label34.Text = "License Status: INVALID";
         }
+
+        #endregion
 
         #region WebOps Tab
 
