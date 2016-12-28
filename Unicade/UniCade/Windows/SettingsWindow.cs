@@ -174,6 +174,9 @@ namespace UniCade
             label37.Text = "License Key: " + Program._userLicenseKey;
         }
 
+        /// <summary>
+        /// Called on window close. set the windowActive bool variable to false and rehook keys
+        /// </summary>
         private void SettingsWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             MainWindow._settingsWindowActive = false;
@@ -310,6 +313,9 @@ namespace UniCade
             RefreshGameInfo(_curGame);
         }
 
+        /// <summary>
+        /// Called when the select index is changed. Update the proper game info in the details fields. 
+        /// </summary>
         private void GamesTab_GamesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string curItem = listBox2.SelectedItem.ToString();
@@ -347,6 +353,9 @@ namespace UniCade
             }
         }
 
+        /// <summary>
+        /// Called when the select index is changed for the console listbox. Update the games list for the selected console. 
+        /// </summary>
         private void GamesTab_ConsoleListBox__SelectedIndexChanged(object sender, EventArgs e)
         {
             string curItem = listBox3.SelectedItem.ToString();
@@ -361,7 +370,10 @@ namespace UniCade
             RefreshEsrbIcon(_curGame);
         }
 
-        private void GamesTab_CloseButton_Click(object sender, EventArgs e)  //Close Button
+        /// <summary>
+        /// Close the current SettingsWindow instance and return to the main GUI
+        /// </summary>
+        private void GamesTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
             Close();
@@ -500,6 +512,9 @@ namespace UniCade
             MessageBox.Show("Game Uploaded");
         }
 
+        /// <summary>
+        /// Sets the current game as a global favorite
+        /// </summary>
         private void GamesTab_FavoriteCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             //Verify that a console/game is currently selected
