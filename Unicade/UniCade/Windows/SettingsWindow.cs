@@ -559,6 +559,9 @@ namespace UniCade
 
         #region Emulators Tab
 
+        /// <summary>
+        /// Update the console info fields when the selected console is changed
+        /// </summary>
         private void EmulatorsTab_ConsoleListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string curItem = listBox1.SelectedItem.ToString();
@@ -670,6 +673,9 @@ namespace UniCade
             }
         }
 
+        /// <summary>
+        /// Save the custom info fields for the current emulator
+        /// </summary>
         private void EmulatorsTab_SaveInfoButton_Click(object sender, EventArgs e)
         {
             //Invalid input check
@@ -717,7 +723,7 @@ namespace UniCade
         }
 
         /// <summary>
-        /// Global rescan button
+        /// Rescan all games across all emulators
         /// </summary>
         private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
         {
