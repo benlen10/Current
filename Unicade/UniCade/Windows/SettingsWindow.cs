@@ -849,6 +849,9 @@ namespace UniCade
             FileOps.savePreferences(Program._prefPath);
         }
 
+        /// <summary>
+        /// Delete the currently selected user from the database
+        /// </summary>
         private void UsersTab_DeleteUserButton_Click(object sender, EventArgs e)
         {
             //Ensure that there is always at least one user present in the database
@@ -951,6 +954,9 @@ namespace UniCade
             }
         }
 
+        /// <summary>
+        /// Refresh the current users list and userdata
+        /// </summary>
         private void UsersTab_RefreshButton_Click(object sender, EventArgs e)
         {
             label38.Text = "Current User: " + _curUser.Username;
