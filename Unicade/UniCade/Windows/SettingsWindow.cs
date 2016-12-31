@@ -964,150 +964,146 @@ namespace UniCade
 
         #endregion
 
-        #region UniCade Cloud Tab
+        #region Global Settings Tab
 
-        /// <summary>
-        /// Create new user button (UniCade Cloud tab)
-        /// Create a new SQL UniCade Cloud user
-        /// </summary>
-        private void CloudTab_CreateNewAccountButton_Click(object sender, EventArgs e)
+        private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UnicadeAccount ua = new UnicadeAccount(0);
-            ua.ShowDialog();
+            _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
         }
 
         /// <summary>
-        /// Login button (UniCade Cloud tab)
-        /// Login a UniCade Cloud SQL user
+        /// Save Global Settings button
         /// </summary>
-        private void CloudTab_LoginButton_Click(object sender, EventArgs e)
+        private void GlobalSettings_SavePreferenceFileButton_Click(object sender, EventArgs e)
         {
-            Login l = new Login(0);
-            l.ShowDialog();
-            if (SQLclient.sqlUser != null)
+            if (comboBox1.SelectedItem.ToString().Contains("|") || textBox25.Text.Contains("|") || textBox32.Text.Contains("|") || textBox33.Text.Contains("|"))
+                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            else
             {
-                label56.Text = "Current Web User: " + SQLclient.sqlUser;
+                if (comboBox1.SelectedItem.ToString().Contains("Everyone") || comboBox1.SelectedItem.ToString().Contains("Teen") || comboBox1.SelectedItem.ToString().Contains("Mature") || comboBox1.SelectedItem.ToString().Contains("Adults") || textBox6.TextLength < 1)
+                    _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
+                else
+                    MessageBox.Show("Invalid ESRB Rating");
+                if ((textBox25.Text.Length > 150) || (textBox32.Text.Length > 150) || (textBox33.Text.Length > 150))
+                    MessageBox.Show("Invalid Length");
+                else
+                {
+                    Program._emuPath = textBox25.Text;
+                    Program._mediaPath = textBox32.Text;
+                    Program._romPath = textBox33.Text;
+                }
+
+                Int32.TryParse(textBox7.Text, out int n);
+                if (n > 0)
+                    _passProtect = Int32.Parse(textBox7.Text);
+                Int32.TryParse(textBox29.Text, out n);
+                if (n > 0)
+                    _coins = Int32.Parse(textBox29.Text);
+                if (comboBox1.SelectedItem != null)
+                    _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
+
+                //Save all active preferences to the local preferences file
+                FileOps.savePreferences(Program._prefPath);
             }
         }
 
         /// <summary>
-        /// Logout button (UniCade Cloud tab)
-        /// Logs out the current SQL user 
+        /// Toggle viewEsrb checkbox
         /// </summary>
-        private void CloudTab_LogoutButton_Click(object sender, EventArgs e)
+        private void GlobalSettingsTab_AllowedToViewEsrbCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            //Check if a user is actually logged in
-            if (SQLclient.sqlUser == null)
-            {
-                MessageBox.Show("User is already logged out");
-                label56.Text = "Current Web User: ";
-                return;
-            }
-
-            //Log the current user out and update the interface
-            SQLclient.sqlUser = null;
-            label56.Text = "Current Web User: ";
+            if (checkBox6.Checked)
+                _viewEsrb = 1;
+            else
+                _viewEsrb = 0;
         }
 
         /// <summary>
-        /// Delete user button
-        /// Delete the SQL user and update the interface
+        /// Toggle splash screen checkbox
         /// </summary>
-        private void CloudTab_DeleteCurrentAccountButton_Click(object sender, EventArgs e)
+        private void GlobalSettingsTab_ToggleSplashCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (SQLclient.sqlUser == null)
-            {
-                MessageBox.Show("UniCade Cloud Login Required");
-                return;
-            }
-
-            //Delete the current SQL user and update the label
-            SQLclient.DeleteUser();
-            label56.Text = "Current Web User: ";
+            if (checkBox10.Checked)
+                _showSplash = 1;
+            else
+                _showSplash = 0;
         }
 
         /// <summary>
-        /// Upload all games button
-        /// Upload all games across all consoles to UniCade Cloud
+        /// Toggle show loading screen checkbox
         /// </summary>
-        private void CloudTab_UploadAllGamesButton_Click(object sender, EventArgs e)
+        private void GlobalSettingsTab_ToggleLoadingCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (SQLclient.sqlUser == null)
-            {
-                MessageBox.Show("UniCade Cloud Login Required");
-                return;
-            }
-            SQLclient.uploadAllGames();
-            MessageBox.Show("Library successfully uploaded");
+            if (checkBox2.Checked)
+                _showLoading = 1;
+            else
+                _showLoading = 0;
+        }
+
+        /// <summary>
+        /// Toggle require login checkbox
+        /// </summary>
+        private void GlobalSettingsTab_ToggleRequireLoginCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox11.Checked)
+                _requireLogin = 1;
+            else
+                _requireLogin = 0;
+        }
+
+        /// <summary>
+        /// Toggle scan on startup checkbox
+        /// </summary>
+        private void GlobalSettingsTab_ToggleScanOnStartupCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox12.Checked)
+                _scanOnStartup = 1;
+            else
+                _scanOnStartup = 0;
+        }
+
+        /// <summary>
+        /// Toggle view ESRB checkbox
+        /// </summary>
+        private void GlobalSettingsTab_ToggleEsrbViewCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox13.Checked)
+                _viewEsrb = 1;
+            else
+                _viewEsrb = 0;
+        }
+
+        /// <summary>
+        /// Toggle payPerPlay checkbox
+        /// </summary>
+        private void GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox14.Checked)
+                _payPerPlay = 1;
+            else
+                _payPerPlay = 0;
         }
 
         /// <summary>
         /// Close button
         /// </summary>
-        private void CloudTab_CloseButton_Click(object sender, EventArgs e)
+        private void GlobalSettingsTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
             this.Close();
         }
 
         /// <summary>
-        /// Delete all games from the current user's UniCade Cloud account
+        /// Refresh global favorites button
         /// </summary>
-        private void CloudTab_DeleteAllCloudGamesButton_Click(object sender, EventArgs e)
+        private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, EventArgs e)
         {
-            //Check if a SQL user is currently logged in
-            if (SQLclient.sqlUser == null)
-            {
-                MessageBox.Show("UniCade Cloud Login Required");
-                return;
-            }
-            SQLclient.Deletegames();
-            MessageBox.Show("Library successfully deleted");
-        }
-
-        /// <summary>
-        /// Download all games button
-        /// Download all game metadata across all consoles
-        /// </summary>
-        private void CloudTab_DownloadAllGamesButton_Click(object sender, EventArgs e)
-        {
-            if (SQLclient.sqlUser == null)
-            {
-                MessageBox.Show("UniCade Cloud Login Required");
-                return;
-            }
-            SQLclient.DownloadAllGames();
-            MessageBox.Show("Library metadata sucuessfully updated");
+            RefreshGlobalFavs();
         }
 
         #endregion
 
-        #region About Tab
-
-        /// <summary>
-        /// Enter license button
-        /// </summary>
-        private void AboutTab_EnterLicenseButton_Click_1(object sender, EventArgs e)
-        {
-            //Create a new license entry info and validate the key
-            LicenseEntry le = new LicenseEntry()
-            {
-                Owner = this
-            };
-            le.ShowDialog();
-            label35.Text = "Licensed to: " + Program._userLicenseName;
-            label37.Text = "License Key: " + Program._userLicenseKey;
-
-            //Set the license text depending on if the key is valid
-            if (Program._validLicense)
-                label34.Text = "License Status: Full Version";
-            else
-                label34.Text = "License Status: INVALID";
-        }
-
-        #endregion
-
-        #region WebOps Tab
+        #region Web Options Tab
 
         /// <summary>
         /// Toggle Metacritic checkbox
@@ -1263,141 +1259,145 @@ namespace UniCade
 
         #endregion
 
-        #region Global Settings Tab
+        #region UniCade Cloud Tab
 
-        private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Create new user button (UniCade Cloud tab)
+        /// Create a new SQL UniCade Cloud user
+        /// </summary>
+        private void CloudTab_CreateNewAccountButton_Click(object sender, EventArgs e)
         {
-            _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
+            UnicadeAccount ua = new UnicadeAccount(0);
+            ua.ShowDialog();
         }
 
         /// <summary>
-        /// Save Global Settings button
+        /// Login button (UniCade Cloud tab)
+        /// Login a UniCade Cloud SQL user
         /// </summary>
-        private void GlobalSettings_SavePreferenceFileButton_Click(object sender, EventArgs e)
+        private void CloudTab_LoginButton_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem.ToString().Contains("|") || textBox25.Text.Contains("|") || textBox32.Text.Contains("|") || textBox33.Text.Contains("|"))
-                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
-            else
+            Login l = new Login(0);
+            l.ShowDialog();
+            if (SQLclient.sqlUser != null)
             {
-                if (comboBox1.SelectedItem.ToString().Contains("Everyone") || comboBox1.SelectedItem.ToString().Contains("Teen") || comboBox1.SelectedItem.ToString().Contains("Mature") || comboBox1.SelectedItem.ToString().Contains("Adults") || textBox6.TextLength < 1)
-                    _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
-                else
-                    MessageBox.Show("Invalid ESRB Rating");
-                if ((textBox25.Text.Length > 150) || (textBox32.Text.Length > 150) || (textBox33.Text.Length > 150))
-                    MessageBox.Show("Invalid Length");
-                else
-                {
-                    Program._emuPath = textBox25.Text;
-                    Program._mediaPath = textBox32.Text;
-                    Program._romPath = textBox33.Text;
-                }
-
-                Int32.TryParse(textBox7.Text, out int n);
-                if (n > 0)
-                    _passProtect = Int32.Parse(textBox7.Text);
-                Int32.TryParse(textBox29.Text, out n);
-                if (n > 0)
-                    _coins = Int32.Parse(textBox29.Text);
-                if (comboBox1.SelectedItem != null)
-                    _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
-
-                //Save all active preferences to the local preferences file
-                FileOps.savePreferences(Program._prefPath);
+                label56.Text = "Current Web User: " + SQLclient.sqlUser;
             }
         }
 
         /// <summary>
-        /// Toggle viewEsrb checkbox
+        /// Logout button (UniCade Cloud tab)
+        /// Logs out the current SQL user 
         /// </summary>
-        private void GlobalSettingsTab_AllowedToViewEsrbCheckbox_CheckedChanged(object sender, EventArgs e)
+        private void CloudTab_LogoutButton_Click(object sender, EventArgs e)
         {
-            if (checkBox6.Checked)
-                _viewEsrb = 1;
-            else
-                _viewEsrb = 0;
+            //Check if a user is actually logged in
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("User is already logged out");
+                label56.Text = "Current Web User: ";
+                return;
+            }
+
+            //Log the current user out and update the interface
+            SQLclient.sqlUser = null;
+            label56.Text = "Current Web User: ";
         }
 
         /// <summary>
-        /// Toggle splash screen checkbox
+        /// Delete user button
+        /// Delete the SQL user and update the interface
         /// </summary>
-        private void GlobalSettingsTab_ToggleSplashCheckbox_CheckedChanged(object sender, EventArgs e)
+        private void CloudTab_DeleteCurrentAccountButton_Click(object sender, EventArgs e)
         {
-            if (checkBox10.Checked)
-                _showSplash = 1;
-            else
-                _showSplash = 0;
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("UniCade Cloud Login Required");
+                return;
+            }
+
+            //Delete the current SQL user and update the label
+            SQLclient.DeleteUser();
+            label56.Text = "Current Web User: ";
         }
 
         /// <summary>
-        /// Toggle show loading screen checkbox
+        /// Upload all games button
+        /// Upload all games across all consoles to UniCade Cloud
         /// </summary>
-        private void GlobalSettingsTab_ToggleLoadingCheckbox_CheckedChanged(object sender, EventArgs e)
+        private void CloudTab_UploadAllGamesButton_Click(object sender, EventArgs e)
         {
-            if (checkBox2.Checked)
-                _showLoading = 1;
-            else
-                _showLoading = 0;
-        }
-
-        /// <summary>
-        /// Toggle require login checkbox
-        /// </summary>
-        private void GlobalSettingsTab_ToggleRequireLoginCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox11.Checked)
-                _requireLogin = 1;
-            else
-                _requireLogin = 0;
-        }
-
-        /// <summary>
-        /// Toggle scan on startup checkbox
-        /// </summary>
-        private void GlobalSettingsTab_ToggleScanOnStartupCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox12.Checked)
-                _scanOnStartup = 1;
-            else
-                _scanOnStartup = 0;
-        }
-
-        /// <summary>
-        /// Toggle view ESRB checkbox
-        /// </summary>
-        private void GlobalSettingsTab_ToggleEsrbViewCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox13.Checked)
-                _viewEsrb = 1;
-            else
-                _viewEsrb = 0;
-        }
-
-        /// <summary>
-        /// Toggle payPerPlay checkbox
-        /// </summary>
-        private void GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox14.Checked)
-                _payPerPlay = 1;
-            else
-                _payPerPlay = 0;
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("UniCade Cloud Login Required");
+                return;
+            }
+            SQLclient.uploadAllGames();
+            MessageBox.Show("Library successfully uploaded");
         }
 
         /// <summary>
         /// Close button
         /// </summary>
-        private void GlobalSettingsTab_CloseButton_Click(object sender, EventArgs e)
+        private void CloudTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
             this.Close();
         }
 
         /// <summary>
-        /// Refresh global favorites button
+        /// Delete all games from the current user's UniCade Cloud account
         /// </summary>
-        private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, EventArgs e)
+        private void CloudTab_DeleteAllCloudGamesButton_Click(object sender, EventArgs e)
         {
-            RefreshGlobalFavs();
+            //Check if a SQL user is currently logged in
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("UniCade Cloud Login Required");
+                return;
+            }
+            SQLclient.Deletegames();
+            MessageBox.Show("Library successfully deleted");
+        }
+
+        /// <summary>
+        /// Download all games button
+        /// Download all game metadata across all consoles
+        /// </summary>
+        private void CloudTab_DownloadAllGamesButton_Click(object sender, EventArgs e)
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("UniCade Cloud Login Required");
+                return;
+            }
+            SQLclient.DownloadAllGames();
+            MessageBox.Show("Library metadata sucuessfully updated");
+        }
+
+        #endregion
+
+        #region About Tab
+
+        /// <summary>
+        /// Enter license button
+        /// </summary>
+        private void AboutTab_EnterLicenseButton_Click_1(object sender, EventArgs e)
+        {
+            //Create a new license entry info and validate the key
+            LicenseEntry le = new LicenseEntry()
+            {
+                Owner = this
+            };
+            le.ShowDialog();
+            label35.Text = "Licensed to: " + Program._userLicenseName;
+            label37.Text = "License Key: " + Program._userLicenseKey;
+
+            //Set the license text depending on if the key is valid
+            if (Program._validLicense)
+                label34.Text = "License Status: Full Version";
+            else
+                label34.Text = "License Status: INVALID";
         }
 
         #endregion
@@ -1417,6 +1417,9 @@ namespace UniCade
             return true;
         }
 
+        /// <summary>
+        /// Given the string value for an esrb rating, calculate and return the ESRB int value
+        /// </summary>
         public static int CalcEsrb(String esrb)
         {
             int EsrbNum = 0;
@@ -1436,7 +1439,10 @@ namespace UniCade
                 EsrbNum = 0;
             return EsrbNum;
         }
-
+        
+        /// <summary>
+        /// Refresh the current game info passed in as a Game object
+        /// </summary>
         public void RefreshGameInfo(Game game)
         {
             if (game == null)
