@@ -1530,7 +1530,7 @@ namespace UniCade
                 MessageBox.Show("Critic Score must be only digits");
             if (IsAllDigits(textBox12.Text))
             {
-                if (textBox12.TextLength < 2)
+                if (textBox12.TextLength > 2)
                     _curGame.Players = textBox17.Text;
                 else
                     MessageBox.Show("Players Invalid");
