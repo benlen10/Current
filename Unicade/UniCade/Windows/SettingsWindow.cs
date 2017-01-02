@@ -371,15 +371,6 @@ namespace UniCade
         }
 
         /// <summary>
-        /// Close the current SettingsWindow instance and return to the main GUI
-        /// </summary>
-        private void GamesTab_CloseButton_Click(object sender, EventArgs e)
-        {
-            MainWindow._settingsWindowActive = false;
-            Close();
-        }
-
-        /// <summary>
         /// Rescrape game info button.
         /// Rescrapes info the the specified game from the web
         /// </summary>
