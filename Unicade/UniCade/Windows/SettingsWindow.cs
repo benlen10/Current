@@ -76,6 +76,8 @@ namespace UniCade
             pictureBox6.Load(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png");
             pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox7.Load(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png");
+            pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox8.Load(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png");
 
             //Populate the 'Allowed ESRB' combo box with the specified rating
             if (_restrictESRB == 0)
