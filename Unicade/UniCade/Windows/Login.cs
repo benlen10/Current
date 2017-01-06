@@ -5,21 +5,23 @@ namespace UniCade
 {
     public partial class Login : Form
     {
+        #region Properties
+
         int type;
 
+        #endregion
+
+        /// <summary>
+        /// Public constructor for the login window
+        /// </summary>
         public Login(int type)
         {
             this.type = type;
             InitializeComponent();
         }
 
-        private void Login_Load(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
-        /// Close button
+        /// Close the current window instance
         /// </summary>
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -72,12 +74,9 @@ namespace UniCade
                         }
                         
                     }
-                    
                 }
                 MessageBox.Show(this, "User does not exist");
                 return;
-
-
             }
         }
     }
