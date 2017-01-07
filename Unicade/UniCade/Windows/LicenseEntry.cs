@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace UniCade
 {
     public partial class LicenseEntry : Form
     {
+        /// <summary>
+        /// Public constructor for the License Entry window
+        /// </summary>
         public LicenseEntry()
         {
             InitializeComponent();

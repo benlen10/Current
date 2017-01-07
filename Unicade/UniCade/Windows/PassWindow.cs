@@ -5,6 +5,9 @@ namespace UniCade
 {
     public partial class PassWindow : Form
     {
+        /// <summary>
+        /// Public constructor for the password window
+        /// </summary>
         public PassWindow()
         {
             InitializeComponent();
