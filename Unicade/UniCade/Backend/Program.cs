@@ -7,7 +7,7 @@ namespace UniCade
 {
     public class Program
     {
-        #region Global Variables
+        #region Properties
 
         public static string _databasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
         public static string _romPath = @"C:\UniCade\ROMS";
@@ -25,6 +25,9 @@ namespace UniCade
 
         [System.STAThreadAttribute]
 
+        /// <summary>
+        /// Entry point for the program
+        /// </summary>
         public static void Main(string[] args)
         {
             //Initialize the static database
@@ -91,6 +94,9 @@ namespace UniCade
             app.Run();
         }
 
+        /// <summary>
+        /// Display all game info fields in plain text format
+        /// </summary>
         public static string displayGameInfo(Game game)
         {
             string txt = "";
@@ -108,6 +114,11 @@ namespace UniCade
             return txt;
         }
 
+        /// <summary>
+        /// Hashes a string using SHA256 algorthim 
+        /// </summary>
+        /// <param name="data"> The input string to be hashed</param>
+        /// <returns>Hashed string using SHA256</returns>
         public static string SHA256Hash(string data)
         {
             if (data == null)
@@ -125,6 +136,9 @@ namespace UniCade
             return returnValue.ToString();
         }
 
+        /// <summary>
+        /// Return true if the input hash matches the stored hash data
+        /// </summary>
         public static bool ValidateSHA256(string input, string storedHashData)
         {
             string getHashInputData = SHA256Hash(input);
