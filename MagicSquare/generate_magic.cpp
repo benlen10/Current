@@ -17,7 +17,7 @@ void write_to_file(struct Square * square, char *filename);
 int main(int argc, char *argv[])
 {
 	//Check for bad input
-	if(argc<1){
+	if (argc < 1) {
 		return -1;
 	}
 
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 	int magicSize = get_square_size();
 
 	//Verify that the number entered is valid
-	if(magicSize<0){
+	if (magicSize < 0) {
 		return -1;
 	}
 
@@ -49,25 +49,35 @@ int get_square_size()
 	int magicSize = getchar();
 
 	//Verify that the number entered is greater than or equal to 3 and an odd number. Else return -1
-	if((magicSize>=3)  && (magicSize%2 != 0)){
-	return magicSize;
-	}else{
+	if ((magicSize >= 3) && (magicSize % 2 != 0)) {
+		return magicSize;
+	}
+	else {
 		return -1;
 	}
 }
 
 // generate_magic constructs a magic square of size n
 // using the Siamese algorithm and returns the Square struct
-Square * generate_magic(int n)
+Square * generate_magic(int size)
 {
-	//Create a new Square object
-	struct Square  * square = (Square*) malloc(sizeof(Square));
+	//Create a new Square object and allocate space for the array
+	struct Square  * square = (Square*)malloc(sizeof(Square));
+	square->array = (int**) malloc(size * size * sizeof(int));
+	square->size = size;
 
 	//Set all values to zero intitially 
-	memset(square->array, 0, sizeof(square->array));
+	int ** arr = square->array;
+	int row, col, curValue = 0;
+	for (row = 0; row < square->size; row++) {
+		for (col = 0; col < square->size; col++) {
+			*(*(arr + row) + col) = 0;
+		}
+	}
 
-	int row = n / 2;
-	int col = n - 1;
+	//Generate magic square values using the Siamese method
+	row = size / 2;
+	col = size - 1;
 
 	for (int n = 1; n <= n*n; )
 	{
@@ -78,15 +88,15 @@ Square * generate_magic(int n)
 		}
 		else
 		{
-			if (row < 0) {
-				row = n - 1;
-			}
-
 			if (col == n) {
 				col = 0;
 			}
+			if (row < 0) {
+				row = n - 1;
+			}
+			
 		}
-		if (*(*(square->array + row) + col))
+		if (*(*(square->array + row) + col) == 0)
 		{
 			col = col - 2;
 			row++;
@@ -96,10 +106,9 @@ Square * generate_magic(int n)
 			n++;
 			*(*(square->array + row) + col) = n;
 		}
-		  row--; 
-		  col++;
+		row--;
+		col++;
 	}
-
 	return square;
 }
 
@@ -124,5 +133,5 @@ void write_to_file(Square * square, char *filename)
 			char c = *(*(arr + row) + col);
 			fputc(c, file);
 		}
-	}			
+	}
 }
