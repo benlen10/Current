@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // Structure representing Square
 // size: dimension(number of rows/columns) of the square
 // array: 2D array of integers
-typedef struct _Square {
+typedef struct Square {
 	int size;
 	int **array;
 } Square;
@@ -24,9 +25,6 @@ int main(int argc, char *argv[])
 	char * filename = argv[0];
 
 	// Get size from user
-	puts("Enter size of magic square, must be odd");
-	char sz[2];
-	getc(sz);
 	int magicSize = get_square_size();
 
 	//Verify that the number entered is valid
@@ -48,9 +46,7 @@ int main(int argc, char *argv[])
 int get_square_size()
 {
 	puts("Enter size of magic square, must be odd");
-	char sz[2];
-	getc(sz);
-	int magicSize = (int) sz;
+	int magicSize = getchar();
 
 	//Verify that the number entered is greater than or equal to 3 and an odd number. Else return -1
 	if((magicSize>=3)  && (magicSize%2 != 0)){
@@ -64,7 +60,47 @@ int get_square_size()
 // using the Siamese algorithm and returns the Square struct
 Square * generate_magic(int n)
 {
-	return NULL;
+	//Create a new Square object
+	struct Square  * square = (Square*) malloc(sizeof(Square));
+
+	//Set all values to zero intitially 
+	memset(square->array, 0, sizeof(square->array));
+
+	int row = n / 2;
+	int col = n - 1;
+
+	for (int n = 1; n <= n*n; )
+	{
+		if (row == -1 && col == n)
+		{
+			col = n - 2;
+			row = 0;
+		}
+		else
+		{
+			if (row < 0) {
+				row = n - 1;
+			}
+
+			if (col == n) {
+				col = 0;
+			}
+		}
+		if (*(*(square->array + row) + col))
+		{
+			col = col - 2;
+			row++;
+			continue;
+		}
+		else {
+			n++;
+			*(*(square->array + row) + col) = n;
+		}
+		  row--; 
+		  col++;
+	}
+
+	return square;
 }
 
 // write_to_file opens up a new file(or overwrites the existing file)

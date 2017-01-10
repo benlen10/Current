@@ -52,16 +52,16 @@ Square * construct_square(char *filename)
 	int lineSize = (squareSize * 2) -1;   //Subtract 1 for missing comma
 
  	// Initialize a new Square struct of that size
-	struct Square square;  //malloc(sizeof(Square));
-	square.size = squareSize;    
+	struct Square * square = malloc(sizeof(Square));
+	square->size = squareSize;    
  	
 	 char * line = NULL;
-	 int ** arr = square.array;
+	 int ** arr = square->array;
 	int row, col, c, curValue = 0;
 	// Read the rest of the file to fill up the square
-	for (row =0; row<square.size; row++) {
+	for (row =0; row<square->size; row++) {
 		 getline(&line, lineSize, file);
-	for (col = 0; col<square.size; col++) {
+	for (col = 0; col<square->size; col++) {
 		if(line== ','){
 			line++;
 		}
