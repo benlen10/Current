@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 // Structure representing Square
 // size: dimension(number of rows/columns) of the square
 // array: 2D array of integers
@@ -13,7 +14,7 @@ typedef struct Square {
 Square * construct_square(char *filename);
 int verify_magic(struct Square * square);
 
-int main(int argc, char *argv[])
+int main1(int argc, char *argv[])
 {
 	//Check for bad input
 	if(argc<1){
@@ -46,23 +47,24 @@ Square * construct_square(char *filename)
 	
 	//Get the square size from the first line of the file
 	fgets (temp, 1, file);
-	int squareSize =  aoti(temp);
+	int squareSize =  atoi(temp);
 	
 	//Genreate line size based off square size
 	int lineSize = (squareSize * 2) -1;   //Subtract 1 for missing comma
 
  	// Initialize a new Square struct of that size
-	struct Square * square = malloc(sizeof(Square));
+	struct Square * square = (Square*) malloc(sizeof(Square));
 	square->size = squareSize;    
  	
 	 char * line = NULL;
 	 int ** arr = square->array;
-	int row, col, c, curValue = 0;
+	int row, col, curValue = 0;
+
 	// Read the rest of the file to fill up the square
 	for (row =0; row<square->size; row++) {
-		 getline(&line, lineSize, file);
+		fgets(line, lineSize, file);
 	for (col = 0; col<square->size; col++) {
-		if(line== ','){
+		if(*line == ','){
 			line++;
 		}
 		*(*(arr+row)+col) =  (int) *line;
