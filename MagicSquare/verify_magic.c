@@ -6,13 +6,13 @@
 // Structure representing Square
 // size: dimension(number of rows/columns) of the square
 // array: 2D array of integers
-typedef struct Square {
+typedef struct _Square {
 	int size;
-	int **array;
+	int array[100][100];  //int ** array
 } Square;
 
 Square * construct_square(char *filename);
-int verify_magic(struct Square * square);
+int verify_magic(Square * square);
 
 int main(int argc, char *argv[])
 {
@@ -42,45 +42,33 @@ Square * construct_square(char *filename)
 {
 
 	// Open and read the file
-	FILE *file = NULL;
-	fopen_s(&file, "C:\\magic.txt", "r");
-	char * temp = NULL;
+	FILE *file = fopen("magic.txt", "r");
 
 	//Get the square size from the first line of the file
 	int size = getc(file) - '0';
-	printf("SIZE: %d\n", size);
 
 	//Genreate line size based off square size
-	int lineSize = (size * 2);
+	int lineSize = (size * 2); 
 
 	// Initialize a new Square struct of that size
-	struct Square * square = (Square*)malloc(sizeof(Square));
-	square->array = (int**) malloc((size + 5) * sizeof(square->array) + ((size + 5) * (size * sizeof(*square->array))));
+	Square  * square = malloc(sizeof(Square));
+	//square->array = int[100][100]; //+ (size * (size * sizeof(*square->array))));
 	square->size = size;
 
-	char * line = (char*) malloc(sizeof(char)*(lineSize + 2));
+	char * line = (char*)malloc(sizeof(char)*100);
 	int row, col, curValue = 0;
 
 	// Read the rest of the file to fill up the square
-	fgets(line, lineSize, file); //Skip first line
-	printf("LINESIZE: %d\n", lineSize);
-	for (row = 0; row <= square->size; row++) {	
-		printf("\nOUTER\n");
-		//Generate int array
-		int num[100];
-		int i = 0;
-		line = fgets(line, lineSize, file);
-		while (*line && *line != '\n') {
+	fgets(line, lineSize, file);
+	for (row = 0; row < size; row++) {
+		fgets(line, 100, file);
+		for (col = 0; col < size; col++) {
 			if (*line == ',') {
 				line++;
 			}
-			printf("%c", *line);
-			num[i++] = (int)*line;
+			printf("\nROW: %d COL: %d VAL: %d\n", row, col,(*line - '0'));
+			square->array[row][col] =  (*line - '0');//*((square->array + row) + col) = *line - '0';
 			line++;
-		}
-		//end of generate int array
-		for (col = 0; col < square->size; col++) {
-			*(*(square->array + row) + col) = num[col];
 		}
 	}
 
@@ -90,28 +78,34 @@ Square * construct_square(char *filename)
 
 // verify_magic verifies if the square is a magic square
 // returns 1(true) or 0(false)
-int verify_magic(struct Square * square)
+int verify_magic(Square * square)
 {
 	// Check all all cols within each row are equal
+	printf("ROW CHECK\n");
 	int row, col, c, curSum, magicSum = 0;
 	for (row = 0; row < square->size; row++) {
 		curSum = 0;
 		for (col = 0; col < square->size; col++) {
-			c = *(*(square->array + row) + col);			
+			c = (int) square->array[row][col]; //*(*(&square->array + row) + col);	
+			printf("Row: %d Col: %d VAL: %d\n", row, col,c);		
 				curSum += c;
 			}
+			printf("FinalCurSum: %d\n", curSum);
 			if (magicSum == 0) {
 				magicSum = curSum;
+				printf("MAGICSUM: %d\n", magicSum);
 		}
 		else if(curSum!=magicSum){
 			return 0;
 		}
 	}
 	//check all all rows within each col are equal
+	printf("COL CHECK\n");
 	for (col = 0; col < square->size; col++) {
 		curSum = 0;
 		for (row = 0; row < square->size; row++) {
-			c = *(*(square->array + row) + col);			
+			c = (int) square->array[row][col];//*((square->array + row) + col);	
+			printf("Row: %d Col: %d VAL: %d\n", row, col,c);			
 				curSum += c;
 			}
 		if(curSum!=magicSum){
@@ -120,9 +114,11 @@ int verify_magic(struct Square * square)
 	}
 
 	// Check main diagonal
+	printf("MAIN DIAG CHECK\n");
 	curSum = 0;
 	for (row = 0, col = 0; row < square->size; row++, col++) {
-		c = *(*(square->array + row) + col);
+		c = (int) square->array[row][col]; //*((square->array + row) + col);
+		printf("Row: %d Col: %d VAL: %d\n", row, col,c);	
 		curSum += c;
 	}
 	if(curSum!=magicSum){
@@ -130,9 +126,11 @@ int verify_magic(struct Square * square)
 		}
 
 	// Check secondary diagonal
+	printf("SECONDARY DIAG CHECK\n");
 	curSum = 0;
-	for (row = square->size, col = 0; col < square->size; row--, col++) {
-		c = *(*(square->array + row) + col);
+	for (row = (square->size-1), col = 0; col < square->size; row--, col++) {
+		c = (int) square->array[row][col]; //*((square->array + row) + col);
+		printf("Row: %d Col: %d VAL: %d\n", row, col,c);	
 		curSum += c;
 	}
 	if(curSum!=magicSum){

@@ -1,22 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <iostream>
-#include <fstream>
 
 // Structure representing Square
 // size: dimension(number of rows/columns) of the square
 // array: 2D array of integers
-typedef struct Square {
+typedef struct _Square {
 	int size;
-	int **array;
+	int array[100][100];//int **array;
 } Square;
 
 int get_square_size();
 Square * generate_magic(int size);
-void write_to_file(struct Square * square, char *filename);
+void write_to_file(Square * square, char *filename);
+void printNum(int n, FILE * file);
 
-int main1(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	//Check for bad input
 	if (argc < 1) {
@@ -52,15 +51,20 @@ int main1(int argc, char *argv[])
 int get_square_size()
 {
 	puts("Enter size of magic square, must be odd");
-	int magicSize = getchar();
-	magicSize -= 48;
+	char * imp = malloc(sizeof(char) * 10);
+	gets(imp);
+	int magicSize = atoi(imp);
 
-
+	if ((magicSize > 99)) {
+		printf("ERROR: Size must be < 100\n");
+		return -1;
+	}
 	//Verify that the number entered is greater than or equal to 3 and an odd number. Else return -1
 	if ((magicSize >= 3) && (magicSize % 2 != 0)) {
 		return magicSize;
 	}
 	else {
+		printf("ERROR: Size must be >= 3 and an odd number\n");
 		return -1;
 	}
 }
@@ -69,44 +73,42 @@ int get_square_size()
 // using the Siamese algorithm and returns the Square struct
 Square * generate_magic(int size)
 {
-	printf("SIZE: %d\n", size);
 	//Create a new Square object and allocate space for the array
-	struct Square  * square = (Square*)malloc(sizeof(Square));
-	square->array = (int**) malloc((size +5) * sizeof(square->array) + (size * ((size + 5) * sizeof(*square->array))));
+	Square  * square = malloc(sizeof(Square));
+	//square->array = (int**) malloc(size * sizeof(square->array) + (size * (size * sizeof(*square->array))));
 	square->size = size;
 
 	//Set all values to zero intitially 
 	int row, col, curValue = 0;
 	for (row = 0; row < size; row++) {
-		printf("%s", "\nOUTER\n");
 		for (col = 0; col < size; col++) {
-			printf("ROW: %d COL: %d\n", row, col);
-			*(*(square->array + row) + col) = 0;
+			square->array[row][col] = 0;//*((square->array + row) + col) = 0;
 		}
 	}
 
 	//Generate magic square values using the Siamese method
-	row = size / 2;
-	col = size - 1;
+	int n = 1;
+	int max = size*size;
+	row = size / 2; 
+	col = size - 1; 
 
-	for (int n = 1; n <= size*size; )
+	while (n <= max)
 	{
-		if (row == -1 && col == n)
+		if (row == -1 && col == size)
 		{
-			col = n - 2;
+			col = size - 2;
 			row = 0;
 		}
 		else
 		{
-			if (col == n) {
+			if (col == size) {
 				col = 0;
 			}
 			if (row < 0) {
-				row = n - 1;
-			}
-			
+				row = size - 1;
+			}			
 		}
-		if (*(*(square->array + row) + col) == 0)
+		if(square->array[row][col]) //if (*(*(square->array + row) + col) == 0)
 		{
 			col = col - 2;
 			row++;
@@ -114,11 +116,10 @@ Square * generate_magic(int size)
 		}
 		else {
 			n++;
-			*(*(square->array + row) + col) = n;
+			square->array[row][col] = n;//*(*(square->array + row) + col) = n;
 		}
 		row--;
 		col++;
-		printf("LOOP\n");
 	}
 	return square;
 }
@@ -128,24 +129,40 @@ Square * generate_magic(int size)
 void write_to_file(Square * square, char *filename)
 {
 	//Create a new file with the specfied or overwrite the existing file
-	//FILE * file = fopen("magic.txt", "w");
-	std::ofstream file;
-	file.open("example.txt");
+	FILE * file = fopen("magicWrite.txt", "w+");
 
 	//Write the square size as the first line of the file
 	//printf("SIZE: %c", sz);
 	int sz = (square->size + '0');
-	file << sz;
+	fputc(sz,file);
 
 	int row, col, curValue = 0;
 	for (row = 0; row < square->size; row++) {
-		file << '\n'; //fputc((int) '\n', file);
+		fputc( '\n', file);
 		for (col = 0; col < square->size; col++) {
 			if (col > 0) {
-				file << ','; //
+				fputc(',',file);
 			}
-			char c = *(*(square->array + row) + col);
-			file << c; //fputc(c, file);
+			int num = square->array[row][col];
+			//printf("ROW: %d COL: %d VAL: %d\n", row, col, tmp);
+			char c = ' ';
+			if(num<10){
+			c = (square->array[row][col] + '0'); //*(*(square->array + row) + col);
+			fputc(c, file);
+			}
+			else{
+				printNum(num, file);
+			}
+			
 		}
 	}
+}
+
+void printNum(int n, FILE * file){
+	//Base case
+	if(n<1){
+		return;
+	}
+	printNum( n/10, file);
+	fputc(((n%10) + '0'), file);
 }
