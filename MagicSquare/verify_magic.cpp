@@ -14,7 +14,7 @@ typedef struct Square {
 Square * construct_square(char *filename);
 int verify_magic(struct Square * square);
 
-int main1(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	//Check for bad input
 	if (argc < 1) {
@@ -42,33 +42,45 @@ Square * construct_square(char *filename)
 {
 
 	// Open and read the file
-	FILE *file = fopen(filename, "r");
+	FILE *file = NULL;
+	fopen_s(&file, "C:\\magic.txt", "r");
 	char * temp = NULL;
 
 	//Get the square size from the first line of the file
-	fgets(temp, 1, file);
-	int squareSize = atoi(temp);
+	int size = getc(file) - '0';
+	printf("SIZE: %d\n", size);
 
 	//Genreate line size based off square size
-	int lineSize = (squareSize * 2) - 1;   //Subtract 1 for missing comma
+	int lineSize = (size * 2);
 
 	// Initialize a new Square struct of that size
 	struct Square * square = (Square*)malloc(sizeof(Square));
-	square->size = squareSize;
+	square->array = (int**) malloc((size + 5) * sizeof(square->array) + ((size + 5) * (size * sizeof(*square->array))));
+	square->size = size;
 
-	char * line = NULL;
-	int ** arr = square->array;
+	char * line = (char*) malloc(sizeof(char)*(lineSize + 2));
 	int row, col, curValue = 0;
 
 	// Read the rest of the file to fill up the square
-	for (row = 0; row < square->size; row++) {
-		fgets(line, lineSize, file);
-		for (col = 0; col < square->size; col++) {
+	fgets(line, lineSize, file); //Skip first line
+	printf("LINESIZE: %d\n", lineSize);
+	for (row = 0; row <= square->size; row++) {	
+		printf("\nOUTER\n");
+		//Generate int array
+		int num[100];
+		int i = 0;
+		line = fgets(line, lineSize, file);
+		while (*line && *line != '\n') {
 			if (*line == ',') {
 				line++;
 			}
-			*(*(arr + row) + col) = (int)*line;
+			printf("%c", *line);
+			num[i++] = (int)*line;
 			line++;
+		}
+		//end of generate int array
+		for (col = 0; col < square->size; col++) {
+			*(*(square->array + row) + col) = num[col];
 		}
 	}
 
@@ -80,36 +92,52 @@ Square * construct_square(char *filename)
 // returns 1(true) or 0(false)
 int verify_magic(struct Square * square)
 {
-	int ** arr = square->array;
 	// Check all all cols within each row are equal
-	int row, col, c, curValue = 0;
+	int row, col, c, curSum, magicSum = 0;
 	for (row = 0; row < square->size; row++) {
+		curSum = 0;
 		for (col = 0; col < square->size; col++) {
-			c = *(*(arr + row) + col);
-			if (curValue == 0) {
-				curValue = c;
+			c = *(*(square->array + row) + col);			
+				curSum += c;
 			}
-			else if
-				(c != curValue)
-				return 0;
+			if (magicSum == 0) {
+				magicSum = curSum;
+		}
+		else if(curSum!=magicSum){
+			return 0;
 		}
 	}
-
 	//check all all rows within each col are equal
+	for (col = 0; col < square->size; col++) {
+		curSum = 0;
+		for (row = 0; row < square->size; row++) {
+			c = *(*(square->array + row) + col);			
+				curSum += c;
+			}
+		if(curSum!=magicSum){
+			return 0;
+		}
+	}
 
 	// Check main diagonal
+	curSum = 0;
 	for (row = 0, col = 0; row < square->size; row++, col++) {
-		c = *(*(arr + row) + col);
-		if (curValue == 0) {
-			curValue = c;
-		}
-		else if
-			(c != curValue)
-			return 0;
+		c = *(*(square->array + row) + col);
+		curSum += c;
 	}
-
+	if(curSum!=magicSum){
+			return 0;
+		}
 
 	// Check secondary diagonal
+	curSum = 0;
+	for (row = square->size, col = 0; col < square->size; row--, col++) {
+		c = *(*(square->array + row) + col);
+		curSum += c;
+	}
+	if(curSum!=magicSum){
+			return 0;
+		}
 
 	//Return true value if all checks have passed
 	return 1;
