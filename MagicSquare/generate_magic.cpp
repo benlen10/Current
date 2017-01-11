@@ -63,15 +63,16 @@ Square * generate_magic(int size)
 {
 	//Create a new Square object and allocate space for the array
 	struct Square  * square = (Square*)malloc(sizeof(Square));
-	square->array = (int**) malloc(size * size * sizeof(int));
+	square->array = (int**) malloc(1000 * sizeof(int) + size * sizeof * square->array + (size * (size * sizeof **square->array)));
 	square->size = size;
 
 	//Set all values to zero intitially 
-	int ** arr = square->array;
 	int row, col, curValue = 0;
 	for (row = 0; row < square->size; row++) {
+		printf("%s", "INNER\n");
 		for (col = 0; col < square->size; col++) {
-			*(*(arr + row) + col) = 0;
+			printf("%s", "INNER");
+			*(*(square->array + row) + col) = 0;
 		}
 	}
 
