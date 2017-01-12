@@ -102,13 +102,13 @@ int verify_magic(Square * square)
 		curSum = 0;
 		for (col = 0; col < square->size; col++) {
 			c = (int) square->array[row][col]; //*(*(&square->array + row) + col);	
-			printf("Row: %d Col: %d VAL: %d\n", row, col,c);		
+			//printf("Row: %d Col: %d VAL: %d\n", row, col,c);		
 				curSum += c;
 			}
-			printf("FinalCurSum: %d\n", curSum);
+			//printf("FinalCurSum: %d\n", curSum);
 			if (magicSum == 0) {
 				magicSum = curSum;
-				printf("MAGICSUM: %d\n", magicSum);
+				//printf("MAGICSUM: %d\n", magicSum);
 		}
 		else if(curSum!=magicSum){
 			return 0;
@@ -120,7 +120,7 @@ int verify_magic(Square * square)
 		curSum = 0;
 		for (row = 0; row < square->size; row++) {
 			c = (int) square->array[row][col];//*((square->array + row) + col);	
-			printf("Row: %d Col: %d VAL: %d\n", row, col,c);			
+			//printf("Row: %d Col: %d VAL: %d\n", row, col,c);			
 				curSum += c;
 			}
 		if(curSum!=magicSum){
@@ -133,7 +133,7 @@ int verify_magic(Square * square)
 	curSum = 0;
 	for (row = 0, col = 0; row < square->size; row++, col++) {
 		c = (int) square->array[row][col]; //*((square->array + row) + col);
-		printf("Row: %d Col: %d VAL: %d\n", row, col,c);	
+		//printf("Row: %d Col: %d VAL: %d\n", row, col,c);	
 		curSum += c;
 	}
 	if(curSum!=magicSum){
@@ -145,7 +145,7 @@ int verify_magic(Square * square)
 	curSum = 0;
 	for (row = (square->size-1), col = 0; col < square->size; row--, col++) {
 		c = (int) square->array[row][col]; //*((square->array + row) + col);
-		printf("Row: %d Col: %d VAL: %d\n", row, col,c);	
+		//printf("Row: %d Col: %d VAL: %d\n", row, col,c);	
 		curSum += c;
 	}
 	if(curSum!=magicSum){
