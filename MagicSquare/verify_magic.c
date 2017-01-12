@@ -43,7 +43,7 @@ Square * construct_square(char *filename)
 
 	// Open and read the file
 	FILE *file = fopen("magic.txt", "r");
-
+	
 	//Get the square size from the first line of the file
 	int size = getc(file) - '0';
 
@@ -55,19 +55,34 @@ Square * construct_square(char *filename)
 	//square->array = int[100][100]; //+ (size * (size * sizeof(*square->array))));
 	square->size = size;
 
-	char * line = (char*)malloc(sizeof(char)*100);
-	int row, col, curValue = 0;
+	char * line = (char*)malloc(sizeof(char)*1000);
+	int row, col,x, curValue = 0;
 
 	// Read the rest of the file to fill up the square
 	fgets(line, lineSize, file);
 	for (row = 0; row < size; row++) {
-		fgets(line, 100, file);
+		fgets(line, 1000, file);
 		for (col = 0; col < size; col++) {
 			if (*line == ',') {
 				line++;
 			}
-			printf("\nROW: %d COL: %d VAL: %d\n", row, col,(*line - '0'));
+			//Handle single digit numbers
+			if(*(line + 1) == ',' || ((*(line + 1) - '0')<0) || ((*(line + 1) - '0')>9)){
+				printf("ROW: %d COL: %d VAL: %d\n", row, col,(*line - '0'));
 			square->array[row][col] =  (*line - '0');//*((square->array + row) + col) = *line - '0';
+			}
+			else{
+			//Handle numbers >10
+			char digits[20];
+			x=0;
+			while((((*(line) - '0')>=0) && ((*(line) - '0')<=9))){
+				digits[x++] = *line;	
+				line++;
+			}
+			digits[x] = '\0';
+			square->array[row][col] = atoi(digits);
+			printf("ROW: %d COL: %d VAL: %d\n", row, col,atoi(digits));
+			}
 			line++;
 		}
 	}
@@ -81,7 +96,7 @@ Square * construct_square(char *filename)
 int verify_magic(Square * square)
 {
 	// Check all all cols within each row are equal
-	printf("ROW CHECK\n");
+	printf("\n\n\n\n\n\n\nROW CHECK\n");
 	int row, col, c, curSum, magicSum = 0;
 	for (row = 0; row < square->size; row++) {
 		curSum = 0;
