@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Check input arguments to get filename	
-	char * filename = argv[0];
+	char * filename = argv[1];
 	if (strlen(filename) < 4) {
 		return -1;
 	}
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 	Square * square = generate_magic(magicSize);
 
 	// Write the square to the output file
-	write_to_file(square, "temp");
+	write_to_file(square, filename);
 	return 0;
 }
 
@@ -79,7 +79,7 @@ Square * generate_magic(int size)
 	for(int a = 0; a<size; a++){
 		*(square->array + a) =  malloc((size*2) * sizeof(int));
 	}
-	
+
 	//Set all values to zero intitially 
 	int row, col, curValue = 0;
 	for (row = 0; row < size; row++) {
@@ -130,7 +130,7 @@ Square * generate_magic(int size)
 void write_to_file(Square * square, char *filename)
 {
 	//Create a new file with the specfied or overwrite the existing file
-	FILE * file = fopen("magicWrite.txt", "w+");
+	FILE * file = fopen(filename, "w+");
 
 	//Write the square size as the first line of the file
 	int sz = (square->size + '0');
@@ -157,7 +157,7 @@ void write_to_file(Square * square, char *filename)
 	}
 	//Free square memory
 	int size = square->size;
-	for(int a = 0; a<size; a++){
+	for(int a = 0; a<size-1; a++){
 		free(*(square->array + a));
 	}
 	free(square->array);

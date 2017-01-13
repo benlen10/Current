@@ -2,13 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 // Structure representing Square
 // size: dimension(number of rows/columns) of the square
 // array: 2D array of integers
 typedef struct _Square {
 	int size;
-	int array[100][100];  //int ** array
+	int ** array;
 } Square;
 
 Square * construct_square(char *filename);
@@ -16,7 +15,7 @@ int verify_magic(Square * square);
 
 int main(int argc, char *argv[])
 {
-	//Check for bad input
+	//Check for invalid input
 	if (argc < 1) {
 		return -1;
 	}
@@ -31,7 +30,6 @@ int main(int argc, char *argv[])
 	else {
 		puts("false\n");
 	}
-
 	return 0;
 }
 
@@ -40,7 +38,6 @@ int main(int argc, char *argv[])
 // The format of the file is defined in the assignment specifications
 Square * construct_square(char *filename)
 {
-
 	// Open and read the file
 	FILE *file = fopen("magic.txt", "r");
 	
@@ -50,12 +47,15 @@ Square * construct_square(char *filename)
 	//Genreate line size based off square size
 	int lineSize = (size * 2); 
 
-	// Initialize a new Square struct of that size
+	//Create a new Square object and dynamically allocate space for the array in the heap
 	Square  * square = malloc(sizeof(Square));
-	//square->array = int[100][100]; //+ (size * (size * sizeof(*square->array))));
 	square->size = size;
+	square->array = malloc((size*2) * sizeof(int)); 
+	for(int a = 0; a<size; a++){
+		*(square->array + a) =  malloc((size*2) * sizeof(int));
+	}
 
-	char * line = (char*)malloc(sizeof(char)*1000);
+	char * line = malloc(sizeof(char) * 1000);  //Handle square sizes up to 99
 	int row, col,x, curValue = 0;
 
 	// Read the rest of the file to fill up the square
@@ -68,11 +68,9 @@ Square * construct_square(char *filename)
 			}
 			//Handle single digit numbers
 			if(*(line + 1) == ',' || ((*(line + 1) - '0')<0) || ((*(line + 1) - '0')>9)){
-				printf("ROW: %d COL: %d VAL: %d\n", row, col,(*line - '0'));
-			square->array[row][col] =  (*line - '0');//*((square->array + row) + col) = *line - '0';
+			*(*(square->array + row) + col) =  (*line - '0');
 			}
-			else{
-			//Handle numbers >10
+			else{ //Handle numbers >10
 			char digits[20];
 			x=0;
 			while((((*(line) - '0')>=0) && ((*(line) - '0')<=9))){
@@ -80,8 +78,7 @@ Square * construct_square(char *filename)
 				line++;
 			}
 			digits[x] = '\0';
-			square->array[row][col] = atoi(digits);
-			printf("ROW: %d COL: %d VAL: %d\n", row, col,atoi(digits));
+			*(*(square->array + row) + col) = atoi(digits);
 			}
 			line++;
 		}
@@ -96,31 +93,26 @@ Square * construct_square(char *filename)
 int verify_magic(Square * square)
 {
 	// Check all all cols within each row are equal
-	printf("\n\n\n\n\n\n\nROW CHECK\n");
 	int row, col, c, curSum, magicSum = 0;
 	for (row = 0; row < square->size; row++) {
 		curSum = 0;
 		for (col = 0; col < square->size; col++) {
-			c = (int) square->array[row][col]; //*(*(&square->array + row) + col);	
-			//printf("Row: %d Col: %d VAL: %d\n", row, col,c);		
+			c = *(*(square->array + row) + col);		
 				curSum += c;
 			}
-			//printf("FinalCurSum: %d\n", curSum);
 			if (magicSum == 0) {
 				magicSum = curSum;
-				//printf("MAGICSUM: %d\n", magicSum);
 		}
 		else if(curSum!=magicSum){
 			return 0;
 		}
 	}
+	
 	//check all all rows within each col are equal
-	printf("COL CHECK\n");
 	for (col = 0; col < square->size; col++) {
 		curSum = 0;
 		for (row = 0; row < square->size; row++) {
-			c = (int) square->array[row][col];//*((square->array + row) + col);	
-			//printf("Row: %d Col: %d VAL: %d\n", row, col,c);			
+			c = *(*(square->array + row) + col);	
 				curSum += c;
 			}
 		if(curSum!=magicSum){
@@ -129,11 +121,9 @@ int verify_magic(Square * square)
 	}
 
 	// Check main diagonal
-	printf("MAIN DIAG CHECK\n");
 	curSum = 0;
 	for (row = 0, col = 0; row < square->size; row++, col++) {
-		c = (int) square->array[row][col]; //*((square->array + row) + col);
-		//printf("Row: %d Col: %d VAL: %d\n", row, col,c);	
+		c = *(*(square->array + row) + col);
 		curSum += c;
 	}
 	if(curSum!=magicSum){
@@ -141,16 +131,22 @@ int verify_magic(Square * square)
 		}
 
 	// Check secondary diagonal
-	printf("SECONDARY DIAG CHECK\n");
 	curSum = 0;
 	for (row = (square->size-1), col = 0; col < square->size; row--, col++) {
-		c = (int) square->array[row][col]; //*((square->array + row) + col);
-		//printf("Row: %d Col: %d VAL: %d\n", row, col,c);	
+		c = *(*(square->array + row) + col);
 		curSum += c;
 	}
 	if(curSum!=magicSum){
 			return 0;
 		}
+		
+	//Free square memory
+	int size = square->size;
+	for(int a = 0; a<size -1; a++){
+		free(*(square->array + a));
+	}
+	free(square->array);
+	free(square);
 
 	//Return true value if all checks have passed
 	return 1;
