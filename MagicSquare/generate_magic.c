@@ -7,23 +7,22 @@
 // array: 2D array of integers
 typedef struct _Square {
 	int size;
-	int array[100][100];//int **array;
+	int **array; 
 } Square;
 
 int get_square_size();
 Square * generate_magic(int size);
 void write_to_file(Square * square, char *filename);
-void printNum(int n, FILE * file);
+void printNum(int n, FILE * file);  //Custom helper function
 
 int main(int argc, char *argv[])
 {
-	//Check for bad input
+	//Check for invalid input
 	if (argc < 1) {
 		return -1;
 	}
 
-	// Check input arguments to get filename
-	
+	// Check input arguments to get filename	
 	char * filename = argv[0];
 	if (strlen(filename) < 4) {
 		return -1;
@@ -42,7 +41,6 @@ int main(int argc, char *argv[])
 
 	// Write the square to the output file
 	write_to_file(square, "temp");
-
 	return 0;
 }
 
@@ -54,6 +52,7 @@ int get_square_size()
 	char * imp = malloc(sizeof(char) * 10);
 	gets(imp);
 	int magicSize = atoi(imp);
+	free(imp);
 
 	if ((magicSize > 99)) {
 		printf("ERROR: Size must be < 100\n");
@@ -73,19 +72,21 @@ int get_square_size()
 // using the Siamese algorithm and returns the Square struct
 Square * generate_magic(int size)
 {
-	//Create a new Square object and allocate space for the array
+	//Create a new Square object and dynamically allocate space for the array in the heap
 	Square  * square = malloc(sizeof(Square));
-	//square->array = (int**) malloc(size * sizeof(square->array) + (size * (size * sizeof(*square->array))));
 	square->size = size;
-
+	square->array = malloc((size*2) * sizeof(int));  //(size*2) is essential to support square sizes up to 99
+	for(int a = 0; a<size; a++){
+		*(square->array + a) =  malloc((size*2) * sizeof(int));
+	}
+	
 	//Set all values to zero intitially 
 	int row, col, curValue = 0;
 	for (row = 0; row < size; row++) {
 		for (col = 0; col < size; col++) {
-			square->array[row][col] = 0;//*((square->array + row) + col) = 0;
+			*(*(square->array + row) + col) = 0;
 		}
 	}
-
 	//Generate magic square values using the Siamese method
 	int n = 1;
 	int max = size*size;
@@ -108,7 +109,7 @@ Square * generate_magic(int size)
 				row = size - 1;
 			}			
 		}
-		if(square->array[row][col]) //if (*(*(square->array + row) + col) == 0)
+		if(*(*(square->array + row) + col))
 		{
 			col = col - 2;
 			row++;
@@ -116,7 +117,7 @@ Square * generate_magic(int size)
 		}
 		else {
 			n++;
-			square->array[row][col] = n;//*(*(square->array + row) + col) = n;
+			*(*(square->array + row) + col) = n;
 		}
 		row--;
 		col++;
@@ -132,7 +133,6 @@ void write_to_file(Square * square, char *filename)
 	FILE * file = fopen("magicWrite.txt", "w+");
 
 	//Write the square size as the first line of the file
-	//printf("SIZE: %c", sz);
 	int sz = (square->size + '0');
 	fputc(sz,file);
 
@@ -143,11 +143,10 @@ void write_to_file(Square * square, char *filename)
 			if (col > 0) {
 				fputc(',',file);
 			}
-			int num = square->array[row][col];
-			//printf("ROW: %d COL: %d VAL: %d\n", row, col, tmp);
+			int num = *(*(square->array + row) + col);
 			char c = ' ';
 			if(num<10){
-			c = (square->array[row][col] + '0'); //*(*(square->array + row) + col);
+			c = (num + '0');
 			fputc(c, file);
 			}
 			else{
@@ -156,6 +155,14 @@ void write_to_file(Square * square, char *filename)
 			
 		}
 	}
+	//Free square memory
+	int size = square->size;
+	for(int a = 0; a<size; a++){
+		free(*(square->array + a));
+	}
+	free(square->array);
+	free(square);
+	return;
 }
 
 void printNum(int n, FILE * file){
