@@ -25,7 +25,12 @@ int verify_magic(Square * square);
 int main(int argc, char *argv[])
 {
 	//Check for invalid input
-	if (argc < 1) {
+	if (argc != 2 ) {
+		printf("FATAL ERROR: Invalid argument count\n");
+		return -1;
+	}
+	if(strlen(*(argv+1))>1000){
+		printf("FATAL ERROR: Filename exceeds max length\n");
 		return -1;
 	}
 
@@ -33,12 +38,17 @@ int main(int argc, char *argv[])
 	char * filename = *(argv+1);
 	Square * square = construct_square(filename);
 
+	if(square == NULL){
+		printf("false\n");
+		return -1; //IF construct_square returns an error value, print false and exit program	
+	}
+
 	// Verify if it's a magic square and print true or false
 	if (verify_magic(square) == 1) {
-		puts("true\n");
+		printf("true\n");
 	}
 	else {
-		puts("false\n");
+		printf("false\n");
 	}
 	return 0;
 }
@@ -50,9 +60,25 @@ Square * construct_square(char *filename)
 {
 	// Open and read the file
 	FILE *file = fopen(filename, "r");
+
+	if(file == NULL){
+		printf("FATAL ERROR: File Not Found\n");
+		return NULL;
+	}
 	
-	//Get the square size from the first line of the file
-	int size = getc(file) - '0';
+	//Declare a temporary variable that will store the raw chars from each line from the input file	
+ 	char * line = malloc(sizeof(char) * 1000); 
+	int size = 0;  //Size of the magic square
+
+	//Get the square size from the first line of the file (Max supported square size = 99)
+	fgets(line, 3, file);
+	size  = atoi(line); //Handle multi digit square sizes > 9
+
+	//Check for invalid square sizes
+	if((size%2==0)||size<1||size>99){
+		fprintf(stderr, "FATAL ERROR: Invalid magic square size\n");
+		return NULL;
+	}
 
 	//Genreate line size based off square size
 	int lineSize = (size * 2); 
@@ -67,17 +93,22 @@ Square * construct_square(char *filename)
 		*(square->array + a) =  malloc((size*2) * sizeof(int));
 	}
 
-	char * line = malloc(sizeof(char) * 1000);  //Declare a temporary variable that will store the raw chars from each line from the input file
 	int row, col,x;  //Declare temp variables for use within the loops. Var x tracks the position of multi digit numbers > 10
 
 	// Read the rest of the file to fill up the square
-	fgets(line, lineSize, file);
+	fgets(line, 1000, file);
 	for (row = 0; row < size; row++) {
 		fgets(line, 1000, file);
 		for (col = 0; col < size; col++) {
-			if (*line == ',') {
+			if (*line == ',') { //Skip over any commas
 				line++;
 			}
+			//Check for invalid chars (including a duplicate comma) after skipping a comma
+			if(((*line) - '0')<0 || ((*line) - '0')>9){
+				printf("FATAL ERROR: File contains invalid char\n");
+				return NULL;
+			}
+
 			//Handle single digit numbers
 			if(*(line + 1) == ',' || ((*(line + 1) - '0')<0) || ((*(line + 1) - '0')>9)){
 				*(*(square->array + row) + col) =  (*line - '0');
@@ -86,6 +117,11 @@ Square * construct_square(char *filename)
 				char * digits = malloc(sizeof(char) * 20); //Allocate space for square sizes up to 99
 				x=0;
 				while((((*(line) - '0')>=0) && ((*(line) - '0')<=9))){
+					//Check for invalid chars when parsing multi digit numbers
+					if((*line - '0')<0 || (*line - '0')>9){
+						printf("FATAL ERROR: File contains invalid char\n");
+						return NULL;
+					}
 					*(digits + x) = *line;	
 					x++;
 					line++;

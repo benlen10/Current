@@ -27,15 +27,17 @@ void printNum(int n, FILE * file);  //Custom helper function
 int main(int argc, char *argv[])
 {
 	//Check for invalid input
-	if (argc < 1) {
+	if (argc != 2 ) {
+		printf("FATAL ERROR: Invalid argument count\n");
+		return -1;
+	}
+	if(strlen(*(argv+1))>1000){
+		printf("FATAL ERROR: Filename exceeds max length\n");
 		return -1;
 	}
 
 	// Check input arguments to get filename	
 	char * filename = *(argv+1);
-	if (strlen(filename) < 4) {
-		return -1;
-	}
 
 	// Get size from user
 	int magicSize = get_square_size();
@@ -57,9 +59,9 @@ int main(int argc, char *argv[])
 // checks if it is an odd number >= 3 and returns the number
 int get_square_size()
 {
-	puts("Enter size of magic square, must be odd");
+	printf("Enter size of magic square, must be odd");
 	char * imp = malloc(sizeof(char) * 10);
-	gets(imp);
+	fgets(imp, 3, stdin); //Read numbers up to 99. Three digits numbers will be trimmed to 2 digits
 	int magicSize = atoi(imp);
 	free(imp);
 
@@ -79,6 +81,7 @@ int get_square_size()
 
 // generate_magic constructs a magic square of size n
 // using the Siamese algorithm and returns the Square struct
+//Param: size = specifies the size of magic square to generate
 Square * generate_magic(int size)
 {
 	//Create a new Square object and dynamically allocate space for the array in the heap
@@ -90,7 +93,7 @@ Square * generate_magic(int size)
 	}
 
 	//Set all values to zero intitially 
-	int row, col, curValue = 0;
+	int row, col;
 	for (row = 0; row < size; row++) {
 		for (col = 0; col < size; col++) {
 			*(*(square->array + row) + col) = 0;
@@ -136,16 +139,28 @@ Square * generate_magic(int size)
 
 // write_to_file opens up a new file(or overwrites the existing file)
 // and writes out the square in the format expected by verify_magic.c
+//Param: square = The square stuct to write to the output file
+//Param: filename = specifies the filename to save the square too
 void write_to_file(Square * square, char *filename)
 {
 	//Create a new file with the specfied or overwrite the existing file
 	FILE * file = fopen(filename, "w+");
 
+	if(file == NULL){
+		printf("FATAL ERROR: File Not Found\n");
+		return;
+	}
+
 	//Write the square size as the first line of the file
+	if(square->size<10){
 	int sz = (square->size + '0');
 	fputc(sz,file);
+	}
+	else{  //Handle multi digit numbers
+		printNum(square->size, file);
+	}
 
-	int row, col, curValue = 0;
+	int row, col;
 	for (row = 0; row < square->size; row++) {
 		fputc( '\n', file);
 		for (col = 0; col < square->size; col++) {
@@ -164,6 +179,7 @@ void write_to_file(Square * square, char *filename)
 			
 		}
 	}
+
 	//Free square memory
 	int size = square->size;
 	for(int a = 0; a<size-1; a++){
@@ -174,6 +190,9 @@ void write_to_file(Square * square, char *filename)
 	return;
 }
 
+//This recursive helper function will print a multi digit int value to the specified output file
+//Param: n = the int value to print to the output file
+//Param: file = The output file reference to print to
 void printNum(int n, FILE * file){
 	//Base case
 	if(n<1){
