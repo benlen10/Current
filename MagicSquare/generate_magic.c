@@ -1,3 +1,12 @@
+// Main File:        generate_magic.c
+// This File:        generate_magic.c
+// Other Files:      
+// Semester:         CS 354 Fall 2016
+//
+// Author:           Benjamin Lenington
+// Email:            lenington@wisc.edu
+// CS Login:         lenington
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,7 +32,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Check input arguments to get filename	
-	char * filename = argv[1];
+	char * filename = *(argv+1);
 	if (strlen(filename) < 4) {
 		return -1;
 	}
