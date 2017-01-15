@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 // checks if it is an odd number >= 3 and returns the number
 int get_square_size()
 {
-	printf("Enter size of magic square, must be odd");
+	printf("Enter size of magic square, must be odd\n");
 	char * imp = malloc(sizeof(char) * 10);
 	fgets(imp, 3, stdin); //Read numbers up to 99. Three digits numbers will be trimmed to 2 digits
 	int magicSize = atoi(imp);
@@ -74,7 +74,7 @@ int get_square_size()
 		return magicSize;
 	}
 	else {
-		printf("ERROR: Size must be >= 3 and an odd number\n");
+		printf("Size must be an odd number >= 3.\n");
 		return -1;
 	}
 }
@@ -92,32 +92,33 @@ Square * generate_magic(int size)
 		*(square->array + a) =  malloc((size*2) * sizeof(int));
 	}
 
-	//Set all values to zero intitially 
+	//Set all matrix values to zero intitially  
 	int row, col;
 	for (row = 0; row < size; row++) {
 		for (col = 0; col < size; col++) {
 			*(*(square->array + row) + col) = 0;
 		}
 	}
-	//Generate magic square values using the Siamese method
+	//Generate magic square values using the Siamese method (Based upon Wikipedia algorithm)
 	int n = 1;
 	int max = size*size;
 	row = size / 2; 
 	col = size - 1; 
 
-	while (n <= max)
+	while (n <= max)// Loop while cur value is less that the magic square size^2
 	{
-		if (row == -1 && col == size)
+		if (row == -1 && col == size)  
 		{
+			//Adjust row and col counters if you hit a corner of the matrix
 			col = size - 2;
 			row = 0;
 		}
 		else
 		{
-			if (col == size) {
+			if (col == size) {  //Reset col position if you've hit the end of the matrix
 				col = 0;
 			}
-			if (row < 0) {
+			if (row < 0) {  //Jump to the last row of the matrix if the col counter is negative
 				row = size - 1;
 			}			
 		}
@@ -125,13 +126,14 @@ Square * generate_magic(int size)
 		{
 			col = col - 2;
 			row++;
-			continue;
+			continue;  //After incrementing row, skip to the next oop iteration
 		}
 		else {
 			n++;
-			*(*(square->array + row) + col) = n;
+			//If the matrix value is not currently set set to the cur n value after incrementing n
+			*(*(square->array + row) + col) = n;  
 		}
-		row--;
+		row--; //Iterate diagionally through matrix
 		col++;
 	}
 	return square;
