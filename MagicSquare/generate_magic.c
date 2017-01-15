@@ -61,6 +61,10 @@ int get_square_size()
 {
 	printf("Enter size of magic square, must be odd\n");
 	char * imp = malloc(sizeof(char) * 10);
+	if(imp == NULL){
+		printf("FATAL ERROR: Malloc failed to allocate memory\n");
+		return -1;
+	}
 	fgets(imp, 3, stdin); //Read numbers up to 99. Three digits numbers will be trimmed to 2 digits
 	int magicSize = atoi(imp);
 	free(imp);
@@ -86,10 +90,25 @@ Square * generate_magic(int size)
 {
 	//Create a new Square object and dynamically allocate space for the array in the heap
 	Square  * square = malloc(sizeof(Square));
+	if(square == NULL){
+		printf("FATAL ERROR: Malloc failed to allocate memory\n");
+		return NULL;
+	}
 	square->size = size;
+
 	square->array = malloc((size*2) * sizeof(int));  //(size*2) is essential to support square sizes up to 99
+	if(square->array == NULL){
+		printf("FATAL ERROR: Malloc failed to allocate memory\n");
+		return NULL;
+	}
+
+	//Allocate every row of the 2D Matrix 
 	for(int a = 0; a<size; a++){
 		*(square->array + a) =  malloc((size*2) * sizeof(int));
+		if(*(square->array + a) == NULL){
+			printf("FATAL ERROR: Malloc failed to allocate memory\n");
+			return NULL;
+		}
 	}
 
 	//Set all matrix values to zero intitially  
