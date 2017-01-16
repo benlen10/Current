@@ -85,9 +85,6 @@ Square * construct_square(char *filename)
 		return NULL;
 	}
 
-	//Genreate line size based off square size
-	int lineSize = (size * 2); 
-
 	//Create a new Square object and dynamically allocate space for the array in the heap
 	Square  * square = malloc(sizeof(Square));
 	if(square == NULL){
