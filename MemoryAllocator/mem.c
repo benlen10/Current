@@ -194,9 +194,15 @@ int Mem_Free(void *ptr)
 	}
 
 	//Check left
+	block_header * left_block = list_head;
+	while(left_block->next !=current){  //Skip to block to the left of current block
+		left_block = left_block->next;
+	}
 
-
-	// with either or both of them
+	if(left_block->size_status & 1 == 0){
+		left_block->next = current->next;
+		left_block->next = left_block->size_status + (int)sizeof(block_header) + current->size_status -1;
+	}
 	return 0;
 }
 
