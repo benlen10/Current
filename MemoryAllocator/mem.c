@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <assert.h>
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <string.h>
@@ -9,7 +10,8 @@
 
 int main()
 {
-	Mem_Dump();
+   assert(Mem_Init(4096) == 0);
+   assert(Mem_Alloc(4095) == NULL);
 	return 0;  //Remove this method
 }
 
@@ -113,25 +115,26 @@ int Mem_Init(int sizeOfRegion)
 void* Mem_Alloc(int size)
 {
 	// Check size and round it up to a multiple of 4
-	int pagesize = getpagesize();
-	int padsize = size % pagesize;
-	padsize = (pagesize - padsize) % pagesize;
-
+	int padsize = size % 4;
+	padsize = (4 - padsize) % 4;
 	size = size + padsize;
 
 	//Initilize local variables
-	int bestSize = 0;
+	
 	block_header* bestBlock = NULL;
 	int blockSize = 0;
 
 	// Search for the best fit block in the free list
 	block_header* current = list_head;
-	while (NULL != current)
+	int bestSize = current->size_status + 1;  //Set initial best size to one larger than first block
+	while (current!= NULL)
 	{
 		blockSize = current->size_status;
 		if ((blockSize & 1) == 0) /*LSB = 0 => free block*/
 		{
+			//printf("Blocksize: %d BestSize: %d TargetSize %d\n", blockSize, bestSize, size);
 			if ((blockSize >= size) && (blockSize<bestSize)) { //If better than current best fit
+			printf("Found\n");
 				bestSize = blockSize;
 				bestBlock = current;
 				if (blockSize == size) {  //If perfect fit
@@ -139,6 +142,7 @@ void* Mem_Alloc(int size)
 				}
 			}
 		}
+		current = current->next;
 	}
 
 	if (bestBlock == NULL) {
