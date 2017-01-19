@@ -8,11 +8,20 @@
 #include <string.h>
 #include "mem.h"
 
-int main()
+int main()  //Remove this main method before submitting
 {
-   assert(Mem_Init(4096) == 0);
-   assert(Mem_Alloc(4095) == NULL);
-	return 0;  //Remove this method
+      assert(Mem_Init(4096) == 0);
+   void* ptr[4];
+
+   ptr[0] = Mem_Alloc(4);
+   ptr[1] = Mem_Alloc(8);
+   assert(Mem_Free(ptr[0]) == 0);
+   assert(Mem_Free(ptr[1]) == 0);
+   ptr[2] = Mem_Alloc(16);
+   ptr[3] = Mem_Alloc(4);
+   assert(Mem_Free(ptr[2]) == 0);
+   assert(Mem_Free(ptr[3]) == 0);
+	return 0;
 }
 
 /* this structure serves as the header for each block */
@@ -134,7 +143,6 @@ void* Mem_Alloc(int size)
 		{
 			//printf("Blocksize: %d BestSize: %d TargetSize %d\n", blockSize, bestSize, size);
 			if ((blockSize >= size) && (blockSize<bestSize)) { //If better than current best fit
-			printf("Found\n");
 				bestSize = blockSize;
 				bestBlock = current;
 				if (blockSize == size) {  //If perfect fit
@@ -149,17 +157,16 @@ void* Mem_Alloc(int size)
 		return NULL;    //Return NULL if no block is large enough
 	}
 
+
 	// If a block is found, check to see if we can split it,
 	// i.e it has space leftover for a new block(header + payload)
 	if (bestSize>size) {
 		//Split block
 		int sizeDif = bestSize - size;
-		//update the size of the resulting blocks
-		void* space_ptr = bestBlock + (int)sizeof(block_header) + size; //Skip to begining of next space
-		block_header* split_block = space_ptr;
-
-		//Modify size status of bestBlock block	
-		bestBlock->size_status = sizeDif;
+		//Update the size of the resulting blocks
+		void* space_ptr = bestBlock + (int)sizeof(block_header) + size; //Skip to begining of next space (where you will place the new block header)
+		block_header* split_block = space_ptr;	
+		bestBlock->size_status = size;
 
 		//Set next pointer for both blocks
 		split_block->next = bestBlock->next;
@@ -186,32 +193,33 @@ int Mem_Free(void *ptr)
 {
 	
 	// Check if the pointer is pointing to the start of the payload of an allocated block
-	block_header * current = ptr - (int)sizeof(block_header);  //Increment pointer back one block to the payload
+	block_header * current = list_head;
+	block_header * left_block = NULL;
+	while((current->next < ptr) && (current->next != NULL)){
+		
+		left_block = current;
+		current = current->next;
+	}
+
+	block_header * right_block = current->next;
+
 	if ((current->size_status & 1) == 0) {
 		return -1; //Return -1 if the pointer is not pointing to the beginning of a payload
 	}
-
-	// If so, free it.
-	current->size_status ^= 1; //Toggle LS bit to Zero
-
-							   // Check the blocks to the left and right to see if the block can be coalesced
-
-							   //Check right
-	block_header * right_block = current->next;
+	current->size_status ^= 1; //Free the block .Toggle LS bit to Zero
+	//Check right
+	if (right_block != NULL) {
 	if ((right_block->size_status & 1) == 0) {
 		current->next = right_block->next;
 		current->size_status = current->size_status + (int)sizeof(block_header) + right_block->size_status - 1;
 	}
-
-	//Check left
-	block_header * left_block = list_head;
-	while (left_block->next != current) {  //Skip to block to the left of current block
-		left_block = left_block->next;
 	}
-
+	//Check left
+	if (left_block != NULL) {
 	if ((left_block->size_status & 1) == 0) {
 		left_block->next = current->next;
 		left_block->size_status = left_block->size_status + (int)sizeof(block_header) + current->size_status - 1;
+	}
 	}
 	return 0;
 }
