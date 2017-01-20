@@ -1,31 +1,15 @@
+
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <assert.h>
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <string.h>
 #include "mem.h"
 
-int main()  //Remove this main method before submitting
-{
-      assert(Mem_Init(4096) == 0);
-   void* ptr[4];
-
-   ptr[0] = Mem_Alloc(4);
-   ptr[1] = Mem_Alloc(8);
-   assert(Mem_Free(ptr[0]) == 0);
-   assert(Mem_Free(ptr[1]) == 0);
-   ptr[2] = Mem_Alloc(16);
-   ptr[3] = Mem_Alloc(4);
-   assert(Mem_Free(ptr[2]) == 0);
-   assert(Mem_Free(ptr[3]) == 0);
-	return 0;
-}
-
 /* this structure serves as the header for each block */
-typedef struct block_hd {
+typedef struct block_hd{
 	/* The blocks are maintained as a linked list */
 	/* The blocks are ordered in the increasing order of addresses */
 	struct block_hd* next;
@@ -66,14 +50,14 @@ int Mem_Init(int sizeOfRegion)
 	void* space_ptr;
 	static int allocated_once = 0;
 
-	if (0 != allocated_once)
+	if(0 != allocated_once)
 	{
-		fprintf(stderr, "Error:mem.c: Mem_Init has allocated space during a previous call\n");
+		fprintf(stderr,"Error:mem.c: Mem_Init has allocated space during a previous call\n");
 		return -1;
 	}
-	if (sizeOfRegion <= 0)
+	if(sizeOfRegion <= 0)
 	{
-		fprintf(stderr, "Error:mem.c: Requested block size is not positive\n");
+		fprintf(stderr,"Error:mem.c: Requested block size is not positive\n");
 		return -1;
 	}
 
@@ -88,15 +72,15 @@ int Mem_Init(int sizeOfRegion)
 
 	/* Using mmap to allocate memory */
 	fd = open("/dev/zero", O_RDWR);
-	if (-1 == fd)
+	if(-1 == fd)
 	{
-		fprintf(stderr, "Error:mem.c: Cannot open /dev/zero\n");
+		fprintf(stderr,"Error:mem.c: Cannot open /dev/zero\n");
 		return -1;
 	}
 	space_ptr = mmap(NULL, alloc_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
 	if (MAP_FAILED == space_ptr)
 	{
-		fprintf(stderr, "Error:mem.c: mmap cannot allocate space\n");
+		fprintf(stderr,"Error:mem.c: mmap cannot allocate space\n");
 		allocated_once = 0;
 		return -1;
 	}
@@ -112,6 +96,7 @@ int Mem_Init(int sizeOfRegion)
 	return 0;
 }
 
+
 /* Function for allocating 'size' bytes. */
 /* Returns address of allocated block on success */
 /* Returns NULL on failure */
@@ -124,60 +109,16 @@ int Mem_Init(int sizeOfRegion)
 void* Mem_Alloc(int size)
 {
 	// Check size and round it up to a multiple of 4
-	int padsize = size % 4;
-	padsize = (4 - padsize) % 4;
-	size = size + padsize;
-
-	//Initilize local variables
-	
-	block_header* bestBlock = NULL;
-	int blockSize = 0;
 
 	// Search for the best fit block in the free list
-	block_header* current = list_head;
-	int bestSize = current->size_status + 1;  //Set initial best size to one larger than first block
-	while (current!= NULL)
-	{
-		blockSize = current->size_status;
-		if ((blockSize & 1) == 0) /*LSB = 0 => free block*/
-		{
-			//printf("Blocksize: %d BestSize: %d TargetSize %d\n", blockSize, bestSize, size);
-			if ((blockSize >= size) && (blockSize<bestSize)) { //If better than current best fit
-				bestSize = blockSize;
-				bestBlock = current;
-				if (blockSize == size) {  //If perfect fit
-					break;
-				}
-			}
-		}
-		current = current->next;
-	}
-
-	if (bestBlock == NULL) {
-		return NULL;    //Return NULL if no block is large enough
-	}
-
 
 	// If a block is found, check to see if we can split it,
 	// i.e it has space leftover for a new block(header + payload)
-	if (bestSize>size) {
-		//Split block
-		int sizeDif = bestSize - size;
-		//Update the size of the resulting blocks
-		void* space_ptr = bestBlock + (int)sizeof(block_header) + size; //Skip to begining of next space (where you will place the new block header)
-		block_header* split_block = space_ptr;	
-		bestBlock->size_status = size;
 
-		//Set next pointer for both blocks
-		split_block->next = bestBlock->next;
-		bestBlock->next = split_block;
-		split_block->size_status = sizeDif - (int)sizeof(block_header);
-	}
+	// If split, update the size of the resulting blocks
 
-	// Mark the allocated block and return pointer to beginnning of PAYLOAD
-	bestBlock->size_status = bestBlock->size_status + 1;
-	bestBlock = bestBlock + (int)sizeof(block_header);
-	return bestBlock;
+	// Mark the allocated block and return it 
+	return NULL;
 }
 
 /* Function for freeing up a previously allocated block */
@@ -191,37 +132,13 @@ void* Mem_Alloc(int size)
 /* - Coalesce if one or both of the immediate neighbours are free */
 int Mem_Free(void *ptr)
 {
-	
 	// Check if the pointer is pointing to the start of the payload of an allocated block
-	block_header * current = list_head;
-	block_header * left_block = NULL;
-	while((current->next < ptr) && (current->next != NULL)){
-		
-		left_block = current;
-		current = current->next;
-	}
 
-	block_header * right_block = current->next;
+	// If so, free it.
 
-	if ((current->size_status & 1) == 0) {
-		return -1; //Return -1 if the pointer is not pointing to the beginning of a payload
-	}
-	current->size_status ^= 1; //Free the block .Toggle LS bit to Zero
-	//Check right
-	if (right_block != NULL) {
-	if ((right_block->size_status & 1) == 0) {
-		current->next = right_block->next;
-		current->size_status = current->size_status + (int)sizeof(block_header) + right_block->size_status - 1;
-	}
-	}
-	//Check left
-	if (left_block != NULL) {
-	if ((left_block->size_status & 1) == 0) {
-		left_block->next = current->next;
-		left_block->size_status = left_block->size_status + (int)sizeof(block_header) + current->size_status - 1;
-	}
-	}
-	return 0;
+	// Check the blocks to the left and right to see if the block can be coalesced
+	// with either or both of them
+	return -1;
 }
 
 /* Function to be used for debug */
@@ -252,18 +169,18 @@ void Mem_Dump()
 	total_size = 0;
 	current = list_head;
 	counter = 1;
-	fprintf(stdout, "************************************Block list***********************************\n");
-	fprintf(stdout, "No.\tStatus\tBegin\t\tEnd\t\tSize\tt_Size\tt_Begin\n");
-	fprintf(stdout, "---------------------------------------------------------------------------------\n");
-	while (NULL != current)
+	fprintf(stdout,"************************************Block list***********************************\n");
+	fprintf(stdout,"No.\tStatus\tBegin\t\tEnd\t\tSize\tt_Size\tt_Begin\n");
+	fprintf(stdout,"---------------------------------------------------------------------------------\n");
+	while(NULL != current)
 	{
 		t_Begin = (char*)current;
 		Begin = t_Begin + (int)sizeof(block_header);
 		Size = current->size_status;
-		strcpy(status, "Free");
-		if (Size & 1) /*LSB = 1 => busy block*/
+		strcpy(status,"Free");
+		if(Size & 1) /*LSB = 1 => busy block*/
 		{
-			strcpy(status, "Busy");
+			strcpy(status,"Busy");
 			Size = Size - 1; /*Minus one for ignoring status in busy block*/
 			t_Size = Size + (int)sizeof(block_header);
 			busy_size = busy_size + t_Size;
@@ -274,20 +191,18 @@ void Mem_Dump()
 			free_size = free_size + t_Size;
 		}
 		End = Begin + Size;
-		fprintf(stdout, "%d\t%s\t0x%08lx\t0x%08lx\t%d\t%d\t0x%08lx\n", counter, status, (unsigned long int)Begin, (unsigned long int)End, Size, t_Size, (unsigned long int)t_Begin);
+		fprintf(stdout,"%d\t%s\t0x%08lx\t0x%08lx\t%d\t%d\t0x%08lx\n",counter,status,(unsigned long int)Begin,(unsigned long int)End,Size,t_Size,(unsigned long int)t_Begin);
 		total_size = total_size + t_Size;
 		current = current->next;
 		counter = counter + 1;
 	}
-	fprintf(stdout, "---------------------------------------------------------------------------------\n");
-	fprintf(stdout, "*********************************************************************************\n");
+	fprintf(stdout,"---------------------------------------------------------------------------------\n");
+	fprintf(stdout,"*********************************************************************************\n");
 
-	fprintf(stdout, "Total busy size = %d\n", busy_size);
-	fprintf(stdout, "Total free size = %d\n", free_size);
-	fprintf(stdout, "Total size = %d\n", busy_size + free_size);
-	fprintf(stdout, "*********************************************************************************\n");
+	fprintf(stdout,"Total busy size = %d\n",busy_size);
+	fprintf(stdout,"Total free size = %d\n",free_size);
+	fprintf(stdout,"Total size = %d\n",busy_size+free_size);
+	fprintf(stdout,"*********************************************************************************\n");
 	fflush(stdout);
 	return;
 }
-
-
