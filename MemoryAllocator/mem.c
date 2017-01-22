@@ -10,7 +10,7 @@
 
 int main()  //Remove this main method before submitting
 {
-assert(Mem_Init(4096) == 0);
+   assert(Mem_Init(4096) == 0);
    void * ptr[4];
 
    ptr[0] = Mem_Alloc(800);
@@ -30,10 +30,9 @@ assert(Mem_Init(4096) == 0);
 
    assert(Mem_Free(ptr[1]) == 0);
    assert(Mem_Free(ptr[2]) == 0);
-   printf("YES\n");
-   ptr[2] = Mem_Alloc(1600);
-   //assert(ptr[2] != NULL);
 
+   ptr[2] = Mem_Alloc(1600);
+   assert(ptr[2] != NULL);
 	return 0;
 }
 
@@ -206,14 +205,21 @@ void* Mem_Alloc(int size)
 /* - Coalesce if one or both of the immediate neighbours are free */
 int Mem_Free(void *ptr)
 {
+	if(ptr == NULL){  //Invalid input check
+		return -1;
+	}
 	
 	// Check if the pointer is pointing to the start of the payload of an allocated block
 	block_header * current = list_head;
 	block_header * left_block = NULL;
-	while((current->next < ptr) && (current->next != NULL)){
+	while((current->next < ptr) && (current != NULL)){
 		
 		left_block = current;
 		current = current->next;
+	}
+
+	if(current == NULL){
+		return -1;
 	}
 
 	block_header * right_block = current->next;
@@ -226,14 +232,14 @@ int Mem_Free(void *ptr)
 	if (right_block != NULL) {
 	if ((right_block->size_status & 1) == 0) {
 		current->next = right_block->next;
-		current->size_status = current->size_status + (int)sizeof(block_header) + right_block->size_status - 1;
+		current->size_status = current->size_status + (int)sizeof(block_header) + right_block->size_status;
 	}
 	}
 	//Check left
 	if (left_block != NULL) {
 	if ((left_block->size_status & 1) == 0) {
 		left_block->next = current->next;
-		left_block->size_status = left_block->size_status + (int)sizeof(block_header) + current->size_status - 1;
+		left_block->size_status = left_block->size_status + (int)sizeof(block_header) + current->size_status;
 	}
 	}
 	return 0;
