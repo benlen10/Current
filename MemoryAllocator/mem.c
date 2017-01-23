@@ -1,3 +1,11 @@
+// This File:        mem.c
+// Other Files:      mem.h
+// Semester:         CS 354 Fall 2016
+//
+// Author:           Benjamin Lenington
+// Email:            lenington@wisc.edu
+// CS Login:         lenington
+
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -7,34 +15,6 @@
 #include <sys/mman.h>
 #include <limits.h>
 #include "mem.h"
-
-int main()  //Remove this main method before submitting
-{
-   assert(Mem_Init(4096) == 0);
-   void * ptr[4];
-
-   ptr[0] = Mem_Alloc(800);
-   assert(ptr[0] != NULL);
-
-   ptr[1] = Mem_Alloc(800);
-   assert(ptr[1] != NULL);
-
-   ptr[2] = Mem_Alloc(800);
-   assert(ptr[2] != NULL);
-
-   ptr[3] = Mem_Alloc(800);
-   assert(ptr[3] != NULL);
-
-   while (Mem_Alloc(800) != NULL)
-     ;
-
-   assert(Mem_Free(ptr[1]) == 0);
-   assert(Mem_Free(ptr[2]) == 0);
-
-   ptr[2] = Mem_Alloc(1600);
-   assert(ptr[2] != NULL);
-	return 0;
-}
 
 /* this structure serves as the header for each block */
 typedef struct block_hd {
@@ -57,13 +37,11 @@ typedef struct block_hd {
 	/* If the block is allocated, size_status should be set to 25, not 24!, not 23! not 32! not 33!, not 31! */
 	/* If the block is free, size_status should be set to 24, not 25!, not 23! not 32! not 33!, not 31! */
 	int size_status;
-
 }block_header;
 
 /* Global variable - This will always point to the first block */
 /* ie, the block with the lowest address */
 block_header* list_head = NULL;
-
 
 /* Function used to Initialize the memory allocator */
 /* Not intended to be called more than once by a program */
@@ -95,7 +73,6 @@ int Mem_Init(int sizeOfRegion)
 	/* Calculate padsize as the padding required to round up sizeOfRegio to a multiple of pagesize */
 	padsize = sizeOfRegion % pagesize;
 	padsize = (pagesize - padsize) % pagesize;
-
 	alloc_size = sizeOfRegion + padsize;
 
 	/* Using mmap to allocate memory */
@@ -139,24 +116,20 @@ void* Mem_Alloc(int size)
 	int padsize = size % 4;
 	padsize = (4 - padsize) % 4;
 	size = size + padsize;
-	//printf("HeaderSize: %d\n", (int)sizeof(block_header));
 
-	//Initilize local variables
-	
+	//Initilize local variables	
 	block_header* bestBlock = NULL;
 	int blockSize = 0;
 
 	// Search for the best fit block in the free list
 	void * bestPos = NULL;
 	block_header* current = list_head;
-	int bestSize = INT_MAX;  //Set initial best size to one larger than first block
+	int bestSize = INT_MAX;  
 	while (current!= NULL)
 	{
 		blockSize = current->size_status;
-		//printf("Blocksize: %d BestSize: %d TargetSize %d\n", blockSize, bestSize, size);
 		if ((blockSize & 1) == 0) /*LSB = 0 => free block*/
-		{
-			
+		{		
 			if ((blockSize >= size) && (blockSize<bestSize)) { //If better than current best fit
 				bestSize = blockSize;
 				bestBlock = current;
@@ -169,26 +142,26 @@ void* Mem_Alloc(int size)
 		current = current->next;
 	}
 
+	//Return NULL if no block is large enough
 	if (bestBlock == NULL) {
-		return NULL;    //Return NULL if no block is large enough
+		fprintf(stderr, "Error:mem.c: Mem_Alloc could not find a large enough block\n");
+		return NULL; 
 	}
-
-	// If a block is found, check to see if we can split it,
-	// i.e it has space leftover for a new block(header + payload)
+	// Check to see if we can split the block
 	if (bestSize>size) {
-		//Split block
-		int sizeDif = bestSize - size;
+
 		//Update the size of the resulting blocks
+		int sizeDif = bestSize - size; 
 		void* space_ptr = (bestPos + sizeof(block_header) + size); //Skip to begining of next space (where you will place the new block header)
 		block_header* split_block = (block_header*) space_ptr;	
 		bestBlock->size_status = size;
-		//Set next pointer for both blocks
+
+		//Set next pointer and size status
 		split_block->size_status = sizeDif - (int)sizeof(block_header);
 		bestBlock->next = split_block;
-	}
-	
+	}	
 
-	// Mark the allocated block and return pointer to beginnning of PAYLOAD
+	// Mark the allocated block and return pointer to beginnning of the payload
 	bestBlock->size_status = bestBlock->size_status + 1;
 	bestBlock = bestBlock + (int)sizeof(block_header);
 	return bestBlock;
@@ -205,42 +178,50 @@ void* Mem_Alloc(int size)
 /* - Coalesce if one or both of the immediate neighbours are free */
 int Mem_Free(void *ptr)
 {
-	if(ptr == NULL){  //Invalid input check
+	if(ptr == NULL){ 
+		fprintf(stderr, "Error:mem.c: Mem_Free pointer argument is NULL\n");
 		return -1;
 	}
 	
-	// Check if the pointer is pointing to the start of the payload of an allocated block
+	// Locate the target block to free
 	block_header * current = list_head;
 	block_header * left_block = NULL;
-	while((current->next < ptr) && (current != NULL)){
-		
+	while((current->next < ptr) && (current != NULL)){		
 		left_block = current;
 		current = current->next;
 	}
 
+	//Return NULL if the ptr argument does not point to a vaild block within range
 	if(current == NULL){
+		fprintf(stderr, "Error:mem.c: Mem_Free is unable to locate the address to free\n");
 		return -1;
 	}
 
+	//Set the right block to current-> next	
 	block_header * right_block = current->next;
 
+	//Return -1 if the pointer is not pointing to the beginning of a payload
 	if ((current->size_status & 1) == 0) {
-		return -1; //Return -1 if the pointer is not pointing to the beginning of a payload
+		return -1; 
 	}
-	current->size_status ^= 1; //Free the block .Toggle LS bit to Zero
-	//Check right
+
+	//Free the current block. Toggle LS bit to Zero
+	current->size_status ^= 1; 
+
+	//Check if the right block is free and collease memory
 	if (right_block != NULL) {
-	if ((right_block->size_status & 1) == 0) {
-		current->next = right_block->next;
-		current->size_status = current->size_status + (int)sizeof(block_header) + right_block->size_status;
+		if ((right_block->size_status & 1) == 0) {
+			current->next = right_block->next;
+			current->size_status = current->size_status + (int)sizeof(block_header) + right_block->size_status;
+		}
 	}
-	}
-	//Check left
+
+	//Check if the left block is free and collease memory
 	if (left_block != NULL) {
-	if ((left_block->size_status & 1) == 0) {
-		left_block->next = current->next;
-		left_block->size_status = left_block->size_status + (int)sizeof(block_header) + current->size_status;
-	}
+		if ((left_block->size_status & 1) == 0) {
+			left_block->next = current->next;
+			left_block->size_status = left_block->size_status + (int)sizeof(block_header) + current->size_status;
+		}
 	}
 	return 0;
 }
@@ -302,7 +283,6 @@ void Mem_Dump()
 	}
 	fprintf(stdout, "---------------------------------------------------------------------------------\n");
 	fprintf(stdout, "*********************************************************************************\n");
-
 	fprintf(stdout, "Total busy size = %d\n", busy_size);
 	fprintf(stdout, "Total free size = %d\n", free_size);
 	fprintf(stdout, "Total size = %d\n", busy_size + free_size);
@@ -310,5 +290,3 @@ void Mem_Dump()
 	fflush(stdout);
 	return;
 }
-
-
