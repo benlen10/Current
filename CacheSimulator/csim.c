@@ -1,6 +1,6 @@
-/* Name:
- * CS login:
- * Section:
+/* Name: Benjamin Lenington
+ * CS login: lenington
+ * Section: 001
  *
  *
  *
@@ -76,7 +76,7 @@ typedef unsigned long long int mem_addr_t;
 typedef struct cache_line {
     char valid;
     mem_addr_t tag;
-    struct cache_line * next
+    struct cache_line * next;
 } cache_line_t;
 
 typedef cache_line_t* cache_set_t;
@@ -87,7 +87,7 @@ typedef cache_set_t* cache_t;
 cache_t cache;
 
 //Custom global var
-boolean cache_full = false;
+bool cache_full = false;
 
 /* TODO - COMPLETE THIS FUNCTION
  * initCache - 
@@ -98,18 +98,18 @@ boolean cache_full = false;
  */
 void initCache()
 {
-    S = pow(2, s);
-    B = pow(2, b);
+    S = pow(2.0, s);
+    B = pow(2.0, b);
     cache = malloc(sizeof(cache_t));
 
 //Allocate cache memory
-    cache = malloc((E*S*sizeof(cache_line)));  
+    cache = malloc((E*S*sizeof(cache_line_t)));  
 
 //Allocate 2D Matrix
 for(int set = 0; set< S; set++){
-    *(cache + set) = E*malloc(sizeof(cache_line_t));
+    *(cache + set) = malloc(E*sizeof(cache_line_t));
     for(int block = 0; block< E; block++){
-        *(*(cache + block) + set) = malloc(sizeof(cache_line_t));
+        //(*(cache + block) + set)  = malloc(sizeof(cache_line_t));
     }
 }
 }
@@ -123,9 +123,9 @@ void freeCache()
 //Free the 2D cache matirx
 for(int set = 0; set< S; set++){
     for(int block = 0; block< E; block++){
-        free(*(*(cache + block) + set));
+        free((*(cache + block) + set));
     }
-    free(*(cache+set));
+    free((cache+set));
 }
 
 //Free the original cache struct
@@ -145,8 +145,8 @@ void accessData(mem_addr_t addr)
     cache_full = true;
     for(int set = 0; set< S; set++){
         for(int block = 0; block< E; block++){
-            if(*(*(cache + block)+set).valid == '1'){
-            if(*(*(cache + block)+set).tag == addr){
+            if((*(*(cache + block)+set)).valid == '1'){
+            if((*(*(cache + block)+set)).tag == addr){
                     //Found the target address
                     hit_count++;
                     return;
@@ -166,10 +166,10 @@ else{
 //Otherwise place the new data in the first available block
     for(int set = 0; set< S; set++){
         for(int block = 0; block< E; block++){
-            if(*(*(cache+block)+set).valid == '0'){
+            if((*(*(cache+block)+set)).valid == '0'){
                 //Found first empty block. Place data and set valid bit
-                *(*(cache + block)+set).tag = addr;
-                *(*(cache + block)+set).valid == '1';
+                (*(*(cache + block)+set)).tag = addr;
+                (*(*(cache + block)+set)).valid = '1';
                 return;
         }
     }
