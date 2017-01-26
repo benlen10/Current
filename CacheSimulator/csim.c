@@ -102,16 +102,13 @@ void initCache()
     B = pow(2.0, b);
     cache = malloc(sizeof(cache_t));
 
-//Allocate cache memory
-    cache = malloc((E*S*sizeof(cache_line_t)));  
+    //Allocate cache memory
+    cache = malloc((S*sizeof(cache_line_t)));  
 
-//Allocate 2D Matrix
-for(int set = 0; set< S; set++){
-    *(cache + set) = malloc(E*sizeof(cache_line_t));
-    for(int block = 0; block< E; block++){
-        //(*(cache + block) + set)  = malloc(sizeof(cache_line_t));
+    //Allocate 2D Matrix
+    for(int set = 0; set< S; set++){
+        cache[set]  = malloc(E*sizeof(cache_line_t));
     }
-}
 }
 
 /* TODO - COMPLETE THIS FUNCTION 
@@ -120,12 +117,9 @@ for(int set = 0; set< S; set++){
  */
 void freeCache()
 {
-//Free the 2D cache matirx
+//Free each set
 for(int set = 0; set< S; set++){
-    for(int block = 0; block< E; block++){
-        free((*(cache + block) + set));
-    }
-    free((cache+set));
+        free(cache[set]);
 }
 
 //Free the original cache struct
