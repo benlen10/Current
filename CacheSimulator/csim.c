@@ -204,9 +204,12 @@ void replayTrace(char* trace_fn)
            // 1. address accessed in variable - addr 
            // 2. type of acccess(S/L/M)  in variable - buf[1] 
            // call accessData function here depending on type of access
-
-
-
+           if(buf[1]=='M'){
+               accessData(addr);
+               accessData(addr);
+           }else{
+               accessData(addr);
+           }
 
             if (verbosity)
                 printf("\n");
