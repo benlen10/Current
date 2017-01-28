@@ -76,7 +76,7 @@ typedef unsigned long long int mem_addr_t;
 typedef struct cache_line {
     char valid;
     mem_addr_t tag;
-    struct cache_line * next;
+    int timestamp;
 } cache_line_t;
 
 typedef cache_line_t* cache_set_t;
@@ -87,7 +87,7 @@ typedef cache_set_t* cache_t;
 cache_t cache;
 
 //Custom global var
-bool cache_full = false;
+int curTimestamp;
 
 /* TODO - COMPLETE THIS FUNCTION
  * initCache - 
@@ -136,41 +136,63 @@ free(cache);
  */
 void accessData(mem_addr_t addr)
 {
-    cache_full = true;
-    for(int set = 0; set< S; set++){
-        for(int block = 0; block< E; block++){
-            if((*(*(cache + block)+set)).valid == '1'){
-            if((*(*(cache + block)+set)).tag == addr){
-                    //Found the target address
-                    hit_count++;
-                    return;
-            }
-        }
-        else{
-            cache_full = false;
-        }
-    }
-    }
-//Data not found, if cache full, evict the oldest data and replace with new data
-if(cache_full){
-    eviction_count++;
+    //Parse set number and tag
 
-}
-else{
-//Otherwise place the new data in the first available block
-    for(int set = 0; set< S; set++){
-        for(int block = 0; block< E; block++){
-            if((*(*(cache+block)+set)).valid == '0'){
-                //Found first empty block. Place data and set valid bit
-                (*(*(cache + block)+set)).tag = addr;
-                (*(*(cache + block)+set)).valid = '1';
+    //Generate mask for block bits and fetch block value from addr
+    unsigned blockMask = 1 << b;
+    blockMask = blockMask - 1;
+    int block = addr & blockMask;
+
+    //Generate mask for set bits and fetch block value from addr
+    unsigned setMask = 1 << s;
+    setMask = setMask - 1;
+    setMask = setMask << b;
+    int set = addr & setMask;
+
+    //Generate mask for set bits and fetch block value from addr
+    unsigned tagMask = 1 << (s+ b);
+    tagMask = tagMask - 1;
+    tagMask = ~tagMask;
+    int tagValue = addr & tagMask;
+
+    for(int b =0; b<E; b++){
+        if((cache[set][b].tag == tagValue) && (cache[set][b].valid == '1')){
+                hit_count++;
                 return;
         }
     }
-    }
-}
-}
 
+    //IF not found, attempt to find an open block in the set
+    miss_count++;
+    for(int b =0; b<E; b++){
+        if(cache[set][b].valid == 0){
+            cache[set][b].tag = tagValue;
+            cache[set][b].valid = '1';
+            cache[set][b].timestamp = curTimestamp++;
+                return;
+        }
+    }
+     //TODO: Implement eviction alg
+     eviction_count++;
+     int minTimestamp = int 1000000;
+     int minSet = 0
+     int minBlock = 0;
+
+     //Locate the oldest cache block
+     for(int s; s<S; s++){
+     for(int b =0; b<E; b++){
+        if(cache[s][b].timestamp < minTimestamp){
+                minTimestamp = cache[s][b].timestamp;
+                minSet = s;
+                minBlock = b;
+        }
+     }
+     }
+
+     //Replace the oldest cache block
+
+
+    }
 
 /* TODO - FILL IN THE MISSING CODE
  * replayTrace - replays the given trace file against the cache 
