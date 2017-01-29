@@ -136,24 +136,12 @@ free(cache);
  */
 void accessData(mem_addr_t addr)
 {
-    //Parse set number and tag
 
-    //Generate mask for block bits and fetch block value from addr
-    unsigned blockMask = 1 << b;
-    blockMask = blockMask - 1;
-    int block = addr & blockMask;
-
-    //Generate mask for set bits and fetch block value from addr
-    unsigned setMask = 1 << s;
-    setMask = setMask - 1;
-    setMask = setMask << b;
-    int set = addr & setMask;
-
-    //Generate mask for set bits and fetch block value from addr
-    unsigned tagMask = 1 << (s+ b);
-    tagMask = tagMask - 1;
-    tagMask = ~tagMask;
-    int tagValue = addr & tagMask;
+    //Parse tag and set values from the address
+    int tagSize = (64 - (s +  b));
+	unsigned long long temp = addr << (tagSize);
+	int set = temp >> (tagSize + b);
+	mem_addr_t tag = addr >> (s + b);
 
     for(int b =0; b<E; b++){
         if((cache[set][b].tag == tagValue) && (cache[set][b].valid == '1')){
@@ -174,22 +162,20 @@ void accessData(mem_addr_t addr)
     }
      //TODO: Implement eviction alg
      eviction_count++;
-     int minTimestamp = int 1000000;
-     int minSet = 0
+     int minTimestamp = cache[set][0].timestamp;
      int minBlock = 0;
 
      //Locate the oldest cache block
-     for(int s; s<S; s++){
      for(int b =0; b<E; b++){
-        if(cache[s][b].timestamp < minTimestamp){
-                minTimestamp = cache[s][b].timestamp;
-                minSet = s;
+        if(cache[set][b].timestamp < minTimestamp){
+                minTimestamp = cache[set][b].timestamp;
                 minBlock = b;
         }
      }
-     }
 
      //Replace the oldest cache block
+     cache[set][minBlock].timestamp = curTimestamp++;
+     cache[set][minBlock].tag = tagValue
 
 
     }
