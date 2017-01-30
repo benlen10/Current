@@ -144,7 +144,7 @@ void accessData(mem_addr_t addr)
 	mem_addr_t tag = addr >> (s + b);
 
     for(int b =0; b<E; b++){
-        if((cache[set][b].tag == tagValue) && (cache[set][b].valid == '1')){
+        if((cache[set][b].tag == tag) && (cache[set][b].valid == '1')){
                 hit_count++;
                 return;
         }
@@ -154,7 +154,7 @@ void accessData(mem_addr_t addr)
     miss_count++;
     for(int b =0; b<E; b++){
         if(cache[set][b].valid == 0){
-            cache[set][b].tag = tagValue;
+            cache[set][b].tag = tag;
             cache[set][b].valid = '1';
             cache[set][b].timestamp = curTimestamp++;
                 return;
@@ -175,9 +175,7 @@ void accessData(mem_addr_t addr)
 
      //Replace the oldest cache block
      cache[set][minBlock].timestamp = curTimestamp++;
-     cache[set][minBlock].tag = tagValue
-
-
+     cache[set][minBlock].tag = tag;
     }
 
 /* TODO - FILL IN THE MISSING CODE
