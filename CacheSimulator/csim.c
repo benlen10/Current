@@ -153,7 +153,7 @@ void accessData(mem_addr_t addr)
     //IF not found, attempt to find an open block in the set
     miss_count++;
     for(int b =0; b<E; b++){
-        if(cache[set][b].valid == 0){
+        if(cache[set][b].valid != '1'){ //
             cache[set][b].tag = tag;
             cache[set][b].valid = '1';
             cache[set][b].timestamp = curTimestamp++;
@@ -188,6 +188,11 @@ void accessData(mem_addr_t addr)
  */
 void replayTrace(char* trace_fn)
 {
+    //Custom vars for verbose mode
+    int curHit = 0;
+    int curMiss = 0;
+    int curEvict = 0;
+
     char buf[1000];
     mem_addr_t addr=0;
     unsigned int len=0;
@@ -218,6 +223,24 @@ void replayTrace(char* trace_fn)
            }
 
             if (verbosity)
+            //Implement verbose feature
+            if(miss_count>curMiss && eviction_count > curEvict){
+                printf("miss eviction ");
+                curMiss = miss_count;
+                curEvict = eviction_count;
+            }
+             if(miss_count>curMiss){
+                 printf("miss ");
+                 curMiss = miss_count;
+             }
+             if(hit_count == (curHit+2)){
+                 printf("hit hit ");
+                 curHit = hit_count;
+             }
+              if(hit_count>curHit){
+                 printf("hit ");
+                 curHit = hit_count;
+             }
                 printf("\n");
         }
     }
