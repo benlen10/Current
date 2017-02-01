@@ -30,11 +30,11 @@
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
-#include<stdbool.h>
+#include <stdbool.h>
 
 #include "cachelab.h"
 
-// #define DEBUG_ON 
+// #define DEBUG_ON
 #define ADDRESS_LENGTH 64
 
 /****************************************************************************/
@@ -42,10 +42,10 @@
 
 /* Globals set by command line args */
 int verbosity = 0; /* print trace if set */
-int s = 0; /* set index bits */
-int b = 0; /* block offset bits */
-int E = 0; /* associativity */
-char* trace_file = NULL;
+int s = 0;         /* set index bits */
+int b = 0;         /* block offset bits */
+int E = 0;         /* associativity */
+char *trace_file = NULL;
 
 /* Derived from command line args */
 int S; /* number of sets S = 2^s In C, you can use "pow" function*/
@@ -56,7 +56,6 @@ int miss_count = 0;
 int hit_count = 0;
 int eviction_count = 0;
 /*****************************************************************************/
-
 
 /* Type: Memory address 
  * Use this type whenever dealing with addresses or address masks
@@ -73,21 +72,21 @@ typedef unsigned long long int mem_addr_t;
  * For example, to use a linked list based LRU,
  * you might want to have a field "struct cache_line * next" in the struct 
  */
-typedef struct cache_line {
+typedef struct cache_line
+{
     char valid;
     mem_addr_t tag;
     int timestamp;
 } cache_line_t;
 
-typedef cache_line_t* cache_set_t;
-typedef cache_set_t* cache_t;
-
+typedef cache_line_t *cache_set_t;
+typedef cache_set_t *cache_t;
 
 /* The cache we are simulating */
 cache_t cache;
 
 //Custom global var
-int curTimestamp;
+static int curTimestamp = 0;
 
 /* TODO - COMPLETE THIS FUNCTION
  * initCache - 
@@ -103,11 +102,17 @@ void initCache()
     cache = malloc(sizeof(cache_t));
 
     //Allocate cache memory
-    cache = malloc((S*sizeof(cache_line_t)));  
+    cache = malloc((S * sizeof(cache_line_t)));
 
     //Allocate 2D Matrix
-    for(int set = 0; set< S; set++){
-        cache[set]  = malloc(E*sizeof(cache_line_t));
+    for (int set = 0; set < S; set++)
+    {
+        cache[set] = malloc(E * sizeof(cache_line_t));
+        for(int block = 0; block<E; block++){
+            cache[set][block].timestamp = 0;
+            cache[set][block].tag = 0;
+            cache[set][block].valid = '0';
+        }
     }
 }
 
@@ -117,15 +122,15 @@ void initCache()
  */
 void freeCache()
 {
-//Free each set
-for(int set = 0; set< S; set++){
+    //Free each set
+    for (int set = 0; set < S; set++)
+    {
         free(cache[set]);
-}
+    }
 
-//Free the original cache struct
-free(cache);  
+    //Free the original cache struct
+    free(cache);
 }
-
 
 /* TODO - COMPLETE THIS FUNCTION 
  * accessData - Access data at memory address addr.
@@ -138,45 +143,52 @@ void accessData(mem_addr_t addr)
 {
 
     //Parse tag and set values from the address
-    int tagSize = (64 - (s +  b));
-	unsigned long long temp = addr << (tagSize);
-	int set = temp >> (tagSize + b);
-	mem_addr_t tag = addr >> (s + b);
+    int tagSize = (64 - (s + b));
+    unsigned long long temp = addr << (tagSize);
+    unsigned long long set = temp >> (tagSize + b);
+    mem_addr_t tag = addr >> (s + b);
 
-    for(int b =0; b<E; b++){
-        if((cache[set][b].tag == tag) && (cache[set][b].valid == '1')){
-                hit_count++;
-                return;
+    //Search for existing block
+    for (int block = 0; block < E; block++)
+    {
+        if ((cache[set][block].tag == tag) && (cache[set][block].valid == '1'))
+        {
+            hit_count++;
+            return;
         }
     }
 
     //IF not found, attempt to find an open block in the set
     miss_count++;
-    for(int b =0; b<E; b++){
-        if(cache[set][b].valid != '1'){ //
-            cache[set][b].tag = tag;
-            cache[set][b].valid = '1';
-            cache[set][b].timestamp = curTimestamp++;
-                return;
+    for (int bl = 0; bl < E; bl++)
+    {
+        if (cache[set][bl].valid != '1')
+        {
+            cache[set][bl].tag = tag;
+            cache[set][bl].valid = '1';
+            cache[set][bl].timestamp = curTimestamp++;
+            return;
         }
     }
-     //TODO: Implement eviction alg
-     eviction_count++;
-     int minTimestamp = cache[set][0].timestamp;
-     int minBlock = 0;
+    //TODO: Implement eviction alg
+    eviction_count++;
+    int minTimestamp = cache[set][0].timestamp;
+    int minBlock = 0;
 
-     //Locate the oldest cache block
-     for(int b =0; b<E; b++){
-        if(cache[set][b].timestamp < minTimestamp){
-                minTimestamp = cache[set][b].timestamp;
-                minBlock = b;
+    //Locate the oldest cache block
+    for (int x = 0; x < E; x++)
+    {
+        if (cache[set][x].timestamp < minTimestamp)
+        {
+            minTimestamp = cache[set][x].timestamp;
+            minBlock = x;
         }
-     }
-
-     //Replace the oldest cache block
-     cache[set][minBlock].timestamp = curTimestamp++;
-     cache[set][minBlock].tag = tag;
     }
+
+    //Replace the oldest cache block
+    cache[set][minBlock].timestamp = curTimestamp++;
+    cache[set][minBlock].tag = tag;
+}
 
 /* TODO - FILL IN THE MISSING CODE
  * replayTrace - replays the given trace file against the cache 
@@ -186,7 +198,7 @@ void accessData(mem_addr_t addr)
  * YOU MUST TRANSLATE one "S" as a store i.e. 1 memory access
  * YOU MUST TRANSLATE one "M" as a load followed by a store i.e. 2 memory accesses 
  */
-void replayTrace(char* trace_fn)
+void replayTrace(char *trace_fn)
 {
     //Custom vars for verbose mode
     int curHit = 0;
@@ -194,54 +206,64 @@ void replayTrace(char* trace_fn)
     int curEvict = 0;
 
     char buf[1000];
-    mem_addr_t addr=0;
-    unsigned int len=0;
-    FILE* trace_fp = fopen(trace_fn, "r");
+    mem_addr_t addr = 0;
+    unsigned int len = 0;
+    FILE *trace_fp = fopen(trace_fn, "r");
 
-    if(!trace_fp){
+    if (!trace_fp)
+    {
         fprintf(stderr, "%s: %s\n", trace_fn, strerror(errno));
         exit(1);
     }
 
-    while( fgets(buf, 1000, trace_fp) != NULL) {
-        if(buf[1]=='S' || buf[1]=='L' || buf[1]=='M') {
-            sscanf(buf+3, "%llx,%u", &addr, &len);
-      
-            if(verbosity)
-                printf("%c %llx,%u ", buf[1], addr, len);
-
-           // TODO - MISSING CODE
-           // now you have: 
-           // 1. address accessed in variable - addr 
-           // 2. type of acccess(S/L/M)  in variable - buf[1] 
-           // call accessData function here depending on type of access
-           if(buf[1]=='M'){
-               accessData(addr);
-               accessData(addr);
-           }else{
-               accessData(addr);
-           }
+    while (fgets(buf, 1000, trace_fp) != NULL)
+    {
+        if (buf[1] == 'S' || buf[1] == 'L' || buf[1] == 'M')
+        {
+            sscanf(buf + 3, "%llx,%u", &addr, &len);
 
             if (verbosity)
-            //Implement verbose feature
-            if(miss_count>curMiss && eviction_count > curEvict){
-                printf("miss eviction ");
-                curMiss = miss_count;
-                curEvict = eviction_count;
+                printf("%c %llx,%u ", buf[1], addr, len);
+
+            // TODO - MISSING CODE
+            // now you have:
+            // 1. address accessed in variable - addr
+            // 2. type of acccess(S/L/M)  in variable - buf[1]
+            // call accessData function here depending on type of access
+            if (buf[1] == 'M')
+            {
+                accessData(addr);
+                accessData(addr);
             }
-             if(miss_count>curMiss){
-                 printf("miss ");
-                 curMiss = miss_count;
-             }
-             if(hit_count == (curHit+2)){
-                 printf("hit hit ");
-                 curHit = hit_count;
-             }
-              if(hit_count>curHit){
-                 printf("hit ");
-                 curHit = hit_count;
-             }
-                printf("\n");
+            else
+            {
+                accessData(addr);
+            }
+
+            if (verbosity)
+                //Implement verbose feature
+                if (miss_count > curMiss && eviction_count > curEvict)
+                {
+                    printf("miss eviction ");
+                    curMiss = miss_count;
+                    curEvict = eviction_count;
+                }
+            if (miss_count > curMiss)
+            {
+                printf("miss ");
+                curMiss = miss_count;
+            }
+            if (hit_count == (curHit + 2))
+            {
+                printf("hit hit ");
+                curHit = hit_count;
+            }
+            if (hit_count > curHit)
+            {
+                printf("hit ");
+                curHit = hit_count;
+            }
+            printf("\n");
         }
     }
 
@@ -251,7 +273,7 @@ void replayTrace(char* trace_fn)
 /*
  * printUsage - Print usage info
  */
-void printUsage(char* argv[])
+void printUsage(char *argv[])
 {
     printf("Usage: %s [-hv] -s <num> -E <num> -b <num> -t <file>\n", argv[0]);
     printf("Options:\n");
@@ -270,13 +292,15 @@ void printUsage(char* argv[])
 /*
  * main - Main routine 
  */
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     char c;
-    
-    // Parse the command line arguments: -h, -v, -s, -E, -b, -t 
-    while( (c=getopt(argc,argv,"s:E:b:t:vh")) != -1){
-        switch(c){
+
+    // Parse the command line arguments: -h, -v, -s, -E, -b, -t
+    while ((c = getopt(argc, argv, "s:E:b:t:vh")) != -1)
+    {
+        switch (c)
+        {
         case 's':
             s = atoi(optarg);
             break;
@@ -302,12 +326,12 @@ int main(int argc, char* argv[])
     }
 
     /* Make sure that all required command line args were specified */
-    if (s == 0 || E == 0 || b == 0 || trace_file == NULL) {
+    if (s == 0 || E == 0 || b == 0 || trace_file == NULL)
+    {
         printf("%s: Missing required command line argument\n", argv[0]);
         printUsage(argv);
         exit(1);
     }
-
 
     /* Initialize cache */
     initCache();
@@ -315,7 +339,7 @@ int main(int argc, char* argv[])
 #ifdef DEBUG_ON
     printf("DEBUG: S:%u E:%u B:%u trace:%s\n", S, E, B, trace_file);
 #endif
- 
+
     replayTrace(trace_file);
 
     /* Free allocated memory */
