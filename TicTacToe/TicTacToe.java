@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class TicTacToe {
 static char[][] board; 
@@ -42,8 +44,29 @@ static int maxCols = 4;
 			return true;
 		}
 	
+	static void GenerateTree(){
+		
+	}
 	
 	}
+
+class TreeNode{
+	public int score = 0;
+	public List<TreeNode> children;
+	
+	TreeNode(){
+		children =  new ArrayList<TreeNode>();		
+	}
+	
+	TreeNode(int score){
+		this.score = score;
+		children =  new ArrayList<TreeNode>();		
+	}
+	
+	public boolean isLeaf(){
+		return children.isEmpty();
+	}
+}
 
 	
 
