@@ -2,36 +2,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TicTacToe {
-static char[][] board; 
+static TreeNode rootNode;
+static boolean xTurn = true;
 static boolean printStates = false;
 static int curRow = 0;
 static int curCol = 0;
 static int maxRows = 3;
 static int maxCols = 4;
+static int alpha = 2;
+static int beta = -2;
 
 	public static void main(String args[]){
-		board = new char[3][4];
+		rootNode = new TreeNode(0, new char[3][4], null);
 		for (String s : args){
-			if(s.equals("X")){
-				AddPieceToBoard('X');
-			}
-			else if(s.equals("O")){
-				AddPieceToBoard('O');
-			}
-			else if(s.equals("#")){
-				AddPieceToBoard('#');
-			}
-			else if(s.equals("Y")){
+			if(s.equals("Y")){
 				printStates = true;
 				break;
 			}
 			else if(s.equals("N")){
 				break;
 			}
+			else if(!s.equals(" ")){
+				AddPieceToInitialBoard(s.charAt(0));
 			}
+			}
+			
 		}
 
-	static boolean AddPieceToBoard(char piece){
+	static boolean AddPieceToInitialBoard(char piece){
 		if(curCol == maxCols){
 			curCol = 0;
 			curRow++;
@@ -39,13 +37,158 @@ static int maxCols = 4;
 				return false;
 			}
 		}
-			board[curRow][curCol] = piece;
+			rootNode.state[curRow][curCol] = piece;
 			curCol++;
 			return true;
 		}
 	
-	static void GenerateTree(){
+	static void GenerateTree(TreeNode node){
+		while(true){
+		if(curCol == maxCols){
+			curCol = 0;
+			curRow++;
+			if(curRow>maxRows){
+				break;
+			}
+		}
+		if(node.state[curRow][curCol] == '_'){
+			TreeNode n = new TreeNode(0, node.state.clone(), node);
+			if(xTurn){
+				n.state[curRow][curCol] = 'X';
+				if(WinningState(n.state, true)){
+					n.score = 1;
+				}
+			}
+			else{
+				n.state[curRow][curCol] = 'O';
+				if(WinningState(n.state, false)){
+					n.score = -1;
+				}
+			}
+			node.children.add(n);
+			GenerateTree(n);
+		}
+		curCol++;
+		}
+		return;  //Return if no more blank states
+	}
+	
+	static boolean WinningState(char[][] state, boolean player){
+		int curCount = 0;
+		char piece = 'X';
+		boolean found = false;
+		if(!player){
+			piece = 'O';
+		}
 		
+		//Check rows
+		curRow = 0;
+		curCol = 0;
+		
+		while(curRow< maxRows){
+			if(curCol == maxCols ){
+				curCol = 0;
+				curRow++;
+				if(curCount==3){
+					return true;
+				}
+				curCount = 0;
+			}
+			if(state[curRow][curCol] == piece){
+				found = true;
+				curCount++;
+			}
+			else if(found){
+				curCount =0;
+				found = false;
+			}
+			curCol++;
+		}
+		
+		//Check cols
+		curRow = 0;
+		curCol = 0;
+		curCount = 0;
+		found = false;
+		
+		while(curCol< maxCols){
+			if(curRow == maxRows ){
+				curRow = 0;
+				curCol++;
+				if(curCount==3){
+					return true;
+				}
+				curCount = 0;
+			}
+			if(state[curRow][curCol] == piece){
+				found = true;
+				curCount++;
+			}
+			else if(found){
+				curCount =0;
+				found = false;
+			}
+			
+			curRow++;
+		}
+		
+		//Check primary diags
+		curRow = 0;
+		curCol = 0;
+		curCount = 0;
+		found = false;
+
+		while((curCol+2)< maxCols){
+			if(curRow == maxRows ){
+				curCol++; 
+				curRow = 0; 
+				if(curCount==3){
+					return true;
+				}
+				curCount = 0;
+			}
+			if(state[curRow][curCol] == piece){
+				found = true;
+				curCount++;
+			}
+			else if(found){
+				curCount =0;
+				found = false;
+			}
+			
+			curCol++;
+			curRow++;
+		}
+		
+		//Check secondary diags
+		curRow = (maxRows-1);
+		curCol = 0;
+		curCount = 0;
+		found = false;
+		
+		while((curCol+2)< maxCols){
+			if(curRow < 0 ){
+				curCol++; 
+				curRow = (maxRows-1); 
+				if(curCount==3){
+					return true;
+				}
+				curCount = 0;
+			}
+			if(state[curRow][curCol] == piece){
+				found = true;
+				curCount++;
+			}
+			else if(found){
+				curCount =0;
+				found = false;
+			}
+			
+			curCol++;
+			curRow--;
+		}
+		
+		return false;
 	}
 	
 	}
@@ -53,14 +196,18 @@ static int maxCols = 4;
 class TreeNode{
 	public int score = 0;
 	public List<TreeNode> children;
+	public char[][] state;
+	public TreeNode parent;
 	
 	TreeNode(){
 		children =  new ArrayList<TreeNode>();		
 	}
 	
-	TreeNode(int score){
+	TreeNode(int score, char[][] state, TreeNode parent){
 		this.score = score;
+		this.state = state;
 		children =  new ArrayList<TreeNode>();		
+		this.parent = parent;
 	}
 	
 	public boolean isLeaf(){
