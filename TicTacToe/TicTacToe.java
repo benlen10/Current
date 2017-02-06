@@ -26,7 +26,9 @@ static int beta = -2;
 				AddPieceToInitialBoard(s.charAt(0));
 			}
 			}
-			
+		
+		GenerateTree(rootNode);
+			Search(true, rootNode, 2, -2);
 		}
 
 	static boolean AddPieceToInitialBoard(char piece){
@@ -191,7 +193,41 @@ static int beta = -2;
 		return false;
 	}
 	
+	
+	static int Search(boolean player,TreeNode n ,int alpha, int beta){
+		int score = 0;
+
+    if(n.isLeaf()){    //If game over return winner
+        return n.score;
+    }
+
+    if(player){ //if max's turn
+        for (TreeNode child : n.children){
+            score = Search(!player ,child,alpha,beta);
+            if (score > alpha){
+            	alpha = score;
+            }
+            if(alpha >= beta){
+            	return alpha; //Prune tree
+            }
+            }
+        return alpha; //This is our best move
+    }
+    else{ //If min's turn
+    	 for (TreeNode child : n.children){
+    		 score = Search(!player ,child,alpha,beta);
+            if(score < beta){
+            	beta = score; // (opponent has found a better worse move)
+            }
+            if (alpha >= beta){
+            	return beta; //Prune tree
+            }
 	}
+    	 return beta; //This is our opponent's best move
+    }
+	}
+}
+
 
 class TreeNode{
 	public int score = 0;
