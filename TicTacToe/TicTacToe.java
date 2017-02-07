@@ -204,6 +204,7 @@ static int beta = -2;
     if(player){ //if max's turn
         for (TreeNode child : n.children){
             score = Search(!player ,child,alpha,beta);
+            PrintState(child.state, alpha, beta);      //Custom PrintSate method
             if (score > alpha){
             	alpha = score;
             }
@@ -216,6 +217,7 @@ static int beta = -2;
     else{ //If min's turn
     	 for (TreeNode child : n.children){
     		 score = Search(!player ,child,alpha,beta);
+    		 PrintState(child.state, alpha, beta);       //Custom PrintSate method
             if(score < beta){
             	beta = score; // (opponent has found a better worse move)
             }
@@ -225,6 +227,19 @@ static int beta = -2;
 	}
     	 return beta; //This is our opponent's best move
     }
+	}
+	
+	static void PrintState(char[][] board, int alpha, int beta){
+		int row = 0;
+		int col = 0;
+		while(row<maxRows){
+		while(col<maxCols){
+			System.out.printf("%c ", board[row][col]);
+		}
+		col++;
+		System.out.printf("\n");
+		}
+		System.out.printf("Alpha: %d Beta: %d\n", alpha, beta);
 	}
 }
 
