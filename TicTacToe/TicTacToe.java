@@ -204,7 +204,7 @@ static int beta = -2;
     if(player){ //if max's turn
         for (TreeNode child : n.children){
             score = Search(!player ,child,alpha,beta);
-            PrintState(child.state, alpha, beta);      //Custom PrintSate method
+            PrintState(child.state, alpha, beta, false);      //Custom PrintSate method
             if (score > alpha){
             	alpha = score;
             }
@@ -217,7 +217,7 @@ static int beta = -2;
     else{ //If min's turn
     	 for (TreeNode child : n.children){
     		 score = Search(!player ,child,alpha,beta);
-    		 PrintState(child.state, alpha, beta);       //Custom PrintSate method
+    		 PrintState(child.state, alpha, beta, false);       //Custom PrintSate method
             if(score < beta){
             	beta = score; // (opponent has found a better worse move)
             }
@@ -229,9 +229,12 @@ static int beta = -2;
     }
 	}
 	
-	static void PrintState(char[][] board, int alpha, int beta){
+	static void PrintState(char[][] board, int alpha, int beta, boolean solution){
 		int row = 0;
 		int col = 0;
+		if(solution){
+			System.out.printf("SOLUTION\n");
+		}
 		while(row<maxRows){
 		while(col<maxCols){
 			System.out.printf("%c ", board[row][col]);
@@ -239,7 +242,9 @@ static int beta = -2;
 		col++;
 		System.out.printf("\n");
 		}
+		if(!solution){
 		System.out.printf("Alpha: %d Beta: %d\n", alpha, beta);
+		}
 	}
 }
 
