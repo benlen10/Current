@@ -14,7 +14,7 @@ public class Search {
 
 	public static void main(String args[]){
 		rootNode = new TreeNode(0, new char[3][4], null);
-		String[] input =   "O X O X # X X O O O _ _ Y".split(" ");//"O X O X # O X O _ _ _ _ Y".split(" "); //
+		String[] input =   "O X O X # X X O O O _ _ N".split(" ");//"O X O X # O X O _ _ _ _ Y".split(" "); //
 		for (String s : input){
 			if(s.equals("Y")){
 				break;
@@ -192,7 +192,6 @@ public class Search {
 		return false;
 	}
 
-
 	int TreeSearch(boolean player,TreeNode n ,int alpha, int beta){
 		int score = 0;
 
@@ -208,11 +207,7 @@ public class Search {
 				if(alpha >= beta){
 					return alpha; //Prune tree
 				}
-				if(child.score==1){
-					PrintState(child.state, alpha, beta, true);
-				}else{
-					PrintState(child.state, alpha, beta, false);
-				}
+					PrintState(child, alpha, beta);
 			}
 			return alpha; //This is our best move
 		}
@@ -225,37 +220,35 @@ public class Search {
 				if (alpha >= beta){
 					return beta; //Prune tree
 				}
-				if(child.score==1){
-					PrintState(child.state, alpha, beta, true);
-				}else{
-					PrintState(child.state, alpha, beta, false);
+					PrintState(child, alpha, beta);
 				}
-			}
 			return beta; //Opponent's best move
 		}
 	}
 
-	void PrintState(char[][] board, int alpha, int beta, boolean solution){
+	void PrintState(TreeNode n, int alpha, int beta){
 		int row = 0;
 		int col = 0;
-		if(solution){
+		if(n.score == 1){
 			System.out.printf("SOLUTION\n");
 		}
+		if(printStates || n.score==1){
 		while(row<=maxRow){
 			while(col<=maxCol){
-				System.out.printf("%c ", board[row][col]);
+				System.out.printf("%c ", n.state[row][col]);
 				col++;
 			}
 			System.out.printf("\n");
 			row++;
 			col=0;
 		}
-		if(!solution){
+		}
+		if((n.score != 1)&& printStates){
 			System.out.printf("Alpha: %d Beta: %d\n", alpha, beta);
 		}
 	}
 
-	//Summary: Copy a matrix to new/seperate addresses 
+	//Summary: Copy a matrix to new address spa
 	static char[][] CopyMatrix(char[][] src){
 		char [][] dest = new char[src.length][];
 		for(int i = 0; i < src.length; i++)
