@@ -1,7 +1,14 @@
+// Semester:         CS 540 Fall 2016
+//
+// Author:           Benjamin Lenington
+// Email:            lenington@wisc.edu
+// CS Login:         lenington
+
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Search {
+public class TicTacToe {
 	static TreeNode rootNode;
 	static boolean xTurn = true;
 	static boolean printStates = true;
@@ -14,8 +21,7 @@ public class Search {
 
 	public static void main(String args[]){
 		rootNode = new TreeNode(0, new char[3][4], null);
-		String[] input =   "O X O X # X X O O O _ _ N".split(" ");//"O X O X # O X O _ _ _ _ Y".split(" "); //
-		for (String s : input){
+		for (String s : args){
 			if(s.equals("Y")){
 				break;
 			}
@@ -29,7 +35,7 @@ public class Search {
 				}
 			}
 		}
-		Search instance = new Search();
+		TicTacToe instance = new TicTacToe();
 		instance.GenerateTree(rootNode, true);
 		instance.TreeSearch(true, rootNode, alpha, beta);
 	}	
