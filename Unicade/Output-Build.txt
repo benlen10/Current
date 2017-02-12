@@ -1,0 +1,21 @@
+﻿1>------ Rebuild All started: Project: UniCade, Configuration: Debug Any CPU ------
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\SettingsWindow.cs(11,7,11,28): warning CS0105: The using directive for 'System.ComponentModel' appeared previously in this namespace
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\SQLclient.cs(32,17,32,27): warning CS0162: Unreachable code detected
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\WebOps.cs(76,43,76,44): warning CS0168: The variable 'e' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\SQLclient.cs(354,30,354,31): warning CS0168: The variable 'e' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\SQLclient.cs(368,30,368,31): warning CS0168: The variable 'e' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\WebOps.cs(264,33,264,35): warning CS0168: The variable 'ex' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\FileOps.cs(317,30,317,31): warning CS0168: The variable 'e' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\FileOps.cs(355,26,355,27): warning CS0168: The variable 'e' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\MainWindow.xaml.cs(32,33,32,35): warning CS0169: The field 'MainWindow.tm' is never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\SettingsWindow.cs(11,7,11,28): warning CS0105: The using directive for 'System.ComponentModel' appeared previously in this namespace
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\SQLclient.cs(32,17,32,27): warning CS0162: Unreachable code detected
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\WebOps.cs(76,43,76,44): warning CS0168: The variable 'e' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\WebOps.cs(264,33,264,35): warning CS0168: The variable 'ex' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\SQLclient.cs(354,30,354,31): warning CS0168: The variable 'e' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\SQLclient.cs(368,30,368,31): warning CS0168: The variable 'e' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\FileOps.cs(317,30,317,31): warning CS0168: The variable 'e' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\FileOps.cs(355,26,355,27): warning CS0168: The variable 'e' is declared but never used
+1>C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\MainWindow.xaml.cs(32,33,32,35): warning CS0169: The field 'MainWindow.tm' is never used
+1>  UniCade -> C:\Users\Ben\Dropbox\Workspace\UniCade\UniCade\bin\Debug\UniCade.exe
+========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========
