@@ -37,7 +37,6 @@ C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade_MarkupCompile.cache
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade_MarkupCompile.lref
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\MainWindow.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.g.resources
-C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.LicenseEntry.resources
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.PassWindow.resources
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.Properties.Resources.resources
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.csproj.GenerateResource.Cache
@@ -99,3 +98,5 @@ C:\Users\Ben\Workspace\UnicadeInterface\UniCade\obj\Debug\UniCade.Properties.Res
 C:\Users\Ben\Workspace\UnicadeInterface\UniCade\obj\Debug\UniCade.Windows.SettingsWindow.resources
 C:\Users\Ben\Workspace\UnicadeInterface\UniCade\obj\Debug\UniCade.UnicadeAccount.resources
 C:\Users\Ben\Workspace\UnicadeInterface\UniCade\obj\Debug\UniCade.csproj.GenerateResource.Cache
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\LicenseEntry.g.cs
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\LicenseEntry.baml

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using UniCade.Windows;
 
 namespace UniCade
 {
@@ -1378,10 +1379,7 @@ namespace UniCade
         private void AboutTab_EnterLicenseButton_Click_1(object sender, EventArgs e)
         {
             //Create a new license entry info and validate the key
-            LicenseEntry le = new LicenseEntry()
-            {
-                Owner = this
-            };
+            LicenseEntry le = new LicenseEntry();
             le.ShowDialog();
             label35.Text = "Licensed to: " + Program._userLicenseName;
             label37.Text = "License Key: " + Program._userLicenseKey;
