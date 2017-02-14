@@ -23,6 +23,7 @@ namespace UniCade.Windows
         public LicenseEntry()
         {
             InitializeComponent();
+            this.ResizeMode = ResizeMode.NoResize;
             Textbox_User.Text = Program._userLicenseName;
             Textbox_Key.Text = Program._userLicenseKey;
         }

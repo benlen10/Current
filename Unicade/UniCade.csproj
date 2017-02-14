@@ -134,6 +134,9 @@
     <Compile Include="Backend\TextFiles.cs" />
     <Compile Include="Backend\User.cs" />
     <Compile Include="Network\WebOps.cs" />
+    <Compile Include="Windows\PassWindow.xaml.cs">
+      <DependentUpon>PassWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\UnicadeAccount.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\NotificationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PassWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -100,3 +100,5 @@ C:\Users\Ben\Workspace\UnicadeInterface\UniCade\obj\Debug\UniCade.UnicadeAccount
 C:\Users\Ben\Workspace\UnicadeInterface\UniCade\obj\Debug\UniCade.csproj.GenerateResource.Cache
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\LicenseEntry.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\LicenseEntry.baml
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\PassWindow.g.cs
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\PassWindow.baml
