@@ -78,6 +78,7 @@ namespace UniCade.Windows
 
         internal System.Windows.Controls.Label Label_Password;
         internal System.Windows.Controls.Grid Button_Close;
+        internal System.Windows.Controls.TextBox Textbox_Password;
     }
 }
 
