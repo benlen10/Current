@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace UniCade.Windows
 {
@@ -19,9 +7,29 @@ namespace UniCade.Windows
     /// </summary>
     public partial class AccountWindow : Window
     {
+
+        /// <summary>
+        /// Public constructor for the AccountWindow class
+        /// </summary>
         public AccountWindow()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Close the current window instance
+        /// </summary>
+        private void AccountWindow_CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        /// <summary>
+        /// Create a new Unicade account with the given info
+        /// </summary>
+        private void AccountWindow_ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
