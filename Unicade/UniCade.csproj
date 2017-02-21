@@ -110,6 +110,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Windows\AccountWindow.xaml.cs">
+      <DependentUpon>AccountWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\GameInfo.xaml.cs">
       <DependentUpon>GameInfo.xaml</DependentUpon>
     </Compile>
@@ -117,17 +120,11 @@
     <Compile Include="Windows\LicenseEntry.xaml.cs">
       <DependentUpon>LicenseEntry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
+    <Compile Include="Windows\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\PassWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\PassWindow.Designer.cs">
-      <DependentUpon>PassWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Network\SQLclient.cs" />
     <Compile Include="Backend\Taskbar.cs" />
@@ -137,12 +134,10 @@
     <Compile Include="Windows\PassWindow.xaml.cs">
       <DependentUpon>PassWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\UnicadeAccount.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\UnicadeAccount.designer.cs">
-      <DependentUpon>UnicadeAccount.cs</DependentUpon>
-    </Compile>
+    <Page Include="Windows\AccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\GameInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,9 +156,6 @@
     <Compile Include="Backend\Database.cs" />
     <Compile Include="Backend\FileOps.cs" />
     <Compile Include="Backend\Game.cs" />
-    <Compile Include="Windows\Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Backend\Program.cs" />
     <Compile Include="Windows\SettingsWindow.cs">
       <SubType>Form</SubType>
@@ -176,6 +168,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\LicenseEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,17 +198,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Windows\PassWindow.resx">
-      <DependentUpon>PassWindow.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\SettingsWindow.resx" />
-    <EmbeddedResource Include="Windows\UnicadeAccount.resx">
-      <DependentUpon>UnicadeAccount.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

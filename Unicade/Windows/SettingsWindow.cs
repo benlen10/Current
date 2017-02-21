@@ -938,7 +938,7 @@ namespace UniCade
                 }
             }
             //Display the login dialog
-            Login login = new Login(1);
+            LoginWindow login = new LoginWindow(1);
             login.ShowDialog();
             if (_curUser != null)
             {
@@ -1271,7 +1271,7 @@ namespace UniCade
         /// </summary>
         private void CloudTab_LoginButton_Click(object sender, EventArgs e)
         {
-            Login l = new Login(0);
+            LoginWindow l = new LoginWindow(0);
             l.ShowDialog();
             if (SQLclient.sqlUser != null)
             {
