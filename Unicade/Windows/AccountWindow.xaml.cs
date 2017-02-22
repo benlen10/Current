@@ -17,8 +17,9 @@ namespace UniCade.Windows
         /// <summary>
         /// Public constructor for the AccountWindow class
         /// </summary>
-        public AccountWindow()
+        public AccountWindow(int accountType)
         {
+            _accountType = accountType;
             InitializeComponent();
         }
 
