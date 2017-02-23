@@ -19,7 +19,7 @@ namespace UniCade
         /// <summary>
         /// Initiate a new SQL connection and return the connection string
         /// </summary>
-        public static string connectSQL()
+        public static string ConnectSQL()
         {
             //Generate a new SQL connection
             conn = new MySqlConnection("server=127.0.0.1;" + "uid=root;" + "pwd=Star6120;" + "database=unicade;");
@@ -40,12 +40,12 @@ namespace UniCade
         /// <summary>
         /// Execute the SQL command passed in as a string param
         /// </summary>
-        public static string processSQLcommand(string s)
+        public static string ProcessSQLcommand(string s)
         {
             //If the SQL connection is not already active, call connect function
             if (conn == null)
             {
-                connectSQL();
+                ConnectSQL();
             }
             MySqlCommand myCommand = new MySqlCommand(s, conn);
 
@@ -74,11 +74,11 @@ namespace UniCade
         /// <summary>
         /// Upload the entire game library from all consoles to the SQL database
         /// </summary>
-        public static void uploadAllGames()
+        public static void UploadAllGames()
         {
             foreach (Console c in Database.ConsoleList)
             {
-                c.GameList.ForEach(g => uploadGame(g));
+                c.GameList.ForEach(g => UploadGame(g));
             }
         }
 
@@ -93,7 +93,7 @@ namespace UniCade
                 {
                     Game g = (Game)c.GameList[i];
                     Game game = null;
-                    game = getSingleGame(g.Console, g.Title);
+                    game = GetSingleGame(g.Console, g.Title);
                     if ((game != null) && (game.FileName.Length > 3))
                     {
                         c.GameList[i] = game;
@@ -105,10 +105,10 @@ namespace UniCade
         /// <summary>
         /// Upload a single game to the database and return false if the game already exists
         /// </summary>
-        public static bool uploadGame(Game g)
+        public static bool UploadGame(Game g)
         {
             if (conn == null)
-                connectSQL();
+                ConnectSQL();
 
             //Check if the game already exists in the database
             MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM " + sqlUser + "_games WHERE filename = " + "\"" + g.FileName + "\"" + " AND console = " + "\"" + g.Console + "\"" + ";", conn);
@@ -133,10 +133,10 @@ namespace UniCade
             return true;
         }
 
-        public static Game getSingleGame(string con, string gam)
+        public static Game GetSingleGame(string con, string gam)
         {
             if (conn == null)
-                connectSQL();
+                ConnectSQL();
 
             MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM " + sqlUser + "_games WHERE title = " + "\"" + gam + "\"" + " AND console = " + "\"" + con + "\"" + ";", conn);
             MySqlDataReader myReader = null;
@@ -174,7 +174,7 @@ namespace UniCade
         public static bool AuthiencateUser(string user, string pass)
         {
             if (conn == null)
-                connectSQL();
+                ConnectSQL();
 
             //Generate a new SQL command
             string command = "Use unicade;" + "select * FROM users WHERE username = " + "\"" + user + "\"" + " OR email = " + "\"" + user + "\"" + ";";
@@ -204,7 +204,7 @@ namespace UniCade
         public static bool CreateUser(string username, string pass, string email, string info, string esrb, string profPic)
         {
             if (conn == null)
-                connectSQL();
+                ConnectSQL();
 
             MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM users WHERE username = " + "\"" + username + "\"" + " OR email = " + "\"" + email + "\"" + ";", conn);
             MySqlDataReader myReader = myCommand.ExecuteReader();
@@ -243,7 +243,7 @@ namespace UniCade
         public static void Deletegames()
         {
             if (conn == null)
-                connectSQL();
+                ConnectSQL();
 
             //Generate and execute the command to delete all games for the current user
             string command = "Use unicade;" + "DELETE FROM " + sqlUser + "_games WHERE id>0;";
@@ -258,7 +258,7 @@ namespace UniCade
         public static void DeleteUser()
         {
             if (conn == null)
-                connectSQL();
+                ConnectSQL();
 
             //Generate and execute the command to remove the user profile from the database
             string command = "Use unicade;" + "DELETE FROM users WHERE username = " + "\"" + sqlUser + "\";";

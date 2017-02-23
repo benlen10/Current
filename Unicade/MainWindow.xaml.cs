@@ -549,7 +549,7 @@ namespace UniCade
                 {
                     //Populate the game info text
                     _gameInfo.textBlock1.Text = g.Console + " - " + g.Title;
-                    _gameInfo.textBlock.Text = Program.displayGameInfo(g);
+                    _gameInfo.textBlock.Text = Program.DisplayGameInfo(g);
 
                     //Load the box front for the current game if it exists
                     if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + g.Title + "_BoxFront.png"))

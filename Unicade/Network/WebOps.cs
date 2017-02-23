@@ -33,7 +33,7 @@ namespace UniCade
         /// <summary>
         /// Scrape game info for the specified game from online databases
         /// </summary>
-        public static bool scrapeInfo(Game g)
+        public static bool ScrapeInfo(Game g)
         {
             //Replace invalid chars within game title
             gameName = g.Title.Replace(" - ", " ");
@@ -46,12 +46,12 @@ namespace UniCade
 
             //Attempt to scrape mobygames if the site setting is enabled
             if (mobyg > 0)
-                if (!scrapeMobyGames(g))
+                if (!ScrapeMobyGames(g))
                     return false;
 
             //Attempt to scrape metacritic if the site setting is enabled
             if (metac > 0)
-                if (!scrapeMetacritic(g))
+                if (!ScrapeMetacritic(g))
                     return false;
 
             //If neither site returns any errors, return true
@@ -61,7 +61,7 @@ namespace UniCade
         /// <summary>
         /// Scrape info for the specified game from Mobygames.com
         /// </summary>
-        public static bool scrapeMobyGames(Game g)
+        public static bool ScrapeMobyGames(Game g)
         {
             //Check for bad input
             if (g == null)
@@ -189,7 +189,7 @@ namespace UniCade
         /// <summary>
         /// Scrape Metacritic for info related to the specific game
         /// </summary>
-        public static bool scrapeMetacritic(Game g)
+        public static bool ScrapeMetacritic(Game g)
         {
             string metaCon = "";
 

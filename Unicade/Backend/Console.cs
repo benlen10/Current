@@ -44,7 +44,7 @@ namespace UniCade
 
         #region Public Methods
 
-        public bool addGame(Game game)
+        public bool AddGame(Game game)
         {
             //If the game console does not match the current console, return false
             if (!game.Console.Equals(Name))

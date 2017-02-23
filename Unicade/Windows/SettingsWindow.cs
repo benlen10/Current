@@ -222,7 +222,7 @@ namespace UniCade
                 return;
             }
             Game game = null;
-            game = SQLclient.getSingleGame(_curGame.Console, _curGame.Title);
+            game = SQLclient.GetSingleGame(_curGame.Console, _curGame.Title);
             if (game != null)
             {
                 for (int i = 0; i < _curConsole2.GameList.Count; i++)
@@ -266,7 +266,7 @@ namespace UniCade
             //Upload all games if all initial checks are passed
             foreach (Game g in _curConsole2.GameList)
             {
-                SQLclient.uploadGame(g);
+                SQLclient.UploadGame(g);
                 MessageBox.Show("Console Uploaded");
             }
         }
@@ -303,7 +303,7 @@ namespace UniCade
             {
                 Game game1 = (Game)_curConsole2.GameList[i];
                 Game game2 = null;
-                game2 = SQLclient.getSingleGame(game1.Console, game1.Title);
+                game2 = SQLclient.GetSingleGame(game1.Console, game1.Title);
                 if (game2 != null)
                 {
                     if (game2.FileName.Length > 3)
@@ -387,7 +387,7 @@ namespace UniCade
             }
 
             //Scrape info and populate local fields
-            WebOps.scrapeInfo(_curGame);
+            WebOps.ScrapeInfo(_curGame);
             textBox2.Text = _curGame.Title;
             textBox13.Text = _curGame.Console;
             textBox12.Text = _curGame.ReleaseDate;
@@ -502,7 +502,7 @@ namespace UniCade
                 MessageBox.Show("Must select a console/game");
                 return;
             }
-            SQLclient.uploadGame(_curGame);
+            SQLclient.UploadGame(_curGame);
             MessageBox.Show("Game Uploaded");
         }
 
@@ -544,7 +544,7 @@ namespace UniCade
             MessageBox.Show("This may take a while... Please wait for a completed nofication.");
             foreach (Game g1 in _curConsole2.GameList)
             {
-                WebOps.scrapeInfo(g1);
+                WebOps.ScrapeInfo(g1);
             }
             MessageBox.Show("Operation Successful");
         }
@@ -662,7 +662,7 @@ namespace UniCade
         {
             foreach (Game g in _curConsole.GameList)
             {
-                if (!WebOps.scrapeInfo(g))
+                if (!WebOps.ScrapeInfo(g))
                     return;
             }
         }
@@ -822,7 +822,7 @@ namespace UniCade
             }
 
             //Create a new unicade account and display the dialog
-            UnicadeAccount uc = new UnicadeAccount(1);
+            AccountWindow uc = new AccountWindow(1);
             uc.ShowDialog();
 
             //Update the current labels and save the user info to the preferences file
@@ -1261,7 +1261,7 @@ namespace UniCade
         /// </summary>
         private void CloudTab_CreateNewAccountButton_Click(object sender, EventArgs e)
         {
-            UnicadeAccount ua = new UnicadeAccount(0);
+            AccountWindow ua = new AccountWindow(0);
             ua.ShowDialog();
         }
 
@@ -1326,7 +1326,7 @@ namespace UniCade
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
-            SQLclient.uploadAllGames();
+            SQLclient.UploadAllGames();
             MessageBox.Show("Library successfully uploaded");
         }
 

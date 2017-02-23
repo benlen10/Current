@@ -38,7 +38,7 @@ namespace UniCade
             {
                 FileOps.RestoreDefaultPreferences();
                 FileOps.savePreferences(_prefPath);
-                showNotification("WARNING", "Preference file not found.\n Loading defaults...");
+                ShowNotification("WARNING", "Preference file not found.\n Loading defaults...");
             }
 
             //If the specified rom directory does not exist, creat a new one in with the default path
@@ -87,7 +87,7 @@ namespace UniCade
                 {
                     MessageBox.Show("Error Saving Database\n" + _databasePath);
                 }
-                showNotification("WARNING", "Database file not found.\n Loading defaults...");
+                ShowNotification("WARNING", "Database file not found.\n Loading defaults...");
             }
             var app = new App();
             app.InitializeComponent();
@@ -97,7 +97,7 @@ namespace UniCade
         /// <summary>
         /// Display all game info fields in plain text format
         /// </summary>
-        public static string displayGameInfo(Game game)
+        public static string DisplayGameInfo(Game game)
         {
             string txt = "";
             txt = txt + ("\nTitle: " + game.Title + "\n");
@@ -157,7 +157,7 @@ namespace UniCade
         /// <summary>
         /// Display a timed notification in the bottom left corner of the interface 
         /// </summary>
-        private static void showNotification(string title, string body)
+        private static void ShowNotification(string title, string body)
         {
             NotificationWindow nfw = new NotificationWindow(title, body);
             nfw.Show();
