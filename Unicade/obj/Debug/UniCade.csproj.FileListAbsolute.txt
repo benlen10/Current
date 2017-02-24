@@ -37,7 +37,6 @@ C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade_MarkupCompile.cache
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade_MarkupCompile.lref
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\MainWindow.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.g.resources
-C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.PassWindow.resources
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.Properties.Resources.resources
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.csproj.GenerateResource.Cache
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\NotificationWindow.baml
@@ -47,7 +46,6 @@ C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Resources\App.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Resources\App.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\GameInfo.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.Windows.SettingsWindow.resources
-C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\UniCade.UnicadeAccount.resources
 C:\Users\Ben\Workspace\UniCade\UnicadeInterface\UniCade\bin\Debug\UniCade.exe.config
 C:\Users\Ben\Workspace\UniCade\UnicadeInterface\UniCade\obj\Debug\UniCade.exe
 C:\Users\Ben\Workspace\UniCade\UnicadeInterface\UniCade\obj\Debug\UniCade.pdb
@@ -102,3 +100,7 @@ C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\LicenseEntry.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\LicenseEntry.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\PassWindow.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\PassWindow.baml
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\AccountWindow.g.cs
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\LoginWindow.g.cs
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\AccountWindow.baml
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\LoginWindow.baml

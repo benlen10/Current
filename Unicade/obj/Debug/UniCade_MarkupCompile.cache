@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Ben\Workspace\Unicade\UniCade\Resources\App.xaml
-5-603919995
+7-1995091174
 11074149209
-29-444602080
+25-851091294
 16991112455
-Windows\GameInfo.xaml;MainWindow.xaml;Windows\LicenseEntry.xaml;Windows\NotificationWindow.xaml;Windows\PassWindow.xaml;
+Windows\AccountWindow.xaml;Windows\GameInfo.xaml;MainWindow.xaml;Windows\LicenseEntry.xaml;Windows\LoginWindow.xaml;Windows\NotificationWindow.xaml;Windows\PassWindow.xaml;
 
 False
 
