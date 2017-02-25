@@ -269,8 +269,6 @@ namespace UniCade
                     if (SettingsWindow._passProtect > 0)
                     {
                         _validPAss = false;
-                        NotificationWindow nfw = new NotificationWindow("Security", "Enter Password");
-                        nfw.Show();
                         PassWindow pw = new PassWindow();
                         pw.ShowDialog();
 

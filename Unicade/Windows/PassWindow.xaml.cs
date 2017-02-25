@@ -38,6 +38,10 @@ namespace UniCade.Windows
                     DialogResult = true;
                     MainWindow._validPAss = true;
                 }
+                else
+                {
+                    Close();
+                }
 
             }
             Textbox_Password.Text = null;
