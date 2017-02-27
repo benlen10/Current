@@ -36,6 +36,8 @@
                     <Label Content="Boxback" HorizontalAlignment="Left" Margin="657,56,0,0" VerticalAlignment="Top"/>
                     <Label Content="Screenshot" HorizontalAlignment="Left" Margin="657,87,0,0" VerticalAlignment="Top"/>
                     <Label Content="ESRB" HorizontalAlignment="Left" Margin="657,118,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Total Games" HorizontalAlignment="Left" Margin="28,239,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Games For Console" HorizontalAlignment="Left" Margin="135,239,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Emulators">
