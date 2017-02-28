@@ -20,24 +20,43 @@
                 <Grid Background="White">
                     <Label Content="Console List" HorizontalAlignment="Left" Margin="39,23,0,0" VerticalAlignment="Top"/>
                     <Label Content="Games List" HorizontalAlignment="Left" Margin="148,23,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Title" HorizontalAlignment="Left" Margin="374,55,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Console" HorizontalAlignment="Left" Margin="374,92,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Release Date" HorizontalAlignment="Left" Margin="374,118,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Publisher" HorizontalAlignment="Left" Margin="374,144,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Developer" HorizontalAlignment="Left" Margin="374,170,0,0" VerticalAlignment="Top"/>
-                    <Label Content="ESRB" HorizontalAlignment="Left" Margin="374,196,0,0" VerticalAlignment="Top"/>
-                    <Label Content="ESRB Descriptor" HorizontalAlignment="Left" Margin="374,222,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Game Description" HorizontalAlignment="Left" Margin="374,248,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Game Metadata" HorizontalAlignment="Left" Margin="476,23,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Title" HorizontalAlignment="Left" Margin="257,63,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Console" HorizontalAlignment="Left" Margin="257,100,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Release Date" HorizontalAlignment="Left" Margin="257,126,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Publisher" HorizontalAlignment="Left" Margin="257,152,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Developer" HorizontalAlignment="Left" Margin="257,178,0,0" VerticalAlignment="Top"/>
+                    <Label Content="ESRB" HorizontalAlignment="Left" Margin="257,204,0,0" VerticalAlignment="Top"/>
+                    <Label Content="ESRB Descriptor" HorizontalAlignment="Left" Margin="257,230,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Game Description" HorizontalAlignment="Left" Margin="257,256,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Game Metadata" HorizontalAlignment="Left" Margin="413,23,0,0" VerticalAlignment="Top"/>
                     <Label Content="Critic Score" HorizontalAlignment="Left" Margin="483,74,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Players" HorizontalAlignment="Left" Margin="515,110,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Launch Count" HorizontalAlignment="Left" Margin="524,144,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Boxfront" HorizontalAlignment="Left" Margin="657,23,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Boxback" HorizontalAlignment="Left" Margin="657,56,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Screenshot" HorizontalAlignment="Left" Margin="657,87,0,0" VerticalAlignment="Top"/>
-                    <Label Content="ESRB" HorizontalAlignment="Left" Margin="657,118,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Total Games" HorizontalAlignment="Left" Margin="28,239,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Games For Console" HorizontalAlignment="Left" Margin="135,239,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Players" HorizontalAlignment="Left" Margin="497,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.149,0.467"/>
+                    <Label Content="Launch Count" HorizontalAlignment="Left" Margin="497,139,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Boxfront" HorizontalAlignment="Left" Margin="662,5,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Boxback" HorizontalAlignment="Left" Margin="663,82,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Screenshot" HorizontalAlignment="Left" Margin="657,157,0,0" VerticalAlignment="Top"/>
+                    <Label Content="ESRB" HorizontalAlignment="Left" Margin="674,239,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Total Games" HorizontalAlignment="Left" Margin="16,343,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Games For Console" HorizontalAlignment="Left" Margin="135,343,0,0" VerticalAlignment="Top"/>
+                    <ListBox HorizontalAlignment="Left" Height="289" Margin="28,49,0,0" VerticalAlignment="Top" Width="92"/>
+                    <ListBox HorizontalAlignment="Left" Height="289" Margin="135,49,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Image HorizontalAlignment="Left" Height="100" Margin="644,274,0,0" VerticalAlignment="Top" Width="100"/>
+                    <Image HorizontalAlignment="Left" Height="56" Margin="663,183,0,0" VerticalAlignment="Top" Width="62"/>
+                    <Image HorizontalAlignment="Left" Height="47" Margin="663,110,0,0" VerticalAlignment="Top" Width="57"/>
+                    <Image HorizontalAlignment="Left" Height="47" Margin="663,30,0,0" VerticalAlignment="Top" Width="57"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="90,346,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="252,346,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="304,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="314,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="335,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="335,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="335,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="314,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="357,237,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="362,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="563,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="567,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="585,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Emulators">
