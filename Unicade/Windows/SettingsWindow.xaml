@@ -17,7 +17,7 @@
         </Grid.RenderTransform>
         <TabControl HorizontalAlignment="Left" Height="412" VerticalAlignment="Top" Width="760">
             <TabItem Header="Games">
-                <Grid Background="White">
+                <Grid Background="White" Margin="0,-57,0,-10">
                     <Label Content="Console List" HorizontalAlignment="Left" Margin="39,23,0,0" VerticalAlignment="Top"/>
                     <Label Content="Games List" HorizontalAlignment="Left" Margin="148,23,0,0" VerticalAlignment="Top"/>
                     <Label Content="Title" HorizontalAlignment="Left" Margin="257,63,0,0" VerticalAlignment="Top"/>
@@ -60,7 +60,17 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Emulators">
-                <Grid Background="White"/>
+                <Grid Background="White">
+                    <Label Content="Consol List" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label Content="Console Name" HorizontalAlignment="Left" Margin="112,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label Content="Consol List" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label Content="Emulator Exe" HorizontalAlignment="Left" Margin="112,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label Content="ROM Extension" HorizontalAlignment="Left" Margin="112,130,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label Content="Emulator Args" HorizontalAlignment="Left" Margin="112,161,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label Content="Console Info" HorizontalAlignment="Left" Margin="112,192,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label Content="Release Date" HorizontalAlignment="Left" Margin="112,223,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label Content="Game Count" HorizontalAlignment="Left" Margin="418,245,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                </Grid>
             </TabItem>
             <TabItem Header="Users">
                 <Grid Background="White"/>
