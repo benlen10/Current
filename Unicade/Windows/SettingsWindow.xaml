@@ -69,7 +69,25 @@
                     <Label Content="Emulator Args" HorizontalAlignment="Left" Margin="112,161,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label Content="Console Info" HorizontalAlignment="Left" Margin="112,192,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label Content="Release Date" HorizontalAlignment="Left" Margin="112,223,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
-                    <Label Content="Game Count" HorizontalAlignment="Left" Margin="418,245,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label Content="Game Count" HorizontalAlignment="Left" Margin="351,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <ListBox HorizontalAlignment="Left" Height="230" Margin="7,41,0,0" VerticalAlignment="Top" Width="100"/>
+                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="131,254,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="204,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="204,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="204,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="204,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="204,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="204,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="433,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" TextChanged="TextBox_TextChanged"/>
+                    <Image HorizontalAlignment="Left" Height="364" Margin="570,10,0,0" VerticalAlignment="Top" Width="174"/>
+                    <Button Content="Force Global &#xD;&#xA;Metadata Rescrape" HorizontalAlignment="Left" Margin="10,287,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
+                    <Button Content="Add New Console" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
+                    <Button Content="Rescan Single&#xD;&#xA;Console" HorizontalAlignment="Left" Margin="134,287,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
+                    <Button Content="Delete Console" HorizontalAlignment="Left" Margin="134,334,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
+                    <Button Content="Global Rescan" HorizontalAlignment="Left" Margin="258,287,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
+                    <Button Content="Save Database File" HorizontalAlignment="Left" Margin="258,334,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
+                    <Button Content="Save Info" HorizontalAlignment="Left" Margin="382,287,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
+                    <Button Content="Close" HorizontalAlignment="Left" Margin="382,332,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Users">
