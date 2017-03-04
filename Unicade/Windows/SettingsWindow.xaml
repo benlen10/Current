@@ -99,10 +99,21 @@
                     <Label Content="Allowed ESRB Rating" HorizontalAlignment="Left" Margin="179,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.024,3.36"/>
                     <Label Content="Login Count" HorizontalAlignment="Left" Margin="179,188,0,0" VerticalAlignment="Top"/>
                     <ListBox HorizontalAlignment="Left" Height="281" Margin="10,49,0,0" VerticalAlignment="Top" Width="100"/>
-                    <Label Content="Total Launch Count" HorizontalAlignment="Left" Margin="274,188,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Total Launch Count" HorizontalAlignment="Left" Margin="296,188,0,0" VerticalAlignment="Top"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="248,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="248,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="248,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="254,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="412,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                    <Label Content="User Favorites" HorizontalAlignment="Left" Margin="632,10,0,0" VerticalAlignment="Top"/>
+                    <ListBox HorizontalAlignment="Left" Height="281" Margin="632,41,0,0" VerticalAlignment="Top" Width="100"/>
+                    <Button Content="Save" HorizontalAlignment="Left" Margin="190,232,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
+                    <Button Content="Login" HorizontalAlignment="Left" Margin="293,232,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
+                    <Button Content="Refresh" HorizontalAlignment="Left" Margin="391,232,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
+                    <Button Content="New User" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="101" Height="28"/>
+                    <Button Content="Delete User" HorizontalAlignment="Left" Margin="126,346,0,0" VerticalAlignment="Top" Width="101" Height="28"/>
+                    <Button Content="Save All Users" HorizontalAlignment="Left" Margin="248,346,0,0" VerticalAlignment="Top" Width="101" Height="28"/>
+                    <Button Content="Close" HorizontalAlignment="Left" Margin="365,346,0,0" VerticalAlignment="Top" Width="101" Height="28"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Global">
