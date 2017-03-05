@@ -117,7 +117,17 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Global">
-                <Grid Background="White"/>
+                <Grid Background="White">
+                    <Label Content="Allowed ESRB Rating (Global)" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Password Protection" HorizontalAlignment="Left" Margin="50,61,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Database Path" HorizontalAlignment="Left" Margin="50,92,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Emulator Directory" HorizontalAlignment="Left" Margin="50,123,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Media Directory" HorizontalAlignment="Left" Margin="50,154,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.642,5.345"/>
+                    <Label Content="ROM Directory" HorizontalAlignment="Left" Margin="50,185,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Label" HorizontalAlignment="Left" Margin="222,227,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Label" HorizontalAlignment="Left" Margin="222,258,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Global Favorites" HorizontalAlignment="Left" Margin="641,10,0,0" VerticalAlignment="Top"/>
+                </Grid>
             </TabItem>
             <TabItem Header="Web">
                 <Grid Background="White"/>
