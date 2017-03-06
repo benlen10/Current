@@ -124,9 +124,25 @@
                     <Label Content="Emulator Directory" HorizontalAlignment="Left" Margin="50,123,0,0" VerticalAlignment="Top"/>
                     <Label Content="Media Directory" HorizontalAlignment="Left" Margin="50,154,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.642,5.345"/>
                     <Label Content="ROM Directory" HorizontalAlignment="Left" Margin="50,185,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Label" HorizontalAlignment="Left" Margin="222,227,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Label" HorizontalAlignment="Left" Margin="222,258,0,0" VerticalAlignment="Top"/>
+                    <Label Content="# Coins" HorizontalAlignment="Left" Margin="273,265,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Playtime" HorizontalAlignment="Left" Margin="273,296,0,0" VerticalAlignment="Top"/>
                     <Label Content="Global Favorites" HorizontalAlignment="Left" Margin="641,10,0,0" VerticalAlignment="Top"/>
+                    <ListBox HorizontalAlignment="Left" Height="323" Margin="615,36,0,0" VerticalAlignment="Top" Width="129"/>
+                    <CheckBox Content="Display Loading Screen" HorizontalAlignment="Left" Margin="50,227,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Rescan All Libraries On Statup" HorizontalAlignment="Left" Margin="50,247,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Display ESRB While Browising" HorizontalAlignment="Left" Margin="50,267,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Require Login On Startup" HorizontalAlignment="Left" Margin="50,287,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Display Splash" HorizontalAlignment="Left" Margin="50,307,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Enable Pay Per Play" HorizontalAlignment="Left" Margin="290,235,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="To View" HorizontalAlignment="Left" Margin="306,36,0,0" VerticalAlignment="Top"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="219,34,0,0" VerticalAlignment="Top" Width="72"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="173,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="173,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="173,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="173,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="173,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="328,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="328,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Web">
