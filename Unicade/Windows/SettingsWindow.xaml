@@ -126,8 +126,8 @@
                     <Label Content="ROM Directory" HorizontalAlignment="Left" Margin="50,185,0,0" VerticalAlignment="Top"/>
                     <Label Content="# Coins" HorizontalAlignment="Left" Margin="273,265,0,0" VerticalAlignment="Top"/>
                     <Label Content="Playtime" HorizontalAlignment="Left" Margin="273,296,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Global Favorites" HorizontalAlignment="Left" Margin="641,10,0,0" VerticalAlignment="Top"/>
-                    <ListBox HorizontalAlignment="Left" Height="323" Margin="615,36,0,0" VerticalAlignment="Top" Width="129"/>
+                    <Label Content="Global Favorites" HorizontalAlignment="Left" Margin="629,10,0,0" VerticalAlignment="Top"/>
+                    <ListBox HorizontalAlignment="Left" Height="300" Margin="615,36,0,0" VerticalAlignment="Top" Width="129"/>
                     <CheckBox Content="Display Loading Screen" HorizontalAlignment="Left" Margin="50,227,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Rescan All Libraries On Statup" HorizontalAlignment="Left" Margin="50,247,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Display ESRB While Browising" HorizontalAlignment="Left" Margin="50,267,0,0" VerticalAlignment="Top"/>
@@ -143,6 +143,9 @@
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="173,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="328,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="328,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
+                    <Button Content="Save Preferences File" HorizontalAlignment="Left" Margin="273,345,0,0" VerticalAlignment="Top" Width="151" Height="29"/>
+                    <Button Content="Close" HorizontalAlignment="Left" Margin="136,345,0,0" VerticalAlignment="Top" Width="90" Height="29"/>
+                    <Button Content="Refresh Favorites" HorizontalAlignment="Left" Margin="615,345,0,0" VerticalAlignment="Top" Width="129" Height="29"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Web">
