@@ -17,7 +17,7 @@
         </Grid.RenderTransform>
         <TabControl HorizontalAlignment="Left" Height="412" VerticalAlignment="Top" Width="760">
             <TabItem Header="Games">
-                <Grid Background="White" Margin="0,-57,0,-10">
+                <Grid Background="White" Margin="0,-23,0,-44">
                     <Label Content="Console List" HorizontalAlignment="Left" Margin="39,23,0,0" VerticalAlignment="Top"/>
                     <Label Content="Games List" HorizontalAlignment="Left" Margin="148,23,0,0" VerticalAlignment="Top"/>
                     <Label Content="Title" HorizontalAlignment="Left" Margin="257,63,0,0" VerticalAlignment="Top"/>
@@ -38,25 +38,25 @@
                     <Label Content="ESRB" HorizontalAlignment="Left" Margin="674,239,0,0" VerticalAlignment="Top"/>
                     <Label Content="Total Games" HorizontalAlignment="Left" Margin="16,343,0,0" VerticalAlignment="Top"/>
                     <Label Content="Games For Console" HorizontalAlignment="Left" Margin="135,343,0,0" VerticalAlignment="Top"/>
-                    <ListBox HorizontalAlignment="Left" Height="289" Margin="28,49,0,0" VerticalAlignment="Top" Width="92"/>
-                    <ListBox HorizontalAlignment="Left" Height="289" Margin="135,49,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Image HorizontalAlignment="Left" Height="100" Margin="644,274,0,0" VerticalAlignment="Top" Width="100"/>
-                    <Image HorizontalAlignment="Left" Height="56" Margin="663,183,0,0" VerticalAlignment="Top" Width="62"/>
-                    <Image HorizontalAlignment="Left" Height="47" Margin="663,110,0,0" VerticalAlignment="Top" Width="57"/>
-                    <Image HorizontalAlignment="Left" Height="47" Margin="663,30,0,0" VerticalAlignment="Top" Width="57"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="90,346,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="252,346,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="304,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="314,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="335,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="335,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="335,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="314,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="357,237,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="362,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="563,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="567,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="585,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73"/>
+                    <ListBox x:Name="GamesTab_Listbox_ConsoleList" HorizontalAlignment="Left" Height="289" Margin="28,49,0,0" VerticalAlignment="Top" Width="92"/>
+                    <ListBox x:Name="GamesTab_Listbox_GamesList" HorizontalAlignment="Left" Height="289" Margin="135,49,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Image x:Name="GamesTab_Image_ESRB" HorizontalAlignment="Left" Height="100" Margin="644,274,0,0" VerticalAlignment="Top" Width="100"/>
+                    <Image x:Name="GamesTab_Image_Screeshot" HorizontalAlignment="Left" Height="56" Margin="663,183,0,0" VerticalAlignment="Top" Width="62"/>
+                    <Image x:Name="GamesTab_Image_Boxback" HorizontalAlignment="Left" Height="47" Margin="663,110,0,0" VerticalAlignment="Top" Width="57"/>
+                    <Image x:Name="GamesTab_Image_Boxfront" HorizontalAlignment="Left" Height="47" Margin="663,30,0,0" VerticalAlignment="Top" Width="57"/>
+                    <TextBox x:Name="GamesTab_Textbox_TotalGames" HorizontalAlignment="Left" Height="23" Margin="90,346,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40"/>
+                    <TextBox x:Name="GamesTab_Textbox_GamesForConsole" HorizontalAlignment="Left" Height="23" Margin="252,346,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40"/>
+                    <TextBox x:Name="GamesTab_Textbox_Title" HorizontalAlignment="Left" Height="23" Margin="304,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox x:Name="GamesTab_Textbox_Console" HorizontalAlignment="Left" Height="23" Margin="314,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
+                    <TextBox x:Name="GamesTab_Textbox_ReleaseDate" HorizontalAlignment="Left" Height="23" Margin="335,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox x:Name="GamesTab_Textbox_Publisher" HorizontalAlignment="Left" Height="23" Margin="335,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox x:Name="GamesTab_Textbox_Developer" HorizontalAlignment="Left" Height="23" Margin="335,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox x:Name="GamesTab_Textbox_ESRB" HorizontalAlignment="Left" Height="23" Margin="314,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox x:Name="GamesTab_Textbox_ESRBDescriptor" HorizontalAlignment="Left" Height="23" Margin="357,237,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+                    <TextBox x:Name="GamesTab_Textbox_Description" HorizontalAlignment="Left" Height="23" Margin="362,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+                    <TextBox x:Name="GamesTab_Textbox_CriticScore" HorizontalAlignment="Left" Height="23" Margin="563,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95"/>
+                    <TextBox x:Name="GamesTab_Textbox_Players" HorizontalAlignment="Left" Height="23" Margin="567,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
+                    <TextBox x:Name="GamesTab_Textbox_LaunchCount" HorizontalAlignment="Left" Height="23" Margin="585,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Emulators">
