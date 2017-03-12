@@ -95,6 +95,23 @@ namespace UniCade.Windows
         internal System.Windows.Controls.Image GamesTab_Image_Screeshot;
         internal System.Windows.Controls.Image GamesTab_Image_Boxback;
         internal System.Windows.Controls.Image GamesTab_Image_Boxfront;
+        internal System.Windows.Controls.TabItem EmulatorsTab_Textbox_ConsoleName;
+        internal System.Windows.Controls.TextBox EmulatorsTab_Textbox_EmulatorExe;
+        internal System.Windows.Controls.TextBox EmulatorsTab_Textbox_ROMExtension;
+        internal System.Windows.Controls.TextBox EmulatorsTab_Textbox_EmulatorArgs;
+        internal System.Windows.Controls.TextBox EmulatorsTab_Textbox_ConsoleInfo;
+        internal System.Windows.Controls.TextBox EmulatorsTab_Textbox_ReleaseDate;
+        internal System.Windows.Controls.ListBox EmulatorsTab_Listbox_ConsoleList;
+        internal System.Windows.Controls.CheckBox EmulatorsTab_Checkbox_EnforceFileExtension;
+        internal System.Windows.Controls.TextBox EmulatorsTab_Textbox_GameCount;
+        internal System.Windows.Controls.Button EmulatorsTab_Button_ForceGlobalRescrape;
+        internal System.Windows.Controls.Button EmulatorsTab_Button_AddNewConsole;
+        internal System.Windows.Controls.Button EmulatorsTab_Button_RescanSingleConsole;
+        internal System.Windows.Controls.Button EmulatorsTab_Button_DeleteConsole;
+        internal System.Windows.Controls.Button EmulatorsTab_Button_GlobalRescane;
+        internal System.Windows.Controls.Button EmulatorsTab_Button_SaveDatabaseFile;
+        internal System.Windows.Controls.Button EmulatorsTab_Button_SaveInfo;
+        internal System.Windows.Controls.Button EmulatorsTab_Button_Close;
     }
 }
 
