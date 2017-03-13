@@ -112,6 +112,20 @@ namespace UniCade.Windows
         internal System.Windows.Controls.Button EmulatorsTab_Button_SaveDatabaseFile;
         internal System.Windows.Controls.Button EmulatorsTab_Button_SaveInfo;
         internal System.Windows.Controls.Button EmulatorsTab_Button_Close;
+        internal System.Windows.Controls.ListBox UsersTab_Listbox_CurrentUser;
+        internal System.Windows.Controls.TextBox UsersTab_Textbox_Username;
+        internal System.Windows.Controls.TextBox UsersTab_Textbox_Email;
+        internal System.Windows.Controls.TextBox UsersTab_Textbox_UserInfo;
+        internal System.Windows.Controls.TextBox UsersTab_Textbox_LoginCount;
+        internal System.Windows.Controls.TextBox UsersTab_Textbox_LaunchCount;
+        internal System.Windows.Controls.ListBox UsersTab_Listbox_UserFavorites;
+        internal System.Windows.Controls.Button UsersTab_Button_Save;
+        internal System.Windows.Controls.Button UsersTab_Button_Login;
+        internal System.Windows.Controls.Button UsersTab_Button_Refresh;
+        internal System.Windows.Controls.Button UsersTab_Button_NewUser;
+        internal System.Windows.Controls.Button UsersTab_Button_DeleteUser;
+        internal System.Windows.Controls.Button UsersTab_Button_SaveAllUsers;
+        internal System.Windows.Controls.Button UsersTab_Button_Close;
     }
 }
 
