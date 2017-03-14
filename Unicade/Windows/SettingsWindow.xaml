@@ -127,25 +127,25 @@
                     <Label Content="# Coins" HorizontalAlignment="Left" Margin="273,265,0,0" VerticalAlignment="Top"/>
                     <Label Content="Playtime" HorizontalAlignment="Left" Margin="273,296,0,0" VerticalAlignment="Top"/>
                     <Label Content="Global Favorites" HorizontalAlignment="Left" Margin="629,10,0,0" VerticalAlignment="Top"/>
-                    <ListBox HorizontalAlignment="Left" Height="300" Margin="615,36,0,0" VerticalAlignment="Top" Width="129"/>
-                    <CheckBox Content="Display Loading Screen" HorizontalAlignment="Left" Margin="50,227,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Rescan All Libraries On Statup" HorizontalAlignment="Left" Margin="50,247,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Display ESRB While Browising" HorizontalAlignment="Left" Margin="50,267,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Require Login On Startup" HorizontalAlignment="Left" Margin="50,287,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Display Splash" HorizontalAlignment="Left" Margin="50,307,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Enable Pay Per Play" HorizontalAlignment="Left" Margin="290,235,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="To View" HorizontalAlignment="Left" Margin="306,36,0,0" VerticalAlignment="Top"/>
+                    <ListBox x:Name="GlobalTab_Listbox_GlobalFavorites" HorizontalAlignment="Left" Height="300" Margin="615,36,0,0" VerticalAlignment="Top" Width="129"/>
+                    <CheckBox x:Name="GlobalTab_Checkbox_DisplayLoadingScreen" Content="Display Loading Screen" HorizontalAlignment="Left" Margin="50,227,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="GlobalTab_Checkbox_RescanAllLibraries" Content="Rescan All Libraries On Statup" HorizontalAlignment="Left" Margin="50,247,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="GlobalTab_Checkbox_DisplayESRB" Content="Display ESRB While Browising" HorizontalAlignment="Left" Margin="50,267,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="GlobalTab_Checkbox_RequireLogin" Content="Require Login On Startup" HorizontalAlignment="Left" Margin="50,287,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="GlobalTab_Checkbox_DisplaySplash" Content="Display Splash" HorizontalAlignment="Left" Margin="50,307,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="GlobalTab_Checkbox_EnablePayPerPlay" Content="Enable Pay Per Play" HorizontalAlignment="Left" Margin="290,235,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="GlobalTab_Checkbox_ToView" Content="To View" HorizontalAlignment="Left" Margin="306,36,0,0" VerticalAlignment="Top"/>
                     <ComboBox HorizontalAlignment="Left" Margin="219,34,0,0" VerticalAlignment="Top" Width="72"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="173,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="173,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="173,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="173,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="173,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="328,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="328,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
-                    <Button Content="Save Preferences File" HorizontalAlignment="Left" Margin="273,345,0,0" VerticalAlignment="Top" Width="151" Height="29"/>
-                    <Button Content="Close" HorizontalAlignment="Left" Margin="136,345,0,0" VerticalAlignment="Top" Width="90" Height="29"/>
-                    <Button Content="Refresh Favorites" HorizontalAlignment="Left" Margin="615,345,0,0" VerticalAlignment="Top" Width="129" Height="29"/>
+                    <TextBox x:Name="GlobalTab_Textbox_Password" HorizontalAlignment="Left" Height="23" Margin="173,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119"/>
+                    <TextBox x:Name="GlobalTab_Textbox_DatabasePath" HorizontalAlignment="Left" Height="23" Margin="173,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox x:Name="GlobalTab_Textbox_EmulatorDirectory" HorizontalAlignment="Left" Height="23" Margin="173,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox x:Name="GlobalTab_Textbox_MedaDirectory" HorizontalAlignment="Left" Height="23" Margin="173,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox x:Name="GlobalTab_Textbox_ROMDirectory" HorizontalAlignment="Left" Height="23" Margin="173,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox x:Name="GlobalTab_Textbox_Coins" HorizontalAlignment="Left" Height="23" Margin="328,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
+                    <TextBox x:Name="GlobalTab_Textbox_Playtime" HorizontalAlignment="Left" Height="23" Margin="328,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
+                    <Button x:Name="GlobalTab_Button_SavePreferences" Content="Save Preferences File" HorizontalAlignment="Left" Margin="273,345,0,0" VerticalAlignment="Top" Width="151" Height="29"/>
+                    <Button x:Name="GlobalTab_Button_Close" Content="Close" HorizontalAlignment="Left" Margin="136,345,0,0" VerticalAlignment="Top" Width="90" Height="29"/>
+                    <Button x:Name="GlobalTab_Button_RefreshFavorites" Content="Refresh Favorites" HorizontalAlignment="Left" Margin="615,345,0,0" VerticalAlignment="Top" Width="129" Height="29"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Web">

@@ -126,6 +126,24 @@ namespace UniCade.Windows
         internal System.Windows.Controls.Button UsersTab_Button_DeleteUser;
         internal System.Windows.Controls.Button UsersTab_Button_SaveAllUsers;
         internal System.Windows.Controls.Button UsersTab_Button_Close;
+        internal System.Windows.Controls.ListBox GlobalTab_Listbox_GlobalFavorites;
+        internal System.Windows.Controls.CheckBox GlobalTab_Checkbox_DisplayLoadingScreen;
+        internal System.Windows.Controls.CheckBox GlobalTab_Checkbox_RescanAllLibraries;
+        internal System.Windows.Controls.CheckBox GlobalTab_Checkbox_DisplayESRB;
+        internal System.Windows.Controls.CheckBox GlobalTab_Checkbox_RequireLogin;
+        internal System.Windows.Controls.CheckBox GlobalTab_Checkbox_DisplaySplash;
+        internal System.Windows.Controls.CheckBox GlobalTab_Checkbox_EnablePayPerPlay;
+        internal System.Windows.Controls.CheckBox GlobalTab_Checkbox_ToView;
+        internal System.Windows.Controls.TextBox GlobalTab_Textbox_Password;
+        internal System.Windows.Controls.TextBox GlobalTab_Textbox_DatabasePath;
+        internal System.Windows.Controls.TextBox GlobalTab_Textbox_EmulatorDirectory;
+        internal System.Windows.Controls.TextBox GlobalTab_Textbox_MedaDirectory;
+        internal System.Windows.Controls.TextBox GlobalTab_Textbox_ROMDirectory;
+        internal System.Windows.Controls.TextBox GlobalTab_Textbox_Coins;
+        internal System.Windows.Controls.TextBox GlobalTab_Textbox_Playtime;
+        internal System.Windows.Controls.Button GlobalTab_Button_SavePreferences;
+        internal System.Windows.Controls.Button GlobalTab_Button_Close;
+        internal System.Windows.Controls.Button GlobalTab_Button_RefreshFavorites;
     }
 }
 
