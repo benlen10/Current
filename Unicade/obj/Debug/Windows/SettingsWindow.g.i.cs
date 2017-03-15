@@ -144,6 +144,22 @@ namespace UniCade.Windows
         internal System.Windows.Controls.Button GlobalTab_Button_SavePreferences;
         internal System.Windows.Controls.Button GlobalTab_Button_Close;
         internal System.Windows.Controls.Button GlobalTab_Button_RefreshFavorites;
+        internal System.Windows.Controls.Grid WebTab_Checkbox_Mobygames;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_Metacritic;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_CriticScore;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_ReleaseDate;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_Publisher;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_Developer;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_ESRBRating;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_ESRBDescriptor;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_Players;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_Description;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_BoxFront;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_BoxBack;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_Screenshot;
+        internal System.Windows.Controls.Button WebTab_Button_SaveScraperSettings;
+        internal System.Windows.Controls.Button WebTab_Button_Close;
+        internal System.Windows.Controls.Image WebTab_Image_UniCadeLogo;
     }
 }
 
