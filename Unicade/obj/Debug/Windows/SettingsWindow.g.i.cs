@@ -160,6 +160,16 @@ namespace UniCade.Windows
         internal System.Windows.Controls.Button WebTab_Button_SaveScraperSettings;
         internal System.Windows.Controls.Button WebTab_Button_Close;
         internal System.Windows.Controls.Image WebTab_Image_UniCadeLogo;
+        internal System.Windows.Controls.Image CloudTab_Image_UniCadeLogo;
+        internal System.Windows.Controls.Button CloudTab_Button_Login;
+        internal System.Windows.Controls.Button CloudTab_Button_Logout;
+        internal System.Windows.Controls.TextBlock CloudTab_Textblock_Info;
+        internal System.Windows.Controls.Button CloudTab_Button_CreateNewAccount;
+        internal System.Windows.Controls.Button CloudTab_Button_UploadAllGames;
+        internal System.Windows.Controls.Button CloudTab_Button_DeleteAccount;
+        internal System.Windows.Controls.Button CloudTab_Button_DeleteAllGamesInCloud;
+        internal System.Windows.Controls.Button CloudTab_Button_DownloadAllGames;
+        internal System.Windows.Controls.Button CloudTab_Button_EndSession;
     }
 }
 

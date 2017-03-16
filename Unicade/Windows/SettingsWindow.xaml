@@ -173,16 +173,16 @@
             <TabItem Header="UniCade Cloud">
                 <Grid Background="White">
                     <Label Content="Current Web User:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.042,0.334"/>
-                    <Image HorizontalAlignment="Left" Height="352" Margin="537,10,0,0" VerticalAlignment="Top" Width="207"/>
-                    <Button Content="Login" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button Content="Logout" HorizontalAlignment="Left" Margin="97,36,0,0" VerticalAlignment="Top" Width="76"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,73,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="153" Width="163"/>
-                    <Button Content="Create New &#xD;&#xA;UniCade Account" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
-                    <Button Content="Upload All&#xD;&#xA;Games" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
-                    <Button Content="Delete&#xD;&#xA;Current Account" HorizontalAlignment="Left" Margin="102,231,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
-                    <Button Content="Delete Al&#xD;&#xA;Games In Cloud" HorizontalAlignment="Left" Margin="102,281,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
-                    <Button Content="Download All&#xD;&#xA;Games" HorizontalAlignment="Left" Margin="194,231,0,0" VerticalAlignment="Top" Width="87" Height="45" RenderTransformOrigin="2.267,0.897"/>
-                    <Button Content="End Sesion" HorizontalAlignment="Left" Margin="194,281,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
+                    <Image x:Name="CloudTab_Image_UniCadeLogo" HorizontalAlignment="Left" Height="352" Margin="537,10,0,0" VerticalAlignment="Top" Width="207"/>
+                    <Button x:Name="CloudTab_Button_Login" Content="Login" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="CloudTab_Button_Logout" Content="Logout" HorizontalAlignment="Left" Margin="97,36,0,0" VerticalAlignment="Top" Width="76"/>
+                    <TextBlock x:Name="CloudTab_Textblock_Info" HorizontalAlignment="Left" Margin="10,73,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="153" Width="163"/>
+                    <Button x:Name="CloudTab_Button_CreateNewAccount" Content="Create New &#xD;&#xA;UniCade Account" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
+                    <Button x:Name="CloudTab_Button_UploadAllGames" Content="Upload All&#xD;&#xA;Games" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
+                    <Button x:Name="CloudTab_Button_DeleteAccount" Content="Delete&#xD;&#xA;Current Account" HorizontalAlignment="Left" Margin="102,231,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
+                    <Button x:Name="CloudTab_Button_DeleteAllGamesInCloud" Content="Delete All&#xA;Games In Cloud" HorizontalAlignment="Left" Margin="102,281,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
+                    <Button x:Name="CloudTab_Button_DownloadAllGames" Content="Download All&#xD;&#xA;Games" HorizontalAlignment="Left" Margin="194,231,0,0" VerticalAlignment="Top" Width="87" Height="45" RenderTransformOrigin="2.267,0.897"/>
+                    <Button x:Name="CloudTab_Button_EndSession" Content="End Session" HorizontalAlignment="Left" Margin="194,281,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
                 </Grid>
             </TabItem>
             <TabItem Header="About">
