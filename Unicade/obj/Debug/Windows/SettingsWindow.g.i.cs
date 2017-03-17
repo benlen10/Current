@@ -170,6 +170,13 @@ namespace UniCade.Windows
         internal System.Windows.Controls.Button CloudTab_Button_DeleteAllGamesInCloud;
         internal System.Windows.Controls.Button CloudTab_Button_DownloadAllGames;
         internal System.Windows.Controls.Button CloudTab_Button_EndSession;
+        internal System.Windows.Controls.Label AboutTab_Label_LicenseInfo;
+        internal System.Windows.Controls.Label AboutTab_Label_Edition;
+        internal System.Windows.Controls.Label AboutTab_Label_LicensedTo;
+        internal System.Windows.Controls.Label AboutTab_Label_LicenseKey;
+        internal System.Windows.Controls.Button AboutTab_Button_EnterLicenseKey;
+        internal System.Windows.Controls.RichTextBox AboutTab_Textbox_Info;
+        internal System.Windows.Controls.Image AboutTab_Image_UniCade_Logo;
     }
 }
 

@@ -187,19 +187,19 @@
             </TabItem>
             <TabItem Header="About">
                 <Grid Background="White">
-                    <Label Content="License Info" HorizontalAlignment="Left" Margin="21,254,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Edition" HorizontalAlignment="Left" Margin="21,285,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Licensed To" HorizontalAlignment="Left" Margin="21,316,0,0" VerticalAlignment="Top"/>
-                    <Label Content="License Key" HorizontalAlignment="Left" Margin="21,347,0,0" VerticalAlignment="Top"/>
-                    <Button Content="Enter License Key" HorizontalAlignment="Left" Margin="450,333,0,0" VerticalAlignment="Top" Width="109" Height="26"/>
-                    <RichTextBox HorizontalAlignment="Left" Height="216" Margin="10,33,0,0" VerticalAlignment="Top" Width="452">
+                    <Label x:Name="AboutTab_Label_LicenseInfo" Content="License Info" HorizontalAlignment="Left" Margin="21,254,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="AboutTab_Label_Edition" Content="Edition" HorizontalAlignment="Left" Margin="21,285,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="AboutTab_Label_LicensedTo" Content="Licensed To" HorizontalAlignment="Left" Margin="21,316,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="AboutTab_Label_LicenseKey" Content="License Key" HorizontalAlignment="Left" Margin="21,347,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="AboutTab_Button_EnterLicenseKey" Content="Enter License Key" HorizontalAlignment="Left" Margin="450,333,0,0" VerticalAlignment="Top" Width="109" Height="26"/>
+                    <RichTextBox x:Name="AboutTab_Textbox_Info" HorizontalAlignment="Left" Height="216" Margin="10,33,0,0" VerticalAlignment="Top" Width="452">
                         <FlowDocument>
                             <Paragraph>
                                 <Run Text="RichTextBox"/>
                             </Paragraph>
                         </FlowDocument>
                     </RichTextBox>
-                    <Image HorizontalAlignment="Left" Height="312" Margin="590,10,0,0" VerticalAlignment="Top" Width="154"/>
+                    <Image x:Name="AboutTab_Image_UniCade_Logo" HorizontalAlignment="Left" Height="364" Margin="590,10,0,0" VerticalAlignment="Top" Width="164"/>
                     <Label Content="Software Info" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
