@@ -177,6 +177,14 @@ namespace UniCade.Windows
         internal System.Windows.Controls.Button AboutTab_Button_EnterLicenseKey;
         internal System.Windows.Controls.RichTextBox AboutTab_Textbox_Info;
         internal System.Windows.Controls.Image AboutTab_Image_UniCade_Logo;
+        internal System.Windows.Controls.Button button;
+        internal System.Windows.Controls.Button button_Copy;
+        internal System.Windows.Controls.Button button_Copy1;
+        internal System.Windows.Controls.Button button_Copy2;
+        internal System.Windows.Controls.Button button1;
+        internal System.Windows.Controls.Button button1_Copy;
+        internal System.Windows.Controls.Button button1_Copy1;
+        internal System.Windows.Controls.Button button1_Copy2;
     }
 }
 
