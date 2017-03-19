@@ -62,7 +62,7 @@
                     <Button x:Name="button_Copy1" Content="Resrape&#xD;&#xA;Console&#xD;&#xA;Metadata&#xD;&#xA;" HorizontalAlignment="Left" Margin="379,352,0,0" VerticalAlignment="Top" Width="87" Height="49"/>
                     <Button x:Name="button_Copy2" Content="Save to &#xD;&#xA;Database" HorizontalAlignment="Left" Margin="471,352,0,0" VerticalAlignment="Top" Width="87" Height="49"/>
                     <Button x:Name="button1" Content="Upload Game" HorizontalAlignment="Left" Margin="563,313,0,0" VerticalAlignment="Top" Width="95"/>
-                    <Button x:Name="button1_Copy" Content="Download Game" HorizontalAlignment="Left" Margin="563,338,0,0" VerticalAlignment="Top" Width="95"/>
+                    <Button x:Name="button1_Copy" Content="Download Game" HorizontalAlignment="Left" Margin="563,338,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_DownloadGameButton_Click"/>
                     <Button x:Name="button1_Copy1" Content="Upload Console" HorizontalAlignment="Left" Margin="563,362,0,0" VerticalAlignment="Top" Width="95"/>
                     <Button x:Name="button1_Copy2" Content="Download Console" HorizontalAlignment="Left" Margin="563,387,0,0" VerticalAlignment="Top" Width="95"/>
                 </Grid>

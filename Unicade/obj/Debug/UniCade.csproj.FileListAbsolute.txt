@@ -104,3 +104,5 @@ C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\AccountWindow.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\LoginWindow.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\AccountWindow.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\LoginWindow.baml
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\SettingsWindow.g.cs
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Debug\Windows\SettingsWindow.baml
