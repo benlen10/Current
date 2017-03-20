@@ -60,10 +60,416 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_DownloadGameButton_Click(object sender, RoutedEventArgs e)
         {
+            //Check if a UniCade Cloud user is currently active
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("UniCade Cloud Login Required");
+                return;
+            }
 
+            //Invalid input checks
+            if (GamesTab_Listbox_GamesList.Items.Count < 1)
+            {
+                MessageBox.Show("No games to download");
+                return;
+            }
+
+            if (GamesTab_Listbox_GamesList.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console/game");
+                return;
+            }
+
+            if (_curGame == null)
+            {
+                MessageBox.Show("Must select a game");
+                return;
+            }
+            Game game = null;
+            game = SQLclient.GetSingleGame(_curGame.Console, _curGame.Title);
+            if (game != null)
+            {
+                for (int i = 0; i < _curConsole2.GameList.Count; i++)
+                {
+                    Game g = (Game)_curConsole2.GameList[i];
+                    if (game.FileName.Equals(g.FileName))
+                    {
+                        _curConsole2.GameList[i] = game;
+                        RefreshGameInfo(game);
+                        MessageBox.Show("Game Metadata Downloaded");
+                        return;
+                    }
+                }
+            }
+            MessageBox.Show("Download successful");
+        }
+
+        /// <summary>
+        /// Upload console button
+        /// Upload all games from the selected console to UniCade Cloud
+        /// </summary>
+        private void GamesTab_UploadConsoleButton_Click(object sender, EventArgs e)
+        {
+            //Invalid input checks
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
+            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+            if (GamesTab_Listbox_GamesList.Items.Count < 1)
+            {
+                MessageBox.Show("No games to upload");
+                return;
+            }
+
+            //Upload all games if all initial checks are passed
+            foreach (Game g in _curConsole2.GameList)
+            {
+                SQLclient.UploadGame(g);
+                MessageBox.Show("Console Uploaded");
+            }
+        }
+
+        /// <summary>
+        /// Download console info button
+        /// Downloads all game metadata for the current console from the current user's Unicade Cloud account
+        /// </summary>
+        private void GamesTab_DownloadConsoleButton_Click(object sender, EventArgs e)
+        {
+            //Invalid input checks
+            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("Login Required");
+                return;
+            }
+            if (GamesTab_Listbox_GamesList.Items.Count < 1)
+            {
+                MessageBox.Show("No games to delete");
+                return;
+            }
+            if (_curConsole2 == null)
+            {
+                MessageBox.Show("Please select console");
+                return;
+            }
+
+            for (int i = 0; i < _curConsole2.GameList.Count; i++)
+            {
+                Game game1 = (Game)_curConsole2.GameList[i];
+                Game game2 = null;
+                game2 = SQLclient.GetSingleGame(game1.Console, game1.Title);
+                if (game2 != null)
+                {
+                    if (game2.FileName.Length > 3)
+                        _curConsole2.GameList[i] = game2;
+                }
+            }
+
+            //Refresh the current game info
+            MessageBox.Show("Download successful");
+            RefreshGameInfo(_curGame);
+        }
+
+        /// <summary>
+        /// Called when the select index is changed. Update the proper game info in the details fields. 
+        /// </summary>
+        private void GamesTab_GamesListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string curItem = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
+            GamesTab_Listbox_GamesList.Items.Clear();
+            foreach (Console c in Database.ConsoleList)
+            {
+                if (c.Name.Equals(curItem))
+                {
+                    _curConsole2 = c;
+                    textBox8.Text = c.GameCount.ToString();
+                    textBox3.Text = Database.TotalGameCount.ToString();
+                    if (c.GameCount > 0)
+                    {
+                        foreach (Game g in c.GameList)
+                        {
+                            listBox3.Items.Add(g.Title);
+                        }
+                    }
+                }
+            }
+            if (listBox3.Items.Count > 0)
+            {
+                listBox3.SelectedIndex = 0;
+                foreach (Game g in _curConsole2.GameList)
+                {
+                    if (g.Title.Equals(listBox3.SelectedItem.ToString()))
+                    {
+                        _curGame = g;
+                    }
+                }
+            }
+            else
+            {
+                RefreshGameInfo(null);
+            }
+        }
+
+        /// <summary>
+        /// Called when the select index is changed for the console listbox. Update the games list for the selected console. 
+        /// </summary>
+        private void GamesTab_ConsoleListBox__SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string curItem = listBox3.SelectedItem.ToString();
+            foreach (Game g in _curConsole2.GameList)
+            {
+                if (g.Title.Equals(curItem))
+                {
+                    _curGame = g;
+                }
+            }
+            RefreshGameInfo(_curGame);
+            RefreshEsrbIcon(_curGame);
+        }
+
+        private void GamesTab_RescrapeGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            /// <summary>
+            /// Rescrape game info button.
+            /// Rescrapes info the the specified game from the web
+            /// </summary>
+            private void GamesTab_RescrapeGameButton_Click(object sender, EventArgs e)
+            {
+                //Require that a user select a valid game to rescrape
+                if (listBox2.SelectedItem == null)
+                {
+                    MessageBox.Show("Must select a console/game");
+                    return;
+                }
+
+                //Scrape info and populate local fields
+                WebOps.ScrapeInfo(_curGame);
+                textBox2.Text = _curGame.Title;
+                textBox13.Text = _curGame.Console;
+                textBox12.Text = _curGame.ReleaseDate;
+                textBox15.Text = _curGame.CriticScore;
+                textBox11.Text = _curGame.Publisher;
+                textBox10.Text = _curGame.Developer;
+                textBox6.Text = _curGame.Esrb;
+                textBox17.Text = _curGame.Players;
+                textBox19.Text = _curGame.EsrbDescriptor;
+                textBox18.Text = _curGame.Description;
+                RefreshEsrbIcon(_curGame);
+            }
+        }
+
+        /// <summary>
+        /// Save database button
+        /// Save all active info to the text databse
+        /// </summary>
+        private void GamesTab_SaveToDatabaseButton_Click(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console/game");
+                return;
+            }
+            SaveGameInfo();
+        }
+
+        /// <summary>
+        /// Save game info button
+        /// </summary>
+        private void GamesTab_SaveInfoButton_Click(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console/game");
+                return;
+            }
+            if (listBox3.Items.Count < 1)
+            {
+                MessageBox.Show("No games to save");
+                return;
+            }
+            SaveGameInfo();
+        }
+
+        /// <summary>
+        /// Expand game media image #1
+        /// NOTE: Image boxes do not detect clicks. This is a placeholder
+        /// </summary>
+        private void GamesTab_BoxfrontImage_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            if (pb.Dock == DockStyle.None)
+            {
+                pb.Dock = DockStyle.Fill;
+                pb.BringToFront();
+            }
+            else
+                pb.Dock = DockStyle.None;
+        }
+
+        /// <summary>
+        /// Expand game media image #2
+        /// </summary>
+        private void GamesTab_BoxbackImage_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            if (pb.Dock == DockStyle.None)
+            {
+                pb.Dock = DockStyle.Fill;
+                pb.BringToFront();
+            }
+            else
+                pb.Dock = DockStyle.None;
+        }
+
+        /// <summary>
+        /// Expand game media image #3
+        /// </summary>
+        private void GamesTab_ScreenshotImage_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            if (pb.Dock == DockStyle.None)
+            {
+                pb.Dock = DockStyle.Fill;
+                pb.BringToFront();
+            }
+            else
+                pb.Dock = DockStyle.None;
+        }
+
+        /// <summary>
+        /// Uplod game button
+        /// Upload the currently selected game to UniCade cloud
+        /// </summary>
+        private void GamesTab_UploadButton_Click(object sender, EventArgs e)
+        {
+
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("UniCade Cloud login required");
+                return;
+            }
+
+            if (listBox3.Items.Count < 1)
+            {
+                MessageBox.Show("No games to upload");
+                return;
+            }
+
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console/game");
+                return;
+            }
+            SQLclient.UploadGame(_curGame);
+            MessageBox.Show("Game Uploaded");
+        }
+
+        /// <summary>
+        /// Sets the current game as a global favorite
+        /// </summary>
+        private void GamesTab_FavoriteCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            //Verify that a console/game is currently selected
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console/game");
+                return;
+            }
+            //Toggle favorite checkbox
+            if (checkBox3.Checked)
+                _curGame.Favorite = 1;
+            else
+                _curGame.Favorite = 0;
+        }
+
+        /// <summary>
+        /// Rescrape console button
+        /// Rescrape metadata for all games within teh current console
+        /// </summary>
+        private void GamesTab_RescrapeConsoleMetadataButton_Click(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+            if (listBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+
+            MessageBox.Show("This may take a while... Please wait for a completed nofication.");
+            foreach (Game g1 in _curConsole2.GameList)
+            {
+                WebOps.ScrapeInfo(g1);
+            }
+            MessageBox.Show("Operation Successful");
         }
 
         #endregion
+
+        #region Emulators Tab
+
+        /// <summary>
+        /// Update the console info fields when the selected console is changed
+        /// </summary>
+        private void EmulatorsTab_ConsoleListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string curItem = listBox1.SelectedItem.ToString();
+            foreach (Console c in Database.ConsoleList)
+            {
+                if (c.Name.Equals(curItem))
+                {
+                    _curConsole = c;
+                    textBox9.Text = c.Name;
+                    textBox1.Text = c.EmuPath;
+                    textBox4.Text = c.RomExt;
+                    textBox5.Text = c.LaunchParam;
+                    textBox20.Text = c.ConsoleInfo;
+                    textBox21.Text = c.GameCount.ToString();
+                    textBox22.Text = c.ReleaseDate;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Save console button
+        /// Save current console info to database file
+        /// </summary>
+        private void EmulatorsTab_SaveDatabaseFileButton_Click(object sender, EventArgs e)
+        {
+            _curConsole.Name = textBox9.Text;
+            _curConsole.EmuPath = textBox1.Text;
+            _curConsole.RomExt = textBox4.Text;
+            _curConsole.LaunchParam = textBox5.Text;
+            _curConsole.ReleaseDate = textBox22.Text;
+            _curConsole.ConsoleInfo = textBox20.Text;
+            FileOps.saveDatabase(Program._databasePath);
+            MainWindow.RefreshConsoleList();
+        }
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
 
         #region Helper Methods
 
@@ -278,6 +684,11 @@ namespace UniCade.Windows
             }
             */
         }
+
+
+
+
+
 
         #endregion
     }
