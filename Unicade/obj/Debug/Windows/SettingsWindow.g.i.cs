@@ -1062,7 +1062,7 @@ namespace UniCade.Windows
                     this.EmulatorsTab_Checkbox_EnforceFileExtension = ((System.Windows.Controls.CheckBox)(target));
 
 #line 82 "..\..\..\Windows\SettingsWindow.xaml"
-                    this.EmulatorsTab_Checkbox_EnforceFileExtension.Checked += new System.Windows.RoutedEventHandler(this.CheckBox_Checked);
+                    this.EmulatorsTab_Checkbox_EnforceFileExtension.Checked += new System.Windows.RoutedEventHandler(this.EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged);
 
 #line default
 #line hidden

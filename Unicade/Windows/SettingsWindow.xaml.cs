@@ -47,11 +47,6 @@ namespace UniCade.Windows
             InitializeComponent();
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         #region Games Tab
 
         /// <summary>
@@ -459,6 +454,164 @@ namespace UniCade.Windows
             MainWindow.RefreshConsoleList();
         }
 
+        /// <summary>
+        /// Close button
+        /// </summary>
+        private void EmulatorsTab_CloseButton_Click(object sender, EventArgs e)
+        {
+            MainWindow._settingsWindowActive = false;
+            this.Close();
+        }
+
+        /// <summary>
+        /// Delete console button
+        /// Deletes a consle and all associated games from the database
+        /// </summary>
+        private void EmulatorsTab_DeleteConsoleButton_Click(object sender, EventArgs e)
+        {
+            //Ensure that at least one console exists
+            if (Database.ConsoleList.Count < 2)
+            {
+                MessageBox.Show("Cannot have an empty console list");
+                return;
+            }
+            listBox1.Items.Clear();
+            listBox2.Items.Clear();
+            Database.ConsoleList.Remove(_curConsole);
+            foreach (Console c in Database.ConsoleList)
+            {
+                listBox1.Items.Add(c.Name);
+                listBox2.Items.Add(c.Name);
+            }
+            listBox1.SelectedIndex = 0;
+
+            MainWindow.RefreshConsoleList();
+        }
+
+        /// <summary>
+        /// Add a new console
+        /// </summary>
+        private void EmulatorsTab_AddNewConsoleButton_Click(object sender, EventArgs e)
+        {
+            //Clear all text boxes initially 
+            textBox1.Text = null;
+            textBox4.Text = null;
+            textBox5.Text = null;
+            textBox20.Text = null;
+            textBox21.Text = null;
+            textBox22.Text = null;
+
+            //Create a new console and add it to the datbase
+            Console c = new Console()
+            {
+                Name = "New Console"
+            };
+            Database.ConsoleList.Add(c);
+            listBox1.Items.Clear();
+            listBox2.Items.Clear();
+            foreach (Console con in Database.ConsoleList)
+            {
+                listBox1.Items.Add(con.Name);
+                listBox2.Items.Add(con.Name);
+            }
+            listBox2.SelectedIndex = (listBox2.Items.Count - 1);
+            MainWindow.RefreshConsoleList();
+        }
+
+        /// <summary>
+        /// //Force metadata rescrape (All games within console)
+        /// </summary>
+        private void EmulatorsTab_ForceGlobalMetadataRescrapeButton_Click(object sender, EventArgs e)
+        {
+            foreach (Game g in _curConsole.GameList)
+            {
+                if (!WebOps.ScrapeInfo(g))
+                    return;
+            }
+        }
+
+        /// <summary>
+        /// Save the custom info fields for the current emulator
+        /// </summary>
+        private void EmulatorsTab_SaveInfoButton_Click(object sender, EventArgs e)
+        {
+            //Invalid input check
+            if (textBox9.Text.Contains("|") || textBox1.Text.Contains("|") || textBox3.Text.Contains("|") || textBox4.Text.Contains("|") || textBox5.Text.Contains("|") || textBox22.Text.Contains("|") || textBox20.Text.Contains("|"))
+                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            else
+            {
+                if (IsAllDigits(textBox12.Text))
+                {
+                    if (textBox12.TextLength < 5)
+                        _curConsole.ReleaseDate = textBox22.Text;
+                    else
+                        MessageBox.Show("Release Date Invalid");
+                }
+                else
+                    MessageBox.Show("Release Date score must be only digits");
+                if ((textBox9.Text.Length > 20) || (textBox1.Text.Length > 100) || (textBox3.Text.Length > 100) || (textBox4.Text.Length > 30) || (textBox3.Text.Length > 40) || (textBox4.Text.Length > 300))
+                    MessageBox.Show("Invalid Length");
+                else
+                {
+                    //If all input checks are valid, set console into to the current text field values
+                    _curConsole.Name = textBox9.Text;
+                    _curConsole.EmuPath = textBox1.Text;
+                    _curConsole.RomExt = textBox4.Text;
+                    _curConsole.LaunchParam = textBox5.Text;
+                    _curConsole.ConsoleInfo = textBox20.Text;
+                }
+                MainWindow.RefreshConsoleList();
+            }
+
+            listBox1.Items.Clear();
+            foreach (Console c in Database.ConsoleList)
+                listBox1.Items.Add(c.Name);
+        }
+
+        /// <summary>
+        /// Toggle enforceExt checkbox
+        /// </summary>
+        private void EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+                _enforceExt = 1;
+            else
+                _enforceExt = 0;
+        }
+
+        /// <summary>
+        /// Rescan all games across all emulators
+        /// </summary>
+        private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
+        {
+            if (FileOps.scan(Program._romPath))
+                MessageBox.Show("Global Rescan Successful");
+        }
+
+        /// <summary>
+        /// Rescan console button
+        /// Rescans all ROM files for the current console
+        /// </summary>
+        private void EmulatorsTab_RescanSingleConsoleButton_Click(object sender, EventArgs e)
+        {
+            //Ensure that a console is currently selected
+            if (listBox1.SelectedItem == null)
+            {
+                MessageBox.Show("Must select a console");
+                return;
+            }
+            foreach (Console c in Database.ConsoleList)
+            {
+                if (c.Name.Equals(listBox1.SelectedItem.ToString()))
+                {
+                    if (FileOps.scanDirectory(c.RomPath, Program._romPath))
+                    {
+                        MessageBox.Show(c.Name + " Successfully Scanned");
+                    }
+                    break;
+                }
+            }
+        }
 
         #endregion
 
@@ -691,5 +844,6 @@ namespace UniCade.Windows
 
 
         #endregion
+
     }
 }

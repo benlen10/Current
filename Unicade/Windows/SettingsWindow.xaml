@@ -80,7 +80,7 @@
                     <Label Content="Release Date" HorizontalAlignment="Left" Margin="112,223,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label Content="Game Count" HorizontalAlignment="Left" Margin="351,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <ListBox x:Name="EmulatorsTab_Listbox_ConsoleList" HorizontalAlignment="Left" Height="230" Margin="7,41,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="EmulatorsTab_ConsoleListBox_SelectedIndexChanged"/>
-                    <CheckBox x:Name="EmulatorsTab_Checkbox_EnforceFileExtension" Content="Enforce ROM File Extension" HorizontalAlignment="Left" Margin="131,254,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked"/>
+                    <CheckBox x:Name="EmulatorsTab_Checkbox_EnforceFileExtension" Content="Enforce ROM File Extension" HorizontalAlignment="Left" Margin="131,254,0,0" VerticalAlignment="Top" Checked="EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="204,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_EmulatorExe" HorizontalAlignment="Left" Height="23" Margin="204,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_ROMExtension" HorizontalAlignment="Left" Height="23" Margin="204,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
@@ -89,14 +89,14 @@
                     <TextBox x:Name="EmulatorsTab_Textbox_ReleaseDate" HorizontalAlignment="Left" Height="23" Margin="204,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_GameCount" HorizontalAlignment="Left" Height="23" Margin="433,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" TextChanged="TextBox_TextChanged"/>
                     <Image HorizontalAlignment="Left" Height="364" Margin="570,10,0,0" VerticalAlignment="Top" Width="174"/>
-                    <Button x:Name="EmulatorsTab_Button_ForceGlobalRescrape" Content="Force Global &#xD;&#xA;Metadata Rescrape" HorizontalAlignment="Left" Margin="10,287,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
-                    <Button x:Name="EmulatorsTab_Button_AddNewConsole" Content="Add New Console" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
-                    <Button x:Name="EmulatorsTab_Button_RescanSingleConsole" Content="Rescan Single&#xD;&#xA;Console" HorizontalAlignment="Left" Margin="134,287,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
-                    <Button x:Name="EmulatorsTab_Button_DeleteConsole" Content="Delete Console" HorizontalAlignment="Left" Margin="134,334,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
-                    <Button x:Name="EmulatorsTab_Button_GlobalRescane" Content="Global Rescan" HorizontalAlignment="Left" Margin="258,287,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
+                    <Button x:Name="EmulatorsTab_Button_ForceGlobalRescrape" Content="Force Global &#xD;&#xA;Metadata Rescrape" HorizontalAlignment="Left" Margin="10,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_ForceGlobalMetadataRescrapeButton_Click"/>
+                    <Button x:Name="EmulatorsTab_Button_AddNewConsole" Content="Add New Console" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_AddNewConsoleButton_Click"/>
+                    <Button x:Name="EmulatorsTab_Button_RescanSingleConsole" Content="Rescan Single&#xD;&#xA;Console" HorizontalAlignment="Left" Margin="134,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_RescanSingleConsoleButton_Click"/>
+                    <Button x:Name="EmulatorsTab_Button_DeleteConsole" Content="Delete Console" HorizontalAlignment="Left" Margin="134,334,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_DeleteConsoleButton_Click"/>
+                    <Button x:Name="EmulatorsTab_Button_GlobalRescane" Content="Global Rescan" HorizontalAlignment="Left" Margin="258,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_GlobalRescanButton_Click"/>
                     <Button x:Name="EmulatorsTab_Button_SaveDatabaseFile" Content="Save Database File" HorizontalAlignment="Left" Margin="258,334,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_SaveDatabaseFileButton_Click"/>
-                    <Button x:Name="EmulatorsTab_Button_SaveInfo" Content="Save Info" HorizontalAlignment="Left" Margin="382,287,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
-                    <Button x:Name="EmulatorsTab_Button_Close" Content="Close" HorizontalAlignment="Left" Margin="382,332,0,0" VerticalAlignment="Top" Width="119" Height="42"/>
+                    <Button x:Name="EmulatorsTab_Button_SaveInfo" Content="Save Info" HorizontalAlignment="Left" Margin="382,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_SaveInfoButton_Click"/>
+                    <Button x:Name="EmulatorsTab_Button_Close" Content="Close" HorizontalAlignment="Left" Margin="382,332,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_CloseButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Users">
