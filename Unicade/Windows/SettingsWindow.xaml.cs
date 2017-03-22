@@ -615,8 +615,221 @@ namespace UniCade.Windows
 
         #endregion
 
+        #region Users Tab
 
+        /// <summary>
+        /// Close and save button
+        /// </summary>
+        private void UsersTab_CloseButton_Click(object sender, EventArgs e)
+        {
+            MainWindow._settingsWindowActive = false;
+            FileOps.savePreferences(Program._prefPath);
+            this.Close();
+        }
 
+        /// <summary>
+        /// Refresh user info under the User tab every time a new user is selected
+        /// </summary>
+        private void UsersTab_UsersListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Update the current user text         
+            if (_curUser != null)
+                label38.Text = "Current User: " + _curUser.Username;
+
+            //Populate the favorites list for each user
+            listBox5.Items.Clear();
+            foreach (User u in Database.UserList)
+            {
+                if (u.Username.Equals(listBox4.SelectedItem.ToString()))
+                {
+                    if (u.Favorites.Count > 0)
+                    {
+                        foreach (Game g in u.Favorites)
+                            listBox5.Items.Add(g.Title + " - " + g.Console);
+                    }
+
+                    textBox23.Text = u.Username;
+                    textBox24.Text = u.Email;
+                    textBox26.Text = u.UserInfo;
+                    textBox27.Text = u.LoginCount.ToString();
+                    textBox28.Text = u.TotalLaunchCount.ToString();
+                    comboBox2.Text = u.AllowedEsrb;
+
+                    //Only allow the current user to edit their own userdata
+                    bool editEnabled = u.Username.Equals(_curUser.Username);
+                    textBox23.Enabled = editEnabled;
+                    textBox24.Enabled = editEnabled;
+                    textBox26.Enabled = editEnabled;
+                    textBox27.Enabled = editEnabled;
+                    textBox28.Enabled = editEnabled;
+                    comboBox2.Enabled = editEnabled;
+                    listBox5.Enabled = editEnabled;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Create new user button
+        /// Create a new user and save the userdata to the preferences file
+        /// </summary>
+        private void UsersTab_NewUserButton_Click(object sender, EventArgs e)
+        {
+            foreach (User us in Database.UserList)
+            {
+                if (_curUser.Username.Equals(us.Username))
+                {
+                    Database.UserList.Remove(us);
+                    Database.UserList.Add(_curUser);
+                    break;
+                }
+            }
+
+            //Create a new unicade account and display the dialog
+            AccountWindow uc = new AccountWindow(1);
+            uc.ShowDialog();
+
+            //Update the current labels and save the user info to the preferences file
+            label38.Text = "Current User: " + _curUser.Username;
+            FileOps.savePreferences(Program._prefPath);
+
+            //Refresh the listbox contents
+            listBox4.Items.Clear();
+            foreach (User us in Database.UserList)
+                listBox4.Items.Add(us.Username);
+        }
+
+        /// <summary>
+        /// Save button
+        /// </summary>
+        private void UsersTab_SaveAllUsersButton_Click(object sender, EventArgs e)
+        {
+            FileOps.savePreferences(Program._prefPath);
+        }
+
+        /// <summary>
+        /// Delete the currently selected user from the database
+        /// </summary>
+        private void UsersTab_DeleteUserButton_Click(object sender, EventArgs e)
+        {
+            //Ensure that there is always at least one user present in the database
+            if (Database.UserList.Count <= 1)
+            {
+                MessageBox.Show("Must at least have one user");
+                return;
+            }
+
+            //Remove the user and refresh the database
+            Database.UserList.Remove(_curUser);
+            listBox4.Items.Clear();
+            _curUser = null;
+            foreach (User us in Database.UserList)
+                listBox4.Items.Add(us.Username);
+        }
+
+        /// <summary>
+        /// Save button (Global Settings tab)
+        /// Save the current global settings to the preferences file
+        /// </summary>
+        private void UsersTab_SaveButton_Click(object sender, EventArgs e)
+        {
+            //Verify that a user is currently logged in
+            if (!_curUser.Username.Equals(listBox4.SelectedItem.ToString()))
+            {
+                MessageBox.Show("Must Login First");
+                return;
+            }
+
+            if (textBox23.Text.Contains("|") || textBox24.Text.Contains("|") || textBox26.Text.Contains("|"))
+                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            else
+            {
+                if ((textBox23.Text.Length > 20) || (textBox24.Text.Length > 20) || (textBox26.Text.Length > 50))
+                    MessageBox.Show("Invalid Length");
+                else
+                {
+                    _curUser.Username = textBox23.Text;
+                    _curUser.Pass = textBox24.Text;
+                    _curUser.UserInfo = textBox26.Text;
+                }
+
+                if (textBox6.Text.Contains("Everyone") || textBox6.Text.Contains("Teen") || textBox6.Text.Contains("Mature") || textBox6.Text.Contains("Adults") || textBox6.TextLength < 1)
+                {
+                    if (comboBox2.SelectedItem != null)
+                        _curUser.AllowedEsrb = comboBox2.SelectedItem.ToString();
+                }
+                else
+                    MessageBox.Show("Invalid ESRB Rating");
+            }
+            listBox4.Items.Clear();
+
+            foreach (User us in Database.UserList)
+                listBox4.Items.Add(us.Username);
+        }
+
+        /// <summary>
+        /// Delete user favorite
+        /// </summary>
+        private void UsersTab_DeleteFavoriteButton_Click(object sender, EventArgs e)
+        {
+            //Verify that a user is currenly logged in
+            if (!_curUser.Username.Equals(listBox4.SelectedItem.ToString()))
+            {
+                MessageBox.Show("Must Login First");
+                return;
+            }
+
+            _curUser.Favorites.RemoveAt(listBox5.SelectedIndex);
+            listBox5.Items.Clear();
+            foreach (Game g in _curUser.Favorites)
+            {
+                listBox5.Items.Add(g.Title + " - " + g.Console);
+            }
+        }
+
+        /// <summary>
+        /// Login local user button
+        /// </summary>
+        private void UsersTab_LoginButton_Click(object sender, EventArgs e)
+        {
+            foreach (User us in Database.UserList)
+            {
+                if (_curUser.Username.Equals(us.Username))
+                {
+                    Database.UserList.Remove(us);
+                    Database.UserList.Add(_curUser);
+                    break;
+                }
+            }
+
+            //Display the login dialog
+            LoginWindow login = new LoginWindow(1);
+            login.ShowDialog();
+            if (_curUser != null)
+            {
+                //If the user is logged in sucuesfully, save the current user and preferences file
+                label38.Text = "Current User: " + _curUser.Username;
+                FileOps.savePreferences(Program._prefPath);
+            }
+        }
+
+        /// <summary>
+        /// Refresh the current users list and userdata
+        /// </summary>
+        private void UsersTab_RefreshButton_Click(object sender, EventArgs e)
+        {
+            label38.Text = "Current User: " + _curUser.Username;
+        }
+
+        #endregion
+
+        #region Global Settings Tab
+
+        private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
+        }
+
+        #endregion
 
 
 
@@ -837,6 +1050,7 @@ namespace UniCade.Windows
             }
             */
         }
+
 
 
 

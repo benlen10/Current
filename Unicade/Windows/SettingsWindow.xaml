@@ -101,13 +101,13 @@
             </TabItem>
             <TabItem Header="Users">
                 <Grid Background="White">
-                    <Label Content="Current User" HorizontalAlignment="Left" Margin="34,23,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Current User" HorizontalAlignment="Left" Margin="21,23,0,0" VerticalAlignment="Top"/>
                     <Label Content="Username" HorizontalAlignment="Left" Margin="179,64,0,0" VerticalAlignment="Top"/>
                     <Label Content="Email" HorizontalAlignment="Left" Margin="179,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.976,1.822"/>
                     <Label Content="User Info" HorizontalAlignment="Left" Margin="179,126,0,0" VerticalAlignment="Top"/>
                     <Label Content="Allowed ESRB Rating" HorizontalAlignment="Left" Margin="179,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.024,3.36"/>
                     <Label Content="Login Count" HorizontalAlignment="Left" Margin="179,188,0,0" VerticalAlignment="Top"/>
-                    <ListBox x:Name="UsersTab_Listbox_CurrentUser" HorizontalAlignment="Left" Height="281" Margin="10,49,0,0" VerticalAlignment="Top" Width="100"/>
+                    <ListBox x:Name="UsersTab_Listbox_CurrentUser" HorizontalAlignment="Left" Height="281" Margin="10,49,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="UsersTab_UsersListBox_SelectedIndexChanged"/>
                     <Label Content="Total Launch Count" HorizontalAlignment="Left" Margin="296,188,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="UsersTab_Textbox_Username" HorizontalAlignment="Left" Height="23" Margin="248,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBox x:Name="UsersTab_Textbox_Email" HorizontalAlignment="Left" Height="23" Margin="248,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -116,13 +116,14 @@
                     <TextBox x:Name="UsersTab_Textbox_LaunchCount" HorizontalAlignment="Left" Height="23" Margin="412,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <Label Content="User Favorites" HorizontalAlignment="Left" Margin="632,10,0,0" VerticalAlignment="Top"/>
                     <ListBox x:Name="UsersTab_Listbox_UserFavorites" HorizontalAlignment="Left" Height="281" Margin="632,41,0,0" VerticalAlignment="Top" Width="100"/>
-                    <Button x:Name="UsersTab_Button_Save" Content="Save" HorizontalAlignment="Left" Margin="190,232,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
-                    <Button x:Name="UsersTab_Button_Login" Content="Login" HorizontalAlignment="Left" Margin="293,232,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
-                    <Button x:Name="UsersTab_Button_Refresh" Content="Refresh" HorizontalAlignment="Left" Margin="391,232,0,0" VerticalAlignment="Top" Width="75" Height="28"/>
-                    <Button x:Name="UsersTab_Button_NewUser" Content="New User" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="101" Height="28"/>
-                    <Button x:Name="UsersTab_Button_DeleteUser" Content="Delete User" HorizontalAlignment="Left" Margin="126,346,0,0" VerticalAlignment="Top" Width="101" Height="28"/>
-                    <Button x:Name="UsersTab_Button_SaveAllUsers" Content="Save All Users" HorizontalAlignment="Left" Margin="248,346,0,0" VerticalAlignment="Top" Width="101" Height="28"/>
-                    <Button x:Name="UsersTab_Button_Close" Content="Close" HorizontalAlignment="Left" Margin="365,346,0,0" VerticalAlignment="Top" Width="101" Height="28"/>
+                    <Button x:Name="UsersTab_Button_Save" Content="Save" HorizontalAlignment="Left" Margin="190,232,0,0" VerticalAlignment="Top" Width="75" Height="28" Click="UsersTab_SaveButton_Click"/>
+                    <Button x:Name="UsersTab_Button_Login" Content="Login" HorizontalAlignment="Left" Margin="293,232,0,0" VerticalAlignment="Top" Width="75" Height="28" Click="UsersTab_LoginButton_Click"/>
+                    <Button x:Name="UsersTab_Button_Refresh" Content="Refresh" HorizontalAlignment="Left" Margin="391,232,0,0" VerticalAlignment="Top" Width="75" Height="28" Click="UsersTab_RefreshButton_Click"/>
+                    <Button x:Name="UsersTab_Button_NewUser" Content="New User" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="101" Height="28" Click="UsersTab_NewUserButton_Click"/>
+                    <Button x:Name="UsersTab_Button_DeleteUser" Content="Delete User" HorizontalAlignment="Left" Margin="126,346,0,0" VerticalAlignment="Top" Width="101" Height="28" Click="UsersTab_DeleteUserButton_Click"/>
+                    <Button x:Name="UsersTab_Button_SaveAllUsers" Content="Save All Users" HorizontalAlignment="Left" Margin="248,346,0,0" VerticalAlignment="Top" Width="101" Height="28" Click="UsersTab_SaveAllUsersButton_Click"/>
+                    <Button x:Name="UsersTab_Button_Close" Content="Close" HorizontalAlignment="Left" Margin="365,346,0,0" VerticalAlignment="Top" Width="101" Height="28" Click="UsersTab_CloseButton_Click"/>
+                    <Button x:Name="button2" Content="Delete Favorite" HorizontalAlignment="Left" Margin="632,331,0,0" VerticalAlignment="Top" Width="100" Click="UsersTab_DeleteFavoriteButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Global">
