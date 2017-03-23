@@ -824,9 +824,134 @@ namespace UniCade.Windows
 
         #region Global Settings Tab
 
+        /// <summary>
+        /// Modify the global ESRB rating when the dropdown is changed
+        /// </summary>
         private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
             _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
+        }
+
+        /// <summary>
+        /// Save Global Settings button
+        /// </summary>
+        private void GlobalSettings_SavePreferenceFileButton_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem.ToString().Contains("|") || textBox25.Text.Contains("|") || textBox32.Text.Contains("|") || textBox33.Text.Contains("|"))
+                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            else
+            {
+                if (comboBox1.SelectedItem.ToString().Contains("Everyone") || comboBox1.SelectedItem.ToString().Contains("Teen") || comboBox1.SelectedItem.ToString().Contains("Mature") || comboBox1.SelectedItem.ToString().Contains("Adults") || textBox6.TextLength < 1)
+                    _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
+                else
+                    MessageBox.Show("Invalid ESRB Rating");
+                if ((textBox25.Text.Length > 150) || (textBox32.Text.Length > 150) || (textBox33.Text.Length > 150))
+                    MessageBox.Show("Invalid Length");
+                else
+                {
+                    Program._emuPath = textBox25.Text;
+                    Program._mediaPath = textBox32.Text;
+                    Program._romPath = textBox33.Text;
+                }
+
+                Int32.TryParse(textBox7.Text, out int n);
+                if (n > 0)
+                    _passProtect = Int32.Parse(textBox7.Text);
+                Int32.TryParse(textBox29.Text, out n);
+                if (n > 0)
+                    _coins = Int32.Parse(textBox29.Text);
+                if (comboBox1.SelectedItem != null)
+                    _restrictESRB = CalcEsrb(comboBox1.SelectedItem.ToString());
+
+                //Save all active preferences to the local preferences file
+                FileOps.savePreferences(Program._prefPath);
+            }
+        }
+
+        /// <summary>
+        /// Toggle viewEsrb checkbox
+        /// </summary>
+        private void GlobalSettingsTab_AllowedToViewEsrbCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox6.Checked)
+                _viewEsrb = 1;
+            else
+                _viewEsrb = 0;
+        }
+
+        /// <summary>
+        /// Toggle splash screen checkbox
+        /// </summary>
+        private void GlobalSettingsTab_ToggleSplashCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox10.Checked)
+                _showSplash = 1;
+            else
+                _showSplash = 0;
+        }
+
+        /// <summary>
+        /// Toggle show loading screen checkbox
+        /// </summary>
+        private void GlobalSettingsTab_ToggleLoadingCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked)
+                _showLoading = 1;
+            else
+                _showLoading = 0;
+        }
+
+        /// <summary>
+        /// Toggle require login checkbox
+        /// </summary>
+        private void GlobalSettingsTab_ToggleRequireLoginCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox11.Checked)
+                _requireLogin = 1;
+            else
+                _requireLogin = 0;
+        }
+
+        /// <summary>
+        /// Toggle scan on startup checkbox
+        /// </summary>
+        private void GlobalSettingsTab_ToggleScanOnStartupCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox12.Checked)
+                _scanOnStartup = 1;
+            else
+                _scanOnStartup = 0;
+        }
+
+        /// <summary>
+        /// Toggle view ESRB checkbox
+        /// </summary>
+        private void GlobalSettingsTab_ToggleEsrbViewCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox13.Checked)
+                _viewEsrb = 1;
+            else
+                _viewEsrb = 0;
+        }
+
+        /// <summary>
+        /// Toggle payPerPlay checkbox
+        /// </summary>
+        private void GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox14.Checked)
+                _payPerPlay = 1;
+            else
+                _payPerPlay = 0;
+        }
+
+        /// <summary>
+        /// Close button
+        /// </summary>
+        private void GlobalSettingsTab_CloseButton_Click(object sender, EventArgs e)
+        {
+            MainWindow._settingsWindowActive = false;
+            this.Close();
         }
 
         #endregion
@@ -1059,5 +1184,9 @@ namespace UniCade.Windows
 
         #endregion
 
+        private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
