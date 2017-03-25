@@ -1354,6 +1354,7 @@ namespace UniCade.Windows
 
         internal System.Windows.Controls.CheckBox GamesTab_CheckBox__GlobalFavorite;
         internal System.Windows.Controls.Button button2;
+        internal System.Windows.Controls.CheckBox WebTab_Checkbox_Mobygames1;
     }
 }
 

@@ -162,8 +162,8 @@
                 <Grid x:Name="WebTab_Checkbox_Mobygames" Background="White">
                     <Label Content="Site Options" HorizontalAlignment="Left" Margin="34,24,0,0" VerticalAlignment="Top"/>
                     <Label Content="Scraping Options" HorizontalAlignment="Left" Margin="156,24,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.864,0.578"/>
-                    <CheckBox x:Name="WebTab_Checkbox_Metacritic" Content="Metacritic" HorizontalAlignment="Left" Margin="38,55,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Mobygames" HorizontalAlignment="Left" Margin="38,75,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTab_Checkbox_Metacritic" Content="Metacritic" HorizontalAlignment="Left" Margin="38,55,0,0" VerticalAlignment="Top" Checked="WebTab_Checkbox_Metacritic_Checked"/>
+                    <CheckBox x:Name="WebTab_Checkbox_Mobygames1" Content="Mobygames" HorizontalAlignment="Left" Margin="38,75,0,0" VerticalAlignment="Top" Checked="WebTab_Checkbox_Mobygames_Checked"/>
                     <CheckBox x:Name="WebTab_Checkbox_CriticScore" Content="Critic Score" HorizontalAlignment="Left" Margin="156,78,0,0" VerticalAlignment="Top"/>
                     <CheckBox x:Name="WebTab_Checkbox_ReleaseDate" Content="Release Date" HorizontalAlignment="Left" Margin="156,58,0,0" VerticalAlignment="Top"/>
                     <CheckBox x:Name="WebTab_Checkbox_Publisher" Content="Publisher" HorizontalAlignment="Left" Margin="156,98,0,0" VerticalAlignment="Top"/>

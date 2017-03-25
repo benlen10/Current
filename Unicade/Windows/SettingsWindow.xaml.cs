@@ -954,11 +954,19 @@ namespace UniCade.Windows
             this.Close();
         }
 
+        /// <summary>
+        /// Refresh global favorites button
+        /// </summary>
+        private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, EventArgs e)
+        {
+            RefreshGlobalFavs();
+        }
+
         #endregion
 
+        #region Web Options Tab
 
-
-
+        #endregion
 
 
 
@@ -1184,9 +1192,164 @@ namespace UniCade.Windows
 
         #endregion
 
-        private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Toggle Metacritic checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Metacritic_Checked(object sender, RoutedEventArgs e)
         {
+            if (WebTab_Checkbox_Metacritic.IsChecked == true)
+                WebOps.metac = 1;
+            else
+                WebOps.metac = 0;
+        }
 
+        /// <summary>
+        /// Toggle Mobygames checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Mobygames_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Mobygames1.IsChecked == true)
+                WebOps.metac = 1;
+            else
+                WebOps.metac = 0;
+        }
+
+        /// <summary>
+        /// Toggle release date checkbox
+        /// </summary>
+        private void WebTab_Checkbox_ReleaseDate_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_ReleaseDate.IsChecked == true)
+                WebOps.releaseDate = 1;
+            else
+                WebOps.releaseDate = 0;
+        }
+
+        /// <summary>
+        /// Toggle critic score checkbox
+        /// </summary>
+        private void WebTab_Checkbox_CriticScore_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_CriticScore.IsChecked == true)
+                WebOps.critic = 1;
+            else
+                WebOps.critic = 0;
+        }
+
+        /// <summary>
+        /// Toggle Publisher checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Publisher_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Publisher.IsChecked == true)
+                WebOps.publisher = 1;
+            else
+                WebOps.publisher = 0;
+        }
+
+        /// <summary>
+        /// Toggle developer checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Developer_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Developer.IsChecked == true)
+                WebOps.developer = 1;
+            else
+                WebOps.developer = 0;
+        }
+
+        /// <summary>
+        /// Toggle ESRB Rating checkbox
+        /// </summary>
+        private void WebTab_Checkbox_ESRBRating_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_ESRBRating.IsChecked == true)
+                WebOps.esrb = 1;
+            else
+                WebOps.esrb = 0;
+        }
+
+        /// <summary>
+        /// Toggle ESRB Descriptor checkbox
+        /// </summary>
+        private void WebTab_Checkbox_ESRBDescriptor_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_ESRBDescriptor.IsChecked == true)
+                WebOps.description = 1;
+            else
+                WebOps.description = 0;
+        }
+
+        /// <summary>
+        /// Toggle players checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Players_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Players.IsChecked == true)
+                WebOps.players = 1;
+            else
+                WebOps.players = 0;
+        }
+
+        /// <summary>
+        /// Toggle description checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Description_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_ESRBDescriptor.IsChecked == true)
+                WebOps.description = 1;
+            else
+                WebOps.description = 0;
+        }
+
+        /// <summary>
+        /// Toggle boxfront checkbox
+        /// </summary>
+        private void WebTab_Checkbox_BoxFront_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_BoxFront.IsChecked == true)
+                WebOps.boxFront = 1;
+            else
+                WebOps.boxFront = 0;
+        }
+
+        /// <summary>
+        /// Toggle box back checkbox
+        /// </summary>
+        private void WebTab_Checkbox_BoxBack_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_BoxBack.IsChecked == true)
+                WebOps.boxBack = 1;
+            else
+                WebOps.boxBack = 0;
+        }
+
+        /// <summary>
+        /// Toggle screenshot textbox
+        /// </summary>
+        private void WebTab_Checkbox_Screenshot_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Screenshot.IsChecked == true)
+                WebOps.screenshot = 1;
+            else
+                WebOps.screenshot = 0;
+        }
+
+        /// <summary>
+        /// Close button
+        /// </summary>
+        private void WebTab_Button_Close_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow._settingsWindowActive = false;
+            this.Close();
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        private void WebTab_Button_SaveScraperSettings_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Implement
         }
     }
 }
