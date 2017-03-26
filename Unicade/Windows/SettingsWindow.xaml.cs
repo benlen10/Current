@@ -966,9 +966,288 @@ namespace UniCade.Windows
 
         #region Web Options Tab
 
+        /// <summary>
+        /// Toggle Metacritic checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Metacritic_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Metacritic.IsChecked == true)
+                WebOps.metac = 1;
+            else
+                WebOps.metac = 0;
+        }
+
+        /// <summary>
+        /// Toggle Mobygames checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Mobygames_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Mobygames1.IsChecked == true)
+                WebOps.metac = 1;
+            else
+                WebOps.metac = 0;
+        }
+
+        /// <summary>
+        /// Toggle release date checkbox
+        /// </summary>
+        private void WebTab_Checkbox_ReleaseDate_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_ReleaseDate.IsChecked == true)
+                WebOps.releaseDate = 1;
+            else
+                WebOps.releaseDate = 0;
+        }
+
+        /// <summary>
+        /// Toggle critic score checkbox
+        /// </summary>
+        private void WebTab_Checkbox_CriticScore_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_CriticScore.IsChecked == true)
+                WebOps.critic = 1;
+            else
+                WebOps.critic = 0;
+        }
+
+        /// <summary>
+        /// Toggle Publisher checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Publisher_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Publisher.IsChecked == true)
+                WebOps.publisher = 1;
+            else
+                WebOps.publisher = 0;
+        }
+
+        /// <summary>
+        /// Toggle developer checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Developer_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Developer.IsChecked == true)
+                WebOps.developer = 1;
+            else
+                WebOps.developer = 0;
+        }
+
+        /// <summary>
+        /// Toggle ESRB Rating checkbox
+        /// </summary>
+        private void WebTab_Checkbox_ESRBRating_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_ESRBRating.IsChecked == true)
+                WebOps.esrb = 1;
+            else
+                WebOps.esrb = 0;
+        }
+
+        /// <summary>
+        /// Toggle ESRB Descriptor checkbox
+        /// </summary>
+        private void WebTab_Checkbox_ESRBDescriptor_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_ESRBDescriptor.IsChecked == true)
+                WebOps.description = 1;
+            else
+                WebOps.description = 0;
+        }
+
+        /// <summary>
+        /// Toggle players checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Players_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Players.IsChecked == true)
+                WebOps.players = 1;
+            else
+                WebOps.players = 0;
+        }
+
+        /// <summary>
+        /// Toggle description checkbox
+        /// </summary>
+        private void WebTab_Checkbox_Description_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_ESRBDescriptor.IsChecked == true)
+                WebOps.description = 1;
+            else
+                WebOps.description = 0;
+        }
+
+        /// <summary>
+        /// Toggle boxfront checkbox
+        /// </summary>
+        private void WebTab_Checkbox_BoxFront_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_BoxFront.IsChecked == true)
+                WebOps.boxFront = 1;
+            else
+                WebOps.boxFront = 0;
+        }
+
+        /// <summary>
+        /// Toggle box back checkbox
+        /// </summary>
+        private void WebTab_Checkbox_BoxBack_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_BoxBack.IsChecked == true)
+                WebOps.boxBack = 1;
+            else
+                WebOps.boxBack = 0;
+        }
+
+        /// <summary>
+        /// Toggle screenshot textbox
+        /// </summary>
+        private void WebTab_Checkbox_Screenshot_Checked(object sender, RoutedEventArgs e)
+        {
+            if (WebTab_Checkbox_Screenshot.IsChecked == true)
+                WebOps.screenshot = 1;
+            else
+                WebOps.screenshot = 0;
+        }
+
+        /// <summary>
+        /// Close button
+        /// </summary>
+        private void WebTab_Button_Close_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow._settingsWindowActive = false;
+            this.Close();
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        private void WebTab_Button_SaveScraperSettings_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Implement
+        }
+
         #endregion
 
+        #region UniCade Cloud Tab
 
+        /// <summary>
+        /// Create new user button (UniCade Cloud tab)
+        /// Create a new SQL UniCade Cloud user
+        /// </summary>
+        private void CloudTab_Button_CreateNewAccount_Click(object sender, RoutedEventArgs e)
+        {
+            AccountWindow ua = new AccountWindow(0);
+            ua.ShowDialog();
+        }
+
+        /// <summary>
+        /// Login button (UniCade Cloud tab)
+        /// Login a UniCade Cloud SQL user
+        /// </summary>
+        private void CloudTab_Button_Login_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow l = new LoginWindow(0);
+            l.ShowDialog();
+            if (SQLclient.sqlUser != null)
+            {
+                label56.Text = "Current Web User: " + SQLclient.sqlUser;
+            }
+        }
+
+        /// <summary>
+        /// Logout button (UniCade Cloud tab)
+        /// Logs out the current SQL user 
+        /// </summary>
+        private void CloudTab_Button_Logout_Click(object sender, RoutedEventArgs e)
+        {
+            //Check if a user is actually logged in
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("User is already logged out");
+                label56.Text = "Current Web User: ";
+                return;
+            }
+
+            //Log the current user out and update the interface
+            SQLclient.sqlUser = null;
+            label56.Text = "Current Web User: ";
+        }
+
+        /// <summary>
+        /// Delete user button
+        /// Delete the SQL user and update the interface
+        /// </summary>
+        private void CloudTab_Button_DeleteAccount_Click(object sender, RoutedEventArgs e)
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("UniCade Cloud Login Required");
+                return;
+            }
+
+            //Delete the current SQL user and update the label
+            SQLclient.DeleteUser();
+            label56.Text = "Current Web User: ";
+        }
+
+        /// <summary>
+        /// Upload all games button
+        /// Upload all games across all consoles to UniCade Cloud
+        /// </summary>
+        private void CloudTab_Button_UploadAllGames_Click(object sender, RoutedEventArgs e)
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("UniCade Cloud Login Required");
+                return;
+            }
+            SQLclient.UploadAllGames();
+            MessageBox.Show("Library successfully uploaded");
+        }
+
+        /// <summary>
+        /// Delete all games from the current user's UniCade Cloud account
+        /// </summary>
+        private void CloudTab_Button_DeleteAllGamesInCloud_Click(object sender, RoutedEventArgs e)
+        {
+            //Check if a SQL user is currently logged in
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("UniCade Cloud Login Required");
+                return;
+            }
+            SQLclient.Deletegames();
+            MessageBox.Show("Library successfully deleted");
+        }
+
+        /// <summary>
+        /// Download all games button
+        /// Download all game metadata across all consoles
+        /// </summary>
+        private void CloudTab_Button_DownloadAllGames_Click(object sender, RoutedEventArgs e)
+        {
+            if (SQLclient.sqlUser == null)
+            {
+                MessageBox.Show("UniCade Cloud Login Required");
+                return;
+            }
+            SQLclient.DownloadAllGames();
+            MessageBox.Show("Library metadata sucuessfully updated");
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        private void CloudTab_Button_EndSession_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Implement
+        }
+
+        #endregion
+
+        #region About Tab
+
+        #endregion
 
         #region Helper Methods
 
@@ -1190,166 +1469,9 @@ namespace UniCade.Windows
 
 
 
+
+
         #endregion
 
-        /// <summary>
-        /// Toggle Metacritic checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Metacritic_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_Metacritic.IsChecked == true)
-                WebOps.metac = 1;
-            else
-                WebOps.metac = 0;
-        }
-
-        /// <summary>
-        /// Toggle Mobygames checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Mobygames_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_Mobygames1.IsChecked == true)
-                WebOps.metac = 1;
-            else
-                WebOps.metac = 0;
-        }
-
-        /// <summary>
-        /// Toggle release date checkbox
-        /// </summary>
-        private void WebTab_Checkbox_ReleaseDate_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_ReleaseDate.IsChecked == true)
-                WebOps.releaseDate = 1;
-            else
-                WebOps.releaseDate = 0;
-        }
-
-        /// <summary>
-        /// Toggle critic score checkbox
-        /// </summary>
-        private void WebTab_Checkbox_CriticScore_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_CriticScore.IsChecked == true)
-                WebOps.critic = 1;
-            else
-                WebOps.critic = 0;
-        }
-
-        /// <summary>
-        /// Toggle Publisher checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Publisher_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_Publisher.IsChecked == true)
-                WebOps.publisher = 1;
-            else
-                WebOps.publisher = 0;
-        }
-
-        /// <summary>
-        /// Toggle developer checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Developer_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_Developer.IsChecked == true)
-                WebOps.developer = 1;
-            else
-                WebOps.developer = 0;
-        }
-
-        /// <summary>
-        /// Toggle ESRB Rating checkbox
-        /// </summary>
-        private void WebTab_Checkbox_ESRBRating_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_ESRBRating.IsChecked == true)
-                WebOps.esrb = 1;
-            else
-                WebOps.esrb = 0;
-        }
-
-        /// <summary>
-        /// Toggle ESRB Descriptor checkbox
-        /// </summary>
-        private void WebTab_Checkbox_ESRBDescriptor_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_ESRBDescriptor.IsChecked == true)
-                WebOps.description = 1;
-            else
-                WebOps.description = 0;
-        }
-
-        /// <summary>
-        /// Toggle players checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Players_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_Players.IsChecked == true)
-                WebOps.players = 1;
-            else
-                WebOps.players = 0;
-        }
-
-        /// <summary>
-        /// Toggle description checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Description_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_ESRBDescriptor.IsChecked == true)
-                WebOps.description = 1;
-            else
-                WebOps.description = 0;
-        }
-
-        /// <summary>
-        /// Toggle boxfront checkbox
-        /// </summary>
-        private void WebTab_Checkbox_BoxFront_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_BoxFront.IsChecked == true)
-                WebOps.boxFront = 1;
-            else
-                WebOps.boxFront = 0;
-        }
-
-        /// <summary>
-        /// Toggle box back checkbox
-        /// </summary>
-        private void WebTab_Checkbox_BoxBack_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_BoxBack.IsChecked == true)
-                WebOps.boxBack = 1;
-            else
-                WebOps.boxBack = 0;
-        }
-
-        /// <summary>
-        /// Toggle screenshot textbox
-        /// </summary>
-        private void WebTab_Checkbox_Screenshot_Checked(object sender, RoutedEventArgs e)
-        {
-            if (WebTab_Checkbox_Screenshot.IsChecked == true)
-                WebOps.screenshot = 1;
-            else
-                WebOps.screenshot = 0;
-        }
-
-        /// <summary>
-        /// Close button
-        /// </summary>
-        private void WebTab_Button_Close_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow._settingsWindowActive = false;
-            this.Close();
-        }
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        private void WebTab_Button_SaveScraperSettings_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO: Implement
-        }
     }
 }
