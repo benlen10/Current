@@ -1247,14 +1247,31 @@ namespace UniCade.Windows
 
         #region About Tab
 
-        #endregion
-
-        #region Helper Methods
-
         /// <summary>
-        /// Placeholder method
+        /// Enter license button
         /// </summary>
-        private void TextBox_TextChanged(object sender, RoutedEventArgs e)
+        private void AboutTab_Button_EnterLicenseKey_Click(object sender, RoutedEventArgs e)
+        {
+            //Create a new license entry info and validate the key
+            LicenseEntry le = new LicenseEntry();
+            le.ShowDialog();
+            label35.Text = "Licensed to: " + Program._userLicenseName;
+            label37.Text = "License Key: " + Program._userLicenseKey;
+
+            //Set the license text depending on if the key is valid
+            if (Program._validLicense)
+                label34.Text = "License Status: Full Version";
+            else
+                label34.Text = "License Status: INVALID";
+
+            #endregion
+
+            #region Helper Methods
+
+            /// <summary>
+            /// Placeholder method
+            /// </summary>
+            private void TextBox_TextChanged(object sender, RoutedEventArgs e)
         {
 
         }
@@ -1472,6 +1489,6 @@ namespace UniCade.Windows
 
 
         #endregion
-
+        }
     }
 }
