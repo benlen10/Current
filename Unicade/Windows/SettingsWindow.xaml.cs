@@ -357,10 +357,10 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_ConsoleListBox__SelectedIndexChanged(object sender, EventArgs e)
         {
-            string curItem = GamesTab_Listbox_GamesList.SelectedItem.ToString();
+            string currentConsole = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
             foreach (Game g in _curConsole2.GameList)
             {
-                if (g.Title.Equals(curItem))
+                if (g.Title.Equals(currentConsole))
                 {
                     _curGame = g;
                 }
