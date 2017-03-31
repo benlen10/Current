@@ -102,14 +102,17 @@ namespace UniCade.Windows
             UsersTab_Textbox_Email.IsEnabled = false;
             UsersTab_Textbox_UserInfo.IsEnabled = false;
 
-            //Set game count textboxes as readonly
+            //Set specific textboxes as readonly
             UsersTab_Textbox_LoginCount.IsEnabled = false;
             UsersTab_Textbox_LaunchCount.IsEnabled = false;
+            EmulatorsTab_Textbox_GameCount.IsEnabled = false;
+            GamesTab_Textbox_LaunchCount.IsEnabled = false;
+            GamesTab_Textbox_TotalGames.IsEnabled = false;
+            GamesTab_Textbox_GamesForConsole.IsEnabled = false;
 
             //Set additional textboxes to readonly
             GlobalTab_Textbox_EmulatorDirectory.IsEnabled = false;
             GlobalTab_Textbox_DatabasePath.IsEnabled = false;
-            UsersTab_Dropdown_AllowedESRB.IsEnabled = false;
             UsersTab_Listbox_UserFavorites.IsEnabled = false;
 
             //Populate features textbox under the About tab
