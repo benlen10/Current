@@ -109,6 +109,8 @@ namespace UniCade.Windows
             GamesTab_Textbox_LaunchCount.IsEnabled = false;
             GamesTab_Textbox_TotalGames.IsEnabled = false;
             GamesTab_Textbox_GamesForConsole.IsEnabled = false;
+            GlobalTab_Textbox_Coins.IsEnabled = false;
+            GlobalTab_Textbox_Playtime.IsEnabled = false;
 
             //Set additional textboxes to readonly
             GlobalTab_Textbox_EmulatorDirectory.IsEnabled = false;
@@ -167,7 +169,11 @@ namespace UniCade.Windows
             if (_viewEsrb == 1)
                 GlobalTab_Checkbox_DisplayESRB.IsChecked = true;
             if (_payPerPlay > 0)
+            {
                 GlobalTab_Checkbox_EnablePayPerPlay.IsChecked = true;
+                GlobalTab_Textbox_Coins.IsEnabled = true;
+                GlobalTab_Textbox_Playtime.IsEnabled = true;
+            }
 
             //Populate payPerPlay fields
             GlobalTab_Textbox_Coins.Text = _coins.ToString();
@@ -1086,9 +1092,17 @@ namespace UniCade.Windows
         private void GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (GlobalTab_Checkbox_EnablePayPerPlay.IsChecked == true)
+            {
                 _payPerPlay = 1;
+                GlobalTab_Textbox_Coins.IsEnabled = true;
+                GlobalTab_Textbox_Playtime.IsEnabled = true;
+            }
             else
+            {
                 _payPerPlay = 0;
+                GlobalTab_Textbox_Coins.IsEnabled = false;
+                GlobalTab_Textbox_Playtime.IsEnabled = false;
+            }
         }
 
         /// <summary>
