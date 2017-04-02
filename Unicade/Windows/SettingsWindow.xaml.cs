@@ -326,6 +326,24 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_GamesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (GamesTab_Listbox_GamesList.SelectedItem == null) { return;  }
+            string currentGame = GamesTab_Listbox_GamesList.SelectedItem.ToString();
+            foreach (Game g in _curConsole2.GameList)
+            {
+                if (g.Title.Equals(currentGame))
+                {
+                    _curGame = g;
+                }
+            }
+            RefreshGameInfo(_curGame);
+            RefreshEsrbIcon(_curGame);
+        }
+
+        /// <summary>
+        /// Called when the select index is changed for the console listbox. Update the games list for the selected console. 
+        /// </summary>
+        private void GamesTab_ConsoleListBox__SelectedIndexChanged(object sender, EventArgs e)
+        {
             string curItem = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
             GamesTab_Listbox_GamesList.Items.Clear();
             foreach (Console c in Database.ConsoleList)
@@ -359,23 +377,6 @@ namespace UniCade.Windows
             {
                 RefreshGameInfo(null);
             }
-        }
-
-        /// <summary>
-        /// Called when the select index is changed for the console listbox. Update the games list for the selected console. 
-        /// </summary>
-        private void GamesTab_ConsoleListBox__SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string currentConsole = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
-            foreach (Game g in _curConsole2.GameList)
-            {
-                if (g.Title.Equals(currentConsole))
-                {
-                    _curGame = g;
-                }
-            }
-            RefreshGameInfo(_curGame);
-            RefreshEsrbIcon(_curGame);
         }
 
         private void GamesTab_RescrapeGameButton_Click(object sender, RoutedEventArgs e)
@@ -1595,6 +1596,7 @@ namespace UniCade.Windows
         /// </summary>
         public void RefreshEsrbIcon(Game g)
         {
+            if(g == null) { return; }
             GamesTab_Image_ESRB.Source = null;
             if (g.Esrb.Equals("Everyone"))
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
