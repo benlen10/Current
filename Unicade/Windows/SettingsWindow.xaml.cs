@@ -71,14 +71,9 @@ namespace UniCade.Windows
             UsersTab_Dropdown_AllowedESRB.Items.Add("None");
 
             //Load UniCade Logo images within the settings window
-            //GamesTab_Image_ESRB.siz = PictureBoxSizeMode.StretchImage;
-            //pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             AboutTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
-            //pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             CloudTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
-            //pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
             EmulatorsTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
-            //pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
             WebTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
 
             //Populate the 'Allowed ESRB' combo box with the specified rating
@@ -111,6 +106,8 @@ namespace UniCade.Windows
             GamesTab_Textbox_GamesForConsole.IsEnabled = false;
             GlobalTab_Textbox_Coins.IsEnabled = false;
             GlobalTab_Textbox_Playtime.IsEnabled = false;
+            GamesTab_Textbox_Console.IsEnabled = false;
+            GamesTab_Textbox_Title.IsEnabled = false;
 
             //Set additional textboxes to readonly
             GlobalTab_Textbox_EmulatorDirectory.IsEnabled = false;
