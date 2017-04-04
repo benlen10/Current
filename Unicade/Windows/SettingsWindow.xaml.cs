@@ -115,7 +115,7 @@ namespace UniCade.Windows
             UsersTab_Listbox_UserFavorites.IsEnabled = false;
 
             //Populate features textbox under the About tab
-            //AboutTab_Textbox_Info. = TextFiles.features + "\n\n\n\n\n\n" + TextFiles.instructions;
+            AboutTab_Textblock_SoftwareInfo.Text = TextFiles.features + "\n\n\n\n\n\n" + TextFiles.instructions;
 
             //Populate textbox fields
             GlobalTab_Textbox_Password.Text = _passProtect.ToString();

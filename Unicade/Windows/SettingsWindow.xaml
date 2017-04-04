@@ -203,11 +203,9 @@
                     <Label x:Name="AboutTab_Label_LicensedTo" Content="Licensed To" HorizontalAlignment="Left" Margin="21,316,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="AboutTab_Label_LicenseKey" Content="License Key" HorizontalAlignment="Left" Margin="21,347,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="AboutTab_Button_EnterLicenseKey" Content="Enter License Key" HorizontalAlignment="Left" Margin="346,334,0,0" VerticalAlignment="Top" Width="116" Height="40" Click="AboutTab_Button_EnterLicenseKey_Click"/>
-                    <RichTextBox x:Name="AboutTab_Textbox_Info" HorizontalAlignment="Left" Height="216" Margin="10,33,0,0" VerticalAlignment="Top" Width="452">
-                        <FlowDocument/>
-                    </RichTextBox>
                     <Image x:Name="AboutTab_Image_UniCadeLogo" HorizontalAlignment="Left" Height="384" Margin="568,0,0,0" VerticalAlignment="Top" Width="186"/>
                     <Label Content="Software Info" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="AboutTab_Textblock_SoftwareInfo" HorizontalAlignment="Left" Margin="10,33,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="216" Width="452"/>
                 </Grid>
             </TabItem>
         </TabControl>
