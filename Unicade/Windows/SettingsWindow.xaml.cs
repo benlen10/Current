@@ -100,14 +100,6 @@ namespace UniCade.Windows
             //Set specific textboxes as readonly
             UsersTab_Textbox_LoginCount.IsEnabled = false;
             UsersTab_Textbox_LaunchCount.IsEnabled = false;
-            EmulatorsTab_Textbox_GameCount.IsEnabled = false;
-            GamesTab_Textbox_LaunchCount.IsEnabled = false;
-            GamesTab_Textbox_TotalGames.IsEnabled = false;
-            GamesTab_Textbox_GamesForConsole.IsEnabled = false;
-            GlobalTab_Textbox_Coins.IsEnabled = false;
-            GlobalTab_Textbox_Playtime.IsEnabled = false;
-            GamesTab_Textbox_Console.IsEnabled = false;
-            GamesTab_Textbox_Title.IsEnabled = false;
 
             //Set additional textboxes to readonly
             GlobalTab_Textbox_EmulatorDirectory.IsEnabled = false;
