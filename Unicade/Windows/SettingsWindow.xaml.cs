@@ -100,11 +100,10 @@ namespace UniCade.Windows
             //Set specific textboxes as readonly
             UsersTab_Textbox_LoginCount.IsEnabled = false;
             UsersTab_Textbox_LaunchCount.IsEnabled = false;
+            GlobalTab_Textbox_Coins.IsEnabled = false;
+            GlobalTab_Textbox_Playtime.IsEnabled = false;
 
             //Set additional textboxes to readonly
-            GlobalTab_Textbox_EmulatorDirectory.IsEnabled = false;
-            GlobalTab_Textbox_DatabasePath.IsEnabled = false;
-            UsersTab_Listbox_UserFavorites.IsEnabled = false;
 
             //Populate features textbox under the About tab
             AboutTab_Textbox_SoftwareInfo.Text = TextFiles.features + "\n\n\n\n\n\n" + TextFiles.instructions;
@@ -1083,17 +1082,14 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_EnablePayPerPlay.IsChecked == true)
+            _payPerPlay = 0;
+            GlobalTab_Textbox_Coins.IsEnabled = false;
+            GlobalTab_Textbox_Playtime.IsEnabled = false;
+            if (GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value == true)
             {
                 _payPerPlay = 1;
                 GlobalTab_Textbox_Coins.IsEnabled = true;
                 GlobalTab_Textbox_Playtime.IsEnabled = true;
-            }
-            else
-            {
-                _payPerPlay = 0;
-                GlobalTab_Textbox_Coins.IsEnabled = false;
-                GlobalTab_Textbox_Playtime.IsEnabled = false;
             }
         }
 
