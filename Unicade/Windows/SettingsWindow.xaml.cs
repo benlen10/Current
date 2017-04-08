@@ -435,56 +435,6 @@ namespace UniCade.Windows
         }
 
         /// <summary>
-        /// Expand game media image #1
-        /// NOTE: Image boxes do not detect clicks. This is a placeholder
-        /// </summary>
-        private void GamesTab_BoxfrontImage_Click(object sender, EventArgs e)
-        {
-            /*
-            PictureBox pb = (PictureBox)sender;
-            if (pb.Dock == DockStyle.None)
-            {
-                pb.Dock = DockStyle.Fill;
-                pb.BringToFront();
-            }
-            else
-                pb.Dock = DockStyle.None;
-                */
-        }
-
-        /// <summary>
-        /// Expand game media image #2
-        /// </summary>
-        private void GamesTab_BoxbackImage_Click(object sender, EventArgs e)
-        {
-            /*
-            PictureBox pb = (PictureBox)sender;
-            if (pb.Dock == DockStyle.None)
-            {
-                pb.Dock = DockStyle.Fill;
-                pb.BringToFront();
-            }
-            else
-                pb.Dock = DockStyle.None;
-            */
-        }
-
-        /// <summary>
-        /// Expand game media image #3
-        /// </summary>
-        private void GamesTab_ScreenshotImage_Click(object sender, EventArgs e)
-        {
-            /*Image image = (Image)sender;
-            if (image.Dock == DockStyle.None)
-            {
-                image.Dock = DockStyle.Fill;
-                image.BringToFront();
-            }
-            else
-                image.Dock = DockStyle.None;*/
-        }
-
-        /// <summary>
         /// Uplod game button
         /// Upload the currently selected game to UniCade cloud
         /// </summary>
