@@ -474,7 +474,7 @@ namespace UniCade.Windows
                 return;
             }
             //Toggle favorite checkbox
-            if (GamesTab_CheckBox__GlobalFavorite.IsChecked == true)
+            if (GamesTab_CheckBox__GlobalFavorite.IsChecked.Value == true)
                 _curGame.Favorite = 1;
             else
                 _curGame.Favorite = 0;
@@ -666,7 +666,7 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked == true)
+            if (EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked.Value == true)
                 _enforceExt = 1;
             else
                 _enforceExt = 0;
@@ -966,7 +966,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_AllowedToViewEsrbCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_ToView.IsChecked == true)
+            if (GlobalTab_Checkbox_ToView.IsChecked.Value == true)
                 _viewEsrb = 1;
             else
                 _viewEsrb = 0;
@@ -977,7 +977,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_ToggleSplashCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_DisplaySplash.IsChecked == true)
+            if (GlobalTab_Checkbox_DisplaySplash.IsChecked.Value == true)
                 _showSplash = 1;
             else
                 _showSplash = 0;
@@ -988,7 +988,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_ToggleLoadingCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked == true)
+            if (GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked.Value == true)
                 _showLoading = 1;
             else
                 _showLoading = 0;
@@ -999,7 +999,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_ToggleRequireLoginCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_RequireLogin.IsChecked == true)
+            if (GlobalTab_Checkbox_RequireLogin.IsChecked.Value == true)
                 _requireLogin = 1;
             else
                 _requireLogin = 0;
@@ -1010,7 +1010,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_ToggleScanOnStartupCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_RescanAllLibraries.IsChecked == true)
+            if (GlobalTab_Checkbox_RescanAllLibraries.IsChecked.Value == true)
                 _scanOnStartup = 1;
             else
                 _scanOnStartup = 0;
@@ -1021,7 +1021,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_ToggleEsrbViewCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_DisplayESRB.IsChecked == true)
+            if (GlobalTab_Checkbox_DisplayESRB.IsChecked.Value == true)
                 _viewEsrb = 1;
             else
                 _viewEsrb = 0;
@@ -1069,7 +1069,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Metacritic_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Metacritic.IsChecked == true)
+            if (WebTab_Checkbox_Metacritic.IsChecked.Value == true)
                 WebOps.metac = 1;
             else
                 WebOps.metac = 0;
@@ -1080,7 +1080,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Mobygames_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Mobygames1.IsChecked == true)
+            if (WebTab_Checkbox_Mobygames1.IsChecked.Value == true)
                 WebOps.metac = 1;
             else
                 WebOps.metac = 0;
@@ -1091,7 +1091,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_ReleaseDate_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_ReleaseDate.IsChecked == true)
+            if (WebTab_Checkbox_ReleaseDate.IsChecked.Value == true)
                 WebOps.releaseDate = 1;
             else
                 WebOps.releaseDate = 0;
@@ -1102,7 +1102,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_CriticScore_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_CriticScore.IsChecked == true)
+            if (WebTab_Checkbox_CriticScore.IsChecked.Value == true)
                 WebOps.critic = 1;
             else
                 WebOps.critic = 0;
@@ -1113,7 +1113,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Publisher_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Publisher.IsChecked == true)
+            if (WebTab_Checkbox_Publisher.IsChecked.Value == true)
                 WebOps.publisher = 1;
             else
                 WebOps.publisher = 0;
@@ -1124,7 +1124,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Developer_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Developer.IsChecked == true)
+            if (WebTab_Checkbox_Developer.IsChecked.Value == true)
                 WebOps.developer = 1;
             else
                 WebOps.developer = 0;
@@ -1135,7 +1135,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_ESRBRating_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_ESRBRating.IsChecked == true)
+            if (WebTab_Checkbox_ESRBRating.IsChecked.Value == true)
                 WebOps.esrb = 1;
             else
                 WebOps.esrb = 0;
@@ -1146,7 +1146,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_ESRBDescriptor_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_ESRBDescriptor.IsChecked == true)
+            if (WebTab_Checkbox_ESRBDescriptor.IsChecked.Value == true)
                 WebOps.description = 1;
             else
                 WebOps.description = 0;
@@ -1157,7 +1157,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Players_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Players.IsChecked == true)
+            if (WebTab_Checkbox_Players.IsChecked.Value == true)
                 WebOps.players = 1;
             else
                 WebOps.players = 0;
@@ -1168,7 +1168,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Description_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_ESRBDescriptor.IsChecked == true)
+            if (WebTab_Checkbox_ESRBDescriptor.IsChecked.Value == true)
                 WebOps.description = 1;
             else
                 WebOps.description = 0;
@@ -1179,7 +1179,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_BoxFront_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_BoxFront.IsChecked == true)
+            if (WebTab_Checkbox_BoxFront.IsChecked.Value == true)
                 WebOps.boxFront = 1;
             else
                 WebOps.boxFront = 0;
@@ -1190,7 +1190,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_BoxBack_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_BoxBack.IsChecked == true)
+            if (WebTab_Checkbox_BoxBack.IsChecked.Value == true)
                 WebOps.boxBack = 1;
             else
                 WebOps.boxBack = 0;
@@ -1201,7 +1201,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Screenshot_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Screenshot.IsChecked == true)
+            if (WebTab_Checkbox_Screenshot.IsChecked.Value == true)
                 WebOps.screenshot = 1;
             else
                 WebOps.screenshot = 0;
