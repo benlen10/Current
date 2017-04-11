@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniCade.Windows"
         mc:Ignorable="d"
-        Title="LicenseEntry" Height="154.128" Width="300">
+        Title="LicenseEntry" Height="154.128" Width="300" ResizeMode="NoResize">
     <Grid>
         <TextBox x:Name="Textbox_User" HorizontalAlignment="Left" Height="23" Margin="56,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206"/>
         <TextBox x:Name="Textbox_Key" HorizontalAlignment="Left" Height="23" Margin="56,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206"/>

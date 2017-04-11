@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniCade"
         mc:Ignorable="d"
-        Title="GameInfo" Height="957.84" Width="751.397" AllowsTransparency="True" WindowStyle="None" Opacity="0.65">
+        Title="GameInfo" Height="957.84" Width="751.397" AllowsTransparency="True" WindowStyle="None" Opacity="0.65" ResizeMode="NoResize">
     <Window.Background>
         <SolidColorBrush Color="#FFDE6A21" Opacity="0.8"/>
     </Window.Background>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniCade.Windows"
         mc:Ignorable="d"
-        Title="Unicade Account" Height="188.73" Width="290.779">
+        Title="Unicade Account" Height="188.73" Width="290.779" ResizeMode="NoResize">
     <Grid>
         <Label Content="Username" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.036,-0.372"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.633,1.792"/>
