@@ -42,12 +42,12 @@ namespace UniCade.Windows
                 MessageBox.Show("Fields cannot be empty");
                 return;
             }
-            if ((Textbox_Username.Text.Length > 30) || (Textbox_Email.Text.Length > 30) || (Textbox_Email.Text.Length > 30) || (Textbox_UserInfo.Text.Length > 100))//Verify inputlengh. Description can be up to 100 chars
+            if ((Textbox_Username.Text.Length > 30) || (Textbox_Email.Text.Length > 30) || (Textbox_Email.Text.Length > 30) || (Textbox_UserInfo.Text.Length > 100))
             {
                 MessageBox.Show("Invalid Length");
                 return;
             }
-            if (!Textbox_Password.Text.Contains("@"))
+            if (!Textbox_Email.Text.Contains("@"))
             {
                 MessageBox.Show("Invalid Email");
                 return;

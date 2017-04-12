@@ -56,7 +56,7 @@
                     <TextBox x:Name="GamesTab_Textbox_Description" HorizontalAlignment="Left" Height="23" Margin="325,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
                     <TextBox x:Name="GamesTab_Textbox_CriticScore" HorizontalAlignment="Left" Height="23" Margin="290,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35"/>
                     <TextBox x:Name="GamesTab_Textbox_Players" HorizontalAlignment="Left" Height="23" Margin="379,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35"/>
-                    <TextBox x:Name="GamesTab_Textbox_LaunchCount" HorizontalAlignment="Left" Height="23" Margin="513,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.173,0.574" IsReadOnly="True"/>
+                    <TextBox x:Name="GamesTab_Textbox_LaunchCount" HorizontalAlignment="Left" Height="23" Margin="513,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.173,0.574" IsReadOnly="True"/>
                     <Button x:Name="button" Content="Save Info" HorizontalAlignment="Left" Margin="190,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_SaveInfoButton_Click"/>
                     <Button x:Name="button_Copy" Content="Rescrape &#xD;&#xA;Game&#xD;&#xA;Metadata" HorizontalAlignment="Left" Margin="285,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_RescrapeGameButton_Click"/>
                     <Button x:Name="button_Copy1" Content="Resrape&#xD;&#xA;Console&#xD;&#xA;Metadata&#xD;&#xA;" HorizontalAlignment="Left" Margin="379,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_RescrapeConsoleMetadataButton_Click"/>

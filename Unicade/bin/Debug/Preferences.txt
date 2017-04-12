@@ -1,4 +1,4 @@
-CurrentUser|UniCade
+CurrentUser|Myuser
 _databasePath|C:\Users\Ben\Workspace\Unicade\UniCade\bin\Debug\Database.txt
 EmulatorFolderPath|C:\UniCade\Emulators
 MediaFolderPath|C:\UniCade\Media
@@ -12,3 +12,4 @@ PaySettings|0|0|1|15
 License Key||
 ***UserData***
 UniCade|temp|0|unicade@unicade.com|0| |||
+Myuser|tmosdfsdfds@something.com|0|tmosdfsdfds@something.com|0|tmp|Mature||
