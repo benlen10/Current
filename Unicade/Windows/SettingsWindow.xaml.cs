@@ -111,7 +111,7 @@ namespace UniCade.Windows
             AboutTab_Textbox_SoftwareInfo.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
 
             //Populate textbox fields
-            GlobalTab_Textbox_Password.Text = _passProtect.ToString();
+            GlobalTab_Textbox_Password.Password = _passProtect.ToString();
             GlobalTab_Textbox_DatabasePath.Text = Program._databasePath;
             GlobalTab_Textbox_EmulatorDirectory.Text = Program._emuPath;
             GlobalTab_Textbox_MedaDirectory.Text = Program._mediaPath;
@@ -947,9 +947,9 @@ namespace UniCade.Windows
                     Program._romPath = GlobalTab_Textbox_ROMDirectory.Text;
                 }
 
-                Int32.TryParse(GlobalTab_Textbox_Password.Text, out int n);
+                Int32.TryParse(GlobalTab_Textbox_Password.Password, out int n);
                 if (n > 0)
-                    _passProtect = Int32.Parse(GlobalTab_Textbox_Password.Text);
+                    _passProtect = Int32.Parse(GlobalTab_Textbox_Password.Password);
                 Int32.TryParse(GlobalTab_Textbox_Coins.Text, out n);
                 if (n > 0)
                     _coins = Int32.Parse(GlobalTab_Textbox_Coins.Text);

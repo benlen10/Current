@@ -13,10 +13,10 @@
         <Label Content="User Info" HorizontalAlignment="Left" Margin="12,93,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.524,0.832"/>
         <Button Content="Close" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.663,4.928" Margin="12,133,0,0" Click="AccountWindow_CloseButton_Click"/>
         <Button Content="Create Account" HorizontalAlignment="Left" Margin="169,133,0,0" VerticalAlignment="Top" Width="105" RenderTransformOrigin="0.5,0.5" Click="AccountWindow_ConfirmButton_Click"/>
-        <TextBox x:Name="Textbox_Username" HorizontalAlignment="Left" Height="23" Margin="91,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="183"/>
-        <TextBox x:Name="Textbox_Email" HorizontalAlignment="Left" Height="23" Margin="91,42,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="183"/>
-        <TextBox x:Name="Textbox_Password" HorizontalAlignment="Left" Height="23" Margin="91,70,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="183"/>
-        <TextBox x:Name="Textbox_UserInfo" HorizontalAlignment="Left" Height="23" Margin="91,97,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="183"/>
+        <TextBox x:Name="Textbox_Username" HorizontalAlignment="Left" Height="23" Margin="91,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183"/>
+        <TextBox x:Name="Textbox_Email" HorizontalAlignment="Left" Height="23" Margin="91,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183"/>
+        <TextBox x:Name="Textbox_Password" HorizontalAlignment="Left" Height="23" Margin="91,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183"/>
+        <TextBox x:Name="Textbox_UserInfo" HorizontalAlignment="Left" Height="23" Margin="91,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183"/>
 
     </Grid>
 </Window>
