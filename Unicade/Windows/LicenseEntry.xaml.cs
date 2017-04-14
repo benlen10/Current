@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace UniCade.Windows
 {
@@ -24,8 +12,6 @@ namespace UniCade.Windows
         {
             InitializeComponent();
             this.ResizeMode = ResizeMode.NoResize;
-            Textbox_User.Text = Program._userLicenseName;
-            Textbox_Key.Text = Program._userLicenseKey;
         }
 
         /// <summary>
@@ -44,19 +30,18 @@ namespace UniCade.Windows
             //Bad input checks
             if ((Textbox_User.Text == null) || (Textbox_Key.Text == null))
             {
-                System.Windows.MessageBox.Show("Missing Required Fields");
+                MessageBox.Show("Missing Required Fields");
                 return;
             }
-
-            //Save the entered values to the currently active global variables
-            Program._userLicenseName = Textbox_User.Text;
-            Program._userLicenseKey = Textbox_Key.Text;
 
             //If the key is valid, save the key text to the preferences file and close the current window
             if (Program.ValidateSHA256(Program._userLicenseName + Database.HashKey, Program._userLicenseKey))
             {
                 MessageBox.Show(this, "License is VALID");
                 Program._validLicense = true;
+                //Save the entered values to the currently active global variables
+                Program._userLicenseName = Textbox_User.Text;
+                Program._userLicenseKey = Textbox_Key.Text;
                 FileOps.savePreferences(Program._prefPath);
                 Close();
             }

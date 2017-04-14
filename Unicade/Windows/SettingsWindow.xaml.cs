@@ -177,7 +177,14 @@ namespace UniCade.Windows
 
             //Populate user license info
             AboutTab_Label_LicensedTo.Content = "Licensed to: " + Program._userLicenseName;
-            AboutTab_Label_Edition.Content = "License Status: Full Version";
+            if (Program._validLicense)
+            {
+                AboutTab_Label_Edition.Content = "License Status: Full Version";
+            }
+            else
+            {
+                AboutTab_Label_Edition.Content = "License Status: Invalid";
+            }
             AboutTab_Label_LicenseKey.Content = "License Key: " + Program._userLicenseKey;
         }
 
@@ -1357,10 +1364,10 @@ namespace UniCade.Windows
             AboutTab_Label_LicenseKey.Content = "License Key: " + Program._userLicenseKey;
 
             //Set the license text depending on if the key is valid
-            if (Program._validLicense)
+            if (Program._validLicense == true)
                 AboutTab_Label_Edition.Content = "License Status: Full Version";
             else
-                AboutTab_Label_Edition.Content = "License Status: INVALID";
+                AboutTab_Label_Edition.Content = "License Status: Invalid";
 
         }
 

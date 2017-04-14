@@ -156,7 +156,7 @@
                     <Button x:Name="GlobalTab_Button_SavePreferences" Content="Save Preferences File" HorizontalAlignment="Left" Margin="157,345,0,0" VerticalAlignment="Top" Width="151" Height="29" Click="GlobalSettings_SavePreferenceFileButton_Click"/>
                     <Button x:Name="GlobalTab_Button_Close" Content="Close" HorizontalAlignment="Left" Margin="50,345,0,0" VerticalAlignment="Top" Width="90" Height="29" Click="GlobalSettingsTab_CloseButton_Click"/>
                     <Button x:Name="GlobalTab_Button_RefreshFavorites" Content="Refresh Favorites" HorizontalAlignment="Left" Margin="615,345,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="GlobalSettingsTab_RefreshGlobalFavoritesButton_Click"/>
-                    <PasswordBox x:Name="GlobalTab_Textbox_Password" HorizontalAlignment="Left" Margin="173,67,0,0" VerticalAlignment="Top" Width="185" Height="23"/>
+                    <PasswordBox x:Name="GlobalTab_Textbox_Password" HorizontalAlignment="Left" Margin="173,67,0,0" VerticalAlignment="Top" Width="185" Height="23" MaxLength="8"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Web">

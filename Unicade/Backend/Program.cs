@@ -19,7 +19,7 @@ namespace UniCade
         public static bool _playtimeRemaining = true;
         public static string _userLicenseName;
         public static string _userLicenseKey;
-        public static bool _validLicense = true;
+        public static bool _validLicense = false;
         public User _user;
 
         #endregion
@@ -70,9 +70,9 @@ namespace UniCade
             }
 
             //Verify the current user license and set flag
-            if (!ValidateSHA256(_userLicenseName + Database.HashKey, _userLicenseKey))
+            if (ValidateSHA256(_userLicenseName + Database.HashKey, _userLicenseKey))
             {
-                _validLicense = false;
+                _validLicense = true;
             }
 
             //If the database file does not exist in the specified location, load default values and rescan rom directories
