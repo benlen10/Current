@@ -25,8 +25,6 @@ namespace UniCade.Windows
         /// <summary>
         /// Close the current window instance
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void LoginWindow_CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();

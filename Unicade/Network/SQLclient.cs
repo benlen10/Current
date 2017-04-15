@@ -45,7 +45,7 @@ namespace UniCade
             //If the SQL connection is not already active, call connect function
             if (conn == null)
             {
-                ConnectSQL();
+                if(ConnectSQL() == String.Empty) { return "Connection Error"; }
             }
             MySqlCommand myCommand = new MySqlCommand(s, conn);
 
@@ -174,7 +174,9 @@ namespace UniCade
         public static bool AuthiencateUser(string user, string pass)
         {
             if (conn == null)
-                ConnectSQL();
+            {
+                if(ConnectSQL() == String.Empty) { return false; }
+            }
 
             //Generate a new SQL command
             string command = "Use unicade;" + "select * FROM users WHERE username = " + "\"" + user + "\"" + " OR email = " + "\"" + user + "\"" + ";";

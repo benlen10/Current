@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Login" Height="173.394" Width="300">
     <Grid>
-        <TextBox x:Name="Textbox_Username" HorizontalAlignment="Left" Height="23" Margin="91,28,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="181"/>
-        <TextBox x:Name="Textbox_Password" HorizontalAlignment="Left" Height="23" Margin="91,72,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="181"/>
+        <TextBox x:Name="Textbox_Username" HorizontalAlignment="Left" Height="23" Margin="91,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181"/>
+        <TextBox x:Name="Textbox_Password" HorizontalAlignment="Left" Height="23" Margin="91,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181"/>
         <Button Content="Close" HorizontalAlignment="Left" Margin="14,114,0,0" VerticalAlignment="Top" Width="75" Click="LoginWindow_CloseButton_Click"/>
         <Button Content="Login" HorizontalAlignment="Left" Margin="197,114,0,0" VerticalAlignment="Top" Width="75" Click="LoginWindow_LoginButton_Click"/>
         <Label Content="Username" HorizontalAlignment="Left" Margin="14,24,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.061,0.29"/>
