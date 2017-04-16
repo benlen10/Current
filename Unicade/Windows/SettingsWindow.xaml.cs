@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -40,14 +41,22 @@ namespace UniCade.Windows
         public SettingsWindow()
         {
             InitializeComponent();
-            //FormClosing += SettingsWindow_FormClosing;
             Populate();
         }
 
         /// <summary>
-        /// Populate settings window fields under all tabs
+        /// Called on window close event
         /// </summary>
-        private void Populate()
+        void SettingsWindow_Closing(object sender, CancelEventArgs e)
+        {
+            MainWindow._settingsWindowActive = false;
+            MainWindow.ReHookKeys();
+        }
+
+            /// <summary>
+            /// Populate settings window fields under all tabs
+            /// </summary>
+            private void Populate()
         {
             //Populate console list with the currently active games
             foreach (Console c in Database.ConsoleList)

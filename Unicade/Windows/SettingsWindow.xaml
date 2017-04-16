@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniCade.Windows"
+        Closing="SettingsWindow_Closing"
         mc:Ignorable="d"
         Title="UniCade Settings" Height="445.085" Width="762.172" ResizeMode="NoResize">
     <Grid RenderTransformOrigin="0.5,0.5" Margin="0,0,0,-2.5">
