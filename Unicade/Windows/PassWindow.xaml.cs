@@ -30,13 +30,17 @@ namespace UniCade.Windows
         /// </summary>
         private void PassWindow_EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            Int32.TryParse(Textbox_Password.Text, out int n);
+            Int32.TryParse(Textbox_Password.Password, out int n);
             if (n > 0)
             {
-                if (Int32.Parse(Textbox_Password.Text) == SettingsWindow._passProtect)
+                if (Int32.Parse(Textbox_Password.Password) == SettingsWindow._passProtect)
                 {
                     DialogResult = true;
                     MainWindow._validPAss = true;
+                }
+                else
+                {
+                    MessageBox.Show("Incorrect Password");
                 }
             }
             Close();

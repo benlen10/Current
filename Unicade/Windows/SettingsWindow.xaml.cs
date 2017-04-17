@@ -112,8 +112,6 @@ namespace UniCade.Windows
             GlobalTab_Textbox_Coins.IsEnabled = false;
             GlobalTab_Textbox_Playtime.IsEnabled = false;
 
-            //Set additional textboxes to readonly
-
             //Populate features textbox under the About tab
             AboutTab_Textbox_SoftwareInfo.Text = TextFiles.features + "\n\n\n\n\n\n" + TextFiles.instructions;
             AboutTab_Textbox_SoftwareInfo.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
