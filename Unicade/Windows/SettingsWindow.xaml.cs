@@ -258,7 +258,7 @@ namespace UniCade.Windows
             //Invalid input checks
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("Login Required");
+                MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
             if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
@@ -294,7 +294,7 @@ namespace UniCade.Windows
             }
             if (SQLclient.sqlUser == null)
             {
-                MessageBox.Show("Login Required");
+                MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
             if (GamesTab_Listbox_GamesList.Items.Count < 1)
@@ -1593,5 +1593,5 @@ namespace UniCade.Windows
         }
 
         #endregion
-        }
+    }
     }

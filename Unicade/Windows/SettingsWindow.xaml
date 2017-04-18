@@ -58,14 +58,14 @@
                     <TextBox x:Name="GamesTab_Textbox_CriticScore" HorizontalAlignment="Left" Height="23" Margin="290,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35"/>
                     <TextBox x:Name="GamesTab_Textbox_Players" HorizontalAlignment="Left" Height="23" Margin="379,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35"/>
                     <TextBox x:Name="GamesTab_Textbox_LaunchCount" HorizontalAlignment="Left" Height="23" Margin="513,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.173,0.574" IsReadOnly="True"/>
-                    <Button x:Name="button" Content="Save Info" HorizontalAlignment="Left" Margin="190,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_SaveInfoButton_Click"/>
-                    <Button x:Name="button_Copy" Content="Rescrape &#xD;&#xA;Game&#xD;&#xA;Metadata" HorizontalAlignment="Left" Margin="285,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_RescrapeGameButton_Click"/>
-                    <Button x:Name="button_Copy1" Content="Resrape&#xD;&#xA;Console&#xD;&#xA;Metadata&#xD;&#xA;" HorizontalAlignment="Left" Margin="379,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_RescrapeConsoleMetadataButton_Click"/>
-                    <Button x:Name="button_Copy2" Content="Save to &#xD;&#xA;Database" HorizontalAlignment="Left" Margin="471,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_SaveToDatabaseButton_Click"/>
-                    <Button x:Name="button1" Content="Upload Game" HorizontalAlignment="Left" Margin="563,307,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_UploadButton_Click"/>
-                    <Button x:Name="button1_Copy" Content="Download Game" HorizontalAlignment="Left" Margin="563,332,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_DownloadGameButton_Click"/>
-                    <Button x:Name="button1_Copy1" Content="Upload Console" HorizontalAlignment="Left" Margin="563,356,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_UploadConsoleButton_Click"/>
-                    <Button x:Name="button1_Copy2" Content="Download Console" HorizontalAlignment="Left" Margin="563,381,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_DownloadConsoleButton_Click"/>
+                    <Button x:Name="GamesTab_Button_SaveInfo" Content="Save Info" HorizontalAlignment="Left" Margin="190,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_SaveInfoButton_Click"/>
+                    <Button x:Name="GamesTab_Button_RescrapeGameMetadata" Content="Rescrape &#xD;&#xA;Game&#xD;&#xA;Metadata" HorizontalAlignment="Left" Margin="285,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_RescrapeGameButton_Click"/>
+                    <Button x:Name="GamesTab_Button_RescrapeConsoleMetadata" Content="Resrape&#xD;&#xA;Console&#xD;&#xA;Metadata&#xD;&#xA;" HorizontalAlignment="Left" Margin="379,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_RescrapeConsoleMetadataButton_Click"/>
+                    <Button x:Name="GamesTab_Button_SaveToDatabase" Content="Save to &#xD;&#xA;Database" HorizontalAlignment="Left" Margin="471,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_SaveToDatabaseButton_Click"/>
+                    <Button x:Name="GamesTab_Button_UploadGame" Content="Upload Game" HorizontalAlignment="Left" Margin="563,307,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_UploadButton_Click"/>
+                    <Button x:Name="GamesTab_Button_DownloadGame" Content="Download Game" HorizontalAlignment="Left" Margin="563,332,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_DownloadGameButton_Click"/>
+                    <Button x:Name="GamesTab_Button_UploadConsole" Content="Upload Console" HorizontalAlignment="Left" Margin="563,356,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_UploadConsoleButton_Click"/>
+                    <Button x:Name="GamesTab_Button_DownloadConsole" Content="Download Console" HorizontalAlignment="Left" Margin="563,381,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_DownloadConsoleButton_Click"/>
                     <CheckBox x:Name="GamesTab_CheckBox__GlobalFavorite" Content="Favorite" HorizontalAlignment="Left" Margin="225,321,0,0" VerticalAlignment="Top" Checked="GamesTab_FavoriteCheckbox_CheckedChanged" Unchecked="GamesTab_FavoriteCheckbox_CheckedChanged"/>
                 </Grid>
             </TabItem>
