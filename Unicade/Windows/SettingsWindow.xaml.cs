@@ -53,16 +53,22 @@ namespace UniCade.Windows
             MainWindow.ReHookKeys();
         }
 
-            /// <summary>
-            /// Populate settings window fields under all tabs
-            /// </summary>
-            private void Populate()
+        /// <summary>
+        /// Populate settings window fields under all tabs
+        /// </summary>
+        private void Populate()
         {
             //Populate console list with the currently active games
             foreach (Console c in Database.ConsoleList)
             {
                 GamesTab_Listbox_ConsoleList.Items.Add(c.Name);
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(c.Name);
+            }
+
+            //Set initial selected indexes
+            if (EmulatorsTab_Listbox_ConsoleList.HasItems)
+            {
+                EmulatorsTab_Listbox_ConsoleList.SelectedIndex = 0;
             }
 
             //Poplate ESRB dropdown combo boxes
@@ -330,7 +336,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_GamesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (GamesTab_Listbox_GamesList.SelectedItem == null) { return;  }
+            if (GamesTab_Listbox_GamesList.SelectedItem == null) { return; }
             string currentGame = GamesTab_Listbox_GamesList.SelectedItem.ToString();
             foreach (Game g in _curConsole2.GameList)
             {
@@ -383,38 +389,33 @@ namespace UniCade.Windows
             }
         }
 
-        private void GamesTab_RescrapeGameButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Rescrape game info button.
+        /// Rescrapes info the the specified game from the web
+        /// </summary>
+        private void GamesTab_RescrapeGameButton_Click(object sender, EventArgs e)
         {
-        }
-
-
-            /// <summary>
-            /// Rescrape game info button.
-            /// Rescrapes info the the specified game from the web
-            /// </summary>
-            private void GamesTab_RescrapeGameButton_Click(object sender, EventArgs e)
+            //Require that a user select a valid game to rescrape
+            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
             {
-                //Require that a user select a valid game to rescrape
-                if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
-                {
-                    MessageBox.Show("Must select a console/game");
-                    return;
-                }
-
-                //Scrape info and populate local fields
-                WebOps.ScrapeInfo(_curGame);
-                GamesTab_Textbox_Title.Text = _curGame.Title;
-                GamesTab_Textbox_Console.Text = _curGame.Console;
-                GamesTab_Textbox_ReleaseDate.Text = _curGame.ReleaseDate;
-                GamesTab_Textbox_CriticScore.Text = _curGame.CriticScore;
-                GamesTab_Textbox_Publisher.Text = _curGame.Publisher;
-                GamesTab_Textbox_Developer.Text = _curGame.Developer;
-                GamesTab_Textbox_ESRB.Text = _curGame.Esrb;
-                GamesTab_Textbox_Players.Text = _curGame.Players;
-                GamesTab_Textbox_ESRBDescriptor.Text = _curGame.EsrbDescriptor;
-                GamesTab_Textbox_Description.Text = _curGame.Description;
-                RefreshEsrbIcon(_curGame);
+                MessageBox.Show("Must select a console/game");
+                return;
             }
+
+            //Scrape info and populate local fields
+            WebOps.ScrapeInfo(_curGame);
+            GamesTab_Textbox_Title.Text = _curGame.Title;
+            GamesTab_Textbox_Console.Text = _curGame.Console;
+            GamesTab_Textbox_ReleaseDate.Text = _curGame.ReleaseDate;
+            GamesTab_Textbox_CriticScore.Text = _curGame.CriticScore;
+            GamesTab_Textbox_Publisher.Text = _curGame.Publisher;
+            GamesTab_Textbox_Developer.Text = _curGame.Developer;
+            GamesTab_Textbox_ESRB.Text = _curGame.Esrb;
+            GamesTab_Textbox_Players.Text = _curGame.Players;
+            GamesTab_Textbox_ESRBDescriptor.Text = _curGame.EsrbDescriptor;
+            GamesTab_Textbox_Description.Text = _curGame.Description;
+            RefreshEsrbIcon(_curGame);
+        }
 
         /// <summary>
         /// Save database button
@@ -528,6 +529,7 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_ConsoleListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (EmulatorsTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString();
             foreach (Console c in Database.ConsoleList)
             {
@@ -1456,7 +1458,7 @@ namespace UniCade.Windows
                 GamesTab_CheckBox__GlobalFavorite.IsChecked = true;
             else
                 GamesTab_CheckBox__GlobalFavorite.IsChecked = false;
-       
+
 
 
             GamesTab_Image_Boxfront.Source = null;
@@ -1468,8 +1470,8 @@ namespace UniCade.Windows
                 GamesTab_Image_Boxback.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxBack.png"));
             if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_Screenshot.png"))
                 GamesTab_Image_Screeshot.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_Screenshot.png"));
-       
-    }
+
+        }
 
         /// <summary>
         /// Save the current game info to the database file
@@ -1477,7 +1479,7 @@ namespace UniCade.Windows
         /// </summary>
         private void SaveGameInfo()
         {
-            
+
             //Invalid input checks
             if (GamesTab_Listbox_GamesList.Items.Count < 1)
                 return;
@@ -1547,7 +1549,7 @@ namespace UniCade.Windows
         /// </summary>
         public void RefreshEsrbIcon(Game g)
         {
-            if(g == null) { return; }
+            if (g == null) { return; }
             GamesTab_Image_ESRB.Source = null;
             if (g.Esrb.Equals("Everyone"))
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
@@ -1594,4 +1596,4 @@ namespace UniCade.Windows
 
         #endregion
     }
-    }
+}
