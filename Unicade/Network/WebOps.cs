@@ -33,10 +33,11 @@ namespace UniCade
         /// <summary>
         /// Scrape game info for the specified game from online databases
         /// </summary>
-        public static bool ScrapeInfo(Game g)
+        public static bool ScrapeInfo(Game game)
         {
+            if(game == null) { return false; }
             //Replace invalid chars within game title
-            gameName = g.Title.Replace(" - ", " ");
+            gameName = game.Title.Replace(" - ", " ");
             gameName = gameName.Replace(" ", "-");
             gameName = gameName.Replace("'", "");
 
@@ -46,12 +47,12 @@ namespace UniCade
 
             //Attempt to scrape mobygames if the site setting is enabled
             if (mobyg > 0)
-                if (!ScrapeMobyGames(g))
+                if (!ScrapeMobyGames(game))
                     return false;
 
             //Attempt to scrape metacritic if the site setting is enabled
             if (metac > 0)
-                if (!ScrapeMetacritic(g))
+                if (!ScrapeMetacritic(game))
                     return false;
 
             //If neither site returns any errors, return true
