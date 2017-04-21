@@ -354,6 +354,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_ConsoleListBox__SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(GamesTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
             GamesTab_Listbox_GamesList.Items.Clear();
             foreach (Console c in Database.ConsoleList)
@@ -396,7 +397,7 @@ namespace UniCade.Windows
         private void GamesTab_RescrapeGameButton_Click(object sender, EventArgs e)
         {
             //Require that a user select a valid game to rescrape
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            if (GamesTab_Listbox_GamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
@@ -423,12 +424,13 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_SaveToDatabaseButton_Click(object sender, EventArgs e)
         {
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            if (GamesTab_Listbox_GamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
             }
             SaveGameInfo();
+            MessageBox.Show("Success");
         }
 
         /// <summary>
@@ -436,7 +438,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_SaveInfoButton_Click(object sender, EventArgs e)
         {
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            if (GamesTab_Listbox_GamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
@@ -468,7 +470,7 @@ namespace UniCade.Windows
                 return;
             }
 
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            if (GamesTab_Listbox_GamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
@@ -483,7 +485,7 @@ namespace UniCade.Windows
         private void GamesTab_FavoriteCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             //Verify that a console/game is currently selected
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            if (GamesTab_Listbox_GamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
@@ -623,7 +625,7 @@ namespace UniCade.Windows
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(con.Name);
                 GamesTab_Listbox_ConsoleList.Items.Add(con.Name);
             }
-            GamesTab_Listbox_ConsoleList.SelectedIndex = (GamesTab_Listbox_ConsoleList.Items.Count - 1);
+            GamesTab_Listbox_ConsoleList.SelectedIndex = (EmulatorsTab_Listbox_ConsoleList.Items.Count - 1);
             MainWindow.RefreshConsoleList();
         }
 
@@ -716,6 +718,10 @@ namespace UniCade.Windows
                     if (FileOps.scanDirectory(c.RomPath, Program._romPath))
                     {
                         MessageBox.Show(c.Name + " Successfully Scanned");
+                    }
+                    else
+                    {
+                        MessageBox.Show(c.Name + " Library Rescan Failed");
                     }
                     break;
                 }
@@ -1595,5 +1601,6 @@ namespace UniCade.Windows
         }
 
         #endregion
+
     }
 }

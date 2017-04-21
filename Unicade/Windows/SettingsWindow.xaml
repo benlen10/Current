@@ -19,26 +19,26 @@
         <TabControl HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="760" Margin="0,0,-4,0">
             <TabItem Header="Games">
                 <Grid Background="White" Margin="0,-23,-1,-7">
-                    <Label Content="Console List" HorizontalAlignment="Left" Margin="22,26,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Games List" HorizontalAlignment="Left" Margin="131,26,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Title" HorizontalAlignment="Left" Margin="220,57,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Console" HorizontalAlignment="Left" Margin="220,85,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.497,0.272"/>
-                    <Label Content="Release Date" HorizontalAlignment="Left" Margin="220,112,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Publisher" HorizontalAlignment="Left" Margin="220,143,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Developer" HorizontalAlignment="Left" Margin="220,171,0,0" VerticalAlignment="Top"/>
-                    <Label Content="ESRB Rating" HorizontalAlignment="Left" Margin="220,199,0,0" VerticalAlignment="Top"/>
-                    <Label Content="ESRB Descriptors" HorizontalAlignment="Left" Margin="220,227,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Game Description" HorizontalAlignment="Left" Margin="220,252,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Game Metadata" HorizontalAlignment="Left" Margin="413,23,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Critic Score" HorizontalAlignment="Left" Margin="218,286,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Players" HorizontalAlignment="Left" Margin="330,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.149,0.467"/>
-                    <Label Content="Launch Count" HorizontalAlignment="Left" Margin="425,286,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Boxfront" HorizontalAlignment="Left" Margin="572,26,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Boxback" HorizontalAlignment="Left" Margin="671,26,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Screenshot" HorizontalAlignment="Left" Margin="622,165,0,0" VerticalAlignment="Top"/>
-                    <Label Content="ESRB" HorizontalAlignment="Left" Margin="684,289,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Total Games" HorizontalAlignment="Left" Margin="10,343,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Games For Console" HorizontalAlignment="Left" Margin="11,375,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_Consoles" Content="Console List" HorizontalAlignment="Left" Margin="22,26,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_Games" Content="Games List" HorizontalAlignment="Left" Margin="131,26,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_Title" Content="Title" HorizontalAlignment="Left" Margin="220,57,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_Console" Content="Console" HorizontalAlignment="Left" Margin="220,85,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.497,0.272"/>
+                    <Label x:Name="GamesTab_Label_ReleaseDate" Content="Release Date" HorizontalAlignment="Left" Margin="220,112,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_Publisher" Content="Publisher" HorizontalAlignment="Left" Margin="220,143,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_Developer" Content="Developer" HorizontalAlignment="Left" Margin="220,171,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_ESRBRating" Content="ESRB Rating" HorizontalAlignment="Left" Margin="220,199,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_ESRBDescriptors" Content="ESRB Descriptors" HorizontalAlignment="Left" Margin="220,227,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_Description" Content="Game Description" HorizontalAlignment="Left" Margin="220,252,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_GameMetadata" Content="Game Metadata" HorizontalAlignment="Left" Margin="413,23,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_CriticScore" Content="Critic Score" HorizontalAlignment="Left" Margin="218,286,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_Players" Content="Players" HorizontalAlignment="Left" Margin="330,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.149,0.467"/>
+                    <Label x:Name="GamesTab_Label_LaunchCount" Content="Launch Count" HorizontalAlignment="Left" Margin="425,286,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_BoxFront" Content="Boxfront" HorizontalAlignment="Left" Margin="572,26,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_BoxBack" Content="Boxback" HorizontalAlignment="Left" Margin="671,26,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_Screenshot" Content="Screenshot" HorizontalAlignment="Left" Margin="622,165,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_ESRB" Content="ESRB" HorizontalAlignment="Left" Margin="684,289,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_TotalGames" Content="Total Games" HorizontalAlignment="Left" Margin="10,343,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTab_Label_GamesForConsole" Content="Games For Console" HorizontalAlignment="Left" Margin="11,375,0,0" VerticalAlignment="Top"/>
                     <ListBox x:Name="GamesTab_Listbox_ConsoleList" HorizontalAlignment="Left" Height="289" Margin="11,52,0,0" VerticalAlignment="Top" Width="92" SelectionChanged="GamesTab_ConsoleListBox__SelectedIndexChanged"/>
                     <ListBox x:Name="GamesTab_Listbox_GamesList" HorizontalAlignment="Left" Height="289" Margin="118,52,0,0" VerticalAlignment="Top" Width="92" SelectionChanged="GamesTab_GamesListBox_SelectedIndexChanged"/>
                     <Image x:Name="GamesTab_Image_ESRB" HorizontalAlignment="Left" Height="94" Margin="663,313,0,0" VerticalAlignment="Top" Width="91"/>
@@ -71,9 +71,8 @@
             </TabItem>
             <TabItem x:Name="EmulatorsTab_Textbox_ConsoleName" Header="Emulators">
                 <Grid Background="White">
-                    <Label Content="Consol List" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label Content="Console Name" HorizontalAlignment="Left" Margin="154,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
-                    <Label Content="Console List" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label Content="Console List" HorizontalAlignment="Left" Margin="18,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label Content="Emulator Exe" HorizontalAlignment="Left" Margin="154,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label Content="ROM Extension" HorizontalAlignment="Left" Margin="154,106,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label Content="Emulator Args" HorizontalAlignment="Left" Margin="154,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
@@ -82,14 +81,14 @@
                     <Label Content="Game Count" HorizontalAlignment="Left" Margin="334,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <ListBox x:Name="EmulatorsTab_Listbox_ConsoleList" HorizontalAlignment="Left" Height="230" Margin="10,41,0,0" VerticalAlignment="Top" Width="119" SelectionChanged="EmulatorsTab_ConsoleListBox_SelectedIndexChanged"/>
                     <CheckBox x:Name="EmulatorsTab_Checkbox_EnforceFileExtension" Content="Enforce ROM Extension" HorizontalAlignment="Left" Margin="154,256,0,0" VerticalAlignment="Top" Checked="EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged" Unchecked="EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged"/>
-                    <TextBox x:Name="EmulatorsTab_Textbox_ConsoleName1" HorizontalAlignment="Left" Height="23" Margin="246,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged" IsReadOnly="True"/>
+                    <TextBox x:Name="EmulatorsTab_Textbox_ConsoleName1" HorizontalAlignment="Left" Height="23" Margin="246,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_EmulatorExe" HorizontalAlignment="Left" Height="23" Margin="246,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_ROMExtension" HorizontalAlignment="Left" Height="23" Margin="246,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_EmulatorArgs" HorizontalAlignment="Left" Height="23" Margin="246,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_ConsoleInfo" HorizontalAlignment="Left" Height="23" Margin="246,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_ReleaseDate" HorizontalAlignment="Left" Height="23" Margin="246,196,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_GameCount" HorizontalAlignment="Left" Height="23" Margin="416,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" TextChanged="TextBox_TextChanged" IsReadOnly="True"/>
-                    <Image x:Name="EmulatorsTab_Image_UniCadeLogo" HorizontalAlignment="Left" Height="374" Margin="570,10,0,0" VerticalAlignment="Top" Width="184" Stretch="Fill"/>
+                    <Image x:Name="EmulatorsTab_Image_UniCadeLogo" HorizontalAlignment="Left" Height="391" Margin="570,0,0,0" VerticalAlignment="Top" Width="184" Stretch="Fill"/>
                     <Button x:Name="EmulatorsTab_Button_ForceGlobalRescrape" Content="Force Global &#xD;&#xA;Metadata Rescrape" HorizontalAlignment="Left" Margin="10,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_ForceGlobalMetadataRescrapeButton_Click"/>
                     <Button x:Name="EmulatorsTab_Button_AddNewConsole" Content="Add New Console" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_AddNewConsoleButton_Click"/>
                     <Button x:Name="EmulatorsTab_Button_RescanSingleConsole" Content="Rescan Single&#xD;&#xA;Console" HorizontalAlignment="Left" Margin="134,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_RescanSingleConsoleButton_Click"/>
@@ -97,7 +96,7 @@
                     <Button x:Name="EmulatorsTab_Button_GlobalRescane" Content="Global Rescan" HorizontalAlignment="Left" Margin="258,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_GlobalRescanButton_Click"/>
                     <Button x:Name="EmulatorsTab_Button_SaveDatabaseFile" Content="Save Database File" HorizontalAlignment="Left" Margin="258,334,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_SaveDatabaseFileButton_Click"/>
                     <Button x:Name="EmulatorsTab_Button_SaveInfo" Content="Save Info" HorizontalAlignment="Left" Margin="382,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_SaveInfoButton_Click"/>
-                    <Button x:Name="EmulatorsTab_Button_Close" Content="Close" HorizontalAlignment="Left" Margin="382,332,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_CloseButton_Click"/>
+                    <Button x:Name="EmulatorsTab_Button_Close" Content="Close" HorizontalAlignment="Left" Margin="382,334,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_CloseButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Users">
