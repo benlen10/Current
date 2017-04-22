@@ -1759,6 +1759,13 @@ namespace UniCade.Windows
         internal System.Windows.Controls.Label GamesTab_Label_ESRB;
         internal System.Windows.Controls.Label GamesTab_Label_TotalGames;
         internal System.Windows.Controls.Label GamesTab_Label_GamesForConsole;
+        internal System.Windows.Controls.Label EmulatorsTab_Label_ConsoleName;
+        internal System.Windows.Controls.Label EmulatorsTab_Label_EmulatorExe;
+        internal System.Windows.Controls.Label EmulatorsTab_Label_ROMExtension;
+        internal System.Windows.Controls.Label EmulatorsTab_Label_EmulatorArgs;
+        internal System.Windows.Controls.Label EmulatorsTab_Label_ConsoleInfo;
+        internal System.Windows.Controls.Label EmulatorsTab_Label_ReleaseDate;
+        internal System.Windows.Controls.Label EmulatorsTab_Label_GameCount;
     }
 }
 
