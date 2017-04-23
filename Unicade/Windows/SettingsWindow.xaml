@@ -102,13 +102,13 @@
             <TabItem Header="Users">
                 <Grid Background="White">
                     <Label x:Name="UsersTab_Label_CurrentUser" Content="Current User" HorizontalAlignment="Left" Margin="21,23,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username" HorizontalAlignment="Left" Margin="179,64,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Email" HorizontalAlignment="Left" Margin="179,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.976,1.822"/>
-                    <Label Content="User Info" HorizontalAlignment="Left" Margin="179,126,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Allowed ESRB Rating" HorizontalAlignment="Left" Margin="179,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.024,3.36"/>
-                    <Label Content="Login Count" HorizontalAlignment="Left" Margin="179,188,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="UsersTab_Label_Username" Content="Username" HorizontalAlignment="Left" Margin="179,64,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="UsersTab_Label_Email" Content="Email" HorizontalAlignment="Left" Margin="179,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.976,1.822"/>
+                    <Label x:Name="UsersTab_Label_UserInfo" Content="User Info" HorizontalAlignment="Left" Margin="179,126,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="UsersTab_Label_AllowedESRB" Content="Allowed ESRB Rating" HorizontalAlignment="Left" Margin="179,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.024,3.36"/>
+                    <Label x:Name="UsersTab_Label_LoginCount" Content="Login Count" HorizontalAlignment="Left" Margin="179,188,0,0" VerticalAlignment="Top"/>
                     <ListBox x:Name="UsersTab_Listbox_CurrentUser" HorizontalAlignment="Left" Height="281" Margin="10,49,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="UsersTab_UsersListBox_SelectedIndexChanged"/>
-                    <Label Content="Total Launch Count" HorizontalAlignment="Left" Margin="296,188,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="UsersTab_Label_TotalLaunchCount" Content="Total Launch Count" HorizontalAlignment="Left" Margin="296,188,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="UsersTab_Textbox_Username" HorizontalAlignment="Left" Height="23" Margin="248,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
                     <TextBox x:Name="UsersTab_Textbox_Email" HorizontalAlignment="Left" Height="23" Margin="248,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
                     <TextBox x:Name="UsersTab_Textbox_UserInfo" HorizontalAlignment="Left" Height="23" Margin="248,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>

@@ -1766,6 +1766,12 @@ namespace UniCade.Windows
         internal System.Windows.Controls.Label EmulatorsTab_Label_ConsoleInfo;
         internal System.Windows.Controls.Label EmulatorsTab_Label_ReleaseDate;
         internal System.Windows.Controls.Label EmulatorsTab_Label_GameCount;
+        internal System.Windows.Controls.Label UsersTab_Label_Username;
+        internal System.Windows.Controls.Label UsersTab_Label_Email;
+        internal System.Windows.Controls.Label UsersTab_Label_UserInfo;
+        internal System.Windows.Controls.Label UsersTab_Label_AllowedESRB;
+        internal System.Windows.Controls.Label UsersTab_Label_LoginCount;
+        internal System.Windows.Controls.Label UsersTab_Label_TotalLaunchCount;
     }
 }
 
