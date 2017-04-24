@@ -1772,6 +1772,15 @@ namespace UniCade.Windows
         internal System.Windows.Controls.Label UsersTab_Label_AllowedESRB;
         internal System.Windows.Controls.Label UsersTab_Label_LoginCount;
         internal System.Windows.Controls.Label UsersTab_Label_TotalLaunchCount;
+        internal System.Windows.Controls.Label GlobalTab_Label_AllowedESRB;
+        internal System.Windows.Controls.Label GlobalTab_Label_PaswordProtection;
+        internal System.Windows.Controls.Label GlobalTab_Label_DatabasePath;
+        internal System.Windows.Controls.Label GlobalTab_Label_EmulatorDirectory;
+        internal System.Windows.Controls.Label GlobalTab_Label_MediaDirectory;
+        internal System.Windows.Controls.Label GlobalTab_Label_ROMDirectory;
+        internal System.Windows.Controls.Label GlobalTab_Label_Coins;
+        internal System.Windows.Controls.Label GlobalTab_Label_Playtime;
+        internal System.Windows.Controls.Label GlobalTab_Label_GlobalFavorites;
     }
 }
 
