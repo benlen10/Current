@@ -1,0 +1,15 @@
+CurrentUser|Myuser
+_databasePath|C:\Users\Ben\Workspace\Unicade\UniCade\bin\Debug\Database.txt
+EmulatorFolderPath|C:\UniCade\Emulators
+MediaFolderPath|C:\UniCade\Media
+ShowSplash|0
+ScanOnStartup|0
+RestrictESRB|2
+RequireLogin|0
+CmdOrGui|0
+LoadingScreen|0
+PaySettings|0|0|1|15
+License Key||
+***UserData***
+UniCade|temp|0|unicade@unicade.com|0| |||
+Myuser|tmosdfsdfds@something.com|0|tmosdfsdfds@something.com|0|tmp|Mature||
