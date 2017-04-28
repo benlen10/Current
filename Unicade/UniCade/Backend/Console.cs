@@ -49,11 +49,15 @@ namespace UniCade
         {
             //If the game console does not match the current console, return false
             if (!game.Console.Equals(Name))
+            {
                 return false;
+            }
 
             //If a game with an identical file name already exists, return false
             if (GameList.Find(e => e.FileName.Equals(game.FileName)) != null)
+            {
                 return false;
+            }
 
             //If all conditions are passed, add the game, increment the game count for both the console and database 
             GameList.Add(game);
