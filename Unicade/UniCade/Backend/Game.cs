@@ -33,7 +33,9 @@
 
             //Parse title from filename
             if (fileName.Length > 2)
+            {
                 Title = fileName.Substring(0, fileName.IndexOf('.'));
+            }
         }
 
         #endregion

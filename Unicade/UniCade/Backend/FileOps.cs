@@ -24,7 +24,9 @@ namespace UniCade
         public static bool loadDatabase(string path)
         {
             if (!File.Exists(path))
+            {
                 return false;
+            }
 
             string line;
             int consoleCount = 0;
@@ -46,10 +48,14 @@ namespace UniCade
                     consoleCount++;
                 }
                 else
+                {
                     console.GameList.Add(new Game(r[0], r[1], Int32.Parse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], Int32.Parse(r[16])));
+                }
             }
             if (consoleCount > 0)
+            {
                 Database.ConsoleList.Add(console);
+            }
 
             if (consoleCount < 1)
             {
@@ -67,7 +73,9 @@ namespace UniCade
         {
             //Delete any preexisting database files 
             if (File.Exists(path))
+            {
                 File.Delete(path);
+            }
 
             try
             {
@@ -100,7 +108,9 @@ namespace UniCade
         {
             //Delete any preexisting preference files 
             if (!File.Exists(path))
+            {
                 return false;
+            }
 
             string[] tmp = { "tmp" };
             char[] sep = { '|' };
@@ -256,7 +266,9 @@ namespace UniCade
         public static void savePreferences(String path)
         {
             if (File.Exists(path))
+            {
                 File.Delete(path);
+            }
 
             foreach (User us in Database.UserList)
             {
@@ -311,7 +323,10 @@ namespace UniCade
                 return false;
             }
             foreach (string subdirectory in subdirectoryEntries)
+            {
                 scanDirectory(subdirectory, targetDirectory);
+            }
+
             return true;
         }
 
@@ -337,14 +352,15 @@ namespace UniCade
                 }
             }
             if (!foundConsole)
+            {
                 return false;
+            }
 
             string[] fileEntries = null;
             string[] exs = con.RomExt.Split('*');
             try
             {
                 fileEntries = Directory.GetFiles(path);
-
             }
             catch
             {

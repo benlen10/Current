@@ -43,17 +43,27 @@ namespace UniCade
 
             //If neither site is scraped, return false
             if (mobyg == 0 && metac == 0)
+            {
                 return false;
+            }
 
             //Attempt to scrape mobygames if the site setting is enabled
             if (mobyg > 0)
+            {
                 if (!ScrapeMobyGames(game))
+                {
                     return false;
+                }
+            }
 
             //Attempt to scrape metacritic if the site setting is enabled
             if (metac > 0)
+            {
                 if (!ScrapeMetacritic(game))
+                {
                     return false;
+                }
+            }
 
             //If neither site returns any errors, return true
             return true;
@@ -100,19 +110,33 @@ namespace UniCade
                 
                 //Convert the parsed text to a valid ESRB rating
                 if (s.Contains("Everyone"))
+                {
                     g.Esrb = "Everyone";
+                }
                 else if (s.Contains("Kids to Adults"))
+                {
                     g.Esrb = "Everyone (KA)";
+                }
                 else if (s.Contains("Everyone 10+"))
+                {
                     g.Esrb = "Everyone 10+";
+                }
                 else if (s.Contains("Teen"))
+                {
                     g.Esrb = "Teen";
+                }
                 else if (s.Contains("Mature"))
+                {
                     g.Esrb = "Mature";
+                }
                 else if (s.Contains("Mature"))
+                {
                     g.Esrb = "Mature";
+                }
                 else if (s.Contains("Adults Only"))
+                {
                     g.Esrb = "AO (Adults Only)";
+                }
             }
 
             //Parse Release Date
@@ -196,26 +220,44 @@ namespace UniCade
 
             //Convert the console to the string used by metacritic
             if (g.Console.Equals("PS1"))
+            {
                 metaCon = "playstation";
+            }
             else if (g.Console.Equals("N64"))
+            {
                 metaCon = "nintendo-64";
+            }
             else if (g.Console.Equals("GBA"))
+            {
                 metaCon = "game-boy-advance";
+            }
             else if (g.Console.Equals("PSP"))
+            {
                 metaCon = "psp";
+            }
             else if (g.Console.Equals("Gamecube"))
+            {
                 metaCon = "gamecube";
+            }
             else if (g.Console.Equals("Wii"))
+            {
                 metaCon = "wii";
+            }
             else if (g.Console.Equals("NDS"))
+            {
                 metaCon = "ds";
+            }
             else if (g.Console.Equals("Dreamcast"))
+            {
                 metaCon = "dreamcast";
+            }
 
             //Return false if the console is not supported
             if (metaCon.Length < 1)
+            {
                 return false;
-            
+            }
+
             //Generate the target metacritic url
             string url = ("http://www.metacritic.com/game/" + metaCon + "/" + gameName + "/details");
             url = url.ToLower();
