@@ -55,7 +55,9 @@ namespace UniCade.Windows
 
             //Create a new SQL user if the account type is UniCade Cloud
             if (_accountType == 0)
+            {
                 SQLclient.CreateUser(Textbox_Username.Text, Textbox_Email.Text, Textbox_Email.Text, Textbox_UserInfo.Text, "Null", "NullProfPath");
+            }
             else
             {
                 //Create a new local user if the account type standard Unicade

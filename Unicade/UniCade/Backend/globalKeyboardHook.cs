@@ -48,16 +48,27 @@ namespace UniCade {
 
 
 		public void hook() {
-            if (callbackDelegate != null) throw new InvalidOperationException("Can't hook more than once");
+            if (callbackDelegate != null)
+            {
+                throw new InvalidOperationException("Can't hook more than once");
+            }
+
             IntPtr hInstance = LoadLibrary("User32");
             callbackDelegate = new keyboardHookProc(hookProc);
             hhook = SetWindowsHookEx(WH_KEYBOARD_LL, callbackDelegate, hInstance, 0);
-            if (hhook == IntPtr.Zero) throw new Win32Exception();
+            if (hhook == IntPtr.Zero)
+            {
+                throw new Win32Exception();
+            }
         }
 
 
 		public void unhook() {
-            if (callbackDelegate == null) return;
+            if (callbackDelegate == null)
+            {
+                return;
+            }
+
             bool ok = UnhookWindowsHookEx(hhook);
             //if (!ok) throw new Win32Exception();
             callbackDelegate = null;
@@ -75,8 +86,10 @@ namespace UniCade {
 						KeyUp(this, kea);
 					}
 					if (kea.Handled)
-						return 1;
-				}
+                    {
+                        return 1;
+                    }
+                }
 			}
 			return CallNextHookEx(hhook, code, wParam, ref lParam);
 		}
