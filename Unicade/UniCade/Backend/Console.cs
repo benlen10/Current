@@ -45,6 +45,11 @@ namespace UniCade
 
         #region Public Methods
 
+        /// <summary>
+        /// Add a new game to the current console
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns>'true' if the game was sucuessfully added</returns>
         public bool AddGame(Game game)
         {
             //If the game console does not match the current console, return false
@@ -59,11 +64,34 @@ namespace UniCade
                 return false;
             }
 
-            //If all conditions are passed, add the game, increment the game count for both the console and database 
+            //If all conditions are valid, add the game and increment the game count for both the console and database 
             GameList.Add(game);
             GameCount++;
             Database.TotalGameCount++;
             return true;
+        }
+
+        /// <summary>
+        /// Remove the specified game from the current console
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns>true if the game was sucuessfully removed</returns>
+        public bool RemoveGame(Game game)
+        {
+            //If the game console does not match the current console, return false
+            if (!game.Console.Equals(Name))
+            {
+                return false;
+            }
+
+            //Attempt to locate the specified game by fileName
+            Game gameToRemove = GameList.Find(e => e.FileName.Equals(game.FileName));
+            if(gameToRemove != null)
+            {
+                //Remove the game and decriment both the console game count and total game count
+                GameList.Remove(gameToRemove);
+            }
+            return false;
         }
 
         #endregion
