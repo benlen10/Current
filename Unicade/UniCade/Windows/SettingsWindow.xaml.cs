@@ -93,19 +93,34 @@ namespace UniCade.Windows
 
             //Populate the 'Allowed ESRB' combo box with the specified rating
             if (_restrictESRB == 0)
+            {
                 GlobalTab_Dropdown_AllowedESRB.Text = "None";
+            }
             else if (_restrictESRB == 1)
+            {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Everyone";
+            }
             else if (_restrictESRB == 2)
+            {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Everyone 10+";
+            }
             else if (_restrictESRB == 3)
+            {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Teen";
+            }
             else if (_restrictESRB == 4)
+            {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Mature";
+            }
             else if (_restrictESRB == 5)
+            {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Adults Only (AO)";
+            }
+
             if (_viewEsrb > 0)
+            {
                 GamesTab_CheckBox__GlobalFavorite.IsChecked = true;
+            }
 
             //Disable editing userinfo unless logged in
             UsersTab_Textbox_Username.IsEnabled = false;
@@ -132,45 +147,101 @@ namespace UniCade.Windows
 
             //Check specified boxes under the Web tab
             if (WebOps.releaseDate > 0)
+            {
                 WebTab_Checkbox_ReleaseDate.IsChecked = true;
+            }
+
             if (WebOps.critic > 0)
+            {
                 WebTab_Checkbox_CriticScore.IsChecked = true;
+            }
+
             if (WebOps.publisher > 0)
+            {
                 WebTab_Checkbox_Publisher.IsChecked = true;
+            }
+
             if (WebOps.developer > 0)
+            {
                 WebTab_Checkbox_Developer.IsChecked = true;
+            }
+
             if (WebOps.esrb > 0)
+            {
                 WebTab_Checkbox_ESRBRating.IsChecked = true;
+            }
+
             if (WebOps.esrbDescriptor > 0)
+            {
                 WebTab_Checkbox_ESRBDescriptor.IsChecked = true;
+            }
+
             if (WebOps.players > 0)
+            {
                 WebTab_Checkbox_Players.IsChecked = true;
+            }
+
             if (WebOps.description > 0)
+            {
                 WebTab_Checkbox_Description.IsChecked = true;
+            }
+
             if (WebOps.boxFront > 0)
+            {
                 WebTab_Checkbox_BoxFront.IsChecked = true;
+            }
+
             if (WebOps.boxBack > 0)
+            {
                 WebTab_Checkbox_BoxBack.IsChecked = true;
+            }
+
             if (WebOps.screenshot > 0)
+            {
                 WebTab_Checkbox_Screenshot.IsChecked = true;
+            }
+
             if (WebOps.metac > 0)
+            {
                 WebTab_Checkbox_Metacritic.IsChecked = true;
+            }
+
             if (WebOps.mobyg > 0)
+            {
                 WebTab_Checkbox_Mobygames1.IsChecked = true;
+            }
 
             //Populate Global Settings checkboxes
             if (_showSplash > 0)
+            {
                 GlobalTab_Checkbox_DisplaySplash.IsChecked = true;
+            }
+
             if (_showLoading > 0)
+            {
                 GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked = true;
+            }
+
             if (_requireLogin > 0)
+            {
                 GlobalTab_Checkbox_RequireLogin.IsChecked = true;
+            }
+
             if (_scanOnStartup > 0)
+            {
                 GlobalTab_Checkbox_RescanAllLibraries.IsChecked = true;
+            }
+
             if (_enforceExt > 0)
+            {
                 EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked = true;
+            }
+
             if (_viewEsrb == 1)
+            {
                 GlobalTab_Checkbox_DisplayESRB.IsChecked = true;
+            }
+
             if (_payPerPlay > 0)
             {
                 GlobalTab_Checkbox_EnablePayPerPlay.IsChecked = true;
@@ -183,7 +254,9 @@ namespace UniCade.Windows
             GlobalTab_Textbox_Playtime.Text = _playtime.ToString();
 
             foreach (User u in Database.UserList)
+            {
                 UsersTab_Listbox_CurrentUser.Items.Add(u.Username);
+            }
 
             //Refresh the global favorites list
             RefreshGlobalFavs();
@@ -322,7 +395,9 @@ namespace UniCade.Windows
                 if (game2 != null)
                 {
                     if (game2.FileName.Length > 3)
+                    {
                         _curConsole2.GameList[i] = game2;
+                    }
                 }
             }
 
@@ -492,9 +567,13 @@ namespace UniCade.Windows
             }
             //Toggle favorite checkbox
             if (GamesTab_CheckBox__GlobalFavorite.IsChecked.Value == true)
+            {
                 _curGame.Favorite = 1;
+            }
             else
+            {
                 _curGame.Favorite = 0;
+            }
         }
 
         /// <summary>
@@ -637,7 +716,9 @@ namespace UniCade.Windows
             foreach (Game g in _curConsole.GameList)
             {
                 if (!WebOps.ScrapeInfo(g))
+                {
                     return;
+                }
             }
         }
 
@@ -648,20 +729,31 @@ namespace UniCade.Windows
         {
             //Invalid input check
             if (EmulatorsTab_Textbox_ConsoleName1.Text.Contains("|") || GlobalTab_Textbox_EmulatorDirectory.Text.Contains("|") || GamesTab_Textbox_TotalGames.Text.Contains("|") || EmulatorsTab_Textbox_ROMExtension.Text.Contains("|") || EmulatorsTab_Textbox_EmulatorArgs.Text.Contains("|") || EmulatorsTab_Textbox_ReleaseDate.Text.Contains("|") || EmulatorsTab_Textbox_ConsoleInfo.Text.Contains("|"))
+            {
                 MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            }
             else
             {
                 if (IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
                 {
                     if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
+                    {
                         _curConsole.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
+                    }
                     else
+                    {
                         MessageBox.Show("Release Date Invalid");
+                    }
                 }
                 else
+                {
                     MessageBox.Show("Release Date score must be only digits");
+                }
+
                 if ((EmulatorsTab_Textbox_ConsoleName1.Text.Length > 20) || (GlobalTab_Textbox_EmulatorDirectory.Text.Length > 100) || (GamesTab_Textbox_TotalGames.Text.Length > 100) || (EmulatorsTab_Textbox_ROMExtension.Text.Length > 30) || (EmulatorsTab_Textbox_ROMExtension.Text.Length > 300))
+                {
                     MessageBox.Show("Invalid Length");
+                }
                 else
                 {
                     //If all input checks are valid, set console into to the current text field values
@@ -676,7 +768,9 @@ namespace UniCade.Windows
 
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
             foreach (Console c in Database.ConsoleList)
+            {
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(c.Name);
+            }
         }
 
         /// <summary>
@@ -685,9 +779,13 @@ namespace UniCade.Windows
         private void EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked.Value == true)
+            {
                 _enforceExt = 1;
+            }
             else
+            {
                 _enforceExt = 0;
+            }
         }
 
         /// <summary>
@@ -696,7 +794,9 @@ namespace UniCade.Windows
         private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
         {
             if (FileOps.scan(Program._romPath))
+            {
                 MessageBox.Show("Global Rescan Successful");
+            }
         }
 
         /// <summary>
@@ -749,7 +849,9 @@ namespace UniCade.Windows
         {
             //Update the current user text         
             if (_curUser != null)
+            {
                 UsersTab_Label_CurrentUser.Content = "Current User: " + _curUser.Username;
+            }
 
             //Populate the favorites list for each user
             UsersTab_Listbox_UserFavorites.Items.Clear();
@@ -760,7 +862,9 @@ namespace UniCade.Windows
                     if (u.Favorites.Count > 0)
                     {
                         foreach (Game g in u.Favorites)
+                        {
                             UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.Console);
+                        }
                     }
 
                     UsersTab_Textbox_Username.Text = u.Username;
@@ -810,7 +914,9 @@ namespace UniCade.Windows
             //Refresh the listbox contents
             UsersTab_Listbox_CurrentUser.Items.Clear();
             foreach (User us in Database.UserList)
+            {
                 UsersTab_Listbox_CurrentUser.Items.Add(us.Username);
+            }
         }
 
         /// <summary>
@@ -838,7 +944,9 @@ namespace UniCade.Windows
             UsersTab_Listbox_CurrentUser.Items.Clear();
             _curUser = null;
             foreach (User us in Database.UserList)
+            {
                 UsersTab_Listbox_CurrentUser.Items.Add(us.Username);
+            }
         }
 
         /// <summary>
@@ -855,11 +963,15 @@ namespace UniCade.Windows
             }
 
             if (UsersTab_Textbox_Username.Text.Contains("|") || UsersTab_Textbox_Email.Text.Contains("|") || UsersTab_Textbox_UserInfo.Text.Contains("|"))
+            {
                 MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            }
             else
             {
                 if ((UsersTab_Textbox_Username.Text.Length > 20) || (UsersTab_Textbox_Email.Text.Length > 20) || (UsersTab_Textbox_UserInfo.Text.Length > 50))
+                {
                     MessageBox.Show("Invalid Length");
+                }
                 else
                 {
                     _curUser.Username = UsersTab_Textbox_Username.Text;
@@ -870,15 +982,21 @@ namespace UniCade.Windows
                 if (GamesTab_Textbox_ESRB.Text.Contains("Everyone") || GamesTab_Textbox_ESRB.Text.Contains("Teen") || GamesTab_Textbox_ESRB.Text.Contains("Mature") || GamesTab_Textbox_ESRB.Text.Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
                 {
                     if (UsersTab_Dropdown_AllowedESRB.SelectedItem != null)
+                    {
                         _curUser.AllowedEsrb = UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString();
+                    }
                 }
                 else
+                {
                     MessageBox.Show("Invalid ESRB Rating");
+                }
             }
             UsersTab_Listbox_CurrentUser.Items.Clear();
 
             foreach (User us in Database.UserList)
+            {
                 UsersTab_Listbox_CurrentUser.Items.Add(us.Username);
+            }
         }
 
         /// <summary>
@@ -953,15 +1071,24 @@ namespace UniCade.Windows
         private void GlobalSettings_SavePreferenceFileButton_Click(object sender, EventArgs e)
         {
             if (GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("|") || GlobalTab_Textbox_EmulatorDirectory.Text.Contains("|") || GlobalTab_Textbox_MedaDirectory.Text.Contains("|") || GlobalTab_Textbox_ROMDirectory.Text.Contains("|"))
+            {
                 MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            }
             else
             {
                 if (GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Everyone") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Teen") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Mature") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
+                {
                     _restrictESRB = CalcEsrb(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                }
                 else
+                {
                     MessageBox.Show("Invalid ESRB Rating");
+                }
+
                 if ((GlobalTab_Textbox_EmulatorDirectory.Text.Length > 150) || (GlobalTab_Textbox_MedaDirectory.Text.Length > 150) || (GlobalTab_Textbox_ROMDirectory.Text.Length > 150))
+                {
                     MessageBox.Show("Invalid Length");
+                }
                 else
                 {
                     Program._emuPath = GlobalTab_Textbox_EmulatorDirectory.Text;
@@ -971,12 +1098,20 @@ namespace UniCade.Windows
 
                 Int32.TryParse(GlobalTab_Textbox_Password.Password, out int n);
                 if (n > 0)
+                {
                     _passProtect = Int32.Parse(GlobalTab_Textbox_Password.Password);
+                }
+
                 Int32.TryParse(GlobalTab_Textbox_Coins.Text, out n);
                 if (n > 0)
+                {
                     _coins = Int32.Parse(GlobalTab_Textbox_Coins.Text);
+                }
+
                 if (GlobalTab_Dropdown_AllowedESRB.SelectedItem != null)
+                {
                     _restrictESRB = CalcEsrb(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                }
 
                 //Save all active preferences to the local preferences file
                 FileOps.savePreferences(Program._prefPath);
@@ -989,9 +1124,13 @@ namespace UniCade.Windows
         private void GlobalSettingsTab_AllowedToViewEsrbCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (GlobalTab_Checkbox_ToView.IsChecked.Value == true)
+            {
                 _viewEsrb = 1;
+            }
             else
+            {
                 _viewEsrb = 0;
+            }
         }
 
         /// <summary>
@@ -1000,9 +1139,13 @@ namespace UniCade.Windows
         private void GlobalSettingsTab_ToggleSplashCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (GlobalTab_Checkbox_DisplaySplash.IsChecked.Value == true)
+            {
                 _showSplash = 1;
+            }
             else
+            {
                 _showSplash = 0;
+            }
         }
 
         /// <summary>
@@ -1011,9 +1154,13 @@ namespace UniCade.Windows
         private void GlobalSettingsTab_ToggleLoadingCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked.Value == true)
+            {
                 _showLoading = 1;
+            }
             else
+            {
                 _showLoading = 0;
+            }
         }
 
         /// <summary>
@@ -1022,9 +1169,13 @@ namespace UniCade.Windows
         private void GlobalSettingsTab_ToggleRequireLoginCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (GlobalTab_Checkbox_RequireLogin.IsChecked.Value == true)
+            {
                 _requireLogin = 1;
+            }
             else
+            {
                 _requireLogin = 0;
+            }
         }
 
         /// <summary>
@@ -1033,9 +1184,13 @@ namespace UniCade.Windows
         private void GlobalSettingsTab_ToggleScanOnStartupCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (GlobalTab_Checkbox_RescanAllLibraries.IsChecked.Value == true)
+            {
                 _scanOnStartup = 1;
+            }
             else
+            {
                 _scanOnStartup = 0;
+            }
         }
 
         /// <summary>
@@ -1044,9 +1199,13 @@ namespace UniCade.Windows
         private void GlobalSettingsTab_ToggleEsrbViewCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (GlobalTab_Checkbox_DisplayESRB.IsChecked.Value == true)
+            {
                 _viewEsrb = 1;
+            }
             else
+            {
                 _viewEsrb = 0;
+            }
         }
 
         /// <summary>
@@ -1092,9 +1251,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_Metacritic_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_Metacritic.IsChecked.Value == true)
+            {
                 WebOps.metac = 1;
+            }
             else
+            {
                 WebOps.metac = 0;
+            }
         }
 
         /// <summary>
@@ -1103,9 +1266,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_Mobygames_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_Mobygames1.IsChecked.Value == true)
+            {
                 WebOps.metac = 1;
+            }
             else
+            {
                 WebOps.metac = 0;
+            }
         }
 
         /// <summary>
@@ -1114,9 +1281,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_ReleaseDate_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_ReleaseDate.IsChecked.Value == true)
+            {
                 WebOps.releaseDate = 1;
+            }
             else
+            {
                 WebOps.releaseDate = 0;
+            }
         }
 
         /// <summary>
@@ -1125,9 +1296,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_CriticScore_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_CriticScore.IsChecked.Value == true)
+            {
                 WebOps.critic = 1;
+            }
             else
+            {
                 WebOps.critic = 0;
+            }
         }
 
         /// <summary>
@@ -1136,9 +1311,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_Publisher_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_Publisher.IsChecked.Value == true)
+            {
                 WebOps.publisher = 1;
+            }
             else
+            {
                 WebOps.publisher = 0;
+            }
         }
 
         /// <summary>
@@ -1147,9 +1326,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_Developer_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_Developer.IsChecked.Value == true)
+            {
                 WebOps.developer = 1;
+            }
             else
+            {
                 WebOps.developer = 0;
+            }
         }
 
         /// <summary>
@@ -1158,9 +1341,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_ESRBRating_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_ESRBRating.IsChecked.Value == true)
+            {
                 WebOps.esrb = 1;
+            }
             else
+            {
                 WebOps.esrb = 0;
+            }
         }
 
         /// <summary>
@@ -1169,9 +1356,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_ESRBDescriptor_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_ESRBDescriptor.IsChecked.Value == true)
+            {
                 WebOps.description = 1;
+            }
             else
+            {
                 WebOps.description = 0;
+            }
         }
 
         /// <summary>
@@ -1180,9 +1371,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_Players_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_Players.IsChecked.Value == true)
+            {
                 WebOps.players = 1;
+            }
             else
+            {
                 WebOps.players = 0;
+            }
         }
 
         /// <summary>
@@ -1191,9 +1386,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_Description_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_ESRBDescriptor.IsChecked.Value == true)
+            {
                 WebOps.description = 1;
+            }
             else
+            {
                 WebOps.description = 0;
+            }
         }
 
         /// <summary>
@@ -1202,9 +1401,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_BoxFront_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_BoxFront.IsChecked.Value == true)
+            {
                 WebOps.boxFront = 1;
+            }
             else
+            {
                 WebOps.boxFront = 0;
+            }
         }
 
         /// <summary>
@@ -1213,9 +1416,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_BoxBack_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_BoxBack.IsChecked.Value == true)
+            {
                 WebOps.boxBack = 1;
+            }
             else
+            {
                 WebOps.boxBack = 0;
+            }
         }
 
         /// <summary>
@@ -1224,9 +1431,13 @@ namespace UniCade.Windows
         private void WebTab_Checkbox_Screenshot_Checked(object sender, RoutedEventArgs e)
         {
             if (WebTab_Checkbox_Screenshot.IsChecked.Value == true)
+            {
                 WebOps.screenshot = 1;
+            }
             else
+            {
                 WebOps.screenshot = 0;
+            }
         }
 
         /// <summary>
@@ -1380,10 +1591,13 @@ namespace UniCade.Windows
 
             //Set the license text depending on if the key is valid
             if (Program._validLicense == true)
+            {
                 AboutTab_Label_Edition.Content = "License Status: Full Version";
+            }
             else
+            {
                 AboutTab_Label_Edition.Content = "License Status: Invalid";
-
+            }
         }
 
         #endregion
@@ -1398,7 +1612,9 @@ namespace UniCade.Windows
             foreach (char c in s)
             {
                 if (!char.IsDigit(c))
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -1410,19 +1626,34 @@ namespace UniCade.Windows
         {
             int EsrbNum = 0;
             if (esrb.Equals("Everyone"))
+            {
                 EsrbNum = 1;
+            }
             else if (esrb.Equals("Everyone 10+"))
+            {
                 EsrbNum = 2;
+            }
             else if (esrb.Equals("Teen"))
+            {
                 EsrbNum = 3;
+            }
             else if (esrb.Equals("Mature"))
+            {
                 EsrbNum = 4;
+            }
             else if (esrb.Equals("Adults Only (AO)"))
+            {
                 EsrbNum = 5;
+            }
             else if (esrb.Equals("None"))
+            {
                 EsrbNum = 0;
+            }
             else
+            {
                 EsrbNum = 0;
+            }
+
             return EsrbNum;
         }
 
@@ -1461,22 +1692,31 @@ namespace UniCade.Windows
 
             //Set favorite checkbox
             if (game.Favorite == 1)
+            {
                 GamesTab_CheckBox__GlobalFavorite.IsChecked = true;
+            }
             else
+            {
                 GamesTab_CheckBox__GlobalFavorite.IsChecked = false;
-
-
+            }
 
             GamesTab_Image_Boxfront.Source = null;
             GamesTab_Image_Boxback.Source = null;
             GamesTab_Image_Screeshot.Source = null;
             if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxFront.png"))
+            {
                 GamesTab_Image_Boxfront.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxFront.png"));
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxBack.png"))
-                GamesTab_Image_Boxback.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxBack.png"));
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_Screenshot.png"))
-                GamesTab_Image_Screeshot.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_Screenshot.png"));
+            }
 
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxBack.png"))
+            {
+                GamesTab_Image_Boxback.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_BoxBack.png"));
+            }
+
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_Screenshot.png"))
+            {
+                GamesTab_Image_Screeshot.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _curConsole2.Name + "\\" + game.Title + "_Screenshot.png"));
+            }
         }
 
         /// <summary>
@@ -1488,7 +1728,10 @@ namespace UniCade.Windows
 
             //Invalid input checks
             if (GamesTab_Listbox_GamesList.Items.Count < 1)
+            {
                 return;
+            }
+
             if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console");
@@ -1497,7 +1740,9 @@ namespace UniCade.Windows
             if (IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
             {
                 if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
+                {
                     _curGame.ReleaseDate = GamesTab_Textbox_ReleaseDate.Text;
+                }
                 else
                 {
                     MessageBox.Show("Release Date Invalid");
@@ -1512,31 +1757,54 @@ namespace UniCade.Windows
             if (IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
             {
                 if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
+                {
                     _curGame.CriticScore = GamesTab_Textbox_CriticScore.Text;
+                }
                 else
+                {
                     MessageBox.Show("Critic Score Invalid");
+                }
             }
             else
+            {
                 MessageBox.Show("Critic Score must be only digits");
+            }
+
             if (IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
             {
                 if (GamesTab_Textbox_ReleaseDate.Text.Length > 2)
+                {
                     _curGame.Players = GamesTab_Textbox_Players.Text;
+                }
                 else
+                {
                     MessageBox.Show("Players Invalid");
+                }
             }
             else
+            {
                 MessageBox.Show("Players must be only digits");
+            }
+
             if (GamesTab_Textbox_Developer.Text.Contains("|") || GamesTab_Textbox_Publisher.Text.Contains("|") || GamesTab_Textbox_ESRB.Text.Contains("|") || GamesTab_Textbox_Description.Text.Contains("|") || GamesTab_Textbox_ESRBDescriptor.Text.Contains("|"))
+            {
                 MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+            }
             else
             {
                 if (GamesTab_Textbox_ESRB.Text.Contains("Everyone") || GamesTab_Textbox_ESRB.Text.Contains("Teen") || GamesTab_Textbox_ESRB.Text.Contains("Mature") || GamesTab_Textbox_ESRB.Text.Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
+                {
                     _curGame.Esrb = GamesTab_Textbox_ESRB.Text;
+                }
                 else
+                {
                     MessageBox.Show("Invalid ESRB Rating");
+                }
+
                 if ((GamesTab_Textbox_Developer.Text.Length > 20) || (GamesTab_Textbox_Publisher.Text.Length > 20) || (GamesTab_Textbox_Description.Text.Length > 20) || (GamesTab_Textbox_ESRBDescriptor.Text.Length > 20))
+                {
                     MessageBox.Show("Invalid Length");
+                }
                 else
                 {
                     _curGame.Publisher = GamesTab_Textbox_Publisher.Text;
@@ -1558,17 +1826,30 @@ namespace UniCade.Windows
             if (g == null) { return; }
             GamesTab_Image_ESRB.Source = null;
             if (g.Esrb.Equals("Everyone"))
+            {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
+            }
             else if (g.Esrb.Equals("Everyone (KA)"))
+            {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
+            }
             else if (g.Esrb.Equals("Everyone 10+"))
+            {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png"));
+            }
             else if (g.Esrb.Equals("Teen"))
+            {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png"));
+            }
             else if (g.Esrb.Equals("Mature"))
+            {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png"));
+            }
+
             if (g.Esrb.Equals("Adults Only (AO)"))
+            {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (AO).png"));
+            }
         }
 
         /// <summary>

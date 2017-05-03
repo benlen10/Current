@@ -29,11 +29,9 @@ C:\Users\Ben\Dropbox\Workspace\Unicade\UniCade\obj\Release\UniCade.pdb
 C:\Users\Ben\Workspace\Unicade\UniCade\bin\Release\UniCade.exe.config
 C:\Users\Ben\Workspace\Unicade\UniCade\bin\Release\UniCade.exe
 C:\Users\Ben\Workspace\Unicade\UniCade\bin\Release\UniCade.pdb
-C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\UniCade.csprojResolveAssemblyReference.cache
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\NotificationWindow.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\AccountWindow.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\GameInfo.g.cs
-C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\MainWindow.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\LicenseEntry.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\LoginWindow.g.cs
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\NotificationWindow.g.cs
@@ -46,7 +44,6 @@ C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\UniCade_MarkupCompile.lref
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Resources\App.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\AccountWindow.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\GameInfo.baml
-C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\MainWindow.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\LicenseEntry.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\LoginWindow.baml
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\PassWindow.baml
@@ -57,3 +54,5 @@ C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\UniCade.Windows.SettingsWindo
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\UniCade.csproj.GenerateResource.Cache
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\UniCade.exe
 C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\UniCade.pdb
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\MainWindow.g.cs
+C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\MainWindow.baml

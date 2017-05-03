@@ -78,7 +78,9 @@ namespace UniCade
             //Initialize license flag
             label3.Content = "Unlicensed Version";
             if (Program._validLicense)
-                label3.Visibility = Visibility.Hidden;           
+            {
+                label3.Visibility = Visibility.Hidden;
+            }
 
             //Refresh the list of currently active consoles
             RefreshConsoleList();
@@ -87,10 +89,14 @@ namespace UniCade
             if (SettingsWindow._payPerPlay > 0)
             {
                 if (SettingsWindow._coins > 0)
+                {
                     DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins);
+                }
             }
             else
+            {
                 label2.Visibility = Visibility.Hidden;
+            }
 
             //Refresh the current gamecount and update the GUI
             FileOps.RefreshGameCount();
@@ -180,7 +186,9 @@ namespace UniCade
                 else if (e.KeyCode == Keys.Enter)
                 {
                     if (_gameSelectionActive)
+                    {
                         LaunchGame();
+                    }
                     else
                     {
                         OpenGameSelection();
@@ -253,15 +261,22 @@ namespace UniCade
                     if (_gameSelectionActive)
                     {
                         if (_fav)
+                        {
                             _fav = false;
+                        }
                         else
+                        {
                             _fav = true;
+                        }
+
                         OpenGameSelection();
                     }
                 }
                 //Exit the Program
-                else if ((e.KeyCode == Keys.C) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  
+                else if ((e.KeyCode == Keys.C) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+                {
                     System.Windows.Application.Current.Shutdown();
+                }
 
                 //Launch the settings window
                 else if ((e.KeyCode == Keys.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
@@ -302,13 +317,21 @@ namespace UniCade
             if (!_gameRunning && _infoWindowActive)
             {
                 if (e.KeyCode == Keys.F)
+                {
                     _gameInfo.expand();
+                }
                 else if (e.KeyCode == Keys.B)
+                {
                     _gameInfo.expand1();
+                }
                 else if (e.KeyCode == Keys.S)
+                {
                     _gameInfo.expand2();
+                }
                 else if (e.KeyCode == Keys.E)
+                {
                     _gameInfo.expand3();
+                }
             }
 
             //Close the current window unless you are already on the home page
@@ -341,13 +364,17 @@ namespace UniCade
                 if (SettingsWindow._payPerPlay > 0)
                 {
                     if (SettingsWindow._coins > 0)
+                    {
                         label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins;
+                    }
 
                     //Display a popup payPerPlay notification
                     ShowNotification("Pay Per Play", "Coin Inserted\n Current: " + Program._coins);
                 }
                 else
+                {
                     ShowNotification("UniCade", "Free Play Enabled. NO COIN REQUIRED");
+                }
             }
             UpdateGUI();
         }
@@ -358,9 +385,13 @@ namespace UniCade
         private void Right()
         {
             if (_index < (_consoleCount - 1))
+            {
                 _index++;
+            }
             else
+            {
                 _index = 0;
+            }
 
             UpdateGUI();
         }
@@ -371,9 +402,13 @@ namespace UniCade
         private new void Left()
         {
             if (_index > 0)
+            {
                 _index--;
+            }
             else
+            {
                 _index = (_consoleCount - 1);
+            }
 
             UpdateGUI();
         }
@@ -385,10 +420,16 @@ namespace UniCade
         {
             //Update payPerPlay notifications
             if (SettingsWindow._payPerPlay > 0)
+            {
                 if (SettingsWindow._coins > 0)
+                {
                     label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins;
-            else
-                label2.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    label2.Visibility = Visibility.Hidden;
+                }
+            }
 
             //Update current console position
             _currentConsole = (string)_consoleList[_index];
@@ -434,9 +475,13 @@ namespace UniCade
 
             //Check if the favorites view filter is enabled
             if (!_fav)
+            {
                 label1.Content = (_consoleList[_index] + " Library");
+            }
             else
+            {
                 label1.Content = SettingsWindow._curUser.Username + "'s Favorites List";
+            }
 
             //Populate the game library 
             listBox.Items.Clear();
@@ -470,11 +515,15 @@ namespace UniCade
                             {
                                 //Display the game if it has an allowed ESRB rating
                                 if (SettingsWindow.CalcEsrb(g.Esrb) <= SettingsWindow.CalcEsrb(SettingsWindow._curUser.AllowedEsrb))
+                                {
                                     listBox.Items.Add(g.Title);
+                                }
                             }
                             else
+                            {
                                 //Add the game regardless if the view ESRB 
                                 listBox.Items.Add(g.Title);
+                            }
                         }
                     }
                 }
@@ -494,7 +543,9 @@ namespace UniCade
                 label1.Content = (_consoleList[_index] + "Library");
             }
             else
+            {
                 image.Source = null;
+            }
 
             listBox.Visibility = Visibility.Visible;
             if (listBox.Items.Count > 0)               
@@ -512,12 +563,17 @@ namespace UniCade
         private void LaunchGame()
         {
             if (SettingsWindow._payPerPlay > 0)
+            {
                 if (SettingsWindow._coins > 0)
+                {
                     if (Program._coins < SettingsWindow._coins) { 
                         ShowNotification("Pay Per Play", "Insert Coins");
                         return;
                     }
-                    Program._coins = Program._coins - SettingsWindow._coins;
+                }
+            }
+
+            Program._coins = Program._coins - SettingsWindow._coins;
                     DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins);
 
             //Search for the selected game title within the game library
@@ -537,7 +593,9 @@ namespace UniCade
         {
             //Check for bad input or an empty game library
             if (listBox.SelectedItem == null)
+            {
                 return;
+            }
 
             _infoWindowActive = true;
             BitmapImage b;
@@ -583,19 +641,34 @@ namespace UniCade
                     //Load the ESRB logo for the curent rating
                     String EsrbPath = "";
                     if (g.Esrb.Equals("Everyone"))
+                    {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
+                    }
                     else if (g.Esrb.Equals("Everyone (KA)"))
+                    {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
+                    }
                     else if (g.Esrb.Equals("Everyone 10+"))
+                    {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png";
+                    }
                     else if (g.Esrb.Equals("Teen"))
+                    {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png";
+                    }
                     else if (g.Esrb.Equals("Mature"))
+                    {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png";
+                    }
                     else if (g.Esrb.Equals("Adults Only (AO)"))
+                    {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (AO).png";
+                    }
+
                     if (EsrbPath.Length > 2)
+                    {
                         _gameInfo.displayEsrb(EsrbPath);
+                    }
                 }
             }
 

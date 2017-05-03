@@ -108,7 +108,9 @@ namespace UniCade
         public static bool UploadGame(Game g)
         {
             if (conn == null)
+            {
                 ConnectSQL();
+            }
 
             //Check if the game already exists in the database
             MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM " + sqlUser + "_games WHERE filename = " + "\"" + g.FileName + "\"" + " AND console = " + "\"" + g.Console + "\"" + ";", conn);
@@ -136,7 +138,9 @@ namespace UniCade
         public static Game GetSingleGame(string con, string gam)
         {
             if (conn == null)
+            {
                 ConnectSQL();
+            }
 
             MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM " + sqlUser + "_games WHERE title = " + "\"" + gam + "\"" + " AND console = " + "\"" + con + "\"" + ";", conn);
             MySqlDataReader myReader = null;
@@ -206,7 +210,9 @@ namespace UniCade
         public static bool CreateUser(string username, string pass, string email, string info, string esrb, string profPic)
         {
             if (conn == null)
+            {
                 ConnectSQL();
+            }
 
             MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM users WHERE username = " + "\"" + username + "\"" + " OR email = " + "\"" + email + "\"" + ";", conn);
             MySqlDataReader myReader = myCommand.ExecuteReader();
@@ -245,7 +251,9 @@ namespace UniCade
         public static void Deletegames()
         {
             if (conn == null)
+            {
                 ConnectSQL();
+            }
 
             //Generate and execute the command to delete all games for the current user
             string command = "Use unicade;" + "DELETE FROM " + sqlUser + "_games WHERE id>0;";
@@ -260,7 +268,9 @@ namespace UniCade
         public static void DeleteUser()
         {
             if (conn == null)
+            {
                 ConnectSQL();
+            }
 
             //Generate and execute the command to remove the user profile from the database
             string command = "Use unicade;" + "DELETE FROM users WHERE username = " + "\"" + sqlUser + "\";";
@@ -288,9 +298,13 @@ namespace UniCade
             try
             {
                 if (!reader.IsDBNull(colIndex))
+                {
                     return reader.GetString(colIndex);
+                }
                 else
+                {
                     return string.Empty;
+                }
             }
             catch
             {
@@ -306,9 +320,13 @@ namespace UniCade
             try
             {
                 if (!reader.IsDBNull(colIndex))
+                {
                     return reader.GetInt32(colIndex);
+                }
                 else
+                {
                     return 0;
+                }
             }
             catch
             {

@@ -90,6 +90,8 @@ namespace UniCade
             {
                 //Remove the game and decriment both the console game count and total game count
                 GameList.Remove(gameToRemove);
+                GameCount--;
+                Database.TotalGameCount--;
             }
             return false;
         }
