@@ -35,10 +35,10 @@ namespace UniCade
             Database.Initialize();
 
             //If preferences file does not exist, load default preference values and save a new file
-            if (!FileOps.loadPreferences(_prefPath))
+            if (!FileOps.LoadPreferences(_prefPath))
             {
                 FileOps.RestoreDefaultPreferences();
-                FileOps.savePreferences(_prefPath);
+                FileOps.SavePreferences(_prefPath);
                 ShowNotification("WARNING", "Preference file not found.\n Loading defaults...");
             }
 
@@ -76,13 +76,13 @@ namespace UniCade
             }
 
             //If the database file does not exist in the specified location, load default values and rescan rom directories
-            if (!FileOps.loadDatabase(_databasePath))
+            if (!FileOps.LoadDatabase(_databasePath))
             {
                 FileOps.RestoreDefaultConsoles();
-                FileOps.scan(_romPath);
+                FileOps.Scan(_romPath);
                 try
                 {
-                    FileOps.saveDatabase(_databasePath);
+                    FileOps.SaveDatabase(_databasePath);
                 }
                 catch
                 {

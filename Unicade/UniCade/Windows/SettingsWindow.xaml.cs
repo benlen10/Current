@@ -640,7 +640,7 @@ namespace UniCade.Windows
             _curConsole.LaunchParam = EmulatorsTab_Textbox_EmulatorArgs.Text;
             _curConsole.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
             _curConsole.ConsoleInfo = EmulatorsTab_Textbox_ConsoleInfo.Text;
-            FileOps.saveDatabase(Program._databasePath);
+            FileOps.SaveDatabase(Program._databasePath);
             MainWindow.RefreshConsoleList();
         }
 
@@ -793,7 +793,7 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
         {
-            if (FileOps.scan(Program._romPath))
+            if (FileOps.Scan(Program._romPath))
             {
                 MessageBox.Show("Global Rescan Successful");
             }
@@ -815,7 +815,7 @@ namespace UniCade.Windows
             {
                 if (c.Name.Equals(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString()))
                 {
-                    if (FileOps.scanDirectory(c.RomPath, Program._romPath))
+                    if (FileOps.ScanDirectory(c.RomPath, Program._romPath))
                     {
                         MessageBox.Show(c.Name + " Successfully Scanned");
                     }
@@ -838,7 +838,7 @@ namespace UniCade.Windows
         private void UsersTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
-            FileOps.savePreferences(Program._prefPath);
+            FileOps.SavePreferences(Program._prefPath);
             this.Close();
         }
 
@@ -909,7 +909,7 @@ namespace UniCade.Windows
 
             //Update the current labels and save the user info to the preferences file
             UsersTab_Label_CurrentUser.Content = "Current User: " + _curUser.Username;
-            FileOps.savePreferences(Program._prefPath);
+            FileOps.SavePreferences(Program._prefPath);
 
             //Refresh the listbox contents
             UsersTab_Listbox_CurrentUser.Items.Clear();
@@ -924,7 +924,7 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_SaveAllUsersButton_Click(object sender, EventArgs e)
         {
-            FileOps.savePreferences(Program._prefPath);
+            FileOps.SavePreferences(Program._prefPath);
         }
 
         /// <summary>
@@ -1041,7 +1041,7 @@ namespace UniCade.Windows
             {
                 //If the user is logged in sucuesfully, save the current user and preferences file
                 UsersTab_Label_CurrentUser.Content = "Current User: " + _curUser.Username;
-                FileOps.savePreferences(Program._prefPath);
+                FileOps.SavePreferences(Program._prefPath);
             }
         }
 
@@ -1114,7 +1114,7 @@ namespace UniCade.Windows
                 }
 
                 //Save all active preferences to the local preferences file
-                FileOps.savePreferences(Program._prefPath);
+                FileOps.SavePreferences(Program._prefPath);
             }
         }
 
@@ -1815,7 +1815,7 @@ namespace UniCade.Windows
             }
 
             //If all input fields are valid, save the database
-            FileOps.saveDatabase(Program._databasePath);
+            FileOps.SaveDatabase(Program._databasePath);
         }
 
         /// <summary>

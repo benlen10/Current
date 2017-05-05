@@ -42,13 +42,13 @@ namespace UniCade.Windows
                 //Save the entered values to the currently active global variables
                 Program._userLicenseName = Textbox_User.Text;
                 Program._userLicenseKey = Textbox_Key.Text;
-                FileOps.savePreferences(Program._prefPath);
+                FileOps.SavePreferences(Program._prefPath);
                 Close();
             }
             else
             {
                 Program._validLicense = false;
-                FileOps.savePreferences(Program._prefPath);
+                FileOps.SavePreferences(Program._prefPath);
                 MessageBox.Show(this, "License is INVALID");
                 Close();
             }

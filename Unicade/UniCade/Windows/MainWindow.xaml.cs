@@ -583,7 +583,7 @@ namespace UniCade
                 {
                     //If the specified game is found, launch the game and return
                     Task.Delay(3000);
-                    FileOps.launch(g, _gameSelectionConsole);
+                    FileOps.Launch(g, _gameSelectionConsole);
                     return;
                 }
             }

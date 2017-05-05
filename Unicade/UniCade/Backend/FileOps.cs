@@ -21,7 +21,7 @@ namespace UniCade
         /// <summary>
         /// Load the database file from the specified path
         /// </summary>
-        public static bool loadDatabase(string path)
+        public static bool LoadDatabase(string path)
         {
             if (!File.Exists(path))
             {
@@ -69,7 +69,7 @@ namespace UniCade
         /// <summary>
         /// Save the database to the specified path. Delete any preexisting database files
         /// </summary>
-        public static void saveDatabase(string path)
+        public static void SaveDatabase(string path)
         {
             //Delete any preexisting database files 
             if (File.Exists(path))
@@ -104,7 +104,7 @@ namespace UniCade
         /// <summary>
         /// Load preferences from the specified file path
         /// </summary>
-        public static bool loadPreferences(String path)
+        public static bool LoadPreferences(String path)
         {
             //Delete any preexisting preference files 
             if (!File.Exists(path))
@@ -263,7 +263,7 @@ namespace UniCade
         /// <summary>
         /// Save preferences file to the specified path
         /// </summary>
-        public static void savePreferences(String path)
+        public static void SavePreferences(String path)
         {
             if (File.Exists(path))
             {
@@ -310,7 +310,7 @@ namespace UniCade
         /// <summary>
         /// Scan the target directory for new ROM files and add them to the active database
         /// </summary>
-        public static bool scan(string targetDirectory)
+        public static bool Scan(string targetDirectory)
         {
             string[] subdirectoryEntries = null;
             try
@@ -324,7 +324,7 @@ namespace UniCade
             }
             foreach (string subdirectory in subdirectoryEntries)
             {
-                scanDirectory(subdirectory, targetDirectory);
+                ScanDirectory(subdirectory, targetDirectory);
             }
 
             return true;
@@ -334,7 +334,7 @@ namespace UniCade
         /// Scan the specied folder for games within a single console
         /// Note: This is a helper function called multiple times by the primary scan function
         /// </summary>
-        public static bool scanDirectory(string path, string directory)
+        public static bool ScanDirectory(string path, string directory)
         {
             string emuName = new DirectoryInfo(path).Name;
             bool foundConsole = false;
@@ -434,7 +434,7 @@ namespace UniCade
             return true;
         }
 
-        public static void loadConsoles()
+        public static void LoadConsoles()
         {
             string line;
             char[] sep = { '|' };
@@ -451,13 +451,13 @@ namespace UniCade
         /// <summary>
         /// Launch the specified ROM file using the paramaters specified by the console
         /// </summary>
-        public static void launch(Game game, Console console)
+        public static void Launch(Game game, Console console)
         {
             if (SettingsWindow._curUser.AllowedEsrb.Length > 1)
             {
                 if (SettingsWindow.CalcEsrb(game.Esrb) >= SettingsWindow.CalcEsrb(SettingsWindow._curUser.AllowedEsrb))
                 {
-                    showNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted for" + SettingsWindow._curUser.Username);
+                    ShowNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted for" + SettingsWindow._curUser.Username);
                     return;
                 }
             }
@@ -466,7 +466,7 @@ namespace UniCade
             {
                 if (SettingsWindow.CalcEsrb(game.Esrb) >= SettingsWindow._restrictESRB)
                 {
-                    showNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted\n");
+                    ShowNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted\n");
                     return;
                 }
             }
@@ -478,7 +478,7 @@ namespace UniCade
             string testGamePath = (console.RomPath + game.FileName);
             if (!File.Exists(testGamePath))
             {
-                showNotification("System", "ROM does not exist. Launch Failed");
+                ShowNotification("System", "ROM does not exist. Launch Failed");
                 return;
             }
             string args = "";
@@ -491,7 +491,7 @@ namespace UniCade
                 args = console.LaunchParam.Replace("%file", gamePath);
             }
             process.EnableRaisingEvents = true;
-            process.Exited += new EventHandler(proc_Exited);
+            process.Exited += new EventHandler(ProcessExited);
             if (console.Name.Equals("PC"))
             {
                 process.StartInfo.FileName = args;
@@ -505,19 +505,19 @@ namespace UniCade
             {
                 if (!File.Exists(console.EmuPath))
                 {
-                    showNotification("System", "Emulator does not exist. Launch Failed");
+                    ShowNotification("System", "Emulator does not exist. Launch Failed");
                     return;
                 }
                 process.StartInfo.FileName = console.EmuPath;
                 process.StartInfo.Arguments = args;
             }
-            showNotification("System", "Loading ROM File");
+            ShowNotification("System", "Loading ROM File");
             process.Start();
             processActive = true;
             MainWindow._gameRunning = true;
         }
 
-        private static void proc_Exited(object sender, System.EventArgs e)
+        private static void ProcessExited(object sender, System.EventArgs e)
         {
             MainWindow._gameRunning = false;
             processActive = false;
@@ -531,7 +531,7 @@ namespace UniCade
             if (urlLaunch)
             {
                 SendKeys.SendWait("^%{F4}");
-                showNotification("UniCade System", "Attempting Force Close");
+                ShowNotification("UniCade System", "Attempting Force Close");
                 MainWindow._gameRunning = false;
                 processActive = false;
                 MainWindow.ReHookKeys();
@@ -727,7 +727,7 @@ namespace UniCade
         /// <summary>
         /// Display a timed popup notification in the lower right corner of the interface
         /// </summary>
-        private static void showNotification(string title, string body)
+        private static void ShowNotification(string title, string body)
         {
             NotificationWindow notification = new NotificationWindow(title, body);
             notification.Show();
