@@ -28,28 +28,28 @@ namespace UniCade
                 return false;
             }
 
-            string line;
+            string rawLine;
             int consoleCount = 0;
-            Console console = new Console();
-            char[] sep = { '|' };
-            string[] r = { " " };
+            IConsole console = new Console();
+            char[] seperatorChar = { '|' };
+            string[] spaceChar = { " " };
             StreamReader file = new StreamReader(path);
 
-            while ((line = file.ReadLine()) != null)
+            while ((rawLine = file.ReadLine()) != null)
             {
-                r = line.Split(sep);
-                if (line.Substring(0, 5).Contains("***"))
+                spaceChar = rawLine.Split(seperatorChar);
+                if (rawLine.Substring(0, 5).Contains("***"))
                 {
                     if (consoleCount > 0)
                     {
                         Database.ConsoleList.Add(console);
                     }
-                    console = new Console(r[0].Substring(3), r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[7], r[8]);
+                    console = new Console(spaceChar[0].Substring(3), spaceChar[1], spaceChar[2], spaceChar[3], spaceChar[4], Int32.Parse(spaceChar[5]), spaceChar[6], spaceChar[7], spaceChar[8]);
                     consoleCount++;
                 }
                 else
                 {
-                    console.GameList.Add(new Game(r[0], r[1], Int32.Parse(r[2]), r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], Int32.Parse(r[16])));
+                    console.GameList.Add(new Game(spaceChar[0], spaceChar[1], Int32.Parse(spaceChar[2]), spaceChar[3], spaceChar[4], spaceChar[5], spaceChar[6], spaceChar[7], spaceChar[8], spaceChar[9], spaceChar[10], spaceChar[11], spaceChar[12], spaceChar[13], spaceChar[14], spaceChar[15], Int32.Parse(spaceChar[16])));
                 }
             }
             if (consoleCount > 0)
@@ -79,16 +79,16 @@ namespace UniCade
 
             try
             {
-                using (StreamWriter sw = File.CreateText(path))
+                using (StreamWriter streamWriter = File.CreateText(path))
                 {
-                    foreach (Console c in Database.ConsoleList)
+                    foreach (IConsole console in Database.ConsoleList)
                     {
-                        sw.WriteLine(string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", c.Name, c.EmuPath, c.RomPath, c.PrefPath, c.RomExt, c.GameCount, "Console Info", c.LaunchParam, c.ReleaseDate));
-                        if (c.GameCount > 0)
+                        streamWriter.WriteLine(string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", console.Name, console.EmuPath, console.RomPath, console.PrefPath, console.RomExt, console.GameCount, "Console Info", console.LaunchParam, console.ReleaseDate));
+                        if (console.GameCount > 0)
                         {
-                            foreach (Game g in c.GameList)
+                            foreach (Game game in console.GameList)
                             {
-                                sw.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", g.FileName, g.Console, g.LaunchCount, g.ReleaseDate, g.Publisher, g.Developer, g.UserScore, g.CriticScore, g.Players, "Trivia", g.Esrb, g.EsrbDescriptor, g.EsrbSummary, g.Description, g.Genres, g.Tags, g.Favorite));
+                                streamWriter.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", game.FileName, game.ConsoleName, game.LaunchCount, game.ReleaseDate, game.Publisher, game.Developer, game.UserScore, game.CriticScore, game.Players, "Trivia", game.Esrb, game.EsrbDescriptor, game.EsrbSummary, game.Description, game.Genres, game.Tags, game.Favorite));
                             }
                         }
                     }
@@ -300,7 +300,7 @@ namespace UniCade
                     string favs = "";
                     foreach (Game g in u.Favorites)
                     {
-                        favs += (g.Title + "#" + g.Console + "#");
+                        favs += (g.Title + "#" + g.ConsoleName + "#");
                     }
                     sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", u.Username, u.Pass, u.LoginCount, u.Email, u.TotalLaunchCount, u.UserInfo, u.AllowedEsrb, favs);
                 }
@@ -338,15 +338,15 @@ namespace UniCade
         {
             string emuName = new DirectoryInfo(path).Name;
             bool foundConsole = false;
-            string[] ext;
+            string[] extension;
             bool duplicate = false;
 
-            Console con = new Console();
-            foreach (Console c in Database.ConsoleList)
+            IConsole currentConsole = new Console();
+            foreach (IConsole console in Database.ConsoleList)
             {
-                if (c.Name.Equals(emuName))
+                if (console.Name.Equals(emuName))
                 {
-                    con = c;
+                    currentConsole = console;
                     foundConsole = true;
                     break;
                 }
@@ -357,7 +357,7 @@ namespace UniCade
             }
 
             string[] fileEntries = null;
-            string[] exs = con.RomExt.Split('*');
+            string[] exs = currentConsole.RomExt.Split('*');
             try
             {
                 fileEntries = Directory.GetFiles(path);
@@ -371,13 +371,13 @@ namespace UniCade
             {
                 if (SettingsWindow._enforceExt > 0)
                 {
-                    ext = fileName.Split('.');
+                    extension = fileName.Split('.');
                     foreach (string s in exs)
                     {
-                        if (ext[1].Equals(s))
+                        if (extension[1].Equals(s))
                         {
                             duplicate = false;
-                            foreach (Game g in con.GameList)
+                            foreach (Game g in currentConsole.GameList)
                             {
                                 if (g.Title.Equals(Path.GetFileName(fileName)))
                                 {
@@ -387,7 +387,7 @@ namespace UniCade
                             }
                             if (!duplicate)
                             {
-                                con.GameList.Add(new Game(Path.GetFileName(fileName), con.Name, 0));
+                                currentConsole.GameList.Add(new Game(Path.GetFileName(fileName), currentConsole.Name, 0));
                             }
                         }
                     }
@@ -395,7 +395,7 @@ namespace UniCade
                 else
                 {
                     duplicate = false;
-                    foreach (Game g in con.GameList)
+                    foreach (Game g in currentConsole.GameList)
                     {
                         if (g.Title.Equals(fileName.Split('.')[0]))
                         {
@@ -405,7 +405,7 @@ namespace UniCade
                     }
                     if (!duplicate)
                     {
-                        con.GameList.Add(new Game(Path.GetFileName(fileName), con.Name, 0));
+                        currentConsole.GameList.Add(new Game(Path.GetFileName(fileName), currentConsole.Name, 0));
                     }
                 }
             }
@@ -413,7 +413,7 @@ namespace UniCade
             //Delete nonexistent games
             bool found = false;
             Game foundGame = null;
-            foreach (Game g in con.GameList)
+            foreach (Game g in currentConsole.GameList)
             {
                 found = false;
                 foreach (string fileName in fileEntries)
@@ -425,7 +425,7 @@ namespace UniCade
                 }
                 if (found)
                 {
-                    con.GameList.Remove(foundGame);
+                    currentConsole.GameList.Remove(foundGame);
                     found = false;
                     foundGame = null;
                 }
@@ -451,7 +451,7 @@ namespace UniCade
         /// <summary>
         /// Launch the specified ROM file using the paramaters specified by the console
         /// </summary>
-        public static void Launch(Game game, Console console)
+        public static void Launch(Game game)
         {
             if (SettingsWindow._curUser.AllowedEsrb.Length > 1)
             {
@@ -474,6 +474,10 @@ namespace UniCade
             game.LaunchCount++;
             SettingsWindow._curUser.TotalLaunchCount++;
             process = new Process();
+
+            //Fetch the console object
+            IConsole console = Database.ConsoleList.Find(e => e.Name.Equals(game.ConsoleName));
+
             string gamePath = ("\"" + console.RomPath + game.FileName + "\"");
             string testGamePath = (console.RomPath + game.FileName);
             if (!File.Exists(testGamePath))
@@ -581,9 +585,9 @@ namespace UniCade
         public static void RefreshGameCount()
         {
             Database.TotalGameCount = 0; ;
-            foreach (Console c in Database.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
-                foreach (Game g in c.GameList)
+                foreach (Game g in console.GameList)
                 {
                     Database.TotalGameCount++;
                 }

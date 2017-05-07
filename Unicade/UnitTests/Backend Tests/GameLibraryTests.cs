@@ -26,7 +26,7 @@ namespace UnitTests
 
             //Create a new console and add it to the database
             string consoleName = "newConsole";
-            UniCade.Console newConsole = new UniCade.Console()
+            IConsole newConsole = new UniCade.Console()
             {
                 Name = consoleName
             };

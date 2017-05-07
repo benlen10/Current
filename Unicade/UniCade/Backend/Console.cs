@@ -2,7 +2,7 @@
 
 namespace UniCade
 {
-    public class Console
+    public class Console : IConsole
     {
         #region Constructors 
 
@@ -53,7 +53,7 @@ namespace UniCade
         public bool AddGame(Game game)
         {
             //If the game console does not match the current console, return false
-            if (!game.Console.Equals(Name))
+            if (!game.ConsoleName.Equals(Name))
             {
                 return false;
             }
@@ -79,7 +79,7 @@ namespace UniCade
         public bool RemoveGame(Game game)
         {
             //If the game console does not match the current console, return false
-            if (!game.Console.Equals(Name))
+            if (!game.ConsoleName.Equals(Name))
             {
                 return false;
             }

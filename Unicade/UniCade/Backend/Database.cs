@@ -6,7 +6,7 @@ namespace UniCade
     {
         #region Properties
 
-        public static List<Console> ConsoleList { get; set; }
+        public static List<IConsole> ConsoleList { get; set; }
         public static List<User> UserList { get; set; }
         public static int TotalGameCount { get; set; }
         public static string HashKey { get; set; }
@@ -22,7 +22,7 @@ namespace UniCade
         {
             TotalGameCount = 0;
             HashKey = null;
-            ConsoleList = new List<Console>();
+            ConsoleList = new List<IConsole>();
             UserList = new List<User>();
         }
 

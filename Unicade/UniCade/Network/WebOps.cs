@@ -82,7 +82,7 @@ namespace UniCade
             }
 
             //Generate the target url and convert the game title to lower case
-            string url = ("http://www.mobygames.com/game/" + g.Console + "/" + gameName);
+            string url = ("http://www.mobygames.com/game/" + g.ConsoleName + "/" + gameName);
             url = url.ToLower();
 
             //Create a new WebClient and attempt a connection
@@ -219,35 +219,35 @@ namespace UniCade
             string metaCon = "";
 
             //Convert the console to the string used by metacritic
-            if (g.Console.Equals("PS1"))
+            if (g.ConsoleName.Equals("PS1"))
             {
                 metaCon = "playstation";
             }
-            else if (g.Console.Equals("N64"))
+            else if (g.ConsoleName.Equals("N64"))
             {
                 metaCon = "nintendo-64";
             }
-            else if (g.Console.Equals("GBA"))
+            else if (g.ConsoleName.Equals("GBA"))
             {
                 metaCon = "game-boy-advance";
             }
-            else if (g.Console.Equals("PSP"))
+            else if (g.ConsoleName.Equals("PSP"))
             {
                 metaCon = "psp";
             }
-            else if (g.Console.Equals("Gamecube"))
+            else if (g.ConsoleName.Equals("Gamecube"))
             {
                 metaCon = "gamecube";
             }
-            else if (g.Console.Equals("Wii"))
+            else if (g.ConsoleName.Equals("Wii"))
             {
                 metaCon = "wii";
             }
-            else if (g.Console.Equals("NDS"))
+            else if (g.ConsoleName.Equals("NDS"))
             {
                 metaCon = "ds";
             }
-            else if (g.Console.Equals("Dreamcast"))
+            else if (g.ConsoleName.Equals("Dreamcast"))
             {
                 metaCon = "dreamcast";
             }

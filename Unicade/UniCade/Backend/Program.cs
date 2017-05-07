@@ -103,7 +103,7 @@ namespace UniCade
             string txt = "";
             txt = txt + ("\nTitle: " + game.Title + "\n");
             txt = txt + ("\nRelease Date: " + game.ReleaseDate + "\n");
-            txt = txt + ("\nConsole: " + game.Console + "\n");
+            txt = txt + ("\nConsole: " + game.ConsoleName + "\n");
             txt = txt + ("\nLaunch Count: " + game.LaunchCount.ToString() + "\n");
             txt = txt + ("\nDeveloper: " + game.Developer + "\n");
             txt = txt + ("\nPublisher: " + game.Publisher + "\n");

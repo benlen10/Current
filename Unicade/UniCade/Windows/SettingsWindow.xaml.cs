@@ -17,8 +17,8 @@ namespace UniCade.Windows
 
         public static Game _curGame;
         public static User _curUser;
-        static Console _curConsole2;
-        static Console _curConsole;
+        static IConsole _curConsole2;
+        static IConsole _curConsole;
         public static string _defaultUser;
         public static int _showSplash;
         public static int _scanOnStartup;
@@ -59,10 +59,10 @@ namespace UniCade.Windows
         private void Populate()
         {
             //Populate console list with the currently active games
-            foreach (Console c in Database.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
-                GamesTab_Listbox_ConsoleList.Items.Add(c.Name);
-                EmulatorsTab_Listbox_ConsoleList.Items.Add(c.Name);
+                GamesTab_Listbox_ConsoleList.Items.Add(console.Name);
+                EmulatorsTab_Listbox_ConsoleList.Items.Add(console.Name);
             }
 
             //Set initial selected indexes
@@ -310,7 +310,7 @@ namespace UniCade.Windows
                 return;
             }
             Game game = null;
-            game = SQLclient.GetSingleGame(_curGame.Console, _curGame.Title);
+            game = SQLclient.GetSingleGame(_curGame.ConsoleName, _curGame.Title);
             if (game != null)
             {
                 for (int i = 0; i < _curConsole2.GameList.Count; i++)
@@ -391,7 +391,7 @@ namespace UniCade.Windows
             {
                 Game game1 = (Game)_curConsole2.GameList[i];
                 Game game2 = null;
-                game2 = SQLclient.GetSingleGame(game1.Console, game1.Title);
+                game2 = SQLclient.GetSingleGame(game1.ConsoleName, game1.Title);
                 if (game2 != null)
                 {
                     if (game2.FileName.Length > 3)
@@ -432,16 +432,16 @@ namespace UniCade.Windows
             if(GamesTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
             GamesTab_Listbox_GamesList.Items.Clear();
-            foreach (Console c in Database.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
-                if (c.Name.Equals(curItem))
+                if (console.Name.Equals(curItem))
                 {
-                    _curConsole2 = c;
-                    GamesTab_Textbox_GamesForConsole.Text = c.GameCount.ToString();
+                    _curConsole2 = console;
+                    GamesTab_Textbox_GamesForConsole.Text = console.GameCount.ToString();
                     GamesTab_Textbox_TotalGames.Text = Database.TotalGameCount.ToString();
-                    if (c.GameCount > 0)
+                    if (console.GameCount > 0)
                     {
-                        foreach (Game g in c.GameList)
+                        foreach (Game g in console.GameList)
                         {
                             GamesTab_Listbox_GamesList.Items.Add(g.Title);
                         }
@@ -481,7 +481,7 @@ namespace UniCade.Windows
             //Scrape info and populate local fields
             WebOps.ScrapeInfo(_curGame);
             GamesTab_Textbox_Title.Text = _curGame.Title;
-            GamesTab_Textbox_Console.Text = _curGame.Console;
+            GamesTab_Textbox_Console.Text = _curGame.ConsoleName;
             GamesTab_Textbox_ReleaseDate.Text = _curGame.ReleaseDate;
             GamesTab_Textbox_CriticScore.Text = _curGame.CriticScore;
             GamesTab_Textbox_Publisher.Text = _curGame.Publisher;
@@ -612,18 +612,18 @@ namespace UniCade.Windows
         {
             if (EmulatorsTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString();
-            foreach (Console c in Database.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
-                if (c.Name.Equals(curItem))
+                if (console.Name.Equals(curItem))
                 {
-                    _curConsole = c;
-                    EmulatorsTab_Textbox_ConsoleName1.Text = c.Name;
-                    GlobalTab_Textbox_EmulatorDirectory.Text = c.EmuPath;
-                    EmulatorsTab_Textbox_ROMExtension.Text = c.RomExt;
-                    EmulatorsTab_Textbox_EmulatorArgs.Text = c.LaunchParam;
-                    EmulatorsTab_Textbox_ConsoleInfo.Text = c.ConsoleInfo;
-                    EmulatorsTab_Textbox_GameCount.Text = c.GameCount.ToString();
-                    EmulatorsTab_Textbox_ReleaseDate.Text = c.ReleaseDate;
+                    _curConsole = console;
+                    EmulatorsTab_Textbox_ConsoleName1.Text = console.Name;
+                    GlobalTab_Textbox_EmulatorDirectory.Text = console.EmuPath;
+                    EmulatorsTab_Textbox_ROMExtension.Text = console.RomExt;
+                    EmulatorsTab_Textbox_EmulatorArgs.Text = console.LaunchParam;
+                    EmulatorsTab_Textbox_ConsoleInfo.Text = console.ConsoleInfo;
+                    EmulatorsTab_Textbox_GameCount.Text = console.GameCount.ToString();
+                    EmulatorsTab_Textbox_ReleaseDate.Text = console.ReleaseDate;
                 }
             }
         }
@@ -668,10 +668,10 @@ namespace UniCade.Windows
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
             GamesTab_Listbox_ConsoleList.Items.Clear();
             Database.ConsoleList.Remove(_curConsole);
-            foreach (Console c in Database.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
-                EmulatorsTab_Listbox_ConsoleList.Items.Add(c.Name);
-                GamesTab_Listbox_ConsoleList.Items.Add(c.Name);
+                EmulatorsTab_Listbox_ConsoleList.Items.Add(console.Name);
+                GamesTab_Listbox_ConsoleList.Items.Add(console.Name);
             }
             EmulatorsTab_Listbox_ConsoleList.SelectedIndex = 0;
 
@@ -692,14 +692,14 @@ namespace UniCade.Windows
             EmulatorsTab_Textbox_ReleaseDate.Text = null;
 
             //Create a new console and add it to the datbase
-            Console c = new Console()
+            IConsole console = new Console()
             {
-                Name = "New Console"
+                Name = "NewConsole"
             };
-            Database.ConsoleList.Add(c);
+            Database.ConsoleList.Add(console);
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
             GamesTab_Listbox_ConsoleList.Items.Clear();
-            foreach (Console con in Database.ConsoleList)
+            foreach (IConsole con in Database.ConsoleList)
             {
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(con.Name);
                 GamesTab_Listbox_ConsoleList.Items.Add(con.Name);
@@ -713,9 +713,9 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_ForceGlobalMetadataRescrapeButton_Click(object sender, EventArgs e)
         {
-            foreach (Game g in _curConsole.GameList)
+            foreach (Game game in _curConsole.GameList)
             {
-                if (!WebOps.ScrapeInfo(g))
+                if (!WebOps.ScrapeInfo(game))
                 {
                     return;
                 }
@@ -767,9 +767,9 @@ namespace UniCade.Windows
             }
 
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
-            foreach (Console c in Database.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
-                EmulatorsTab_Listbox_ConsoleList.Items.Add(c.Name);
+                EmulatorsTab_Listbox_ConsoleList.Items.Add(console.Name);
             }
         }
 
@@ -811,17 +811,17 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a console");
                 return;
             }
-            foreach (Console c in Database.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
-                if (c.Name.Equals(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString()))
+                if (console.Name.Equals(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString()))
                 {
-                    if (FileOps.ScanDirectory(c.RomPath, Program._romPath))
+                    if (FileOps.ScanDirectory(console.RomPath, Program._romPath))
                     {
-                        MessageBox.Show(c.Name + " Successfully Scanned");
+                        MessageBox.Show(console.Name + " Successfully Scanned");
                     }
                     else
                     {
-                        MessageBox.Show(c.Name + " Library Rescan Failed");
+                        MessageBox.Show(console.Name + " Library Rescan Failed");
                     }
                     break;
                 }
@@ -863,7 +863,7 @@ namespace UniCade.Windows
                     {
                         foreach (Game g in u.Favorites)
                         {
-                            UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.Console);
+                            UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName);
                         }
                     }
 
@@ -1015,7 +1015,7 @@ namespace UniCade.Windows
             UsersTab_Listbox_UserFavorites.Items.Clear();
             foreach (Game g in _curUser.Favorites)
             {
-                UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.Console);
+                UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName);
             }
         }
 
@@ -1680,7 +1680,7 @@ namespace UniCade.Windows
 
             //If a valid game is selected, update all info fields
             GamesTab_Textbox_Title.Text = game.Title;
-            GamesTab_Textbox_Console.Text = game.Console;
+            GamesTab_Textbox_Console.Text = game.ConsoleName;
             GamesTab_Textbox_ReleaseDate.Text = game.ReleaseDate;
             GamesTab_Textbox_CriticScore.Text = game.CriticScore;
             GamesTab_Textbox_Publisher.Text = game.Publisher;
@@ -1858,15 +1858,15 @@ namespace UniCade.Windows
         public void RefreshGlobalFavs()
         {
             GlobalTab_Listbox_GlobalFavorites.Items.Clear();
-            foreach (Console c in Database.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
-                if (c.GameCount > 0)
+                if (console.GameCount > 0)
                 {
-                    foreach (Game g in c.GameList)
+                    foreach (Game g in console.GameList)
                     {
                         if (g.Favorite > 0)
                         {
-                            GlobalTab_Listbox_GlobalFavorites.Items.Add(g.Title + " (" + g.Console + ")");
+                            GlobalTab_Listbox_GlobalFavorites.Items.Add(g.Title + " (" + g.ConsoleName + ")");
                         }
                     }
                 }

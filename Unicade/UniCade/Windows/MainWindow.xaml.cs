@@ -26,9 +26,9 @@ namespace UniCade
         public static bool _gameSelectionActive;
         public static bool _gameRunning;
         public static bool _infoWindowActive;
-        public Console _gameSelectionConsole;
+        public IConsole _gameSelectionConsole;
         public static bool _settingsWindowActive;
-        public static bool _fav;
+        public static bool _favorite;
         public static SettingsWindow sw;
         public static int _consoleCount;
         public static GlobalKeyboardHook gkh;
@@ -112,9 +112,9 @@ namespace UniCade
             _consoleList = new ArrayList();
             _consoleCount = 0;
             _index = 0;
-            foreach (Console c in Database.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
-                _consoleList.Add(c.Name);
+                _consoleList.Add(console.Name);
                 _consoleCount++;
             }
         }
@@ -215,7 +215,7 @@ namespace UniCade
                                     }
                                     foreach (Game g1 in SettingsWindow._curUser.Favorites)
                                     {
-                                        if (g1.Title.Equals(g.Title) && g.Console.Equals(g1.Console))
+                                        if (g1.Title.Equals(g.Title) && g.ConsoleName.Equals(g1.ConsoleName))
                                         {
                                             SettingsWindow._curUser.Favorites.Add(g);
                                             ShowNotification("UniCade", SettingsWindow._curUser.Username + ": Removed From Favorites");
@@ -260,13 +260,13 @@ namespace UniCade
                 {
                     if (_gameSelectionActive)
                     {
-                        if (_fav)
+                        if (_favorite)
                         {
-                            _fav = false;
+                            _favorite = false;
                         }
                         else
                         {
-                            _fav = true;
+                            _favorite = true;
                         }
 
                         OpenGameSelection();
@@ -474,7 +474,7 @@ namespace UniCade
             label1.Visibility = Visibility.Visible;
 
             //Check if the favorites view filter is enabled
-            if (!_fav)
+            if (!_favorite)
             {
                 label1.Content = (_consoleList[_index] + " Library");
             }
@@ -485,24 +485,24 @@ namespace UniCade
 
             //Populate the game library 
             listBox.Items.Clear();
-            foreach (Console c in Database.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
-                if (c.Name.Equals(_consoleList[_index]))
+                if (console.Name.Equals(_consoleList[_index]))
                 {
-                    _gameSelectionConsole = c;
-                    label.Content = c.Name + " Game Count: " + c.GameCount;
+                    _gameSelectionConsole = console;
+                    label.Content = console.Name + " Game Count: " + console.GameCount;
 
-                    foreach (Game g in c.GameList)
+                    foreach (Game game in console.GameList)
                     {
                         //Check if the global favorites filter is enabled
-                        if (_fav)
+                        if (_favorite)
                         {
                             foreach (Game g1 in SettingsWindow._curUser.Favorites)
                             {
-                                if (g.Title.Equals(g1.Title) && g.Console.Equals(g1.Console))
+                                if (game.Title.Equals(g1.Title) && game.ConsoleName.Equals(g1.ConsoleName))
                                 {
                                     //Add the game if it is present in the favorites list
-                                    listBox.Items.Add(g.Title);
+                                    listBox.Items.Add(game.Title);
                                     break;
                                 }
                             }
@@ -514,15 +514,15 @@ namespace UniCade
                             if (SettingsWindow._viewEsrb > 0)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (SettingsWindow.CalcEsrb(g.Esrb) <= SettingsWindow.CalcEsrb(SettingsWindow._curUser.AllowedEsrb))
+                                if (SettingsWindow.CalcEsrb(game.Esrb) <= SettingsWindow.CalcEsrb(SettingsWindow._curUser.AllowedEsrb))
                                 {
-                                    listBox.Items.Add(g.Title);
+                                    listBox.Items.Add(game.Title);
                                 }
                             }
                             else
                             {
                                 //Add the game regardless if the view ESRB 
-                                listBox.Items.Add(g.Title);
+                                listBox.Items.Add(game.Title);
                             }
                         }
                     }
@@ -577,18 +577,21 @@ namespace UniCade
                     DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins);
 
             //Search for the selected game title within the game library
-            foreach (Game g in _gameSelectionConsole.GameList)
+            foreach (Game game in _gameSelectionConsole.GameList)
             {
-                if (listBox.SelectedItem.ToString().Equals(g.Title))
+                if (listBox.SelectedItem.ToString().Equals(game.Title))
                 {
                     //If the specified game is found, launch the game and return
                     Task.Delay(3000);
-                    FileOps.Launch(g, _gameSelectionConsole);
+                    FileOps.Launch(game);
                     return;
                 }
             }
         }
 
+        /// <summary>
+        /// Display detailed info for the current game
+        /// </summary>
         private void DisplayGameInfo()
         {
             //Check for bad input or an empty game library
@@ -598,69 +601,69 @@ namespace UniCade
             }
 
             _infoWindowActive = true;
-            BitmapImage b;
+            BitmapImage bitmapImage;
 
-            foreach (Game g in _gameSelectionConsole.GameList)
+            foreach (Game game in _gameSelectionConsole.GameList)
             {
-                if (listBox.SelectedItem.ToString().Equals(g.Title))
+                if (listBox.SelectedItem.ToString().Equals(game.Title))
                 {
                     //Populate the game info text
-                    _gameInfo.textBlock1.Text = g.Console + " - " + g.Title;
-                    _gameInfo.textBlock.Text = Program.DisplayGameInfo(g);
+                    _gameInfo.textBlock1.Text = game.ConsoleName + " - " + game.Title;
+                    _gameInfo.textBlock.Text = Program.DisplayGameInfo(game);
 
                     //Load the box front for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + g.Title + "_BoxFront.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_BoxFront.png"))
                     {
-                        b = new BitmapImage();
-                        b.BeginInit();
-                        b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + g.Title + "_BoxFront.png");
-                        b.EndInit();
-                        _gameInfo.image.Source = b;
+                        bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_BoxFront.png");
+                        bitmapImage.EndInit();
+                        _gameInfo.image.Source = bitmapImage;
                     }
 
                     //Load the box back image for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + g.Title + "_BoxBack.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_BoxBack.png"))
                     {
-                        b = new BitmapImage();
-                        b.BeginInit();
-                        b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + g.Title + "_BoxBack.png");
-                        b.EndInit();
-                        _gameInfo.image1.Source = b;
+                        bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_BoxBack.png");
+                        bitmapImage.EndInit();
+                        _gameInfo.image1.Source = bitmapImage;
                     }
 
                     //Load the screenshot for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + g.Title + "_Screenshot.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_Screenshot.png"))
                     {
-                        b = new BitmapImage();
-                        b.BeginInit();
-                        b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + g.Title + "_Screenshot.png");
-                        b.EndInit();
-                        _gameInfo.image2.Source = b;
+                        bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_Screenshot.png");
+                        bitmapImage.EndInit();
+                        _gameInfo.image2.Source = bitmapImage;
                     }
 
                     //Load the ESRB logo for the curent rating
                     String EsrbPath = "";
-                    if (g.Esrb.Equals("Everyone"))
+                    if (game.Esrb.Equals("Everyone"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
                     }
-                    else if (g.Esrb.Equals("Everyone (KA)"))
+                    else if (game.Esrb.Equals("Everyone (KA)"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
                     }
-                    else if (g.Esrb.Equals("Everyone 10+"))
+                    else if (game.Esrb.Equals("Everyone 10+"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png";
                     }
-                    else if (g.Esrb.Equals("Teen"))
+                    else if (game.Esrb.Equals("Teen"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png";
                     }
-                    else if (g.Esrb.Equals("Mature"))
+                    else if (game.Esrb.Equals("Mature"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png";
                     }
-                    else if (g.Esrb.Equals("Adults Only (AO)"))
+                    else if (game.Esrb.Equals("Adults Only (AO)"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (AO).png";
                     }
@@ -678,6 +681,9 @@ namespace UniCade
 
         #region Helper Methods
 
+        /// <summary>
+        /// Define the keys to hook
+        /// </summary>
         private void InitilizeGhkHook()
         {
             gkh = new GlobalKeyboardHook();

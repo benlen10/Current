@@ -7,14 +7,14 @@
         public Game(string fileName, string con, int LaunchCount = 0)
         {
             FileName = fileName;
-            Console = con;
+            ConsoleName = con;
             Title = fileName.Substring(0, fileName.IndexOf('.'));
         }
 
         public Game(string fileName, string con, int launchCount, string releaseDate, string publisher, string developer, string userScore, string criticScore, string players, string trivia, string esrb, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, int fav)
         {
             FileName = fileName;
-            Console = con;
+            ConsoleName = con;
             Favorite = fav;
             LaunchCount = launchCount;
             ReleaseDate = releaseDate;
@@ -44,7 +44,7 @@
 
         public string FileName { get; set; }
         public string Title { get; set; }
-        public string Console { get; set; }
+        public string ConsoleName { get; set; }
         public string Description { get; set; }
         public string ReleaseDate { get; set; }
         public string Publisher { get; set; }

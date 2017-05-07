@@ -1,5 +1,5 @@
 CurrentUser|Myuser
-_databasePath|C:\Users\Ben\Workspace\Unicade\UniCade\bin\Debug\Database.txt
+_databasePath|C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\Database.txt
 EmulatorFolderPath|C:\UniCade\Emulators
 MediaFolderPath|C:\UniCade\Media
 ShowSplash|0
