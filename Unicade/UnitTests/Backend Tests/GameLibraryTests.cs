@@ -37,7 +37,7 @@ namespace UnitTests
             Assert.AreEqual(0, originalConsoleGameCount, "Verify that the console game count is intially set to zero");
 
             //Add a game to the new console and verify that AddGame returns true
-            Game newGame = new Game("newGame.bin", consoleName);
+            IGame newGame = new Game("newGame.bin", consoleName);
             Assert.IsTrue(newConsole.AddGame(newGame), "Verify that AddGame returns true when adding a new (valid) game");
 
             //Verify that the console game count has been incremented by one

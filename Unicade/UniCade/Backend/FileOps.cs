@@ -86,7 +86,7 @@ namespace UniCade
                         streamWriter.WriteLine(string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", console.Name, console.EmuPath, console.RomPath, console.PrefPath, console.RomExt, console.GameCount, "Console Info", console.LaunchParam, console.ReleaseDate));
                         if (console.GameCount > 0)
                         {
-                            foreach (Game game in console.GameList)
+                            foreach (IGame game in console.GameList)
                             {
                                 streamWriter.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", game.FileName, game.ConsoleName, game.LaunchCount, game.ReleaseDate, game.Publisher, game.Developer, game.UserScore, game.CriticScore, game.Players, "Trivia", game.Esrb, game.EsrbDescriptor, game.EsrbSummary, game.Description, game.Genres, game.Tags, game.Favorite));
                             }
@@ -298,7 +298,7 @@ namespace UniCade
                 foreach (User u in Database.UserList)
                 {
                     string favs = "";
-                    foreach (Game g in u.Favorites)
+                    foreach (IGame g in u.Favorites)
                     {
                         favs += (g.Title + "#" + g.ConsoleName + "#");
                     }
@@ -377,9 +377,9 @@ namespace UniCade
                         if (extension[1].Equals(s))
                         {
                             duplicate = false;
-                            foreach (Game g in currentConsole.GameList)
+                            foreach (IGame game in currentConsole.GameList)
                             {
-                                if (g.Title.Equals(Path.GetFileName(fileName)))
+                                if (game.Title.Equals(Path.GetFileName(fileName)))
                                 {
                                     duplicate = true;
                                     break;
@@ -395,9 +395,9 @@ namespace UniCade
                 else
                 {
                     duplicate = false;
-                    foreach (Game g in currentConsole.GameList)
+                    foreach (IGame game in currentConsole.GameList)
                     {
-                        if (g.Title.Equals(fileName.Split('.')[0]))
+                        if (game.Title.Equals(fileName.Split('.')[0]))
                         {
                             duplicate = true;
                             break;
@@ -412,13 +412,13 @@ namespace UniCade
 
             //Delete nonexistent games
             bool found = false;
-            Game foundGame = null;
-            foreach (Game g in currentConsole.GameList)
+            IGame foundGame = null;
+            foreach (IGame game in currentConsole.GameList)
             {
                 found = false;
                 foreach (string fileName in fileEntries)
                 {
-                    if (g.Title.Equals(Path.GetFileName(fileName)))
+                    if (game.Title.Equals(Path.GetFileName(fileName)))
                     {
                         found = true;
                     }
@@ -451,7 +451,7 @@ namespace UniCade
         /// <summary>
         /// Launch the specified ROM file using the paramaters specified by the console
         /// </summary>
-        public static void Launch(Game game)
+        public static void Launch(IGame game)
         {
             if (SettingsWindow._curUser.AllowedEsrb.Length > 1)
             {
@@ -587,7 +587,7 @@ namespace UniCade
             Database.TotalGameCount = 0; ;
             foreach (IConsole console in Database.ConsoleList)
             {
-                foreach (Game g in console.GameList)
+                foreach (IGame g in console.GameList)
                 {
                     Database.TotalGameCount++;
                 }

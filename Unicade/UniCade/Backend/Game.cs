@@ -1,6 +1,6 @@
 ﻿namespace UniCade
 {
-    public class Game
+    public class Game : IGame
     {
         #region Constructors
 

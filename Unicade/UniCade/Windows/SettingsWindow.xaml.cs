@@ -15,7 +15,7 @@ namespace UniCade.Windows
     {
         #region Properties
 
-        public static Game _curGame;
+        public static IGame _curGame;
         public static User _curUser;
         static IConsole _curConsole2;
         static IConsole _curConsole;
@@ -309,13 +309,13 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a game");
                 return;
             }
-            Game game = null;
+            IGame game = null;
             game = SQLclient.GetSingleGame(_curGame.ConsoleName, _curGame.Title);
             if (game != null)
             {
                 for (int i = 0; i < _curConsole2.GameList.Count; i++)
                 {
-                    Game g = (Game)_curConsole2.GameList[i];
+                    IGame g = (IGame)_curConsole2.GameList[i];
                     if (game.FileName.Equals(g.FileName))
                     {
                         _curConsole2.GameList[i] = game;
@@ -352,7 +352,7 @@ namespace UniCade.Windows
             }
 
             //Upload all games if all initial checks are passed
-            foreach (Game g in _curConsole2.GameList)
+            foreach (IGame g in _curConsole2.GameList)
             {
                 SQLclient.UploadGame(g);
                 MessageBox.Show("Console Uploaded");
@@ -389,8 +389,8 @@ namespace UniCade.Windows
 
             for (int i = 0; i < _curConsole2.GameList.Count; i++)
             {
-                Game game1 = (Game)_curConsole2.GameList[i];
-                Game game2 = null;
+                IGame game1 = (IGame)_curConsole2.GameList[i];
+                IGame game2 = null;
                 game2 = SQLclient.GetSingleGame(game1.ConsoleName, game1.Title);
                 if (game2 != null)
                 {
@@ -413,7 +413,7 @@ namespace UniCade.Windows
         {
             if (GamesTab_Listbox_GamesList.SelectedItem == null) { return; }
             string currentGame = GamesTab_Listbox_GamesList.SelectedItem.ToString();
-            foreach (Game g in _curConsole2.GameList)
+            foreach (IGame g in _curConsole2.GameList)
             {
                 if (g.Title.Equals(currentGame))
                 {
@@ -441,7 +441,7 @@ namespace UniCade.Windows
                     GamesTab_Textbox_TotalGames.Text = Database.TotalGameCount.ToString();
                     if (console.GameCount > 0)
                     {
-                        foreach (Game g in console.GameList)
+                        foreach (IGame g in console.GameList)
                         {
                             GamesTab_Listbox_GamesList.Items.Add(g.Title);
                         }
@@ -451,7 +451,7 @@ namespace UniCade.Windows
             if (GamesTab_Listbox_GamesList.Items.Count > 0)
             {
                 GamesTab_Listbox_GamesList.SelectedIndex = 0;
-                foreach (Game g in _curConsole2.GameList)
+                foreach (IGame g in _curConsole2.GameList)
                 {
                     if (g.Title.Equals(GamesTab_Listbox_GamesList.SelectedItem.ToString()))
                     {
@@ -594,9 +594,9 @@ namespace UniCade.Windows
             }
 
             MessageBox.Show("This may take a while... Please wait for a completed nofication.");
-            foreach (Game g1 in _curConsole2.GameList)
+            foreach (IGame game1 in _curConsole2.GameList)
             {
-                WebOps.ScrapeInfo(g1);
+                WebOps.ScrapeInfo(game1);
             }
             MessageBox.Show("Operation Successful");
         }
@@ -713,7 +713,7 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_ForceGlobalMetadataRescrapeButton_Click(object sender, EventArgs e)
         {
-            foreach (Game game in _curConsole.GameList)
+            foreach (IGame game in _curConsole.GameList)
             {
                 if (!WebOps.ScrapeInfo(game))
                 {
@@ -861,9 +861,9 @@ namespace UniCade.Windows
                 {
                     if (u.Favorites.Count > 0)
                     {
-                        foreach (Game g in u.Favorites)
+                        foreach (IGame game in u.Favorites)
                         {
-                            UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName);
+                            UsersTab_Listbox_UserFavorites.Items.Add(game.Title + " - " + game.ConsoleName);
                         }
                     }
 
@@ -1013,7 +1013,7 @@ namespace UniCade.Windows
 
             _curUser.Favorites.RemoveAt(UsersTab_Listbox_UserFavorites.SelectedIndex);
             UsersTab_Listbox_UserFavorites.Items.Clear();
-            foreach (Game g in _curUser.Favorites)
+            foreach (IGame g in _curUser.Favorites)
             {
                 UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName);
             }
@@ -1660,7 +1660,7 @@ namespace UniCade.Windows
         /// <summary>
         /// Refresh the current game info passed in as a Game object
         /// </summary>
-        public void RefreshGameInfo(Game game)
+        public void RefreshGameInfo(IGame game)
         {
             if (game == null)
             {
@@ -1821,7 +1821,7 @@ namespace UniCade.Windows
         /// <summary>
         /// Refresh the ESRB rating icon to the current ESRB rating
         /// </summary>
-        public void RefreshEsrbIcon(Game g)
+        public void RefreshEsrbIcon(IGame g)
         {
             if (g == null) { return; }
             GamesTab_Image_ESRB.Source = null;
@@ -1862,11 +1862,11 @@ namespace UniCade.Windows
             {
                 if (console.GameCount > 0)
                 {
-                    foreach (Game g in console.GameList)
+                    foreach (IGame game in console.GameList)
                     {
-                        if (g.Favorite > 0)
+                        if (game.Favorite > 0)
                         {
-                            GlobalTab_Listbox_GlobalFavorites.Items.Add(g.Title + " (" + g.ConsoleName + ")");
+                            GlobalTab_Listbox_GlobalFavorites.Items.Add(game.Title + " (" + game.ConsoleName + ")");
                         }
                     }
                 }

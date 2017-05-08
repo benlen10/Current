@@ -91,8 +91,8 @@ namespace UniCade
             {
                 for (int i = 0; i < console.GameList.Count; i++)
                 {
-                    Game g = (Game)console.GameList[i];
-                    Game game = null;
+                    IGame g = (IGame)console.GameList[i];
+                    IGame game = null;
                     game = GetSingleGame(g.ConsoleName, g.Title);
                     if ((game != null) && (game.FileName.Length > 3))
                     {
@@ -105,7 +105,7 @@ namespace UniCade
         /// <summary>
         /// Upload a single game to the database and return false if the game already exists
         /// </summary>
-        public static bool UploadGame(Game g)
+        public static bool UploadGame(IGame g)
         {
             if (conn == null)
             {
@@ -135,7 +135,7 @@ namespace UniCade
             return true;
         }
 
-        public static Game GetSingleGame(string con, string gam)
+        public static IGame GetSingleGame(string con, string gam)
         {
             if (conn == null)
             {
@@ -147,10 +147,10 @@ namespace UniCade
             try
             {
                 myReader = myCommand.ExecuteReader();
-                Game g = null;
+                IGame game = null;
                 if (myReader.Read())
                 {
-                    g = new Game(SafeGetString(myReader, 1), SafeGetString(myReader, 3), SafeGetInt32(myReader, 4), SafeGetString(myReader, 5), SafeGetString(myReader, 6), SafeGetString(myReader, 7), SafeGetString(myReader, 8), SafeGetString(myReader, 9), SafeGetString(myReader, 10), SafeGetString(myReader, 11), SafeGetString(myReader, 12), SafeGetString(myReader, 13), SafeGetString(myReader, 14), SafeGetString(myReader, 15), SafeGetString(myReader, 16), SafeGetString(myReader, 17), SafeGetInt32(myReader, 18));
+                    game = new Game(SafeGetString(myReader, 1), SafeGetString(myReader, 3), SafeGetInt32(myReader, 4), SafeGetString(myReader, 5), SafeGetString(myReader, 6), SafeGetString(myReader, 7), SafeGetString(myReader, 8), SafeGetString(myReader, 9), SafeGetString(myReader, 10), SafeGetString(myReader, 11), SafeGetString(myReader, 12), SafeGetString(myReader, 13), SafeGetString(myReader, 14), SafeGetString(myReader, 15), SafeGetString(myReader, 16), SafeGetString(myReader, 17), SafeGetInt32(myReader, 18));
                 }
                 else
                 {
@@ -161,7 +161,7 @@ namespace UniCade
 
                 myReader.Close();
                 myCommand.Dispose();
-                return g;
+                return game;
             }
             catch (Exception e)
             {

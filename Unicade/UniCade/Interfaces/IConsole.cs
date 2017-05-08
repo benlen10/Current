@@ -7,7 +7,7 @@ namespace UniCade
         string ConsoleInfo { get; set; }
         string EmuPath { get; set; }
         int GameCount { get; }
-        List<Game> GameList { get; }
+        List<IGame> GameList { get; }
         string LaunchParam { get; set; }
         string Name { get; set; }
         string PrefPath { get; set; }
@@ -15,7 +15,7 @@ namespace UniCade
         string RomExt { get; set; }
         string RomPath { get; set; }
 
-        bool AddGame(Game game);
-        bool RemoveGame(Game game);
+        bool AddGame(IGame game);
+        bool RemoveGame(IGame game);
     }
 }

@@ -98,7 +98,7 @@ namespace UniCade
         /// <summary>
         /// Display all game info fields in plain text format
         /// </summary>
-        public static string DisplayGameInfo(Game game)
+        public static string DisplayGameInfo(IGame game)
         {
             string txt = "";
             txt = txt + ("\nTitle: " + game.Title + "\n");

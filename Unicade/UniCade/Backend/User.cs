@@ -16,7 +16,7 @@ namespace UniCade
             AllowedEsrb = allowedEsrb;
             Email = email;
             ProfilePic = profPic;
-            Favorites = new List<Game>();
+            Favorites = new List<IGame>();
         }
 
         #endregion
@@ -31,7 +31,7 @@ namespace UniCade
         public string AllowedEsrb { get; set; }
         public string Email { get; set; }
         public string ProfilePic { get; set; }
-        public List<Game> Favorites { get; set; }
+        public List<IGame> Favorites { get; set; }
 
         #endregion
     }

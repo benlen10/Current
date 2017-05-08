@@ -33,7 +33,7 @@ namespace UniCade
         /// <summary>
         /// Scrape game info for the specified game from online databases
         /// </summary>
-        public static bool ScrapeInfo(Game game)
+        public static bool ScrapeInfo(IGame game)
         {
             if(game == null) { return false; }
             //Replace invalid chars within game title
@@ -72,7 +72,7 @@ namespace UniCade
         /// <summary>
         /// Scrape info for the specified game from Mobygames.com
         /// </summary>
-        public static bool ScrapeMobyGames(Game g)
+        public static bool ScrapeMobyGames(IGame g)
         {
             //Check for bad input
             if (g == null)
@@ -214,7 +214,7 @@ namespace UniCade
         /// <summary>
         /// Scrape Metacritic for info related to the specific game
         /// </summary>
-        public static bool ScrapeMetacritic(Game g)
+        public static bool ScrapeMetacritic(IGame g)
         {
             string metaCon = "";
 

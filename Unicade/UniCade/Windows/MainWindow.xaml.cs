@@ -203,7 +203,7 @@ namespace UniCade
                     {
                         if (listBox.SelectedItem != null)
                         {
-                            foreach (Game g in _gameSelectionConsole.GameList)
+                            foreach (IGame g in _gameSelectionConsole.GameList)
                             {
                                 if (listBox.SelectedItem.ToString().Equals(g.Title))
                                 {
@@ -213,9 +213,9 @@ namespace UniCade
                                         ShowNotification("UniCade", SettingsWindow._curUser.Username + " :Added To Favorites");
                                         return;
                                     }
-                                    foreach (Game g1 in SettingsWindow._curUser.Favorites)
+                                    foreach (IGame game1 in SettingsWindow._curUser.Favorites)
                                     {
-                                        if (g1.Title.Equals(g.Title) && g.ConsoleName.Equals(g1.ConsoleName))
+                                        if (game1.Title.Equals(g.Title) && g.ConsoleName.Equals(game1.ConsoleName))
                                         {
                                             SettingsWindow._curUser.Favorites.Add(g);
                                             ShowNotification("UniCade", SettingsWindow._curUser.Username + ": Removed From Favorites");
@@ -237,18 +237,18 @@ namespace UniCade
                 {
                     if (_gameSelectionActive)
                     {
-                        foreach (Game g in _gameSelectionConsole.GameList)
+                        foreach (IGame game in _gameSelectionConsole.GameList)
                         {
-                            if (listBox.SelectedItem.ToString().Equals(g.Title))
+                            if (listBox.SelectedItem.ToString().Equals(game.Title))
                             {
-                                if (g.Favorite > 0)
+                                if (game.Favorite > 0)
                                 {
-                                    g.Favorite = 0;
+                                    game.Favorite = 0;
                                     ShowNotification("UniCade", "Removed From Global Favorites");
                                 }
                                 else
                                 {
-                                    g.Favorite = 1;
+                                    game.Favorite = 1;
                                     ShowNotification("UniCade", "Added To Global Favorites");
                                 }
                             }
@@ -492,14 +492,14 @@ namespace UniCade
                     _gameSelectionConsole = console;
                     label.Content = console.Name + " Game Count: " + console.GameCount;
 
-                    foreach (Game game in console.GameList)
+                    foreach (IGame game in console.GameList)
                     {
                         //Check if the global favorites filter is enabled
                         if (_favorite)
                         {
-                            foreach (Game g1 in SettingsWindow._curUser.Favorites)
+                            foreach (IGame game1 in SettingsWindow._curUser.Favorites)
                             {
-                                if (game.Title.Equals(g1.Title) && game.ConsoleName.Equals(g1.ConsoleName))
+                                if (game.Title.Equals(game1.Title) && game.ConsoleName.Equals(game1.ConsoleName))
                                 {
                                     //Add the game if it is present in the favorites list
                                     listBox.Items.Add(game.Title);
@@ -577,7 +577,7 @@ namespace UniCade
                     DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins);
 
             //Search for the selected game title within the game library
-            foreach (Game game in _gameSelectionConsole.GameList)
+            foreach (IGame game in _gameSelectionConsole.GameList)
             {
                 if (listBox.SelectedItem.ToString().Equals(game.Title))
                 {
@@ -603,7 +603,7 @@ namespace UniCade
             _infoWindowActive = true;
             BitmapImage bitmapImage;
 
-            foreach (Game game in _gameSelectionConsole.GameList)
+            foreach (IGame game in _gameSelectionConsole.GameList)
             {
                 if (listBox.SelectedItem.ToString().Equals(game.Title))
                 {
