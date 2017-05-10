@@ -229,31 +229,31 @@ namespace UniCade
             while ((line = file.ReadLine()) != null)
             {
                 tokenString = line.Split(sep);
-                User user = new User(tokenString[0], tokenString[1], Int32.Parse(tokenString[2]), tokenString[3], Int32.Parse(tokenString[4]), tokenString[5], tokenString[6], "null");
+                IUser user = new User(tokenString[0], tokenString[1], Int32.Parse(tokenString[2]), tokenString[3], Int32.Parse(tokenString[4]), tokenString[5], tokenString[6], "null");
                 if (tokenString[6].Length > 0)
                 {
-                    string[] st = tokenString[7].Split('#');
-                    String st1 = "";
-                    int i = 1;
+                    string[] rawString = tokenString[7].Split('#');
+                    String string1 = "";
+                    int iterator = 1;
 
-                    foreach (string s in st)
+                    foreach (string s in rawString)
                     {
-                        if ((i % 2 == 0) && (i > 1))
+                        if ((iterator % 2 == 0) && (iterator > 1))
                         {
-                            user.Favorites.Add(new Game(st1, s, 0));
+                            user.Favorites.Add(new Game(string1, s, 0));
 
                         }
-                        st1 = s + ".zip";
-                        i++;
+                        string1 = s + ".zip";
+                        iterator++;
                     }
                 }
                 Database.UserList.Add(user);
             }
-            foreach (User u in Database.UserList)
+            foreach (IUser user in Database.UserList)
             {
-                if (u.Username.Equals(currentUser))
+                if (user.Username.Equals(currentUser))
                 {
-                    SettingsWindow._curUser = u;
+                    SettingsWindow._currentUser = user;
                 }
             }
             file.Close();
@@ -270,19 +270,19 @@ namespace UniCade
                 File.Delete(path);
             }
 
-            foreach (User us in Database.UserList)
+            foreach (IUser user in Database.UserList)
             {
-                if (SettingsWindow._curUser.Username.Equals(us.Username))
+                if (SettingsWindow._currentUser.Username.Equals(user.Username))
                 {
-                    Database.UserList.Remove(us);
-                    Database.UserList.Add(SettingsWindow._curUser);
+                    Database.UserList.Remove(user);
+                    Database.UserList.Add(SettingsWindow._currentUser);
                     break;
                 }
             }
 
             using (StreamWriter sw = File.CreateText(path))
             {
-                sw.WriteLine("CurrentUser|" + SettingsWindow._curUser.Username);
+                sw.WriteLine("CurrentUser|" + SettingsWindow._currentUser.Username);
                 sw.WriteLine("_databasePath|" + Program._databasePath);
                 sw.WriteLine("EmulatorFolderPath|" + Program._emuPath);
                 sw.WriteLine("MediaFolderPath|" + Program._mediaPath);
@@ -295,14 +295,14 @@ namespace UniCade
                 sw.WriteLine("PaySettings|" + SettingsWindow._payPerPlay + "|" + SettingsWindow._perLaunch + "|" + SettingsWindow._coins + "|" + SettingsWindow._playtime);
                 sw.WriteLine("License Key|" + Program._userLicenseName + "|" + Program._userLicenseKey);
                 sw.WriteLine("***UserData***");
-                foreach (User u in Database.UserList)
+                foreach (IUser user in Database.UserList)
                 {
                     string favs = "";
-                    foreach (IGame g in u.Favorites)
+                    foreach (IGame g in user.Favorites)
                     {
                         favs += (g.Title + "#" + g.ConsoleName + "#");
                     }
-                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", u.Username, u.Pass, u.LoginCount, u.Email, u.TotalLaunchCount, u.UserInfo, u.AllowedEsrb, favs);
+                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", user.Username, user.Pass, user.LoginCount, user.Email, user.TotalLaunchCount, user.UserInfo, user.AllowedEsrb, favs);
                 }
             }
         }
@@ -453,11 +453,11 @@ namespace UniCade
         /// </summary>
         public static void Launch(IGame game)
         {
-            if (SettingsWindow._curUser.AllowedEsrb.Length > 1)
+            if (SettingsWindow._currentUser.AllowedEsrb.Length > 1)
             {
-                if (SettingsWindow.CalcEsrb(game.Esrb) >= SettingsWindow.CalcEsrb(SettingsWindow._curUser.AllowedEsrb))
+                if (SettingsWindow.CalcEsrb(game.Esrb) >= SettingsWindow.CalcEsrb(SettingsWindow._currentUser.AllowedEsrb))
                 {
-                    ShowNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted for" + SettingsWindow._curUser.Username);
+                    ShowNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted for" + SettingsWindow._currentUser.Username);
                     return;
                 }
             }
@@ -472,7 +472,7 @@ namespace UniCade
             }
 
             game.LaunchCount++;
-            SettingsWindow._curUser.TotalLaunchCount++;
+            SettingsWindow._currentUser.TotalLaunchCount++;
             process = new Process();
 
             //Fetch the console object
@@ -710,8 +710,8 @@ namespace UniCade
         /// </summary>
         public static void RestoreDefaultPreferences()
         {
-            SettingsWindow._curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
-            Database.UserList.Add(SettingsWindow._curUser);
+            SettingsWindow._currentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
+            Database.UserList.Add(SettingsWindow._currentUser);
             SettingsWindow._showSplash = 0;
             SettingsWindow._scanOnStartup = 0;
             SettingsWindow._restrictESRB = 0;

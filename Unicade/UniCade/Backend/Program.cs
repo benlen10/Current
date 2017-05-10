@@ -20,7 +20,7 @@ namespace UniCade
         public static string _userLicenseName;
         public static string _userLicenseKey;
         public static bool _validLicense = false;
-        public User _user;
+        public IUser _user;
 
         #endregion
 
@@ -64,9 +64,9 @@ namespace UniCade
             }
 
             //If the current user is null, generate the default UniCade user and set as the current user  
-            if (SettingsWindow._curUser == null)
+            if (SettingsWindow._currentUser == null)
             {
-                SettingsWindow._curUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
+                SettingsWindow._currentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
             }
 
             //Verify the current user license and set flag

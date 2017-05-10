@@ -110,6 +110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IConsole.cs" />
     <Compile Include="Windows\AccountWindow.xaml.cs">

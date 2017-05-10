@@ -207,23 +207,23 @@ namespace UniCade
                             {
                                 if (listBox.SelectedItem.ToString().Equals(g.Title))
                                 {
-                                    if (SettingsWindow._curUser.Favorites.Count < 1)
+                                    if (SettingsWindow._currentUser.Favorites.Count < 1)
                                     {
-                                        SettingsWindow._curUser.Favorites.Add(g);
-                                        ShowNotification("UniCade", SettingsWindow._curUser.Username + " :Added To Favorites");
+                                        SettingsWindow._currentUser.Favorites.Add(g);
+                                        ShowNotification("UniCade", SettingsWindow._currentUser.Username + " :Added To Favorites");
                                         return;
                                     }
-                                    foreach (IGame game1 in SettingsWindow._curUser.Favorites)
+                                    foreach (IGame game1 in SettingsWindow._currentUser.Favorites)
                                     {
                                         if (game1.Title.Equals(g.Title) && g.ConsoleName.Equals(game1.ConsoleName))
                                         {
-                                            SettingsWindow._curUser.Favorites.Add(g);
-                                            ShowNotification("UniCade", SettingsWindow._curUser.Username + ": Removed From Favorites");
+                                            SettingsWindow._currentUser.Favorites.Add(g);
+                                            ShowNotification("UniCade", SettingsWindow._currentUser.Username + ": Removed From Favorites");
                                         }
                                         else
                                         {
-                                            SettingsWindow._curUser.Favorites.Add(g);
-                                            ShowNotification("UniCade", SettingsWindow._curUser.Username + ": Added To Favorites");
+                                            SettingsWindow._currentUser.Favorites.Add(g);
+                                            ShowNotification("UniCade", SettingsWindow._currentUser.Username + ": Added To Favorites");
                                         }
                                         return;
                                     }
@@ -480,7 +480,7 @@ namespace UniCade
             }
             else
             {
-                label1.Content = SettingsWindow._curUser.Username + "'s Favorites List";
+                label1.Content = SettingsWindow._currentUser.Username + "'s Favorites List";
             }
 
             //Populate the game library 
@@ -497,7 +497,7 @@ namespace UniCade
                         //Check if the global favorites filter is enabled
                         if (_favorite)
                         {
-                            foreach (IGame game1 in SettingsWindow._curUser.Favorites)
+                            foreach (IGame game1 in SettingsWindow._currentUser.Favorites)
                             {
                                 if (game.Title.Equals(game1.Title) && game.ConsoleName.Equals(game1.ConsoleName))
                                 {
@@ -514,7 +514,7 @@ namespace UniCade
                             if (SettingsWindow._viewEsrb > 0)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (SettingsWindow.CalcEsrb(game.Esrb) <= SettingsWindow.CalcEsrb(SettingsWindow._curUser.AllowedEsrb))
+                                if (SettingsWindow.CalcEsrb(game.Esrb) <= SettingsWindow.CalcEsrb(SettingsWindow._currentUser.AllowedEsrb))
                                 {
                                     listBox.Items.Add(game.Title);
                                 }

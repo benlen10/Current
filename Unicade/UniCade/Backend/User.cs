@@ -2,7 +2,7 @@
 
 namespace UniCade
 {
-    public class User
+    public class User : IUser
     {
         #region Constructors
 
