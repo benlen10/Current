@@ -86,11 +86,11 @@ namespace UniCade
             RefreshConsoleList();
 
             //If payPerPlay setting is activated, display a notification in the main GUI
-            if (SettingsWindow._payPerPlay > 0)
+            if (SettingsWindow.PayPerPlayEnabled > 0)
             {
-                if (SettingsWindow._coins > 0)
+                if (SettingsWindow.CoinsRequired > 0)
                 {
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins);
+                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program._coins);
                 }
             }
             else
@@ -114,7 +114,7 @@ namespace UniCade
             _index = 0;
             foreach (IConsole console in Database.ConsoleList)
             {
-                _consoleList.Add(console.Name);
+                _consoleList.Add(console.ConsoleName);
                 _consoleCount++;
             }
         }
@@ -207,23 +207,23 @@ namespace UniCade
                             {
                                 if (listBox.SelectedItem.ToString().Equals(g.Title))
                                 {
-                                    if (SettingsWindow._currentUser.Favorites.Count < 1)
+                                    if (SettingsWindow.CurrentUser.Favorites.Count < 1)
                                     {
-                                        SettingsWindow._currentUser.Favorites.Add(g);
-                                        ShowNotification("UniCade", SettingsWindow._currentUser.Username + " :Added To Favorites");
+                                        SettingsWindow.CurrentUser.Favorites.Add(g);
+                                        ShowNotification("UniCade", SettingsWindow.CurrentUser.Username + " :Added To Favorites");
                                         return;
                                     }
-                                    foreach (IGame game1 in SettingsWindow._currentUser.Favorites)
+                                    foreach (IGame game1 in SettingsWindow.CurrentUser.Favorites)
                                     {
                                         if (game1.Title.Equals(g.Title) && g.ConsoleName.Equals(game1.ConsoleName))
                                         {
-                                            SettingsWindow._currentUser.Favorites.Add(g);
-                                            ShowNotification("UniCade", SettingsWindow._currentUser.Username + ": Removed From Favorites");
+                                            SettingsWindow.CurrentUser.Favorites.Add(g);
+                                            ShowNotification("UniCade", SettingsWindow.CurrentUser.Username + ": Removed From Favorites");
                                         }
                                         else
                                         {
-                                            SettingsWindow._currentUser.Favorites.Add(g);
-                                            ShowNotification("UniCade", SettingsWindow._currentUser.Username + ": Added To Favorites");
+                                            SettingsWindow.CurrentUser.Favorites.Add(g);
+                                            ShowNotification("UniCade", SettingsWindow.CurrentUser.Username + ": Added To Favorites");
                                         }
                                         return;
                                     }
@@ -281,7 +281,7 @@ namespace UniCade
                 //Launch the settings window
                 else if ((e.KeyCode == Keys.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
                 {
-                    if (SettingsWindow._passProtect > 0)
+                    if (SettingsWindow.PasswordProtection > 0)
                     {
                         _validPAss = false;
                         PassWindow pw = new PassWindow();
@@ -361,11 +361,11 @@ namespace UniCade
             else if (e.KeyCode == Keys.Tab)  
             {
                 Program._coins++;
-                if (SettingsWindow._payPerPlay > 0)
+                if (SettingsWindow.PayPerPlayEnabled > 0)
                 {
-                    if (SettingsWindow._coins > 0)
+                    if (SettingsWindow.CoinsRequired > 0)
                     {
-                        label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins;
+                        label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program._coins;
                     }
 
                     //Display a popup payPerPlay notification
@@ -419,11 +419,11 @@ namespace UniCade
         private void UpdateGUI()
         {
             //Update payPerPlay notifications
-            if (SettingsWindow._payPerPlay > 0)
+            if (SettingsWindow.PayPerPlayEnabled > 0)
             {
-                if (SettingsWindow._coins > 0)
+                if (SettingsWindow.CoinsRequired > 0)
                 {
-                    label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins;
+                    label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program._coins;
                 }
                 else
                 {
@@ -480,24 +480,24 @@ namespace UniCade
             }
             else
             {
-                label1.Content = SettingsWindow._currentUser.Username + "'s Favorites List";
+                label1.Content = SettingsWindow.CurrentUser.Username + "'s Favorites List";
             }
 
             //Populate the game library 
             listBox.Items.Clear();
             foreach (IConsole console in Database.ConsoleList)
             {
-                if (console.Name.Equals(_consoleList[_index]))
+                if (console.ConsoleName.Equals(_consoleList[_index]))
                 {
                     _gameSelectionConsole = console;
-                    label.Content = console.Name + " Game Count: " + console.GameCount;
+                    label.Content = console.ConsoleName + " Game Count: " + console.GameCount;
 
                     foreach (IGame game in console.GameList)
                     {
                         //Check if the global favorites filter is enabled
                         if (_favorite)
                         {
-                            foreach (IGame game1 in SettingsWindow._currentUser.Favorites)
+                            foreach (IGame game1 in SettingsWindow.CurrentUser.Favorites)
                             {
                                 if (game.Title.Equals(game1.Title) && game.ConsoleName.Equals(game1.ConsoleName))
                                 {
@@ -511,10 +511,10 @@ namespace UniCade
                         else
                         {
                             //Filter the viewable games if the restrict esrb view filter is enabled
-                            if (SettingsWindow._viewEsrb > 0)
+                            if (SettingsWindow.DisplayEsrbWhileBrowsing > 0)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (SettingsWindow.CalcEsrb(game.Esrb) <= SettingsWindow.CalcEsrb(SettingsWindow._currentUser.AllowedEsrb))
+                                if (SettingsWindow.CalcEsrb(game.Esrb) <= SettingsWindow.CalcEsrb(SettingsWindow.CurrentUser.AllowedEsrb))
                                 {
                                     listBox.Items.Add(game.Title);
                                 }
@@ -562,19 +562,19 @@ namespace UniCade
         /// </summary>
         private void LaunchGame()
         {
-            if (SettingsWindow._payPerPlay > 0)
+            if (SettingsWindow.PayPerPlayEnabled > 0)
             {
-                if (SettingsWindow._coins > 0)
+                if (SettingsWindow.CoinsRequired > 0)
                 {
-                    if (Program._coins < SettingsWindow._coins) { 
+                    if (Program._coins < SettingsWindow.CoinsRequired) { 
                         ShowNotification("Pay Per Play", "Insert Coins");
                         return;
                     }
                 }
             }
 
-            Program._coins = Program._coins - SettingsWindow._coins;
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow._coins + " Current: " + Program._coins);
+            Program._coins = Program._coins - SettingsWindow.CoinsRequired;
+                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program._coins);
 
             //Search for the selected game title within the game library
             foreach (IGame game in _gameSelectionConsole.GameList)
@@ -612,31 +612,31 @@ namespace UniCade
                     _gameInfo.textBlock.Text = Program.DisplayGameInfo(game);
 
                     //Load the box front for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_BoxFront.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"))
                     {
                         bitmapImage = new BitmapImage();
                         bitmapImage.BeginInit();
-                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_BoxFront.png");
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png");
                         bitmapImage.EndInit();
                         _gameInfo.image.Source = bitmapImage;
                     }
 
                     //Load the box back image for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_BoxBack.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png"))
                     {
                         bitmapImage = new BitmapImage();
                         bitmapImage.BeginInit();
-                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_BoxBack.png");
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png");
                         bitmapImage.EndInit();
                         _gameInfo.image1.Source = bitmapImage;
                     }
 
                     //Load the screenshot for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_Screenshot.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png"))
                     {
                         bitmapImage = new BitmapImage();
                         bitmapImage.BeginInit();
-                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.Name + "\\" + game.Title + "_Screenshot.png");
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png");
                         bitmapImage.EndInit();
                         _gameInfo.image2.Source = bitmapImage;
                     }

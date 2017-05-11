@@ -10,7 +10,7 @@ namespace UniCade.Windows
 
         #region Properties
 
-        int _accountType;
+        int AccountType;
 
         #endregion
 
@@ -19,7 +19,7 @@ namespace UniCade.Windows
         /// </summary>
         public AccountWindow(int accountType)
         {
-            _accountType = accountType;
+            AccountType = accountType;
             InitializeComponent();
         }
 
@@ -54,7 +54,7 @@ namespace UniCade.Windows
             }
 
             //Create a new SQL user if the account type is UniCade Cloud
-            if (_accountType == 0)
+            if (AccountType == 0)
             {
                 SQLclient.CreateUser(Textbox_Username.Text, Textbox_Email.Text, Textbox_Email.Text, Textbox_UserInfo.Text, "Null", "NullProfPath");
             }
@@ -63,7 +63,7 @@ namespace UniCade.Windows
                 //Create a new local user if the account type standard Unicade
                 IUser user = new User(Textbox_Username.Text, Textbox_Password.Text, 0, Textbox_Email.Text, 0, Textbox_UserInfo.Text, "Mature", "null");
                 Database.UserList.Add(user);
-                SettingsWindow._currentUser = user;
+                SettingsWindow.CurrentUser = user;
             }
             Close();
         }

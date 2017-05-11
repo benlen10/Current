@@ -28,7 +28,7 @@ namespace UnitTests
             string consoleName = "newConsole";
             IConsole newConsole = new UniCade.Console()
             {
-                Name = consoleName
+                ConsoleName = consoleName
             };
             Database.ConsoleList.Add(newConsole);
 

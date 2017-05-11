@@ -158,7 +158,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Backend\Console.cs" />
-    <Compile Include="Backend\Constants.cs" />
     <Compile Include="Backend\Database.cs" />
     <Compile Include="Backend\FileOps.cs" />
     <Compile Include="Backend\Game.cs" />

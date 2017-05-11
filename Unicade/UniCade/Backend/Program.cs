@@ -64,9 +64,9 @@ namespace UniCade
             }
 
             //If the current user is null, generate the default UniCade user and set as the current user  
-            if (SettingsWindow._currentUser == null)
+            if (SettingsWindow.CurrentUser == null)
             {
-                SettingsWindow._currentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
+                SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
             }
 
             //Verify the current user license and set flag

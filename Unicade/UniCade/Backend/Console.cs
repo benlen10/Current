@@ -4,44 +4,60 @@ namespace UniCade
 {
     public class Console : IConsole
     {
+
+        #region Properties
+
+        public string ConsoleName { get; set; }
+        public string ReleaseDate { get; set; }
+        public List<IGame> GameList { get; private set; }
+        public string EmulatorPath { get; set; }
+        public string PreferencesPath { get; set; }
+        public string RomPath { get; set; }
+        public string RomExtension { get; set; }
+        public string ConsoleInfo { get; set; }
+        public string LaunchParams { get; set; }
+        public int GameCount { get; private set; }
+
+        #endregion
+
         #region Constructors 
 
-        public Console()
+        /// <summary>
+        /// Basic constructor for a new game console
+        /// </summary>
+        public Console(string consoleName)
         {
-            Name = "null";
+            ConsoleName = consoleName;
             GameList = new List<IGame>();
         }
 
+        /// <summary>
+        /// Full constructor for a new game console
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="emuPath"></param>
+        /// <param name="romPath"></param>
+        /// <param name="prefPath"></param>
+        /// <param name="romExt"></param>
+        /// <param name="gameCount"></param>
+        /// <param name="consoleInfo"></param>
+        /// <param name="launchParam"></param>
+        /// <param name="releaseDate"></param>
         public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam, string releaseDate)
         {
-            Name = name;
-            EmuPath = emuPath;
+            ConsoleName = name;
+            EmulatorPath = emuPath;
             RomPath = romPath;
-            PrefPath = prefPath;
-            RomExt = romExt;
+            PreferencesPath = prefPath;
+            RomExtension = romExt;
             GameCount = gameCount;
             ConsoleInfo = consoleInfo;
-            LaunchParam = launchParam;
+            LaunchParams = launchParam;
             ReleaseDate = releaseDate;
             GameList = new List<IGame>();
         }
 
         #endregion 
-
-        #region Properties
-
-        public string Name { get; set; }
-        public string ReleaseDate { get; set; }
-        public List<IGame> GameList { get; private set; }
-        public string EmuPath { get; set; }
-        public string PrefPath { get; set; }
-        public string RomPath { get; set; }
-        public string RomExt { get; set; }
-        public string ConsoleInfo { get; set; }
-        public string LaunchParam { get; set; }
-        public int GameCount { get; private set; }
-
-        #endregion
 
         #region Public Methods
 
@@ -53,7 +69,7 @@ namespace UniCade
         public bool AddGame(IGame game)
         {
             //If the game console does not match the current console, return false
-            if (!game.ConsoleName.Equals(Name))
+            if (!game.ConsoleName.Equals(ConsoleName))
             {
                 return false;
             }
@@ -79,7 +95,7 @@ namespace UniCade
         public bool RemoveGame(IGame game)
         {
             //If the game console does not match the current console, return false
-            if (!game.ConsoleName.Equals(Name))
+            if (!game.ConsoleName.Equals(ConsoleName))
             {
                 return false;
             }

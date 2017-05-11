@@ -33,7 +33,7 @@ namespace UniCade.Windows
             Int32.TryParse(Textbox_Password.Password, out int n);
             if (n > 0)
             {
-                if (Int32.Parse(Textbox_Password.Password) == SettingsWindow._passProtect)
+                if (Int32.Parse(Textbox_Password.Password) == SettingsWindow.PasswordProtection)
                 {
                     DialogResult = true;
                     MainWindow._validPAss = true;

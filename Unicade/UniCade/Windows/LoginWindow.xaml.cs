@@ -64,7 +64,7 @@ namespace UniCade.Windows
                     {
                         if (u.Pass.Equals(Textbox_Password.Text))
                         {
-                            SettingsWindow._currentUser = u;
+                            SettingsWindow.CurrentUser = u;
                             Close();
                             return;
                         }
