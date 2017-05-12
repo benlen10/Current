@@ -143,10 +143,10 @@ namespace UniCade.Windows
 
             //Populate textbox fields
             GlobalTab_Textbox_Password.Password = PasswordProtection.ToString();
-            GlobalTab_Textbox_DatabasePath.Text = Program._databasePath;
-            GlobalTab_Textbox_EmulatorDirectory.Text = Program._emuPath;
-            GlobalTab_Textbox_MedaDirectory.Text = Program._mediaPath;
-            GlobalTab_Textbox_ROMDirectory.Text = Program._romPath;
+            GlobalTab_Textbox_DatabasePath.Text = Program.DatabasePath;
+            GlobalTab_Textbox_EmulatorDirectory.Text = Program.EmulatorPath;
+            GlobalTab_Textbox_MedaDirectory.Text = Program.MediaPath;
+            GlobalTab_Textbox_ROMDirectory.Text = Program.RomPath;
 
             //Check specified boxes under the Web tab
             if (WebOps.releaseDate > 0)
@@ -265,8 +265,8 @@ namespace UniCade.Windows
             RefreshGlobalFavs();
 
             //Populate user license info
-            AboutTab_Label_LicensedTo.Content = "Licensed to: " + Program._userLicenseName;
-            if (Program._validLicense)
+            AboutTab_Label_LicensedTo.Content = "Licensed to: " + Program.UserLicenseName;
+            if (Program.IsLicenseValid)
             {
                 AboutTab_Label_Edition.Content = "License Status: Full Version";
             }
@@ -274,7 +274,7 @@ namespace UniCade.Windows
             {
                 AboutTab_Label_Edition.Content = "License Status: Invalid";
             }
-            AboutTab_Label_LicenseKey.Content = "License Key: " + Program._userLicenseKey;
+            AboutTab_Label_LicenseKey.Content = "License Key: " + Program.UserLicenseKey;
         }
 
         #endregion
@@ -643,7 +643,7 @@ namespace UniCade.Windows
             CurrentEmulator.LaunchParams = EmulatorsTab_Textbox_EmulatorArgs.Text;
             CurrentEmulator.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
             CurrentEmulator.ConsoleInfo = EmulatorsTab_Textbox_ConsoleInfo.Text;
-            FileOps.SaveDatabase(Program._databasePath);
+            FileOps.SaveDatabase(Program.DatabasePath);
             MainWindow.RefreshConsoleList();
         }
 
@@ -695,7 +695,7 @@ namespace UniCade.Windows
             EmulatorsTab_Textbox_ReleaseDate.Text = null;
 
             //Create a new console and add it to the datbase
-            string newConsoleName = "NewConsole";
+            string newConsoleName = "New Console";
             IConsole console = new Console(newConsoleName);
 
             Database.ConsoleList.Add(console);
@@ -795,7 +795,7 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
         {
-            if (FileOps.Scan(Program._romPath))
+            if (FileOps.Scan(Program.RomPath))
             {
                 MessageBox.Show("Global Rescan Successful");
             }
@@ -817,7 +817,7 @@ namespace UniCade.Windows
             {
                 if (console.ConsoleName.Equals(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString()))
                 {
-                    if (FileOps.ScanDirectory(console.RomPath, Program._romPath))
+                    if (FileOps.ScanDirectory(console.RomPath, Program.RomPath))
                     {
                         MessageBox.Show(console.ConsoleName + " Successfully Scanned");
                     }
@@ -840,7 +840,7 @@ namespace UniCade.Windows
         private void UsersTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow._settingsWindowActive = false;
-            FileOps.SavePreferences(Program._prefPath);
+            FileOps.SavePreferences(Program.PreferencesPath);
             this.Close();
         }
 
@@ -911,7 +911,7 @@ namespace UniCade.Windows
 
             //Update the current labels and save the user info to the preferences file
             UsersTab_Label_CurrentUser.Content = "Current User: " + CurrentUser.Username;
-            FileOps.SavePreferences(Program._prefPath);
+            FileOps.SavePreferences(Program.PreferencesPath);
 
             //Refresh the listbox contents
             UsersTab_Listbox_CurrentUser.Items.Clear();
@@ -926,7 +926,7 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_SaveAllUsersButton_Click(object sender, EventArgs e)
         {
-            FileOps.SavePreferences(Program._prefPath);
+            FileOps.SavePreferences(Program.PreferencesPath);
         }
 
         /// <summary>
@@ -1043,7 +1043,7 @@ namespace UniCade.Windows
             {
                 //If the user is logged in sucuesfully, save the current user and preferences file
                 UsersTab_Label_CurrentUser.Content = "Current User: " + CurrentUser.Username;
-                FileOps.SavePreferences(Program._prefPath);
+                FileOps.SavePreferences(Program.PreferencesPath);
             }
         }
 
@@ -1093,9 +1093,9 @@ namespace UniCade.Windows
                 }
                 else
                 {
-                    Program._emuPath = GlobalTab_Textbox_EmulatorDirectory.Text;
-                    Program._mediaPath = GlobalTab_Textbox_MedaDirectory.Text;
-                    Program._romPath = GlobalTab_Textbox_ROMDirectory.Text;
+                    Program.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
+                    Program.MediaPath = GlobalTab_Textbox_MedaDirectory.Text;
+                    Program.RomPath = GlobalTab_Textbox_ROMDirectory.Text;
                 }
 
                 Int32.TryParse(GlobalTab_Textbox_Password.Password, out int n);
@@ -1116,7 +1116,7 @@ namespace UniCade.Windows
                 }
 
                 //Save all active preferences to the local preferences file
-                FileOps.SavePreferences(Program._prefPath);
+                FileOps.SavePreferences(Program.PreferencesPath);
             }
         }
 
@@ -1588,11 +1588,11 @@ namespace UniCade.Windows
             //Create a new license entry info and validate the key
             LicenseEntry le = new LicenseEntry();
             le.ShowDialog();
-            AboutTab_Label_LicensedTo.Content = "Licensed to: " + Program._userLicenseName;
-            AboutTab_Label_LicenseKey.Content = "License Key: " + Program._userLicenseKey;
+            AboutTab_Label_LicensedTo.Content = "Licensed to: " + Program.UserLicenseName;
+            AboutTab_Label_LicenseKey.Content = "License Key: " + Program.UserLicenseKey;
 
             //Set the license text depending on if the key is valid
-            if (Program._validLicense == true)
+            if (Program.IsLicenseValid == true)
             {
                 AboutTab_Label_Edition.Content = "License Status: Full Version";
             }
@@ -1817,7 +1817,7 @@ namespace UniCade.Windows
             }
 
             //If all input fields are valid, save the database
-            FileOps.SaveDatabase(Program._databasePath);
+            FileOps.SaveDatabase(Program.DatabasePath);
         }
 
         /// <summary>

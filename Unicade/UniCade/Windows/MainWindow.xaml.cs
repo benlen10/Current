@@ -77,7 +77,7 @@ namespace UniCade
 
             //Initialize license flag
             label3.Content = "Unlicensed Version";
-            if (Program._validLicense)
+            if (Program.IsLicenseValid)
             {
                 label3.Visibility = Visibility.Hidden;
             }
@@ -90,7 +90,7 @@ namespace UniCade
             {
                 if (SettingsWindow.CoinsRequired > 0)
                 {
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program._coins);
+                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program.CoinsRequired);
                 }
             }
             else
@@ -302,7 +302,7 @@ namespace UniCade
                         UnhookKeys();
                         sw.ShowDialog();
                     }
-                    if (Program._validLicense)
+                    if (Program.IsLicenseValid)
                     {
                         label3.Visibility = Visibility.Hidden;
                     }
@@ -360,16 +360,16 @@ namespace UniCade
             // Insert coin
             else if (e.KeyCode == Keys.Tab)  
             {
-                Program._coins++;
+                Program.CoinsRequired++;
                 if (SettingsWindow.PayPerPlayEnabled > 0)
                 {
                     if (SettingsWindow.CoinsRequired > 0)
                     {
-                        label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program._coins;
+                        label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program.CoinsRequired;
                     }
 
                     //Display a popup payPerPlay notification
-                    ShowNotification("Pay Per Play", "Coin Inserted\n Current: " + Program._coins);
+                    ShowNotification("Pay Per Play", "Coin Inserted\n Current: " + Program.CoinsRequired);
                 }
                 else
                 {
@@ -423,7 +423,7 @@ namespace UniCade
             {
                 if (SettingsWindow.CoinsRequired > 0)
                 {
-                    label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program._coins;
+                    label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program.CoinsRequired;
                 }
                 else
                 {
@@ -566,15 +566,15 @@ namespace UniCade
             {
                 if (SettingsWindow.CoinsRequired > 0)
                 {
-                    if (Program._coins < SettingsWindow.CoinsRequired) { 
+                    if (Program.CoinsRequired < SettingsWindow.CoinsRequired) { 
                         ShowNotification("Pay Per Play", "Insert Coins");
                         return;
                     }
                 }
             }
 
-            Program._coins = Program._coins - SettingsWindow.CoinsRequired;
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program._coins);
+            Program.CoinsRequired = Program.CoinsRequired - SettingsWindow.CoinsRequired;
+                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program.CoinsRequired);
 
             //Search for the selected game title within the game library
             foreach (IGame game in _gameSelectionConsole.GameList)

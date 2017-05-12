@@ -10,17 +10,19 @@ namespace UniCade
     {
         #region Properties
 
-        public static string _databasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
-        public static string _romPath = @"C:\UniCade\ROMS";
-        public static string _mediaPath = @"C:\UniCade\Media";
-        public static string _emuPath = @"C:\UniCade\Emulators";
-        public static string _prefPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
-        public static int _coins = 0;
-        public static bool _playtimeRemaining = true;
-        public static string _userLicenseName;
-        public static string _userLicenseKey;
-        public static bool _validLicense = false;
-        public IUser _user;
+        //public static Database ActiveDatabase = null;
+        public static string DatabasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
+        public static string RomPath = @"C:\UniCade\ROMS";
+        public static string MediaPath = @"C:\UniCade\Media";
+        public static string EmulatorPath = @"C:\UniCade\Emulators";
+        public static string PreferencesPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
+        public static int CoinsRequired = 0;
+        public static bool RemainingPlaytime = true;
+        public static string UserLicenseName;
+        public static string UserLicenseKey;
+        public static bool IsLicenseValid = false;
+        public static IUser CurrentUser;
+
 
         #endregion
 
@@ -35,24 +37,24 @@ namespace UniCade
             Database.Initialize();
 
             //If preferences file does not exist, load default preference values and save a new file
-            if (!FileOps.LoadPreferences(_prefPath))
+            if (!FileOps.LoadPreferences(PreferencesPath))
             {
                 FileOps.RestoreDefaultPreferences();
-                FileOps.SavePreferences(_prefPath);
+                FileOps.SavePreferences(PreferencesPath);
                 ShowNotification("WARNING", "Preference file not found.\n Loading defaults...");
             }
 
             //If the specified rom directory does not exist, creat a new one in with the default path
-            if (!Directory.Exists(_romPath))
+            if (!Directory.Exists(RomPath))
             {
-                Directory.CreateDirectory(_romPath);
+                Directory.CreateDirectory(RomPath);
                 FileOps.CreateNewRomDirectory();
             }
 
             //If the specified emulator directory does not exist, creat a new one in with the default path
-            if (!Directory.Exists(_emuPath))
+            if (!Directory.Exists(EmulatorPath))
             {
-                Directory.CreateDirectory(_emuPath);
+                Directory.CreateDirectory(EmulatorPath);
                 FileOps.CreateNewEmuDirectory();
                 //MessageBox.Show("Emulator directory not found. Creating new directory structure");
             }
@@ -70,23 +72,23 @@ namespace UniCade
             }
 
             //Verify the current user license and set flag
-            if (ValidateSHA256(_userLicenseName + Database.HashKey, _userLicenseKey))
+            if (ValidateSHA256(UserLicenseName + Database.HashKey, UserLicenseKey))
             {
-                _validLicense = true;
+                IsLicenseValid = true;
             }
 
             //If the database file does not exist in the specified location, load default values and rescan rom directories
-            if (!FileOps.LoadDatabase(_databasePath))
+            if (!FileOps.LoadDatabase(DatabasePath))
             {
                 FileOps.RestoreDefaultConsoles();
-                FileOps.Scan(_romPath);
+                FileOps.Scan(RomPath);
                 try
                 {
-                    FileOps.SaveDatabase(_databasePath);
+                    FileOps.SaveDatabase(DatabasePath);
                 }
                 catch
                 {
-                    MessageBox.Show("Error Saving Database\n" + _databasePath);
+                    MessageBox.Show("Error Saving Database\n" + DatabasePath);
                 }
                 ShowNotification("WARNING", "Database file not found.\n Loading defaults...");
             }
@@ -158,10 +160,10 @@ namespace UniCade
         /// <summary>
         /// Display a timed notification in the bottom left corner of the interface 
         /// </summary>
-        private static void ShowNotification(string title, string body)
+        private static void ShowNotification(string titleText, string bodyText)
         {
-            NotificationWindow nfw = new NotificationWindow(title, body);
-            nfw.Show();
+            NotificationWindow notification = new NotificationWindow(titleText, bodyText);
+            notification.Show();
         }
 
         #endregion
