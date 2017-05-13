@@ -16,21 +16,18 @@ namespace UnitTests
         public void AddRemoveGameAndVerifyGameCount()
         {
             //Initialize the static database
-            Database.Initialize();
+            Database ActiveDatabase = new Database();
 
             //Store the original game count
-            int originalTotalGameCount = Database.TotalGameCount;
+            int originalTotalGameCount = ActiveDatabase.TotalGameCount;
 
             //Verify that the TotalGameCount is intially set to zero after creating a new database instance
             Assert.AreEqual(0, originalTotalGameCount, "Verify that the TotalGameCount is intially set to zero after creating a new database instance");
 
             //Create a new console and add it to the database
             string consoleName = "newConsole";
-            IConsole newConsole = new UniCade.Console()
-            {
-                ConsoleName = consoleName
-            };
-            Database.ConsoleList.Add(newConsole);
+            IConsole newConsole = new UniCade.Console(consoleName);
+            ActiveDatabase.ConsoleList.Add(newConsole);
 
             //Verify that the console game count is intially set to zero
             int originalConsoleGameCount = newConsole.GameCount;
@@ -44,7 +41,7 @@ namespace UnitTests
             Assert.AreEqual((originalConsoleGameCount + 1), newConsole.GameCount, "Verify that the console game count has been incremented by one");
 
             //Verify that the console game count has been incremented by one
-            Assert.AreEqual((originalTotalGameCount + 1), Database.TotalGameCount, "Verify that the console game count has been incremented by one");
+            Assert.AreEqual((originalTotalGameCount + 1), ActiveDatabase.TotalGameCount, "Verify that the console game count has been incremented by one");
 
             //Remove the game
             newConsole.RemoveGame(newGame);
@@ -53,7 +50,7 @@ namespace UnitTests
             Assert.AreEqual(originalConsoleGameCount, newConsole.GameCount, "Verify that the console game count has been incremented by one");
 
             //Verify that the console game count has been decremented by one after removing the game
-            Assert.AreEqual(originalTotalGameCount, Database.TotalGameCount, "Verify that the console game count has been incremented by one");
+            Assert.AreEqual(originalTotalGameCount, ActiveDatabase.TotalGameCount, "Verify that the console game count has been incremented by one");
 
             //Verify that attempting to remove a nonexistent game returns false 
             Assert.IsFalse(newConsole.RemoveGame(newGame), "Verify that attempting to remove a nonexistent game returns false");

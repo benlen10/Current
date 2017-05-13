@@ -58,7 +58,7 @@ namespace UniCade.Windows
             //If the user is a local account, validate the info and close the window if sucuessful 
             else
             {
-                foreach (IUser u in Database.UserList)
+                foreach (IUser u in Program.ActiveDatabase.UserList)
                 {
                     if (u.Username.Equals(Textbox_Username.Text))
                     {

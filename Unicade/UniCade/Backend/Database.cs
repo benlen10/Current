@@ -2,23 +2,21 @@
 
 namespace UniCade
 {
-    public static class Database
+    public class Database : IDatabase
     {
         #region Properties
 
-        public static List<IConsole> ConsoleList { get; set; }
-        public static List<IUser> UserList { get; set; }
-        public static int TotalGameCount { get; set; }
-        public static string HashKey { get; set; }
+        public List<IConsole> ConsoleList { get; set; }
+        public List<IUser> UserList { get; set; }
+        public int TotalGameCount { get; set; }
+        public string HashKey { get; set; }
 
         #endregion
 
-        #region Public Methods
-
         /// <summary>
-        /// Initialize the static database members
+        /// Public constructor for the Database class
         /// </summary>
-        public static void Initialize()
+        public Database()
         {
             TotalGameCount = 0;
             HashKey = null;
@@ -26,6 +24,5 @@ namespace UniCade
             UserList = new List<IUser>();
         }
 
-        #endregion
     }
 }
