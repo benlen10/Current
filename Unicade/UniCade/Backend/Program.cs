@@ -10,7 +10,7 @@ namespace UniCade
     {
         #region Properties
 
-        public static Database ActiveDatabase = null;
+        public static IDatabase Database = null;
         public static string DatabasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
         public static string RomPath = @"C:\UniCade\ROMS";
         public static string MediaPath = @"C:\UniCade\Media";
@@ -34,7 +34,7 @@ namespace UniCade
         public static void Main(string[] args)
         {
             //Initialize the database object
-            ActiveDatabase = new Database();
+            Database = new Database();
 
             //If preferences file does not exist, load default preference values and save a new file
             if (!FileOps.LoadPreferences(PreferencesPath))
@@ -72,7 +72,7 @@ namespace UniCade
             }
 
             //Verify the current user license and set flag
-            if (ValidateSHA256(UserLicenseName + ActiveDatabase.HashKey, UserLicenseKey))
+            if (ValidateSHA256(UserLicenseName + Database.HashKey, UserLicenseKey))
             {
                 IsLicenseValid = true;
             }

@@ -109,7 +109,6 @@ C:\Users\Ben\Workspace\Unicade\UniCade\bin\Debug\UniCade.exe.lastcodeanalysissuc
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\UniCade.exe.config
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\UniCade.exe
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\UniCade.pdb
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.csprojResolveAssemblyReference.cache
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\NotificationWindow.baml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\AccountWindow.g.cs
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\GameInfo.g.cs

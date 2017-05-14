@@ -100,7 +100,7 @@ namespace UniCade
 
             //Refresh the current gamecount and update the GUI
             FileOps.RefreshGameCount();
-            label.Content = "Total Game Count: " + Program.ActiveDatabase.TotalGameCount;
+            label.Content = "Total Game Count: " + Program.Database.TotalGameCount;
             UpdateGUI();
         }
 
@@ -112,7 +112,7 @@ namespace UniCade
             _consoleList = new ArrayList();
             _consoleCount = 0;
             _index = 0;
-            foreach (IConsole console in Program.ActiveDatabase.ConsoleList)
+            foreach (IConsole console in Program.Database.ConsoleList)
             {
                 _consoleList.Add(console.ConsoleName);
                 _consoleCount++;
@@ -353,7 +353,7 @@ namespace UniCade
 
                     //Restore the flags for the main GUI view
                     _gameSelectionActive = false;
-                    label.Content = "Total Game Count: " + Program.ActiveDatabase.TotalGameCount;
+                    label.Content = "Total Game Count: " + Program.Database.TotalGameCount;
                 }
             }
 
@@ -485,7 +485,7 @@ namespace UniCade
 
             //Populate the game library 
             listBox.Items.Clear();
-            foreach (IConsole console in Program.ActiveDatabase.ConsoleList)
+            foreach (IConsole console in Program.Database.ConsoleList)
             {
                 if (console.ConsoleName.Equals(_consoleList[_index]))
                 {

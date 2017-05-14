@@ -76,7 +76,7 @@ namespace UniCade
         /// </summary>
         public static void UploadAllGames()
         {
-            foreach (IConsole console in Program.ActiveDatabase.ConsoleList)
+            foreach (IConsole console in Program.Database.ConsoleList)
             {
                 console.GameList.ForEach(g => UploadGame(g));
             }
@@ -87,7 +87,7 @@ namespace UniCade
         /// </summary>
         public static void DownloadAllGames()
         {
-            foreach (IConsole console in Program.ActiveDatabase.ConsoleList)
+            foreach (IConsole console in Program.Database.ConsoleList)
             {
                 for (int i = 0; i < console.GameList.Count; i++)
                 {

@@ -35,7 +35,7 @@ namespace UniCade.Windows
             }
 
             //If the key is valid, save the key text to the preferences file and close the current window
-            if (Program.ValidateSHA256(Program.UserLicenseName + Program.ActiveDatabase.HashKey, Program.UserLicenseKey))
+            if (Program.ValidateSHA256(Program.UserLicenseName + Program.Database.HashKey, Program.UserLicenseKey))
             {
                 MessageBox.Show(this, "License is VALID");
                 Program.IsLicenseValid = true;

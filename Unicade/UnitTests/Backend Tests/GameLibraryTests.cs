@@ -16,7 +16,7 @@ namespace UnitTests
         public void AddRemoveGameAndVerifyGameCount()
         {
             //Initialize the static database
-            Database ActiveDatabase = new Database();
+            IDatabase ActiveDatabase = new Database();
 
             //Store the original game count
             int originalTotalGameCount = ActiveDatabase.TotalGameCount;

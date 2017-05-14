@@ -83,7 +83,7 @@ namespace UniCade
             //If all conditions are valid, add the game and increment the game count for both the console and database 
             GameList.Add(game);
             GameCount++;
-            Program.ActiveDatabase.TotalGameCount++;
+            Program.Database.TotalGameCount++;
             return true;
         }
 
@@ -107,7 +107,7 @@ namespace UniCade
                 //Remove the game and decriment both the console game count and total game count
                 GameList.Remove(gameToRemove);
                 GameCount--;
-                Program.ActiveDatabase.TotalGameCount--;
+                Program.Database.TotalGameCount--;
             }
             return false;
         }
