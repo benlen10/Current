@@ -7,15 +7,54 @@ namespace UniCade
 
         #region Properties
 
+        /// <summary>
+        /// The common display name for the console
+        /// </summary>
         public string ConsoleName { get; set; }
+
+        /// <summary>
+        /// The original release date for the console
+        /// </summary>
         public string ReleaseDate { get; set; }
+
+        /// <summary>
+        /// A list of game objects for the current console instance
+        /// </summary>
         public List<IGame> GameList { get; private set; }
+
+        /// <summary>
+        /// Full path for the emulators folder
+        /// </summary>
         public string EmulatorPath { get; set; }
+
+        /// <summary>
+        /// The full path for the console preferences file
+        /// </summary>
         public string PreferencesPath { get; set; }
+
+        /// <summary>
+        /// The full path to the rom directory for the current console
+        /// </summary>
         public string RomPath { get; set; }
+
+        /// <summary>
+        /// The extensions for the current console
+        /// </summary>
         public string RomExtension { get; set; }
+
+        /// <summary>
+        /// Basic console description and info
+        /// </summary>
         public string ConsoleInfo { get; set; }
+
+        /// <summary>
+        /// The launch params for the current emulator
+        /// </summary>
         public string LaunchParams { get; set; }
+
+        /// <summary>
+        /// The current game count for the console
+        /// </summary>
         public int GameCount { get; private set; }
 
         #endregion
@@ -32,7 +71,7 @@ namespace UniCade
         }
 
         /// <summary>
-        /// Full constructor for a new game console
+        /// Full constructor for creating a new game console
         /// </summary>
         /// <param name="name"></param>
         /// <param name="emuPath"></param>
