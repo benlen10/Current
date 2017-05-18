@@ -486,12 +486,12 @@ namespace UniCade.Windows
             GamesTab_Textbox_Title.Text = CurrentGame.Title;
             GamesTab_Textbox_Console.Text = CurrentGame.ConsoleName;
             GamesTab_Textbox_ReleaseDate.Text = CurrentGame.ReleaseDate;
-            GamesTab_Textbox_CriticScore.Text = CurrentGame.CriticScore;
-            GamesTab_Textbox_Publisher.Text = CurrentGame.Publisher;
-            GamesTab_Textbox_Developer.Text = CurrentGame.Developer;
-            GamesTab_Textbox_ESRB.Text = CurrentGame.Esrb;
-            GamesTab_Textbox_Players.Text = CurrentGame.Players;
-            GamesTab_Textbox_ESRBDescriptor.Text = CurrentGame.EsrbDescriptor;
+            GamesTab_Textbox_CriticScore.Text = CurrentGame.CriticReviewScore;
+            GamesTab_Textbox_Publisher.Text = CurrentGame.PublisherName;
+            GamesTab_Textbox_Developer.Text = CurrentGame.DeveloperName;
+            GamesTab_Textbox_ESRB.Text = CurrentGame.EsrbRating;
+            GamesTab_Textbox_Players.Text = CurrentGame.PlayerCount;
+            GamesTab_Textbox_ESRBDescriptor.Text = CurrentGame.EsrbDescriptors;
             GamesTab_Textbox_Description.Text = CurrentGame.Description;
             RefreshEsrbIcon(CurrentGame);
         }
@@ -1684,12 +1684,12 @@ namespace UniCade.Windows
             GamesTab_Textbox_Title.Text = game.Title;
             GamesTab_Textbox_Console.Text = game.ConsoleName;
             GamesTab_Textbox_ReleaseDate.Text = game.ReleaseDate;
-            GamesTab_Textbox_CriticScore.Text = game.CriticScore;
-            GamesTab_Textbox_Publisher.Text = game.Publisher;
-            GamesTab_Textbox_Developer.Text = game.Developer;
-            GamesTab_Textbox_ESRB.Text = game.Esrb;
-            GamesTab_Textbox_Players.Text = game.Players;
-            GamesTab_Textbox_ESRBDescriptor.Text = game.EsrbDescriptor;
+            GamesTab_Textbox_CriticScore.Text = game.CriticReviewScore;
+            GamesTab_Textbox_Publisher.Text = game.PublisherName;
+            GamesTab_Textbox_Developer.Text = game.DeveloperName;
+            GamesTab_Textbox_ESRB.Text = game.EsrbRating;
+            GamesTab_Textbox_Players.Text = game.PlayerCount;
+            GamesTab_Textbox_ESRBDescriptor.Text = game.EsrbDescriptors;
             GamesTab_Textbox_Description.Text = game.Description;
 
             //Set favorite checkbox
@@ -1760,7 +1760,7 @@ namespace UniCade.Windows
             {
                 if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
                 {
-                    CurrentGame.CriticScore = GamesTab_Textbox_CriticScore.Text;
+                    CurrentGame.CriticReviewScore = GamesTab_Textbox_CriticScore.Text;
                 }
                 else
                 {
@@ -1776,7 +1776,7 @@ namespace UniCade.Windows
             {
                 if (GamesTab_Textbox_ReleaseDate.Text.Length > 2)
                 {
-                    CurrentGame.Players = GamesTab_Textbox_Players.Text;
+                    CurrentGame.PlayerCount = GamesTab_Textbox_Players.Text;
                 }
                 else
                 {
@@ -1796,7 +1796,7 @@ namespace UniCade.Windows
             {
                 if (GamesTab_Textbox_ESRB.Text.Contains("Everyone") || GamesTab_Textbox_ESRB.Text.Contains("Teen") || GamesTab_Textbox_ESRB.Text.Contains("Mature") || GamesTab_Textbox_ESRB.Text.Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
                 {
-                    CurrentGame.Esrb = GamesTab_Textbox_ESRB.Text;
+                    CurrentGame.EsrbRating = GamesTab_Textbox_ESRB.Text;
                 }
                 else
                 {
@@ -1809,10 +1809,10 @@ namespace UniCade.Windows
                 }
                 else
                 {
-                    CurrentGame.Publisher = GamesTab_Textbox_Publisher.Text;
-                    CurrentGame.Developer = GamesTab_Textbox_Developer.Text;
+                    CurrentGame.PublisherName = GamesTab_Textbox_Publisher.Text;
+                    CurrentGame.DeveloperName = GamesTab_Textbox_Developer.Text;
                     CurrentGame.Description = GamesTab_Textbox_Description.Text;
-                    CurrentGame.EsrbDescriptor = GamesTab_Textbox_ESRBDescriptor.Text;
+                    CurrentGame.EsrbDescriptors = GamesTab_Textbox_ESRBDescriptor.Text;
                 }
             }
 
@@ -1827,28 +1827,28 @@ namespace UniCade.Windows
         {
             if (g == null) { return; }
             GamesTab_Image_ESRB.Source = null;
-            if (g.Esrb.Equals("Everyone"))
+            if (g.EsrbRating.Equals("Everyone"))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
             }
-            else if (g.Esrb.Equals("Everyone (KA)"))
+            else if (g.EsrbRating.Equals("Everyone (KA)"))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
             }
-            else if (g.Esrb.Equals("Everyone 10+"))
+            else if (g.EsrbRating.Equals("Everyone 10+"))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png"));
             }
-            else if (g.Esrb.Equals("Teen"))
+            else if (g.EsrbRating.Equals("Teen"))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png"));
             }
-            else if (g.Esrb.Equals("Mature"))
+            else if (g.EsrbRating.Equals("Mature"))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png"));
             }
 
-            if (g.Esrb.Equals("Adults Only (AO)"))
+            if (g.EsrbRating.Equals("Adults Only (AO)"))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (AO).png"));
             }

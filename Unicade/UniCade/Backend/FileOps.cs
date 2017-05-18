@@ -88,7 +88,7 @@ namespace UniCade
                         {
                             foreach (IGame game in console.GameList)
                             {
-                                streamWriter.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", game.FileName, game.ConsoleName, game.LaunchCount, game.ReleaseDate, game.Publisher, game.Developer, game.UserScore, game.CriticScore, game.Players, "Trivia", game.Esrb, game.EsrbDescriptor, game.EsrbSummary, game.Description, game.Genres, game.Tags, game.Favorite));
+                                streamWriter.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", game.FileName, game.ConsoleName, game.LaunchCount, game.ReleaseDate, game.PublisherName, game.DeveloperName, game.UserReviewScore, game.CriticReviewScore, game.PlayerCount, "Trivia", game.EsrbRating, game.EsrbDescriptors, game.EsrbSummary, game.Description, game.Genres, game.Tags, game.Favorite));
                             }
                         }
                     }
@@ -240,7 +240,7 @@ namespace UniCade
                     {
                         if ((iterator % 2 == 0) && (iterator > 1))
                         {
-                            user.Favorites.Add(new Game(string1, s, 0));
+                            user.Favorites.Add(new Game(string1, s));
 
                         }
                         string1 = s + ".zip";
@@ -387,7 +387,7 @@ namespace UniCade
                             }
                             if (!duplicate)
                             {
-                                currentConsole.GameList.Add(new Game(Path.GetFileName(fileName), currentConsole.ConsoleName, 0));
+                                currentConsole.GameList.Add(new Game(Path.GetFileName(fileName), currentConsole.ConsoleName));
                             }
                         }
                     }
@@ -405,7 +405,7 @@ namespace UniCade
                     }
                     if (!duplicate)
                     {
-                        currentConsole.GameList.Add(new Game(Path.GetFileName(fileName), currentConsole.ConsoleName, 0));
+                        currentConsole.GameList.Add(new Game(Path.GetFileName(fileName), currentConsole.ConsoleName));
                     }
                 }
             }
@@ -455,18 +455,18 @@ namespace UniCade
         {
             if (SettingsWindow.CurrentUser.AllowedEsrb.Length > 1)
             {
-                if (SettingsWindow.CalcEsrb(game.Esrb) >= SettingsWindow.CalcEsrb(SettingsWindow.CurrentUser.AllowedEsrb))
+                if (SettingsWindow.CalcEsrb(game.EsrbRating) >= SettingsWindow.CalcEsrb(SettingsWindow.CurrentUser.AllowedEsrb))
                 {
-                    ShowNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted for" + SettingsWindow.CurrentUser.Username);
+                    ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted for" + SettingsWindow.CurrentUser.Username);
                     return;
                 }
             }
 
             else if (SettingsWindow.RestrictESRB > 0)
             {
-                if (SettingsWindow.CalcEsrb(game.Esrb) >= SettingsWindow.RestrictESRB)
+                if (SettingsWindow.CalcEsrb(game.EsrbRating) >= SettingsWindow.RestrictESRB)
                 {
-                    ShowNotification("NOTICE", "ESRB " + game.Esrb + " Is Restricted\n");
+                    ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted\n");
                     return;
                 }
             }

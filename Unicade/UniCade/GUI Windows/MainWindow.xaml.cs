@@ -514,7 +514,7 @@ namespace UniCade
                             if (SettingsWindow.DisplayEsrbWhileBrowsing > 0)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (SettingsWindow.CalcEsrb(game.Esrb) <= SettingsWindow.CalcEsrb(SettingsWindow.CurrentUser.AllowedEsrb))
+                                if (SettingsWindow.CalcEsrb(game.EsrbRating) <= SettingsWindow.CalcEsrb(SettingsWindow.CurrentUser.AllowedEsrb))
                                 {
                                     listBox.Items.Add(game.Title);
                                 }
@@ -643,27 +643,27 @@ namespace UniCade
 
                     //Load the ESRB logo for the curent rating
                     String EsrbPath = "";
-                    if (game.Esrb.Equals("Everyone"))
+                    if (game.EsrbRating.Equals("Everyone"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
                     }
-                    else if (game.Esrb.Equals("Everyone (KA)"))
+                    else if (game.EsrbRating.Equals("Everyone (KA)"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
                     }
-                    else if (game.Esrb.Equals("Everyone 10+"))
+                    else if (game.EsrbRating.Equals("Everyone 10+"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png";
                     }
-                    else if (game.Esrb.Equals("Teen"))
+                    else if (game.EsrbRating.Equals("Teen"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png";
                     }
-                    else if (game.Esrb.Equals("Mature"))
+                    else if (game.EsrbRating.Equals("Mature"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png";
                     }
-                    else if (game.Esrb.Equals("Adults Only (AO)"))
+                    else if (game.EsrbRating.Equals("Adults Only (AO)"))
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (AO).png";
                     }

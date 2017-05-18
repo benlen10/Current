@@ -111,31 +111,31 @@ namespace UniCade
                 //Convert the parsed text to a valid ESRB rating
                 if (s.Contains("Everyone"))
                 {
-                    g.Esrb = "Everyone";
+                    g.EsrbRating = "Everyone";
                 }
                 else if (s.Contains("Kids to Adults"))
                 {
-                    g.Esrb = "Everyone (KA)";
+                    g.EsrbRating = "Everyone (KA)";
                 }
                 else if (s.Contains("Everyone 10+"))
                 {
-                    g.Esrb = "Everyone 10+";
+                    g.EsrbRating = "Everyone 10+";
                 }
                 else if (s.Contains("Teen"))
                 {
-                    g.Esrb = "Teen";
+                    g.EsrbRating = "Teen";
                 }
                 else if (s.Contains("Mature"))
                 {
-                    g.Esrb = "Mature";
+                    g.EsrbRating = "Mature";
                 }
                 else if (s.Contains("Mature"))
                 {
-                    g.Esrb = "Mature";
+                    g.EsrbRating = "Mature";
                 }
                 else if (s.Contains("Adults Only"))
                 {
-                    g.Esrb = "AO (Adults Only)";
+                    g.EsrbRating = "AO (Adults Only)";
                 }
             }
 
@@ -160,7 +160,7 @@ namespace UniCade
                 if (tmp > 0)
                 {
                     string criticScore = html.Substring((tmp + 9), 2); 
-                    g.CriticScore = html.Substring((tmp + 9));
+                    g.CriticReviewScore = html.Substring((tmp + 9));
                 }
             }
 
@@ -174,7 +174,7 @@ namespace UniCade
                 if (tmp > 0)
                 {
                     int tmp2 = html.IndexOf("-", tmp + 10);
-                    g.Publisher = html.Substring((tmp + 9), tmp2 - (tmp + 9));
+                    g.PublisherName = html.Substring((tmp + 9), tmp2 - (tmp + 9));
                 }
             }
 
@@ -296,7 +296,7 @@ namespace UniCade
                     int tmp2 = html.IndexOf("</td>", tmp + 26);
                     if (tmp2 > 0)
                     {
-                        g.EsrbDescriptor = html.Substring((tmp + 26), tmp2 - (tmp + 26));
+                        g.EsrbDescriptors = html.Substring((tmp + 26), tmp2 - (tmp + 26));
                     }
                 }
             }
@@ -313,7 +313,7 @@ namespace UniCade
                     int tmp2 = html.IndexOf("<", tmp + 17);
                     if (tmp2 > 0)
                     {
-                        g.Players = html.Substring((tmp + 17), tmp2 - (tmp + 17));
+                        g.PlayerCount = html.Substring((tmp + 17), tmp2 - (tmp + 17));
                     }
                 }
             }

@@ -129,7 +129,7 @@ namespace UniCade
             myCommand.Dispose();
 
             //Generate a new command to add the game to the database
-            string command = "Use unicade;" + " INSERT INTO " + sqlUser + "_games (filename,title, Console, LaunchCount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite)" + " VALUES (" + "\"" + g.FileName + "\",\"" + g.Title + "\",\"" + g.ConsoleName + "\",\"" + g.LaunchCount + "\",\"" + g.ReleaseDate + "\",\"" + g.Publisher + "\",\"" + g.Developer + "\",\"" + g.UserScore + "\",\"" + g.CriticScore + "\",\"" + g.Players + "\",\"" + g.Trivia + "\",\"" + g.Esrb + "\",\"" + g.EsrbDescriptor + "\",\"" + g.EsrbSummary + "\",\"" + g.Description + "\",\"" + g.Genres + "\",\"" + g.Tags + "\",\"" + g.Favorite + "\");";
+            string command = "Use unicade;" + " INSERT INTO " + sqlUser + "_games (filename,title, Console, LaunchCount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite)" + " VALUES (" + "\"" + g.FileName + "\",\"" + g.Title + "\",\"" + g.ConsoleName + "\",\"" + g.LaunchCount + "\",\"" + g.ReleaseDate + "\",\"" + g.PublisherName + "\",\"" + g.DeveloperName + "\",\"" + g.UserReviewScore + "\",\"" + g.CriticReviewScore + "\",\"" + g.PlayerCount + "\",\"" + g.Trivia + "\",\"" + g.EsrbRating + "\",\"" + g.EsrbDescriptors + "\",\"" + g.EsrbSummary + "\",\"" + g.Description + "\",\"" + g.Genres + "\",\"" + g.Tags + "\",\"" + g.Favorite + "\");";
             myCommand = new MySqlCommand(command, conn);
             myCommand.ExecuteNonQuery();
             return true;

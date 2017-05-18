@@ -107,12 +107,12 @@ namespace UniCade
             txt = txt + ("\nRelease Date: " + game.ReleaseDate + "\n");
             txt = txt + ("\nConsole: " + game.ConsoleName + "\n");
             txt = txt + ("\nLaunch Count: " + game.LaunchCount.ToString() + "\n");
-            txt = txt + ("\nDeveloper: " + game.Developer + "\n");
-            txt = txt + ("\nPublisher: " + game.Publisher + "\n");
-            txt = txt + ("\nPlayers: " + game.Players + "\n");
-            txt = txt + ("\nCritic Score: " + game.CriticScore + "\n");
+            txt = txt + ("\nDeveloper: " + game.DeveloperName + "\n");
+            txt = txt + ("\nPublisher: " + game.PublisherName + "\n");
+            txt = txt + ("\nPlayers: " + game.PlayerCount + "\n");
+            txt = txt + ("\nCritic Score: " + game.CriticReviewScore + "\n");
             txt = txt + ("\nESRB Rating: " + game.Tags + "\n");
-            txt = txt + ("\nESRB Descriptors: " + game.EsrbDescriptor + "\n");
+            txt = txt + ("\nESRB Descriptors: " + game.EsrbDescriptors + "\n");
             txt = txt + ("\nGame Description: " + game.Description + "\n");
             return txt;
         }
