@@ -302,7 +302,7 @@ namespace UniCade
                     {
                         favs += (g.Title + "#" + g.ConsoleName + "#");
                     }
-                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", user.Username, user.Pass, user.LoginCount, user.Email, user.TotalLaunchCount, user.UserInfo, user.AllowedEsrb, favs);
+                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", user.Username, user.Password, user.LoginCount, user.Email, user.TotalLaunchCount, user.UserInfo, user.AllowedEsrb, favs);
                 }
             }
         }
