@@ -12,11 +12,6 @@ namespace UniCade
         public string Username { get; set; }
 
         /// <summary>
-        /// The password for the current user
-        /// </summary>
-        public string Password { get; set; }
-
-        /// <summary>
         /// The numer of times this user has logged in
         /// </summary>
         public int LoginCount { get; set; }
@@ -51,6 +46,11 @@ namespace UniCade
         /// </summary>
         public List<IGame> Favorites { get; set; }
 
+        /// <summary>
+        /// The password for the current user
+        /// </summary>
+        private string Password;
+
         #endregion
 
         #region Constructors
@@ -66,6 +66,28 @@ namespace UniCade
             Email = email;
             ProfilePicture = profPic;
             Favorites = new List<IGame>();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Update the password for the current user
+        /// </summary>
+        /// <param name="password">The new password</param>
+        /// <returns>true if the password was changed successfully</returns>
+        public bool SetUserPassword(string password){
+            Password = password;
+            return true;
+        }
+
+        /// <summary>
+        /// Return the current password for the user
+        /// </summary>
+        /// <returns>the current user's password</returns>
+        public string GetUserPassword(){
+            return Password;
         }
 
         #endregion

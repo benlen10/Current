@@ -62,7 +62,7 @@ namespace UniCade.Windows
                 {
                     if (u.Username.Equals(Textbox_Username.Text))
                     {
-                        if (u.Password.Equals(Textbox_Password.Text))
+                        if (u.GetUserPassword().Equals(Textbox_Password.Text))
                         {
                             SettingsWindow.CurrentUser = u;
                             Close();

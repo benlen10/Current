@@ -27,11 +27,6 @@ namespace UniCade
         int LoginCount { get; set; }
 
         /// <summary>
-        /// The password for the current user
-        /// </summary>
-        string Password { get; set; }
-
-        /// <summary>
         /// The filename and location for the user's profile pictur
         /// </summary>
         string ProfilePicture { get; set; }
@@ -50,6 +45,23 @@ namespace UniCade
         /// The current (unique) username
         /// </summary>
         string Username { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Update the password for the current user
+        /// </summary>
+        /// <param name="password">The new password</param>
+        /// <returns>true if the password was changed successfully</returns>
+        bool SetUserPassword(string password);
+
+        /// <summary>
+        /// Return the current password for the user
+        /// </summary>
+        /// <returns>the current user's password</returns>
+        string GetUserPassword();
 
         #endregion
     }

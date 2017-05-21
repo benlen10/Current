@@ -977,7 +977,7 @@ namespace UniCade.Windows
                 else
                 {
                     CurrentUser.Username = UsersTab_Textbox_Username.Text;
-                    CurrentUser.Password = UsersTab_Textbox_Email.Text;
+                    CurrentUser.SetUserPassword(UsersTab_Textbox_Email.Text);
                     CurrentUser.UserInfo = UsersTab_Textbox_UserInfo.Text;
                 }
 
