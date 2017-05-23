@@ -10,9 +10,20 @@ namespace UniCade
     {
         #region Properties
 
-        public static bool processActive;
-        public static Process process;
-        public static bool urlLaunch;
+        /// <summary>
+        /// True if there is a current game process running
+        /// </summary>
+        public static bool IsProcessActive;
+
+        /// <summary>
+        /// The instance of the current game process
+        /// </summary>
+        public static Process CurrentProcess;
+
+        /// <summary>
+        /// True if the current game is a steam URL
+        /// </summary>
+        public static bool IsSteamGame;
 
         #endregion
 
@@ -473,7 +484,7 @@ namespace UniCade
 
             game.LaunchCount++;
             SettingsWindow.CurrentUser.TotalLaunchCount++;
-            process = new Process();
+            CurrentProcess = new Process();
 
             //Fetch the console object
             IConsole console = Program.Database.ConsoleList.Find(e => e.ConsoleName.Equals(game.ConsoleName));
@@ -494,14 +505,14 @@ namespace UniCade
             {
                 args = console.LaunchParams.Replace("%file", gamePath);
             }
-            process.EnableRaisingEvents = true;
-            process.Exited += new EventHandler(ProcessExited);
+            CurrentProcess.EnableRaisingEvents = true;
+            CurrentProcess.Exited += new EventHandler(ProcessExited);
             if (console.ConsoleName.Equals("PC"))
             {
-                process.StartInfo.FileName = args;
+                CurrentProcess.StartInfo.FileName = args;
                 if (args.Contains("url"))
                 {
-                    urlLaunch = true;
+                    IsSteamGame = true;
                 }
 
             }
@@ -512,19 +523,19 @@ namespace UniCade
                     ShowNotification("System", "Emulator does not exist. Launch Failed");
                     return;
                 }
-                process.StartInfo.FileName = console.EmulatorPath;
-                process.StartInfo.Arguments = args;
+                CurrentProcess.StartInfo.FileName = console.EmulatorPath;
+                CurrentProcess.StartInfo.Arguments = args;
             }
             ShowNotification("System", "Loading ROM File");
-            process.Start();
-            processActive = true;
+            CurrentProcess.Start();
+            IsProcessActive = true;
             MainWindow._gameRunning = true;
         }
 
         private static void ProcessExited(object sender, System.EventArgs e)
         {
             MainWindow._gameRunning = false;
-            processActive = false;
+            IsProcessActive = false;
         }
 
         /// <summary>
@@ -532,24 +543,24 @@ namespace UniCade
         /// </summary>
         public static void KillProcess()
         {
-            if (urlLaunch)
+            if (IsSteamGame)
             {
                 SendKeys.SendWait("^%{F4}");
                 ShowNotification("UniCade System", "Attempting Force Close");
                 MainWindow._gameRunning = false;
-                processActive = false;
+                IsProcessActive = false;
                 MainWindow.ReHookKeys();
                 return;
             }
-            else if (process.HasExited)
+            else if (CurrentProcess.HasExited)
             {
                 return;
             }
 
-            process.Kill();
+            CurrentProcess.Kill();
             MainWindow.ReHookKeys();
             MainWindow._gameRunning = false;
-            processActive = false;
+            IsProcessActive = false;
         }
 
         /// <summary>
