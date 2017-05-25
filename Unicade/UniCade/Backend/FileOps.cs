@@ -445,6 +445,9 @@ namespace UniCade
             return true;
         }
 
+        /// <summary>
+        /// Load all current consoles from the text file in the local directory
+        /// </summary>
         public static void LoadConsoles()
         {
             string line;
@@ -532,6 +535,9 @@ namespace UniCade
             MainWindow._gameRunning = true;
         }
 
+        /// <summary>
+        /// Set instance variables to false after the current game process has exited
+        /// </summary>
         private static void ProcessExited(object sender, System.EventArgs e)
         {
             MainWindow._gameRunning = false;
@@ -664,6 +670,9 @@ namespace UniCade
             return true;
         }
 
+        /// <summary>
+        /// Create a new ROM directory in the current filesystem
+        /// </summary>
         public static void CreateNewRomDirectory()
         {
             Directory.CreateDirectory(Program.RomPath + @"\Sega Genisis");
