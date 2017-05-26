@@ -12,26 +12,29 @@ string parse(string input);
 
 int main()
 {
-	printf(">");
+	
 	//Fetch an input command from the user
 	char str[100];
 	string loadStr = ("load");
 	string locateStr = ("locate");
-	fgets(str, 100, stdin);
-	string input(str);
 
-	if (input.find(loadStr) != string::npos) {
-		string filename = parse(input);
-		printf("Found: %s", filename.c_str());
+	while (1) {
+		printf(">");
 		fgets(str, 100, stdin);
-		load(filename);
-	}
+		string input(str);
 
-	if (input.find(locateStr) != string::npos) {
-		string word = parse(input);
-		locate(word);
-	}
+		if (input.find(loadStr) != string::npos) {
+			string filename = parse(input);
+			printf("Found: %s", filename.c_str());
+			fgets(str, 100, stdin);
+			load(filename);
+		}
 
+		if (input.find(locateStr) != string::npos) {
+			string word = parse(input);
+			locate(word);
+		}
+	}
 	return 0;
 }
 
