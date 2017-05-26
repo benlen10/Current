@@ -7,10 +7,24 @@ using System.Runtime.InteropServices;
 
 namespace UniCade
 {
-
-
     public class Taskbar
     {
+        #region Properties
+
+        /// <summary>
+        /// Constant for the hidden state of the Windows taskbar
+        /// </summary>
+        private const int SW_HIDE = 0;
+
+        /// <summary>
+        /// Constant for the visible state of the Windows taskbar
+        /// </summary>
+        private const int SW_SHOW = 1;
+
+        #endregion
+
+        #region DLL Imports
+
         [DllImport("user32.dll")]
         private static extern int FindWindow(string className, string windowText);
 
@@ -23,9 +37,35 @@ namespace UniCade
         [DllImport("user32.dll")]
         private static extern int GetDesktopWindow();
 
-        private const int SW_HIDE = 0;
-        private const int SW_SHOW = 1;
+        #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Show the Windows taskbar
+        /// </summary>
+        public static void ShowTaskbar()
+        {
+            ShowWindow(Handle, SW_SHOW);
+            ShowWindow(HandleOfStartButton, SW_SHOW);
+        }
+
+        /// <summary>
+        /// Hide the Windows taskbar
+        /// </summary>
+        public static void HideTaskbar()
+        {
+            ShowWindow(Handle, SW_HIDE);
+            ShowWindow(HandleOfStartButton, SW_HIDE);
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Return the current handle for Shell_TrayWnd
+        /// </summary>
         protected static int Handle
         {
             get
@@ -34,6 +74,9 @@ namespace UniCade
             }
         }
 
+        /// <summary>
+        /// Return the current handle for the start button
+        /// </summary>
         protected static int HandleOfStartButton
         {
             get
@@ -44,21 +87,13 @@ namespace UniCade
             }
         }
 
+        /// <summary>
+        /// Private constructor for the Taskbar class
+        /// </summary>
         private Taskbar()
         {
-            // hide ctor
         }
 
-        public static void Show()
-        {
-            ShowWindow(Handle, SW_SHOW);
-            ShowWindow(HandleOfStartButton, SW_SHOW);
-        }
-
-        public static void Hide()
-        {
-            ShowWindow(Handle, SW_HIDE);
-            ShowWindow(HandleOfStartButton, SW_HIDE);
-        }
+        #endregion
     }
 }
