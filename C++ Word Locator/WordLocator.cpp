@@ -4,8 +4,10 @@
 #include<iostream>
 using namespace std;
 
+//Function prototypes
 void load(string str);
 void locate(string str);
+string parse(string input);
 
 
 int main()
@@ -17,41 +19,45 @@ int main()
 	string locateStr = ("locate");
 	fgets(str, 100, stdin);
 	string input(str);
-	printf("\nINPUT: %s", input.c_str());
 
 	if (input.find(loadStr) != string::npos) {
-		string::size_type    start_position = 0;
-		string::size_type    end_position = 0;
-		string               found_text;
-		start_position = input.find("<");
-		if (start_position != string::npos)
-		{
-			++start_position; // start after the double quotes.
-							  // look for end position;
-			end_position = input.find(">");
-			if (end_position != string::npos)
-			{
-				found_text = input.substr(start_position, end_position - start_position);
-			}
-		}
-		printf("Found: %s", found_text.c_str());
+		string filename = parse(input);
+		printf("Found: %s", filename.c_str());
 		fgets(str, 100, stdin);
-		load(found_text);
+		load(filename);
 	}
 
 	if (input.find(locateStr) != string::npos) {
-		string str1;
-		locate(str1);
+		string word = parse(input);
+		locate(word);
 	}
 
-	FILE *fp;
+	return 0;
 }
 
 void load(string str) {
 
+	FILE *fp;
 }
 
 void locate(string str) {
 
+}
+
+string parse(string input) {
+	int start = 0;
+	int end = 0;
+	string  result;
+	start = input.find("<");
+	if (start != string::npos)
+	{
+		++start; 				  
+		end = input.find(">");
+		if (end != string::npos)
+		{
+			result = input.substr(start, end - start);
+		}
+	}
+	return result;
 }
 
