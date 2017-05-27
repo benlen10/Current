@@ -3,13 +3,14 @@
 #include <stdio.h>
 #include<iostream>
 #include <sstream>
+#include <regex>
 using namespace std;
 
 //Function prototypes
 void load(string str);
 void locate(string str, int n);
 string parse(string input);
-
+bool isValidInt(string input);
 
 int main()
 {
@@ -38,8 +39,8 @@ int main()
 			string count;
 			getline(iss, word, ' ');
 			getline(iss, word, ' ');
-			getline(iss, count, ' ');
-			if (count.length() > 0) {
+			getline(iss, count, '\n');
+			if ((count.length() > 0) && isValidInt(count)) {
 				int n = stoi(count);
 				printf("LOCATE: %s (%d)", word.c_str(), n);
 				locate(word, n);
@@ -91,4 +92,9 @@ string parse(string input) {
 	}
 	return result;
 }
+
+bool isValidInt(string input) {
+return (input.find_first_not_of("0123456789") == string::npos);
+}
+
 
