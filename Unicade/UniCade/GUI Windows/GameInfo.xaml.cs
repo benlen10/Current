@@ -10,17 +10,29 @@ namespace UniCade
     public partial class GameInfo : Window
     {
 
-#region Properties
+        #region Properties
 
         /// <summary>
         /// Set to True if image 1 is currently expanded
         /// </summary>
-        bool ExpandImage1 = false;
-        bool ExpandImage2 = false;
-        bool ExpandImage3 = false;
-        bool ExpandImage4 = false;
+        bool IsImageExpanded1 = false;
 
-#endregion
+        /// <summary>
+        /// Set to True if image 2 is currently expanded
+        /// </summary>
+        bool IsImageExpanded2 = false;
+
+        /// <summary>
+        /// Set to True if image 3 is currently expanded
+        /// </summary>
+        bool IsImageExpanded3 = false;
+
+        /// <summary>
+        /// Set to True if image 4 is currently expanded
+        /// </summary>
+        bool IsImageExpanded4 = false;
+
+        #endregion
 
         /// <summary>
         /// Public constructor for the GameInfo class
@@ -29,34 +41,35 @@ namespace UniCade
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-
-
         }
 
-        public void displayEsrb(String esrb)
+        /// <summary>
+        /// Display the icon for the current ESRB rating
+        /// </summary>
+        public void DisplayEsrb(String esrbRating)
         {
-            BitmapImage b = new BitmapImage();
-            b.BeginInit();
-            b.UriSource = new Uri(@esrb);
-            b.EndInit();
-            image3.Source = b;
-
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.UriSource = new Uri(esrbRating);
+            bitmapImage.EndInit();
+            image3.Source = bitmapImage;
         }
 
-
-
-        public void expand()
+        /// <summary>
+        /// Expand image 1
+        /// </summary>
+        public void ExpandImage1()
         {
-            if (!ExpandImage4 && !ExpandImage2 && !ExpandImage3)
+            if (!IsImageExpanded4 && !IsImageExpanded2 && !IsImageExpanded3)
             {
-                if (!ExpandImage1)
+                if (!IsImageExpanded1)
                 {
                     image.Width = 700;
                     image.Height = 700;
                     textBlock.Visibility = Visibility.Hidden;
                     image1.Visibility = Visibility.Hidden;
                     image2.Visibility = Visibility.Hidden;
-                    ExpandImage1 = true;
+                    IsImageExpanded1 = true;
 
                 }
                 else
@@ -66,17 +79,20 @@ namespace UniCade
                     textBlock.Visibility = Visibility.Visible;
                     image1.Visibility = Visibility.Visible;
                     image2.Visibility = Visibility.Visible;
-                    ExpandImage1 = false;
+                    IsImageExpanded1 = false;
                 }
             }
         }
 
-        public void expand1()
+        /// <summary>
+        /// Expand image 2
+        /// </summary>
+        public void ExpandImage2()
         {
             {
-                if (!ExpandImage4 && !ExpandImage1 && !ExpandImage3)
+                if (!IsImageExpanded4 && !IsImageExpanded1 && !IsImageExpanded3)
                 {
-                    if (!ExpandImage2)
+                    if (!IsImageExpanded2)
                     {
                         image1.Width = 700;
                         image1.Height = 700;
@@ -84,7 +100,7 @@ namespace UniCade
                         image.Visibility = Visibility.Hidden;
                         image2.Visibility = Visibility.Hidden;
                         image3.Visibility = Visibility.Hidden;
-                        ExpandImage2 = true;
+                        IsImageExpanded2 = true;
                     }
                     else
                     {
@@ -94,18 +110,21 @@ namespace UniCade
                         image.Visibility = Visibility.Visible;
                         image2.Visibility = Visibility.Visible;
                         image3.Visibility = Visibility.Visible;
-                        ExpandImage2 = false;
+                        IsImageExpanded2 = false;
                     }
                 }
             }
         }
 
-        public void expand2()
+        /// <summary>
+        /// Expand image 3
+        /// </summary>
+        public void ExpandImage3()
         {
             {
-                if (!ExpandImage4 && !ExpandImage2 && !ExpandImage1)
+                if (!IsImageExpanded4 && !IsImageExpanded2 && !IsImageExpanded1)
                 {
-                    if (!ExpandImage3)
+                    if (!IsImageExpanded3)
                     {
                         image2.Width = 700;
                         image2.Height = 700;
@@ -113,7 +132,7 @@ namespace UniCade
                         image.Visibility = Visibility.Hidden;
                         image1.Visibility = Visibility.Hidden;
                         image3.Visibility = Visibility.Hidden;
-                        ExpandImage3 = true;
+                        IsImageExpanded3 = true;
                     }
                     else
                     {
@@ -123,36 +142,17 @@ namespace UniCade
                         image.Visibility = Visibility.Visible;
                         image1.Visibility = Visibility.Visible;
                         image3.Visibility = Visibility.Visible;
-                        ExpandImage3 = false;
+                        IsImageExpanded3 = false;
                     }
                 }
             }
         }
 
-
-        public void expand3()
+        /// <summary>
+        /// Expand image 4
+        /// </summary>
+        public void ExpandImage4()
         {
-            {
-                /* if (!enlarge && !enlarge1 && !enlarge2)
-                 {
-                     if (!enlarge3)
-                     {
-                         image3.Width = 700;
-                         image3.Height = 700;
-                         textBlock.Visibility = Visibility.Hidden;
-                         enlarge3 = true;
-                     }
-                     else
-                     {
-                         image3.Width = 180;
-                         image3.Height = 180;
-                         textBlock.Visibility = Visibility.Visible;
-                         enlarge3 = false;
-                     }
-                 }*/
-            }
-
-
         }
     }
 }

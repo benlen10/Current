@@ -318,19 +318,19 @@ namespace UniCade
             {
                 if (e.KeyCode == Keys.F)
                 {
-                    _gameInfo.expand();
+                    _gameInfo.ExpandImage1();
                 }
                 else if (e.KeyCode == Keys.B)
                 {
-                    _gameInfo.expand1();
+                    _gameInfo.ExpandImage2();
                 }
                 else if (e.KeyCode == Keys.S)
                 {
-                    _gameInfo.expand2();
+                    _gameInfo.ExpandImage3();
                 }
                 else if (e.KeyCode == Keys.E)
                 {
-                    _gameInfo.expand3();
+                    _gameInfo.ExpandImage4();
                 }
             }
 
@@ -670,7 +670,7 @@ namespace UniCade
 
                     if (EsrbPath.Length > 2)
                     {
-                        _gameInfo.displayEsrb(EsrbPath);
+                        _gameInfo.DisplayEsrb(EsrbPath);
                     }
                 }
             }
