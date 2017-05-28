@@ -32,6 +32,7 @@ bool isValidInt(string input);
 TreeNode * TreeContains(TreeNode *root, string item);
 void treeInsert(TreeNode *&root, string newItem, int n);
 int SearchTree(TreeNode *root, string item, int n);
+void DeleteTree(TreeNode *root);
 
 TreeNode *root;
 
@@ -62,6 +63,10 @@ int main()
 			}
 			else if (filename.length() > 0) {
 				printf("FILENAME: '%s'", filename.c_str());
+				if (root != NULL) {
+					DeleteTree(root);
+					root = NULL;
+				}
 				load(filename);
 			}
 			else {
@@ -71,12 +76,12 @@ int main()
 
 		//If input contains "locate"
 		else if (command.find("locate") != string::npos) {
-			istringstream iss(input);
+			istringstream stream(input);
 			string word;
 			string count;
-			getline(iss, word, ' ');
-			getline(iss, word, ' ');
-			getline(iss, count, '\n');
+			getline(stream, word, ' ');
+			getline(stream, word, ' ');
+			getline(stream, count, '\n');
 			//Check for extra content
 			if (count.find(" ") != string::npos) {
 				fprintf(stderr, "ERROR: Invalid command\n");
@@ -93,6 +98,8 @@ int main()
 
 		//If input contains "new"
 		else if (command.find("new") != string::npos) {
+			DeleteTree(root);
+			root = NULL;
 		}
 
 		//If input contains "end"
@@ -214,5 +221,19 @@ int SearchTree(TreeNode *root, string item, int n) {
 	}
 	else {
 		return SearchTree(root->right, item, n);
+	}
+}
+
+void DeleteTree(TreeNode *root) {
+	if (root != NULL)
+	{
+		DeleteTree(root->left);
+		DeleteTree(root->right);
+		delete(root);
+		if (root->left != NULL)
+			root->left = NULL;
+		if (root->right != NULL)
+			root->right = NULL;
+		root = NULL;
 	}
 }
