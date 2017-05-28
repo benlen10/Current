@@ -8,11 +8,20 @@ namespace UniCade.Windows
     public partial class LicenseEntry : Window
     {
 
+        #region Constructor
+
+        /// <summary>
+        /// Public constructor for the LicenseEntry class
+        /// </summary>
         public LicenseEntry()
         {
             InitializeComponent();
             this.ResizeMode = ResizeMode.NoResize;
         }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Close the current window instance
@@ -54,5 +63,8 @@ namespace UniCade.Windows
                 Close();
             }
         }
+
+        #endregion
+
     }
 }

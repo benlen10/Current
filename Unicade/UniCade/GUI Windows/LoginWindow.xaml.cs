@@ -9,18 +9,27 @@ namespace UniCade.Windows
     {
         #region Properties
 
-        int _userType;
+        /// <summary>
+        /// An int value that represents the current user type (local or cloud)
+        /// </summary>
+        int UserType;
 
         #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Public constructor for the LoginWindow instance
         /// </summary>
         public LoginWindow(int userType)
         {
-            _userType = userType;
+            UserType = userType;
             InitializeComponent();
         }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Close the current window instance
@@ -43,7 +52,7 @@ namespace UniCade.Windows
             }
 
             //If the user is a SQL client, preform SQL user authentication 
-            if (_userType == 0)
+            if (UserType == 0)
             {
                 if (SQLclient.AuthiencateUser(Textbox_Username.Text, Textbox_Password.Text))
                 {
@@ -79,5 +88,8 @@ namespace UniCade.Windows
                 return;
             }
         }
+
+        #endregion
+
     }
 }
