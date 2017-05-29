@@ -1,3 +1,12 @@
+// File: wl.cpp
+// 
+//  Description: This program stores individual words from a text file in a 
+//  tree structure. This program allows you to determine the location of 
+//  a specific word occurrence 
+//  Student Name: Benjamin Lenington
+//  UW Campus ID: 9070894390
+//  email: lenington@wisc.edu
+
 #include "stdafx.h"
 #include <string>
 #include <stdio.h>
@@ -9,6 +18,8 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
+
+#define MAX_INPUT_LENGTH 100
 
 // <summary>
 // The structure for a single node of within the binary tree
@@ -45,21 +56,20 @@ void DeleteTree(TreeNode *root);
 // </summary>
 int main()
 {
-	char str[100];
+	char str[MAX_INPUT_LENGTH];
 	root = NULL;
 
 	while (1) {
 		//Fetch an input command from the user and convert to a string
 		printf(">");
-		fgets(str, 100, stdin);
+		fgets(str, MAX_INPUT_LENGTH, stdin);
 		string input(str);
 
-		//Convert the command to lower case
-		string command(str);
-		transform(command.begin(), command.end(), command.begin(), tolower);
+		//Convert the input to lower case
+		transform(input.begin(), input.end(), input.begin(), tolower);
 
 		//If input contains "locate"
-		if (command.find("load") != string::npos) {
+		if (input.find("load") != string::npos) {
 			string filename;
 			istringstream iss(input);
 			getline(iss, filename, ' ');
@@ -82,7 +92,7 @@ int main()
 		}
 
 		//If input contains "locate"
-		else if (command.find("locate") != string::npos) {
+		else if (input.find("locate") != string::npos) {
 			istringstream stream(input);
 			string word;
 			string count;
@@ -104,13 +114,13 @@ int main()
 		}
 
 		//If input contains "new"
-		else if (command.find("new") != string::npos) {
+		else if (input.find("new") != string::npos) {
 			DeleteTree(root);
 			root = NULL;
 		}
 
 		//If input contains "end"
-		else if (command.find("end") != string::npos) {
+		else if (input.find("end") != string::npos) {
 			return 0;
 		}
 
