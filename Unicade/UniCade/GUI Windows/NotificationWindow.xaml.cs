@@ -8,16 +8,21 @@ using System.Windows.Threading;
 /// </summary>
 public partial class NotificationWindow : Window
 {
-    public NotificationWindow(String title, String body)
-    {
-     
+    #region Constructors
 
+    /// <summary>
+    /// Public constructor for the NotificationWindow 
+    /// </summary>
+    /// <param name="titleText">Heading text for the nofication</param>
+    /// <param name="bodyText"> Body text for the notification</param>
+    public NotificationWindow(String titleText, String bodyText)
+    {
         InitializeComponent();
 
         Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
             {
-                textBlock11.Text = title;
-                textBlock0.Text = body;
+                textBlock11.Text = titleText;
+                textBlock0.Text = bodyText;
                 var workingArea = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea;
                 var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
                 var corner = transform.Transform(new Point(workingArea.Right, workingArea.Bottom));
@@ -27,11 +32,19 @@ public partial class NotificationWindow : Window
             }));
     }
 
+    #endregion
+
+    #region Private Methods
+
+    /// <summary>
+    /// Called once the notification animation is completed and closes the window
+    /// </summary>
     private void DoubleAnimationCompleted(object sender, EventArgs e)
     {
-
         this.Close();
-
     }
+
+    #endregion
+
 }
 

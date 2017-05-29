@@ -8,6 +8,7 @@ namespace UniCade.Windows
     /// </summary>
     public partial class PassWindow : Window
     {
+        #region Constructors
 
         /// <summary>
         /// Public constructor for the password window
@@ -16,6 +17,10 @@ namespace UniCade.Windows
         {
             InitializeComponent();
         }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Close the current window instance
@@ -45,5 +50,8 @@ namespace UniCade.Windows
             }
             Close();
         }
+
+        #endregion
+
     }
 }
