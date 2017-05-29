@@ -31,7 +31,7 @@ struct TreeNode {
 	TreeNode *left;
 	TreeNode *right;
 	TreeNode(string str, int n) {
-		location[0] = n;
+		location[1] = n;
 		count = 1;
 		item = str;
 		left = NULL;
@@ -50,6 +50,7 @@ TreeNode * TreeContains(TreeNode *root, string item);
 void treeInsert(TreeNode *&root, string newItem, int n);
 int SearchTree(TreeNode *root, string item, int n);
 void DeleteTree(TreeNode *root);
+void CleanString(string &str);
 
 // <summary>
 // Entry point for the program. Handles user input within an infinte loop
@@ -63,6 +64,7 @@ int main()
 		//Fetch an input command from the user and convert to a string
 		printf(">");
 		fgets(str, MAX_INPUT_LENGTH, stdin);
+		string origInput(str);
 		string input(str);
 
 		//Convert the input to lower case
@@ -71,7 +73,7 @@ int main()
 		//If input contains "locate"
 		if (input.find("load") != string::npos) {
 			string filename;
-			istringstream iss(input);
+			istringstream iss(origInput);
 			getline(iss, filename, ' ');
 			getline(iss, filename, '\n');
 			//Check for extra content
@@ -79,7 +81,6 @@ int main()
 				fprintf(stderr, "ERROR: Invalid command\n");
 			}
 			else if (filename.length() > 0) {
-				printf("FILENAME: '%s'", filename.c_str());
 				if (root != NULL) {
 					DeleteTree(root);
 					root = NULL;
@@ -105,7 +106,6 @@ int main()
 			}
 			else if ((count.length() > 0) && isValidInt(count)) {
 				int n = stoi(count);
-				printf("LOCATE: %s (%d)", word.c_str(), n);
 				locate(word, n);
 			}
 			else {
@@ -136,7 +136,7 @@ int main()
 // Load the text file into a binary tree
 // </summary>
 void load(string str) {
-	int location = 0;
+	int location = 1;
 	ifstream file;
 	file.open(str);
 	if (!file.good()) {
@@ -158,17 +158,23 @@ void load(string str) {
 			}
 		}
 		for (int i = 0; i < n; i++) {
+
+			//Convert the word to a lower case string and remove extra punctuation
 			string str(words[i]);
+			transform(str.begin(), str.end(), str.begin(), tolower);
+			CleanString(str);
+
+			//Check if the tree already contains the word
 			TreeNode * node = TreeContains(root, str);
 			if(node != NULL){
 				//If duplicate word is found
-				node->location[node->count] = location;
 				node->count++;
-				printf("UPDATE: %s NEW COUNT: %d LOCATION: %d\n", words[i], node->count, location);
+				node->location[node->count] = location;
+				printf("UPDATE: %s NEW COUNT: %d LOCATION: %d\n", str.c_str(), node->count, location);
 			}
 			else {
 				//Word does not exist. Insert new entry
-				printf("INSERT: %s\n", words[i]);
+				printf("INSERT: %s LOCATION: %d\n", str.c_str(), location);
 				treeInsert(root, str, location);
 			}
 			location++;
@@ -187,9 +193,9 @@ void locate(string str, int n) {
 		return;
 	}
 
-	int result = SearchTree(root, str, (n-1));
+	int result = SearchTree(root, str, (n));
 	if (result >= 0) {
-		printf("%d", SearchTree(root, str, (n-1)));
+		printf("%d", SearchTree(root, str, (n)));
 	}
 	else {
 		fprintf(stderr, "No matching entry");
@@ -271,5 +277,15 @@ void DeleteTree(TreeNode *root) {
 		if (root->right != NULL)
 			root->right = NULL;
 		root = NULL;
+	}
+}
+
+// <summary>
+// Remove punctuation from the string
+// </summary>
+void CleanString(string &str) {
+	char list[] = { '.', ',', '!', ';', '?'};
+	for (unsigned int i = 0; i < strlen(list); ++i) {
+		str.erase(remove(str.begin(), str.end(), list[i]), str.end());
 	}
 }
