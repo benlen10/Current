@@ -10,6 +10,9 @@
 #include <fstream>
 using namespace std;
 
+// <summary>
+// The structure for a single node of within the binary tree
+// </summary>
 struct TreeNode {
 	string item;
 	int location[100];
@@ -25,6 +28,9 @@ struct TreeNode {
 	}
 };
 
+//The root node for the binary tree
+TreeNode *root;
+
 //Function prototypes
 void load(string str);
 void locate(string str, int n);
@@ -34,8 +40,9 @@ void treeInsert(TreeNode *&root, string newItem, int n);
 int SearchTree(TreeNode *root, string item, int n);
 void DeleteTree(TreeNode *root);
 
-TreeNode *root;
-
+// <summary>
+// Entry point for the program. Handles user input within an infinte loop
+// </summary>
 int main()
 {
 	char str[100];
@@ -115,6 +122,9 @@ int main()
 	return 0;
 }
 
+// <summary>
+// Load the text file into a binary tree
+// </summary>
 void load(string str) {
 	int location = 0;
 	ifstream file;
@@ -156,7 +166,10 @@ void load(string str) {
 	}
 }
 
-
+// <summary>
+// Attempt to locate the specified occourance of a word
+// Print the location of the word if found. Otherwise print an error.
+// </summary>
 void locate(string str, int n) {
 	//Bad input check
 	if (n < 1) {
@@ -173,12 +186,16 @@ void locate(string str, int n) {
 	}
 }
 
-
+// <summary>
+// Return true if the string represents a vaild int
+// </summary>
 bool isValidInt(string input) {
 return (input.find_first_not_of("0123456789") == string::npos);
 }
 
-//Only used to inset new items
+// <summary>
+// Insert a new node into the binary tree
+// </summary>
 void treeInsert(TreeNode *&root, string newItem, int n) {
 	if (root == NULL) {
 		root = new TreeNode(newItem, n);
@@ -192,7 +209,10 @@ void treeInsert(TreeNode *&root, string newItem, int n) {
 	}
 }  
 
-//Search the tree for a word and return the node if found
+// <summary>
+// Return a pointer to the node if the word exists.
+// Otherwise return null
+// </summary>
 TreeNode * TreeContains(TreeNode *root, string item) {
 	if (root == NULL) {
 		return NULL;
@@ -208,7 +228,10 @@ TreeNode * TreeContains(TreeNode *root, string item) {
 	}
 } 
 
-//SEarch the tree for the specific word occourance and return location
+// <summary>
+// Search the tree for the specific word occourance and return the location. 
+// Return -1 if the specified occourance is not found
+// </summary>
 int SearchTree(TreeNode *root, string item, int n) {
 	if (root == NULL) {
 		return -1;
@@ -224,6 +247,9 @@ int SearchTree(TreeNode *root, string item, int n) {
 	}
 }
 
+// <summary>
+// Delete the entire tree, node by node
+// </summary>
 void DeleteTree(TreeNode *root) {
 	if (root != NULL)
 	{
