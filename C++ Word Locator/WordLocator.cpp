@@ -170,11 +170,9 @@ void load(string str) {
 				//If duplicate word is found
 				node->count++;
 				node->location[node->count] = location;
-				printf("UPDATE: %s NEW COUNT: %d LOCATION: %d\n", str.c_str(), node->count, location);
 			}
 			else {
 				//Word does not exist. Insert new entry
-				printf("INSERT: %s LOCATION: %d\n", str.c_str(), location);
 				treeInsert(root, str, location);
 			}
 			location++;
@@ -195,10 +193,10 @@ void locate(string str, int n) {
 
 	int result = SearchTree(root, str, (n));
 	if (result >= 0) {
-		printf("%d", SearchTree(root, str, (n)));
+		printf("%d\n", SearchTree(root, str, (n)));
 	}
 	else {
-		fprintf(stderr, "No matching entry");
+		fprintf(stderr, "No matching entry\n");
 	}
 }
 
