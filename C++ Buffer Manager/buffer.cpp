@@ -69,10 +69,44 @@ void BufMgr::allocBuf(FrameId & frame)
 {
 	//Save the initial start index
 	int startIndex = clockHand;
-	while((clockHand +1) != startIndex ){
 
-		
+	//Declare bool value
+	bool useFrame = false;
+	while((clockHand +1) != startIndex ){
 		advanceClock();
+		if(bufDescTable[clockHand].valid == true){
+			if(bufDescTable[clockHand].refBit == true){
+				//If refBit is set, clear refBit
+				bufDescTable[clockHand].refBit == false;
+			}
+			else{
+				//if refBit is not set, check if the page is pinned
+				if(bufDescTable[clockHand].pinned == false){
+					//if the refBit is not set and the page is not pinned, check the dirty bit
+					if(bufDescTable[clockHand].dirty == true){
+						//If the dirty bit is set, flush the page to the disk
+						bufDescTable[clockHand].file->writePage();
+					}
+					useFrame = true;
+				}
+			}
+		}
+		else{
+			//If valid bit is not set, automatically use frame
+			useFrame = true;
+		}
+
+		if(useFrame == true){
+			//Set the frame
+			bufPool[clockHand].Set();
+
+			//Use the frame
+			bufPool[clockHand] = frame;
+
+			//Once the frame is replaced, return
+			useFrame = false;
+			return;
+		}
 	}
 	//No available frames found, throw BufferExceededException
 	throw buffer_exceeded_exception;
