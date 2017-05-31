@@ -3,7 +3,7 @@
     class TextFiles
     {
         #region Raw Text 
-              
+
         public static string instructions = @"GUI Operation
 o	Use the left and right arrow keys to select your console
 o	Press the “I” key to display Console Info. Press I again or escape to close the info window. 

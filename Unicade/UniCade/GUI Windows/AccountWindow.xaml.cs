@@ -10,6 +10,9 @@ namespace UniCade.Windows
 
         #region Properties
 
+        /// <summary>
+        /// Integer value that represents the current account type (local or cloud)
+        /// </summary>
         int AccountType;
 
         #endregion

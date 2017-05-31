@@ -15,28 +15,100 @@ namespace UniCade.Windows
     {
         #region Properties
 
+        /// <summary>
+        /// The game that is currently selected within the Games tab
+        /// </summary>
         public static IGame CurrentGame;
+
+        /// <summary>
+        /// The current user that is selected within the User tab
+        /// </summary>
         public static IUser CurrentUser;
+
+        /// <summary>
+        /// The current console that is selected within the games tab
+        /// </summary>
         static IConsole CurrentConsole;
+
+        /// <summary>
+        /// The current emulator that is selected within the Emulators tab
+        /// </summary>
         static IConsole CurrentEmulator;
+
+        /// <summary>
+        /// The current default username
+        /// </summary>
         public static string DefaultUsername;
+
+        /// <summary>
+        /// Specifies if the UniCade splash screen should be displayed when the interface is launched
+        /// </summary>
         public static int ShowSplashScreen;
-        public static int ScanOnStartup;
-        public static int RestrictESRB;
+
+        /// <summary>
+        /// Specifies if the the ROM directories should be automatically rescanned 
+        /// when the interface is launched
+        /// </summary>
+        public static int RescanOnStartup;
+
+        /// <summary>
+        /// Specifies if certain ESRB ratings should be restricted globally (regardless of user)
+        /// </summary>
+        public static int RestrictGlobalESRB;
+
+        /// <summary>
+        /// Specifies if you are required to login to a user account on startup
+        /// </summary>
         public static int RequireLogin;
+
+        /// <summary>
+        /// Specifies if the command line interface should be launched on startup instead of the GUI
+        /// </summary>
         public static int PerferCmdInterface;
+
+        /// <summary>
+        /// Specifies if a loading screen should be displayed when launching a game
+        /// </summary>
         public static int ShowLoadingScreen;
+
+        /// <summary>
+        /// Specifies is PayPerPlay is enforced
+        /// </summary>
         public static int PayPerPlayEnabled;
+
+        /// <summary>
+        /// Specifies the number of coins required if payperplay is enabled
+        /// </summary>
         public static int CoinsRequired;
+
+        /// <summary>
+        /// Speficies the allowed amount of playtime if PayPerPlay is enabled
+        /// </summary>
         public static int Playtime;
+
+        /// <summary>
+        /// Spcifies the launch options for games across all consoles
+        /// </summary>
         public static int LaunchOptions;
+
+        /// <summary>
+        /// Specifies if the ESRB logo should be displayed while browsing games
+        /// </summary>
         public static int DisplayEsrbWhileBrowsing;
+
+        /// <summary>
+        /// If this value is greater than 0, passcode protection is enabled
+        /// </summary>
         public static int PasswordProtection;
+
+        /// <summary>
+        /// Specifies if ROM files are required to have the proper extension in order to be imported
+        /// </summary>
         public static int EnforceFileExtensions;
 
         #endregion
 
-        #region Class Methods
+        #region Constructors
 
         /// <summary>
         /// Public constructor for the SettingsWindowClass
@@ -46,6 +118,10 @@ namespace UniCade.Windows
             InitializeComponent();
             Populate();
         }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Called on window close event
@@ -95,27 +171,27 @@ namespace UniCade.Windows
             WebTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
 
             //Populate the 'Allowed ESRB' combo box with the specified rating
-            if (RestrictESRB == 0)
+            if (RestrictGlobalESRB == 0)
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "None";
             }
-            else if (RestrictESRB == 1)
+            else if (RestrictGlobalESRB == 1)
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Everyone";
             }
-            else if (RestrictESRB == 2)
+            else if (RestrictGlobalESRB == 2)
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Everyone 10+";
             }
-            else if (RestrictESRB == 3)
+            else if (RestrictGlobalESRB == 3)
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Teen";
             }
-            else if (RestrictESRB == 4)
+            else if (RestrictGlobalESRB == 4)
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Mature";
             }
-            else if (RestrictESRB == 5)
+            else if (RestrictGlobalESRB == 5)
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Adults Only (AO)";
             }
@@ -230,7 +306,7 @@ namespace UniCade.Windows
                 GlobalTab_Checkbox_RequireLogin.IsChecked = true;
             }
 
-            if (ScanOnStartup > 0)
+            if (RescanOnStartup > 0)
             {
                 GlobalTab_Checkbox_RescanAllLibraries.IsChecked = true;
             }
@@ -432,7 +508,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_ConsoleListBox__SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(GamesTab_Listbox_ConsoleList.SelectedItem == null) { return; }
+            if (GamesTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
             GamesTab_Listbox_GamesList.Items.Clear();
             foreach (IConsole console in Program.Database.ConsoleList)
@@ -1064,7 +1140,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RestrictESRB = CalcEsrb(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+            RestrictGlobalESRB = ConvertEsrbToIntValue(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -1080,7 +1156,7 @@ namespace UniCade.Windows
             {
                 if (GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Everyone") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Teen") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Mature") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
                 {
-                    RestrictESRB = CalcEsrb(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                    RestrictGlobalESRB = ConvertEsrbToIntValue(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                 }
                 else
                 {
@@ -1112,7 +1188,7 @@ namespace UniCade.Windows
 
                 if (GlobalTab_Dropdown_AllowedESRB.SelectedItem != null)
                 {
-                    RestrictESRB = CalcEsrb(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                    RestrictGlobalESRB = ConvertEsrbToIntValue(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                 }
 
                 //Save all active preferences to the local preferences file
@@ -1187,11 +1263,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_RescanAllLibraries.IsChecked.Value == true)
             {
-                ScanOnStartup = 1;
+                RescanOnStartup = 1;
             }
             else
             {
-                ScanOnStartup = 0;
+                RescanOnStartup = 0;
             }
         }
 
@@ -1624,7 +1700,7 @@ namespace UniCade.Windows
         /// <summary>
         /// Given the string value for an esrb rating, calculate and return the ESRB int value
         /// </summary>
-        public static int CalcEsrb(String esrb)
+        public static int ConvertEsrbToIntValue(String esrb)
         {
             int EsrbNum = 0;
             if (esrb.Equals("Everyone"))

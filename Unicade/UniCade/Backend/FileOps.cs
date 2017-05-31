@@ -159,16 +159,16 @@ namespace UniCade
             tokenString = line.Split(sep);
             if ((tokenString[1].Contains("1")))
             {
-                SettingsWindow.ScanOnStartup = 1;
+                SettingsWindow.RescanOnStartup = 1;
             }
             else
             {
-                SettingsWindow.ScanOnStartup = 0;
+                SettingsWindow.RescanOnStartup = 0;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
-            SettingsWindow.RestrictESRB = Int32.Parse(tokenString[1]);
+            SettingsWindow.RestrictGlobalESRB = Int32.Parse(tokenString[1]);
 
             file.ReadLine();
             tokenString = line.Split(sep);
@@ -298,8 +298,8 @@ namespace UniCade
                 sw.WriteLine("EmulatorFolderPath|" + Program.EmulatorPath);
                 sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
                 sw.WriteLine("ShowSplash|" + SettingsWindow.ShowSplashScreen);
-                sw.WriteLine("ScanOnStartup|" + SettingsWindow.ScanOnStartup);
-                sw.WriteLine("RestrictESRB|" + SettingsWindow.RestrictESRB);
+                sw.WriteLine("ScanOnStartup|" + SettingsWindow.RescanOnStartup);
+                sw.WriteLine("RestrictESRB|" + SettingsWindow.RestrictGlobalESRB);
                 sw.WriteLine("RequireLogin|" + SettingsWindow.RequireLogin);
                 sw.WriteLine("CmdOrGui|" + SettingsWindow.PerferCmdInterface);
                 sw.WriteLine("LoadingScreen|" + SettingsWindow.ShowLoadingScreen);
@@ -469,16 +469,16 @@ namespace UniCade
         {
             if (SettingsWindow.CurrentUser.AllowedEsrb.Length > 1)
             {
-                if (SettingsWindow.CalcEsrb(game.EsrbRating) >= SettingsWindow.CalcEsrb(SettingsWindow.CurrentUser.AllowedEsrb))
+                if (SettingsWindow.ConvertEsrbToIntValue(game.EsrbRating) >= SettingsWindow.ConvertEsrbToIntValue(SettingsWindow.CurrentUser.AllowedEsrb))
                 {
                     ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted for" + SettingsWindow.CurrentUser.Username);
                     return;
                 }
             }
 
-            else if (SettingsWindow.RestrictESRB > 0)
+            else if (SettingsWindow.RestrictGlobalESRB > 0)
             {
-                if (SettingsWindow.CalcEsrb(game.EsrbRating) >= SettingsWindow.RestrictESRB)
+                if (SettingsWindow.ConvertEsrbToIntValue(game.EsrbRating) >= SettingsWindow.RestrictGlobalESRB)
                 {
                     ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted\n");
                     return;
@@ -733,8 +733,8 @@ namespace UniCade
             SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
             Program.Database.UserList.Add(SettingsWindow.CurrentUser);
             SettingsWindow.ShowSplashScreen = 0;
-            SettingsWindow.ScanOnStartup = 0;
-            SettingsWindow.RestrictESRB = 0;
+            SettingsWindow.RescanOnStartup = 0;
+            SettingsWindow.RestrictGlobalESRB = 0;
             SettingsWindow.RequireLogin = 0;
             SettingsWindow.PerferCmdInterface = 0;
             SettingsWindow.ShowLoadingScreen = 0;

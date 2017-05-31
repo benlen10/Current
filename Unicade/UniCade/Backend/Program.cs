@@ -10,19 +10,65 @@ namespace UniCade
     {
         #region Properties
 
+        /// <summary>
+        /// The current Database instance
+        /// </summary>
         public static IDatabase Database = null;
-        public static string DatabasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
-        public static string RomPath = @"C:\UniCade\ROMS";
-        public static string MediaPath = @"C:\UniCade\Media";
-        public static string EmulatorPath = @"C:\UniCade\Emulators";
-        public static string PreferencesPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
-        public static int CoinsRequired = 0;
-        public static bool RemainingPlaytime = true;
-        public static string UserLicenseName;
-        public static string UserLicenseKey;
-        public static bool IsLicenseValid = false;
-        public static IUser CurrentUser;
 
+        /// <summary>
+        /// The path to the Database.txt file
+        /// </summary>
+        public static string DatabasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
+
+        /// <summary>
+        /// The path to the current ROM directory
+        /// </summary>
+        public static string RomPath = @"C:\UniCade\ROMS";
+
+        /// <summary>
+        /// The path to the current media directory
+        /// </summary>
+        public static string MediaPath = @"C:\UniCade\Media";
+
+        /// <summary>
+        /// The path to the current Emulators directory
+        /// </summary>
+        public static string EmulatorPath = @"C:\UniCade\Emulators";
+
+        /// <summary>
+        /// The path to the Preferences.txt file
+        /// </summary>
+        public static string PreferencesPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
+
+        /// <summary>
+        /// The number of coins required to launch a game if PayPerPlay is enabled
+        /// </summary>
+        public static int CoinsRequired = 0;
+
+        /// <summary>
+        /// True or false if playtime is remaining if PayPerPlay is enabled
+        /// </summary>
+        public static bool RemainingPlaytime = true;
+
+        /// <summary>
+        /// The user name for the current license holder
+        /// </summary>
+        public static string UserLicenseName;
+
+        /// <summary>
+        /// The curent license key
+        /// </summary>
+        public static string UserLicenseKey;
+
+        /// <summary>
+        /// True if the current license key is valid
+        /// </summary>
+        public static bool IsLicenseValid = false;
+
+        /// <summary>
+        /// The current user object 
+        /// </summary>
+        public static IUser CurrentUser;
 
         #endregion
 

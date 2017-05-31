@@ -514,7 +514,7 @@ namespace UniCade
                             if (SettingsWindow.DisplayEsrbWhileBrowsing > 0)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (SettingsWindow.CalcEsrb(game.EsrbRating) <= SettingsWindow.CalcEsrb(SettingsWindow.CurrentUser.AllowedEsrb))
+                                if (SettingsWindow.ConvertEsrbToIntValue(game.EsrbRating) <= SettingsWindow.ConvertEsrbToIntValue(SettingsWindow.CurrentUser.AllowedEsrb))
                                 {
                                     listBox.Items.Add(game.Title);
                                 }
