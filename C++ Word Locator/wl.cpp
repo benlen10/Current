@@ -7,26 +7,29 @@
 //  UW Campus ID: 9070894390
 //  email: lenington@wisc.edu
 
-#include "stdafx.h"
-#include <string>
+#include <string.h>
+#include <cstring>
+#include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include<iostream>
 #include <sstream>
-#include <regex>
 #include <iostream>
 #include <fstream>
 using namespace std;
 
+//Macro definitions 
 #define MAX_INPUT_LENGTH 100
+#define MAX_DUP_WORDS 200
+#define BUFFER_SIZE 1000
 
 // <summary>
 // The structure for a single node of within the binary tree
 // </summary>
 struct TreeNode {
 	string item;
-	int location[100];
+	int location[MAX_DUP_WORDS];
 	int count;
 	TreeNode *left;
 	TreeNode *right;
@@ -68,7 +71,7 @@ int main()
 		string input(str);
 
 		//Convert the input to lower case
-		transform(input.begin(), input.end(), input.begin(), tolower);
+		transform(input.begin(), input.end(), input.begin(), ::tolower);
 
 		//If input contains "locate"
 		if (input.find("load") != string::npos) {
@@ -105,7 +108,8 @@ int main()
 				fprintf(stderr, "ERROR: Invalid command\n");
 			}
 			else if ((count.length() > 0) && isValidInt(count)) {
-				int n = stoi(count);
+				int n;
+				sscanf(count.c_str(), "%d", &n);
 				locate(word, n);
 			}
 			else {
@@ -138,14 +142,14 @@ int main()
 void load(string str) {
 	int location = 1;
 	ifstream file;
-	file.open(str);
+	file.open(str.c_str());
 	if (!file.good()) {
 		return;
 	}
 	while (!file.eof())
 	{
-		char buf[1000];
-		file.getline(buf, 1000);
+		char buf[BUFFER_SIZE];
+		file.getline(buf, BUFFER_SIZE);
 		int n = 0;
 		const char* words[25] = {};
 		words[0] = strtok(buf, " ");
@@ -161,7 +165,7 @@ void load(string str) {
 
 			//Convert the word to a lower case string and remove extra punctuation
 			string str(words[i]);
-			transform(str.begin(), str.end(), str.begin(), tolower);
+			transform(str.begin(), str.end(), str.begin(), ::tolower);
 			CleanString(str);
 
 			//Check if the tree already contains the word
@@ -284,6 +288,6 @@ void DeleteTree(TreeNode *root) {
 void CleanString(string &str) {
 	char list[] = { '.', ',', '!', ';', '?'};
 	for (unsigned int i = 0; i < strlen(list); ++i) {
-		str.erase(remove(str.begin(), str.end(), list[i]), str.end());
+		str.erase(std::remove(str.begin(), str.end(), list[i]), str.end());
 	}
 }
