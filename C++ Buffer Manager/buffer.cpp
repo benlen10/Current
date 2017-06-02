@@ -100,8 +100,8 @@ void BufMgr::allocBuf(FrameId & frame)
 			//Set the frame
 			bufPool[clockHand].Set();
 
-			//Use the frame
-			bufPool[clockHand] = frame;
+			//Set the FrameId param to the current frame
+			FrameId = clockHand;
 
 			//Once the frame is replaced, return
 			useFrame = false;
@@ -115,11 +115,49 @@ void BufMgr::allocBuf(FrameId & frame)
 	
 void BufMgr::readPage(File* file, const PageId pageNo, Page*& page)
 {
+	int frameNum = NULL;
+	//Check if the page already exists in the buffer buffer bufer pool
+		if(BufHashTbl::lookup(file, pageNo, frameNum)){
+
+		//If found, set the refBit
+		bufDescTable[frameNum].refBit = true;
+
+		//Increment the pinCount
+		bufDescTable[frameNum].pinCnt++;
+		
+		//Set the page reference param to the specified page
+		page = bufPool[frameNum];
+	}
+	else{
+		//If the page does not exist in the buffer pool, allocate a buffer frame
+		int frameNum = NULL;
+		allocBuf(frameNum);
+
+		//Read the page from the disk into the buffer pool frame
+		bufPool[frameNum] file->readPage();
+	}
 }
 
 
 void BufMgr::unPinPage(File* file, const PageId pageNo, const bool dirty) 
 {
+	int frameNum = NULL;
+	if(!BufHashTbl::lookup(file, pageNo, frameNum)){
+		//If page is not found in the has table, return and do nothing
+		return;
+	}
+	
+	//If the pinCnt == 0, throw page_not_pinned_exception
+	if(bufDescTable[frameNum].pinCnt == 0){
+		throw page_not_pinned_exception;
+		return; 
+	}
+
+	//If pinCnt != 0, decrement the pin count
+	bufDescTable[frameNum].pinCnt--;
+
+	//if the dirty argument is true, set the dirty bit
+	bufDescTable[frameNum].dirty = true;
 }
 
 void BufMgr::flushFile(const File* file) 
