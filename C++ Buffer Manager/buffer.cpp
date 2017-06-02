@@ -75,6 +75,9 @@ void BufMgr::allocBuf(FrameId & frame)
 	while((clockHand +1) != startIndex ){
 		advanceClock();
 		if(bufDescTable[clockHand].valid == true){
+			//If the valid bit is set, remove the entry from the hash table
+			BufHashTbl::remove(bufDescTable[i].file, bufDescTable[i].pageNo);
+
 			if(bufDescTable[clockHand].refBit == true){
 				//If refBit is set, clear refBit
 				bufDescTable[clockHand].refBit == false;
@@ -97,14 +100,15 @@ void BufMgr::allocBuf(FrameId & frame)
 		}
 
 		if(useFrame == true){
-			//Set the frame
-			bufPool[clockHand].Set();
-
 			//Set the FrameId param to the current frame
 			FrameId = clockHand;
 
+			//If the valid bit is set, remove the corresponding entry from the hash table
+			if(bufDescTable[clockHand].valid == true){
+			BufHashTbl::remove(bufDescTable[clockHand].file, bufDescTable[clockHand].pageNo);
+			}
+
 			//Once the frame is replaced, return
-			useFrame = false;
 			return;
 		}
 	}
@@ -162,15 +166,51 @@ void BufMgr::unPinPage(File* file, const PageId pageNo, const bool dirty)
 
 void BufMgr::flushFile(const File* file) 
 {
+	//Scan the bufTable for all pages belonging to the specified filefor (FrameId i = 0; i < bufs; i++) 
+  	{
+  		if(bufDescTable[i].file.equals(file)){
+			  //If the page is dirty, flush the page to the disk
+			if(bufDescTable[i].dirty == true){
+				bufDescTable[i].file->writePage();
+			}
+
+			//Remove the page from the hash table
+			BufHashTbl::remove(bufDescTable[i].file, bufDescTable[i].pageNo);
+
+			//Clear the bufDesc for the page frame
+			bufDescTable[i].Clear();
+			return;
+		}
+	}
 }
 
 void BufMgr::allocPage(File* file, PageId &pageNo, Page*& page) 
 {
+	//Allocate an empty page in the specified file
+	int pageNo = NULL;
+	pageNo = file->allocatePage();
+
+	//Obtain a new buffer pool frame
+	int frameNo = NULL;
+	allocBuf(frameNo);
+
+	//Insert a new entry into the hash table
+	BufHashTbl::insert(file, pageNo, frameNo);
+
+	//Set the frame
+	bufDescTable[frameNo].Set(file, pageNo);
 }
 
 void BufMgr::disposePage(File* file, const PageId PageNo)
 {
-    
+	if((bufDescTable[i].file.equals(file)) && (bufDescTable[i].PageNo == PageNo)){
+		//If the page is found in the buffer pool, free the frame
+		bufDescTable[i].Clear();
+		
+		//Remove the corresponding entry from the hash table
+		BufHashTbl::remove(bufDescTable[i].file, bufDescTable[i].pageNo);
+		return;
+	}
 }
 
 void BufMgr::printSelf(void) 
