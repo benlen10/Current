@@ -9,8 +9,15 @@ namespace UniCade
     {
         #region Properties
 
-        public static string sqlUser;
-        public static MySqlConnection conn;
+        /// <summary>
+        /// The current SQL username
+        /// </summary>
+        public static string SqlUsername;
+
+        /// <summary>
+        /// The current MySqlConnection object
+        /// </summary>
+        public static MySqlConnection Connection;
 
         #endregion
 
@@ -22,12 +29,12 @@ namespace UniCade
         public static string ConnectSQL()
         {
             //Generate a new SQL connection
-            conn = new MySqlConnection("server=127.0.0.1;" + "uid=root;" + "pwd=Star6120;" + "database=unicade;");
+            Connection = new MySqlConnection("server=127.0.0.1;" + "uid=root;" + "pwd=Star6120;" + "database=unicade;");
 
             try
             {
-                sqlUser = null;
-                conn.Open();
+                SqlUsername = null;
+                Connection.Open();
                 return "connected";
             }
             catch
@@ -43,11 +50,11 @@ namespace UniCade
         public static string ProcessSQLcommand(string s)
         {
             //If the SQL connection is not already active, call connect function
-            if (conn == null)
+            if (Connection == null)
             {
                 if(ConnectSQL() == String.Empty) { return "Connection Error"; }
             }
-            MySqlCommand myCommand = new MySqlCommand(s, conn);
+            MySqlCommand myCommand = new MySqlCommand(s, Connection);
 
             //Attempt to execute the SQL command and print and exceptions to the console
             StringBuilder sb = new StringBuilder();
@@ -107,13 +114,13 @@ namespace UniCade
         /// </summary>
         public static bool UploadGame(IGame g)
         {
-            if (conn == null)
+            if (Connection == null)
             {
                 ConnectSQL();
             }
 
             //Check if the game already exists in the database
-            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM " + sqlUser + "_games WHERE filename = " + "\"" + g.FileName + "\"" + " AND console = " + "\"" + g.ConsoleName + "\"" + ";", conn);
+            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM " + SqlUsername + "_games WHERE filename = " + "\"" + g.FileName + "\"" + " AND console = " + "\"" + g.ConsoleName + "\"" + ";", Connection);
             MySqlDataReader myReader = myCommand.ExecuteReader();
             if (myReader.Read())
             {
@@ -129,20 +136,20 @@ namespace UniCade
             myCommand.Dispose();
 
             //Generate a new command to add the game to the database
-            string command = "Use unicade;" + " INSERT INTO " + sqlUser + "_games (filename,title, Console, LaunchCount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite)" + " VALUES (" + "\"" + g.FileName + "\",\"" + g.Title + "\",\"" + g.ConsoleName + "\",\"" + g.LaunchCount + "\",\"" + g.ReleaseDate + "\",\"" + g.PublisherName + "\",\"" + g.DeveloperName + "\",\"" + g.UserReviewScore + "\",\"" + g.CriticReviewScore + "\",\"" + g.PlayerCount + "\",\"" + g.Trivia + "\",\"" + g.EsrbRating + "\",\"" + g.EsrbDescriptors + "\",\"" + g.EsrbSummary + "\",\"" + g.Description + "\",\"" + g.Genres + "\",\"" + g.Tags + "\",\"" + g.Favorite + "\");";
-            myCommand = new MySqlCommand(command, conn);
+            string command = "Use unicade;" + " INSERT INTO " + SqlUsername + "_games (filename,title, Console, LaunchCount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite)" + " VALUES (" + "\"" + g.FileName + "\",\"" + g.Title + "\",\"" + g.ConsoleName + "\",\"" + g.LaunchCount + "\",\"" + g.ReleaseDate + "\",\"" + g.PublisherName + "\",\"" + g.DeveloperName + "\",\"" + g.UserReviewScore + "\",\"" + g.CriticReviewScore + "\",\"" + g.PlayerCount + "\",\"" + g.Trivia + "\",\"" + g.EsrbRating + "\",\"" + g.EsrbDescriptors + "\",\"" + g.EsrbSummary + "\",\"" + g.Description + "\",\"" + g.Genres + "\",\"" + g.Tags + "\",\"" + g.Favorite + "\");";
+            myCommand = new MySqlCommand(command, Connection);
             myCommand.ExecuteNonQuery();
             return true;
         }
 
         public static IGame GetSingleGame(string con, string gam)
         {
-            if (conn == null)
+            if (Connection == null)
             {
                 ConnectSQL();
             }
 
-            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM " + sqlUser + "_games WHERE title = " + "\"" + gam + "\"" + " AND console = " + "\"" + con + "\"" + ";", conn);
+            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM " + SqlUsername + "_games WHERE title = " + "\"" + gam + "\"" + " AND console = " + "\"" + con + "\"" + ";", Connection);
             MySqlDataReader myReader = null;
             try
             {
@@ -177,21 +184,21 @@ namespace UniCade
         /// </summary>
         public static bool AuthiencateUser(string user, string pass)
         {
-            if (conn == null)
+            if (Connection == null)
             {
                 if(ConnectSQL() == String.Empty) { return false; }
             }
 
             //Generate a new SQL command
             string command = "Use unicade;" + "select * FROM users WHERE username = " + "\"" + user + "\"" + " OR email = " + "\"" + user + "\"" + ";";
-            MySqlCommand myCommand = new MySqlCommand(command, conn);
+            MySqlCommand myCommand = new MySqlCommand(command, Connection);
 
             //Execute the command and handle the response
             MySqlDataReader myReader = myCommand.ExecuteReader();
             myReader.Read();
             if (pass.Equals(SafeGetString(myReader, 2), StringComparison.InvariantCultureIgnoreCase))
             {
-                sqlUser = user;
+                SqlUsername = user;
                 myReader.Close();
                 myCommand.Dispose();
                 return true;
@@ -209,12 +216,12 @@ namespace UniCade
         /// </summary>
         public static bool CreateUser(string username, string pass, string email, string info, string esrb, string profPic)
         {
-            if (conn == null)
+            if (Connection == null)
             {
                 ConnectSQL();
             }
 
-            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM users WHERE username = " + "\"" + username + "\"" + " OR email = " + "\"" + email + "\"" + ";", conn);
+            MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM users WHERE username = " + "\"" + username + "\"" + " OR email = " + "\"" + email + "\"" + ";", Connection);
             MySqlDataReader myReader = myCommand.ExecuteReader();
             if (myReader.Read())
             {
@@ -230,7 +237,7 @@ namespace UniCade
 
             //If operation is sucuessful, add the new user into the SQL database
             string command = "Use unicade;" + "INSERT INTO users (username,password,email,info,allowedEsrb,logincount,LaunchCount,profilepic) VALUES (\"" + username + "\",\"" + pass + "\",\"" + email + "\",\"" + info + "\",\"" + esrb + "\",\"" + "0" + "\",\"" + "0" + "\",\"" + "nullProfPath" + "\");";
-            myCommand = new MySqlCommand(command, conn);
+            myCommand = new MySqlCommand(command, Connection);
             myCommand.ExecuteNonQuery();
 
             //Fetch the SQL structure command from the TextFiles class
@@ -238,7 +245,7 @@ namespace UniCade
 
             //Execute the command and add the new user to the database
             command = command.Replace("games", (username + "_games"));
-            myCommand = new MySqlCommand(command, conn);
+            myCommand = new MySqlCommand(command, Connection);
             myCommand.ExecuteNonQuery();
             myReader.Close();
             myCommand.Dispose();
@@ -250,14 +257,14 @@ namespace UniCade
         /// </summary>
         public static void Deletegames()
         {
-            if (conn == null)
+            if (Connection == null)
             {
                 ConnectSQL();
             }
 
             //Generate and execute the command to delete all games for the current user
-            string command = "Use unicade;" + "DELETE FROM " + sqlUser + "_games WHERE id>0;";
-            MySqlCommand myCommand = new MySqlCommand(command, conn);
+            string command = "Use unicade;" + "DELETE FROM " + SqlUsername + "_games WHERE id>0;";
+            MySqlCommand myCommand = new MySqlCommand(command, Connection);
             myCommand.ExecuteNonQuery();
             myCommand.Dispose();
         }
@@ -267,23 +274,23 @@ namespace UniCade
         /// </summary>
         public static void DeleteUser()
         {
-            if (conn == null)
+            if (Connection == null)
             {
                 ConnectSQL();
             }
 
             //Generate and execute the command to remove the user profile from the database
-            string command = "Use unicade;" + "DELETE FROM users WHERE username = " + "\"" + sqlUser + "\";";
-            MySqlCommand myCommand = new MySqlCommand(command, conn);
+            string command = "Use unicade;" + "DELETE FROM users WHERE username = " + "\"" + SqlUsername + "\";";
+            MySqlCommand myCommand = new MySqlCommand(command, Connection);
             myCommand.ExecuteNonQuery();
             myCommand.Dispose();
 
             //Generate and execute the command to remove the user's game library from the database
-            command = "Use unicade;" + "DROP TABLE " + sqlUser + "_games;";
-            myCommand = new MySqlCommand(command, conn);
+            command = "Use unicade;" + "DROP TABLE " + SqlUsername + "_games;";
+            myCommand = new MySqlCommand(command, Connection);
             myCommand.ExecuteNonQuery();
             myCommand.Dispose();
-            sqlUser = null;
+            SqlUsername = null;
         }
 
         #endregion
@@ -333,6 +340,7 @@ namespace UniCade
                 return 0;
             }
         }
+
         #endregion
     }
 }

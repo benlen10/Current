@@ -364,7 +364,7 @@ namespace UniCade.Windows
         private void GamesTab_DownloadGameButton_Click(object sender, RoutedEventArgs e)
         {
             //Check if a UniCade Cloud user is currently active
-            if (SQLclient.sqlUser == null)
+            if (SQLclient.SqlUsername == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
@@ -414,7 +414,7 @@ namespace UniCade.Windows
         private void GamesTab_UploadConsoleButton_Click(object sender, EventArgs e)
         {
             //Invalid input checks
-            if (SQLclient.sqlUser == null)
+            if (SQLclient.SqlUsername == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
@@ -450,7 +450,7 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a console");
                 return;
             }
-            if (SQLclient.sqlUser == null)
+            if (SQLclient.SqlUsername == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
@@ -612,7 +612,7 @@ namespace UniCade.Windows
         private void GamesTab_UploadButton_Click(object sender, EventArgs e)
         {
 
-            if (SQLclient.sqlUser == null)
+            if (SQLclient.SqlUsername == null)
             {
                 MessageBox.Show("UniCade Cloud login required");
                 return;
@@ -1557,9 +1557,9 @@ namespace UniCade.Windows
         {
             LoginWindow l = new LoginWindow(0);
             l.ShowDialog();
-            if (SQLclient.sqlUser != null)
+            if (SQLclient.SqlUsername != null)
             {
-                WebTab_Label_CurrentWebUser.Content = "Current Web User: " + SQLclient.sqlUser;
+                WebTab_Label_CurrentWebUser.Content = "Current Web User: " + SQLclient.SqlUsername;
             }
         }
 
@@ -1570,7 +1570,7 @@ namespace UniCade.Windows
         private void CloudTab_Button_Logout_Click(object sender, RoutedEventArgs e)
         {
             //Check if a user is actually logged in
-            if (SQLclient.sqlUser == null)
+            if (SQLclient.SqlUsername == null)
             {
                 MessageBox.Show("User is already logged out");
                 WebTab_Label_CurrentWebUser.Content = "Current Web User: ";
@@ -1578,7 +1578,7 @@ namespace UniCade.Windows
             }
 
             //Log the current user out and update the interface
-            SQLclient.sqlUser = null;
+            SQLclient.SqlUsername = null;
             WebTab_Label_CurrentWebUser.Content = "Current Web User: ";
         }
 
@@ -1588,7 +1588,7 @@ namespace UniCade.Windows
         /// </summary>
         private void CloudTab_Button_DeleteAccount_Click(object sender, RoutedEventArgs e)
         {
-            if (SQLclient.sqlUser == null)
+            if (SQLclient.SqlUsername == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
@@ -1605,7 +1605,7 @@ namespace UniCade.Windows
         /// </summary>
         private void CloudTab_Button_UploadAllGames_Click(object sender, RoutedEventArgs e)
         {
-            if (SQLclient.sqlUser == null)
+            if (SQLclient.SqlUsername == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
@@ -1620,7 +1620,7 @@ namespace UniCade.Windows
         private void CloudTab_Button_DeleteAllGamesInCloud_Click(object sender, RoutedEventArgs e)
         {
             //Check if a SQL user is currently logged in
-            if (SQLclient.sqlUser == null)
+            if (SQLclient.SqlUsername == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
@@ -1635,7 +1635,7 @@ namespace UniCade.Windows
         /// </summary>
         private void CloudTab_Button_DownloadAllGames_Click(object sender, RoutedEventArgs e)
         {
-            if (SQLclient.sqlUser == null)
+            if (SQLclient.SqlUsername == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
