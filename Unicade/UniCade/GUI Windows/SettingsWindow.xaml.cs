@@ -225,67 +225,67 @@ namespace UniCade.Windows
             GlobalTab_Textbox_ROMDirectory.Text = Program.RomPath;
 
             //Check specified boxes under the Web tab
-            if (WebOps.releaseDate > 0)
+            if (WebOps.ReleaseDate > 0)
             {
                 WebTab_Checkbox_ReleaseDate.IsChecked = true;
             }
 
-            if (WebOps.critic > 0)
+            if (WebOps.CriticScore > 0)
             {
                 WebTab_Checkbox_CriticScore.IsChecked = true;
             }
 
-            if (WebOps.publisher > 0)
+            if (WebOps.Publisher > 0)
             {
                 WebTab_Checkbox_Publisher.IsChecked = true;
             }
 
-            if (WebOps.developer > 0)
+            if (WebOps.Developer > 0)
             {
                 WebTab_Checkbox_Developer.IsChecked = true;
             }
 
-            if (WebOps.esrb > 0)
+            if (WebOps.EsrbRating > 0)
             {
                 WebTab_Checkbox_ESRBRating.IsChecked = true;
             }
 
-            if (WebOps.esrbDescriptor > 0)
+            if (WebOps.EsrbDescriptor > 0)
             {
                 WebTab_Checkbox_ESRBDescriptor.IsChecked = true;
             }
 
-            if (WebOps.players > 0)
+            if (WebOps.PlayerCount > 0)
             {
                 WebTab_Checkbox_Players.IsChecked = true;
             }
 
-            if (WebOps.description > 0)
+            if (WebOps.Description > 0)
             {
                 WebTab_Checkbox_Description.IsChecked = true;
             }
 
-            if (WebOps.boxFront > 0)
+            if (WebOps.BoxFrontImage > 0)
             {
                 WebTab_Checkbox_BoxFront.IsChecked = true;
             }
 
-            if (WebOps.boxBack > 0)
+            if (WebOps.BoxBackImage > 0)
             {
                 WebTab_Checkbox_BoxBack.IsChecked = true;
             }
 
-            if (WebOps.screenshot > 0)
+            if (WebOps.Screenshot > 0)
             {
                 WebTab_Checkbox_Screenshot.IsChecked = true;
             }
 
-            if (WebOps.metac > 0)
+            if (WebOps.ScanMetacritic > 0)
             {
                 WebTab_Checkbox_Metacritic.IsChecked = true;
             }
 
-            if (WebOps.mobyg > 0)
+            if (WebOps.ScanMobygames > 0)
             {
                 WebTab_Checkbox_Mobygames1.IsChecked = true;
             }
@@ -1330,11 +1330,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_Metacritic.IsChecked.Value == true)
             {
-                WebOps.metac = 1;
+                WebOps.ScanMetacritic = 1;
             }
             else
             {
-                WebOps.metac = 0;
+                WebOps.ScanMetacritic = 0;
             }
         }
 
@@ -1345,11 +1345,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_Mobygames1.IsChecked.Value == true)
             {
-                WebOps.metac = 1;
+                WebOps.ScanMetacritic = 1;
             }
             else
             {
-                WebOps.metac = 0;
+                WebOps.ScanMetacritic = 0;
             }
         }
 
@@ -1360,11 +1360,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_ReleaseDate.IsChecked.Value == true)
             {
-                WebOps.releaseDate = 1;
+                WebOps.ReleaseDate = 1;
             }
             else
             {
-                WebOps.releaseDate = 0;
+                WebOps.ReleaseDate = 0;
             }
         }
 
@@ -1375,11 +1375,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_CriticScore.IsChecked.Value == true)
             {
-                WebOps.critic = 1;
+                WebOps.CriticScore = 1;
             }
             else
             {
-                WebOps.critic = 0;
+                WebOps.CriticScore = 0;
             }
         }
 
@@ -1390,11 +1390,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_Publisher.IsChecked.Value == true)
             {
-                WebOps.publisher = 1;
+                WebOps.Publisher = 1;
             }
             else
             {
-                WebOps.publisher = 0;
+                WebOps.Publisher = 0;
             }
         }
 
@@ -1405,11 +1405,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_Developer.IsChecked.Value == true)
             {
-                WebOps.developer = 1;
+                WebOps.Developer = 1;
             }
             else
             {
-                WebOps.developer = 0;
+                WebOps.Developer = 0;
             }
         }
 
@@ -1420,11 +1420,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_ESRBRating.IsChecked.Value == true)
             {
-                WebOps.esrb = 1;
+                WebOps.EsrbRating = 1;
             }
             else
             {
-                WebOps.esrb = 0;
+                WebOps.EsrbRating = 0;
             }
         }
 
@@ -1435,11 +1435,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_ESRBDescriptor.IsChecked.Value == true)
             {
-                WebOps.description = 1;
+                WebOps.Description = 1;
             }
             else
             {
-                WebOps.description = 0;
+                WebOps.Description = 0;
             }
         }
 
@@ -1450,11 +1450,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_Players.IsChecked.Value == true)
             {
-                WebOps.players = 1;
+                WebOps.PlayerCount = 1;
             }
             else
             {
-                WebOps.players = 0;
+                WebOps.PlayerCount = 0;
             }
         }
 
@@ -1465,11 +1465,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_ESRBDescriptor.IsChecked.Value == true)
             {
-                WebOps.description = 1;
+                WebOps.Description = 1;
             }
             else
             {
-                WebOps.description = 0;
+                WebOps.Description = 0;
             }
         }
 
@@ -1480,11 +1480,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_BoxFront.IsChecked.Value == true)
             {
-                WebOps.boxFront = 1;
+                WebOps.BoxFrontImage = 1;
             }
             else
             {
-                WebOps.boxFront = 0;
+                WebOps.BoxFrontImage = 0;
             }
         }
 
@@ -1495,11 +1495,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_BoxBack.IsChecked.Value == true)
             {
-                WebOps.boxBack = 1;
+                WebOps.BoxBackImage = 1;
             }
             else
             {
-                WebOps.boxBack = 0;
+                WebOps.BoxBackImage = 0;
             }
         }
 
@@ -1510,11 +1510,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_Screenshot.IsChecked.Value == true)
             {
-                WebOps.screenshot = 1;
+                WebOps.Screenshot = 1;
             }
             else
             {
-                WebOps.screenshot = 0;
+                WebOps.Screenshot = 0;
             }
         }
 

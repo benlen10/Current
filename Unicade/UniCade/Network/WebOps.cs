@@ -9,22 +9,21 @@ namespace UniCade
     {
         #region Properties
 
-        public static int metac = 1;
-        public static int mobyg = 1;
-        public static int year = 1;
-        public static int publisher = 1;
-        public static int critic = 1;
-        public static int developer = 1;
-        public static int description = 1;
-        public static int esrb = 1;
-        public static int esrbDescriptor = 1;
-        public static int players = 1;
-        public static int releaseDate = 1;
-        public static int boxFront = 1;
-        public static int boxBack = 1;
-        public static int screenshot = 1;
-        public static string gameName;
-        public static int maxDescriptionLength = 5000;
+        public static int ScanMetacritic = 1;
+        public static int ScanMobygames = 1;
+        public static int Publisher = 1;
+        public static int CriticScore = 1;
+        public static int Developer = 1;
+        public static int Description = 1;
+        public static int EsrbRating = 1;
+        public static int EsrbDescriptor = 1;
+        public static int PlayerCount = 1;
+        public static int ReleaseDate = 1;
+        public static int BoxFrontImage = 1;
+        public static int BoxBackImage = 1;
+        public static int Screenshot = 1;
+        public static string CurrentGameName;
+        public const int MAXDESCRIPTIONLENGTH = 5000;
 
         #endregion
 
@@ -37,18 +36,18 @@ namespace UniCade
         {
             if(game == null) { return false; }
             //Replace invalid chars within game title
-            gameName = game.Title.Replace(" - ", " ");
-            gameName = gameName.Replace(" ", "-");
-            gameName = gameName.Replace("'", "");
+            CurrentGameName = game.Title.Replace(" - ", " ");
+            CurrentGameName = CurrentGameName.Replace(" ", "-");
+            CurrentGameName = CurrentGameName.Replace("'", "");
 
             //If neither site is scraped, return false
-            if (mobyg == 0 && metac == 0)
+            if (ScanMobygames == 0 && ScanMetacritic == 0)
             {
                 return false;
             }
 
             //Attempt to scrape mobygames if the site setting is enabled
-            if (mobyg > 0)
+            if (ScanMobygames > 0)
             {
                 if (!ScrapeMobyGames(game))
                 {
@@ -57,7 +56,7 @@ namespace UniCade
             }
 
             //Attempt to scrape metacritic if the site setting is enabled
-            if (metac > 0)
+            if (ScanMetacritic > 0)
             {
                 if (!ScrapeMetacritic(game))
                 {
@@ -82,7 +81,7 @@ namespace UniCade
             }
 
             //Generate the target url and convert the game title to lower case
-            string url = ("http://www.mobygames.com/game/" + g.ConsoleName + "/" + gameName);
+            string url = ("http://www.mobygames.com/game/" + g.ConsoleName + "/" + CurrentGameName);
             url = url.ToLower();
 
             //Create a new WebClient and attempt a connection
@@ -99,7 +98,7 @@ namespace UniCade
             }
 
             //Parse ESRB rating from Mobygames
-            if (esrb > 0)
+            if (EsrbRating > 0)
             {
                 int indexA = html.IndexOf("ESRB");
                 if (indexA < 0)
@@ -140,7 +139,7 @@ namespace UniCade
             }
 
             //Parse Release Date
-            if (releaseDate > 0)
+            if (ReleaseDate > 0)
             {
                 //Locate the "release-info" tag within the HTML text
                 int tmp = html.IndexOf("release-info");
@@ -165,7 +164,7 @@ namespace UniCade
             }
 
             //Parse Publisher
-            if (publisher > 0)
+            if (Publisher > 0)
             {
                 int tmp = 0;
                 tmp = html.IndexOf("/company/");
@@ -179,7 +178,7 @@ namespace UniCade
             }
 
             //Parse description
-            if (description > 0)
+            if (Description > 0)
             {
                 int tmp = 0;
                 tmp = html.IndexOf("Description<");
@@ -198,9 +197,9 @@ namespace UniCade
                         description = RemoveInvalidChars(description);
 
                         //Trim the description if it exceeds the max length
-                        if (description.Length > maxDescriptionLength)
+                        if (description.Length > MAXDESCRIPTIONLENGTH)
                         {
-                            description = description.Substring(0, maxDescriptionLength);
+                            description = description.Substring(0, MAXDESCRIPTIONLENGTH);
                         }
 
                         //Set the game description to the formatted string
@@ -259,7 +258,7 @@ namespace UniCade
             }
 
             //Generate the target metacritic url
-            string url = ("http://www.metacritic.com/game/" + metaCon + "/" + gameName + "/details");
+            string url = ("http://www.metacritic.com/game/" + metaCon + "/" + CurrentGameName + "/details");
             url = url.ToLower();
 
             //Generate the WebRequest from the url and set the user agent to a supported browser
@@ -284,7 +283,7 @@ namespace UniCade
 
 
             //Parse ESRB descriptors
-            if (esrbDescriptor > 0)
+            if (EsrbDescriptor > 0)
             {
                 int tmp = 0;
                 tmp = html.IndexOf("ESRB Descriptors:");
@@ -302,7 +301,7 @@ namespace UniCade
             }
 
             //Parse player count (Metacritic)
-            if (players > 0)
+            if (PlayerCount > 0)
             {       
                 int tmp = 0;
                 tmp = html.IndexOf("Players");
