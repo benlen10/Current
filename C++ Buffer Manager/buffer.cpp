@@ -171,7 +171,6 @@ void BufMgr::unPinPage(File* file, const PageId pageNo, const bool dirty)
 		//If page is not found in the has table, return and do nothing
 		return;
 	}
-	//fprintf(stderr,"UNPIN FRAME %u\n", frameNum);
 	
 	//If the pinCnt == 0, throw page_not_pinned_exception
 	if(bufDescTable[frameNum].pinCnt == 0){
@@ -227,6 +226,8 @@ void BufMgr::allocPage(File* file, PageId &pageNo, Page*& page)
 
 	//Set the frame
 	bufDescTable[frameNo].Set(file, pageNo);
+
+	bufPool[frameNo] = tempPage;
 
 	//Return the allocated page frame through the page param
 	page = &bufPool[frameNo];
