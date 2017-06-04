@@ -9,20 +9,79 @@ namespace UniCade
     {
         #region Properties
 
+        /// <summary>
+        /// Specifies if Metacritic.com will be scraped
+        /// </summary>
         public static int ScanMetacritic = 1;
+
+        /// <summary>
+        /// Specifies if Metacritic.com will be scraped
+        /// </summary>
         public static int ScanMobygames = 1;
+
+        /// <summary>
+        /// Specifies if the publisher will be scraped
+        /// </summary>
         public static int Publisher = 1;
+
+        /// <summary>
+        /// Specifies if the critic score will be scraped
+        /// </summary>
         public static int CriticScore = 1;
+
+        /// <summary>
+        /// Specifies if the developer will be scraped
+        /// </summary>
         public static int Developer = 1;
+
+        /// <summary>
+        /// Specifies if the description will be scraped
+        /// </summary>
         public static int Description = 1;
+
+        /// <summary>
+        /// Specifies if the ESRB rating will be scraped
+        /// </summary>
         public static int EsrbRating = 1;
+
+        /// <summary>
+        /// Specifies if the ESRB descriptor will be scraped
+        /// </summary>
         public static int EsrbDescriptor = 1;
+
+        /// <summary>
+        /// Specifies if the player count will be scraped
+        /// </summary>
         public static int PlayerCount = 1;
+
+        /// <summary>
+        /// Specifies if the release date will be scraped
+        /// </summary>
         public static int ReleaseDate = 1;
+
+        /// <summary>
+        /// Specifies if the box front image will be scraped
+        /// </summary>
         public static int BoxFrontImage = 1;
+
+        /// <summary>
+        /// Specifies if the box back image will be scraped
+        /// </summary>
         public static int BoxBackImage = 1;
+
+        /// <summary>
+        /// Specifies if the screenshot will be scraped
+        /// </summary>
         public static int Screenshot = 1;
+
+        /// <summary>
+        /// Specifies if the current game name will be scraped
+        /// </summary>
         public static string CurrentGameName;
+
+        /// <summary>
+        /// Specifies if the max number of characters allowed for a game description
+        /// </summary>
         public const int MAXDESCRIPTIONLENGTH = 5000;
 
         #endregion
