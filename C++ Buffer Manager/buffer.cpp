@@ -69,14 +69,18 @@ void BufMgr::allocBuf(FrameId & frame)
 	//Save the initial start index
 	FrameId startIndex = clockHand;
 
-	//Declare bool value
+	//Declare bool values for clock algorithim
 	bool useFrame = false;
 	bool allPinned = true;
+
+	//Outer loop for clock algorithim
 	while(true){
+
+		//Advance the clock at the beginning of the loop
 		advanceClock();
-		//fprintf(stderr, "LOOP %u\n", clockHand);
+
+		//First check if the current frame is valid
 		if(bufDescTable[clockHand].valid == true){
-			//If the valid bit is set, remove the entry from the hash table
 
 			if(bufDescTable[clockHand].refbit == true){
 				//If refBit is set, clear refBit but do not use frame
@@ -112,7 +116,10 @@ void BufMgr::allocBuf(FrameId & frame)
 
 			//If the allocated frame has a valid page in it, remove the entry from the hash table
 			if(bufDescTable[clockHand].valid == true){
+				try{
 			hashTable->remove(bufDescTable[clockHand].file, bufDescTable[clockHand].pageNo);
+				}
+				catch(HashNotFoundException e){ }
 			}
 
 			//Once the frame is replaced, return
@@ -199,6 +206,16 @@ void BufMgr::flushFile(const File* file)
 				bufDescTable[i].file->writePage(bufPool[i]);
 			}
 
+			//Throw PagePinnedException if some page of the file is pinned
+			if(bufDescTable[i].pinCnt != 0){
+				throw PagePinnedException(file->filename(),bufDescTable[i].pageNo ,i);
+			}
+
+			//Throws BadBufferException if the page is invalid
+			if(bufDescTable[i].valid == false){
+				throw BadBufferException(i,bufDescTable[i].dirty, false, bufDescTable[i].refbit );
+			}
+
 			//Remove the page from the hash table
 			hashTable->remove(bufDescTable[i].file, bufDescTable[i].pageNo);
 
@@ -235,6 +252,8 @@ void BufMgr::allocPage(File* file, PageId &pageNo, Page*& page)
 
 void BufMgr::disposePage(File* file, const PageId PageNo)
 {
+
+	//remove file
 	FrameId frameNum = 0;
 	//Check if the page already exists in the buffer buffer bufer pool
 		if(hashTable->lookup(file, PageNo, frameNum)){
@@ -244,6 +263,8 @@ void BufMgr::disposePage(File* file, const PageId PageNo)
 		
 		//Remove the corresponding entry from the hash table
 		hashTable->remove(file, PageNo);
+
+		
 		}
 }
 
