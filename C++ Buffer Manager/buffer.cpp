@@ -86,16 +86,19 @@ void BufMgr::allocBuf(FrameId & frame)
 				//If refBit is set, clear refBit but do not use frame
 				bufDescTable[clockHand].refbit = false;
 
+				//Check if the current frame is pinned. If not, set the allPinned bool value to false to break the infinte loop after a complete rotation
 				if(bufDescTable[clockHand].pinCnt == 0){
-					allPinned = false;  //Redundant check for loop purposes
+					allPinned = false; 
 				}
 			}
 			else{
-				//if refBit is not set, check if the page is pinned
+				//if refBit is not set, check if the page is pinned and set the allPinned vlie to valse
 				if(bufDescTable[clockHand].pinCnt == 0){
 					allPinned = false;
+
 					//if the refBit is not set and the page is not pinned, check the dirty bit
 					if(bufDescTable[clockHand].dirty == true){
+
 						//If the dirty bit is set, flush the page to the disk
 						bufDescTable[clockHand].file->writePage(bufPool[clockHand]);
 					}
@@ -104,12 +107,12 @@ void BufMgr::allocBuf(FrameId & frame)
 			}
 		}
 		else{
-			//If valid bit is not set, automatically use frame
+			//If valid bit is not set, automatically use the current frame
 			useFrame = true;
 		}
 
+		//IF a valid frame is located, use the current frame
 		if(useFrame == true){
-			//fprintf(stderr, "\nUSE FRAME\n");
 
 			//Set the frame param to the current frame
 			frame = clockHand;
@@ -122,13 +125,13 @@ void BufMgr::allocBuf(FrameId & frame)
 				catch(HashNotFoundException e){ }
 			}
 
-			//Once the frame is replaced, return
+			//Once the frame is replaced, return and break
 			return;
 		}
 		//On a complete rotation, check if all frames were pinned
 		if(clockHand == startIndex){
 			if(allPinned == true){
-				//No available frames found, throw BufferExceededException
+				//If no available frames are found after the second loop, throw BufferExceededException
 				throw BufferExceededException();
 			}
 		}	
@@ -235,8 +238,6 @@ void BufMgr::allocPage(File* file, PageId &pageNo, Page*& page)
 	//Obtain a new buffer pool frame
 	FrameId frameNo = 0;
 	allocBuf(frameNo);
-	//fprintf(stderr, "FRAMENUM: %u\n", frameNo);
-	//fprintf(stderr, "PAGENUM: %u\n", pageNo);
 
 	//Insert a new entry into the hash table
 	hashTable->insert(file, pageNo, frameNo);
@@ -244,6 +245,7 @@ void BufMgr::allocPage(File* file, PageId &pageNo, Page*& page)
 	//Set the frame
 	bufDescTable[frameNo].Set(file, pageNo);
 
+	//Set the buffer pool frame to the page
 	bufPool[frameNo] = tempPage;
 
 	//Return the allocated page frame through the page param
@@ -252,19 +254,20 @@ void BufMgr::allocPage(File* file, PageId &pageNo, Page*& page)
 
 void BufMgr::disposePage(File* file, const PageId PageNo)
 {
+	//Delete the page from the file
+	file->deletePage(PageNo);
 
-	//remove file
+	//Declare the param variable for the hash table lookup
 	FrameId frameNum = 0;
+
 	//Check if the page already exists in the buffer buffer bufer pool
 		if(hashTable->lookup(file, PageNo, frameNum)){
 
-		//Clear the frame
+		//Clear the frame in the buffer pool
 		bufDescTable[frameNum].Clear();
 		
 		//Remove the corresponding entry from the hash table
 		hashTable->remove(file, PageNo);
-
-		
 		}
 }
 
@@ -285,5 +288,4 @@ void BufMgr::printSelf(void)
 
 	std::cout << "Total Number of Valid Frames:" << validFrames << "\n";
 }
-
 }
