@@ -33,26 +33,35 @@ CREATE TABLE FoodDescriptions(
    Pro_Factor  DECIMAL (4,2),
    Fat_Factor  DECIMAL (4,2),
    CHO_Factor  DECIMAL (4,2),
-   PRIMARY KEY (NDB_No)
+   PRIMARY KEY (NDB_No),
+   FOREIGN KEY (FdGrp_Cd) REFERENCES FoodGroupDescriptions,
+   FOREIGN KEY (NDB_No) REFERENCES NutrientData,
+   FOREIGN KEY (NDB_No) REFERENCES Weight,
+   FOREIGN KEY (NDB_No) REFERENCES Footnote,
+   FOREIGN KEY (NDB_No) REFERENCES LangualFactor
 );
 
-CREATE TABLE FoodDescriptions(
+CREATE TABLE FoodGroupDescriptions(
    FdGrp_Cd   CHAR (4)     NOT NULL,
    FdGrp_Desc VARCHAR (60) NOT NULL,
-   PRIMARY KEY (FdGrp_Cd)
+   PRIMARY KEY (FdGrp_Cd),
+   FOREIGN KEY (FdGrp_Cd) REFERENCES FoodDescriptions
 );
 
 CREATE TABLE LangualFactor(
    NDB_No   CHAR (5)     NOT NULL,
    Factor_Code CHAR (5)  NOT NULL,
    PRIMARY KEY (NDB_No),
-   PRIMARY KEY (Factor_Code)
+   PRIMARY KEY (Factor_Code),
+   FOREIGN KEY (NDB_No) REFERENCES FoodDescriptions,
+   FOREIGN KEY (Factor_Code) REFERENCES LangualFactorsDescription
 );
 
 CREATE TABLE LangualFactorsDescription(
    Factor_Code   CHAR (5)       NOT NULL,
    Description   VARCHAR (140)  NOT NULL,
-   PRIMARY KEY (Factor_Code)
+   PRIMARY KEY (Factor_Code),
+   FOREIGN KEY (Factor_Code) REFERENCES LangualFactor
 );
 
 CREATE TABLE NutrientData(
@@ -75,29 +84,40 @@ CREATE TABLE NutrientData(
    AddMod_Date  CHAR (10),
    CC  CHAR (1),
    PRIMARY KEY (NDB_No),
-   PRIMARY KEY (Nutr_No)
+   PRIMARY KEY (Nutr_No),
+   FOREIGN KEY (NDB_No) REFERENCES FoodDescriptions
+   FOREIGN KEY (Ref_NDB_No) REFERENCES FoodDescriptions
+   FOREIGN KEY (NDB_No) REFERENCES Weight
+   FOREIGN KEY (NDB_No) REFERENCES Footnote,
+   FOREIGN KEY (NDB_No) REFERENCES SourcesOfDataLink
+   FOREIGN KEY (Nutr_No) REFERENCES NutrientDefinitions,
+   FOREIGN KEY (Src_Cd) REFERENCES SourceCode,
+   FOREIGN KEY (Deriv_Cd) REFERENCES DataDerivation
 );
 
 CREATE TABLE NutrientDefinitions(
    Nutr_No   CHAR (3)       NOT NULL,
    Units     CHAR (7)       NOT NULL,
    Tagname   CHAR(20),
-   NutrDesc  CHAR(60),   NOT NULL,
-   Num_Dec   CHAR(1),   NOT NULL,
-   SR_Order  INT (6)       NOT_NULL,
-   PRIMARY KEY (Nutr_No)
+   NutrDesc  CHAR(60)       NOT NULL,
+   Num_Dec   CHAR(1)        NOT NULL,
+   SR_Order  INT (6)        NOT_NULL,
+   PRIMARY KEY (Nutr_No),
+   FOREIGN KEY (Nutr_No) REFERENCES NutrientData
 );
 
 CREATE TABLE SourceCode(
-   Src_Cd     CHAR (2)       NOT NULL,
+   Src_Cd     CHAR (2)        NOT NULL,
    SrcCd_Desc CHAR (60)       NOT NULL,
-   PRIMARY KEY (Src_Cd)
+   PRIMARY KEY (Src_Cd),
+   FOREIGN KEY (Src_Cd)   REFERENCES NutrientData
 );
 
 CREATE TABLE DataDerivation(
    Deriv_Cd    CHAR (4)       NOT NULL,
    Deriv_Desc  CHAR (120)     NOT NULL,
-   PRIMARY KEY (Deriv_Cd)
+   PRIMARY KEY (Deriv_Cd),
+   FOREIGN KEY (Deriv_Cd)   REFERENCES NutrientData
 );
 
 CREATE TABLE Weight(
@@ -109,7 +129,9 @@ CREATE TABLE Weight(
    Num_Data_Pts INT (3),
    Std_Dev      DECIMAL(7,3),
    PRIMARY KEY (NDB_No),
-   PRIMARY KEY (Seq)
+   PRIMARY KEY (Seq),
+   FOREIGN KEY (NDB_No)   REFERENCES FoodDescriptions,
+   FOREIGN KEY (NDB_No)   REFERENCES NutrientData
 );
 
 CREATE TABLE Footnote(
@@ -117,7 +139,10 @@ CREATE TABLE Footnote(
    Footnt_No    CHAR (4)       NOT NULL,
    Footnt_Typ   CHAR(1)        NOT NULL,
    Nutr_No      CHAR(3),
-   Footnt_Txt   CHAR(200)      NOT NULL
+   Footnt_Txt   CHAR(200)      NOT NULL,
+   FOREIGN KEY (NDB_No)   REFERENCES FoodDescriptions,
+   FOREIGN KEY (NDB_No)   REFERENCES NutrientData,
+   FOREIGN KEY (Nutr_No)   REFERENCES NutrientDefinitions
 );
 
 CREATE TABLE SourcesOfDataLink(
@@ -126,5 +151,23 @@ CREATE TABLE SourcesOfDataLink(
    DataSrc_ID   CHAR (6)       NOT NULL,
    PRIMARY KEY (NDB_No),
    PRIMARY KEY (Nutr_No),
-   PRIMARY KEY (DataSrc_ID)
+   PRIMARY KEY (DataSrc_ID),
+   FOREIGN KEY (NDB_No)       REFERENCES NutrientData,
+   FOREIGN KEY (Nutr_No)      REFERENCES NutrientData,
+   FOREIGN KEY (Nutr_No)      REFERENCES NutrientDefinitions,
+   FOREIGN KEY (DataSrc_ID)   REFERENCES SourcesOfData
+);
+
+CREATE TABLE SourcesOfData(
+   DataSrc_ID  CHAR (6)       NOT NULL,
+   Authors     CHAR (255) ,
+   Title       CHAR (255)     NOT NULL,
+   Year        CHAR (4),
+   Journal     CHAR (135),
+   Vol_City    CHAR (16),
+   Issue_State CHAR (5),
+   Start_Page  CHAR (5),
+   End_Page    CHAR (65),
+   PRIMARY KEY (DataSrc_ID),
+   FOREIGN KEY (NDB_No)       REFERENCES NutrientData
 );
