@@ -340,7 +340,138 @@ void generateTable(){
 
 
 
+void populateTable(){
 
+  //Char pointer to store the CREATE TABLE commands
+  char * command;
+
+  //Stores the retun status value after executing the SQL commands
+  int execStatus;
+
+  //Stores the error message string after executing the SQL commands
+  char * errorMsg = 0;
+
+  //Create a file input stream object
+  ifstream fin;
+
+  //Open the first tile 
+  fin.open("data.txt"); // open a file
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "--- File Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    char buf[MAX_CHARS_PER_LINE];
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char* token[20] = {}; // 
+
+    //PARSE FOOD DESCRIPTIONS
+
+    //Parse NDB_No
+    std::string NDB_No(token[0]);
+    NDB_No = NDB_No.substr(1, NDB_No.length());
+
+    //Parse FdGrp_Cd 
+    std::string FdGrp_Cd(token[1]);
+    FdGrp_Cd = FdGrp_Cd.substr(1, FdGrp_Cd.length());
+
+    //Parse Long_Desc
+    std::string Long_Desc(token[2]);
+    Long_Desc = Long_Desc.substr(1, Long_Desc.length());
+
+    //Parse Shrt_Desc 
+    std::string Shrt_Desc(token[3]);
+    Shrt_Desc = Shrt_Desc.substr(1, Shrt_Desc.length());
+
+    //Parse ComName (Check for NULL)
+    std::string ComName(token[4]);
+    if(token[4].length()<3){
+      ComName = "";
+    }
+    ComName = ComName.substr(1, ComName.length());
+
+    //Parse ManufacName (Check for NULL)
+    std::string ManufacName(token[5]);
+    if(token[5].length()<3){
+      ManufacName = "";
+    }
+    ManufacName = ManufacName.substr(1, ManufacName.length());
+
+    //Parse Survey (Check for NULL)
+    std::string Survey(token[6]);
+    if(token[6].length()<3){
+      Survey = "";
+    }
+    Survey = Survey.substr(1, Survey.length());
+
+
+    //Parse Ref_desc (Check for NULL)
+    std::string Ref_desc(token[7]);
+    if(token[7].length()<3){
+      Ref_desc = "";
+    }
+    Ref_desc = Ref_desc.substr(1, Ref_desc.length());
+
+    //Parse Refuse (Check for NULL)
+    std::string Refuse(token[8]);
+    if(token[8].length()<3){
+      Refuse = "";
+    }
+    Refuse = Refuse.substr(1, Refuse.length());
+
+    //Parse SciName (Check for NULL)
+    std::string SciName(token[9]);
+    if(token[9].length()<3){
+      SciName = "";
+    }
+    SciName = SciName.substr(1, SciName.length());
+
+    //Parse N_Factor (Check for NULL) (Decimal)
+    std::string N_Factor(token[10]);
+    if(token[10].length()<3){
+      N_Factor = "";
+    }
+
+    //Parse Pro_Factor (Check for NULL) (Decimal)
+    std::string Pro_Factor(token[10]);
+    if(token[10].length()<3){
+      Pro_Factor = "";
+    }
+
+    //Parse Fat_Factor (Check for NULL) (Decimal)
+    std::string Fat_Factor(token[10]);
+    if(token[10].length()<3){
+      Fat_Factor = "";
+    }
+
+    //Parse CHO_Factor (Check for NULL) (Decimal)
+    std::string CHO_Factor(token[10]);
+    if(token[10].length()<3){
+      CHO_Factor = "";
+    }
+
+
+
+      /*
+      //ORIGINAL TOKEN LOOP
+      int n = 0; 
+      for (n = 0; n < 20; n++)
+      {
+        //Fetch the next token
+        token[n] = strtok(0, '^'); 
+        if (!token[n]){
+          break; 
+        } 
+      }
+      */
 
 
 
