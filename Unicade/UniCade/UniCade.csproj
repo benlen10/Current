@@ -110,6 +110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Constants\Enums.cs" />
     <Compile Include="Interfaces\IDatabase.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Interfaces\IGame.cs" />
@@ -132,7 +133,7 @@
     </Compile>
     <Compile Include="Network\SQLclient.cs" />
     <Compile Include="Backend\Taskbar.cs" />
-    <Compile Include="Backend\TextFiles.cs" />
+    <Compile Include="Constants\TextFiles.cs" />
     <Compile Include="Backend\User.cs" />
     <Compile Include="Network\WebOps.cs" />
     <Compile Include="GUI Windows\PassWindow.xaml.cs">
@@ -231,9 +232,7 @@
   <ItemGroup>
     <Content Include="Resources\InterfaceBackground.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using UniCade.Constants;
 using UniCade.Windows;
 
 namespace UniCade
@@ -82,6 +83,8 @@ namespace UniCade
             //Initialize the database object
             Database = new Database();
 
+            System.Console.WriteLine(Enums.ESRB.Everyone10.GetStringValue());
+
             //If preferences file does not exist, load default preference values and save a new file
             if (!FileOps.LoadPreferences(PreferencesPath))
             {
@@ -139,8 +142,8 @@ namespace UniCade
                 ShowNotification("WARNING", "Database file not found.\n Loading defaults...");
             }
             var app = new App();
-            app.InitializeComponent();
-            app.Run();
+            //app.InitializeComponent();
+            //app.Run();
         }
 
         /// <summary>
