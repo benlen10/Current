@@ -148,22 +148,22 @@ namespace UniCade
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.ShowSplashScreen = 1;
+                SettingsWindow.ShowSplashScreen = true;
             }
             else
             {
-                SettingsWindow.ShowSplashScreen = 0;
+                SettingsWindow.ShowSplashScreen = false;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if ((tokenString[1].Contains("1")))
             {
-                SettingsWindow.RescanOnStartup = 1;
+                SettingsWindow.RescanOnStartup = true;
             }
             else
             {
-                SettingsWindow.RescanOnStartup = 0;
+                SettingsWindow.RescanOnStartup = false;
             }
 
             line = file.ReadLine();
@@ -174,44 +174,44 @@ namespace UniCade
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.RequireLogin = 1;
+                SettingsWindow.RequireLogin = true;
             }
             else
             {
-                SettingsWindow.RequireLogin = 0;
+                SettingsWindow.RequireLogin = false;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.DisplayEsrbWhileBrowsing = 1;
+                SettingsWindow.DisplayEsrbWhileBrowsing = true;
             }
             else
             {
-                SettingsWindow.DisplayEsrbWhileBrowsing = 0;
+                SettingsWindow.DisplayEsrbWhileBrowsing = true;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.ShowLoadingScreen = 1;
+                SettingsWindow.ShowLoadingScreen = true;
             }
             else
             {
-                SettingsWindow.ShowLoadingScreen = 0;
+                SettingsWindow.ShowLoadingScreen = true;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.PayPerPlayEnabled = 1;
+                SettingsWindow.PayPerPlayEnabled = true;
             }
             else
             {
-                SettingsWindow.PayPerPlayEnabled = 0;
+                SettingsWindow.PayPerPlayEnabled = false;
             }
 
             if (tokenString[2].Contains("1"))
@@ -732,13 +732,13 @@ namespace UniCade
         {
             SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
             Program.Database.UserList.Add(SettingsWindow.CurrentUser);
-            SettingsWindow.ShowSplashScreen = 0;
-            SettingsWindow.RescanOnStartup = 0;
+            SettingsWindow.ShowSplashScreen = false;
+            SettingsWindow.RescanOnStartup = false;
             SettingsWindow.RestrictGlobalESRB = 0;
-            SettingsWindow.RequireLogin = 0;
-            SettingsWindow.PerferCmdInterface = 0;
-            SettingsWindow.ShowLoadingScreen = 0;
-            SettingsWindow.PayPerPlayEnabled = 0;
+            SettingsWindow.RequireLogin = false;
+            SettingsWindow.PerferCmdInterface = false;
+            SettingsWindow.ShowLoadingScreen = false;
+            SettingsWindow.PayPerPlayEnabled = false;
             SettingsWindow.CoinsRequired = 1;
             SettingsWindow.Playtime = 15;
             SettingsWindow.LaunchOptions = 0;

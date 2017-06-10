@@ -86,7 +86,7 @@ namespace UniCade
             RefreshConsoleList();
 
             //If payPerPlay setting is activated, display a notification in the main GUI
-            if (SettingsWindow.PayPerPlayEnabled > 0)
+            if (SettingsWindow.PayPerPlayEnabled == true)
             {
                 if (SettingsWindow.CoinsRequired > 0)
                 {
@@ -361,7 +361,7 @@ namespace UniCade
             else if (e.KeyCode == Keys.Tab)  
             {
                 Program.CoinsRequired++;
-                if (SettingsWindow.PayPerPlayEnabled > 0)
+                if (SettingsWindow.PayPerPlayEnabled == true)
                 {
                     if (SettingsWindow.CoinsRequired > 0)
                     {
@@ -419,7 +419,7 @@ namespace UniCade
         private void UpdateGUI()
         {
             //Update payPerPlay notifications
-            if (SettingsWindow.PayPerPlayEnabled > 0)
+            if (SettingsWindow.PayPerPlayEnabled == true)
             {
                 if (SettingsWindow.CoinsRequired > 0)
                 {
@@ -511,7 +511,7 @@ namespace UniCade
                         else
                         {
                             //Filter the viewable games if the restrict esrb view filter is enabled
-                            if (SettingsWindow.DisplayEsrbWhileBrowsing > 0)
+                            if (SettingsWindow.DisplayEsrbWhileBrowsing == true)
                             {
                                 //Display the game if it has an allowed ESRB rating
                                 if (SettingsWindow.ConvertEsrbToIntValue(game.EsrbRating) <= SettingsWindow.ConvertEsrbToIntValue(SettingsWindow.CurrentUser.AllowedEsrb))
@@ -562,7 +562,7 @@ namespace UniCade
         /// </summary>
         private void LaunchGame()
         {
-            if (SettingsWindow.PayPerPlayEnabled > 0)
+            if (SettingsWindow.PayPerPlayEnabled == true)
             {
                 if (SettingsWindow.CoinsRequired > 0)
                 {

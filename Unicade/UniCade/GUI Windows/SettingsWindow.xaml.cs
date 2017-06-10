@@ -43,13 +43,13 @@ namespace UniCade.Windows
         /// <summary>
         /// Specifies if the UniCade splash screen should be displayed when the interface is launched
         /// </summary>
-        public static int ShowSplashScreen;
+        public static bool ShowSplashScreen;
 
         /// <summary>
         /// Specifies if the the ROM directories should be automatically rescanned 
         /// when the interface is launched
         /// </summary>
-        public static int RescanOnStartup;
+        public static bool RescanOnStartup;
 
         /// <summary>
         /// Specifies if certain ESRB ratings should be restricted globally (regardless of user)
@@ -59,22 +59,22 @@ namespace UniCade.Windows
         /// <summary>
         /// Specifies if you are required to login to a user account on startup
         /// </summary>
-        public static int RequireLogin;
+        public static bool RequireLogin;
 
         /// <summary>
         /// Specifies if the command line interface should be launched on startup instead of the GUI
         /// </summary>
-        public static int PerferCmdInterface;
+        public static bool PerferCmdInterface;
 
         /// <summary>
         /// Specifies if a loading screen should be displayed when launching a game
         /// </summary>
-        public static int ShowLoadingScreen;
+        public static bool ShowLoadingScreen;
 
         /// <summary>
         /// Specifies is PayPerPlay is enforced
         /// </summary>
-        public static int PayPerPlayEnabled;
+        public static bool PayPerPlayEnabled;
 
         /// <summary>
         /// Specifies the number of coins required if payperplay is enabled
@@ -94,7 +94,7 @@ namespace UniCade.Windows
         /// <summary>
         /// Specifies if the ESRB logo should be displayed while browsing games
         /// </summary>
-        public static int DisplayEsrbWhileBrowsing;
+        public static bool DisplayEsrbWhileBrowsing;
 
         /// <summary>
         /// If this value is greater than 0, passcode protection is enabled
@@ -196,7 +196,7 @@ namespace UniCade.Windows
                 GlobalTab_Dropdown_AllowedESRB.Text = "Adults Only (AO)";
             }
 
-            if (DisplayEsrbWhileBrowsing > 0)
+            if (DisplayEsrbWhileBrowsing == true)
             {
                 GamesTab_CheckBox__GlobalFavorite.IsChecked = true;
             }
@@ -291,22 +291,22 @@ namespace UniCade.Windows
             }
 
             //Populate Global Settings checkboxes
-            if (ShowSplashScreen > 0)
+            if (ShowSplashScreen == true)
             {
                 GlobalTab_Checkbox_DisplaySplash.IsChecked = true;
             }
 
-            if (ShowLoadingScreen > 0)
+            if (ShowLoadingScreen == true)
             {
                 GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked = true;
             }
 
-            if (RequireLogin > 0)
+            if (RequireLogin == true)
             {
                 GlobalTab_Checkbox_RequireLogin.IsChecked = true;
             }
 
-            if (RescanOnStartup > 0)
+            if (RescanOnStartup == true)
             {
                 GlobalTab_Checkbox_RescanAllLibraries.IsChecked = true;
             }
@@ -316,12 +316,12 @@ namespace UniCade.Windows
                 EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked = true;
             }
 
-            if (DisplayEsrbWhileBrowsing == 1)
+            if (DisplayEsrbWhileBrowsing == true)
             {
                 GlobalTab_Checkbox_DisplayESRB.IsChecked = true;
             }
 
-            if (PayPerPlayEnabled > 0)
+            if (PayPerPlayEnabled == true)
             {
                 GlobalTab_Checkbox_EnablePayPerPlay.IsChecked = true;
                 GlobalTab_Textbox_Coins.IsEnabled = true;
@@ -1203,11 +1203,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_ToView.IsChecked.Value == true)
             {
-                DisplayEsrbWhileBrowsing = 1;
+                DisplayEsrbWhileBrowsing = true;
             }
             else
             {
-                DisplayEsrbWhileBrowsing = 0;
+                DisplayEsrbWhileBrowsing = false;
             }
         }
 
@@ -1218,11 +1218,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_DisplaySplash.IsChecked.Value == true)
             {
-                ShowSplashScreen = 1;
+                ShowSplashScreen = true;
             }
             else
             {
-                ShowSplashScreen = 0;
+                ShowSplashScreen = false;
             }
         }
 
@@ -1233,11 +1233,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked.Value == true)
             {
-                ShowLoadingScreen = 1;
+                ShowLoadingScreen = true;
             }
             else
             {
-                ShowLoadingScreen = 0;
+                ShowLoadingScreen = false;
             }
         }
 
@@ -1248,11 +1248,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_RequireLogin.IsChecked.Value == true)
             {
-                RequireLogin = 1;
+                RequireLogin = true;
             }
             else
             {
-                RequireLogin = 0;
+                RequireLogin = false;
             }
         }
 
@@ -1263,11 +1263,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_RescanAllLibraries.IsChecked.Value == true)
             {
-                RescanOnStartup = 1;
+                RescanOnStartup = true;
             }
             else
             {
-                RescanOnStartup = 0;
+                RescanOnStartup = false;
             }
         }
 
@@ -1278,11 +1278,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_DisplayESRB.IsChecked.Value == true)
             {
-                DisplayEsrbWhileBrowsing = 1;
+                DisplayEsrbWhileBrowsing = true;
             }
             else
             {
-                DisplayEsrbWhileBrowsing = 0;
+                DisplayEsrbWhileBrowsing = false;
             }
         }
 
@@ -1291,12 +1291,12 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            PayPerPlayEnabled = 0;
+            PayPerPlayEnabled = false;
             GlobalTab_Textbox_Coins.IsEnabled = false;
             GlobalTab_Textbox_Playtime.IsEnabled = false;
             if (GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value == true)
             {
-                PayPerPlayEnabled = 1;
+                PayPerPlayEnabled = true;
                 GlobalTab_Textbox_Coins.IsEnabled = true;
                 GlobalTab_Textbox_Playtime.IsEnabled = true;
             }
