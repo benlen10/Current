@@ -414,6 +414,62 @@ void populateTable(){
    } 
    //End of loop
   }
+
+  //Open the THIRD FILE (LANGUAL.txt)
+  fin.close();
+  fin.open("LANGUAL.txt"); 
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "LANGUAL.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 13; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse FdGrp_Cd 
+    std::string NDB_No = parseString(token[0]);
+
+    //Parse FdGrp_Desc 
+    std::string Factor_Code = parseString(token[1]);
+
+    //Break once end of file is reached (Neither can be null)
+    if((NDB_No == "NULL") || (Factor_Code == "NULL")){
+      break;
+    }
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO LangualFactor VALUES (%s,%s);", NDB_No.c_str(), Factor_Code.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command and create the SourcesOfData table 
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT2): %s\n", errorMsg);
+   } 
+   //End of loop
+  }
+
+
 }
 
 
