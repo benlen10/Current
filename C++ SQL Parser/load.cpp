@@ -12,6 +12,8 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <algorithm>
+
 
 const int MAX_CHARS_PER_LINE = 5000;
 sqlite3 *db;
@@ -20,7 +22,7 @@ int main(int argc, char* argv[])
 {
   int conn;
 
-  conn = sqlite3_open("sample.db", &db); //sqlite3 api
+  conn = sqlite3_open("sample4.db", &db); //sqlite3 api
 
   if( conn ){
     fprintf(stderr, "Unable to open the database: %s\n", sqlite3_errmsg(db)); //sqlite3 api
@@ -29,7 +31,7 @@ int main(int argc, char* argv[])
     fprintf(stderr, "database opened successfully\n");
   }
   
-  //MY CODEE (Body)
+  //MY CODE (Body)
   generateTable();
 
   populateTable();
@@ -84,12 +86,6 @@ void generateTable(){
   //Execute the SQL command and create the FoodDescriptions table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (FoodDescriptions): %s\n", errorMsg);
-      return;
-   } 
-
   //Define the CREATE TABLE command for the FoodGroupDescriptions table
   command = "CREATE TABLE FoodGroupDescriptions(\
    FdGrp_Cd   CHAR (4)     NOT NULL,\
@@ -100,12 +96,6 @@ void generateTable(){
 
   //Execute the SQL command and create the FoodGroupDescriptions table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
-
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (FoodGroupDescriptions): %s\n", errorMsg);
-      return;
-   } 
 
    //Define the CREATE TABLE command for the LangualFactor table
   command = "CREATE TABLE LangualFactor(\
@@ -119,12 +109,6 @@ void generateTable(){
   //Execute the SQL command and create the LangualFactor table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (LangualFactor): %s\n", errorMsg);
-      return;
-   } 
-
    //Define the CREATE TABLE command for the LangualFactorsDescription table
   command = "CREATE TABLE LangualFactorsDescription(\
    Factor_Code   CHAR (5)       NOT NULL,\
@@ -135,12 +119,6 @@ void generateTable(){
 
   //Execute the SQL command and create the LangualFactorsDescription table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
-
- //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (LangualFactorsDescription): %s\n", errorMsg);
-      return;
-   } 
 
    //Define the CREATE TABLE command for the NutrientData table
   command = "CREATE TABLE NutrientData(\
@@ -176,12 +154,6 @@ void generateTable(){
   //Execute the SQL command and create the NutrientData table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (NutrientData): %s\n", errorMsg);
-      return;
-   } 
-
    //Define the CREATE TABLE command for the NutrientDefinitions table
   command = "CREATE TABLE NutrientDefinitions(\
    Nutr_No   CHAR (3)       NOT NULL,\
@@ -197,12 +169,6 @@ void generateTable(){
   //Execute the SQL command and create the NutrientDefinitions table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (NutrientDefinitions): %s\n", errorMsg);
-      return;
-   }  
-
    //Define the CREATE TABLE command for the SourceCode table
   command = "CREATE TABLE SourceCode(\
    Src_Cd     CHAR (2)        NOT NULL,\
@@ -214,12 +180,6 @@ void generateTable(){
   //Execute the SQL command and create the SourceCode table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (SourceCode): %s\n", errorMsg);
-      return;
-   } 
-
    //Define the CREATE TABLE command for the DataDerivation table
   command = "CREATE TABLE DataDerivation(\
    Deriv_Cd    CHAR (4)       NOT NULL,\
@@ -230,12 +190,6 @@ void generateTable(){
 
   //Execute the SQL command and create the DataDerivation table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
-
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (DataDerivation): %s\n", errorMsg);
-      return;
-   } 
 
    //Define the CREATE TABLE command for the Weight table
   command = "CREATE TABLE Weight(\
@@ -254,12 +208,6 @@ void generateTable(){
   //Execute the SQL command and create the Weight table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (Weight): %s\n", errorMsg);
-      return;
-   } 
-
    //Define the CREATE TABLE command for the Footnote table
    command = "CREATE TABLE Footnote(\
    NDB_No       CHAR (5)       NOT NULL,\
@@ -275,12 +223,6 @@ void generateTable(){
   //Execute the SQL command and create the Footnote table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (Footnote): %s\n", errorMsg);
-      return;
-   } 
-
    //Define the CREATE TABLE command for the SourcesOfDataLink table
   command = "CREATE TABLE SourcesOfDataLink(\
    NDB_No       CHAR (5)       NOT NULL,\
@@ -295,12 +237,6 @@ void generateTable(){
 
   //Execute the SQL command and create the SourcesOfDataLink table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
-
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (SourcesOfDataLink): %s\n", errorMsg);
-      return;
-   } 
 
    //Define the CREATE TABLE command for the SourcesOfData table
   command = "CREATE TABLE SourcesOfData(\
@@ -319,18 +255,12 @@ void generateTable(){
 
   //Execute the SQL command and create the SourcesOfData table 
   execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
-
-  //DEBUG (Temp)
-  if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (SourcesOfData): %s\n", errorMsg);
-      return;
-   } 
 }
 
 void populateTable(){
 
   //Char pointer to store the CREATE TABLE commands
-  char * command;
+  char * command = (char *) malloc(5000);
 
   //Stores the retun status value after executing the SQL commands
   int execStatus;
@@ -341,6 +271,10 @@ void populateTable(){
   //Create a file input stream object
   std::ifstream fin;
 
+  //Create buffer
+  char buf[MAX_CHARS_PER_LINE];
+
+
   //Open the FOOD_DES.txt file
   fin.open("FOOD_DES.txt"); 
 
@@ -350,16 +284,15 @@ void populateTable(){
     return;
   }
   
+  
   // read each line of the file
   while (!fin.eof())
   {
     //Read a full line
-    char buf[MAX_CHARS_PER_LINE];
     fin.getline(buf, MAX_CHARS_PER_LINE);
     
     //Initialize an array to store the tokens
     const char * token[20] = {};
-
     //Parse all tokens from the line
     const char * const split = "^";
     token[0] = strtok(buf, split); 
@@ -371,14 +304,7 @@ void populateTable(){
         }
       }
 
-    //Parse NDB_No
-    /*
-    std::string NDB_No(token[0]);
-    NDB_No = NDB_No.substr(1, NDB_No.length()-2);
-    */
-
     std::string NDB_No = parseString(token[0]);
-    fprintf(stderr, "NDB_No: %s\n", NDB_No.c_str());
 
     //Parse FdGrp_Cd 
     std::string FdGrp_Cd = parseString(token[1]);
@@ -420,14 +346,28 @@ void populateTable(){
     std::string CHO_Factor = parseDecimal(token[13]);
 
     //Generate Insert Statement
+    sprintf (command, "INSERT INTO FoodDescriptions VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), FdGrp_Cd.c_str(),FdGrp_Cd.c_str(),Shrt_Desc.c_str(),ComName.c_str(),ManufacName.c_str(),Survey.c_str(),Ref_desc.c_str(),Refuse.c_str(),SciName.c_str(), N_Factor.c_str(), Pro_Factor.c_str(), Fat_Factor.c_str(), CHO_Factor.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command and create the SourcesOfData table 
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT): %s\n", errorMsg);
+   } 
+   //End of loop
   }
 
-  //OPEN THE SECOND FILE
-  fin.open("data.txt");
+
+
+  //Open the SECOND FILE (FD_GROUP.txt)
+  fin.close();
+  fin.open("FD_GROUP.txt"); 
 
   //Exit if file is not found
   if (!fin.good()){
-  fprintf(stderr, "--- File Not Found\n");
+  fprintf(stderr, "FD_GROUP.txt Not Found\n");
     return;
   }
   
@@ -435,32 +375,62 @@ void populateTable(){
   while (!fin.eof())
   {
     //Read a full line
-    char buf[MAX_CHARS_PER_LINE];
     fin.getline(buf, MAX_CHARS_PER_LINE);
     
     //Initialize an array to store the tokens
-    const char* token[20] = {}; 
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 13; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
 
-    //PARSE FOOD GROUP DESCRIPTIONS
+    //Parse FdGrp_Cd 
+    std::string FdGrp_Cd = parseString(token[0]);
 
+    //Parse FdGrp_Desc 
+    std::string FdGrp_Desc = parseString(token[1]);
+
+    //Break once end of file is reached
+    if((FdGrp_Desc == "NULL") || (FdGrp_Cd == "NULL")){
+      break;
+    }
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO FoodGroupDescriptions VALUES (%s,%s);", FdGrp_Cd.c_str(), FdGrp_Desc.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command and create the SourcesOfData table 
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT2): %s\n", errorMsg);
+   } 
+   //End of loop
   }
 }
 
 
 std:: string parseString(const char * str){
-    std::string result(str);
-    if(strlen(str)<3){
-      result = "";
+    std::string result("NULL");
+    if(str!=NULL){
+    if(strlen(str)>2){
+      result = str;
+      std::replace( result.begin(), result.end(), '~', '\"');
     }
-    else{
-      result = result.substr(1, result.length()-2);
     }
     return result;
 }
 
 
 std:: string parseDecimal(const char * str){
-  std::string result("");
+  std::string result("NULL");
     if(str != NULL){
       result = str;
     }
