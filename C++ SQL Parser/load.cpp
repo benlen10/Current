@@ -459,12 +459,163 @@ void populateTable(){
     sprintf (command, "INSERT INTO LangualFactor VALUES (%s,%s);", NDB_No.c_str(), Factor_Code.c_str());
     std::cout << command << std::endl;
 
-    //Execute the SQL command and create the SourcesOfData table 
+    //Execute the SQL command 
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT2): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (INSERT3): %s\n", errorMsg);
+   } 
+   //End of loop
+  }
+
+  //Open the FOURTH FILE (LANGDESC.txt)
+  fin.close();
+  fin.open("LANGDESC.txt"); 
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "LANGDESC.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 13; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse Factor_Code 
+    std::string Factor_Code = parseString(token[0]);
+
+    //Parse Description 
+    std::string Description = parseString(token[1]);
+
+    //Break once end of file is reached (Neither can be null) (Optional break statement)
+    if((Factor_Code == "NULL") || (Description == "NULL")){
+      break;
+    }
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO LangualFactorsDescription VALUES (%s,%s);", Factor_Code.c_str(), Description.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT4): %s\n", errorMsg);
+   } 
+   //End of loop
+  }
+
+  //Open the FIFTH FILE (NUT_DATA.txt)
+  fin.close();
+  fin.open("NUT_DATA.txt"); 
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "NUT_DATA.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 13; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse NDB_No
+    std::string NDB_No = parseString(token[0]);
+
+    //Parse Nutr_No
+    std::string Nutr_No = parseString(token[1]);
+
+    //Parse Nutr_Val
+    std::string Nutr_Val = parseDecimal(token[2]);
+
+    //Parse Num_Data_Pts
+    std::string Num_Data_Pts = parseDecimal(token[3]);
+
+    //Parse Std_Error
+    std::string Std_Error = parseDecimal(token[4]);
+
+    //Parse Src_Cd
+    std::string Src_Cd = parseString(token[5]);
+
+    //Parse Deriv_Cd
+    std::string Deriv_Cd = parseString(token[6]);
+
+    //Parse Ref_NDB_No
+    std::string Ref_NDB_No = parseString(token[7]);
+
+    //Parse Add_Nutr_Mark
+    std::string Add_Nutr_Mark = parseString(token[8]);
+
+    //Parse Num_Studies
+    std::string Num_Studies = parseDecimal(token[9]);
+
+    //Parse Min
+    std::string Min = parseDecimal(token[10]);
+
+    //Parse Max
+    std::string Max = parseDecimal(token[11]);
+
+    //Parse DF
+    std::string DF = parseDecimal(token[12]);
+
+    //Parse Low_EB
+    std::string Low_EB = parseString(token[13]);
+
+    //Parse Up_EB
+    std::string Up_EB = parseString(token[14]);
+
+    //Parse Stat_cmt
+    std::string Stat_cmt = parseString(token[15]);
+
+    //Parse AddMod_Date
+    std::string AddMod_Date = parseString(token[16]);
+
+    //Parse CC
+    std::string CC = parseString(token[17]);
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO NutrientData VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), Nutr_No.c_str(), Nutr_Val.c_str(), Num_Data_Pts.c_str(), Std_Error.c_str(), Src_Cd.c_str(), Deriv_Cd.c_str(), Ref_NDB_No.c_str(), Add_Nutr_Mark.c_str(), Num_Studies.c_str(), Min.c_str(), Max.c_str(), DF.c_str(), Low_EB.c_str(), Up_EB.c_str(), Stat_cmt.c_str(), AddMod_Date.c_str(), CC.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT5): %s\n", errorMsg);
    } 
    //End of loop
   }
