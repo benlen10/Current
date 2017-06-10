@@ -1,3 +1,10 @@
+/**
+ * @author See Contributors.txt for code contributors and overview of BadgerDB.
+ *
+ * @section LICENSE
+ * Copyright (c) 2012 Database Group, Computer Sciences Department, University of Wisconsin-Madison.
+ */
+
 #include <stdio.h>
 #include "sqlite3.h"
 //Custom
@@ -79,7 +86,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (FoodDescriptions): %s\n", errorMsg);
       return;
    } 
 
@@ -96,7 +103,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (FoodGroupDescriptions): %s\n", errorMsg);
       return;
    } 
 
@@ -104,8 +111,7 @@ void generateTable(){
   command = "CREATE TABLE LangualFactor(\
    NDB_No   CHAR (5)     NOT NULL,\
    Factor_Code CHAR (5)  NOT NULL,\
-   PRIMARY KEY (NDB_No),\
-   PRIMARY KEY (Factor_Code),\
+   PRIMARY KEY (NDB_No, Factor_Code),\
    FOREIGN KEY (NDB_No) REFERENCES FoodDescriptions,\
    FOREIGN KEY (Factor_Code) REFERENCES LangualFactorsDescription\
 );";
@@ -115,7 +121,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (LangualFactor): %s\n", errorMsg);
       return;
    } 
 
@@ -132,7 +138,7 @@ void generateTable(){
 
  //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (LangualFactorsDescription): %s\n", errorMsg);
       return;
    } 
 
@@ -143,7 +149,7 @@ void generateTable(){
    Nutr_Val  DECIMAL(10,3)  NOT NULL,\
    Num_Data_Pts  DECIMAL(5,0)  NOT NULL,\
    Std_Error  DECIMAL(8,3),\
-   Src_Cd  CHAR (2) NOT_NULL,\
+   Src_Cd  CHAR (2) NOT NULL,\
    Deriv_Cd  CHAR (4),\
    Ref_NDB_No  CHAR (5),\
    Add_Nutr_Mark  CHAR (1),\
@@ -156,8 +162,7 @@ void generateTable(){
    Stat_cmt  CHAR (10),\
    AddMod_Date  CHAR (10),\
    CC  CHAR (1),\
-   PRIMARY KEY (NDB_No),\
-   PRIMARY KEY (Nutr_No),\
+   PRIMARY KEY (NDB_No, Nutr_No),\
    FOREIGN KEY (NDB_No) REFERENCES FoodDescriptions,\
    FOREIGN KEY (Ref_NDB_No) REFERENCES FoodDescriptions,\
    FOREIGN KEY (NDB_No) REFERENCES Weight,\
@@ -173,7 +178,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (NutrientData): %s\n", errorMsg);
       return;
    } 
 
@@ -184,7 +189,7 @@ void generateTable(){
    Tagname   CHAR(20),\
    NutrDesc  CHAR(60)       NOT NULL,\
    Num_Dec   CHAR(1)        NOT NULL,\
-   SR_Order  INT (6)        NOT_NULL,\
+   SR_Order  INT (6)        NOT NULL,\
    PRIMARY KEY (Nutr_No),\
    FOREIGN KEY (Nutr_No) REFERENCES NutrientData\
 );";
@@ -194,7 +199,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (NutrientDefinitions): %s\n", errorMsg);
       return;
    }  
 
@@ -211,7 +216,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (SourceCode): %s\n", errorMsg);
       return;
    } 
 
@@ -228,7 +233,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (DataDerivation): %s\n", errorMsg);
       return;
    } 
 
@@ -241,8 +246,7 @@ void generateTable(){
    Gm_Wgt       DECIMAL(7,1)   NOT NULL,\
    Num_Data_Pts INT (3),\
    Std_Dev      DECIMAL(7,3),\
-   PRIMARY KEY (NDB_No),\
-   PRIMARY KEY (Seq),\
+   PRIMARY KEY (NDB_No,Seq),\
    FOREIGN KEY (NDB_No)   REFERENCES FoodDescriptions,\
    FOREIGN KEY (NDB_No)   REFERENCES NutrientData\
 );";
@@ -252,7 +256,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (Weight): %s\n", errorMsg);
       return;
    } 
 
@@ -273,7 +277,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (Footnote): %s\n", errorMsg);
       return;
    } 
 
@@ -282,9 +286,7 @@ void generateTable(){
    NDB_No       CHAR (5)       NOT NULL,\
    Nutr_No      CHAR (3)       NOT NULL,\
    DataSrc_ID   CHAR (6)       NOT NULL,\
-   PRIMARY KEY (NDB_No),\
-   PRIMARY KEY (Nutr_No),\
-   PRIMARY KEY (DataSrc_ID),\
+   PRIMARY KEY (NDB_No, Nutr_No, DataSrc_ID),\
    FOREIGN KEY (NDB_No)       REFERENCES NutrientData,\
    FOREIGN KEY (Nutr_No)      REFERENCES NutrientData,\
    FOREIGN KEY (Nutr_No)      REFERENCES NutrientDefinitions,\
@@ -296,7 +298,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (SourcesOfDataLink): %s\n", errorMsg);
       return;
    } 
 
@@ -312,7 +314,7 @@ void generateTable(){
    Start_Page  CHAR (5),\
    End_Page    CHAR (65),\
    PRIMARY KEY (DataSrc_ID),\
-   FOREIGN KEY (NDB_No)       REFERENCES NutrientData\
+   FOREIGN KEY (DataSrc_ID)       REFERENCES SourcesOfDataLink\
 );";
 
   //Execute the SQL command and create the SourcesOfData table 
@@ -320,7 +322,7 @@ void generateTable(){
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", errorMsg);
+      fprintf(stderr, "SQL error (SourcesOfData): %s\n", errorMsg);
       return;
    } 
 }
@@ -339,8 +341,89 @@ void populateTable(){
   //Create a file input stream object
   std::ifstream fin;
 
-  //Open the first tile 
-  fin.open("data.txt"); // open a file
+  //Open the FOOD_DES.txt file
+  fin.open("FOOD_DES.txt"); 
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "FOOD_DES.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    char buf[MAX_CHARS_PER_LINE];
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 13; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse NDB_No
+    /*
+    std::string NDB_No(token[0]);
+    NDB_No = NDB_No.substr(1, NDB_No.length()-2);
+    */
+
+    std::string NDB_No = parseString(token[0]);
+    fprintf(stderr, "NDB_No: %s\n", NDB_No.c_str());
+
+    //Parse FdGrp_Cd 
+    std::string FdGrp_Cd = parseString(token[1]);
+
+    //Parse Long_Desc
+    std::string Long_Desc = parseString(token[2]);
+
+    //Parse Shrt_Desc 
+    std::string Shrt_Desc = parseString(token[3]);
+
+    //Parse ComName (Check for NULL)
+    std::string ComName = parseString(token[4]);
+
+    //Parse ManufacName (Check for NULL)
+    std::string ManufacName = parseString(token[5]);
+
+    //Parse Survey (Check for NULL)
+    std::string Survey = parseString(token[6]);
+
+    //Parse Ref_desc (Check for NULL)
+    std::string Ref_desc = parseString(token[7]);
+
+    //Parse Refuse (Check for NULL)
+    std::string Refuse = parseString(token[8]);
+
+    //Parse SciName (Check for NULL)
+    std::string SciName = parseString(token[9]);
+
+    //Parse N_Factor (Check for NULL) (Decimal)
+    std::string N_Factor = parseDecimal(token[10]);
+
+    //Parse Pro_Factor (Check for NULL) (Decimal)
+    std::string Pro_Factor = parseDecimal(token[11]);
+
+    //Parse Fat_Factor (Check for NULL) (Decimal)
+    std::string Fat_Factor = parseDecimal(token[12]);
+
+    //Parse CHO_Factor (Check for NULL) (Decimal)
+    std::string CHO_Factor = parseDecimal(token[13]);
+
+    //Generate Insert Statement
+  }
+
+  //OPEN THE SECOND FILE
+  fin.open("data.txt");
 
   //Exit if file is not found
   if (!fin.good()){
@@ -356,109 +439,33 @@ void populateTable(){
     fin.getline(buf, MAX_CHARS_PER_LINE);
     
     //Initialize an array to store the tokens
-    const char* token[20] = {}; // 
+    const char* token[20] = {}; 
 
-    //PARSE FOOD DESCRIPTIONS
+    //PARSE FOOD GROUP DESCRIPTIONS
 
-    //Parse NDB_No
-    std::string NDB_No(token[0]);
-    NDB_No = NDB_No.substr(1, NDB_No.length());
-
-    //Parse FdGrp_Cd 
-    std::string FdGrp_Cd(token[1]);
-    FdGrp_Cd = FdGrp_Cd.substr(1, FdGrp_Cd.length());
-
-    //Parse Long_Desc
-    std::string Long_Desc(token[2]);
-    Long_Desc = Long_Desc.substr(1, Long_Desc.length());
-
-    //Parse Shrt_Desc 
-    std::string Shrt_Desc(token[3]);
-    Shrt_Desc = Shrt_Desc.substr(1, Shrt_Desc.length());
-
-    //Parse ComName (Check for NULL)
-    std::string ComName(token[4]);
-    if(strlen(token[4])<3){
-      ComName = "";
-    }
-    ComName = ComName.substr(1, ComName.length());
-
-    //Parse ManufacName (Check for NULL)
-    std::string ManufacName(token[5]);
-    if(strlen(token[5])<3){
-      ManufacName = "";
-    }
-    ManufacName = ManufacName.substr(1, ManufacName.length());
-
-    //Parse Survey (Check for NULL)
-    std::string Survey(token[6]);
-    if(strlen(token[6])<3){
-      Survey = "";
-    }
-    Survey = Survey.substr(1, Survey.length());
-
-
-    //Parse Ref_desc (Check for NULL)
-    std::string Ref_desc(token[7]);
-    if(strlen(token[7])<3){
-      Ref_desc = "";
-    }
-    Ref_desc = Ref_desc.substr(1, Ref_desc.length());
-
-    //Parse Refuse (Check for NULL)
-    std::string Refuse(token[8]);
-    if(strlen(token[8])<3){
-      Refuse = "";
-    }
-    Refuse = Refuse.substr(1, Refuse.length());
-
-    //Parse SciName (Check for NULL)
-    std::string SciName(token[9]);
-    if(strlen(token[9])<3){
-      SciName = "";
-    }
-    SciName = SciName.substr(1, SciName.length());
-
-    //Parse N_Factor (Check for NULL) (Decimal)
-    std::string N_Factor(token[10]);
-    if(strlen(token[10])<3){
-      N_Factor = "";
-    }
-
-    //Parse Pro_Factor (Check for NULL) (Decimal)
-    std::string Pro_Factor(token[11]);
-    if(strlen(token[11])<3){
-      Pro_Factor = "";
-    }
-
-    //Parse Fat_Factor (Check for NULL) (Decimal)
-    std::string Fat_Factor(token[12]);
-    if(strlen(token[12])<3){
-      Fat_Factor = "";
-    }
-
-    //Parse CHO_Factor (Check for NULL) (Decimal)
-    std::string CHO_Factor(token[13]);
-    if(strlen(token[13])<3){
-      CHO_Factor = "";
-    }
-    //Loop Until All Lines have been parsed
   }
 }
 
 
-      /*
-      //ORIGINAL TOKEN LOOP
-      int n = 0; 
-      for (n = 0; n < 20; n++)
-      {
-        //Fetch the next token
-        token[n] = strtok(0, '^'); 
-        if (!token[n]){
-          break; 
-        } 
-      }
-      */
+std:: string parseString(const char * str){
+    std::string result(str);
+    if(strlen(str)<3){
+      result = "";
+    }
+    else{
+      result = result.substr(1, result.length()-2);
+    }
+    return result;
+}
+
+
+std:: string parseDecimal(const char * str){
+  std::string result("");
+    if(str != NULL){
+      result = str;
+    }
+    return result;
+}
 
 
 
@@ -517,7 +524,7 @@ CREATE TABLE NutrientData(
    Nutr_Val  DECIMAL(10,3)  NOT NULL,
    Num_Data_Pts  DECIMAL(5,0)  NOT NULL,
    Std_Error  DECIMAL(8,3),
-   Src_Cd  CHAR (2) NOT_NULL,
+   Src_Cd  CHAR (2) NOT NULL,
    Deriv_Cd  CHAR (4),
    Ref_NDB_No  CHAR (5),
    Add_Nutr_Mark  CHAR (1),
@@ -548,7 +555,7 @@ CREATE TABLE NutrientDefinitions(
    Tagname   CHAR(20),
    NutrDesc  CHAR(60)       NOT NULL,
    Num_Dec   CHAR(1)        NOT NULL,
-   SR_Order  INT (6)        NOT_NULL,
+   SR_Order  INT (6)        NOT NULL,
    PRIMARY KEY (Nutr_No),
    FOREIGN KEY (Nutr_No) REFERENCES NutrientData
 );
