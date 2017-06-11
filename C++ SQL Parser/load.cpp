@@ -620,6 +620,68 @@ void populateTable(){
    //End of loop
   }
 
+  
+  //Open the SIXTH FILE (NUTR_DEF.txt)
+  fin.close();
+  fin.open("NUTR_DEF.txt"); 
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "NUTR_DEF.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 13; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse Nutr_No 
+    std::string Nutr_No = parseString(token[0]);
+
+    //Parse Units 
+    std::string Units = parseString(token[1]);
+
+    //Parse Tagname 
+    std::string Tagname = parseString(token[2]);
+
+    //Parse NutrDesc 
+    std::string NutrDesc = parseString(token[3]);
+
+    //Parse Num_Dec 
+    std::string Num_Dec = parseString(token[4]);
+
+    //Parse SR_Order 
+    std::string SR_Order = parseDecimal(token[5]);
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO NutrientDefinitions VALUES (%s,%s,%s,%s,%s,%s);", Nutr_No.c_str(), Units.c_str(), Tagname.c_str(), NutrDesc.c_str(), Num_Dec.c_str(), SR_Order.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT6): %s\n", errorMsg);
+   } 
+   //End of loop
+  }
+
 
 }
 
