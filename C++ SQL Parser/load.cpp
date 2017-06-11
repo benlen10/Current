@@ -296,7 +296,7 @@ void populateTable(){
     //Parse all tokens from the line
     const char * const split = "^";
     token[0] = strtok(buf, split); 
-    for (int i = 1; i <= 13; i++)
+    for (int i = 1; i <= 20; i++)
       {
         token[i] = strtok(NULL, split); 
         if (!token[i]){
@@ -382,7 +382,7 @@ void populateTable(){
     //Parse all tokens from the line
     const char * const split = "^";
     token[0] = strtok(buf, split); 
-    for (int i = 1; i <= 13; i++)
+    for (int i = 1; i <= 20; i++)
       {
         token[i] = strtok(NULL, split); 
         if (!token[i]){
@@ -436,7 +436,7 @@ void populateTable(){
     //Parse all tokens from the line
     const char * const split = "^";
     token[0] = strtok(buf, split); 
-    for (int i = 1; i <= 13; i++)
+    for (int i = 1; i <= 20; i++)
       {
         token[i] = strtok(NULL, split); 
         if (!token[i]){
@@ -490,7 +490,7 @@ void populateTable(){
     //Parse all tokens from the line
     const char * const split = "^";
     token[0] = strtok(buf, split); 
-    for (int i = 1; i <= 13; i++)
+    for (int i = 1; i <= 20; i++)
       {
         token[i] = strtok(NULL, split); 
         if (!token[i]){
@@ -544,7 +544,7 @@ void populateTable(){
     //Parse all tokens from the line
     const char * const split = "^";
     token[0] = strtok(buf, split); 
-    for (int i = 1; i <= 13; i++)
+    for (int i = 1; i <= 20; i++)
       {
         token[i] = strtok(NULL, split); 
         if (!token[i]){
@@ -642,7 +642,7 @@ void populateTable(){
     //Parse all tokens from the line
     const char * const split = "^";
     token[0] = strtok(buf, split); 
-    for (int i = 1; i <= 13; i++)
+    for (int i = 1; i <= 20; i++)
       {
         token[i] = strtok(NULL, split); 
         if (!token[i]){
@@ -678,6 +678,60 @@ void populateTable(){
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
       fprintf(stderr, "SQL error (INSERT6): %s\n", errorMsg);
+   } 
+   //End of loop
+  }
+
+  //Open SRC_CD.txt
+  fin.close();
+  fin.open("SRC_CD.txt"); 
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "SRC_CD.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 20; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse Src_Cd 
+    std::string Src_Cd = parseString(token[0]);
+
+    //Parse SrcCd_Desc 
+    std::string SrcCd_Desc = parseString(token[1]);
+
+    //Break once end of file is reached (Neither can be null) (Optional break statement)
+    if((Src_Cd == "NULL") || (SrcCd_Desc == "NULL")){
+      break;
+    }
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO SourceCode VALUES (%s,%s);", Src_Cd.c_str(), SrcCd_Desc.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT SourceCode): %s\n", errorMsg);
    } 
    //End of loop
   }
