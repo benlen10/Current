@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using UniCade.Constants;
 using UniCade.Windows;
 
 namespace UniCade
@@ -60,7 +61,7 @@ namespace UniCade
                 }
                 else
                 {
-                    console.GameList.Add(new Game(spaceChar[0], spaceChar[1], Int32.Parse(spaceChar[2]), spaceChar[3], spaceChar[4], spaceChar[5], spaceChar[6], spaceChar[7], spaceChar[8], spaceChar[9], spaceChar[10], spaceChar[11], spaceChar[12], spaceChar[13], spaceChar[14], spaceChar[15], Int32.Parse(spaceChar[16])));
+                    console.GameList.Add(new Game(spaceChar[0], spaceChar[1], Int32.Parse(spaceChar[2]), spaceChar[3], spaceChar[4], spaceChar[5], spaceChar[6], spaceChar[7], spaceChar[8], spaceChar[9], Enums.ConvertStringToEsrbEnum(spaceChar[10]), spaceChar[11], spaceChar[12], spaceChar[13], spaceChar[14], spaceChar[15], Int32.Parse(spaceChar[16])));
                 }
             }
             if (consoleCount > 0)
@@ -168,7 +169,7 @@ namespace UniCade
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
-            SettingsWindow.RestrictGlobalESRB = Int32.Parse(tokenString[1]);
+            SettingsWindow.RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(tokenString[1]);
 
             file.ReadLine();
             tokenString = line.Split(sep);
@@ -240,7 +241,7 @@ namespace UniCade
             while ((line = file.ReadLine()) != null)
             {
                 tokenString = line.Split(sep);
-                IUser user = new User(tokenString[0], tokenString[1], Int32.Parse(tokenString[2]), tokenString[3], Int32.Parse(tokenString[4]), tokenString[5], tokenString[6], "null");
+                IUser user = new User(tokenString[0], tokenString[1], Int32.Parse(tokenString[2]), tokenString[3], Int32.Parse(tokenString[4]), tokenString[5], Enums.ConvertStringToEsrbEnum(tokenString[6]), "null");
                 if (tokenString[6].Length > 0)
                 {
                     string[] rawString = tokenString[7].Split('#');
@@ -467,9 +468,9 @@ namespace UniCade
         /// </summary>
         public static void Launch(IGame game)
         {
-            if (SettingsWindow.CurrentUser.AllowedEsrb.Length > 1)
+            if (!SettingsWindow.CurrentUser.AllowedEsrb.Equals(Enums.ESRB.Null))
             {
-                if (SettingsWindow.ConvertEsrbToIntValue(game.EsrbRating) >= SettingsWindow.ConvertEsrbToIntValue(SettingsWindow.CurrentUser.AllowedEsrb))
+                if (game.EsrbRating >= SettingsWindow.CurrentUser.AllowedEsrb)
                 {
                     ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted for" + SettingsWindow.CurrentUser.Username);
                     return;
@@ -478,7 +479,7 @@ namespace UniCade
 
             else if (SettingsWindow.RestrictGlobalESRB > 0)
             {
-                if (SettingsWindow.ConvertEsrbToIntValue(game.EsrbRating) >= SettingsWindow.RestrictGlobalESRB)
+                if (game.EsrbRating >= SettingsWindow.RestrictGlobalESRB)
                 {
                     ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted\n");
                     return;
@@ -730,7 +731,7 @@ namespace UniCade
         /// </summary>
         public static void RestoreDefaultPreferences()
         {
-            SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
+            SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null , "");
             Program.Database.UserList.Add(SettingsWindow.CurrentUser);
             SettingsWindow.ShowSplashScreen = false;
             SettingsWindow.RescanOnStartup = false;

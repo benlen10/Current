@@ -14,10 +14,18 @@ namespace UniCade.Constants
 
         public enum ESRB
         {
+            [StringValue("Null")]
+            Null,
             [StringValue("Everyone")]
             Everyone,
             [StringValue("Everyone 10+")]
-            Everyone10
+            Everyone10,
+            [StringValue("Teen")]
+            Teen,
+            [StringValue("Mature")]
+            Mature,
+            [StringValue("AO (Adults Only)")]
+            AO
         }
 
         #endregion
@@ -61,6 +69,40 @@ namespace UniCade.Constants
             {
                 this.StringValue = value;
             }
+        }
+
+        /// <summary>
+        /// Convert a string value into an ESRB enum value
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static ESRB ConvertStringToEsrbEnum(string text)
+        {
+            if (text.Equals("Everyone"))
+            {
+                return ESRB.Everyone;
+            }
+            else if (text.Equals("Everyone"))
+            {
+                return ESRB.Everyone;
+            }
+            else if (text.Equals("Everyone 10+"))
+            {
+                return ESRB.Everyone;
+            }
+            else if (text.Equals("Teen"))
+            {
+                return ESRB.Teen;
+            }
+            else if (text.Equals("Mature"))
+            {
+                return ESRB.Mature;
+            }
+            else if (text.Equals("Adults Only"))
+            {
+                return ESRB.AO;
+            }
+            return ESRB.Null;
         }
 
         #endregion

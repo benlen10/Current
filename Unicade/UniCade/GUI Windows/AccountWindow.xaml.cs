@@ -64,7 +64,7 @@ namespace UniCade.Windows
             else
             {
                 //Create a new local user if the account type standard Unicade
-                IUser user = new User(Textbox_Username.Text, Textbox_Password.Text, 0, Textbox_Email.Text, 0, Textbox_UserInfo.Text, "Mature", "null");
+                IUser user = new User(Textbox_Username.Text, Textbox_Password.Text, 0, Textbox_Email.Text, 0, Textbox_UserInfo.Text, Constants.Enums.ESRB.Null, "null");
                 Program.Database.UserList.Add(user);
                 SettingsWindow.CurrentUser = user;
             }

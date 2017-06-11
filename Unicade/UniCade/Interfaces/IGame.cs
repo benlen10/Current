@@ -1,4 +1,6 @@
-﻿namespace UniCade
+﻿using UniCade.Constants;
+
+namespace UniCade
 {
     public interface IGame
     {
@@ -27,7 +29,7 @@
         /// <summary>
         /// The ESRB content rating
         /// </summary>
-        string EsrbRating { get; set; }
+        Enums.ESRB EsrbRating { get; set; }
 
         /// <summary>
         /// The ESRB content descriptors

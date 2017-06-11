@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using UniCade.Constants;
 
 namespace UniCade.Windows
 {
@@ -54,7 +55,7 @@ namespace UniCade.Windows
         /// <summary>
         /// Specifies if certain ESRB ratings should be restricted globally (regardless of user)
         /// </summary>
-        public static int RestrictGlobalESRB;
+        public static Enums.ESRB RestrictGlobalESRB;
 
         /// <summary>
         /// Specifies if you are required to login to a user account on startup
@@ -171,35 +172,36 @@ namespace UniCade.Windows
             WebTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
 
             //Populate the 'Allowed ESRB' combo box with the specified rating
-            if (RestrictGlobalESRB == 0)
-            {
-                GlobalTab_Dropdown_AllowedESRB.Text = "None";
-            }
-            else if (RestrictGlobalESRB == 1)
+            if (RestrictGlobalESRB.Equals(Enums.ESRB.Everyone))
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Everyone";
             }
-            else if (RestrictGlobalESRB == 2)
+            else if (RestrictGlobalESRB.Equals(Enums.ESRB.Everyone10))
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Everyone 10+";
             }
-            else if (RestrictGlobalESRB == 3)
+            else if (RestrictGlobalESRB.Equals(Enums.ESRB.Teen))
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Teen";
             }
-            else if (RestrictGlobalESRB == 4)
+            else if (RestrictGlobalESRB.Equals(Enums.ESRB.Mature))
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Mature";
             }
-            else if (RestrictGlobalESRB == 5)
+            else if (RestrictGlobalESRB.Equals(Enums.ESRB.AO))
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Adults Only (AO)";
+            }
+            else
+            {
+                GlobalTab_Dropdown_AllowedESRB.Text = "None";
             }
 
             if (DisplayEsrbWhileBrowsing == true)
             {
                 GamesTab_CheckBox__GlobalFavorite.IsChecked = true;
             }
+
 
             //Disable editing userinfo unless logged in
             UsersTab_Textbox_Username.IsEnabled = false;
@@ -565,7 +567,7 @@ namespace UniCade.Windows
             GamesTab_Textbox_CriticScore.Text = CurrentGame.CriticReviewScore;
             GamesTab_Textbox_Publisher.Text = CurrentGame.PublisherName;
             GamesTab_Textbox_Developer.Text = CurrentGame.DeveloperName;
-            GamesTab_Textbox_ESRB.Text = CurrentGame.EsrbRating;
+            GamesTab_Textbox_ESRB.Text = CurrentGame.EsrbRating.GetStringValue();
             GamesTab_Textbox_Players.Text = CurrentGame.PlayerCount;
             GamesTab_Textbox_ESRBDescriptor.Text = CurrentGame.EsrbDescriptors;
             GamesTab_Textbox_Description.Text = CurrentGame.Description;
@@ -950,7 +952,7 @@ namespace UniCade.Windows
                     UsersTab_Textbox_UserInfo.Text = user.UserInfo;
                     UsersTab_Textbox_LoginCount.Text = user.LoginCount.ToString();
                     UsersTab_Textbox_LaunchCount.Text = user.TotalLaunchCount.ToString();
-                    UsersTab_Dropdown_AllowedESRB.Text = user.AllowedEsrb;
+                    UsersTab_Dropdown_AllowedESRB.Text = user.AllowedEsrb.GetStringValue();
 
                     //Only allow the current user to edit their own userdata
                     bool editEnabled = user.Username.Equals(CurrentUser.Username);
@@ -1061,7 +1063,7 @@ namespace UniCade.Windows
                 {
                     if (UsersTab_Dropdown_AllowedESRB.SelectedItem != null)
                     {
-                        CurrentUser.AllowedEsrb = UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString();
+                        CurrentUser.AllowedEsrb = Enums.ConvertStringToEsrbEnum(UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                     }
                 }
                 else
@@ -1140,7 +1142,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RestrictGlobalESRB = ConvertEsrbToIntValue(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+            RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -1156,7 +1158,7 @@ namespace UniCade.Windows
             {
                 if (GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Everyone") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Teen") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Mature") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
                 {
-                    RestrictGlobalESRB = ConvertEsrbToIntValue(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                    RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                 }
                 else
                 {
@@ -1188,7 +1190,7 @@ namespace UniCade.Windows
 
                 if (GlobalTab_Dropdown_AllowedESRB.SelectedItem != null)
                 {
-                    RestrictGlobalESRB = ConvertEsrbToIntValue(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                    RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                 }
 
                 //Save all active preferences to the local preferences file
@@ -1698,44 +1700,6 @@ namespace UniCade.Windows
         }
 
         /// <summary>
-        /// Given the string value for an esrb rating, calculate and return the ESRB int value
-        /// </summary>
-        public static int ConvertEsrbToIntValue(String esrb)
-        {
-            int EsrbNum = 0;
-            if (esrb.Equals("Everyone"))
-            {
-                EsrbNum = 1;
-            }
-            else if (esrb.Equals("Everyone 10+"))
-            {
-                EsrbNum = 2;
-            }
-            else if (esrb.Equals("Teen"))
-            {
-                EsrbNum = 3;
-            }
-            else if (esrb.Equals("Mature"))
-            {
-                EsrbNum = 4;
-            }
-            else if (esrb.Equals("Adults Only (AO)"))
-            {
-                EsrbNum = 5;
-            }
-            else if (esrb.Equals("None"))
-            {
-                EsrbNum = 0;
-            }
-            else
-            {
-                EsrbNum = 0;
-            }
-
-            return EsrbNum;
-        }
-
-        /// <summary>
         /// Refresh the current game info passed in as a Game object
         /// </summary>
         public void RefreshGameInfo(IGame game)
@@ -1763,7 +1727,7 @@ namespace UniCade.Windows
             GamesTab_Textbox_CriticScore.Text = game.CriticReviewScore;
             GamesTab_Textbox_Publisher.Text = game.PublisherName;
             GamesTab_Textbox_Developer.Text = game.DeveloperName;
-            GamesTab_Textbox_ESRB.Text = game.EsrbRating;
+            GamesTab_Textbox_ESRB.Text = game.EsrbRating.GetStringValue();
             GamesTab_Textbox_Players.Text = game.PlayerCount;
             GamesTab_Textbox_ESRBDescriptor.Text = game.EsrbDescriptors;
             GamesTab_Textbox_Description.Text = game.Description;
@@ -1872,7 +1836,7 @@ namespace UniCade.Windows
             {
                 if (GamesTab_Textbox_ESRB.Text.Contains("Everyone") || GamesTab_Textbox_ESRB.Text.Contains("Teen") || GamesTab_Textbox_ESRB.Text.Contains("Mature") || GamesTab_Textbox_ESRB.Text.Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
                 {
-                    CurrentGame.EsrbRating = GamesTab_Textbox_ESRB.Text;
+                    CurrentGame.EsrbRating = Enums.ConvertStringToEsrbEnum(GamesTab_Textbox_ESRB.Text);
                 }
                 else
                 {

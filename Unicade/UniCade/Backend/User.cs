@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UniCade.Constants;
 
 namespace UniCade
 {
@@ -29,7 +30,7 @@ namespace UniCade
         /// <summary>
         /// The max allowed ESRB for the current user (Parental Controls)
         /// </summary>
-        public string AllowedEsrb { get; set; }
+        public Enums.ESRB AllowedEsrb { get; set; }
 
         /// <summary>
         /// The user's email address
@@ -55,7 +56,7 @@ namespace UniCade
 
         #region Constructors
 
-        public User(string userName, string password, int loginCount, string email, int totalLaunchCount, string userInfo, string allowedEsrb, string profPic)
+        public User(string userName, string password, int loginCount, string email, int totalLaunchCount, string userInfo, Enums.ESRB allowedEsrb, string profPic)
         {
             Username = userName;
             Password = password;

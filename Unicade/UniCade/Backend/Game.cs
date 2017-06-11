@@ -1,4 +1,6 @@
-﻿namespace UniCade
+﻿using UniCade.Constants;
+
+namespace UniCade
 {
     public class Game : IGame
     {
@@ -73,7 +75,7 @@
         /// <summary>
         /// The ESRB content rating
         /// </summary>
-        public string EsrbRating { get; set; }
+        public Enums.ESRB EsrbRating { get; set; }
 
         /// <summary>
         /// The ESRB content descriptors
@@ -132,7 +134,7 @@
         /// <param name="genres">The genere(s) for the current game</param>
         /// <param name="tags">A list of common tags tags for the current game</param>
         /// <param name="isFavorite"></param>
-        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string playerCount, string trivia, string esrbRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, int isFavorite)
+        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string playerCount, string trivia, Enums.ESRB esrbRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, int isFavorite)
         {
             FileName = fileName;
             ConsoleName = consoleName;

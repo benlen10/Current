@@ -81,9 +81,6 @@ namespace UniCade
         public static void Main(string[] args)
         {
             //Initialize the database object
-            Database = new Database();
-
-            System.Console.WriteLine(Enums.ESRB.Everyone10.GetStringValue());
 
             //If preferences file does not exist, load default preference values and save a new file
             if (!FileOps.LoadPreferences(PreferencesPath))
@@ -117,7 +114,7 @@ namespace UniCade
             //If the current user is null, generate the default UniCade user and set as the current user  
             if (SettingsWindow.CurrentUser == null)
             {
-                SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", "", "");
+                SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
             }
 
             //Verify the current user license and set flag
@@ -142,8 +139,8 @@ namespace UniCade
                 ShowNotification("WARNING", "Database file not found.\n Loading defaults...");
             }
             var app = new App();
-            //app.InitializeComponent();
-            //app.Run();
+            app.InitializeComponent();
+            app.Run();
         }
 
         /// <summary>

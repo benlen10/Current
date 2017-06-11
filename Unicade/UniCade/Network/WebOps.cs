@@ -2,6 +2,7 @@
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using UniCade.Constants;
 
 namespace UniCade
 {
@@ -169,31 +170,27 @@ namespace UniCade
                 //Convert the parsed text to a valid ESRB rating
                 if (s.Contains("Everyone"))
                 {
-                    g.EsrbRating = "Everyone";
+                    g.EsrbRating = Enums.ESRB.Everyone;
                 }
                 else if (s.Contains("Kids to Adults"))
                 {
-                    g.EsrbRating = "Everyone (KA)";
+                    g.EsrbRating = Enums.ESRB.Everyone;
                 }
                 else if (s.Contains("Everyone 10+"))
                 {
-                    g.EsrbRating = "Everyone 10+";
+                    g.EsrbRating = Enums.ESRB.Everyone10;
                 }
                 else if (s.Contains("Teen"))
                 {
-                    g.EsrbRating = "Teen";
+                    g.EsrbRating = Enums.ESRB.Teen;
                 }
                 else if (s.Contains("Mature"))
                 {
-                    g.EsrbRating = "Mature";
-                }
-                else if (s.Contains("Mature"))
-                {
-                    g.EsrbRating = "Mature";
+                    g.EsrbRating = Enums.ESRB.Mature;
                 }
                 else if (s.Contains("Adults Only"))
                 {
-                    g.EsrbRating = "AO (Adults Only)";
+                    g.EsrbRating = Enums.ESRB.AO;
                 }
             }
 

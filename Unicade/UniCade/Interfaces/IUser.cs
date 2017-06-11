@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UniCade.Constants;
 
 namespace UniCade
 {
@@ -9,7 +10,7 @@ namespace UniCade
         /// <summary>
         /// The max allowed ESRB for the current user (Parental Controls)
         /// </summary>
-        string AllowedEsrb { get; set; }
+        Enums.ESRB AllowedEsrb { get; set; }
 
         /// <summary>
         /// The user's email address
