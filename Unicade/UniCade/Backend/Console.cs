@@ -113,8 +113,8 @@ namespace UniCade
                 return false;
             }
 
-            //If a game with an identical file name already exists, return false
-            if (GameList.Find(e => e.FileName.Equals(game.FileName)) != null)
+            //If a game with an identical title (or filename) name already exists, return false
+            if (GameList.Find(e => e.Title.Equals(game.Title)) != null)
             {
                 return false;
             }
@@ -122,7 +122,6 @@ namespace UniCade
             //If all conditions are valid, add the game and increment the game count for both the console and database 
             GameList.Add(game);
             GameCount++;
-            Program.Database.TotalGameCount++;
             return true;
         }
 
@@ -146,7 +145,6 @@ namespace UniCade
                 //Remove the game and decriment both the console game count and total game count
                 GameList.Remove(gameToRemove);
                 GameCount--;
-                Program.Database.TotalGameCount--;
             }
             return false;
         }

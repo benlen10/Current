@@ -41,6 +41,21 @@ namespace UniCade
             UserList = new List<IUser>();
         }
 
+        /// <summary>
+        /// Refresh the total game count across all consoles
+        /// </summary>
+        /// <returns>Total game count</returns>
+        public int RefreshTotalGameCount()
+        {
+            int count = 0;
+            foreach(Console console in ConsoleList)
+            {
+                count += console.GameCount;
+            }
+            TotalGameCount = count;
+            return count;
+        }
+
         #endregion
     }
 }

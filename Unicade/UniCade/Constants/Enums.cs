@@ -12,6 +12,9 @@ namespace UniCade.Constants
     {
         #region Enums
 
+        /// <summary>
+        /// Enum Values for ESRB content ratings
+        /// </summary>
         public enum ESRB
         {
             [StringValue("Null")]
@@ -28,15 +31,24 @@ namespace UniCade.Constants
             AO
         }
 
+        /// <summary>
+        /// Enum Values for Unicade user types
+        /// </summary>
+        public enum UserType
+        {
+            LocalAccount,
+            CloudAccount
+        }
+
         #endregion
 
-        #region Helper Methods
+            #region Helper Methods
 
-        /// <summary>
-        /// Return the StringValue atribute from the enum
-        /// </summary>
-        /// <param name="enumValue">The current enum</param>
-        /// <returns>the string value for the current enum</returns>
+            /// <summary>
+            /// Return the StringValue atribute from the enum
+            /// </summary>
+            /// <param name="enumValue">The current enum</param>
+            /// <returns>the string value for the current enum</returns>
         public static string GetStringValue(this Enum enumValue)
         {
             //Fetch the type and field info

@@ -27,5 +27,15 @@ namespace UniCade
         List<IUser> UserList { get; set; }
 
         #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Refresh the total game count across all consoles
+        /// </summary>
+        /// <returns>Total game count</returns>
+        int RefreshTotalGameCount();
+
+        #endregion
     }
 }
