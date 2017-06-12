@@ -790,6 +790,70 @@ void populateTable(){
    //End of loop
   }
 
+   //Open WEIGHT.txt (Weight)
+  fin.close();
+  fin.open("WEIGHT.txt"); 
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "WEIGHT.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 20; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse NDB_No 
+    std::string NDB_No = parseString(token[0]);
+
+    //Parse Seq 
+    std::string Seq = parseString(token[1]);
+
+    //Parse Amount 
+    std::string Amount = parseString(token[2]);
+
+    //Parse Msre_Desc 
+    std::string Msre_Desc = parseString(token[3]);
+
+    //Parse Gm_Wgt 
+    std::string Gm_Wgt = parseString(token[4]);
+
+    //Parse Num_Data_Pts 
+    std::string Num_Data_Pts = parseString(token[5]);
+
+    //Parse Std_Dev 
+    std::string Std_Dev = parseString(token[6]);
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO Weight VALUES (%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), Seq.c_str(), Amount.c_str(), Msre_Desc.c_str(), Gm_Wgt.c_str(), Num_Data_Pts.c_str(), Std_Dev.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT Weight): %s\n", errorMsg);
+   } 
+   //End of loop
+  }
+
 
 }
 
@@ -813,8 +877,6 @@ std:: string parseDecimal(const char * str){
     }
     return result;
 }
-
-
 
 
 //CREATE TABLE COMMANDS (ORIGINAL - DUPLICATE)
