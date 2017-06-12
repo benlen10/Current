@@ -736,6 +736,60 @@ void populateTable(){
    //End of loop
   }
 
+    //Open DERIV_CD.txt (DataDerivation)
+  fin.close();
+  fin.open("DERIV_CD.txt"); 
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "DERIV_CD.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 20; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse Deriv_Cd 
+    std::string Deriv_Cd = parseString(token[0]);
+
+    //Parse Deriv_Desc 
+    std::string Deriv_Desc = parseString(token[1]);
+
+    //Break once end of file is reached (Neither can be null) (Optional break statement)
+    if((Deriv_Cd == "NULL") || (Deriv_Desc == "NULL")){
+      break;
+    }
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO DataDerivation VALUES (%s,%s);", Deriv_Cd.c_str(), Deriv_Desc.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT DataDerivation): %s\n", errorMsg);
+   } 
+   //End of loop
+  }
+
 
 }
 
