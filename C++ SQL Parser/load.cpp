@@ -854,6 +854,65 @@ void populateTable(){
    //End of loop
   }
 
+  //Open FOOTNOTE.txt (Footnote)
+  fin.close();
+  fin.open("FOOTNOTE.txt"); 
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "FOOTNOTE.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 20; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse NDB_No 
+    std::string NDB_No = parseString(token[0]);
+
+    //Parse Footnt_No 
+    std::string Footnt_No = parseString(token[1]);
+
+    //Parse Footnt_Typ 
+    std::string Footnt_Typ = parseString(token[2]);
+
+    //Parse Nutr_No 
+    std::string Nutr_No = parseString(token[3]);
+
+    //Parse Footnt_Txt 
+    std::string Footnt_Txt = parseString(token[4]);
+
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO Footnote VALUES (%s,%s,%s,%s,%s);", NDB_No.c_str(), Footnt_No.c_str(), Footnt_Typ.c_str(), Nutr_No.c_str(), Footnt_Txt.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT Footnote): %s\n", errorMsg);
+   } 
+   //End of loop
+  }
+
 
 }
 
