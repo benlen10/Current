@@ -914,6 +914,61 @@ void populateTable(){
   }
 
 
+
+  //Open DATSRCLN.txt (SourcesOfDataLink)
+  fin.close();
+  fin.open("DATSRCLN.txt"); 
+
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "DATSRCLN.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 20; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse NDB_No 
+    std::string NDB_No = parseString(token[0]);
+
+    //Parse Nutr_No 
+    std::string Nutr_No = parseString(token[1]);
+
+     //Parse DataSrc_ID 
+    std::string DataSrc_ID = parseString(token[2]);
+
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO SourcesOfDataLink VALUES (%s,%s,%s);", NDB_No.c_str(), Nutr_No.c_str(), DataSrc_ID.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT SourcesOfDataLink): %s\n", errorMsg);
+   } 
+   //End of loop
+  }
+
+
 }
 
 
