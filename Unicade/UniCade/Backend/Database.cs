@@ -42,6 +42,23 @@ namespace UniCade
         }
 
         /// <summary>
+        /// Add a new console to the database
+        /// </summary>
+        /// <param name="console"></param>
+        /// <returns>true if the console was sucuessfully added</returns>
+        public bool AddConsole(IConsole console)
+        {
+            //Return false if a console with a duplicate name already exists
+            if(ConsoleList.Find(e => e.ConsoleName.Equals(console.ConsoleName)) != null)
+            {
+                return false;
+            }
+
+            ConsoleList.Add(console);
+            return true;
+        }
+
+        /// <summary>
         /// Refresh the total game count across all consoles
         /// </summary>
         /// <returns>Total game count</returns>

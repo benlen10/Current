@@ -81,6 +81,7 @@ namespace UniCade
         public static void Main(string[] args)
         {
             //Initialize the database object
+            Database = new Database();
 
             //If preferences file does not exist, load default preference values and save a new file
             if (!FileOps.LoadPreferences(PreferencesPath))

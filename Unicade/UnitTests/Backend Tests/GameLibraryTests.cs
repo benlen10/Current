@@ -122,7 +122,5 @@ namespace UnitTests
             IGame game2 = new Game("newGame.iso", console.ConsoleName);
             Assert.IsFalse(console.AddGame(game1), "Verify that dupliate games with the same title are not allowed");
         }
-
-
     }
 }

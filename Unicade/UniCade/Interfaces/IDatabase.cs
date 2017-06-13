@@ -36,6 +36,13 @@ namespace UniCade
         /// <returns>Total game count</returns>
         int RefreshTotalGameCount();
 
+        /// <summary>
+        /// Add a new console to the database
+        /// </summary>
+        /// <param name="console"></param>
+        /// <returns>true if the console was sucuessfully added</returns>
+        bool AddConsole(IConsole console);
+
         #endregion
     }
 }
