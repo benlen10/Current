@@ -101,6 +101,7 @@ namespace UnitTests
         {
             //Attempt to add a new console with the same name and verify this returns false
             IConsole console2 = new UniCade.Console(console.ConsoleName);
+            Assert.IsFalse(Database.AddConsole(console2), "Verify that adding a console with a duplicate name is not allowed");
         }
 
         /// <summary>
@@ -121,6 +122,18 @@ namespace UnitTests
             //Attempt to add another game with the same game title and verify that duplicates are not allowed
             IGame game2 = new Game("newGame.iso", console.ConsoleName);
             Assert.IsFalse(console.AddGame(game1), "Verify that dupliate games with the same title are not allowed");
+        }
+
+        /// <summary>
+        /// Verify that adding a game to an incorrect console is not allowed
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void AddGameToIncorrectConsoleDisallowed()
+        {
+            //Attempt to add another game with the same filename and verify that duplicates are not allowed
+            IGame game = new Game("newGame.bin", "differentConsole");
+            Assert.IsFalse(console.AddGame(game), "Verify that adding a game to an incorrect console is not allowed");
         }
     }
 }
