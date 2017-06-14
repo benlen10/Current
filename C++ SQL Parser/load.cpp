@@ -1,5 +1,5 @@
 /**
- * @author See Contributors.txt for code contributors and overview of BadgerDB.
+ * @author Benjamin Lenington (lenington@wisc.edu)
  *
  * @section LICENSE
  * Copyright (c) 2012 Database Group, Computer Sciences Department, University of Wisconsin-Madison.
@@ -7,15 +7,16 @@
 
 #include <stdio.h>
 #include "sqlite3.h"
-//Custom
 #include "load.h"
 #include <iostream>
 #include <fstream>
 #include <cstring>
 #include <algorithm>
 
-
+//The max number of chars to parse per line
 const int MAX_CHARS_PER_LINE = 5000;
+
+//Current sqlite database instance
 sqlite3 *db;
 
 int main(int argc, char* argv[])
@@ -1040,6 +1041,10 @@ void populateTable(){
 }
 
 
+
+
+#pragma region Helper Functions
+
 std:: string parseString(const char * str){
     std::string result("NULL");
     if(str!=NULL){
@@ -1060,6 +1065,7 @@ std:: string parseDecimal(const char * str){
     return result;
 }
 
+#pragma endregion
 
 //CREATE TABLE COMMANDS (ORIGINAL - DUPLICATE)
 /*
