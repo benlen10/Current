@@ -968,7 +968,75 @@ void populateTable(){
    //End of loop
   }
 
+    //Open DATA_SRC.txt (SourcesOfData)
+  fin.close();
+  fin.open("DATA_SRC.txt"); 
 
+  //Exit if file is not found
+  if (!fin.good()){
+  fprintf(stderr, "DATA_SRC.txt Not Found\n");
+    return;
+  }
+  
+  // read each line of the file
+  while (!fin.eof())
+  {
+    //Read a full line
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    //Initialize an array to store the tokens
+    const char * token[20] = {};
+    //Parse all tokens from the line
+    const char * const split = "^";
+    token[0] = strtok(buf, split); 
+    for (int i = 1; i <= 20; i++)
+      {
+        token[i] = strtok(NULL, split); 
+        if (!token[i]){
+           break; 
+        }
+      }
+
+    //Parse DataSrc_ID 
+    std::string DataSrc_ID = parseString(token[0]);
+
+    //Parse Authors 
+    std::string Authors = parseString(token[1]);
+
+    //Parse Title 
+    std::string Title = parseString(token[2]);
+
+    //Parse Year 
+    std::string Year = parseString(token[3]);
+
+    //Parse Journal 
+    std::string Journal = parseString(token[4]);
+
+    //Parse Vol_City 
+    std::string Vol_City = parseString(token[5]);
+
+    //Parse Issue_State 
+    std::string Issue_State = parseString(token[6]);
+
+    //Parse Start_Page 
+    std::string Start_Page = parseString(token[7]);
+
+    //Parse End_Page 
+    std::string End_Page = parseString(token[8]);
+
+    //Generate Insert Statement
+    sprintf (command, "INSERT INTO SourcesOfData VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);", DataSrc_ID.c_str(), Authors.c_str(), Title.c_str(), Year.c_str(), Journal.c_str(), Vol_City.c_str(), Issue_State.c_str(), Start_Page.c_str(), End_Page.c_str());
+    std::cout << command << std::endl;
+
+    //Execute the SQL command
+  execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+
+  //DEBUG (Temp)
+  if( execStatus != SQLITE_OK ){
+      fprintf(stderr, "SQL error (INSERT SourcesOfData): %s\n", errorMsg);
+   } 
+   //End of loop
+  }
 }
 
 
