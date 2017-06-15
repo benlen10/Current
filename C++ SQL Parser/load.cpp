@@ -275,7 +275,7 @@ void populateTable(){
   //Create buffer
   char buf[MAX_CHARS_PER_LINE];
 
-
+  std::cout << "FOOD DESCRIPTIONS\n\n\n\n\n" << std::endl;
   //Open the FOOD_DES.txt file
   fin.open("FOOD_DES.txt"); 
 
@@ -348,14 +348,14 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO FoodDescriptions VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), FdGrp_Cd.c_str(),FdGrp_Cd.c_str(),Shrt_Desc.c_str(),ComName.c_str(),ManufacName.c_str(),Survey.c_str(),Ref_desc.c_str(),Refuse.c_str(),SciName.c_str(), N_Factor.c_str(), Pro_Factor.c_str(), Fat_Factor.c_str(), CHO_Factor.c_str());
-    std::cout << command << std::endl;
 
     //Execute the SQL command and create the SourcesOfData table 
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (FoodDescriptions): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
@@ -363,6 +363,7 @@ void populateTable(){
 
 
   //Open the SECOND FILE (FD_GROUP.txt)
+  std::cout << "FOOD GROUP DESCRIPTIONS\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("FD_GROUP.txt"); 
 
@@ -404,19 +405,21 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO FoodGroupDescriptions VALUES (%s,%s);", FdGrp_Cd.c_str(), FdGrp_Desc.c_str());
-    std::cout << command << std::endl;
+    
 
     //Execute the SQL command and create the SourcesOfData table 
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT2): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (FoodGroupDescriptions): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
 
   //Open the THIRD FILE (LANGUAL.txt)
+  std::cout << "LANGUAL FACTORS\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("LANGUAL.txt"); 
 
@@ -458,19 +461,21 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO LangualFactor VALUES (%s,%s);", NDB_No.c_str(), Factor_Code.c_str());
-    std::cout << command << std::endl;
+    
 
     //Execute the SQL command 
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT3): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (LangualFactor): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
 
   //Open the FOURTH FILE (LANGDESC.txt)
+  std::cout << "LANGUAL FACTORS DESCRIPTION\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("LANGDESC.txt"); 
 
@@ -512,19 +517,20 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO LangualFactorsDescription VALUES (%s,%s);", Factor_Code.c_str(), Description.c_str());
-    std::cout << command << std::endl;
-
+    
     //Execute the SQL command
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT4): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (LangualFactorsDescription): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
 
   //Open the FIFTH FILE (NUT_DATA.txt)
+  std::cout << "NUTRIENT DATA\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("NUT_DATA.txt"); 
 
@@ -609,20 +615,21 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO NutrientData VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), Nutr_No.c_str(), Nutr_Val.c_str(), Num_Data_Pts.c_str(), Std_Error.c_str(), Src_Cd.c_str(), Deriv_Cd.c_str(), Ref_NDB_No.c_str(), Add_Nutr_Mark.c_str(), Num_Studies.c_str(), Min.c_str(), Max.c_str(), DF.c_str(), Low_EB.c_str(), Up_EB.c_str(), Stat_cmt.c_str(), AddMod_Date.c_str(), CC.c_str());
-    std::cout << command << std::endl;
 
     //Execute the SQL command
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT5): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (NutrientData): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
 
   
   //Open the SIXTH FILE (NUTR_DEF.txt)
+  std::cout << "NUTRIENT DEFINIETIONS\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("NUTR_DEF.txt"); 
 
@@ -671,19 +678,20 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO NutrientDefinitions VALUES (%s,%s,%s,%s,%s,%s);", Nutr_No.c_str(), Units.c_str(), Tagname.c_str(), NutrDesc.c_str(), Num_Dec.c_str(), SR_Order.c_str());
-    std::cout << command << std::endl;
 
     //Execute the SQL command
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT6): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (NutrientDefinitions): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
 
   //Open SRC_CD.txt
+  std::cout << "SOURCE CODE\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("SRC_CD.txt"); 
 
@@ -725,14 +733,14 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO SourceCode VALUES (%s,%s);", Src_Cd.c_str(), SrcCd_Desc.c_str());
-    std::cout << command << std::endl;
 
     //Execute the SQL command
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT SourceCode): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (SourceCode): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
@@ -778,20 +786,20 @@ void populateTable(){
     }
 
     //Generate Insert Statement
-    sprintf (command, "INSERT INTO DataDerivation VALUES (%s,%s);", Deriv_Cd.c_str(), Deriv_Desc.c_str());
-    std::cout << command << std::endl;
 
     //Execute the SQL command
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT DataDerivation): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (DataDerivation): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
 
    //Open WEIGHT.txt (Weight)
+  std::cout << "WEIGHT\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("WEIGHT.txt"); 
 
@@ -843,7 +851,6 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO Weight VALUES (%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), Seq.c_str(), Amount.c_str(), Msre_Desc.c_str(), Gm_Wgt.c_str(), Num_Data_Pts.c_str(), Std_Dev.c_str());
-    std::cout << command << std::endl;
 
     //Execute the SQL command
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
@@ -851,11 +858,13 @@ void populateTable(){
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
       fprintf(stderr, "SQL error (INSERT Weight): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
 
   //Open FOOTNOTE.txt (Footnote)
+  std::cout << "FOOTNOTE\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("FOOTNOTE.txt"); 
 
@@ -902,14 +911,14 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO Footnote VALUES (%s,%s,%s,%s,%s);", NDB_No.c_str(), Footnt_No.c_str(), Footnt_Typ.c_str(), Nutr_No.c_str(), Footnt_Txt.c_str());
-    std::cout << command << std::endl;
 
     //Execute the SQL command
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT Footnote): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (Footnote): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
@@ -917,6 +926,7 @@ void populateTable(){
 
 
   //Open DATSRCLN.txt (SourcesOfDataLink)
+  std::cout << "SOURCES OF DATA LINK\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("DATSRCLN.txt"); 
 
@@ -957,19 +967,20 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO SourcesOfDataLink VALUES (%s,%s,%s);", NDB_No.c_str(), Nutr_No.c_str(), DataSrc_ID.c_str());
-    std::cout << command << std::endl;
 
     //Execute the SQL command
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT SourcesOfDataLink): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (SourcesOfDataLink): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
 
     //Open DATA_SRC.txt (SourcesOfData)
+  std::cout << "SOURCES OF DATA\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("DATA_SRC.txt"); 
 
@@ -1027,21 +1038,18 @@ void populateTable(){
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO SourcesOfData VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);", DataSrc_ID.c_str(), Authors.c_str(), Title.c_str(), Year.c_str(), Journal.c_str(), Vol_City.c_str(), Issue_State.c_str(), Start_Page.c_str(), End_Page.c_str());
-    std::cout << command << std::endl;
 
     //Execute the SQL command
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (INSERT SourcesOfData): %s\n", errorMsg);
+      fprintf(stderr, "SQL error (SourcesOfData): %s\n", errorMsg);
+      std::cout << command << std::endl;
    } 
    //End of loop
   }
 }
-
-
-
 
 #pragma region Helper Functions
 
