@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 using UniCade.Constants;
+using UniCade.Exceptions;
 using UniCade.Windows;
 
 namespace UniCade

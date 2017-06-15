@@ -135,5 +135,23 @@ namespace UnitTests
             IGame game = new Game("newGame.bin", "differentConsole");
             Assert.IsFalse(console.AddGame(game), "Verify that adding a game to an incorrect console is not allowed");
         }
+
+        /// <summary>
+        /// Verify that adding a game to an incorrect console is not allowed
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyGlobalEsrbRestrictions()
+        {
+        }
+
+        /// <summary>
+        /// Verify that adding a game to an incorrect console is not allowed
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyUserEsrbRestrictions()
+        {
+        }
     }
 }
