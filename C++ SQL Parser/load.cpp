@@ -345,6 +345,7 @@ void populateTable(){
 
     //Parse CHO_Factor (Check for NULL) (Decimal)
     std::string CHO_Factor = parseDecimal(token[13]);
+    CHO_Factor.substr (0,CHO_Factor.length()-1);
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO FoodDescriptions VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), FdGrp_Cd.c_str(),FdGrp_Cd.c_str(),Shrt_Desc.c_str(),ComName.c_str(),ManufacName.c_str(),Survey.c_str(),Ref_desc.c_str(),Refuse.c_str(),SciName.c_str(), N_Factor.c_str(), Pro_Factor.c_str(), Fat_Factor.c_str(), CHO_Factor.c_str());
@@ -355,7 +356,7 @@ void populateTable(){
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
       fprintf(stderr, "SQL error (FoodDescriptions): %s\n", errorMsg);
-      std::cout << command << std::endl;
+      std::cout << command << std::flush;
    } 
    //End of loop
   }
@@ -1068,7 +1069,9 @@ std:: string parseString(const char * str){
 std:: string parseDecimal(const char * str){
   std::string result("NULL");
     if(str != NULL){
+      if(strlen(str)>1){
       result = str;
+      }
     }
     return result;
 }
