@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using UniCade.Backend;
 using UniCade.Windows;
 
 namespace UniCade
@@ -77,7 +78,7 @@ namespace UniCade
 
             //Initialize license flag
             label3.Content = "Unlicensed Version";
-            if (Program.IsLicenseValid)
+            if (LicenseEngine.IsLicenseValid)
             {
                 label3.Visibility = Visibility.Hidden;
             }
@@ -302,7 +303,7 @@ namespace UniCade
                         UnhookKeys();
                         sw.ShowDialog();
                     }
-                    if (Program.IsLicenseValid)
+                    if (LicenseEngine.IsLicenseValid)
                     {
                         label3.Visibility = Visibility.Hidden;
                     }

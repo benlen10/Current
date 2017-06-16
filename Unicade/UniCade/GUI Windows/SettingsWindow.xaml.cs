@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using UniCade.Backend;
 using UniCade.Constants;
 
 namespace UniCade.Windows
@@ -343,8 +344,8 @@ namespace UniCade.Windows
             RefreshGlobalFavs();
 
             //Populate user license info
-            AboutTab_Label_LicensedTo.Content = "Licensed to: " + Program.UserLicenseName;
-            if (Program.IsLicenseValid)
+            AboutTab_Label_LicensedTo.Content = "Licensed to: " + LicenseEngine.UserLicenseName;
+            if (LicenseEngine.IsLicenseValid)
             {
                 AboutTab_Label_Edition.Content = "License Status: Full Version";
             }
@@ -352,7 +353,7 @@ namespace UniCade.Windows
             {
                 AboutTab_Label_Edition.Content = "License Status: Invalid";
             }
-            AboutTab_Label_LicenseKey.Content = "License Key: " + Program.UserLicenseKey;
+            AboutTab_Label_LicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
         }
 
         #endregion
@@ -1666,11 +1667,11 @@ namespace UniCade.Windows
             //Create a new license entry info and validate the key
             LicenseEntry le = new LicenseEntry();
             le.ShowDialog();
-            AboutTab_Label_LicensedTo.Content = "Licensed to: " + Program.UserLicenseName;
-            AboutTab_Label_LicenseKey.Content = "License Key: " + Program.UserLicenseKey;
+            AboutTab_Label_LicensedTo.Content = "Licensed to: " + LicenseEngine.UserLicenseName;
+            AboutTab_Label_LicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
 
             //Set the license text depending on if the key is valid
-            if (Program.IsLicenseValid == true)
+            if (LicenseEngine.IsLicenseValid == true)
             {
                 AboutTab_Label_Edition.Content = "License Status: Full Version";
             }

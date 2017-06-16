@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Exceptions;
 using UniCade.Windows;
@@ -51,21 +52,6 @@ namespace UniCade
         /// True or false if playtime is remaining if PayPerPlay is enabled
         /// </summary>
         public static bool RemainingPlaytime = true;
-
-        /// <summary>
-        /// The user name for the current license holder
-        /// </summary>
-        public static string UserLicenseName;
-
-        /// <summary>
-        /// The curent license key
-        /// </summary>
-        public static string UserLicenseKey;
-
-        /// <summary>
-        /// True if the current license key is valid
-        /// </summary>
-        public static bool IsLicenseValid = false;
 
         /// <summary>
         /// The current user object 
@@ -120,9 +106,9 @@ namespace UniCade
             }
 
             //Verify the current user license and set flag
-            if (ValidateSHA256(UserLicenseName + Database.HashKey, UserLicenseKey))
+            if (LicenseEngine.ValidateSHA256(LicenseEngine.UserLicenseName + LicenseEngine.HashKey, LicenseEngine.UserLicenseKey))
             {
-                IsLicenseValid = true;
+                LicenseEngine.IsLicenseValid = true;
             }
 
             //If the database file does not exist in the specified location, load default values and rescan rom directories
@@ -163,44 +149,6 @@ namespace UniCade
             txt = txt + ("\nESRB Descriptors: " + game.EsrbDescriptors + "\n");
             txt = txt + ("\nGame Description: " + game.Description + "\n");
             return txt;
-        }
-
-        /// <summary>
-        /// Hashes a string using SHA256 algorthim 
-        /// </summary>
-        /// <param name="data"> The input string to be hashed</param>
-        /// <returns>Hashed string using SHA256</returns>
-        public static string SHA256Hash(string data)
-        {
-            if (data == null)
-            {
-                return null;
-            }
-            SHA256Managed sha256 = new SHA256Managed();
-            byte[] hashData = sha256.ComputeHash(Encoding.Default.GetBytes(data));
-            StringBuilder returnValue = new StringBuilder();
-
-            for (int i = 0; i < hashData.Length; i++)
-            {
-                returnValue.Append(hashData[i].ToString());
-            }
-            return returnValue.ToString();
-        }
-
-        /// <summary>
-        /// Return true if the input hash matches the stored hash data
-        /// </summary>
-        public static bool ValidateSHA256(string input, string storedHashData)
-        {
-            string getHashInputData = SHA256Hash(input);
-            if (string.Compare(getHashInputData, storedHashData) == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
         #region Helper Methods

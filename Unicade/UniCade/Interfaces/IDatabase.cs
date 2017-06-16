@@ -12,11 +12,6 @@ namespace UniCade
         int TotalGameCount { get; set; }
 
         /// <summary>
-        /// The current hash key used to generate the license key
-        /// </summary>
-        string HashKey { get; set; }
-
-        /// <summary>
         /// The list of consoles for the current database instance
         /// </summary>
         List<IConsole> ConsoleList { get; set; }

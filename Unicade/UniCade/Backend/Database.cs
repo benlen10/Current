@@ -21,11 +21,6 @@ namespace UniCade
         /// </summary>
         public int TotalGameCount { get; set; }
 
-        /// <summary>
-        /// The current hash key used to generate the license key
-        /// </summary>
-        public string HashKey { get; set; }
-
         #endregion
 
         #region Constructors
@@ -36,7 +31,6 @@ namespace UniCade
         public Database()
         {
             TotalGameCount = 0;
-            HashKey = null;
             ConsoleList = new List<IConsole>();
             UserList = new List<IUser>();
         }

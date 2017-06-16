@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using UniCade.Backend;
 
 namespace UniCade.Windows
 {
@@ -44,20 +45,20 @@ namespace UniCade.Windows
             }
 
             //If the key is valid, save the key text to the preferences file and close the current window
-            if (Program.ValidateSHA256(Program.UserLicenseName + Program.Database.HashKey, Program.UserLicenseKey))
+            if (LicenseEngine.ValidateSHA256(LicenseEngine.UserLicenseName + LicenseEngine.HashKey, LicenseEngine.UserLicenseKey))
             {
                 MessageBox.Show(this, "License is VALID");
-                Program.IsLicenseValid = true;
+                LicenseEngine.IsLicenseValid = true;
 
                 //Save the entered values 
-                Program.UserLicenseName = Textbox_User.Text;
-                Program.UserLicenseKey = Textbox_Key.Text;
+                LicenseEngine.UserLicenseName = Textbox_User.Text;
+                LicenseEngine.UserLicenseKey = Textbox_Key.Text;
                 FileOps.SavePreferences(Program.PreferencesPath);
                 Close();
             }
             else
             {
-                Program.IsLicenseValid = false;
+                LicenseEngine.IsLicenseValid = false;
                 FileOps.SavePreferences(Program.PreferencesPath);
                 MessageBox.Show(this, "License is INVALID");
                 Close();

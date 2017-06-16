@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Windows;
 
@@ -231,8 +232,8 @@ namespace UniCade
             //Parse user license key
             line = file.ReadLine();
             tokenString = line.Split(sep);
-            Program.UserLicenseName = tokenString[1];
-            Program.UserLicenseKey = tokenString[2];
+            LicenseEngine.UserLicenseName = tokenString[1];
+            LicenseEngine.UserLicenseKey = tokenString[2];
 
             //Skip ***Users*** line
             file.ReadLine();
@@ -305,7 +306,7 @@ namespace UniCade
                 sw.WriteLine("CmdOrGui|" + SettingsWindow.PerferCmdInterface);
                 sw.WriteLine("LoadingScreen|" + SettingsWindow.ShowLoadingScreen);
                 sw.WriteLine("PaySettings|" + SettingsWindow.PayPerPlayEnabled + "|" + SettingsWindow.LaunchOptions + "|" + SettingsWindow.CoinsRequired + "|" + SettingsWindow.Playtime);
-                sw.WriteLine("License Key|" + Program.UserLicenseName + "|" + Program.UserLicenseKey);
+                sw.WriteLine("License Key|" + LicenseEngine.UserLicenseName + "|" + LicenseEngine.UserLicenseKey);
                 sw.WriteLine("***UserData***");
                 foreach (IUser user in Program.Database.UserList)
                 {

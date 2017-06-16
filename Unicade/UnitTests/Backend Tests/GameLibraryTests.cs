@@ -137,7 +137,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Verify that adding a game to an incorrect console is not allowed
+        /// Verify that Global ESRB Content restrictions properly restrict game launches
         /// </summary>
         [TestMethod]
         [Priority(1)]
