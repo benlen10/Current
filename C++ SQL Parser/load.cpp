@@ -276,11 +276,11 @@ void populateTable(){
   char buf[MAX_CHARS_PER_LINE];
 
 
-
+ FILE * output = fopen ("output.txt","w"); //TEMP
   std::cout << "FOOD DESCRIPTIONS\n\n\n\n\n" << std::endl;
   //Open the FOOD_DES.txt file
   fin.open("FOOD_DES.txt"); 
-    /*
+  /*
 
   //Exit if file is not found
   if (!fin.good()){
@@ -294,7 +294,7 @@ void populateTable(){
   {
     //Read a full line
     fin.getline(buf, MAX_CHARS_PER_LINE);
-    
+    std::string origString(buf);
     //Initialize an array to store the tokens
     const char * token[20] = {};
     //Parse all tokens from the line
@@ -348,23 +348,26 @@ void populateTable(){
 
     //Parse CHO_Factor (Check for NULL) (Decimal)
     std::string CHO_Factor = parseDecimal(token[13]);
-    CHO_Factor.substr (0,CHO_Factor.length()-1);
+    if(CHO_Factor != "NULL"){
+      CHO_Factor = CHO_Factor.substr(0, CHO_Factor.length()-1);
+    }
 
     //Generate Insert Statement
-    sprintf (command, "INSERT INTO FoodDescriptions VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), FdGrp_Cd.c_str(),FdGrp_Cd.c_str(),Shrt_Desc.c_str(),ComName.c_str(),ManufacName.c_str(),Survey.c_str(),Ref_desc.c_str(),Refuse.c_str(),SciName.c_str(), N_Factor.c_str(), Pro_Factor.c_str(), Fat_Factor.c_str(), CHO_Factor.c_str());
+    sprintf (command, "INSERT INTO FoodDescriptions VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), FdGrp_Cd.c_str(),Long_Desc.c_str(),Shrt_Desc.c_str(),ComName.c_str(),ManufacName.c_str(),Survey.c_str(),Ref_desc.c_str(),Refuse.c_str(),SciName.c_str(), N_Factor.c_str(), Pro_Factor.c_str(), Fat_Factor.c_str(), CHO_Factor.c_str());
 
     //Execute the SQL command and create the SourcesOfData table 
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
-      fprintf(stderr, "SQL error (FoodDescriptions): %s\n", errorMsg);
-      std::cout << command << std::flush;
+      fprintf(stdout, "SQL error (FoodDescriptions): %s\n", errorMsg);
+      fprintf(output, "BAD ORIG STRING: %s\n\n", origString.c_str());
+      fprintf(output, "BAD COMMAND: %s\n\n", command);
    } 
    //End of loop
   }
-  */
 
+*/
 
 
   //Open the SECOND FILE (FD_GROUP.txt)
@@ -424,7 +427,7 @@ void populateTable(){
   }
 
   //Open the THIRD FILE (LANGUAL.txt)
-  /*
+
   std::cout << "LANGUAL FACTORS\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("LANGUAL.txt"); 
@@ -535,9 +538,8 @@ void populateTable(){
    } 
    //End of loop
   }
-  */
 
-  FILE * output = fopen ("output.txt","w");
+  
 
   //Open the FIFTH FILE (NUT_DATA.txt)
   std::cout << "NUTRIENT DATA\n\n\n\n\n" << std::endl;
@@ -560,7 +562,6 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    std::string origString(buf);
     token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
@@ -638,7 +639,6 @@ void populateTable(){
    //End of loop
   }
 
-  
   //Open the SIXTH FILE (NUTR_DEF.txt)
   std::cout << "NUTRIENT DEFINIETIONS\n\n\n\n\n" << std::endl;
   fin.close();
@@ -843,22 +843,23 @@ void populateTable(){
     std::string NDB_No = parseString(token[0]);
 
     //Parse Seq 
-    std::string Seq = parseString(token[1]);
+    std::string Seq = parseDecimal(token[1]);
 
     //Parse Amount 
-    std::string Amount = parseString(token[2]);
+    std::string Amount = parseDecimal(token[2]);
 
     //Parse Msre_Desc 
     std::string Msre_Desc = parseString(token[3]);
 
     //Parse Gm_Wgt 
-    std::string Gm_Wgt = parseString(token[4]);
+    std::string Gm_Wgt = parseDecimal(token[4]);
 
     //Parse Num_Data_Pts 
-    std::string Num_Data_Pts = parseString(token[5]);
+    std::string Num_Data_Pts = parseDecimal(token[5]);
 
     //Parse Std_Dev 
-    std::string Std_Dev = parseString(token[6]);
+    std::string Std_Dev = parseDecimal(token[6]);
+    Std_Dev = "NULL";
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO Weight VALUES (%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), Seq.c_str(), Amount.c_str(), Msre_Desc.c_str(), Gm_Wgt.c_str(), Num_Data_Pts.c_str(), Std_Dev.c_str());
@@ -873,6 +874,7 @@ void populateTable(){
    } 
    //End of loop
   }
+
 
   //Open FOOTNOTE.txt (Footnote)
   std::cout << "FOOTNOTE\n\n\n\n\n" << std::endl;
@@ -918,6 +920,10 @@ void populateTable(){
 
     //Parse Footnt_Txt 
     std::string Footnt_Txt = parseString(token[4]);
+
+    if(NDB_No == "NULL"){
+      break;
+    }
 
 
     //Generate Insert Statement
@@ -1050,6 +1056,10 @@ void populateTable(){
     //Generate Insert Statement
     sprintf (command, "INSERT INTO SourcesOfData VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);", DataSrc_ID.c_str(), Authors.c_str(), Title.c_str(), Year.c_str(), Journal.c_str(), Vol_City.c_str(), Issue_State.c_str(), Start_Page.c_str(), End_Page.c_str());
 
+    if(DataSrc_ID == "NULL"){
+      break;
+    }
+
     //Execute the SQL command
   execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 
@@ -1069,6 +1079,7 @@ std:: string parseString(const char * str){
     if((str!=NULL)){
     if(strlen(str)>2){
       result = str;
+      std::replace( result.begin(), result.end(), '\"', ' ');
       std::replace( result.begin(), result.end(), '~', '\"');
     }
     }
@@ -1079,8 +1090,9 @@ std:: string parseString(const char * str){
 std:: string parseDecimal(const char * str){
   std::string result("NULL");
     if((str != NULL)){
-      if(strlen(str)>=1){
+      if((strlen(str)>=1) && (str[0] != '\r')){
       result = str;
+      std::replace( result.begin(), result.end(), '\"', ' ');
       std::replace( result.begin(), result.end(), '~', '\"');
       }
     }
