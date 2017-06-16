@@ -128,7 +128,7 @@ void generateTable(){
    Nutr_Val  DECIMAL(10,3)  NOT NULL,\
    Num_Data_Pts  DECIMAL(5,0)  NOT NULL,\
    Std_Error  DECIMAL(8,3),\
-   Src_Cd  CHAR (2) NOT NULL,\
+   Src_Cd  CHAR (2)               NOT NULL,\
    Deriv_Cd  CHAR (4),\
    Ref_NDB_No  CHAR (5),\
    Add_Nutr_Mark  CHAR (1),\
@@ -275,9 +275,12 @@ void populateTable(){
   //Create buffer
   char buf[MAX_CHARS_PER_LINE];
 
+
+
   std::cout << "FOOD DESCRIPTIONS\n\n\n\n\n" << std::endl;
   //Open the FOOD_DES.txt file
   fin.open("FOOD_DES.txt"); 
+    /*
 
   //Exit if file is not found
   if (!fin.good()){
@@ -296,10 +299,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -360,6 +363,7 @@ void populateTable(){
    } 
    //End of loop
   }
+  */
 
 
 
@@ -384,10 +388,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -420,6 +424,7 @@ void populateTable(){
   }
 
   //Open the THIRD FILE (LANGUAL.txt)
+  /*
   std::cout << "LANGUAL FACTORS\n\n\n\n\n" << std::endl;
   fin.close();
   fin.open("LANGUAL.txt"); 
@@ -440,10 +445,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -475,6 +480,7 @@ void populateTable(){
    //End of loop
   }
 
+
   //Open the FOURTH FILE (LANGDESC.txt)
   std::cout << "LANGUAL FACTORS DESCRIPTION\n\n\n\n\n" << std::endl;
   fin.close();
@@ -496,10 +502,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -529,6 +535,9 @@ void populateTable(){
    } 
    //End of loop
   }
+  */
+
+  FILE * output = fopen ("output.txt","w");
 
   //Open the FIFTH FILE (NUT_DATA.txt)
   std::cout << "NUTRIENT DATA\n\n\n\n\n" << std::endl;
@@ -551,10 +560,11 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    std::string origString(buf);
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -573,7 +583,7 @@ void populateTable(){
     std::string Num_Data_Pts = parseDecimal(token[3]);
 
     //Parse Std_Error
-    std::string Std_Error = parseDecimal(token[4]);
+    std::string Std_Error = parseStringAsDecimal(token[4]);
 
     //Parse Src_Cd
     std::string Src_Cd = parseString(token[5]);
@@ -600,19 +610,19 @@ void populateTable(){
     std::string DF = parseDecimal(token[12]);
 
     //Parse Low_EB
-    std::string Low_EB = parseString(token[13]);
+    std::string Low_EB = parseDecimal(token[13]);
 
     //Parse Up_EB
-    std::string Up_EB = parseString(token[14]);
+    std::string Up_EB = parseDecimal(token[14]);
 
     //Parse Stat_cmt
     std::string Stat_cmt = parseString(token[15]);
 
     //Parse AddMod_Date
-    std::string AddMod_Date = parseString(token[16]);
+    std::string AddMod_Date = parseStringAndAddQuotes(token[16]);
 
-    //Parse CC
-    std::string CC = parseString(token[17]);
+    //Parse CC (Not yet implemented in current USDA database version)
+    std::string CC = "NULL";
 
     //Generate Insert Statement
     sprintf (command, "INSERT INTO NutrientData VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), Nutr_No.c_str(), Nutr_Val.c_str(), Num_Data_Pts.c_str(), Std_Error.c_str(), Src_Cd.c_str(), Deriv_Cd.c_str(), Ref_NDB_No.c_str(), Add_Nutr_Mark.c_str(), Num_Studies.c_str(), Min.c_str(), Max.c_str(), DF.c_str(), Low_EB.c_str(), Up_EB.c_str(), Stat_cmt.c_str(), AddMod_Date.c_str(), CC.c_str());
@@ -623,7 +633,7 @@ void populateTable(){
   //DEBUG (Temp)
   if( execStatus != SQLITE_OK ){
       fprintf(stderr, "SQL error (NutrientData): %s\n", errorMsg);
-      std::cout << command << std::endl;
+      //std::cout << command << std::endl;
    } 
    //End of loop
   }
@@ -650,10 +660,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -712,10 +722,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -766,10 +776,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -820,10 +830,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -885,10 +895,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -947,10 +957,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -1001,10 +1011,10 @@ void populateTable(){
     const char * token[20] = {};
     //Parse all tokens from the line
     const char * const split = "^";
-    token[0] = strtok(buf, split); 
+    token[0] = strtok_single(buf, split); 
     for (int i = 1; i <= 20; i++)
       {
-        token[i] = strtok(NULL, split); 
+        token[i] = strtok_single(NULL, split); 
         if (!token[i]){
            break; 
         }
@@ -1056,7 +1066,7 @@ void populateTable(){
 
 std:: string parseString(const char * str){
     std::string result("NULL");
-    if(str!=NULL){
+    if((str!=NULL)){
     if(strlen(str)>2){
       result = str;
       std::replace( result.begin(), result.end(), '~', '\"');
@@ -1068,12 +1078,59 @@ std:: string parseString(const char * str){
 
 std:: string parseDecimal(const char * str){
   std::string result("NULL");
-    if(str != NULL){
-      if(strlen(str)>1){
+    if((str != NULL)){
+      if(strlen(str)>=1){
       result = str;
+      std::replace( result.begin(), result.end(), '~', '\"');
       }
     }
     return result;
+}
+
+std:: string parseStringAsDecimal(const char * str){
+    std::string result("NULL");
+    if((str!=NULL) ){
+    if(strlen(str)>2){
+      result = str;
+      result = result.substr(1, result.length()-2);
+    }
+    }
+    return result;
+}
+
+std:: string parseStringAndAddQuotes(const char * str){
+    std::string result("NULL");
+    if((str!=NULL)){
+    if(strlen(str)>2){
+      result = str;
+      result = ("\"" + result + "\"");
+    }
+    }
+    return result;
+}
+
+char * strtok_single (char * str, char const * delims)
+{
+  static char  * src = NULL;
+  char  *  p,  * ret = 0;
+
+  if (str != NULL)
+    src = str;
+
+  if (src == NULL)
+    return NULL;
+
+  if ((p = strpbrk (src, delims)) != NULL) {
+    *p  = 0;
+    ret = src;
+    src = ++p;
+
+  } else if (*src) {
+    ret = src;
+    src = NULL;
+  }
+
+  return ret;
 }
 
 #pragma endregion

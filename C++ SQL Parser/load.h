@@ -32,4 +32,10 @@ std::string parseString(const char * str);
 	**/
 std::string parseDecimal(const char * str);
 
+std:: string parseStringAsDecimal(const char * str);
+
+std:: string parseStringAndAddQuotes(const char * str);
+
+char * strtok_single (char * str, char const * delims);
+
 #pragma endregion
