@@ -1,6 +1,5 @@
-﻿using System.IO;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using UniCade.Backend;
 using UniCade.Constants;
@@ -14,9 +13,19 @@ namespace UniCade
         #region Properties
 
         /// <summary>
-        /// The current Database instance
+        /// The current list of consoles
         /// </summary>
-        public static IDatabase Database = null;
+        public static List<IConsole> ConsoleList { get; set; }
+
+        /// <summary>
+        /// The list of current users
+        /// </summary>
+        public static List<IUser> UserList { get; set; }
+
+        /// <summary>
+        /// The current number of games across all game consoles
+        /// </summary>
+        public static int TotalGameCount { get; set; }
 
         /// <summary>
         /// The path to the Database.txt file
@@ -67,8 +76,18 @@ namespace UniCade
         /// </summary>
         public static void Main(string[] args)
         {
-            //Initialize the database object
-            Database = new Database();
+            Initalize();
+
+            var app = new App();
+            app.InitializeComponent();
+            app.Run();
+        }
+
+        public static void Initalize()
+        {
+            TotalGameCount = 0;
+            ConsoleList = new List<IConsole>();
+            UserList = new List<IUser>();
 
             //If preferences file does not exist, load default preference values and save a new file
             if (!FileOps.LoadPreferences(PreferencesPath))
@@ -126,9 +145,7 @@ namespace UniCade
                 }
                 ShowNotification("WARNING", "Database file not found.\n Loading defaults...");
             }
-            var app = new App();
-            app.InitializeComponent();
-            app.Run();
+
         }
 
         /// <summary>
@@ -160,6 +177,38 @@ namespace UniCade
         {
             NotificationWindow notification = new NotificationWindow(titleText, bodyText);
             notification.Show();
+        }
+
+        /// <summary>
+        /// Add a new console to the database
+        /// </summary>
+        /// <param name="console"></param>
+        /// <returns>true if the console was sucuessfully added</returns>
+        public static bool AddConsole(IConsole console)
+        {
+            //Return false if a console with a duplicate name already exists
+            if (ConsoleList.Find(e => e.ConsoleName.Equals(console.ConsoleName)) != null)
+            {
+                return false;
+            }
+
+            ConsoleList.Add(console);
+            return true;
+        }
+
+        /// <summary>
+        /// Refresh the total game count across all consoles
+        /// </summary>
+        /// <returns>Total game count</returns>
+        public static int RefreshTotalGameCount()
+        {
+            int count = 0;
+            foreach (Console console in ConsoleList)
+            {
+                count += console.GameCount;
+            }
+            TotalGameCount = count;
+            return count;
         }
 
         #endregion

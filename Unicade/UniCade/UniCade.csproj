@@ -113,7 +113,6 @@
     <Compile Include="Backend\LicenseEngine.cs" />
     <Compile Include="Constants\Enums.cs" />
     <Compile Include="Exceptions\UniCadeException1.cs" />
-    <Compile Include="Interfaces\IDatabase.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IConsole.cs" />
@@ -162,7 +161,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Backend\Console.cs" />
-    <Compile Include="Backend\Database.cs" />
     <Compile Include="Backend\FileOps.cs" />
     <Compile Include="Backend\Game.cs" />
     <Compile Include="Backend\Program.cs" />

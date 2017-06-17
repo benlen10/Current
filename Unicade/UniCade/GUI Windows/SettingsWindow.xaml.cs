@@ -140,7 +140,7 @@ namespace UniCade.Windows
         private void Populate()
         {
             //Populate console list with the currently active games
-            foreach (IConsole console in Program.Database.ConsoleList)
+            foreach (IConsole console in Program.ConsoleList)
             {
                 GamesTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
@@ -335,7 +335,7 @@ namespace UniCade.Windows
             GlobalTab_Textbox_Coins.Text = CoinsRequired.ToString();
             GlobalTab_Textbox_Playtime.Text = Playtime.ToString();
 
-            foreach (IUser user in Program.Database.UserList)
+            foreach (IUser user in Program.UserList)
             {
                 UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
             }
@@ -514,13 +514,13 @@ namespace UniCade.Windows
             if (GamesTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
             GamesTab_Listbox_GamesList.Items.Clear();
-            foreach (IConsole console in Program.Database.ConsoleList)
+            foreach (IConsole console in Program.ConsoleList)
             {
                 if (console.ConsoleName.Equals(curItem))
                 {
                     CurrentConsole = console;
                     GamesTab_Textbox_GamesForConsole.Text = console.GameCount.ToString();
-                    GamesTab_Textbox_TotalGames.Text = Program.Database.TotalGameCount.ToString();
+                    GamesTab_Textbox_TotalGames.Text = Program.TotalGameCount.ToString();
                     if (console.GameCount > 0)
                     {
                         foreach (IGame g in console.GameList)
@@ -694,7 +694,7 @@ namespace UniCade.Windows
         {
             if (EmulatorsTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString();
-            foreach (IConsole console in Program.Database.ConsoleList)
+            foreach (IConsole console in Program.ConsoleList)
             {
                 if (console.ConsoleName.Equals(curItem))
                 {
@@ -742,15 +742,15 @@ namespace UniCade.Windows
         private void EmulatorsTab_DeleteConsoleButton_Click(object sender, EventArgs e)
         {
             //Ensure that at least one console exists
-            if (Program.Database.ConsoleList.Count < 2)
+            if (Program.ConsoleList.Count < 2)
             {
                 MessageBox.Show("Cannot have an empty console list");
                 return;
             }
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
             GamesTab_Listbox_ConsoleList.Items.Clear();
-            Program.Database.ConsoleList.Remove(CurrentEmulator);
-            foreach (IConsole console in Program.Database.ConsoleList)
+            Program.ConsoleList.Remove(CurrentEmulator);
+            foreach (IConsole console in Program.ConsoleList)
             {
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
                 GamesTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
@@ -777,10 +777,10 @@ namespace UniCade.Windows
             string newConsoleName = "New Console";
             IConsole console = new Console(newConsoleName);
 
-            Program.Database.ConsoleList.Add(console);
+            Program.ConsoleList.Add(console);
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
             GamesTab_Listbox_ConsoleList.Items.Clear();
-            foreach (IConsole con in Program.Database.ConsoleList)
+            foreach (IConsole con in Program.ConsoleList)
             {
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(con.ConsoleName);
                 GamesTab_Listbox_ConsoleList.Items.Add(con.ConsoleName);
@@ -848,7 +848,7 @@ namespace UniCade.Windows
             }
 
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
-            foreach (IConsole console in Program.Database.ConsoleList)
+            foreach (IConsole console in Program.ConsoleList)
             {
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
             }
@@ -892,7 +892,7 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a console");
                 return;
             }
-            foreach (IConsole console in Program.Database.ConsoleList)
+            foreach (IConsole console in Program.ConsoleList)
             {
                 if (console.ConsoleName.Equals(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString()))
                 {
@@ -936,7 +936,7 @@ namespace UniCade.Windows
 
             //Populate the favorites list for each user
             UsersTab_Listbox_UserFavorites.Items.Clear();
-            foreach (IUser user in Program.Database.UserList)
+            foreach (IUser user in Program.UserList)
             {
                 if (user.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
                 {
@@ -974,12 +974,12 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_NewUserButton_Click(object sender, EventArgs e)
         {
-            foreach (IUser user in Program.Database.UserList)
+            foreach (IUser user in Program.UserList)
             {
                 if (CurrentUser.Username.Equals(user.Username))
                 {
-                    Program.Database.UserList.Remove(user);
-                    Program.Database.UserList.Add(CurrentUser);
+                    Program.UserList.Remove(user);
+                    Program.UserList.Add(CurrentUser);
                     break;
                 }
             }
@@ -994,7 +994,7 @@ namespace UniCade.Windows
 
             //Refresh the listbox contents
             UsersTab_Listbox_CurrentUser.Items.Clear();
-            foreach (IUser user in Program.Database.UserList)
+            foreach (IUser user in Program.UserList)
             {
                 UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
             }
@@ -1014,17 +1014,17 @@ namespace UniCade.Windows
         private void UsersTab_DeleteUserButton_Click(object sender, EventArgs e)
         {
             //Ensure that there is always at least one user present in the database
-            if (Program.Database.UserList.Count <= 1)
+            if (Program.UserList.Count <= 1)
             {
                 MessageBox.Show("Must at least have one user");
                 return;
             }
 
             //Remove the user and refresh the database
-            Program.Database.UserList.Remove(CurrentUser);
+            Program.UserList.Remove(CurrentUser);
             UsersTab_Listbox_CurrentUser.Items.Clear();
             CurrentUser = null;
-            foreach (IUser user in Program.Database.UserList)
+            foreach (IUser user in Program.UserList)
             {
                 UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
             }
@@ -1074,7 +1074,7 @@ namespace UniCade.Windows
             }
             UsersTab_Listbox_CurrentUser.Items.Clear();
 
-            foreach (IUser user in Program.Database.UserList)
+            foreach (IUser user in Program.UserList)
             {
                 UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
             }
@@ -1105,12 +1105,12 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_LoginButton_Click(object sender, EventArgs e)
         {
-            foreach (IUser user in Program.Database.UserList)
+            foreach (IUser user in Program.UserList)
             {
                 if (CurrentUser.Username.Equals(user.Username))
                 {
-                    Program.Database.UserList.Remove(user);
-                    Program.Database.UserList.Add(CurrentUser);
+                    Program.UserList.Remove(user);
+                    Program.UserList.Add(CurrentUser);
                     break;
                 }
             }
@@ -1901,7 +1901,7 @@ namespace UniCade.Windows
         public void RefreshGlobalFavs()
         {
             GlobalTab_Listbox_GlobalFavorites.Items.Clear();
-            foreach (IConsole console in Program.Database.ConsoleList)
+            foreach (IConsole console in Program.ConsoleList)
             {
                 if (console.GameCount > 0)
                 {
