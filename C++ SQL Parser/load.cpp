@@ -14,15 +14,15 @@
 #include <algorithm>
 
  //The max number of chars to parse per line
-const int MAX_CHARS_PER_LINE = 5000;
+const int BUFFER_SIZE = 2000;
 
 //Current sqlite database instance
 sqlite3 *db;
 
 int main(int argc, char* argv[])
 {
+	//Open new SQL connection
 	int conn;
-
 	conn = sqlite3_open("sample4.db", &db); //sqlite3 api
 
 	if (conn) {
@@ -33,11 +33,13 @@ int main(int argc, char* argv[])
 		fprintf(stderr, "database opened successfully\n");
 	}
 
-	//MY CODE (Body)
+	//Generate the database tables
 	generateTable();
 
+	//Populate the tables with data from USDA database text files 
 	populateTable();
 
+	//Close the database once operation is complete
 	sqlite3_close(db);
 }
 
@@ -258,8 +260,8 @@ void generateTable() {
 **/
 void populateTable() {
 
-	//Char pointer to store the CREATE TABLE commands
-	char * command = (char *)malloc(5000);
+	//Char pointer to store the SQL commands
+	char * command = (char *) malloc(2000);
 
 	//Stores the retun status value after executing the SQL commands
 	int execStatus;
@@ -268,30 +270,32 @@ void populateTable() {
 	char * errorMsg = 0;
 
 	//Create a file input stream object
-	std::ifstream fin;
+	std::ifstream inputStream;
 
 	//Create buffer
-	char buf[MAX_CHARS_PER_LINE];
+	char strBuffer[BUFFER_SIZE];
+
+	//Initialize an array to store the tokens
+	const char * token[20] = {};
 
 	//Open the file and exit if not found
-	std::cout << "Parse Food Descriptions\n\n" << std::endl;
-	fin.open("FOOD_DES.txt");
-	if (!fin.good()) {
+	std::cout << "Parse: Food Descriptions (FOOD_DES.txt)\n\n" << std::endl;
+	inputStream.open("FOOD_DES.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "FOOD_DES.txt Not Found\n");
 		return;
 	}
 
 	// read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
-		std::string origString(buf);
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
+		inputStream.getline(strBuffer, BUFFER_SIZE);
+		std::string origString(strBuffer);
+		
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -357,25 +361,23 @@ void populateTable() {
 	}
 
 	//Open the file and exit if not found
-	std::cout << "Parse Group Descriptions Descriptions\n\n" << std::endl;
-	fin.close();
-	fin.open("FD_GROUP.txt");
-	if (!fin.good()) {
+	std::cout << "Parse: Group Descriptions Descriptions (FD_GROUP.txt)\n\n" << std::endl;
+	inputStream.close();
+	inputStream.open("FD_GROUP.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "FD_GROUP.txt Not Found\n");
 		return;
 	}
 
 	//Read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -409,25 +411,23 @@ void populateTable() {
 	}
 
 	//Open the file and exit if not found
-	std::cout << "Parse Lingual Factors (LANGUAL.txt)\n\n" << std::endl;
-	fin.close();
-	fin.open("LANGUAL.txt");
-	if (!fin.good()) {
+	std::cout << "Parse: Lingual Factors (LANGUAL.txt)\n\n" << std::endl;
+	inputStream.close();
+	inputStream.open("LANGUAL.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "LANGUAL.txt Not Found\n");
 		return;
 	}
 
 	//Read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -462,25 +462,23 @@ void populateTable() {
 	}
 
 	//Open the file and exit if file is not found
-	std::cout << "Lingual Factors Description\n\n" << std::endl;
-	fin.close();
-	fin.open("LANGDESC.txt");
-	if (!fin.good()) {
+	std::cout << "Parse: Lingual Factors Description (LANGDESC.txt)\n\n" << std::endl;
+	inputStream.close();
+	inputStream.open("LANGDESC.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "LANGDESC.txt Not Found\n");
 		return;
 	}
 
 	//Read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -511,25 +509,23 @@ void populateTable() {
 	}
 
 	//Open the file and exit if file is not found
-	std::cout << "Parse Nutrient Data (NUT_DATA.txt)\n\n" << std::endl;
-	fin.close();
-	fin.open("NUT_DATA.txt");
-	if (!fin.good()) {
+	std::cout << "Parse: Nutrient Data (NUT_DATA.txt)\n\n" << std::endl;
+	inputStream.close();
+	inputStream.open("NUT_DATA.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "NUT_DATA.txt Not Found\n");
 		return;
 	}
 
-	// read each line of the file
-	while (!fin.eof())
+	//Read each line of the file
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -605,25 +601,23 @@ void populateTable() {
 	}
 
 	//Open the file and exit if not found
-	std::cout << "Nutrient Definietions (NUTR_DEF.txt)\n\n" << std::endl;
-	fin.close();
-	fin.open("NUTR_DEF.txt");
-	if (!fin.good()) {
+	std::cout << "Parse: Nutrient Definietions (NUTR_DEF.txt)\n\n" << std::endl;
+	inputStream.close();
+	inputStream.open("NUTR_DEF.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "NUTR_DEF.txt Not Found\n");
 		return;
 	}
 
 	//Read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -665,24 +659,22 @@ void populateTable() {
 
 	//Open the file and exit if not found
 	std::cout << "Parse: Source Code (SRC_CD.txt)\n\n" << std::endl;
-	fin.close();
-	fin.open("SRC_CD.txt");
-	if (!fin.good()) {
+	inputStream.close();
+	inputStream.open("SRC_CD.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "SRC_CD.txt Not Found\n");
 		return;
 	}
 
 	//Read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -717,24 +709,22 @@ void populateTable() {
 
 	//Open the file and exit if not found
 	std::cout << "Parse: Data Derivation (DERIV_CD.txt)\n\n" << std::endl;
-	fin.close();
-	fin.open("DERIV_CD.txt");
-	if (!fin.good()) {
+	inputStream.close();
+	inputStream.open("DERIV_CD.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "DERIV_CD.txt Not Found\n");
 		return;
 	}
 
 	//Read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -769,24 +759,22 @@ void populateTable() {
 
 	//Open the file and exit if not found
 	std::cout << "Parse: Weight (WEIGHT.txt)\n\n" << std::endl;
-	fin.close();
-	fin.open("WEIGHT.txt");
-	if (!fin.good()) {
+	inputStream.close();
+	inputStream.open("WEIGHT.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "WEIGHT.txt Not Found\n");
 		return;
 	}
 
 	//Read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -833,24 +821,22 @@ void populateTable() {
 
 	//Open the file and exit if not found
 	std::cout << "Parse: Footnote (FOOTNOTE.txt)\n\n" << std::endl;
-	fin.close();
-	fin.open("FOOTNOTE.txt");
-	if (!fin.good()) {
+	inputStream.close();
+	inputStream.open("FOOTNOTE.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "FOOTNOTE.txt Not Found\n");
 		return;
 	}
 
 	//Read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -889,28 +875,24 @@ void populateTable() {
 		}
 	}
 
-
-
 	//Open the file and exit if not found
 	std::cout << "Parse: Sources of Data Link (DATSRCLN.txt)\n\n" << std::endl;
-	fin.close();
-	fin.open("DATSRCLN.txt");
-	if (!fin.good()) {
+	inputStream.close();
+	inputStream.open("DATSRCLN.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "DATSRCLN.txt Not Found\n");
 		return;
 	}
 
 	//Read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -943,24 +925,22 @@ void populateTable() {
 
 	//Open the file and exit if not found
 	std::cout << "Parse: Sources of Data (DATA_SRC.txt)\n\n" << std::endl;
-	fin.close();
-	fin.open("DATA_SRC.txt");
-	if (!fin.good()) {
+	inputStream.close();
+	inputStream.open("DATA_SRC.txt");
+	if (!inputStream.good()) {
 		fprintf(stderr, "DATA_SRC.txt Not Found\n");
 		return;
 	}
 
 	//Read each line of the file
-	while (!fin.eof())
+	while (!inputStream.eof())
 	{
 		//Read a full line
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+		inputStream.getline(strBuffer, BUFFER_SIZE);
 
-		//Initialize an array to store the tokens
-		const char * token[20] = {};
 		//Parse all tokens from the line
 		const char * const split = "^";
-		token[0] = tokenize(buf, split);
+		token[0] = tokenize(strBuffer, split);
 		for (int i = 1; i <= 20; i++)
 		{
 			token[i] = tokenize(NULL, split);
@@ -1010,6 +990,7 @@ void populateTable() {
 			fprintf(stderr, "%s\n", command);
 		}
 	}
+	std::cout << "All Tables Successfully Populated\n" << std::endl;
 }
 
 #pragma region Helper Functions
