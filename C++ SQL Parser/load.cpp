@@ -365,7 +365,9 @@ void populateTable() {
 		sprintf(command, "INSERT INTO FoodDescriptions VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), FdGrp_Cd.c_str(), Long_Desc.c_str(), Shrt_Desc.c_str(), ComName.c_str(), ManufacName.c_str(), Survey.c_str(), Ref_desc.c_str(), Refuse.c_str(), SciName.c_str(), N_Factor.c_str(), Pro_Factor.c_str(), Fat_Factor.c_str(), CHO_Factor.c_str());
 
 		//Execute the SQL command and create the SourcesOfData table 
-		execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		if (NDB_No != "NULL") {
+			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		}
 
 		if (execStatus != SQLITE_OK) {
 			fprintf(stdout, "SQL error (FoodDescriptions): %s\n", errorMsg);
@@ -604,7 +606,9 @@ void populateTable() {
 		sprintf(command, "INSERT INTO NutrientData VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), Nutr_No.c_str(), Nutr_Val.c_str(), Num_Data_Pts.c_str(), Std_Error.c_str(), Src_Cd.c_str(), Deriv_Cd.c_str(), Ref_NDB_No.c_str(), Add_Nutr_Mark.c_str(), Num_Studies.c_str(), Min.c_str(), Max.c_str(), DF.c_str(), Low_EB.c_str(), Up_EB.c_str(), Stat_cmt.c_str(), AddMod_Date.c_str(), CC.c_str());
 
 		//Execute the SQL command
-		execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		if (NDB_No != "NULL") {
+			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		}
 
 		if (execStatus != SQLITE_OK) {
 			fprintf(stderr, "SQL error (NutrientData): %s\n", errorMsg);
@@ -660,7 +664,9 @@ void populateTable() {
 		sprintf(command, "INSERT INTO NutrientDefinitions VALUES (%s,%s,%s,%s,%s,%s);", Nutr_No.c_str(), Units.c_str(), Tagname.c_str(), NutrDesc.c_str(), Num_Dec.c_str(), SR_Order.c_str());
 
 		//Execute the SQL command
-		execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		if (Nutr_No != "NULL") {
+			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		}
 
 		//Check for SQL error status
 		if (execStatus != SQLITE_OK) {
@@ -701,16 +707,16 @@ void populateTable() {
 		//Parse SrcCd_Desc 
 		std::string SrcCd_Desc = parseString(token[1]);
 
-		//Break once end of file is reached (Neither can be null) (Optional break statement)
-		if ((Src_Cd == "NULL") || (SrcCd_Desc == "NULL")) {
-			break;
-		}
-
 		//Generate Insert Statement
 		sprintf(command, "INSERT INTO SourceCode VALUES (%s,%s);", Src_Cd.c_str(), SrcCd_Desc.c_str());
 
+		//TEMP DEBUG
+		printf("%s\n", command);
+
 		//Execute the SQL command
-		execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		if ((Src_Cd != "NULL")) {
+			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		}
 
 		//Check for SQL error status
 		if (execStatus != SQLITE_OK) {
@@ -821,7 +827,9 @@ void populateTable() {
 		sprintf(command, "INSERT INTO Weight VALUES (%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), Seq.c_str(), Amount.c_str(), Msre_Desc.c_str(), Gm_Wgt.c_str(), Num_Data_Pts.c_str(), Std_Dev.c_str());
 
 		//Execute the SQL command
-		execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		if (NDB_No != "NULL") {
+			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		}
 
 		//Check for SQL errors
 		if (execStatus != SQLITE_OK) {
@@ -926,7 +934,9 @@ void populateTable() {
 		sprintf(command, "INSERT INTO SourcesOfDataLink VALUES (%s,%s,%s);", NDB_No.c_str(), Nutr_No.c_str(), DataSrc_ID.c_str());
 
 		//Execute the SQL command
-		execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		if (NDB_No != "NULL") {
+			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		}
 
 		//Check for SQL errors
 		if (execStatus != SQLITE_OK) {
@@ -1021,6 +1031,7 @@ std::string parseString(const char * str) {
 	if ((str != NULL)) {
 		if (strlen(str) > 2) {
 			result = str;
+			std::replace(result.begin(), result.end(), '\r', ' ');
 			std::replace(result.begin(), result.end(), '\"', ' ');
 			std::replace(result.begin(), result.end(), '~', '\"');
 		}
@@ -1038,6 +1049,7 @@ std::string parseDecimal(const char * str) {
 	if ((str != NULL)) {
 		if ((strlen(str) >= 1) && (str[0] != '\r')) {
 			result = str;
+			std::replace(result.begin(), result.end(), '\r', ' ');
 			std::replace(result.begin(), result.end(), '\"', ' ');
 			std::replace(result.begin(), result.end(), '~', '\"');
 		}
@@ -1071,6 +1083,7 @@ std::string parseStringAndAddQuotes(const char * str) {
 	if ((str != NULL)) {
 		if (strlen(str) > 2) {
 			result = str;
+			std::replace(result.begin(), result.end(), '\r', ' ');
 			result = ("\"" + result + "\"");
 		}
 	}
