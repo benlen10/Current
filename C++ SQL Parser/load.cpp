@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 {
 	//Open new SQL connection
 	int conn;
-	conn = sqlite3_open("sample4.db", &db); //sqlite3 api
+	conn = sqlite3_open("nutrients.db", &db);
 
 	if (conn) {
 		fprintf(stderr, "Unable to open the database: %s\n", sqlite3_errmsg(db)); //sqlite3 api
@@ -58,7 +58,8 @@ void generateTable() {
 	char * errorMsg = 0;
 
 	//Define the CREATE TABLE command for the FoodDescriptions table
-	command = "CREATE TABLE FoodDescriptions(\
+	command = "DROP TABLE IF EXISTS FoodDescriptions;\
+	CREATE TABLE FoodDescriptions(\
    NDB_No   CHAR (5)        NOT NULL,\
    FdGrp_Cd CHAR (4)        NOT NULL,\
    Long_Desc  VARCHAR (25)  NOT NULL,\
@@ -85,7 +86,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the FoodGroupDescriptions table
-	command = "CREATE TABLE FoodGroupDescriptions(\
+	command = "DROP TABLE IF EXISTS FoodGroupDescriptions;\
+   CREATE TABLE FoodGroupDescriptions(\
    FdGrp_Cd   CHAR (4)     NOT NULL,\
    FdGrp_Desc VARCHAR (60) NOT NULL,\
    PRIMARY KEY (FdGrp_Cd),\
@@ -96,7 +98,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the LangualFactor table
-	command = "CREATE TABLE LangualFactor(\
+	command = "DROP TABLE IF EXISTS LangualFactor;\
+   CREATE TABLE LangualFactor(\
    NDB_No   CHAR (5)     NOT NULL,\
    Factor_Code CHAR (5)  NOT NULL,\
    PRIMARY KEY (NDB_No, Factor_Code),\
@@ -108,7 +111,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the LangualFactorsDescription table
-	command = "CREATE TABLE LangualFactorsDescription(\
+	command = "DROP TABLE IF EXISTS LangualFactorsDescription;\
+   CREATE TABLE LangualFactorsDescription(\
    Factor_Code   CHAR (5)       NOT NULL,\
    Description   VARCHAR (140)  NOT NULL,\
    PRIMARY KEY (Factor_Code),\
@@ -119,7 +123,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the NutrientData table
-	command = "CREATE TABLE NutrientData(\
+	command = "DROP TABLE IF EXISTS NutrientData;\
+   CREATE TABLE NutrientData(\
    NDB_No   CHAR (5)       NOT NULL,\
    Nutr_No  CHAR (3)       NOT NULL,\
    Nutr_Val  DECIMAL(10,3)  NOT NULL,\
@@ -153,7 +158,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the NutrientDefinitions table
-	command = "CREATE TABLE NutrientDefinitions(\
+	command = "DROP TABLE IF EXISTS NutrientDefinitions;\
+   CREATE TABLE NutrientDefinitions(\
    Nutr_No   CHAR (3)       NOT NULL,\
    Units     CHAR (7)       NOT NULL,\
    Tagname   CHAR(20),\
@@ -168,7 +174,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the SourceCode table
-	command = "CREATE TABLE SourceCode(\
+	command =  "DROP TABLE IF EXISTS SourceCode;\
+   CREATE TABLE SourceCode(\
    Src_Cd     CHAR (2)        NOT NULL,\
    SrcCd_Desc CHAR (60)       NOT NULL,\
    PRIMARY KEY (Src_Cd),\
@@ -179,7 +186,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the DataDerivation table
-	command = "CREATE TABLE DataDerivation(\
+	command = "DROP TABLE IF EXISTS DataDerivation;\
+   CREATE TABLE DataDerivation(\
    Deriv_Cd    CHAR (4)       NOT NULL,\
    Deriv_Desc  CHAR (120)     NOT NULL,\
    PRIMARY KEY (Deriv_Cd),\
@@ -190,7 +198,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the Weight table
-	command = "CREATE TABLE Weight(\
+	command = "DROP TABLE IF EXISTS Weight;\
+   CREATE TABLE Weight(\
    NDB_No       CHAR (5)       NOT NULL,\
    Seq          CHAR (2)       NOT NULL,\
    Amount       DECIMAL(5,3)   NOT NULL,\
@@ -207,7 +216,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the Footnote table
-	command = "CREATE TABLE Footnote(\
+	command = "DROP TABLE IF EXISTS Footnote;\
+   CREATE TABLE Footnote(\
    NDB_No       CHAR (5)       NOT NULL,\
    Footnt_No    CHAR (4)       NOT NULL,\
    Footnt_Typ   CHAR(1)        NOT NULL,\
@@ -222,7 +232,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the SourcesOfDataLink table
-	command = "CREATE TABLE SourcesOfDataLink(\
+	command = "DROP TABLE IF EXISTS SourcesOfDataLink;\
+   CREATE TABLE SourcesOfDataLink(\
    NDB_No       CHAR (5)       NOT NULL,\
    Nutr_No      CHAR (3)       NOT NULL,\
    DataSrc_ID   CHAR (6)       NOT NULL,\
@@ -237,7 +248,8 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the SourcesOfData table
-	command = "CREATE TABLE SourcesOfData(\
+	command = "DROP TABLE IF EXISTS SourcesOfData;\
+   CREATE TABLE SourcesOfData(\
    DataSrc_ID  CHAR (6)       NOT NULL,\
    Authors     CHAR (255) ,\
    Title       CHAR (255)     NOT NULL,\
@@ -304,6 +316,7 @@ void populateTable() {
 			}
 		}
 
+		//Parse NDB_No 
 		std::string NDB_No = parseString(token[0]);
 
 		//Parse FdGrp_Cd 
@@ -449,7 +462,6 @@ void populateTable() {
 
 		//Generate Insert Statement
 		sprintf(command, "INSERT INTO LangualFactor VALUES (%s,%s);", NDB_No.c_str(), Factor_Code.c_str());
-
 
 		//Execute the SQL command 
 		execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
@@ -990,6 +1002,10 @@ void populateTable() {
 			fprintf(stderr, "%s\n", command);
 		}
 	}
+	//Cleanup and free memory
+	inputStream.close();
+	free(command);
+
 	std::cout << "All Tables Successfully Populated\n" << std::endl;
 }
 
