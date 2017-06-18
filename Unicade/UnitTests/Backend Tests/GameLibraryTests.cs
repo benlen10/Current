@@ -33,6 +33,8 @@ namespace UnitTests
         [TestInitialize]
         public void Initalize()
         {
+            //Initalize the program
+            Program.Initalize();
 
             //Generate a new random id integer
             random = new Random();

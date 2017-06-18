@@ -1,0 +1,16 @@
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Unit Tests.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Unit Tests.pdb
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\UniCade.exe
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\MySql.Data.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\UniCade.pdb
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\UniCade.exe.config
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\obj\Release\Unit Tests.csprojResolveAssemblyReference.cache
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\obj\Release\Unit Tests.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\obj\Release\Unit Tests.pdb

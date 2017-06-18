@@ -78,6 +78,8 @@ namespace UniCade
         {
             Initalize();
 
+            FileOps.StartupScan();
+
             var app = new App();
             app.InitializeComponent();
             app.Run();
@@ -88,63 +90,6 @@ namespace UniCade
             TotalGameCount = 0;
             ConsoleList = new List<IConsole>();
             UserList = new List<IUser>();
-
-            //If preferences file does not exist, load default preference values and save a new file
-            if (!FileOps.LoadPreferences(PreferencesPath))
-            {
-                FileOps.RestoreDefaultPreferences();
-                FileOps.SavePreferences(PreferencesPath);
-                ShowNotification("WARNING", "Preference file not found.\n Loading defaults...");
-            }
-
-            //If the specified rom directory does not exist, creat a new one in with the default path
-            if (!Directory.Exists(RomPath))
-            {
-                Directory.CreateDirectory(RomPath);
-                FileOps.CreateNewRomDirectory();
-            }
-
-            //If the specified emulator directory does not exist, creat a new one in with the default path
-            if (!Directory.Exists(EmulatorPath))
-            {
-                Directory.CreateDirectory(EmulatorPath);
-                FileOps.CreateNewEmuDirectory();
-                //MessageBox.Show("Emulator directory not found. Creating new directory structure");
-            }
-
-            //Verify the integrity of the local media directory and end the program if corruption is dectected  
-            if (!FileOps.VerifyMediaDirectory())
-            {
-                return;
-            }
-
-            //If the current user is null, generate the default UniCade user and set as the current user  
-            if (SettingsWindow.CurrentUser == null)
-            {
-                SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
-            }
-
-            //Verify the current user license and set flag
-            if (LicenseEngine.ValidateSHA256(LicenseEngine.UserLicenseName + LicenseEngine.HashKey, LicenseEngine.UserLicenseKey))
-            {
-                LicenseEngine.IsLicenseValid = true;
-            }
-
-            //If the database file does not exist in the specified location, load default values and rescan rom directories
-            if (!FileOps.LoadDatabase(DatabasePath))
-            {
-                FileOps.RestoreDefaultConsoles();
-                FileOps.Scan(RomPath);
-                try
-                {
-                    FileOps.SaveDatabase(DatabasePath);
-                }
-                catch
-                {
-                    MessageBox.Show("Error Saving Database\n" + DatabasePath);
-                }
-                ShowNotification("WARNING", "Database file not found.\n Loading defaults...");
-            }
 
         }
 

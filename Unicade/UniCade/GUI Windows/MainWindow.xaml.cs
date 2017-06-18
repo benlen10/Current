@@ -100,7 +100,7 @@ namespace UniCade
             }
 
             //Refresh the current gamecount and update the GUI
-            FileOps.RefreshGameCount();
+            //Program.RefreshTotalGameCount();
             label.Content = "Total Game Count: " + Program.TotalGameCount;
             UpdateGUI();
         }

@@ -17,7 +17,7 @@ namespace UniCade.Constants
         /// </summary>
         public enum ESRB
         {
-            [StringValue("Null")]
+            [StringValue("")]
             Null,
             [StringValue("Everyone")]
             Everyone,

@@ -62,7 +62,7 @@ namespace UniCade
                 }
                 else
                 {
-                    console.GameList.Add(new Game(spaceChar[0], spaceChar[1], Int32.Parse(spaceChar[2]), spaceChar[3], spaceChar[4], spaceChar[5], spaceChar[6], spaceChar[7], spaceChar[8], spaceChar[9], Enums.ConvertStringToEsrbEnum(spaceChar[10]), spaceChar[11], spaceChar[12], spaceChar[13], spaceChar[14], spaceChar[15], Int32.Parse(spaceChar[16])));
+                    console.AddGame(new Game(spaceChar[0], spaceChar[1], Int32.Parse(spaceChar[2]), spaceChar[3], spaceChar[4], spaceChar[5], spaceChar[6], spaceChar[7], spaceChar[8], spaceChar[9], Enums.ConvertStringToEsrbEnum(spaceChar[10]), spaceChar[11], spaceChar[12], spaceChar[13], spaceChar[14], spaceChar[15], Int32.Parse(spaceChar[16])));
                 }
             }
             if (consoleCount > 0)
@@ -400,7 +400,7 @@ namespace UniCade
                             }
                             if (!duplicate)
                             {
-                                currentConsole.GameList.Add(new Game(Path.GetFileName(fileName), currentConsole.ConsoleName));
+                                currentConsole.AddGame(new Game(Path.GetFileName(fileName), currentConsole.ConsoleName));
                             }
                         }
                     }
@@ -418,7 +418,7 @@ namespace UniCade
                     }
                     if (!duplicate)
                     {
-                        currentConsole.GameList.Add(new Game(Path.GetFileName(fileName), currentConsole.ConsoleName));
+                        currentConsole.AddGame(new Game(Path.GetFileName(fileName), currentConsole.ConsoleName));
                     }
                 }
             }
@@ -438,12 +438,11 @@ namespace UniCade
                 }
                 if (found)
                 {
-                    currentConsole.GameList.Remove(foundGame);
+                    currentConsole.RemoveGame(foundGame);
                     found = false;
                     foundGame = null;
                 }
             }
-            RefreshGameCount();
             return true;
         }
 
@@ -599,21 +598,6 @@ namespace UniCade
         }
 
         /// <summary>
-        /// Refresh the total game count across all consoles
-        /// </summary>
-        public static void RefreshGameCount()
-        {
-            Program.TotalGameCount = 0; ;
-            foreach (IConsole console in Program.ConsoleList)
-            {
-                foreach (IGame g in console.GameList)
-                {
-                    Program.TotalGameCount++;
-                }
-            }
-        }
-
-        /// <summary>
         /// Validate the integrity of the Media folder located in the current working directory
         /// </summary>
         public static bool VerifyMediaDirectory()
@@ -744,6 +728,69 @@ namespace UniCade
             SettingsWindow.CoinsRequired = 1;
             SettingsWindow.Playtime = 15;
             SettingsWindow.LaunchOptions = 0;
+        }
+
+        /// <summary>
+        /// Preforms the initial file system operations when the program is launched
+        /// </summary>
+        public static void StartupScan()
+        {
+            //If preferences file does not exist, load default preference values and save a new file
+            if (!LoadPreferences(Program.PreferencesPath))
+            {
+                RestoreDefaultPreferences();
+                SavePreferences(Program.PreferencesPath);
+                ShowNotification("WARNING", "Preference file not found.\n Loading defaults...");
+            }
+
+            //If the specified rom directory does not exist, creat a new one in with the default path
+            if (!Directory.Exists(Program.RomPath))
+            {
+                Directory.CreateDirectory(Program.RomPath);
+                CreateNewRomDirectory();
+            }
+
+            //If the specified emulator directory does not exist, creat a new one in with the default path
+            if (!Directory.Exists(Program.EmulatorPath))
+            {
+                Directory.CreateDirectory(Program.EmulatorPath);
+                CreateNewEmuDirectory();
+                //MessageBox.Show("Emulator directory not found. Creating new directory structure");
+            }
+
+            //Verify the integrity of the local media directory and end the program if corruption is dectected  
+            if (!FileOps.VerifyMediaDirectory())
+            {
+                return;
+            }
+
+            //If the current user is null, generate the default UniCade user and set as the current user  
+            if (SettingsWindow.CurrentUser == null)
+            {
+                SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
+            }
+
+            //Verify the current user license and set flag
+            if (LicenseEngine.ValidateSHA256(LicenseEngine.UserLicenseName + LicenseEngine.HashKey, LicenseEngine.UserLicenseKey))
+            {
+                LicenseEngine.IsLicenseValid = true;
+            }
+
+            //If the database file does not exist in the specified location, load default values and rescan rom directories
+            if (!LoadDatabase(Program.DatabasePath))
+            {
+                RestoreDefaultConsoles();
+                Scan(Program.RomPath);
+                try
+                {
+                    FileOps.SaveDatabase(Program.DatabasePath);
+                }
+                catch
+                {
+                    MessageBox.Show("Error Saving Database\n" + Program.DatabasePath);
+                }
+                ShowNotification("WARNING", "Database file not found.\n Loading defaults...");
+            }
         }
 
         #endregion

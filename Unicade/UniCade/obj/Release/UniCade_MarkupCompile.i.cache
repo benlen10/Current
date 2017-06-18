@@ -10,11 +10,11 @@ none
 false
 TRACE
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\Resources\App.xaml
-8122768930
+82069486542
 11074149209
-29-1132836695
+32865639184
 161733111632
-Windows\AccountWindow.xaml;Windows\GameInfo.xaml;Windows\MainWindow.xaml;Windows\LicenseEntry.xaml;Windows\LoginWindow.xaml;Windows\NotificationWindow.xaml;Windows\PassWindow.xaml;Windows\SettingsWindow.xaml;
+GUI Windows\AccountWindow.xaml;GUI Windows\GameInfo.xaml;GUI Windows\MainWindow.xaml;GUI Windows\LicenseEntry.xaml;GUI Windows\LoginWindow.xaml;GUI Windows\NotificationWindow.xaml;GUI Windows\PassWindow.xaml;GUI Windows\SettingsWindow.xaml;
 
 True
 
