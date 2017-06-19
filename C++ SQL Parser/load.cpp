@@ -293,6 +293,7 @@ void populateTable() {
 	//Open the file and exit if not found
 	std::cout << "Parse: Food Descriptions (FOOD_DES.txt)\n\n" << std::endl;
 	inputStream.open("FOOD_DES.txt");
+
 	if (!inputStream.good()) {
 		fprintf(stderr, "FOOD_DES.txt Not Found\n");
 		return;
@@ -407,17 +408,14 @@ void populateTable() {
 		//Parse FdGrp_Desc 
 		std::string FdGrp_Desc = parseString(token[1]);
 
-		//Break once end of file is reached
-		if ((FdGrp_Desc == "NULL") || (FdGrp_Cd == "NULL")) {
-			break;
-		}
-
 		//Generate Insert Statement
 		sprintf(command, "INSERT INTO FoodGroupDescriptions VALUES (%s,%s);", FdGrp_Cd.c_str(), FdGrp_Desc.c_str());
 
 
 		//Execute the SQL command and create the SourcesOfData table 
-		execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		if (FdGrp_Desc != "NULL") {
+			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		}
 
 		if (execStatus != SQLITE_OK) {
 			fprintf(stderr, "SQL error (FoodGroupDescriptions): %s\n", errorMsg);
@@ -457,16 +455,13 @@ void populateTable() {
 		//Parse FdGrp_Desc 
 		std::string Factor_Code = parseString(token[1]);
 
-		//Break once end of file is reached (Neither can be null)
-		if ((NDB_No == "NULL") || (Factor_Code == "NULL")) {
-			break;
-		}
-
 		//Generate Insert Statement
 		sprintf(command, "INSERT INTO LangualFactor VALUES (%s,%s);", NDB_No.c_str(), Factor_Code.c_str());
 
 		//Execute the SQL command 
-		execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		if (NDB_No != "NULL") {
+			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		}
 
 		//Check for SQL errors
 		if (execStatus != SQLITE_OK) {
@@ -710,9 +705,6 @@ void populateTable() {
 		//Generate Insert Statement
 		sprintf(command, "INSERT INTO SourceCode VALUES (%s,%s);", Src_Cd.c_str(), SrcCd_Desc.c_str());
 
-		//TEMP DEBUG
-		printf("%s\n", command);
-
 		//Execute the SQL command
 		if ((Src_Cd != "NULL")) {
 			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
@@ -757,16 +749,13 @@ void populateTable() {
 		//Parse Deriv_Desc 
 		std::string Deriv_Desc = parseString(token[1]);
 
-		//Break once end of file is reached (Neither can be null) (Optional break statement)
-		if ((Deriv_Cd == "NULL") || (Deriv_Desc == "NULL")) {
-			break;
-		}
-
 		//Generate Insert Statement
 		sprintf(command, "INSERT INTO DataDerivation VALUES (%s,%s);", Deriv_Cd.c_str(), Deriv_Desc.c_str());
 
 		//Execute the SQL command
-		execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		if (Deriv_Cd != "NULL") {
+			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		}
 
 		//Check for SQL Errors
 		if (execStatus != SQLITE_OK) {
@@ -1002,7 +991,7 @@ void populateTable() {
 		sprintf(command, "INSERT INTO SourcesOfData VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);", DataSrc_ID.c_str(), Authors.c_str(), Title.c_str(), Year.c_str(), Journal.c_str(), Vol_City.c_str(), Issue_State.c_str(), Start_Page.c_str(), End_Page.c_str());
 
 		//Execute the SQL command
-		if (DataSrc_ID == "NULL") {
+		if (DataSrc_ID != "NULL") {
 			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
 		}
 
