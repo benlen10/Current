@@ -299,12 +299,14 @@ void populateTable() {
 		return;
 	}
 
+	std::string commandStr = "INSERT INTO FoodDescriptions VALUES ";
+	int loopCount = 0;
+
 	// read each line of the file
 	while (!inputStream.eof())
 	{
 		//Read a full line
 		inputStream.getline(strBuffer, BUFFER_SIZE);
-		std::string origString(strBuffer);
 		
 		//Parse all tokens from the line
 		const char * const split = "^";
@@ -363,18 +365,38 @@ void populateTable() {
 		}
 
 		//Generate Insert Statement
-		sprintf(command, "INSERT INTO FoodDescriptions VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), FdGrp_Cd.c_str(), Long_Desc.c_str(), Shrt_Desc.c_str(), ComName.c_str(), ManufacName.c_str(), Survey.c_str(), Ref_desc.c_str(), Refuse.c_str(), SciName.c_str(), N_Factor.c_str(), Pro_Factor.c_str(), Fat_Factor.c_str(), CHO_Factor.c_str());
+		sprintf(command, "(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s),", NDB_No.c_str(), FdGrp_Cd.c_str(), Long_Desc.c_str(), Shrt_Desc.c_str(), ComName.c_str(), ManufacName.c_str(), Survey.c_str(), Ref_desc.c_str(), Refuse.c_str(), SciName.c_str(), N_Factor.c_str(), Pro_Factor.c_str(), Fat_Factor.c_str(), CHO_Factor.c_str());
+		std::string append(command);
+		
 
-		//Execute the SQL command and create the SourcesOfData table 
-		if (NDB_No != "NULL") {
-			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		//Execute the SQL command 
+		if (NDB_No == "NULL" || loopCount >= 1000) {
+			commandStr.erase(commandStr.size()-1);
+			commandStr += ";";
+			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+			commandStr = "INSERT INTO FoodDescriptions VALUES ";
+			loopCount = 0;
+			if (execStatus != SQLITE_OK) {
+				fprintf(stdout, "SQL error (FoodDescriptions): %s\n", errorMsg);
 		}
-
-		if (execStatus != SQLITE_OK) {
-			fprintf(stdout, "SQL error (FoodDescriptions): %s\n", errorMsg);
-			fprintf(stderr, "%s\n", command);
 		}
+		else{
+			commandStr += append;
+		}
+		
+		loopCount++;
 	}
+
+	//Insert ant remaining entries after the loop finishes 
+	if(loopCount>2){
+		commandStr.erase(commandStr.size()-1);
+		commandStr += ";";
+		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+		loopCount = 0;
+	}
+
+	//TEMP
+	return;
 
 	//Open the file and exit if not found
 	std::cout << "Parse: Group Descriptions Descriptions (FD_GROUP.txt)\n\n" << std::endl;
