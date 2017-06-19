@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using UniCade.Backend;
+using UniCade.ConsoleInterface;
 using UniCade.Constants;
 using UniCade.Exceptions;
 using UniCade.Windows;
@@ -67,6 +70,13 @@ namespace UniCade
         /// </summary>
         public static IUser CurrentUser;
 
+        /// <summary>
+        /// The current application 
+        /// </summary>
+        public static App App;
+
+        public static SettingsWindow SettingsWindow;
+
         #endregion
 
         [System.STAThreadAttribute]
@@ -80,9 +90,11 @@ namespace UniCade
 
             FileOps.StartupScan();
 
-            var app = new App();
-            app.InitializeComponent();
-            app.Run();
+            
+            App = new App();
+            App.InitializeComponent();
+            App.Run();
+            //UniCadeCmd.Run();
         }
 
         public static void Initalize()
@@ -154,8 +166,9 @@ namespace UniCade
             }
             TotalGameCount = count;
             return count;
-        }
 
-        #endregion
+
+            #endregion
+        }
     }
 }

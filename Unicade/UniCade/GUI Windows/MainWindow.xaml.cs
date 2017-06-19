@@ -30,7 +30,7 @@ namespace UniCade
         public IConsole _gameSelectionConsole;
         public static bool _settingsWindowActive;
         public static bool _favorite;
-        public static SettingsWindow sw;
+        public static SettingsWindow SettingsWindow;
         public static int _consoleCount;
         public static GlobalKeyboardHook gkh;
         private static GameInfo _gameInfo;
@@ -59,7 +59,8 @@ namespace UniCade
             this.Background = myBrush;
 
             //Intialize a new settings window instance
-            sw = new SettingsWindow();
+            SettingsWindow = new SettingsWindow();
+            Program.SettingsWindow = SettingsWindow;
 
             //Hide currently inactive elements and labels
             listBox.Visibility = Visibility.Hidden;
@@ -290,18 +291,18 @@ namespace UniCade
 
                         if (_validPAss)
                         {
-                            sw = new SettingsWindow();
+                            SettingsWindow = new SettingsWindow();
                             UnhookKeys();
                             _settingsWindowActive = true;
-                            sw.ShowDialog();
+                            SettingsWindow.ShowDialog();
                         }
                     }
                     else
                     {
-                        sw = new SettingsWindow();
+                        SettingsWindow = new SettingsWindow();
                         _settingsWindowActive = true;
                         UnhookKeys();
-                        sw.ShowDialog();
+                        SettingsWindow.ShowDialog();
                     }
                     if (LicenseEngine.IsLicenseValid)
                     {

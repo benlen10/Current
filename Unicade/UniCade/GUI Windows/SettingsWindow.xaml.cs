@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using UniCade.Backend;
+using UniCade.ConsoleInterface;
 using UniCade.Constants;
 
 namespace UniCade.Windows
@@ -1926,5 +1927,10 @@ namespace UniCade.Windows
 
         #endregion
 
+        private void LaunchCmdInterface_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            UniCadeCmd.Run();
+        }
     }
 }
