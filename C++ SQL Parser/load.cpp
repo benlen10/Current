@@ -461,17 +461,17 @@ void populateTable() {
 		loopCount = 0;
 	}
 
-	//TEMP
-	return;
-
 	//Open the file and exit if not found
-	std::cout << "Parse: Lingual Factors (LANGUAL.txt)\n\n" << std::endl;
+	std::cout << "Parse: Langual Factors (LANGUAL.txt)\n\n" << std::endl;
 	inputStream.close();
 	inputStream.open("LANGUAL.txt");
 	if (!inputStream.good()) {
 		fprintf(stderr, "LANGUAL.txt Not Found\n");
 		return;
 	}
+
+	commandStr = "INSERT INTO LangualFactor VALUES ";
+	loopCount = 0;
 
 	//Read each line of the file
 	while (!inputStream.eof())
@@ -497,22 +497,37 @@ void populateTable() {
 		std::string Factor_Code = parseString(token[1]);
 
 		//Generate Insert Statement
-		sprintf(command, "INSERT INTO LangualFactor VALUES (%s,%s);", NDB_No.c_str(), Factor_Code.c_str());
+		sprintf(command, "(%s,%s),", NDB_No.c_str(), Factor_Code.c_str());
+		std::string append(command);
 
 		//Execute the SQL command 
-		if (NDB_No != "NULL") {
-			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		if (NDB_No == "NULL" || loopCount >= 1000) {
+			commandStr.erase(commandStr.size()-1);
+			commandStr += ";";
+			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+			commandStr = "INSERT INTO LangualFactor VALUES ";
+			loopCount = 0;
+			if (execStatus != SQLITE_OK) {
+				fprintf(stdout, "SQL error (LangualFactor): %s\n", errorMsg);
 		}
+		}
+		else{
+			commandStr += append;
+		}
+		
+		loopCount++;
+	}
 
-		//Check for SQL errors
-		if (execStatus != SQLITE_OK) {
-			fprintf(stderr, "SQL error (LangualFactor): %s\n", errorMsg);
-			fprintf(stderr, "%s\n", command);
-		}
+	//Insert ant remaining entries after the loop finishes 
+	if(loopCount>2){
+		commandStr.erase(commandStr.size()-1);
+		commandStr += ";";
+		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+		loopCount = 0;
 	}
 
 	//Open the file and exit if file is not found
-	std::cout << "Parse: Lingual Factors Description (LANGDESC.txt)\n\n" << std::endl;
+	std::cout << "Parse: Langual Factors Description (LANGDESC.txt)\n\n" << std::endl;
 	inputStream.close();
 	inputStream.open("LANGDESC.txt");
 	if (!inputStream.good()) {
