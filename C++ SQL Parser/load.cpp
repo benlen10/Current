@@ -395,17 +395,17 @@ void populateTable() {
 		loopCount = 0;
 	}
 
-	//TEMP
-	return;
-
 	//Open the file and exit if not found
-	std::cout << "Parse: Group Descriptions Descriptions (FD_GROUP.txt)\n\n" << std::endl;
+	std::cout << "Parse: Food Group Descriptions Descriptions (FD_GROUP.txt)\n\n" << std::endl;
 	inputStream.close();
 	inputStream.open("FD_GROUP.txt");
 	if (!inputStream.good()) {
 		fprintf(stderr, "FD_GROUP.txt Not Found\n");
 		return;
 	}
+
+	commandStr = "INSERT INTO FoodGroupDescriptions VALUES ";
+	loopCount = 0;
 
 	//Read each line of the file
 	while (!inputStream.eof())
@@ -431,19 +431,38 @@ void populateTable() {
 		std::string FdGrp_Desc = parseString(token[1]);
 
 		//Generate Insert Statement
-		sprintf(command, "INSERT INTO FoodGroupDescriptions VALUES (%s,%s);", FdGrp_Cd.c_str(), FdGrp_Desc.c_str());
+		sprintf(command, "(%s,%s),", FdGrp_Cd.c_str(), FdGrp_Desc.c_str());
+		std::string append(command);
+		
 
-
-		//Execute the SQL command and create the SourcesOfData table 
-		if (FdGrp_Desc != "NULL") {
-			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		//Execute the SQL command 
+		if (FdGrp_Cd == "NULL" || loopCount >= 1000) {
+			commandStr.erase(commandStr.size()-1);
+			commandStr += ";";
+			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+			commandStr = "INSERT INTO FoodGroupDescriptions VALUES ";
+			loopCount = 0;
+			if (execStatus != SQLITE_OK) {
+				fprintf(stdout, "SQL error (FoodGroupDescriptions): %s\n", errorMsg);
 		}
-
-		if (execStatus != SQLITE_OK) {
-			fprintf(stderr, "SQL error (FoodGroupDescriptions): %s\n", errorMsg);
-			fprintf(stderr, "%s\n", command);
 		}
+		else{
+			commandStr += append;
+		}
+		
+		loopCount++;
 	}
+
+	//Insert ant remaining entries after the loop finishes 
+	if(loopCount>2){
+		commandStr.erase(commandStr.size()-1);
+		commandStr += ";";
+		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+		loopCount = 0;
+	}
+
+	//TEMP
+	return;
 
 	//Open the file and exit if not found
 	std::cout << "Parse: Lingual Factors (LANGUAL.txt)\n\n" << std::endl;
