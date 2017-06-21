@@ -9,12 +9,10 @@ namespace UniCade.ConsoleInterface
 {
     class UniCadeCmd
     {
+
         public static void Run()
         {
             ShowConsoleWindow();
-            MainWindow.UnhookKeys();
-            Program.App.MainWindow.Hide();
-
             while (true)
             {
                 System.Console.WriteLine("Enter Cmd (Type 'exit' to close)");
@@ -22,14 +20,26 @@ namespace UniCade.ConsoleInterface
                 if (line.Contains("exit"))
                 {
                     HideConsoleWindow();
-                    MainWindow.ReHookKeys();
-                    Program.App.MainWindow.Show();
                     return;
                 }
             }
         }
 
-            public static void ShowConsoleWindow()
+        public static void PrepAndRun()
+        {
+            //Prep
+            MainWindow.UnhookKeys();
+            Program.App.MainWindow.Hide();
+
+            //Run
+            Run();
+
+            //Cleanup
+            MainWindow.ReHookKeys();
+            Program.App.MainWindow.Show();
+        }
+
+        public static void ShowConsoleWindow()
         {
             var handle = GetConsoleWindow();
 

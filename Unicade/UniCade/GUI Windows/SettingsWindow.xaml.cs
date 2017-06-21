@@ -168,11 +168,14 @@ namespace UniCade.Windows
             UsersTab_Dropdown_AllowedESRB.Items.Add("None");
 
             //Load UniCade Logo images within the settings window
-            AboutTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
-            CloudTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
-            EmulatorsTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
-            WebTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
-
+            try
+            {
+                AboutTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
+                CloudTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
+                EmulatorsTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
+                WebTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
+            }
+            catch (DirectoryNotFoundException e){ }
             //Populate the 'Allowed ESRB' combo box with the specified rating
             if (RestrictGlobalESRB.Equals(Enums.ESRB.Everyone))
             {
@@ -552,7 +555,7 @@ namespace UniCade.Windows
         /// Rescrape game info button.
         /// Rescrapes info the the specified game from the web
         /// </summary>
-        private void GamesTab_RescrapeGameButton_Click(object sender, EventArgs e)
+        internal void GamesTab_RescrapeGameButton_Click(object sender, EventArgs e)
         {
             //Require that a user select a valid game to rescrape
             if (GamesTab_Listbox_GamesList.SelectedItem == null)
@@ -574,6 +577,7 @@ namespace UniCade.Windows
             GamesTab_Textbox_ESRBDescriptor.Text = CurrentGame.EsrbDescriptors;
             GamesTab_Textbox_Description.Text = CurrentGame.Description;
             RefreshEsrbIcon(CurrentGame);
+            return;
         }
 
         /// <summary>
@@ -1767,7 +1771,7 @@ namespace UniCade.Windows
         /// Save the current game info to the database file
         /// Display an error popup if any of the inputs contain invalid data
         /// </summary>
-        private void SaveGameInfo()
+        internal void SaveGameInfo()
         {
 
             //Invalid input checks

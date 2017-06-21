@@ -78,7 +78,7 @@ namespace UniCade
         public static SettingsWindow SettingsWindow;
 
         #endregion
-
+        
         [System.STAThreadAttribute]
 
         /// <summary>
@@ -90,8 +90,9 @@ namespace UniCade
 
             FileOps.StartupScan();
 
-            
-            App = new App();
+            SettingsWindow sw = new SettingsWindow();
+
+                App = new App();
             App.InitializeComponent();
             App.Run();
             //UniCadeCmd.Run();
