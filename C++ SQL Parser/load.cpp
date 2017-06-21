@@ -535,6 +535,9 @@ void populateTable() {
 		return;
 	}
 
+	commandStr = "INSERT INTO LangualFactorsDescription VALUES ";
+	loopCount = 0;
+
 	//Read each line of the file
 	while (!inputStream.eof())
 	{
@@ -559,18 +562,32 @@ void populateTable() {
 		std::string Description = parseString(token[1]);
 
 		//Generate Insert Statement
-		sprintf(command, "INSERT INTO LangualFactorsDescription VALUES (%s,%s);", Factor_Code.c_str(), Description.c_str());
+		sprintf(command, "(%s,%s),", Factor_Code.c_str(), Description.c_str());
+		std::string append(command);
 
-		//Execute the SQL command
-		if ((Factor_Code != "NULL")) {
-			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		//Execute the SQL command 
+		if (Factor_Code == "NULL" || loopCount >= 1000) {
+			commandStr.erase(commandStr.size()-1);
+			commandStr += ";";
+			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+			commandStr = "INSERT INTO LangualFactorsDescription VALUES ";
+			loopCount = 0;
+			if (execStatus != SQLITE_OK) {
+				fprintf(stdout, "SQL error (LangualFactorsDescription): %s\n", errorMsg);
 		}
+		}
+		else{
+			commandStr += append;
+		}
+		loopCount++;
+	}
 
-		//Check for SQL errors
-		if (execStatus != SQLITE_OK) {
-			fprintf(stderr, "SQL error (LangualFactorsDescription): %s\n", errorMsg);
-			fprintf(stderr, "%s\n", command);
-		}
+	//Insert ant remaining entries after the loop finishes 
+	if(loopCount>2){
+		commandStr.erase(commandStr.size()-1);
+		commandStr += ";";
+		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+		loopCount = 0;
 	}
 
 	//Open the file and exit if file is not found
