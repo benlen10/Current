@@ -1930,7 +1930,7 @@ namespace UniCade.Windows
         private void LaunchCmdInterface_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-            UniCadeCmd.Run();
+            UniCadeCmd.PrepAndRun();
         }
     }
 }
