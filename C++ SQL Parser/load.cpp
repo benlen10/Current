@@ -599,6 +599,9 @@ void populateTable() {
 		return;
 	}
 
+	commandStr = "INSERT INTO NutrientData VALUES ";
+	loopCount = 0;
+
 	//Read each line of the file
 	while (!inputStream.eof())
 	{
@@ -671,17 +674,32 @@ void populateTable() {
 		std::string CC = "NULL";
 
 		//Generate Insert Statement
-		sprintf(command, "INSERT INTO NutrientData VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), Nutr_No.c_str(), Nutr_Val.c_str(), Num_Data_Pts.c_str(), Std_Error.c_str(), Src_Cd.c_str(), Deriv_Cd.c_str(), Ref_NDB_No.c_str(), Add_Nutr_Mark.c_str(), Num_Studies.c_str(), Min.c_str(), Max.c_str(), DF.c_str(), Low_EB.c_str(), Up_EB.c_str(), Stat_cmt.c_str(), AddMod_Date.c_str(), CC.c_str());
+		sprintf(command, "(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s),", NDB_No.c_str(), Nutr_No.c_str(), Nutr_Val.c_str(), Num_Data_Pts.c_str(), Std_Error.c_str(), Src_Cd.c_str(), Deriv_Cd.c_str(), Ref_NDB_No.c_str(), Add_Nutr_Mark.c_str(), Num_Studies.c_str(), Min.c_str(), Max.c_str(), DF.c_str(), Low_EB.c_str(), Up_EB.c_str(), Stat_cmt.c_str(), AddMod_Date.c_str(), CC.c_str());
+		std::string append(command);
 
-		//Execute the SQL command
-		if (NDB_No != "NULL") {
-			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		//Execute the SQL command 
+		if (NDB_No == "NULL" || loopCount >= 1000) {
+			commandStr.erase(commandStr.size()-1);
+			commandStr += ";";
+			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+			commandStr = "INSERT INTO NutrientData VALUES ";
+			loopCount = 0;
+			if (execStatus != SQLITE_OK) {
+				fprintf(stdout, "SQL error (NutrientData): %s\n", errorMsg);
 		}
+		}
+		else{
+			commandStr += append;
+		}
+		loopCount++;
+	}
 
-		if (execStatus != SQLITE_OK) {
-			fprintf(stderr, "SQL error (NutrientData): %s\n", errorMsg);
-			fprintf(stderr, "%s\n", command);
-		}
+	//Insert ant remaining entries after the loop finishes 
+	if(loopCount>2){
+		commandStr.erase(commandStr.size()-1);
+		commandStr += ";";
+		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+		loopCount = 0;
 	}
 
 	//Open the file and exit if not found
