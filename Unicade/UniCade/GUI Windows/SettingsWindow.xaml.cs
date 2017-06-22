@@ -131,7 +131,7 @@ namespace UniCade.Windows
         /// </summary>
         void SettingsWindow_Closing(object sender, CancelEventArgs e)
         {
-            MainWindow._settingsWindowActive = false;
+            MainWindow.IsSettingsWindowActive = false;
             MainWindow.ReHookKeys();
         }
 
@@ -736,7 +736,7 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_CloseButton_Click(object sender, EventArgs e)
         {
-            MainWindow._settingsWindowActive = false;
+            MainWindow.IsSettingsWindowActive = false;
             this.Close();
         }
 
@@ -923,7 +923,7 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_CloseButton_Click(object sender, EventArgs e)
         {
-            MainWindow._settingsWindowActive = false;
+            MainWindow.IsSettingsWindowActive = false;
             FileOps.SavePreferences(Program.PreferencesPath);
             this.Close();
         }
@@ -1315,7 +1315,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_CloseButton_Click(object sender, EventArgs e)
         {
-            MainWindow._settingsWindowActive = false;
+            MainWindow.IsSettingsWindowActive = false;
             this.Close();
         }
 
@@ -1531,7 +1531,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Button_Close_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow._settingsWindowActive = false;
+            MainWindow.IsSettingsWindowActive = false;
             this.Close();
         }
 

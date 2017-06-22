@@ -20,20 +20,65 @@ namespace UniCade
     {
         #region Properties
 
-        public static ArrayList _consoleList;
-        public static int _index;
-        public static string _currentConsole;
-        public static bool _validPAss;
-        public static bool _gameSelectionActive;
-        public static bool _gameRunning;
-        public static bool _infoWindowActive;
-        public IConsole _gameSelectionConsole;
-        public static bool _settingsWindowActive;
-        public static bool _favorite;
+        /// <summary>
+        /// The list of currently active consoles
+        /// </summary>
+        public static ArrayList ActiveConsoleList;
+
+        /// <summary>
+        /// The index number for the currently displayed console
+        /// </summary>
+        public static int IndexNumber;
+
+        /// <summary>
+        /// True if the password entered in the passWindow is valid
+        /// </summary>
+        public static bool IsPasswordValid;
+
+        /// <summary>
+        /// True if the game selection screen is the current screen
+        /// </summary>
+        public static bool IsGameSelectionPageActive;
+
+        /// <summary>
+        /// True if a game is currently running
+        /// </summary>
+        public static bool IsGameRunning;
+
+        /// <summary>
+        /// True if the game info window is currently active
+        /// </summary>
+        public static bool IsInfoWindowActive;
+
+        /// <summary>
+        /// The current console that is selected
+        /// </summary>
+        public IConsole CurrentConsole;
+
+        /// <summary>
+        /// True if the SettingsWindow is currently visible
+        /// </summary>
+        public static bool IsSettingsWindowActive;
+
+        /// <summary>
+        /// True if currenly only favorites are being displayed
+        /// </summary>
+        public static bool IsFavoritesViewActive;
+
+        /// <summary>
+        /// The current GlobalKeyboardHook object
+        /// </summary>
+        public static GlobalKeyboardHook KeyboardHook;
+
+        /// <summary>
+        /// The current SettingsWindow object
+        /// </summary>
         public static SettingsWindow SettingsWindow;
-        public static int _consoleCount;
-        public static GlobalKeyboardHook gkh;
-        private static GameInfo _gameInfo;
+
+        /// <summary>
+        /// The current GameInfoWindow instance
+        /// </summary>
+        private static GameInfo GameInfoWindow;
 
         #endregion
 
@@ -71,8 +116,8 @@ namespace UniCade
             //Taskbar.Hide();
 
             //Initialize flags and a new class variable for GameInfo 
-            _gameInfo = new GameInfo();
-            _gameRunning = false;
+            GameInfoWindow = new GameInfo();
+            IsGameRunning = false;
 
             //Hook all required hotkeys
             InitilizeGhkHook();
@@ -111,13 +156,10 @@ namespace UniCade
         /// </summary>
         public static void RefreshConsoleList()
         {
-            _consoleList = new ArrayList();
-            _consoleCount = 0;
-            _index = 0;
+            ActiveConsoleList = new ArrayList();
             foreach (IConsole console in Program.ConsoleList)
             {
-                _consoleList.Add(console.ConsoleName);
-                _consoleCount++;
+                ActiveConsoleList.Add(console.ConsoleName);
             }
         }
 
@@ -139,7 +181,7 @@ namespace UniCade
             //If F10 is pressed, kill the currently running game process
             if (e.KeyCode == Keys.F10)
             {
-                if (_gameRunning)
+                if (IsGameRunning)
                 {
                     ShowNotification("UniCade System", "Game Successfully Closed");
                     FileOps.KillProcess();
@@ -147,30 +189,30 @@ namespace UniCade
                 }
             }
 
-            if ((!_gameRunning))
+            if ((!IsGameRunning))
             {
                 //If key I is pressed when a game is not active, display the game info window
                 if (e.KeyCode == Keys.I)
                 {
                     //Toggle info window visibility
-                    if (_gameSelectionActive)
+                    if (IsGameSelectionPageActive)
                     {
                         DisplayGameInfo();
                     }
-                    else if (_infoWindowActive)
+                    else if (IsInfoWindowActive)
                     {
-                        _gameInfo.Hide();
-                        _infoWindowActive = false;
+                        GameInfoWindow.Hide();
+                        IsInfoWindowActive = false;
                     }
                 }
             }
 
-            if ((!_gameRunning) && (!_infoWindowActive))
+            if ((!IsGameRunning) && (!IsInfoWindowActive))
             {
                 //If left arrow is pressed within the GUI home page, navigate to the left
                 if (e.KeyCode == Keys.Left)
                 {
-                    if (!_gameSelectionActive)
+                    if (!IsGameSelectionPageActive)
                     {
                         Left();
                     }
@@ -178,7 +220,7 @@ namespace UniCade
                 //If right arrow is pressed within the GUI home page, navigate to the right
                 else if (e.KeyCode == Keys.Right)
                 {
-                    if (!_gameSelectionActive)
+                    if (!IsGameSelectionPageActive)
                     {
                         Right();
                     }
@@ -187,25 +229,25 @@ namespace UniCade
                 //if a game is highlighted, launch the game
                 else if (e.KeyCode == Keys.Enter)
                 {
-                    if (_gameSelectionActive)
+                    if (IsGameSelectionPageActive)
                     {
                         LaunchGame();
                     }
                     else
                     {
                         OpenGameSelection();
-                        _gameSelectionActive = true;
+                        IsGameSelectionPageActive = true;
                     }
                 }
 
                 //If space is pressed within the game library page, toggle the selected game from the global favorites
                 else if (e.KeyCode == Keys.Space)
                 {
-                    if (_gameSelectionActive)
+                    if (IsGameSelectionPageActive)
                     {
                         if (listBox.SelectedItem != null)
                         {
-                            foreach (IGame g in _gameSelectionConsole.GameList)
+                            foreach (IGame g in CurrentConsole.GameList)
                             {
                                 if (listBox.SelectedItem.ToString().Equals(g.Title))
                                 {
@@ -237,9 +279,9 @@ namespace UniCade
                 //If the game library window is active, add or remove the current game selection from global favorites
                 else if (e.KeyCode == Keys.G)  
                 {
-                    if (_gameSelectionActive)
+                    if (IsGameSelectionPageActive)
                     {
-                        foreach (IGame game in _gameSelectionConsole.GameList)
+                        foreach (IGame game in CurrentConsole.GameList)
                         {
                             if (listBox.SelectedItem.ToString().Equals(game.Title))
                             {
@@ -260,15 +302,15 @@ namespace UniCade
                 //If the game library window is active, toggle the favorites filter view
                 else if (e.KeyCode == Keys.F)  
                 {
-                    if (_gameSelectionActive)
+                    if (IsGameSelectionPageActive)
                     {
-                        if (_favorite)
+                        if (IsFavoritesViewActive)
                         {
-                            _favorite = false;
+                            IsFavoritesViewActive = false;
                         }
                         else
                         {
-                            _favorite = true;
+                            IsFavoritesViewActive = true;
                         }
 
                         OpenGameSelection();
@@ -285,22 +327,22 @@ namespace UniCade
                 {
                     if (SettingsWindow.PasswordProtection > 0)
                     {
-                        _validPAss = false;
+                        IsPasswordValid = false;
                         PassWindow pw = new PassWindow();
                         pw.ShowDialog();
 
-                        if (_validPAss)
+                        if (IsPasswordValid)
                         {
                             SettingsWindow = new SettingsWindow();
                             UnhookKeys();
-                            _settingsWindowActive = true;
+                            IsSettingsWindowActive = true;
                             SettingsWindow.ShowDialog();
                         }
                     }
                     else
                     {
                         SettingsWindow = new SettingsWindow();
-                        _settingsWindowActive = true;
+                        IsSettingsWindowActive = true;
                         UnhookKeys();
                         SettingsWindow.ShowDialog();
                     }
@@ -316,33 +358,33 @@ namespace UniCade
             }
 
             //Toggle expanded images view within the game info page
-            if (!_gameRunning && _infoWindowActive)
+            if (!IsGameRunning && IsInfoWindowActive)
             {
                 if (e.KeyCode == Keys.F)
                 {
-                    _gameInfo.ExpandImage1();
+                    GameInfoWindow.ExpandImage1();
                 }
                 else if (e.KeyCode == Keys.B)
                 {
-                    _gameInfo.ExpandImage2();
+                    GameInfoWindow.ExpandImage2();
                 }
                 else if (e.KeyCode == Keys.S)
                 {
-                    _gameInfo.ExpandImage3();
+                    GameInfoWindow.ExpandImage3();
                 }
                 else if (e.KeyCode == Keys.E)
                 {
-                    _gameInfo.ExpandImage4();
+                    GameInfoWindow.ExpandImage4();
                 }
             }
 
             //Close the current window unless you are already on the home page
             if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  
             {
-                if (_infoWindowActive)
+                if (IsInfoWindowActive)
                 {
-                    _gameInfo.Hide();
-                    _infoWindowActive = false;
+                    GameInfoWindow.Hide();
+                    IsInfoWindowActive = false;
                 }
                 else
                 {
@@ -354,7 +396,7 @@ namespace UniCade
                     image1.Visibility = Visibility.Visible;
 
                     //Restore the flags for the main GUI view
-                    _gameSelectionActive = false;
+                    IsGameSelectionPageActive = false;
                     label.Content = "Total Game Count: " + Program.TotalGameCount;
                 }
             }
@@ -386,13 +428,13 @@ namespace UniCade
         /// </summary>
         private void Right()
         {
-            if (_index < (_consoleCount - 1))
+            if (IndexNumber < (ActiveConsoleList.Count - 1))
             {
-                _index++;
+                IndexNumber++;
             }
             else
             {
-                _index = 0;
+                IndexNumber = 0;
             }
 
             UpdateGUI();
@@ -403,13 +445,13 @@ namespace UniCade
         /// </summary>
         private new void Left()
         {
-            if (_index > 0)
+            if (IndexNumber > 0)
             {
-                _index--;
+                IndexNumber--;
             }
             else
             {
-                _index = (_consoleCount - 1);
+                IndexNumber = (ActiveConsoleList.Count - 1);
             }
 
             UpdateGUI();
@@ -433,24 +475,21 @@ namespace UniCade
                 }
             }
 
-            //Update current console position
-            _currentConsole = (string)_consoleList[_index];
-
             //Display the image for the currently selected console
-            if ((File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\" + _consoleList[_index] + ".png")) && (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + _consoleList[_index] + " Logo" + ".png")))
+            if ((File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\" + ActiveConsoleList[IndexNumber] + ".png")) && (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png")))
             {
                 //Display the console image
                 label1.Visibility = Visibility.Hidden;
                 BitmapImage b = new BitmapImage();
                 b.BeginInit();
-                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\" + _consoleList[_index] + ".png");
+                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\" + ActiveConsoleList[IndexNumber] + ".png");
                 b.EndInit();
                 image.Source = b;
 
                 //Display the console logo
                 b = new BitmapImage();
                 b.BeginInit();
-                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + _consoleList[_index] + " Logo" + ".png");
+                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png");
                 b.EndInit();
                 image1.Source = b;
             }
@@ -459,7 +498,7 @@ namespace UniCade
                 //If the console image does not exist, display a notification
                 image.Source = null;
                 image1.Source = null;
-                label1.Content = _consoleList[_index] + " Missing Console Image/Logo ";
+                label1.Content = ActiveConsoleList[IndexNumber] + " Missing Console Image/Logo ";
                 label1.Visibility = Visibility.Visible;
             }
         }
@@ -469,16 +508,16 @@ namespace UniCade
         /// </summary>
         private void OpenGameSelection()
         {
-            _gameSelectionActive = true;
+            IsGameSelectionPageActive = true;
             image.Visibility = Visibility.Hidden;
             image1.Visibility = Visibility.Hidden;
             image2.Visibility = Visibility.Visible;
             label1.Visibility = Visibility.Visible;
 
             //Check if the favorites view filter is enabled
-            if (!_favorite)
+            if (!IsFavoritesViewActive)
             {
-                label1.Content = (_consoleList[_index] + " Library");
+                label1.Content = (ActiveConsoleList[IndexNumber] + " Library");
             }
             else
             {
@@ -489,15 +528,15 @@ namespace UniCade
             listBox.Items.Clear();
             foreach (IConsole console in Program.ConsoleList)
             {
-                if (console.ConsoleName.Equals(_consoleList[_index]))
+                if (console.ConsoleName.Equals(ActiveConsoleList[IndexNumber]))
                 {
-                    _gameSelectionConsole = console;
+                    CurrentConsole = console;
                     label.Content = console.ConsoleName + " Game Count: " + console.GameCount;
 
                     foreach (IGame game in console.GameList)
                     {
                         //Check if the global favorites filter is enabled
-                        if (_favorite)
+                        if (IsFavoritesViewActive)
                         {
                             foreach (IGame game1 in SettingsWindow.CurrentUser.Favorites)
                             {
@@ -532,17 +571,17 @@ namespace UniCade
             }
 
             //Update the console image within the game library page
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + _consoleList[_index] + " Logo" + ".png"))
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png"))
             {
                 //Load the console image
                 BitmapImage b = new BitmapImage();
                 b.BeginInit();
-                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + _consoleList[_index] + " Logo" + ".png");
+                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png");
                 b.EndInit();
                 image2.Source = b;
 
                 //Populate the title label at the top of the page
-                label1.Content = (_consoleList[_index] + "Library");
+                label1.Content = (ActiveConsoleList[IndexNumber] + "Library");
             }
             else
             {
@@ -579,7 +618,7 @@ namespace UniCade
                     DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program.CoinsRequired);
 
             //Search for the selected game title within the game library
-            foreach (IGame game in _gameSelectionConsole.GameList)
+            foreach (IGame game in CurrentConsole.GameList)
             {
                 if (listBox.SelectedItem.ToString().Equals(game.Title))
                 {
@@ -602,45 +641,45 @@ namespace UniCade
                 return;
             }
 
-            _infoWindowActive = true;
+            IsInfoWindowActive = true;
             BitmapImage bitmapImage;
 
-            foreach (IGame game in _gameSelectionConsole.GameList)
+            foreach (IGame game in CurrentConsole.GameList)
             {
                 if (listBox.SelectedItem.ToString().Equals(game.Title))
                 {
                     //Populate the game info text
-                    _gameInfo.textBlock1.Text = game.ConsoleName + " - " + game.Title;
-                    _gameInfo.textBlock.Text = Program.DisplayGameInfo(game);
+                    GameInfoWindow.textBlock1.Text = game.ConsoleName + " - " + game.Title;
+                    GameInfoWindow.textBlock.Text = Program.DisplayGameInfo(game);
 
                     //Load the box front for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"))
                     {
                         bitmapImage = new BitmapImage();
                         bitmapImage.BeginInit();
-                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png");
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png");
                         bitmapImage.EndInit();
-                        _gameInfo.image.Source = bitmapImage;
+                        GameInfoWindow.image.Source = bitmapImage;
                     }
 
                     //Load the box back image for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png"))
                     {
                         bitmapImage = new BitmapImage();
                         bitmapImage.BeginInit();
-                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png");
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png");
                         bitmapImage.EndInit();
-                        _gameInfo.image1.Source = bitmapImage;
+                        GameInfoWindow.image1.Source = bitmapImage;
                     }
 
                     //Load the screenshot for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png"))
                     {
                         bitmapImage = new BitmapImage();
                         bitmapImage.BeginInit();
-                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _gameSelectionConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png");
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png");
                         bitmapImage.EndInit();
-                        _gameInfo.image2.Source = bitmapImage;
+                        GameInfoWindow.image2.Source = bitmapImage;
                     }
 
                     //Load the ESRB logo for the curent rating
@@ -672,13 +711,13 @@ namespace UniCade
 
                     if (EsrbPath.Length > 2)
                     {
-                        _gameInfo.DisplayEsrb(EsrbPath);
+                        GameInfoWindow.DisplayEsrb(EsrbPath);
                     }
                 }
             }
 
             //Display the game info
-            _gameInfo.Show();
+            GameInfoWindow.Show();
         }
 
         #region Helper Methods
@@ -688,30 +727,30 @@ namespace UniCade
         /// </summary>
         private void InitilizeGhkHook()
         {
-            gkh = new GlobalKeyboardHook();
-            gkh.HookedKeys.Add(Keys.A);
-            gkh.HookedKeys.Add(Keys.B);
-            gkh.HookedKeys.Add(Keys.Left);
-            gkh.HookedKeys.Add(Keys.Right);
-            gkh.HookedKeys.Add(Keys.Enter);
-            gkh.HookedKeys.Add(Keys.I);
-            gkh.HookedKeys.Add(Keys.Back);
-            gkh.HookedKeys.Add(Keys.Space);
-            gkh.HookedKeys.Add(Keys.Tab);
-            gkh.HookedKeys.Add(Keys.Escape);
-            gkh.HookedKeys.Add(Keys.Delete);
-            gkh.HookedKeys.Add(Keys.F);
-            gkh.HookedKeys.Add(Keys.G);
-            gkh.HookedKeys.Add(Keys.C);
-            gkh.HookedKeys.Add(Keys.P);
-            gkh.HookedKeys.Add(Keys.B);
-            gkh.HookedKeys.Add(Keys.S);
-            gkh.HookedKeys.Add(Keys.E);
-            gkh.HookedKeys.Add(Keys.Q);
-            gkh.HookedKeys.Add(Keys.F10);
-            gkh.HookedKeys.Add(Keys.F1);
-            gkh.KeyDown += new System.Windows.Forms.KeyEventHandler(Gkh_KeyDown);
-            gkh.KeyUp += new System.Windows.Forms.KeyEventHandler(Gkh_KeyUp);
+            KeyboardHook = new GlobalKeyboardHook();
+            KeyboardHook.HookedKeys.Add(Keys.A);
+            KeyboardHook.HookedKeys.Add(Keys.B);
+            KeyboardHook.HookedKeys.Add(Keys.Left);
+            KeyboardHook.HookedKeys.Add(Keys.Right);
+            KeyboardHook.HookedKeys.Add(Keys.Enter);
+            KeyboardHook.HookedKeys.Add(Keys.I);
+            KeyboardHook.HookedKeys.Add(Keys.Back);
+            KeyboardHook.HookedKeys.Add(Keys.Space);
+            KeyboardHook.HookedKeys.Add(Keys.Tab);
+            KeyboardHook.HookedKeys.Add(Keys.Escape);
+            KeyboardHook.HookedKeys.Add(Keys.Delete);
+            KeyboardHook.HookedKeys.Add(Keys.F);
+            KeyboardHook.HookedKeys.Add(Keys.G);
+            KeyboardHook.HookedKeys.Add(Keys.C);
+            KeyboardHook.HookedKeys.Add(Keys.P);
+            KeyboardHook.HookedKeys.Add(Keys.B);
+            KeyboardHook.HookedKeys.Add(Keys.S);
+            KeyboardHook.HookedKeys.Add(Keys.E);
+            KeyboardHook.HookedKeys.Add(Keys.Q);
+            KeyboardHook.HookedKeys.Add(Keys.F10);
+            KeyboardHook.HookedKeys.Add(Keys.F1);
+            KeyboardHook.KeyDown += new System.Windows.Forms.KeyEventHandler(Gkh_KeyDown);
+            KeyboardHook.KeyUp += new System.Windows.Forms.KeyEventHandler(Gkh_KeyUp);
         }
 
         /// <summary>
@@ -719,26 +758,26 @@ namespace UniCade
         /// </summary>
         public static void ReHookKeys()
         {
-            gkh.HookedKeys.Add(Keys.A);
-            gkh.HookedKeys.Add(Keys.B);
-            gkh.HookedKeys.Add(Keys.G);
-            gkh.HookedKeys.Add(Keys.Left);
-            gkh.HookedKeys.Add(Keys.Right);
-            gkh.HookedKeys.Add(Keys.Enter);
-            gkh.HookedKeys.Add(Keys.I);
-            gkh.HookedKeys.Add(Keys.Back);
-            gkh.HookedKeys.Add(Keys.Space);
-            gkh.HookedKeys.Add(Keys.Tab);
-            gkh.HookedKeys.Add(Keys.Escape);
-            gkh.HookedKeys.Add(Keys.Delete);
-            gkh.HookedKeys.Add(Keys.F);
-            gkh.HookedKeys.Add(Keys.C);
-            gkh.HookedKeys.Add(Keys.P);
-            gkh.HookedKeys.Add(Keys.B);
-            gkh.HookedKeys.Add(Keys.S);
-            gkh.HookedKeys.Add(Keys.E);
-            gkh.HookedKeys.Add(Keys.Q);
-            gkh.HookedKeys.Add(Keys.F1);
+            KeyboardHook.HookedKeys.Add(Keys.A);
+            KeyboardHook.HookedKeys.Add(Keys.B);
+            KeyboardHook.HookedKeys.Add(Keys.G);
+            KeyboardHook.HookedKeys.Add(Keys.Left);
+            KeyboardHook.HookedKeys.Add(Keys.Right);
+            KeyboardHook.HookedKeys.Add(Keys.Enter);
+            KeyboardHook.HookedKeys.Add(Keys.I);
+            KeyboardHook.HookedKeys.Add(Keys.Back);
+            KeyboardHook.HookedKeys.Add(Keys.Space);
+            KeyboardHook.HookedKeys.Add(Keys.Tab);
+            KeyboardHook.HookedKeys.Add(Keys.Escape);
+            KeyboardHook.HookedKeys.Add(Keys.Delete);
+            KeyboardHook.HookedKeys.Add(Keys.F);
+            KeyboardHook.HookedKeys.Add(Keys.C);
+            KeyboardHook.HookedKeys.Add(Keys.P);
+            KeyboardHook.HookedKeys.Add(Keys.B);
+            KeyboardHook.HookedKeys.Add(Keys.S);
+            KeyboardHook.HookedKeys.Add(Keys.E);
+            KeyboardHook.HookedKeys.Add(Keys.Q);
+            KeyboardHook.HookedKeys.Add(Keys.F1);
         }
 
         /// <summary>
@@ -746,26 +785,26 @@ namespace UniCade
         /// </summary>
         public static void UnhookKeys()
         {
-            gkh.HookedKeys.Remove(Keys.A);
-            gkh.HookedKeys.Remove(Keys.B);
-            gkh.HookedKeys.Add(Keys.G);
-            gkh.HookedKeys.Remove(Keys.Left);
-            gkh.HookedKeys.Remove(Keys.Right);
-            gkh.HookedKeys.Remove(Keys.Enter);
-            gkh.HookedKeys.Remove(Keys.Space);
-            gkh.HookedKeys.Remove(Keys.I);
-            gkh.HookedKeys.Remove(Keys.Back);
-            gkh.HookedKeys.Remove(Keys.Tab);
-            gkh.HookedKeys.Remove(Keys.Escape);
-            gkh.HookedKeys.Remove(Keys.Delete);
-            gkh.HookedKeys.Remove(Keys.F);
-            gkh.HookedKeys.Remove(Keys.P);
-            gkh.HookedKeys.Remove(Keys.C);
-            gkh.HookedKeys.Remove(Keys.B);
-            gkh.HookedKeys.Remove(Keys.S);
-            gkh.HookedKeys.Remove(Keys.E);
-            gkh.HookedKeys.Remove(Keys.Q);
-            gkh.HookedKeys.Remove(Keys.F1);
+            KeyboardHook.HookedKeys.Remove(Keys.A);
+            KeyboardHook.HookedKeys.Remove(Keys.B);
+            KeyboardHook.HookedKeys.Add(Keys.G);
+            KeyboardHook.HookedKeys.Remove(Keys.Left);
+            KeyboardHook.HookedKeys.Remove(Keys.Right);
+            KeyboardHook.HookedKeys.Remove(Keys.Enter);
+            KeyboardHook.HookedKeys.Remove(Keys.Space);
+            KeyboardHook.HookedKeys.Remove(Keys.I);
+            KeyboardHook.HookedKeys.Remove(Keys.Back);
+            KeyboardHook.HookedKeys.Remove(Keys.Tab);
+            KeyboardHook.HookedKeys.Remove(Keys.Escape);
+            KeyboardHook.HookedKeys.Remove(Keys.Delete);
+            KeyboardHook.HookedKeys.Remove(Keys.F);
+            KeyboardHook.HookedKeys.Remove(Keys.P);
+            KeyboardHook.HookedKeys.Remove(Keys.C);
+            KeyboardHook.HookedKeys.Remove(Keys.B);
+            KeyboardHook.HookedKeys.Remove(Keys.S);
+            KeyboardHook.HookedKeys.Remove(Keys.E);
+            KeyboardHook.HookedKeys.Remove(Keys.Q);
+            KeyboardHook.HookedKeys.Remove(Keys.F1);
         }
 
         /// <summary>

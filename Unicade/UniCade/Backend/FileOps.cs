@@ -533,7 +533,7 @@ namespace UniCade
             ShowNotification("System", "Loading ROM File");
             CurrentProcess.Start();
             IsProcessActive = true;
-            MainWindow._gameRunning = true;
+            MainWindow.IsGameRunning = true;
         }
 
         /// <summary>
@@ -541,7 +541,7 @@ namespace UniCade
         /// </summary>
         private static void ProcessExited(object sender, System.EventArgs e)
         {
-            MainWindow._gameRunning = false;
+            MainWindow.IsGameRunning = false;
             IsProcessActive = false;
         }
 
@@ -554,7 +554,7 @@ namespace UniCade
             {
                 SendKeys.SendWait("^%{F4}");
                 ShowNotification("UniCade System", "Attempting Force Close");
-                MainWindow._gameRunning = false;
+                MainWindow.IsGameRunning = false;
                 IsProcessActive = false;
                 MainWindow.ReHookKeys();
                 return;
@@ -566,7 +566,7 @@ namespace UniCade
 
             CurrentProcess.Kill();
             MainWindow.ReHookKeys();
-            MainWindow._gameRunning = false;
+            MainWindow.IsGameRunning = false;
             IsProcessActive = false;
         }
 
