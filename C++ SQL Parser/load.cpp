@@ -864,6 +864,9 @@ void populateTable() {
 		return;
 	}
 
+	commandStr = "INSERT INTO Weight VALUES ";
+	loopCount = 0;
+
 	//Read each line of the file
 	while (!inputStream.eof())
 	{
@@ -904,18 +907,24 @@ void populateTable() {
 		Std_Dev = "NULL";
 
 		//Generate Insert Statement
-		sprintf(command, "INSERT INTO Weight VALUES (%s,%s,%s,%s,%s,%s,%s);", NDB_No.c_str(), Seq.c_str(), Amount.c_str(), Msre_Desc.c_str(), Gm_Wgt.c_str(), Num_Data_Pts.c_str(), Std_Dev.c_str());
+		sprintf(command, "(%s,%s,%s,%s,%s,%s,%s),", NDB_No.c_str(), Seq.c_str(), Amount.c_str(), Msre_Desc.c_str(), Gm_Wgt.c_str(), Num_Data_Pts.c_str(), Std_Dev.c_str());
+		std::string append(command);
 
-		//Execute the SQL command
-		if (NDB_No != "NULL") {
-			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		//Execute the SQL command 
+		if (NDB_No == "NULL" || loopCount >= 1000) {
+			commandStr.erase(commandStr.size()-1);
+			commandStr += ";";
+			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+			commandStr = "INSERT INTO WEight VALUES ";
+			loopCount = 0;
+			if (execStatus != SQLITE_OK) {
+				fprintf(stdout, "SQL error (WEight): %s\n", errorMsg);
 		}
-
-		//Check for SQL errors
-		if (execStatus != SQLITE_OK) {
-			fprintf(stderr, "SQL error (INSERT Weight): %s\n", errorMsg);
-			fprintf(stderr, "%s\n", command);
 		}
+		else{
+			commandStr += append;
+		}
+		loopCount++;
 	}
 
 
