@@ -937,6 +937,9 @@ void populateTable() {
 		return;
 	}
 
+	commandStr = "INSERT INTO Footnote VALUES ";
+	loopCount = 0;
+
 	//Read each line of the file
 	while (!inputStream.eof())
 	{
@@ -970,19 +973,26 @@ void populateTable() {
 		std::string Footnt_Txt = parseString(token[4]);
 
 		//Generate Insert Statement
-		sprintf(command, "INSERT INTO Footnote VALUES (%s,%s,%s,%s,%s);", NDB_No.c_str(), Footnt_No.c_str(), Footnt_Typ.c_str(), Nutr_No.c_str(), Footnt_Txt.c_str());
+		sprintf(command, "(%s,%s,%s,%s,%s),", NDB_No.c_str(), Footnt_No.c_str(), Footnt_Typ.c_str(), Nutr_No.c_str(), Footnt_Txt.c_str());
+		std::string append(command);
 
-		//Execute the SQL command
-		if (NDB_No != "NULL") {
-			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		//Execute the SQL command 
+		if (NDB_No == "NULL" || loopCount >= 1000) {
+			commandStr.erase(commandStr.size()-1);
+			commandStr += ";";
+			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+			commandStr = "INSERT INTO Footnote VALUES ";
+			loopCount = 0;
+			if (execStatus != SQLITE_OK) {
+				fprintf(stdout, "SQL error (Footnote): %s\n", errorMsg);
 		}
-
-		//Check for SQL erorrs
-		if (execStatus != SQLITE_OK) {
-			fprintf(stderr, "SQL error (Footnote): %s\n", errorMsg);
-			fprintf(stderr, "%s\n", command);
 		}
+		else{
+			commandStr += append;
+		}
+		loopCount++;
 	}
+
 
 	//Open the file and exit if not found
 	std::cout << "Parse: Sources of Data Link (DATSRCLN.txt)\n\n" << std::endl;
