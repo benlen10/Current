@@ -387,7 +387,7 @@ void populateTable() {
 		loopCount++;
 	}
 
-	//Insert ant remaining entries after the loop finishes 
+	//Insert any remaining entries after the loop finishes 
 	if(loopCount>2){
 		commandStr.erase(commandStr.size()-1);
 		commandStr += ";";
@@ -453,7 +453,7 @@ void populateTable() {
 		loopCount++;
 	}
 
-	//Insert ant remaining entries after the loop finishes 
+	//Insert any remaining entries after the loop finishes 
 	if(loopCount>2){
 		commandStr.erase(commandStr.size()-1);
 		commandStr += ";";
@@ -518,7 +518,7 @@ void populateTable() {
 		loopCount++;
 	}
 
-	//Insert ant remaining entries after the loop finishes 
+	//Insert any remaining entries after the loop finishes 
 	if(loopCount>2){
 		commandStr.erase(commandStr.size()-1);
 		commandStr += ";";
@@ -582,7 +582,7 @@ void populateTable() {
 		loopCount++;
 	}
 
-	//Insert ant remaining entries after the loop finishes 
+	//Insert any remaining entries after the loop finishes 
 	if(loopCount>2){
 		commandStr.erase(commandStr.size()-1);
 		commandStr += ";";
@@ -694,7 +694,7 @@ void populateTable() {
 		loopCount++;
 	}
 
-	//Insert ant remaining entries after the loop finishes 
+	//Insert any remaining entries after the loop finishes 
 	if(loopCount>2){
 		commandStr.erase(commandStr.size()-1);
 		commandStr += ";";
@@ -927,6 +927,14 @@ void populateTable() {
 		loopCount++;
 	}
 
+	//Insert any remaining entries after the loop finishes 
+	if(loopCount>2){
+		commandStr.erase(commandStr.size()-1);
+		commandStr += ";";
+		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+		loopCount = 0;
+	}
+
 
 	//Open the file and exit if not found
 	std::cout << "Parse: Footnote (FOOTNOTE.txt)\n\n" << std::endl;
@@ -993,6 +1001,14 @@ void populateTable() {
 		loopCount++;
 	}
 
+	//Insert any remaining entries after the loop finishes 
+	if(loopCount>2){
+		commandStr.erase(commandStr.size()-1);
+		commandStr += ";";
+		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+		loopCount = 0;
+	}
+
 
 	//Open the file and exit if not found
 	std::cout << "Parse: Sources of Data Link (DATSRCLN.txt)\n\n" << std::endl;
@@ -1053,6 +1069,14 @@ void populateTable() {
 		loopCount++;
 	}
 
+	//Insert any remaining entries after the loop finishes 
+	if(loopCount>2){
+		commandStr.erase(commandStr.size()-1);
+		commandStr += ";";
+		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+		loopCount = 0;
+	}
+
 	//Open the file and exit if not found
 	std::cout << "Parse: Sources of Data (DATA_SRC.txt)\n\n" << std::endl;
 	inputStream.close();
@@ -1061,6 +1085,9 @@ void populateTable() {
 		fprintf(stderr, "DATA_SRC.txt Not Found\n");
 		return;
 	}
+
+	commandStr = "INSERT INTO SourcesOfData VALUES ";
+	loopCount = 0;
 
 	//Read each line of the file
 	while (!inputStream.eof())
@@ -1107,19 +1134,34 @@ void populateTable() {
 		std::string End_Page = parseString(token[8]);
 
 		//Generate Insert Statement
-		sprintf(command, "INSERT INTO SourcesOfData VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);", DataSrc_ID.c_str(), Authors.c_str(), Title.c_str(), Year.c_str(), Journal.c_str(), Vol_City.c_str(), Issue_State.c_str(), Start_Page.c_str(), End_Page.c_str());
+		sprintf(command, "(%s,%s,%s,%s,%s,%s,%s,%s,%s),", DataSrc_ID.c_str(), Authors.c_str(), Title.c_str(), Year.c_str(), Journal.c_str(), Vol_City.c_str(), Issue_State.c_str(), Start_Page.c_str(), End_Page.c_str());
+		std::string append(command);
 
-		//Execute the SQL command
-		if (DataSrc_ID != "NULL") {
-			execStatus = sqlite3_exec(db, command, callback, 0, &errorMsg);
+		//Execute the SQL command 
+		if (DataSrc_ID == "NULL" || loopCount >= 1000) {
+			commandStr.erase(commandStr.size()-1);
+			commandStr += ";";
+			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+			commandStr = "INSERT INTO SourcesOfDataLink VALUES ";
+			loopCount = 0;
+			if (execStatus != SQLITE_OK) {
+				fprintf(stdout, "SQL error (SourcesOfDataLink): %s\n", errorMsg);
 		}
-
-		//Check for SQL error
-		if (execStatus != SQLITE_OK) {
-			fprintf(stderr, "SQL error (SourcesOfData): %s\n", errorMsg);
-			fprintf(stderr, "%s\n", command);
 		}
+		else{
+			commandStr += append;
+		}
+		loopCount++;
 	}
+
+	//Insert any remaining entries after the loop finishes 
+	if(loopCount>2){
+		commandStr.erase(commandStr.size()-1);
+		commandStr += ";";
+		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
+		loopCount = 0;
+	}
+	
 	//Cleanup and free memory
 	inputStream.close();
 	free(command);
