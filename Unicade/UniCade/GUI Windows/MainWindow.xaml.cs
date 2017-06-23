@@ -176,7 +176,7 @@ namespace UniCade
         /// <summary>
         /// Handle the key down event for hooked keys
         /// </summary>
-        void Gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        public void Gkh_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             //If F10 is pressed, kill the currently running game process
             if (e.KeyCode == Keys.F10)
@@ -728,56 +728,8 @@ namespace UniCade
         private void InitilizeGhkHook()
         {
             KeyboardHook = new GlobalKeyboardHook();
-            KeyboardHook.HookedKeys.Add(Keys.A);
-            KeyboardHook.HookedKeys.Add(Keys.B);
-            KeyboardHook.HookedKeys.Add(Keys.Left);
-            KeyboardHook.HookedKeys.Add(Keys.Right);
-            KeyboardHook.HookedKeys.Add(Keys.Enter);
-            KeyboardHook.HookedKeys.Add(Keys.I);
-            KeyboardHook.HookedKeys.Add(Keys.Back);
-            KeyboardHook.HookedKeys.Add(Keys.Space);
-            KeyboardHook.HookedKeys.Add(Keys.Tab);
-            KeyboardHook.HookedKeys.Add(Keys.Escape);
-            KeyboardHook.HookedKeys.Add(Keys.Delete);
-            KeyboardHook.HookedKeys.Add(Keys.F);
-            KeyboardHook.HookedKeys.Add(Keys.G);
-            KeyboardHook.HookedKeys.Add(Keys.C);
-            KeyboardHook.HookedKeys.Add(Keys.P);
-            KeyboardHook.HookedKeys.Add(Keys.B);
-            KeyboardHook.HookedKeys.Add(Keys.S);
-            KeyboardHook.HookedKeys.Add(Keys.E);
-            KeyboardHook.HookedKeys.Add(Keys.Q);
-            KeyboardHook.HookedKeys.Add(Keys.F10);
-            KeyboardHook.HookedKeys.Add(Keys.F1);
             KeyboardHook.KeyDown += new System.Windows.Forms.KeyEventHandler(Gkh_KeyDown);
             KeyboardHook.KeyUp += new System.Windows.Forms.KeyEventHandler(Gkh_KeyUp);
-        }
-
-        /// <summary>
-        /// Re-hook specified global keyboard hook hotkeys
-        /// </summary>
-        public static void ReHookKeys()
-        {
-            KeyboardHook.HookedKeys.Add(Keys.A);
-            KeyboardHook.HookedKeys.Add(Keys.B);
-            KeyboardHook.HookedKeys.Add(Keys.G);
-            KeyboardHook.HookedKeys.Add(Keys.Left);
-            KeyboardHook.HookedKeys.Add(Keys.Right);
-            KeyboardHook.HookedKeys.Add(Keys.Enter);
-            KeyboardHook.HookedKeys.Add(Keys.I);
-            KeyboardHook.HookedKeys.Add(Keys.Back);
-            KeyboardHook.HookedKeys.Add(Keys.Space);
-            KeyboardHook.HookedKeys.Add(Keys.Tab);
-            KeyboardHook.HookedKeys.Add(Keys.Escape);
-            KeyboardHook.HookedKeys.Add(Keys.Delete);
-            KeyboardHook.HookedKeys.Add(Keys.F);
-            KeyboardHook.HookedKeys.Add(Keys.C);
-            KeyboardHook.HookedKeys.Add(Keys.P);
-            KeyboardHook.HookedKeys.Add(Keys.B);
-            KeyboardHook.HookedKeys.Add(Keys.S);
-            KeyboardHook.HookedKeys.Add(Keys.E);
-            KeyboardHook.HookedKeys.Add(Keys.Q);
-            KeyboardHook.HookedKeys.Add(Keys.F1);
         }
 
         /// <summary>
@@ -785,26 +737,8 @@ namespace UniCade
         /// </summary>
         public static void UnhookKeys()
         {
-            KeyboardHook.HookedKeys.Remove(Keys.A);
-            KeyboardHook.HookedKeys.Remove(Keys.B);
-            KeyboardHook.HookedKeys.Add(Keys.G);
-            KeyboardHook.HookedKeys.Remove(Keys.Left);
-            KeyboardHook.HookedKeys.Remove(Keys.Right);
-            KeyboardHook.HookedKeys.Remove(Keys.Enter);
-            KeyboardHook.HookedKeys.Remove(Keys.Space);
-            KeyboardHook.HookedKeys.Remove(Keys.I);
-            KeyboardHook.HookedKeys.Remove(Keys.Back);
-            KeyboardHook.HookedKeys.Remove(Keys.Tab);
-            KeyboardHook.HookedKeys.Remove(Keys.Escape);
-            KeyboardHook.HookedKeys.Remove(Keys.Delete);
-            KeyboardHook.HookedKeys.Remove(Keys.F);
-            KeyboardHook.HookedKeys.Remove(Keys.P);
-            KeyboardHook.HookedKeys.Remove(Keys.C);
-            KeyboardHook.HookedKeys.Remove(Keys.B);
-            KeyboardHook.HookedKeys.Remove(Keys.S);
-            KeyboardHook.HookedKeys.Remove(Keys.E);
-            KeyboardHook.HookedKeys.Remove(Keys.Q);
-            KeyboardHook.HookedKeys.Remove(Keys.F1);
+            KeyboardHook.HookedKeys.Clear();
+            KeyboardHook.HookedKeys.Add(Keys.F10);
         }
 
         /// <summary>

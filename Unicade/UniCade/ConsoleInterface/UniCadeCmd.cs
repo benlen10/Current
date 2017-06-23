@@ -35,7 +35,7 @@ namespace UniCade.ConsoleInterface
             Run();
 
             //Cleanup
-            MainWindow.ReHookKeys();
+            MainWindow.KeyboardHook.HookKeys();
             Program.App.MainWindow.Show();
         }
 

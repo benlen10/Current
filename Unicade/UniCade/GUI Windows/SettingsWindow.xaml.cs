@@ -132,7 +132,7 @@ namespace UniCade.Windows
         void SettingsWindow_Closing(object sender, CancelEventArgs e)
         {
             MainWindow.IsSettingsWindowActive = false;
-            MainWindow.ReHookKeys();
+            MainWindow.KeyboardHook.HookKeys();
         }
 
         /// <summary>

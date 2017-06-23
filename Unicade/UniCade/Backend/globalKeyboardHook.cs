@@ -70,7 +70,34 @@ namespace UniCade
         /// </summary>
         public GlobalKeyboardHook()
         {
+            
             Hook();
+        }
+
+        public void HookKeys()
+        {
+            HookedKeys.Clear();
+            HookedKeys.Add(Keys.A);
+            HookedKeys.Add(Keys.B);
+            HookedKeys.Add(Keys.Left);
+            HookedKeys.Add(Keys.Right);
+            HookedKeys.Add(Keys.Enter);
+            HookedKeys.Add(Keys.I);
+            HookedKeys.Add(Keys.Back);
+            HookedKeys.Add(Keys.Space);
+            HookedKeys.Add(Keys.Tab);
+            HookedKeys.Add(Keys.Escape);
+            HookedKeys.Add(Keys.Delete);
+            HookedKeys.Add(Keys.F);
+            HookedKeys.Add(Keys.G);
+            HookedKeys.Add(Keys.C);
+            HookedKeys.Add(Keys.P);
+            HookedKeys.Add(Keys.B);
+            HookedKeys.Add(Keys.S);
+            HookedKeys.Add(Keys.E);
+            HookedKeys.Add(Keys.Q);
+            HookedKeys.Add(Keys.F10);
+            HookedKeys.Add(Keys.F1);
         }
 
         /// <summary>
@@ -115,6 +142,8 @@ namespace UniCade
             }
             callbackDelegate = null;
         }
+
+
 
         /// <summary>
         /// Hook the specified keys

@@ -556,7 +556,7 @@ namespace UniCade
                 ShowNotification("UniCade System", "Attempting Force Close");
                 MainWindow.IsGameRunning = false;
                 IsProcessActive = false;
-                MainWindow.ReHookKeys();
+                MainWindow.KeyboardHook.HookKeys();
                 return;
             }
             else if (CurrentProcess.HasExited)
@@ -565,7 +565,7 @@ namespace UniCade
             }
 
             CurrentProcess.Kill();
-            MainWindow.ReHookKeys();
+            MainWindow.KeyboardHook.HookKeys();
             MainWindow.IsGameRunning = false;
             IsProcessActive = false;
         }
