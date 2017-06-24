@@ -209,11 +209,11 @@ namespace UniCade
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.PayPerPlayEnabled = true;
+                PayPerPlay.PayPerPlayEnabled = true;
             }
             else
             {
-                SettingsWindow.PayPerPlayEnabled = false;
+                PayPerPlay.PayPerPlayEnabled = false;
             }
 
             if (tokenString[2].Contains("1"))
@@ -226,8 +226,8 @@ namespace UniCade
             }
 
             //Parse coin count
-            SettingsWindow.CoinsRequired = Int32.Parse(tokenString[3]);
-            SettingsWindow.Playtime = Int32.Parse(tokenString[4]);
+            PayPerPlay.CoinsRequired = Int32.Parse(tokenString[3]);
+            PayPerPlay.Playtime = Int32.Parse(tokenString[4]);
 
             //Parse user license key
             line = file.ReadLine();
@@ -305,7 +305,7 @@ namespace UniCade
                 sw.WriteLine("RequireLogin|" + SettingsWindow.RequireLogin);
                 sw.WriteLine("CmdOrGui|" + SettingsWindow.PerferCmdInterface);
                 sw.WriteLine("LoadingScreen|" + SettingsWindow.ShowLoadingScreen);
-                sw.WriteLine("PaySettings|" + SettingsWindow.PayPerPlayEnabled + "|" + SettingsWindow.LaunchOptions + "|" + SettingsWindow.CoinsRequired + "|" + SettingsWindow.Playtime);
+                sw.WriteLine("PaySettings|" + PayPerPlay.PayPerPlayEnabled + "|" + SettingsWindow.LaunchOptions + "|" + PayPerPlay.CoinsRequired + "|" + PayPerPlay.Playtime);
                 sw.WriteLine("License Key|" + LicenseEngine.UserLicenseName + "|" + LicenseEngine.UserLicenseKey);
                 sw.WriteLine("***UserData***");
                 foreach (IUser user in Program.UserList)
@@ -724,9 +724,9 @@ namespace UniCade
             SettingsWindow.RequireLogin = false;
             SettingsWindow.PerferCmdInterface = false;
             SettingsWindow.ShowLoadingScreen = false;
-            SettingsWindow.PayPerPlayEnabled = false;
-            SettingsWindow.CoinsRequired = 1;
-            SettingsWindow.Playtime = 15;
+            PayPerPlay.PayPerPlayEnabled = false;
+            PayPerPlay.CoinsRequired = 1;
+            PayPerPlay.Playtime = 15;
             SettingsWindow.LaunchOptions = 0;
         }
 

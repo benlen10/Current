@@ -70,13 +70,20 @@ namespace UniCade
         /// </summary>
         public GlobalKeyboardHook()
         {
-            
+            HookKeys();
             Hook();
         }
 
+        /// <summary>
+        /// Hook the list of specified keys
+        /// </summary>
         public void HookKeys()
         {
             HookedKeys.Clear();
+            HookedKeys.Add(Keys.N );
+            HookedKeys.Add(Keys.NumPad2);
+            HookedKeys.Add(Keys.NumPad3);
+            HookedKeys.Add(Keys.NumPad4);
             HookedKeys.Add(Keys.A);
             HookedKeys.Add(Keys.B);
             HookedKeys.Add(Keys.Left);

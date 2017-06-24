@@ -75,21 +75,6 @@ namespace UniCade.Windows
         public static bool ShowLoadingScreen;
 
         /// <summary>
-        /// Specifies is PayPerPlay is enforced
-        /// </summary>
-        public static bool PayPerPlayEnabled;
-
-        /// <summary>
-        /// Specifies the number of coins required if payperplay is enabled
-        /// </summary>
-        public static int CoinsRequired;
-
-        /// <summary>
-        /// Speficies the allowed amount of playtime if PayPerPlay is enabled
-        /// </summary>
-        public static int Playtime;
-
-        /// <summary>
         /// Spcifies the launch options for games across all consoles
         /// </summary>
         public static int LaunchOptions;
@@ -328,7 +313,7 @@ namespace UniCade.Windows
                 GlobalTab_Checkbox_DisplayESRB.IsChecked = true;
             }
 
-            if (PayPerPlayEnabled == true)
+            if (PayPerPlay.PayPerPlayEnabled == true)
             {
                 GlobalTab_Checkbox_EnablePayPerPlay.IsChecked = true;
                 GlobalTab_Textbox_Coins.IsEnabled = true;
@@ -336,8 +321,8 @@ namespace UniCade.Windows
             }
 
             //Populate payPerPlay fields
-            GlobalTab_Textbox_Coins.Text = CoinsRequired.ToString();
-            GlobalTab_Textbox_Playtime.Text = Playtime.ToString();
+            GlobalTab_Textbox_Coins.Text = PayPerPlay.CoinsRequired.ToString();
+            GlobalTab_Textbox_Playtime.Text = PayPerPlay.Playtime.ToString();
 
             foreach (IUser user in Program.UserList)
             {
@@ -1191,7 +1176,7 @@ namespace UniCade.Windows
                 Int32.TryParse(GlobalTab_Textbox_Coins.Text, out n);
                 if (n > 0)
                 {
-                    CoinsRequired = Int32.Parse(GlobalTab_Textbox_Coins.Text);
+                    PayPerPlay.CoinsRequired = Int32.Parse(GlobalTab_Textbox_Coins.Text);
                 }
 
                 if (GlobalTab_Dropdown_AllowedESRB.SelectedItem != null)
@@ -1299,12 +1284,12 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            PayPerPlayEnabled = false;
+            PayPerPlay.PayPerPlayEnabled = false;
             GlobalTab_Textbox_Coins.IsEnabled = false;
             GlobalTab_Textbox_Playtime.IsEnabled = false;
             if (GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value == true)
             {
-                PayPerPlayEnabled = true;
+                PayPerPlay.PayPerPlayEnabled = true;
                 GlobalTab_Textbox_Coins.IsEnabled = true;
                 GlobalTab_Textbox_Playtime.IsEnabled = true;
             }

@@ -111,6 +111,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Backend\LicenseEngine.cs" />
+    <Compile Include="Backend\PayPerPlay.cs" />
     <Compile Include="ConsoleInterface\UniCadeCmd.cs" />
     <Compile Include="Constants\Enums.cs" />
     <Compile Include="Exceptions\UniCadeException1.cs" />

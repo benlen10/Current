@@ -133,11 +133,11 @@ namespace UniCade
             RefreshConsoleList();
 
             //If payPerPlay setting is activated, display a notification in the main GUI
-            if (SettingsWindow.PayPerPlayEnabled == true)
+            if (PayPerPlay.PayPerPlayEnabled == true)
             {
-                if (SettingsWindow.CoinsRequired > 0)
+                if (PayPerPlay.CoinsRequired > 0)
                 {
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program.CoinsRequired);
+                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + Program.CoinsRequired);
                 }
             }
             else
@@ -372,7 +372,7 @@ namespace UniCade
                 {
                     GameInfoWindow.ExpandImage3();
                 }
-                else if (e.KeyCode == Keys.E)
+                else if (e.KeyCode == Keys.D4)
                 {
                     GameInfoWindow.ExpandImage4();
                 }
@@ -405,11 +405,11 @@ namespace UniCade
             else if (e.KeyCode == Keys.Tab)  
             {
                 Program.CoinsRequired++;
-                if (SettingsWindow.PayPerPlayEnabled == true)
+                if (PayPerPlay.PayPerPlayEnabled == true)
                 {
-                    if (SettingsWindow.CoinsRequired > 0)
+                    if (PayPerPlay.CoinsRequired > 0)
                     {
-                        label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program.CoinsRequired;
+                        label2.Content = "(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + Program.CoinsRequired;
                     }
 
                     //Display a popup payPerPlay notification
@@ -463,11 +463,11 @@ namespace UniCade
         private void UpdateGUI()
         {
             //Update payPerPlay notifications
-            if (SettingsWindow.PayPerPlayEnabled == true)
+            if (PayPerPlay.PayPerPlayEnabled == true)
             {
-                if (SettingsWindow.CoinsRequired > 0)
+                if (PayPerPlay.CoinsRequired > 0)
                 {
-                    label2.Content = "(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program.CoinsRequired;
+                    label2.Content = "(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + Program.CoinsRequired;
                 }
                 else
                 {
@@ -603,19 +603,19 @@ namespace UniCade
         /// </summary>
         private void LaunchGame()
         {
-            if (SettingsWindow.PayPerPlayEnabled == true)
+            if (PayPerPlay.PayPerPlayEnabled == true)
             {
-                if (SettingsWindow.CoinsRequired > 0)
+                if (PayPerPlay.CoinsRequired > 0)
                 {
-                    if (Program.CoinsRequired < SettingsWindow.CoinsRequired) { 
+                    if (Program.CoinsRequired < PayPerPlay.CoinsRequired) { 
                         ShowNotification("Pay Per Play", "Insert Coins");
                         return;
                     }
                 }
             }
 
-            Program.CoinsRequired = Program.CoinsRequired - SettingsWindow.CoinsRequired;
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + SettingsWindow.CoinsRequired + " Current: " + Program.CoinsRequired);
+            Program.CoinsRequired = Program.CoinsRequired - PayPerPlay.CoinsRequired;
+                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + Program.CoinsRequired);
 
             //Search for the selected game title within the game library
             foreach (IGame game in CurrentConsole.GameList)
