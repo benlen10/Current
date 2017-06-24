@@ -8,6 +8,7 @@ import java.sql.Statement;
 import android.annotation.SuppressLint;
 import android.os.StrictMode;
 import android.util.Log;
+import com.mysql.jdbc.Driver;
 
 
 import javax.sql.DataSource;
@@ -17,20 +18,21 @@ import javax.sql.DataSource;
  */
 public class SQLclass {
 
-        String ip = "192.168.0.100";
+        String ip = "72.33.2.117/3306";
         String classs = "com.mysql.jdbc.Driver";
-        String db = "Andro";
-        String un = "hitesh";
-        String password = "789";
+        String db = "unicade";
+        String un = "root";
+        String password = "Star6120";
         @SuppressLint("NewApi")
         public Connection CONN() {
+
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
             Connection conn = null;
             String ConnURL = null;
             try {
-                Class.forName(classs);
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
                 ConnURL = "jdbc:jtds:sqlserver://" + ip + ";"
                         + "databaseName=" + db + ";user=" + un + ";password="
                         + password + ";";

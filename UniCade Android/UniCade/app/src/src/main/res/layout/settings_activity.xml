@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Close Settings"
+            android:id="@+id/button3"
+            android:onClick="closeSettings"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:id="@+id/textView8"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load Database"
+            android:id="@+id/button2"
+            android:onClick="loadDatabase"
+            android:layout_below="@+id/textView8"
+            android:layout_toStartOf="@+id/textView8" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Database"
+            android:id="@+id/button6"
+            android:layout_below="@+id/button2"
+            android:layout_alignStart="@+id/button2"
+            android:onClick="saveDatabase" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load Database On Startup"
+            android:id="@+id/checkBox2"
+            android:layout_below="@+id/button6"
+            android:layout_alignStart="@+id/button6" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:layout_above="@+id/button3"
+            android:layout_alignStart="@+id/checkBox2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Password Protection"
+            android:id="@+id/textView18"
+            android:layout_above="@+id/editText"
+            android:layout_alignStart="@+id/editText" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rescan Local Libraries On Startup"
+            android:id="@+id/checkBox4"
+            android:layout_below="@+id/checkBox2"
+            android:layout_alignStart="@+id/checkBox2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Web Scraper Settings"
+            android:id="@+id/button7"
+            android:layout_above="@+id/button8"
+            android:layout_alignStart="@+id/button8"
+            android:onClick="launchWebSettings" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Theme Options"
+            android:id="@+id/button8"
+            android:layout_above="@+id/textView18"
+            android:layout_alignStart="@+id/textView18"
+            android:layout_marginBottom="33dp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Display Console Image"
+            android:id="@+id/checkBox5"
+            android:layout_below="@+id/checkBox4"
+            android:layout_alignStart="@+id/checkBox4" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load Backup"
+            android:id="@+id/button9"
+            android:onClick="loadBackup"
+            android:layout_above="@+id/button6"
+            android:layout_toEndOf="@+id/button8" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backup Database"
+            android:id="@+id/button10"
+            android:onClick="saveBackup"
+            android:layout_below="@+id/button9"
+            android:layout_alignStart="@+id/textView8" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apply"
+            android:id="@+id/button15"
+            android:onClick="sa"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/button3" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Display ESRB Logo"
+            android:id="@+id/checkBox3"
+            android:layout_below="@+id/checkBox5"
+            android:layout_alignStart="@+id/checkBox5" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter License"
+            android:id="@+id/button20"
+            android:onClick="closeSettings"
+            android:layout_alignBottom="@+id/editText"
+            android:layout_toEndOf="@+id/button15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="License:"
+            android:id="@+id/textView3"
+            android:layout_above="@+id/editText"
+            android:layout_toEndOf="@+id/checkBox4" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load Prefs"
+            android:id="@+id/button21"
+            android:onClick="loadPrefs"
+            android:layout_alignTop="@+id/button7"
+            android:layout_alignEnd="@+id/button3" />
+
+    </RelativeLayout>
+
+</LinearLayout>

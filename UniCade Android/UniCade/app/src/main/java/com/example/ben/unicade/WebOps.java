@@ -15,6 +15,7 @@ import java.net.URL;
  */
 public class WebOps {
     //Scraper Settings
+
     public static int metac = 1;
     public static int mobyg = 1;
     public static int year = 1;

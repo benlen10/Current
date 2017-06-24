@@ -2,11 +2,11 @@ package com.example.ben.unicade;
 import java.util.ArrayList;
 
 
-/**
- * Created by Ben on 12/17/2015.
- */
 public class Console {
-    private String name;
+
+    //region Properties
+
+    public String name;
     private String emuPath;
     private String romPath;
     private String prefPath;
@@ -17,7 +17,9 @@ public class Console {
     private ArrayList<Game> gameList;
     public int gameCount;
 
-    // Methods
+    //endregion
+
+    //region Constructors
 
     public Console()
     {
@@ -36,8 +38,11 @@ public class Console {
         this.launchParam = launchParam;
         this.releaseDate = releaseDate;
         gameList = new ArrayList<Game>();
-
     }
+
+    //endregion
+
+    //region Getters
 
     public String getName()
     {
@@ -49,7 +54,6 @@ public class Console {
         return releaseDate;
     }
 
-
     public ArrayList<Game> getGameList()
     {
         return gameList;
@@ -58,21 +62,6 @@ public class Console {
     public String getEmuPath()
     {
         return emuPath;
-    }
-
-    public boolean addGame(Game gam)
-    {
-        if (!gam.getConsole().equals(name))
-        {
-            return false;
-        }
-        for (Game g: gameList) {
-
-            if (g.getFileName().equals(gam.getFileName())){
-                return false;
-            }
-        }
-        return true;
     }
 
     public String getPrefPath()
@@ -99,6 +88,10 @@ public class Console {
     {
         return launchParam;
     }
+
+    //endregion
+
+    //region Setters
 
     public void setName(String s)
     {
@@ -134,4 +127,28 @@ public class Console {
     {
         launchParam = s;
     }
+
+    //endregion
+
+    //region Public Methods
+
+    /**
+     * Summary: Add a game to the current console object
+     */
+    public boolean addGame(Game game)
+    {
+        if (!game.getConsole().equals(name))
+        {
+            return false;
+        }
+        for (Game g: gameList) {
+
+            if (g.getFileName().equals(game.getFileName())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //endregion
 }

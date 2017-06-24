@@ -30,6 +30,7 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import com.mysql.jdbc.Driver;
 
 /**
  * Created by Ben on 12/18/2015.
