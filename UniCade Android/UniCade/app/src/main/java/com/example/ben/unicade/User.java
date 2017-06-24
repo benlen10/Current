@@ -1,10 +1,9 @@
 package com.example.ben.unicade;
 import java.util.ArrayList;
 
-/**
- * Created by Ben on 12/18/2015.
- */
 public class User {
+
+    //region Properties
 
     private String userName;
     private String pass;
@@ -16,8 +15,21 @@ public class User {
     private String profPic;
     public ArrayList<String> favorites;
 
+    //endregion
 
-    //Methods
+    //region Constructors
+
+    /*
+    Summary: Basic constructor for the User class
+     */
+    public User()
+    {
+        this.userName = "New User";
+    }
+
+    /*
+    Summary: Extended constructor for the User class
+     */
     public User(String userName, String pass, int loginCount, String email, int totalLaunchCount, String userInfo, String allowedEsrb, String profPic)
     {
         this.userName = userName;
@@ -31,10 +43,9 @@ public class User {
         favorites = new ArrayList();
     }
 
-    public User()
-    {
-        this.userName = "New User";
-    }
+    //endregion
+
+    //region Getters
 
     public String getUsername()
     {
@@ -76,6 +87,10 @@ public class User {
         return allowedEsrb;
     }
 
+    //endregion
+
+    //region Setters
+
     public void setName(String s)
     {
         userName = s;
@@ -105,4 +120,6 @@ public class User {
     {
         allowedEsrb = s;
     }
+
+    //endregion
 }

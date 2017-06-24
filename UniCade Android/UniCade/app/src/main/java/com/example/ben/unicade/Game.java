@@ -4,7 +4,9 @@ package com.example.ben.unicade;
  * Created by Ben on 12/17/2015.
  */
 public class Game {
-    
+
+        //region Properties
+
         private String fileName;
         private String con;
         private String title;
@@ -24,8 +26,13 @@ public class Game {
         private int fav;
         public int launchCount;
 
+        //endregion
 
-        //Basic Constructor
+        //region Constructors
+
+       /*
+       Basic constructor for the Game class
+        */
         public Game(String fileName, String con)
         {
             this.fileName = fileName;
@@ -46,7 +53,9 @@ public class Game {
 
         }
 
-        //Extended Constuctor
+        /*
+        Summary: Extended constructor for the Game class
+         */
         public Game(String fileName, String con, int launchCount, String releaseDate, String publisher, String developer, String userScore, String criticScore, String players, String trivia, String esrb, String esrbDescriptor, String esrbSummary, String description, String genres, String tags, int fav)
         {
 
@@ -73,7 +82,9 @@ public class Game {
             }
         }
 
-        //Methods
+    //endregion
+
+    //region Getters
 
     public String getFileName()
     {
@@ -160,7 +171,9 @@ public class Game {
         return title;
     }
 
+    //endregion
 
+    //region Setters
 
     public String getGenres()
     {
@@ -246,4 +259,6 @@ public class Game {
     {
         esrbSummary = s;
     }
+
+    //endregion
 }

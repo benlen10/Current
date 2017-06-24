@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Database {
 
     //region Properties
-    
+
     public ArrayList<Console> consoleList;
     public ArrayList<User> userList;
     public ArrayList reviewList;
