@@ -150,59 +150,59 @@ namespace UniCade
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.ShowSplashScreen = true;
+                Program.ShowSplashScreen = true;
             }
             else
             {
-                SettingsWindow.ShowSplashScreen = false;
+                Program.ShowSplashScreen = false;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if ((tokenString[1].Contains("1")))
             {
-                SettingsWindow.RescanOnStartup = true;
+                Program.RescanOnStartup = true;
             }
             else
             {
-                SettingsWindow.RescanOnStartup = false;
+                Program.RescanOnStartup = false;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
-            SettingsWindow.RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(tokenString[1]);
+            Program.RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(tokenString[1]);
 
             file.ReadLine();
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.RequireLogin = true;
+                Program.RequireLogin = true;
             }
             else
             {
-                SettingsWindow.RequireLogin = false;
+                Program.RequireLogin = false;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.DisplayEsrbWhileBrowsing = true;
+                MainWindow.DisplayEsrbWhileBrowsing = true;
             }
             else
             {
-                SettingsWindow.DisplayEsrbWhileBrowsing = true;
+                MainWindow.DisplayEsrbWhileBrowsing = true;
             }
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
             if (tokenString[1].Contains("1"))
             {
-                SettingsWindow.ShowLoadingScreen = true;
+                Program.ShowLoadingScreen = true;
             }
             else
             {
-                SettingsWindow.ShowLoadingScreen = true;
+                Program.ShowLoadingScreen = true;
             }
 
             line = file.ReadLine();
@@ -218,11 +218,11 @@ namespace UniCade
 
             if (tokenString[2].Contains("1"))
             {
-                SettingsWindow.LaunchOptions = 1;
+                Program.LaunchOptions = 1;
             }
             else
             {
-                SettingsWindow.LaunchOptions = 0;
+                Program.LaunchOptions = 0;
             }
 
             //Parse coin count
@@ -299,13 +299,13 @@ namespace UniCade
                 sw.WriteLine("_databasePath|" + Program.DatabasePath);
                 sw.WriteLine("EmulatorFolderPath|" + Program.EmulatorPath);
                 sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
-                sw.WriteLine("ShowSplash|" + SettingsWindow.ShowSplashScreen);
-                sw.WriteLine("ScanOnStartup|" + SettingsWindow.RescanOnStartup);
-                sw.WriteLine("RestrictESRB|" + SettingsWindow.RestrictGlobalESRB);
-                sw.WriteLine("RequireLogin|" + SettingsWindow.RequireLogin);
-                sw.WriteLine("CmdOrGui|" + SettingsWindow.PerferCmdInterface);
-                sw.WriteLine("LoadingScreen|" + SettingsWindow.ShowLoadingScreen);
-                sw.WriteLine("PaySettings|" + PayPerPlay.PayPerPlayEnabled + "|" + SettingsWindow.LaunchOptions + "|" + PayPerPlay.CoinsRequired + "|" + PayPerPlay.Playtime);
+                sw.WriteLine("ShowSplash|" + Program.ShowSplashScreen);
+                sw.WriteLine("ScanOnStartup|" + Program.RescanOnStartup);
+                sw.WriteLine("RestrictESRB|" + Program.RestrictGlobalESRB);
+                sw.WriteLine("RequireLogin|" + Program.RequireLogin);
+                sw.WriteLine("CmdOrGui|" + Program.PerferCmdInterface);
+                sw.WriteLine("LoadingScreen|" + Program.ShowLoadingScreen);
+                sw.WriteLine("PaySettings|" + PayPerPlay.PayPerPlayEnabled + "|" + Program.LaunchOptions + "|" + PayPerPlay.CoinsRequired + "|" + PayPerPlay.Playtime);
                 sw.WriteLine("License Key|" + LicenseEngine.UserLicenseName + "|" + LicenseEngine.UserLicenseKey);
                 sw.WriteLine("***UserData***");
                 foreach (IUser user in Program.UserList)
@@ -382,7 +382,7 @@ namespace UniCade
             }
             foreach (string fileName in fileEntries)
             {
-                if (SettingsWindow.EnforceFileExtensions > 0)
+                if (Program.EnforceFileExtensions > 0)
                 {
                     extension = fileName.Split('.');
                     foreach (string s in exs)
@@ -477,9 +477,9 @@ namespace UniCade
                 }
             }
 
-            else if (SettingsWindow.RestrictGlobalESRB > 0)
+            else if (Program.RestrictGlobalESRB > 0)
             {
-                if (game.EsrbRating >= SettingsWindow.RestrictGlobalESRB)
+                if (game.EsrbRating >= Program.RestrictGlobalESRB)
                 {
                     ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted\n");
                     return;
@@ -718,16 +718,16 @@ namespace UniCade
         {
             SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null , "");
             Program.UserList.Add(SettingsWindow.CurrentUser);
-            SettingsWindow.ShowSplashScreen = false;
-            SettingsWindow.RescanOnStartup = false;
-            SettingsWindow.RestrictGlobalESRB = 0;
-            SettingsWindow.RequireLogin = false;
-            SettingsWindow.PerferCmdInterface = false;
-            SettingsWindow.ShowLoadingScreen = false;
+            Program.ShowSplashScreen = false;
+            Program.RescanOnStartup = false;
+            Program.RestrictGlobalESRB = 0;
+            Program.RequireLogin = false;
+            Program.PerferCmdInterface = false;
+            Program.ShowLoadingScreen = false;
             PayPerPlay.PayPerPlayEnabled = false;
             PayPerPlay.CoinsRequired = 1;
             PayPerPlay.Playtime = 15;
-            SettingsWindow.LaunchOptions = 0;
+            Program.LaunchOptions = 0;
         }
 
         /// <summary>

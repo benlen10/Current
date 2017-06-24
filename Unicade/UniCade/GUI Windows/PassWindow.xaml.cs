@@ -38,7 +38,7 @@ namespace UniCade.Windows
             Int32.TryParse(Textbox_Password.Password, out int n);
             if (n > 0)
             {
-                if (Int32.Parse(Textbox_Password.Password) == SettingsWindow.PasswordProtection)
+                if (Int32.Parse(Textbox_Password.Password) == Program.PasswordProtection)
                 {
                     DialogResult = true;
                     MainWindow.IsPasswordValid = true;

@@ -38,62 +38,6 @@ namespace UniCade.Windows
         /// </summary>
         static IConsole CurrentEmulator;
 
-        /// <summary>
-        /// The current default username
-        /// </summary>
-        public static string DefaultUsername;
-
-        /// <summary>
-        /// Specifies if the UniCade splash screen should be displayed when the interface is launched
-        /// </summary>
-        public static bool ShowSplashScreen;
-
-        /// <summary>
-        /// Specifies if the the ROM directories should be automatically rescanned 
-        /// when the interface is launched
-        /// </summary>
-        public static bool RescanOnStartup;
-
-        /// <summary>
-        /// Specifies if certain ESRB ratings should be restricted globally (regardless of user)
-        /// </summary>
-        public static Enums.ESRB RestrictGlobalESRB;
-
-        /// <summary>
-        /// Specifies if you are required to login to a user account on startup
-        /// </summary>
-        public static bool RequireLogin;
-
-        /// <summary>
-        /// Specifies if the command line interface should be launched on startup instead of the GUI
-        /// </summary>
-        public static bool PerferCmdInterface;
-
-        /// <summary>
-        /// Specifies if a loading screen should be displayed when launching a game
-        /// </summary>
-        public static bool ShowLoadingScreen;
-
-        /// <summary>
-        /// Spcifies the launch options for games across all consoles
-        /// </summary>
-        public static int LaunchOptions;
-
-        /// <summary>
-        /// Specifies if the ESRB logo should be displayed while browsing games
-        /// </summary>
-        public static bool DisplayEsrbWhileBrowsing;
-
-        /// <summary>
-        /// If this value is greater than 0, passcode protection is enabled
-        /// </summary>
-        public static int PasswordProtection;
-
-        /// <summary>
-        /// Specifies if ROM files are required to have the proper extension in order to be imported
-        /// </summary>
-        public static int EnforceFileExtensions;
-
         #endregion
 
         #region Constructors
@@ -160,25 +104,25 @@ namespace UniCade.Windows
                 EmulatorsTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
                 WebTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
             }
-            catch (DirectoryNotFoundException e){ }
+            catch (DirectoryNotFoundException){ }
             //Populate the 'Allowed ESRB' combo box with the specified rating
-            if (RestrictGlobalESRB.Equals(Enums.ESRB.Everyone))
+            if (Program.RestrictGlobalESRB.Equals(Enums.ESRB.Everyone))
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Everyone";
             }
-            else if (RestrictGlobalESRB.Equals(Enums.ESRB.Everyone10))
+            else if (Program.RestrictGlobalESRB.Equals(Enums.ESRB.Everyone10))
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Everyone 10+";
             }
-            else if (RestrictGlobalESRB.Equals(Enums.ESRB.Teen))
+            else if (Program.RestrictGlobalESRB.Equals(Enums.ESRB.Teen))
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Teen";
             }
-            else if (RestrictGlobalESRB.Equals(Enums.ESRB.Mature))
+            else if (Program.RestrictGlobalESRB.Equals(Enums.ESRB.Mature))
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Mature";
             }
-            else if (RestrictGlobalESRB.Equals(Enums.ESRB.AO))
+            else if (Program.RestrictGlobalESRB.Equals(Enums.ESRB.AO))
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Adults Only (AO)";
             }
@@ -187,7 +131,7 @@ namespace UniCade.Windows
                 GlobalTab_Dropdown_AllowedESRB.Text = "None";
             }
 
-            if (DisplayEsrbWhileBrowsing == true)
+            if (MainWindow.DisplayEsrbWhileBrowsing == true)
             {
                 GamesTab_CheckBox__GlobalFavorite.IsChecked = true;
             }
@@ -210,7 +154,7 @@ namespace UniCade.Windows
             AboutTab_Textbox_SoftwareInfo.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
 
             //Populate textbox fields
-            GlobalTab_Textbox_Password.Password = PasswordProtection.ToString();
+            GlobalTab_Textbox_Password.Password = Program.PasswordProtection.ToString();
             GlobalTab_Textbox_DatabasePath.Text = Program.DatabasePath;
             GlobalTab_Textbox_EmulatorDirectory.Text = Program.EmulatorPath;
             GlobalTab_Textbox_MedaDirectory.Text = Program.MediaPath;
@@ -283,32 +227,32 @@ namespace UniCade.Windows
             }
 
             //Populate Global Settings checkboxes
-            if (ShowSplashScreen == true)
+            if (Program.ShowSplashScreen == true)
             {
                 GlobalTab_Checkbox_DisplaySplash.IsChecked = true;
             }
 
-            if (ShowLoadingScreen == true)
+            if (Program.ShowLoadingScreen == true)
             {
                 GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked = true;
             }
 
-            if (RequireLogin == true)
+            if (Program.RequireLogin == true)
             {
                 GlobalTab_Checkbox_RequireLogin.IsChecked = true;
             }
 
-            if (RescanOnStartup == true)
+            if (Program.RescanOnStartup == true)
             {
                 GlobalTab_Checkbox_RescanAllLibraries.IsChecked = true;
             }
 
-            if (EnforceFileExtensions > 0)
+            if (Program.EnforceFileExtensions > 0)
             {
                 EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked = true;
             }
 
-            if (DisplayEsrbWhileBrowsing == true)
+            if (MainWindow.DisplayEsrbWhileBrowsing == true)
             {
                 GlobalTab_Checkbox_DisplayESRB.IsChecked = true;
             }
@@ -851,11 +795,11 @@ namespace UniCade.Windows
         {
             if (EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked.Value == true)
             {
-                EnforceFileExtensions = 1;
+                Program.EnforceFileExtensions = 1;
             }
             else
             {
-                EnforceFileExtensions = 0;
+                Program.EnforceFileExtensions = 0;
             }
         }
 
@@ -1133,7 +1077,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+            Program.RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -1149,7 +1093,7 @@ namespace UniCade.Windows
             {
                 if (GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Everyone") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Teen") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Mature") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
                 {
-                    RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                    Program.RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                 }
                 else
                 {
@@ -1170,7 +1114,7 @@ namespace UniCade.Windows
                 Int32.TryParse(GlobalTab_Textbox_Password.Password, out int n);
                 if (n > 0)
                 {
-                    PasswordProtection = Int32.Parse(GlobalTab_Textbox_Password.Password);
+                    Program.PasswordProtection = Int32.Parse(GlobalTab_Textbox_Password.Password);
                 }
 
                 Int32.TryParse(GlobalTab_Textbox_Coins.Text, out n);
@@ -1181,7 +1125,7 @@ namespace UniCade.Windows
 
                 if (GlobalTab_Dropdown_AllowedESRB.SelectedItem != null)
                 {
-                    RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                    Program.RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                 }
 
                 //Save all active preferences to the local preferences file
@@ -1196,11 +1140,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_ToView.IsChecked.Value == true)
             {
-                DisplayEsrbWhileBrowsing = true;
+                MainWindow.DisplayEsrbWhileBrowsing = true;
             }
             else
             {
-                DisplayEsrbWhileBrowsing = false;
+                MainWindow.DisplayEsrbWhileBrowsing = false;
             }
         }
 
@@ -1211,11 +1155,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_DisplaySplash.IsChecked.Value == true)
             {
-                ShowSplashScreen = true;
+                Program.ShowSplashScreen = true;
             }
             else
             {
-                ShowSplashScreen = false;
+                Program.ShowSplashScreen = false;
             }
         }
 
@@ -1226,11 +1170,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked.Value == true)
             {
-                ShowLoadingScreen = true;
+                Program.ShowLoadingScreen = true;
             }
             else
             {
-                ShowLoadingScreen = false;
+                Program.ShowLoadingScreen = false;
             }
         }
 
@@ -1241,11 +1185,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_RequireLogin.IsChecked.Value == true)
             {
-                RequireLogin = true;
+                Program.RequireLogin = true;
             }
             else
             {
-                RequireLogin = false;
+                Program.RequireLogin = false;
             }
         }
 
@@ -1256,11 +1200,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_RescanAllLibraries.IsChecked.Value == true)
             {
-                RescanOnStartup = true;
+                Program.RescanOnStartup = true;
             }
             else
             {
-                RescanOnStartup = false;
+                Program.RescanOnStartup = false;
             }
         }
 
@@ -1271,11 +1215,11 @@ namespace UniCade.Windows
         {
             if (GlobalTab_Checkbox_DisplayESRB.IsChecked.Value == true)
             {
-                DisplayEsrbWhileBrowsing = true;
+                MainWindow.DisplayEsrbWhileBrowsing = true;
             }
             else
             {
-                DisplayEsrbWhileBrowsing = false;
+                MainWindow.DisplayEsrbWhileBrowsing = false;
             }
         }
 

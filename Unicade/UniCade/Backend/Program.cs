@@ -66,6 +66,52 @@ namespace UniCade
         public static bool RemainingPlaytime = true;
 
         /// <summary>
+        /// Specifies if the UniCade splash screen should be displayed when the interface is launched
+        /// </summary>
+        public static bool ShowSplashScreen;
+
+        /// <summary>
+        /// Specifies if the the ROM directories should be automatically rescanned 
+        /// when the interface is launched
+        /// </summary>
+        public static bool RescanOnStartup;
+
+        /// <summary>
+        /// Specifies if certain ESRB ratings should be restricted globally (regardless of user)
+        /// </summary>
+        public static Enums.ESRB RestrictGlobalESRB;
+
+        /// <summary>
+        /// Specifies if you are required to login to a user account on startup
+        /// </summary>
+        public static bool RequireLogin;
+
+        /// <summary>
+        /// Specifies if the command line interface should be launched on startup instead of the GUI
+        /// </summary>
+        public static bool PerferCmdInterface;
+
+        /// <summary>
+        /// Specifies if a loading screen should be displayed when launching a game
+        /// </summary>
+        public static bool ShowLoadingScreen;
+
+        /// <summary>
+        /// Spcifies the launch options for games across all consoles (Template)
+        /// </summary>
+        public static int LaunchOptions;
+
+        /// <summary>
+        /// If this value is greater than 0, passcode protection is enabled
+        /// </summary>
+        public static int PasswordProtection;
+
+        /// <summary>
+        /// Specifies if ROM files are required to have the proper extension in order to be imported
+        /// </summary>
+        public static int EnforceFileExtensions;
+
+        /// <summary>
         /// The current user object 
         /// </summary>
         public static IUser CurrentUser;
@@ -78,7 +124,7 @@ namespace UniCade
         public static SettingsWindow SettingsWindow;
 
         #endregion
-        
+
         [System.STAThreadAttribute]
 
         /// <summary>
@@ -90,9 +136,7 @@ namespace UniCade
 
             FileOps.StartupScan();
 
-            SettingsWindow sw = new SettingsWindow();
-
-                App = new App();
+            App = new App();
             App.InitializeComponent();
             App.Run();
             //UniCadeCmd.Run();
