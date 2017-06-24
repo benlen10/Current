@@ -1,10 +1,10 @@
 package com.example.ben.unicade;
 import java.util.ArrayList;
 
-/**
- * Created by Ben on 12/17/2015.
- */
 public class Database {
+
+    //region Properties
+    
     public ArrayList<Console> consoleList;
     public ArrayList<User> userList;
     public ArrayList reviewList;
@@ -12,14 +12,27 @@ public class Database {
     public static int conCount;
     private static String hashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
 
+    //endregion
+
+    //region Constructors
+
+    /*
+    Summary: Public constructor for Database
+     */
     public Database() {
         consoleList = new ArrayList();
         userList = new ArrayList();
         reviewList = new ArrayList();
     }
 
+    //endregion
+
+    //region Public Methods
+
     public static String getHashKey()
     {
         return hashKey;
     }
+
+    //endregion
 }
