@@ -1,9 +1,9 @@
 /**
- * @author Benjamin Lenington (lenington@wisc.edu)
- *
- * @section LICENSE
- * Copyright (c) 2012 Database Group, Computer Sciences Department, University of Wisconsin-Madison.
- */
+* @author Benjamin Lenington (lenington@wisc.edu)
+*
+* @section LICENSE
+* Copyright (c) 2012 Database Group, Computer Sciences Department, University of Wisconsin-Madison.
+*/
 
 #include <stdio.h>
 #include "sqlite3.h"
@@ -13,7 +13,7 @@
 #include <cstring>
 #include <algorithm>
 
- //The max number of chars to parse per line
+//The max number of chars to parse per line
 const int BUFFER_SIZE = 2000;
 
 //Current sqlite database instance
@@ -174,7 +174,7 @@ void generateTable() {
 	execStatus = sqlite3_exec(db, command.c_str(), callback, 0, &errorMsg);
 
 	//Define the CREATE TABLE command for the SourceCode table
-	command =  "DROP TABLE IF EXISTS SourceCode;\
+	command = "DROP TABLE IF EXISTS SourceCode;\
    CREATE TABLE SourceCode(\
    Src_Cd     CHAR (2)        NOT NULL,\
    SrcCd_Desc CHAR (60)       NOT NULL,\
@@ -273,7 +273,7 @@ void generateTable() {
 void populateTable() {
 
 	//Char pointer to store the SQL commands
-	char * command = (char *) malloc(2000);
+	char * command = (char *)malloc(2000);
 
 	//Stores the retun status value after executing the SQL commands
 	int execStatus;
@@ -307,7 +307,7 @@ void populateTable() {
 	{
 		//Read a full line
 		inputStream.getline(strBuffer, BUFFER_SIZE);
-		
+
 		//Parse all tokens from the line
 		const char * const split = "^";
 		token[0] = tokenize(strBuffer, split);
@@ -367,36 +367,35 @@ void populateTable() {
 		//Generate Insert Statement
 		sprintf(command, "(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s),", NDB_No.c_str(), FdGrp_Cd.c_str(), Long_Desc.c_str(), Shrt_Desc.c_str(), ComName.c_str(), ManufacName.c_str(), Survey.c_str(), Ref_desc.c_str(), Refuse.c_str(), SciName.c_str(), N_Factor.c_str(), Pro_Factor.c_str(), Fat_Factor.c_str(), CHO_Factor.c_str());
 		std::string append(command);
-		
+		if (NDB_No != "NULL") {
+			commandStr += append;
+		}
 
 		//Execute the SQL command 
 		if (NDB_No == "NULL" || loopCount >= 1000) {
-			commandStr.erase(commandStr.size()-1);
+			commandStr.erase(commandStr.size() - 1);
 			commandStr += ";";
 			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 			commandStr = "INSERT INTO FoodDescriptions VALUES ";
 			loopCount = 0;
 			if (execStatus != SQLITE_OK) {
 				fprintf(stdout, "SQL error (FoodDescriptions): %s\n", errorMsg);
+			}
 		}
-		}
-		else{
-			commandStr += append;
-		}
-		
+
 		loopCount++;
 	}
 
 	//Insert any remaining entries after the loop finishes 
-	if(loopCount>2){
-		commandStr.erase(commandStr.size()-1);
+	if (loopCount > 2) {
+		commandStr.erase(commandStr.size() - 1);
 		commandStr += ";";
 		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 		loopCount = 0;
 	}
 
 	//Open the file and exit if not found
-	std::cout << "Parse: Food Group Descriptions Descriptions (FD_GROUP.txt)\n\n" << std::endl;
+	std::cout << "Parse: Food Group Descriptions (FD_GROUP.txt)\n\n" << std::endl;
 	inputStream.close();
 	inputStream.open("FD_GROUP.txt");
 	if (!inputStream.good()) {
@@ -433,29 +432,28 @@ void populateTable() {
 		//Generate Insert Statement
 		sprintf(command, "(%s,%s),", FdGrp_Cd.c_str(), FdGrp_Desc.c_str());
 		std::string append(command);
-		
+		if (FdGrp_Cd != "NULL") {
+			commandStr += append;
+		}
 
 		//Execute the SQL command 
 		if (FdGrp_Cd == "NULL" || loopCount >= 1000) {
-			commandStr.erase(commandStr.size()-1);
+			commandStr.erase(commandStr.size() - 1);
 			commandStr += ";";
 			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 			commandStr = "INSERT INTO FoodGroupDescriptions VALUES ";
 			loopCount = 0;
 			if (execStatus != SQLITE_OK) {
 				fprintf(stdout, "SQL error (FoodGroupDescriptions): %s\n", errorMsg);
+			}
 		}
-		}
-		else{
-			commandStr += append;
-		}
-		
+
 		loopCount++;
 	}
 
 	//Insert any remaining entries after the loop finishes 
-	if(loopCount>2){
-		commandStr.erase(commandStr.size()-1);
+	if (loopCount > 2) {
+		commandStr.erase(commandStr.size() - 1);
 		commandStr += ";";
 		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 		loopCount = 0;
@@ -499,35 +497,35 @@ void populateTable() {
 		//Generate Insert Statement
 		sprintf(command, "(%s,%s),", NDB_No.c_str(), Factor_Code.c_str());
 		std::string append(command);
+		if (NDB_No != "NULL") {
+			commandStr += append;
+		}
 
 		//Execute the SQL command 
 		if (NDB_No == "NULL" || loopCount >= 1000) {
-			commandStr.erase(commandStr.size()-1);
+			commandStr.erase(commandStr.size() - 1);
 			commandStr += ";";
 			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 			commandStr = "INSERT INTO LangualFactor VALUES ";
 			loopCount = 0;
 			if (execStatus != SQLITE_OK) {
 				fprintf(stdout, "SQL error (LangualFactor): %s\n", errorMsg);
+			}
 		}
-		}
-		else{
-			commandStr += append;
-		}
-		
+
 		loopCount++;
 	}
 
 	//Insert any remaining entries after the loop finishes 
-	if(loopCount>2){
-		commandStr.erase(commandStr.size()-1);
+	if (loopCount > 2) {
+		commandStr.erase(commandStr.size() - 1);
 		commandStr += ";";
 		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 		loopCount = 0;
 	}
 
 	//Open the file and exit if file is not found
-	std::cout << "Parse: Langual Factors Description (LANGDESC.txt)\n\n" << std::endl;
+	std::cout << "Parse: Langual Factors Descriptions (LANGDESC.txt)\n\n" << std::endl;
 	inputStream.close();
 	inputStream.open("LANGDESC.txt");
 	if (!inputStream.good()) {
@@ -564,27 +562,27 @@ void populateTable() {
 		//Generate Insert Statement
 		sprintf(command, "(%s,%s),", Factor_Code.c_str(), Description.c_str());
 		std::string append(command);
+		if (Factor_Code != "NULL") {
+			commandStr += append;
+		}
 
 		//Execute the SQL command 
 		if (Factor_Code == "NULL" || loopCount >= 1000) {
-			commandStr.erase(commandStr.size()-1);
+			commandStr.erase(commandStr.size() - 1);
 			commandStr += ";";
 			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 			commandStr = "INSERT INTO LangualFactorsDescription VALUES ";
 			loopCount = 0;
 			if (execStatus != SQLITE_OK) {
 				fprintf(stdout, "SQL error (LangualFactorsDescription): %s\n", errorMsg);
-		}
-		}
-		else{
-			commandStr += append;
+			}
 		}
 		loopCount++;
 	}
 
 	//Insert any remaining entries after the loop finishes 
-	if(loopCount>2){
-		commandStr.erase(commandStr.size()-1);
+	if (loopCount > 2) {
+		commandStr.erase(commandStr.size() - 1);
 		commandStr += ";";
 		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 		loopCount = 0;
@@ -676,34 +674,35 @@ void populateTable() {
 		//Generate Insert Statement
 		sprintf(command, "(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s),", NDB_No.c_str(), Nutr_No.c_str(), Nutr_Val.c_str(), Num_Data_Pts.c_str(), Std_Error.c_str(), Src_Cd.c_str(), Deriv_Cd.c_str(), Ref_NDB_No.c_str(), Add_Nutr_Mark.c_str(), Num_Studies.c_str(), Min.c_str(), Max.c_str(), DF.c_str(), Low_EB.c_str(), Up_EB.c_str(), Stat_cmt.c_str(), AddMod_Date.c_str(), CC.c_str());
 		std::string append(command);
+		if (NDB_No != "NULL") {
+			commandStr += append;
+		}
 
 		//Execute the SQL command 
 		if (NDB_No == "NULL" || loopCount >= 1000) {
-			commandStr.erase(commandStr.size()-1);
+			commandStr.erase(commandStr.size() - 1);
 			commandStr += ";";
 			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 			commandStr = "INSERT INTO NutrientData VALUES ";
 			loopCount = 0;
 			if (execStatus != SQLITE_OK) {
 				fprintf(stdout, "SQL error (NutrientData): %s\n", errorMsg);
+			}
 		}
-		}
-		else{
-			commandStr += append;
-		}
+
 		loopCount++;
 	}
 
 	//Insert any remaining entries after the loop finishes 
-	if(loopCount>2){
-		commandStr.erase(commandStr.size()-1);
+	if (loopCount > 2) {
+		commandStr.erase(commandStr.size() - 1);
 		commandStr += ";";
 		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 		loopCount = 0;
 	}
 
 	//Open the file and exit if not found
-	std::cout << "Parse: Nutrient Definietions (NUTR_DEF.txt)\n\n" << std::endl;
+	std::cout << "Parse: Nutrient Definitions (NUTR_DEF.txt)\n\n" << std::endl;
 	inputStream.close();
 	inputStream.open("NUTR_DEF.txt");
 	if (!inputStream.good()) {
@@ -909,27 +908,28 @@ void populateTable() {
 		//Generate Insert Statement
 		sprintf(command, "(%s,%s,%s,%s,%s,%s,%s),", NDB_No.c_str(), Seq.c_str(), Amount.c_str(), Msre_Desc.c_str(), Gm_Wgt.c_str(), Num_Data_Pts.c_str(), Std_Dev.c_str());
 		std::string append(command);
+		if (NDB_No != "NULL") {
+			commandStr += append;
+		}
 
 		//Execute the SQL command 
 		if (NDB_No == "NULL" || loopCount >= 1000) {
-			commandStr.erase(commandStr.size()-1);
+			commandStr.erase(commandStr.size() - 1);
 			commandStr += ";";
 			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 			commandStr = "INSERT INTO WEight VALUES ";
 			loopCount = 0;
 			if (execStatus != SQLITE_OK) {
 				fprintf(stdout, "SQL error (WEight): %s\n", errorMsg);
+			}
 		}
-		}
-		else{
-			commandStr += append;
-		}
+
 		loopCount++;
 	}
 
 	//Insert any remaining entries after the loop finishes 
-	if(loopCount>2){
-		commandStr.erase(commandStr.size()-1);
+	if (loopCount > 2) {
+		commandStr.erase(commandStr.size() - 1);
 		commandStr += ";";
 		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 		loopCount = 0;
@@ -983,27 +983,28 @@ void populateTable() {
 		//Generate Insert Statement
 		sprintf(command, "(%s,%s,%s,%s,%s),", NDB_No.c_str(), Footnt_No.c_str(), Footnt_Typ.c_str(), Nutr_No.c_str(), Footnt_Txt.c_str());
 		std::string append(command);
+		if (NDB_No != "NULL") {
+			commandStr += append;
+		}
 
 		//Execute the SQL command 
 		if (NDB_No == "NULL" || loopCount >= 1000) {
-			commandStr.erase(commandStr.size()-1);
+			commandStr.erase(commandStr.size() - 1);
 			commandStr += ";";
 			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 			commandStr = "INSERT INTO Footnote VALUES ";
 			loopCount = 0;
 			if (execStatus != SQLITE_OK) {
 				fprintf(stdout, "SQL error (Footnote): %s\n", errorMsg);
+			}
 		}
-		}
-		else{
-			commandStr += append;
-		}
+
 		loopCount++;
 	}
 
 	//Insert any remaining entries after the loop finishes 
-	if(loopCount>2){
-		commandStr.erase(commandStr.size()-1);
+	if (loopCount > 2) {
+		commandStr.erase(commandStr.size() - 1);
 		commandStr += ";";
 		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 		loopCount = 0;
@@ -1051,27 +1052,27 @@ void populateTable() {
 		//Generate Insert Statement
 		sprintf(command, "(%s,%s,%s),", NDB_No.c_str(), Nutr_No.c_str(), DataSrc_ID.c_str());
 		std::string append(command);
+		if (NDB_No != "NULL") {
+			commandStr += append;
+		}
 
 		//Execute the SQL command 
 		if (NDB_No == "NULL" || loopCount >= 1000) {
-			commandStr.erase(commandStr.size()-1);
+			commandStr.erase(commandStr.size() - 1);
 			commandStr += ";";
 			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 			commandStr = "INSERT INTO SourcesOfDataLink VALUES ";
 			loopCount = 0;
 			if (execStatus != SQLITE_OK) {
 				fprintf(stdout, "SQL error (SourcesOfDataLink): %s\n", errorMsg);
-		}
-		}
-		else{
-			commandStr += append;
+			}
 		}
 		loopCount++;
 	}
 
 	//Insert any remaining entries after the loop finishes 
-	if(loopCount>2){
-		commandStr.erase(commandStr.size()-1);
+	if (loopCount > 2) {
+		commandStr.erase(commandStr.size() - 1);
 		commandStr += ";";
 		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 		loopCount = 0;
@@ -1136,32 +1137,33 @@ void populateTable() {
 		//Generate Insert Statement
 		sprintf(command, "(%s,%s,%s,%s,%s,%s,%s,%s,%s),", DataSrc_ID.c_str(), Authors.c_str(), Title.c_str(), Year.c_str(), Journal.c_str(), Vol_City.c_str(), Issue_State.c_str(), Start_Page.c_str(), End_Page.c_str());
 		std::string append(command);
+		if (DataSrc_ID != "NULL") {
+			commandStr += append;
+		}
 
 		//Execute the SQL command 
 		if (DataSrc_ID == "NULL" || loopCount >= 1000) {
-			commandStr.erase(commandStr.size()-1);
+			commandStr.erase(commandStr.size() - 1);
 			commandStr += ";";
 			execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 			commandStr = "INSERT INTO SourcesOfDataLink VALUES ";
 			loopCount = 0;
 			if (execStatus != SQLITE_OK) {
 				fprintf(stdout, "SQL error (SourcesOfDataLink): %s\n", errorMsg);
+			}
 		}
-		}
-		else{
-			commandStr += append;
-		}
+
 		loopCount++;
 	}
 
 	//Insert any remaining entries after the loop finishes 
-	if(loopCount>2){
-		commandStr.erase(commandStr.size()-1);
+	if (loopCount > 2) {
+		commandStr.erase(commandStr.size() - 1);
 		commandStr += ";";
 		execStatus = sqlite3_exec(db, commandStr.c_str(), callback, 0, &errorMsg);
 		loopCount = 0;
 	}
-	
+
 	//Cleanup and free memory
 	inputStream.close();
 	free(command);
