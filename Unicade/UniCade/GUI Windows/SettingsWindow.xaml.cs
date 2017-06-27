@@ -1881,6 +1881,9 @@ namespace UniCade.Windows
             UniCadeCmd.PrepAndRun();
         }
 
+        /// <summary>
+        /// Toggle expansion of the boxfront image
+        /// </summary>
         private void Image_Boxfront_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (!IsBoxfrontExpanded)
@@ -1896,6 +1899,27 @@ namespace UniCade.Windows
                 GamesTab_Image_Boxfront.Height = 109;
                 GamesTab_Image_Boxfront.Width = 92;
                 IsBoxfrontExpanded = false;
+            }
+        }
+
+        /// <summary>
+        /// Toggle expansion of the boxfront image
+        /// </summary>
+        private void Image_Boxback_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!IsBoxBackExpanded)
+            {
+                GamesTab_Image_Boxfront.Margin = new Thickness(0, 0, 0, 0);
+                GamesTab_Image_Boxfront.Height = 500;
+                GamesTab_Image_Boxfront.Width = 500;
+                IsBoxBackExpanded = true;
+            }
+            else
+            {
+                GamesTab_Image_Boxfront.Margin = new Thickness(647, 57, 0, 0);
+                GamesTab_Image_Boxfront.Height = 107;
+                GamesTab_Image_Boxfront.Width = 97;
+                IsBoxBackExpanded = false;
             }
         }
     }
