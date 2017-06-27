@@ -142,7 +142,7 @@ namespace UniCade
             {
                 if (PayPerPlay.CoinsRequired > 0)
                 {
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + Program.CoinsRequired);
+                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + PayPerPlay.CurrentCoins);
                 }
             }
             else
@@ -409,16 +409,16 @@ namespace UniCade
             // Insert coin
             else if (e.KeyCode == Keys.Tab)  
             {
-                Program.CoinsRequired++;
+                PayPerPlay.CoinsRequired++;
                 if (PayPerPlay.PayPerPlayEnabled == true)
                 {
                     if (PayPerPlay.CoinsRequired > 0)
                     {
-                        label2.Content = "(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + Program.CoinsRequired;
+                        label2.Content = "(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + PayPerPlay.CoinsRequired;
                     }
 
                     //Display a popup payPerPlay notification
-                    ShowNotification("Pay Per Play", "Coin Inserted\n Current: " + Program.CoinsRequired);
+                    ShowNotification("Pay Per Play", "Coin Inserted\n Current: " + PayPerPlay.CoinsRequired);
                 }
                 else
                 {
@@ -472,7 +472,7 @@ namespace UniCade
             {
                 if (PayPerPlay.CoinsRequired > 0)
                 {
-                    label2.Content = "(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + Program.CoinsRequired;
+                    label2.Content = "(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + PayPerPlay.CurrentCoins;
                 }
                 else
                 {
@@ -612,15 +612,15 @@ namespace UniCade
             {
                 if (PayPerPlay.CoinsRequired > 0)
                 {
-                    if (Program.CoinsRequired < PayPerPlay.CoinsRequired) { 
-                        ShowNotification("Pay Per Play", "Insert Coins");
+                    if (PayPerPlay.CurrentCoins < PayPerPlay.CoinsRequired) { 
+                        ShowNotification("Pay Per Play", "Please Insert Coins");
                         return;
                     }
                 }
             }
 
-            Program.CoinsRequired = Program.CoinsRequired - PayPerPlay.CoinsRequired;
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + Program.CoinsRequired);
+            PayPerPlay.CurrentCoins = PayPerPlay.CurrentCoins - PayPerPlay.CoinsRequired;
+                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + PayPerPlay.CurrentCoins);
 
             //Search for the selected game title within the game library
             foreach (IGame game in CurrentConsole.GameList)

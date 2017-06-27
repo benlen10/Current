@@ -55,7 +55,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend Tests\EsrbRatingTests.cs" />
     <Compile Include="Backend Tests\GameLibraryTests.cs" />
+    <Compile Include="Backend Tests\PayPerPlayTests.cs" />
     <Compile Include="GUI Tests\SettingsWindowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

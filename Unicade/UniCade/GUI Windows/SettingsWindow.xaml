@@ -44,7 +44,7 @@
                     <Image x:Name="GamesTab_Image_ESRB" HorizontalAlignment="Left" Height="94" Margin="663,313,0,0" VerticalAlignment="Top" Width="91"/>
                     <Image x:Name="GamesTab_Image_Screeshot" HorizontalAlignment="Left" Height="103" Margin="572,196,0,0" VerticalAlignment="Top" Width="172"/>
                     <Image x:Name="GamesTab_Image_Boxback" HorizontalAlignment="Left" Height="107" Margin="647,57,0,0" VerticalAlignment="Top" Width="97"/>
-                    <Image x:Name="GamesTab_Image_Boxfront" HorizontalAlignment="Left" Height="109" Margin="550,57,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Image x:Name="GamesTab_Image_Boxfront" HorizontalAlignment="Left" Height="109" Panel.ZIndex="1" Margin="550,57,0,0" VerticalAlignment="Top" Width="92" MouseDown="Image_Boxfront_Expand"/>
                     <TextBox x:Name="GamesTab_Textbox_TotalGames" HorizontalAlignment="Left" Height="23" Margin="128,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" IsReadOnly="True"/>
                     <TextBox x:Name="GamesTab_Textbox_GamesForConsole" HorizontalAlignment="Left" Height="23" Margin="128,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.014,0.629" IsReadOnly="True"/>
                     <TextBox x:Name="GamesTab_Textbox_Title" HorizontalAlignment="Left" Height="23" Margin="325,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" IsReadOnly="True"/>

@@ -19,6 +19,11 @@ namespace UniCade.Backend
         public static int CoinsRequired;
 
         /// <summary>
+        /// Specifies the current number of coins
+        /// </summary>
+        public static int CurrentCoins;
+
+        /// <summary>
         /// Speficies the allowed amount of playtime if PayPerPlay is enabled
         /// </summary>
         public static int Playtime;

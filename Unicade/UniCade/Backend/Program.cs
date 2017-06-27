@@ -56,16 +56,6 @@ namespace UniCade
         public static string PreferencesPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
 
         /// <summary>
-        /// The number of coins required to launch a game if PayPerPlay is enabled
-        /// </summary>
-        public static int CoinsRequired = 0;
-
-        /// <summary>
-        /// True or false if playtime is remaining if PayPerPlay is enabled
-        /// </summary>
-        public static bool RemainingPlaytime = true;
-
-        /// <summary>
         /// Specifies if the UniCade splash screen should be displayed when the interface is launched
         /// </summary>
         public static bool ShowSplashScreen;
@@ -132,22 +122,31 @@ namespace UniCade
         /// </summary>
         public static void Main(string[] args)
         {
+            //Initalize the properties
             Initalize();
 
             FileOps.StartupScan();
 
-            App = new App();
-            App.InitializeComponent();
-            App.Run();
-            //UniCadeCmd.Run();
+            if (PerferCmdInterface)
+            {
+                UniCadeCmd.Run();
+            }
+            else
+            {
+                App = new App();
+                App.InitializeComponent();
+                App.Run();
+            }
         }
 
+        /// <summary>
+        /// Initalize the current properties
+        /// </summary>
         public static void Initalize()
         {
             TotalGameCount = 0;
             ConsoleList = new List<IConsole>();
             UserList = new List<IUser>();
-
         }
 
         /// <summary>

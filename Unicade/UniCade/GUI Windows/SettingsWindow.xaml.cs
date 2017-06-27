@@ -38,6 +38,21 @@ namespace UniCade.Windows
         /// </summary>
         static IConsole CurrentEmulator;
 
+        /// <summary>
+        /// True if the box front image within the games tab is currently expanded
+        /// </summary>
+        bool IsBoxfrontExpanded = false;
+
+        /// <summary>
+        /// True if the box back image within the games tab is currently expanded
+        /// </summary>
+        bool IsBoxBackExpanded = false;
+
+        /// <summary>
+        /// True if the screenshot image within the games tab is currently expanded
+        /// </summary>
+        bool isScreenshotExpanded = false;
+
         #endregion
 
         #region Constructors
@@ -1864,6 +1879,24 @@ namespace UniCade.Windows
         {
             this.Close();
             UniCadeCmd.PrepAndRun();
+        }
+
+        private void Image_Boxfront_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!IsBoxfrontExpanded)
+            {
+                GamesTab_Image_Boxfront.Margin = new Thickness(0, 0, 0, 0);
+                GamesTab_Image_Boxfront.Height = 500;
+                GamesTab_Image_Boxfront.Width = 500;
+                IsBoxfrontExpanded = true;
+            }
+            else
+            {
+                GamesTab_Image_Boxfront.Margin = new Thickness(550, 57, 0, 0);
+                GamesTab_Image_Boxfront.Height = 109;
+                GamesTab_Image_Boxfront.Width = 92;
+                IsBoxfrontExpanded = false;
+            }
         }
     }
 }
