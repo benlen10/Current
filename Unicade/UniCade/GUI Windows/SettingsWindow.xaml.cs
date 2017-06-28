@@ -1922,5 +1922,26 @@ namespace UniCade.Windows
                 IsBoxBackExpanded = false;
             }
         }
+
+        /// <summary>
+        /// Toggle expansion of the screenshot image
+        /// </summary>
+        private void Image_Screenshot_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!isScreenshotExpanded)
+            {
+                GamesTab_Image_Boxfront.Margin = new Thickness(0, 0, 0, 0);
+                GamesTab_Image_Boxfront.Height = 500;
+                GamesTab_Image_Boxfront.Width = 500;
+                isScreenshotExpanded = true;
+            }
+            else
+            {
+                GamesTab_Image_Boxfront.Margin = new Thickness(572, 196, 0, 0);
+                GamesTab_Image_Boxfront.Height = 103;
+                GamesTab_Image_Boxfront.Width = 172;
+                isScreenshotExpanded = false;
+            }
+        }
     }
 }
