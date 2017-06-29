@@ -593,7 +593,6 @@ namespace UniCade.Windows
             //Verify that a console/game is currently selected
             if (GamesTab_Listbox_GamesList.SelectedItem == null)
             {
-                MessageBox.Show("Must select a console/game");
                 return;
             }
             //Toggle favorite checkbox
@@ -1726,7 +1725,7 @@ namespace UniCade.Windows
 
             if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
             {
-                MessageBox.Show("Must select a console");
+                MessageBox.Show("Must select a console - SaveGameInfo");
                 return;
             }
             if (IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
