@@ -888,9 +888,9 @@ namespace UniCade.Windows
             {
                 if (user.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
                 {
-                    if (user.Favorites.Count > 0)
+                    if (user.FavoritesList.Count > 0)
                     {
-                        foreach (IGame game in user.Favorites)
+                        foreach (IGame game in user.FavoritesList)
                         {
                             UsersTab_Listbox_UserFavorites.Items.Add(game.Title + " - " + game.ConsoleName);
                         }
@@ -1040,9 +1040,9 @@ namespace UniCade.Windows
                 return;
             }
 
-            CurrentUser.Favorites.RemoveAt(UsersTab_Listbox_UserFavorites.SelectedIndex);
+            CurrentUser.FavoritesList.RemoveAt(UsersTab_Listbox_UserFavorites.SelectedIndex);
             UsersTab_Listbox_UserFavorites.Items.Clear();
-            foreach (IGame g in CurrentUser.Favorites)
+            foreach (IGame g in CurrentUser.FavoritesList)
             {
                 UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName);
             }

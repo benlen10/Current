@@ -20,7 +20,7 @@ namespace UniCade
         /// <summary>
         /// A list of the user's favorite games
         /// </summary>
-        List<IGame> Favorites { get; set; }
+        List<IGame> FavoritesList { get; set; }
 
         /// <summary>
         /// The numer of times this user has logged in

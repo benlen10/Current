@@ -256,22 +256,22 @@ namespace UniCade
                             {
                                 if (listBox.SelectedItem.ToString().Equals(g.Title))
                                 {
-                                    if (SettingsWindow.CurrentUser.Favorites.Count < 1)
+                                    if (SettingsWindow.CurrentUser.FavoritesList.Count < 1)
                                     {
-                                        SettingsWindow.CurrentUser.Favorites.Add(g);
+                                        SettingsWindow.CurrentUser.FavoritesList.Add(g);
                                         ShowNotification("UniCade", SettingsWindow.CurrentUser.Username + " :Added To Favorites");
                                         return;
                                     }
-                                    foreach (IGame game1 in SettingsWindow.CurrentUser.Favorites)
+                                    foreach (IGame game1 in SettingsWindow.CurrentUser.FavoritesList)
                                     {
                                         if (game1.Title.Equals(g.Title) && g.ConsoleName.Equals(game1.ConsoleName))
                                         {
-                                            SettingsWindow.CurrentUser.Favorites.Add(g);
+                                            SettingsWindow.CurrentUser.FavoritesList.Add(g);
                                             ShowNotification("UniCade", SettingsWindow.CurrentUser.Username + ": Removed From Favorites");
                                         }
                                         else
                                         {
-                                            SettingsWindow.CurrentUser.Favorites.Add(g);
+                                            SettingsWindow.CurrentUser.FavoritesList.Add(g);
                                             ShowNotification("UniCade", SettingsWindow.CurrentUser.Username + ": Added To Favorites");
                                         }
                                         return;
@@ -543,7 +543,7 @@ namespace UniCade
                         //Check if the global favorites filter is enabled
                         if (IsFavoritesViewActive)
                         {
-                            foreach (IGame game1 in SettingsWindow.CurrentUser.Favorites)
+                            foreach (IGame game1 in SettingsWindow.CurrentUser.FavoritesList)
                             {
                                 if (game.Title.Equals(game1.Title) && game.ConsoleName.Equals(game1.ConsoleName))
                                 {

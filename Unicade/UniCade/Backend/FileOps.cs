@@ -253,7 +253,7 @@ namespace UniCade
                     {
                         if ((iterator % 2 == 0) && (iterator > 1))
                         {
-                            user.Favorites.Add(new Game(string1, s));
+                            user.FavoritesList.Add(new Game(string1, s));
 
                         }
                         string1 = s + ".zip";
@@ -311,7 +311,7 @@ namespace UniCade
                 foreach (IUser user in Program.UserList)
                 {
                     string favs = "";
-                    foreach (IGame g in user.Favorites)
+                    foreach (IGame g in user.FavoritesList)
                     {
                         favs += (g.Title + "#" + g.ConsoleName + "#");
                     }

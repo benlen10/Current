@@ -45,7 +45,7 @@ namespace UniCade
         /// <summary>
         /// A list of the user's favorite games
         /// </summary>
-        public List<IGame> Favorites { get; set; }
+        public List<IGame> FavoritesList { get; set; }
 
         /// <summary>
         /// The password for the current user
@@ -66,7 +66,7 @@ namespace UniCade
             AllowedEsrb = allowedEsrb;
             Email = email;
             ProfilePicture = profPic;
-            Favorites = new List<IGame>();
+            FavoritesList = new List<IGame>();
         }
 
         #endregion
