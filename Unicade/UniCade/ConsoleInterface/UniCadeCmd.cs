@@ -1,30 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UniCade.ConsoleInterface
 {
     class UniCadeCmd
     {
 
+        /// <summary>
+        /// Run the command line interface directly
+        /// </summary>
         public static void Run()
         {
             ShowConsoleWindow();
-            while (true)
-            {
-                System.Console.WriteLine("Enter Cmd (Type 'exit' to close)");
-                string line = System.Console.ReadLine();
-                if (line.Contains("exit"))
-                {
-                    HideConsoleWindow();
-                    return;
-                }
-            }
+            ConsoleSelection();
         }
 
+        /// <summary>
+        /// Call this method if the GUI interface is currently running
+        /// This method will unhook all global hotkeys and hide the main window before
+        /// launching the command line interface
+        /// </summary>
         public static void PrepAndRun()
         {
             //Prep
@@ -40,14 +35,7 @@ namespace UniCade.ConsoleInterface
         }
 
 
-
-
-
-
-
-
-
-        public static void displayConsoles()
+        private static void ConsoleSelection()
         {
             while (true)
             {
@@ -73,7 +61,7 @@ namespace UniCade.ConsoleInterface
 
                 else if (input.Equals("(uf)"))
                 {
-                    displayUserFavs();
+                    DisplayUserFavorites();
                 }
 
 
@@ -110,13 +98,13 @@ namespace UniCade.ConsoleInterface
                 {
                     if (input.Equals(console.ConsoleName))
                     {
-                        displayGameList(console);
+                        DisplayGameList(console);
                     }
                 }
             }
         }
 
-        public static void displayGameList(IConsole console)
+        public static void DisplayGameList(IConsole console)
         {
             bool fav = false;
             while (true)
@@ -142,7 +130,6 @@ namespace UniCade.ConsoleInterface
                     }
 
                 }
-
 
                 string input = System.Console.ReadLine();
                 string s = input.Substring(3);
@@ -211,10 +198,6 @@ namespace UniCade.ConsoleInterface
                     return;
                 }
                 else
-
-
-
-
                 {
                     foreach (Game game in console.GameList)
                     {
@@ -229,7 +212,7 @@ namespace UniCade.ConsoleInterface
 
         }
 
-        public static void displayUserFavs()
+        private static void DisplayUserFavorites()
         {
             Program.CurrentUser.FavoritesList.ForEach(e => System.Console.WriteLine(e.Title));
             while (true)
@@ -250,7 +233,7 @@ namespace UniCade.ConsoleInterface
         }
 
 
-        public static string DisplayGameInfo(IGame game)
+        private static string DisplayGameInfo(IGame game)
         {
             string txt = "";
 
@@ -264,11 +247,11 @@ namespace UniCade.ConsoleInterface
             txt = txt + ("\nCritic Score: " + game.CriticReviewScore + "\n");
             txt = txt + ("\nESRB Rating: " + game.EsrbRating + "\n");
             txt = txt + ("\nESRB Descriptors: " + game.EsrbDescriptors + "\n");
-            txt = txt + ("\nmame Description: " + game.Description + "\n");
+            txt = txt + ("\nGame Description: " + game.Description + "\n");
             return txt;
         }
 
-        public static void DisplayConsoleInfo(IConsole console)
+        private static void DisplayConsoleInfo(IConsole console)
         {
             while (true)
             {
@@ -288,7 +271,7 @@ namespace UniCade.ConsoleInterface
             }
         }
 
-        public static void Login()
+        private static void Login()
         {
             while (true)
             {

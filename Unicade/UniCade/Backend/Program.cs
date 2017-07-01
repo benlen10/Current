@@ -127,7 +127,7 @@ namespace UniCade
 
             FileOps.StartupScan();
 
-            if (PerferCmdInterface)
+            if (!PerferCmdInterface)
             {
                 UniCadeCmd.Run();
             }
