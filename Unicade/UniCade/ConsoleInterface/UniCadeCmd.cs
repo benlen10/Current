@@ -105,15 +105,17 @@ namespace UniCade.ConsoleInterface
                         }
                     }
                 }
-                //If no modifiers are provided, display the gamelist for the console
+                //If no modifiers are provided, display the game list for the console
                 else
                 {
-                    foreach (IConsole console in Program.ConsoleList)
+                    IConsole console = Program.ConsoleList.Find(c => c.ConsoleName.Equals(input));
+                    if (console != null)
                     {
-                        if (input.Equals(console.ConsoleName))
-                        {
-                            DisplayGameList(console);
-                        }
+                        DisplayGameList(console);
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Console not found");
                     }
                 }
             }
@@ -124,6 +126,11 @@ namespace UniCade.ConsoleInterface
         /// </summary>
         public static void DisplayGameList(IConsole console)
         {
+            if (console == null)
+            {
+                return;
+            }
+
             bool favoritesView = false;
             while (true)
             {
@@ -159,44 +166,47 @@ namespace UniCade.ConsoleInterface
                 if (input.Contains("(i)"))
                 {
                     IGame game = console.GameList.Find(g => s.Contains(g.Title));
-                    if (game != null)
-                    {
-                        DisplayGameInfo(game);
-                    }
+                    DisplayGameInfo(game);
                 }
+                //(ci) = Display console info
                 else if (input.Equals("(ci)"))
                 {
                     DisplayConsoleInfo(console);
                 }
+                //(fv) = Toggle favorites view
                 else if (input.Equals("(fv)"))
                 {
                     if (!favoritesView)
                     {
+                        System.Console.WriteLine("Favorites View Enabled");
                         favoritesView = true;
                     }
                     else
                     {
+                        System.Console.WriteLine("Favorites View Disabled");
                         favoritesView = false;
                     }
                 }
+                //(f) = Toggle favorite status
                 else if (input.Contains("(f)"))
                 {
-                    foreach (Game g in console.GameList)
+                    IGame game = console.GameList.Find(g => input.Substring(4).Contains(g.Title));
+                    if (game != null)
                     {
-                        if (input.Substring(4).Contains(g.Title))
+                        if (game.Favorite < 1)
                         {
-                            if (g.Favorite < 1)
-                            {
-                                g.Favorite = 1;
-                                System.Console.WriteLine("\n***Added to Favorites***\n");
-                            }
-                            else
-                            {
-                                g.Favorite = 0;
-                                System.Console.WriteLine("\n***Removed From Favorites***\n");
-                            }
-                            break;
+                            game.Favorite = 1;
+                            System.Console.WriteLine(game.Title + " Added to favorites");
                         }
+                        else
+                        {
+                            game.Favorite = 0;
+                            System.Console.WriteLine(game.Title + " Removed from favorites");
+                        }
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Error: Game not found");
                     }
                 }
                 //(c) = Close current dialog
@@ -208,7 +218,7 @@ namespace UniCade.ConsoleInterface
                 else
                 {
                     IGame game = console.GameList.Find(g => input.Equals(g.Title));
-                    if(game != null)
+                    if (game != null)
                     {
                         FileOps.Launch(game);
                     }
@@ -226,6 +236,11 @@ namespace UniCade.ConsoleInterface
         /// <param name="game">The game to display info for</param>
         private static void DisplayGameInfo(IGame game)
         {
+            if (game == null)
+            {
+                return;
+            }
+
             string gameInfo = "";
             gameInfo += ("\nTitle: " + game.Title + "\n");
             gameInfo += ("\nRelease Date: " + game.ReleaseDate + "\n");
@@ -248,6 +263,11 @@ namespace UniCade.ConsoleInterface
         /// <param name="console"></param>
         private static void DisplayConsoleInfo(IConsole console)
         {
+            if (console == null)
+            {
+                return;
+            }
+
             System.Console.WriteLine("Console: " + console.ConsoleName + "\n");
             System.Console.WriteLine("Release Date: " + console.ReleaseDate);
             System.Console.WriteLine("Emulator Path: " + console.EmulatorPath);
@@ -264,38 +284,48 @@ namespace UniCade.ConsoleInterface
         /// </summary>
         private static void SwitchUser()
         {
+            System.Console.WriteLine("Available Users");
+            Program.UserList.ForEach(u => System.Console.WriteLine(u.Username));
+            System.Console.Write("\n");
+
             while (true)
             {
-                System.Console.WriteLine("Please enter username (Type x to exit)");
+                System.Console.WriteLine("Please enter username (Type 'x' to exit)");
                 string userName = System.Console.ReadLine();
                 if (userName.Equals("x"))
                 {
                     return;
                 }
-                foreach (User user in Program.UserList)
+
+                //Attempt to fetch the user with the matching username
+                IUser user = Program.UserList.Find(u => u.Username.Equals(userName));
+                if (user != null)
                 {
-                    if (userName.Equals(user.Username))
+                    while (true)
                     {
-                        while (true)
+                        string ps = System.Console.ReadLine();
+                        System.Console.WriteLine("Please enter password (Type 'x' to exit)");
+                        if (ps.Equals("x"))
                         {
-                            string ps = System.Console.ReadLine();
-                            System.Console.WriteLine("Please enter password");
-                            if (ps.Equals("x"))
-                            {
-                                return;
-                            }
-                            if (ps.Equals(user.GetUserPassword()))
-                            {
-                                System.Console.WriteLine("Password Accepted");
-                                Program.CurrentUser = user;
-                                Program.CurrentUser.LoginCount++;
-                                return;
-                            }
+                            return;
+                        }
+                        if (ps.Equals(user.GetUserPassword()))
+                        {
+                            System.Console.WriteLine("Password Accepted");
+                            Program.CurrentUser = user;
+                            Program.CurrentUser.LoginCount++;
+                            return;
                         }
                     }
                 }
+                else
+                {
+                    System.Console.WriteLine("Username not found");
+                }
             }
         }
+
+        #endregion
 
         #region Helper Methods
 
