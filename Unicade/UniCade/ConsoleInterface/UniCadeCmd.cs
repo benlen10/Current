@@ -5,6 +5,28 @@ namespace UniCade.ConsoleInterface
 {
     class UniCadeCmd
     {
+        #region Properties
+
+        /// <summary>
+        /// The currently selectd console for the cmd line interface
+        /// </summary>
+        IConsole CurrentConsole;
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool AllocConsole();
+
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        const int SW_HIDE = 0;
+        const int SW_SHOW = 5;
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Run the command line interface directly
@@ -22,33 +44,42 @@ namespace UniCade.ConsoleInterface
         /// </summary>
         public static void PrepAndRun()
         {
-            //Prep
+            //Unhook all global hotkeys and hide the MainWindow instance
             MainWindow.UnhookKeys();
             Program.App.MainWindow.Hide();
 
-            //Run
+            //Launch the console
             Run();
 
-            //Cleanup
+            //Cleanup after the console window is closed
             MainWindow.KeyboardHook.HookKeys();
             Program.App.MainWindow.Show();
         }
 
+        #endregion
 
+        #region Private Methods
+
+        /// <summary>
+        /// This is the home menu for the command line interface
+        /// this menu provides options for the user and exists within an infinte loop
+        /// </summary>
         private static void ConsoleSelection()
         {
             while (true)
             {
-                System.Console.WriteLine("Available Consoles:   [Exit: (c), Rescan (r):, Info: (i), GUI (g), Switch User (u), (s) Settings, (uf) User Favs (d) Download Info <Console>");
-                string list = "";
-                foreach (IConsole console in Program.ConsoleList)
-                {
-                    list = list + " " + "[" + console.ConsoleName + "]";
-                }
-                System.Console.WriteLine(list);
+                //Display heading and options
+                System.Console.WriteLine("Options: Exit: (x), Global Rescan (r):, Console Info: (i) <console>, Switch User (s)");
+                System.Console.WriteLine("Available Consoles: ");
 
+                //Print all available consoles
+                Program.ConsoleList.ForEach(c => System.Console.WriteLine(c.ConsoleName));
+
+                //Fetch user input
                 string input = System.Console.ReadLine();
-                if (input.Equals("(c)"))
+
+                //(c) = Exit interface
+                if (input.Equals("(x)"))
                 {
                     FileOps.SaveDatabase(Program.DatabasePath);
                     FileOps.SavePreferences(Program.PreferencesPath);
@@ -58,32 +89,12 @@ namespace UniCade.ConsoleInterface
                 {
                     FileOps.Scan(Program.RomPath);
                 }
-
-                else if (input.Equals("(uf)"))
+                //(s) = Switch User
+                else if (input.Contains("(s)"))
                 {
-                    DisplayUserFavorites();
+                    SwitchUser();
                 }
-
-
-                else if (input.Contains("(u)"))
-                {
-                    Login();
-                }
-                else if (input.Contains("(d)"))
-                {
-
-                    foreach (Console console in Program.ConsoleList)
-                    {
-                        if (input.Contains(console.ConsoleName))
-                        {
-                            foreach (Game game in console.GameList)
-                            {
-                                WebOps.ScrapeInfo(game);
-                            }
-                        }
-                    }
-
-                }
+                //(i) = Console Info
                 else if (input.Contains("(i)"))
                 {
                     foreach (IConsole console in Program.ConsoleList)
@@ -94,30 +105,41 @@ namespace UniCade.ConsoleInterface
                         }
                     }
                 }
-                foreach (IConsole console in Program.ConsoleList)
+                //If no modifiers are provided, display the gamelist for the console
+                else
                 {
-                    if (input.Equals(console.ConsoleName))
+                    foreach (IConsole console in Program.ConsoleList)
                     {
-                        DisplayGameList(console);
+                        if (input.Equals(console.ConsoleName))
+                        {
+                            DisplayGameList(console);
+                        }
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// This method will display the full list of games for the current console
+        /// </summary>
         public static void DisplayGameList(IConsole console)
         {
-            bool fav = false;
+            bool favoritesView = false;
             while (true)
             {
+                //Display the current console, game count and available options
 
-                string text = string.Format("{0} (Total Games: {1})", console.ConsoleName, console.GameCount);
-                System.Console.WriteLine(text);
-                System.Console.WriteLine("Additional Options:Info: (i) <game>, Close (c),Global Fav (gf), (uf) Add User Fav, Display Favorites (f) Console Info (ci)\n");
+                System.Console.WriteLine(string.Format("{0} (Total Games: {1})", console.ConsoleName, console.GameCount));
+                System.Console.WriteLine("Additional Options: Show Info: (i) <game>, Close (c), Toggle Favs View (fv), Toggle Fav (f))\n");
+                if (favoritesView)
+                {
+                    System.Console.WriteLine("[VIEWING FAVORITES ONLY]");
+                }
 
-                //Display Game List
+                //Print all games
                 foreach (Game g in console.GameList)
                 {
-                    if (fav)
+                    if (favoritesView)
                     {
                         if (g.Favorite == 1)
                         {
@@ -131,48 +153,33 @@ namespace UniCade.ConsoleInterface
 
                 }
 
+                //Fetch user input
                 string input = System.Console.ReadLine();
                 string s = input.Substring(3);
                 if (input.Contains("(i)"))
                 {
-                    foreach (Game g in console.GameList)
+                    IGame game = console.GameList.Find(g => s.Contains(g.Title));
+                    if (game != null)
                     {
-                        if (s.Contains(g.Title))
-                        {
-                            System.Console.Write(DisplayGameInfo(g));
-                            string inp = System.Console.ReadLine();
-                            while (true)
-                            {
-                                inp = System.Console.ReadLine();
-                                if (inp.Equals("(c)"))
-                                {
-                                    break;
-                                }
-                            }
-                        }
+                        DisplayGameInfo(game);
                     }
                 }
                 else if (input.Equals("(ci)"))
                 {
                     DisplayConsoleInfo(console);
                 }
-                else if (input.Equals("(f)"))
+                else if (input.Equals("(fv)"))
                 {
-                    if (!fav)
+                    if (!favoritesView)
                     {
-                        fav = true;
+                        favoritesView = true;
                     }
                     else
                     {
-                        fav = false;
+                        favoritesView = false;
                     }
                 }
-                else if (input.Contains("(uf)"))
-                {
-                    //Program.CurrentUser.FavoritesList.Add(g);
-                    System.Console.WriteLine("\n***Added to User Favorites***\n");
-                }
-                else if (input.Contains("(gf)"))
+                else if (input.Contains("(f)"))
                 {
                     foreach (Game g in console.GameList)
                     {
@@ -192,86 +199,70 @@ namespace UniCade.ConsoleInterface
                         }
                     }
                 }
-
+                //(c) = Close current dialog
                 else if (input.Equals("(c)"))
                 {
                     return;
                 }
+                //If no modifier is provided, attempt to launch the game with the matching title
                 else
                 {
-                    foreach (Game game in console.GameList)
+                    IGame game = console.GameList.Find(g => input.Equals(g.Title));
+                    if(game != null)
                     {
-                        if (input.Contains(game.Title))
-                        {
-                            FileOps.Launch(game);
-
-                        }
+                        FileOps.Launch(game);
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Error: Game not found");
                     }
                 }
             }
-
         }
 
-        private static void DisplayUserFavorites()
+        /// <summary>
+        /// Display detailed info for the current game
+        /// </summary>
+        /// <param name="game">The game to display info for</param>
+        private static void DisplayGameInfo(IGame game)
         {
-            Program.CurrentUser.FavoritesList.ForEach(e => System.Console.WriteLine(e.Title));
-            while (true)
-            {
-                System.Console.WriteLine("[Type (c) to close info window]\n");
-                string input = System.Console.ReadLine();
-                if (input.Equals("(c)"))
-                {
-                    return;
-                }
-                //Check for matching input string to launch
-                IGame game = Program.CurrentUser.FavoritesList.Find(e => e.Title.Equals(input));
-                if (game != null)
-                {
-                    FileOps.Launch(game);
-                }
-            }
+            string gameInfo = "";
+            gameInfo += ("\nTitle: " + game.Title + "\n");
+            gameInfo += ("\nRelease Date: " + game.ReleaseDate + "\n");
+            gameInfo += ("\nDeveloper: " + game.DeveloperName + "\n");
+            gameInfo += ("\nPublisher: " + game.PublisherName + "\n");
+            gameInfo += ("\nPlayers: " + game.PlayerCount + "\n");
+            gameInfo += ("\nUser Score: " + game.UserReviewScore + "\n");
+            gameInfo += ("\nCritic Score: " + game.CriticReviewScore + "\n");
+            gameInfo += ("\nESRB Rating: " + game.EsrbRating + "\n");
+            gameInfo += ("\nESRB Descriptors: " + game.EsrbDescriptors + "\n");
+            gameInfo += ("\nGame Description: " + game.Description + "\n");
+            System.Console.WriteLine(gameInfo);
+            System.Console.WriteLine("\nPress any key to return to previous menu\n");
+            System.Console.ReadLine();
         }
 
-
-        private static string DisplayGameInfo(IGame game)
-        {
-            string txt = "";
-
-            txt = txt + ("[Type (c) to close info window]\n");
-            txt = txt + ("\nTitle: " + game.Title + "\n");
-            txt = txt + ("\nRelease Date: " + game.ReleaseDate + "\n");
-            txt = txt + ("\nDeveloper: " + game.DeveloperName + "\n");
-            txt = txt + ("\nPublisher: " + game.PublisherName + "\n");
-            txt = txt + ("\nPlayers: " + game.PlayerCount + "\n");
-            txt = txt + ("\nUser Score: " + game.UserReviewScore + "\n");
-            txt = txt + ("\nCritic Score: " + game.CriticReviewScore + "\n");
-            txt = txt + ("\nESRB Rating: " + game.EsrbRating + "\n");
-            txt = txt + ("\nESRB Descriptors: " + game.EsrbDescriptors + "\n");
-            txt = txt + ("\nGame Description: " + game.Description + "\n");
-            return txt;
-        }
-
+        /// <summary>
+        /// Display detailed info for the current console
+        /// </summary>
+        /// <param name="console"></param>
         private static void DisplayConsoleInfo(IConsole console)
         {
-            while (true)
-            {
-                System.Console.WriteLine("[Type (c) to close info window]\n");
-                System.Console.WriteLine("Console: " + console.ConsoleName);
-                System.Console.WriteLine("Release Date: " + console.ReleaseDate);
-                System.Console.WriteLine("Emulator Path: " + console.EmulatorPath);
-                System.Console.WriteLine("Rom Path: " + console.RomPath);
-                System.Console.WriteLine("Rom Extension: " + console.RomExtension);
-                System.Console.WriteLine("Launch Param: " + console.LaunchParams);
-                System.Console.WriteLine("Console Info: " + console.ConsoleInfo);
-                string input = System.Console.ReadLine();
-                if (input.Equals("(c)"))
-                {
-                    return;
-                }
-            }
+            System.Console.WriteLine("Console: " + console.ConsoleName + "\n");
+            System.Console.WriteLine("Release Date: " + console.ReleaseDate);
+            System.Console.WriteLine("Emulator Path: " + console.EmulatorPath);
+            System.Console.WriteLine("Rom Path: " + console.RomPath);
+            System.Console.WriteLine("Rom Extension: " + console.RomExtension);
+            System.Console.WriteLine("Launch Param: " + console.LaunchParams);
+            System.Console.WriteLine("Console Info: " + console.ConsoleInfo);
+            System.Console.WriteLine("\nPress any key to return to previous menu\n");
+            System.Console.ReadLine();
         }
 
-        private static void Login()
+        /// <summary>
+        /// Logout and switch to a differnt user
+        /// </summary>
+        private static void SwitchUser()
         {
             while (true)
             {
@@ -306,13 +297,11 @@ namespace UniCade.ConsoleInterface
             }
         }
 
-
-
-
-
-
         #region Helper Methods
 
+        /// <summary>
+        /// Show the console window
+        /// </summary>
         public static void ShowConsoleWindow()
         {
             var handle = GetConsoleWindow();
@@ -327,24 +316,15 @@ namespace UniCade.ConsoleInterface
             }
         }
 
+        /// <summary>
+        /// Hide the console window
+        /// </summary>
         public static void HideConsoleWindow()
         {
             var handle = GetConsoleWindow();
 
             ShowWindow(handle, SW_HIDE);
         }
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        static extern bool AllocConsole();
-
-        [DllImport("kernel32.dll")]
-        static extern IntPtr GetConsoleWindow();
-
-        [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        const int SW_HIDE = 0;
-        const int SW_SHOW = 5;
 
         #endregion
     }
