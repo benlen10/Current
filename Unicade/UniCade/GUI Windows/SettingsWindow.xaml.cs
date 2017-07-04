@@ -24,11 +24,6 @@ namespace UniCade.Windows
         public static IGame CurrentGame;
 
         /// <summary>
-        /// The current user that is selected within the User tab
-        /// </summary>
-        public static IUser CurrentUser;
-
-        /// <summary>
         /// The current console that is selected within the games tab
         /// </summary>
         static IConsole CurrentConsole;
@@ -877,9 +872,9 @@ namespace UniCade.Windows
         private void UsersTab_UsersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Update the current user text         
-            if (CurrentUser != null)
+            if (Program.CurrentUser != null)
             {
-                UsersTab_Label_CurrentUser.Content = "Current User: " + CurrentUser.Username;
+                UsersTab_Label_CurrentUser.Content = "Current User: " + Program.CurrentUser.Username;
             }
 
             //Populate the favorites list for each user
@@ -904,7 +899,7 @@ namespace UniCade.Windows
                     UsersTab_Dropdown_AllowedESRB.Text = user.AllowedEsrb.GetStringValue();
 
                     //Only allow the current user to edit their own userdata
-                    bool editEnabled = user.Username.Equals(CurrentUser.Username);
+                    bool editEnabled = user.Username.Equals(Program.CurrentUser.Username);
                     UsersTab_Textbox_Username.IsEnabled = true;
                     UsersTab_Textbox_Email.IsEnabled = true;
                     UsersTab_Textbox_UserInfo.IsEnabled = true;
@@ -922,22 +917,13 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_NewUserButton_Click(object sender, EventArgs e)
         {
-            foreach (IUser user in Program.UserList)
-            {
-                if (CurrentUser.Username.Equals(user.Username))
-                {
-                    Program.UserList.Remove(user);
-                    Program.UserList.Add(CurrentUser);
-                    break;
-                }
-            }
 
             //Create a new unicade account and display the dialog
             AccountWindow uc = new AccountWindow(1);
             uc.ShowDialog();
 
             //Update the current labels and save the user info to the preferences file
-            UsersTab_Label_CurrentUser.Content = "Current User: " + CurrentUser.Username;
+            UsersTab_Label_CurrentUser.Content = "Current User: " + Program.CurrentUser.Username;
             FileOps.SavePreferences(Program.PreferencesPath);
 
             //Refresh the listbox contents
@@ -961,6 +947,7 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_DeleteUserButton_Click(object sender, EventArgs e)
         {
+            IUser user = Program.UserList.Find(u => u.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()));
             //Ensure that there is always at least one user present in the database
             if (Program.UserList.Count <= 1)
             {
@@ -969,12 +956,13 @@ namespace UniCade.Windows
             }
 
             //Remove the user and refresh the database
-            Program.UserList.Remove(CurrentUser);
+            Program.UserList.Remove(user);
             UsersTab_Listbox_CurrentUser.Items.Clear();
-            CurrentUser = null;
-            foreach (IUser user in Program.UserList)
+            Program.CurrentUser = Program.UserList[0];
+
+            foreach (IUser user1 in Program.UserList)
             {
-                UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
+                UsersTab_Listbox_CurrentUser.Items.Add(user1.Username);
             }
         }
 
@@ -985,7 +973,7 @@ namespace UniCade.Windows
         private void UsersTab_SaveButton_Click(object sender, EventArgs e)
         {
             //Verify that a user is currently logged in
-            if (!CurrentUser.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
+            if (!Program.CurrentUser.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
             {
                 MessageBox.Show("Must Login First");
                 return;
@@ -1003,16 +991,16 @@ namespace UniCade.Windows
                 }
                 else
                 {
-                    CurrentUser.Username = UsersTab_Textbox_Username.Text;
-                    CurrentUser.SetUserPassword(UsersTab_Textbox_Email.Text);
-                    CurrentUser.UserInfo = UsersTab_Textbox_UserInfo.Text;
+                    Program.CurrentUser.Username = UsersTab_Textbox_Username.Text;
+                    Program.CurrentUser.SetUserPassword(UsersTab_Textbox_Email.Text);
+                    Program.CurrentUser.UserInfo = UsersTab_Textbox_UserInfo.Text;
                 }
 
                 if (GamesTab_Textbox_ESRB.Text.Contains("Everyone") || GamesTab_Textbox_ESRB.Text.Contains("Teen") || GamesTab_Textbox_ESRB.Text.Contains("Mature") || GamesTab_Textbox_ESRB.Text.Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
                 {
                     if (UsersTab_Dropdown_AllowedESRB.SelectedItem != null)
                     {
-                        CurrentUser.AllowedEsrb = Enums.ConvertStringToEsrbEnum(UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                        Program.CurrentUser.AllowedEsrb = Enums.ConvertStringToEsrbEnum(UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                     }
                 }
                 else
@@ -1034,15 +1022,15 @@ namespace UniCade.Windows
         private void UsersTab_DeleteFavoriteButton_Click(object sender, EventArgs e)
         {
             //Verify that a user is currenly logged in
-            if (!CurrentUser.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
+            if (!Program.CurrentUser.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
             {
                 MessageBox.Show("Must Login First");
                 return;
             }
 
-            CurrentUser.FavoritesList.RemoveAt(UsersTab_Listbox_UserFavorites.SelectedIndex);
+            Program.CurrentUser.FavoritesList.RemoveAt(UsersTab_Listbox_UserFavorites.SelectedIndex);
             UsersTab_Listbox_UserFavorites.Items.Clear();
-            foreach (IGame g in CurrentUser.FavoritesList)
+            foreach (IGame g in Program.CurrentUser.FavoritesList)
             {
                 UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName);
             }
@@ -1055,10 +1043,10 @@ namespace UniCade.Windows
         {
             foreach (IUser user in Program.UserList)
             {
-                if (CurrentUser.Username.Equals(user.Username))
+                if (Program.CurrentUser.Username.Equals(user.Username))
                 {
                     Program.UserList.Remove(user);
-                    Program.UserList.Add(CurrentUser);
+                    Program.UserList.Add(Program.CurrentUser);
                     break;
                 }
             }
@@ -1066,10 +1054,10 @@ namespace UniCade.Windows
             //Display the login dialog
             LoginWindow login = new LoginWindow(1);
             login.ShowDialog();
-            if (CurrentUser != null)
+            if (Program.CurrentUser != null)
             {
                 //If the user is logged in sucuesfully, save the current user and preferences file
-                UsersTab_Label_CurrentUser.Content = "Current User: " + CurrentUser.Username;
+                UsersTab_Label_CurrentUser.Content = "Current User: " + Program.CurrentUser.Username;
                 FileOps.SavePreferences(Program.PreferencesPath);
             }
         }
@@ -1079,7 +1067,7 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_RefreshButton_Click(object sender, EventArgs e)
         {
-            UsersTab_Label_CurrentUser.Content = "Current User: " + CurrentUser.Username;
+            UsersTab_Label_CurrentUser.Content = "Current User: " + Program.CurrentUser.Username;
         }
 
         #endregion

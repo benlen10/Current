@@ -9,7 +9,6 @@ namespace UnitTests
     {
         #region Properties
 
-
         /// <summary>
         /// A new Random instance to generate a random id tag
         /// </summary>
@@ -130,24 +129,6 @@ namespace UnitTests
             //Attempt to add another game with the same filename and verify that duplicates are not allowed
             IGame game = new Game("newGame.bin", "differentConsole");
             Assert.IsFalse(console.AddGame(game), "Verify that adding a game to an incorrect console is not allowed");
-        }
-
-        /// <summary>
-        /// Verify that Global ESRB Content restrictions properly restrict game launches
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        public void VerifyGlobalEsrbRestrictions()
-        {
-        }
-
-        /// <summary>
-        /// Verify that adding a game to an incorrect console is not allowed
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        public void VerifyUserEsrbRestrictions()
-        {
         }
     }
 }

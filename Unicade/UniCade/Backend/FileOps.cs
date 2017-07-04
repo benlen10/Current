@@ -266,7 +266,7 @@ namespace UniCade
             {
                 if (user.Username.Equals(currentUser))
                 {
-                    SettingsWindow.CurrentUser = user;
+                    Program.CurrentUser = user;
                 }
             }
             file.Close();
@@ -285,17 +285,17 @@ namespace UniCade
 
             foreach (IUser user in Program.UserList)
             {
-                if (SettingsWindow.CurrentUser.Username.Equals(user.Username))
+                if (Program.CurrentUser.Username.Equals(user.Username))
                 {
                     Program.UserList.Remove(user);
-                    Program.UserList.Add(SettingsWindow.CurrentUser);
+                    Program.UserList.Add(Program.CurrentUser);
                     break;
                 }
             }
 
             using (StreamWriter sw = File.CreateText(path))
             {
-                sw.WriteLine("CurrentUser|" + SettingsWindow.CurrentUser.Username);
+                sw.WriteLine("CurrentUser|" + Program.CurrentUser.Username);
                 sw.WriteLine("_databasePath|" + Program.DatabasePath);
                 sw.WriteLine("EmulatorFolderPath|" + Program.EmulatorPath);
                 sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
@@ -466,14 +466,17 @@ namespace UniCade
         /// <summary>
         /// Launch the specified ROM file using the paramaters specified by the console
         /// </summary>
-        public static void Launch(IGame game)
+        public static string Launch(IGame game)
         {
-            if (!SettingsWindow.CurrentUser.AllowedEsrb.Equals(Enums.ESRB.Null))
+            if (Program.CurrentUser != null)
             {
-                if (game.EsrbRating >= SettingsWindow.CurrentUser.AllowedEsrb)
+                if (!Program.CurrentUser.AllowedEsrb.Equals(Enums.ESRB.Null))
                 {
-                    ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted for" + SettingsWindow.CurrentUser.Username);
-                    return;
+                    if (game.EsrbRating >= Program.CurrentUser.AllowedEsrb)
+                    {
+                        ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted for" + Program.CurrentUser.Username);
+                        return ("ESRB " + game.EsrbRating + " Is Restricted for" + Program.CurrentUser.Username);
+                    }
                 }
             }
 
@@ -482,12 +485,12 @@ namespace UniCade
                 if (game.EsrbRating >= Program.RestrictGlobalESRB)
                 {
                     ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted\n");
-                    return;
+                    return ("ESRB " + game.EsrbRating + " Is Restricted\n");
                 }
             }
 
             game.LaunchCount++;
-            SettingsWindow.CurrentUser.TotalLaunchCount++;
+            Program.CurrentUser.TotalLaunchCount++;
             CurrentProcess = new Process();
 
             //Fetch the console object
@@ -498,7 +501,7 @@ namespace UniCade
             if (!File.Exists(testGamePath))
             {
                 ShowNotification("System", "ROM does not exist. Launch Failed");
-                return;
+                return ("ROM does not exist. Launch Failed");
             }
             string args = "";
             if (console.ConsoleName.Equals("MAME"))
@@ -525,7 +528,7 @@ namespace UniCade
                 if (!File.Exists(console.EmulatorPath))
                 {
                     ShowNotification("System", "Emulator does not exist. Launch Failed");
-                    return;
+                    return "Emulator does not exist. Launch Failed";
                 }
                 CurrentProcess.StartInfo.FileName = console.EmulatorPath;
                 CurrentProcess.StartInfo.Arguments = args;
@@ -534,6 +537,7 @@ namespace UniCade
             CurrentProcess.Start();
             IsProcessActive = true;
             MainWindow.IsGameRunning = true;
+            return "Launch Successful";
         }
 
         /// <summary>
@@ -716,8 +720,8 @@ namespace UniCade
         /// </summary>
         public static void RestoreDefaultPreferences()
         {
-            SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null , "");
-            Program.UserList.Add(SettingsWindow.CurrentUser);
+            Program.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null , "");
+            Program.UserList.Add(Program.CurrentUser);
             Program.ShowSplashScreen = false;
             Program.RescanOnStartup = false;
             Program.RestrictGlobalESRB = 0;
@@ -765,9 +769,9 @@ namespace UniCade
             }
 
             //If the current user is null, generate the default UniCade user and set as the current user  
-            if (SettingsWindow.CurrentUser == null)
+            if (Program.CurrentUser == null)
             {
-                SettingsWindow.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
+                Program.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
             }
 
             //Verify the current user license and set flag
