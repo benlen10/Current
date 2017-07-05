@@ -107,9 +107,9 @@ namespace UniCade
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                MessageBox.Show("Error saving database\n" + Program.DatabasePath + "\n"+ e.Message);
+                MessageBox.Show("Error saving database\n" + Program.DatabasePath + "\n" + e.Message);
                 return;
             }
         }
@@ -468,21 +468,18 @@ namespace UniCade
         /// </summary>
         public static string Launch(IGame game)
         {
-            if (Program.CurrentUser != null)
+            if (Program.CurrentUser.AllowedEsrb> 0)
             {
-                if (!Program.CurrentUser.AllowedEsrb.Equals(Enums.ESRB.Null))
+                if (game.EsrbRating > Program.CurrentUser.AllowedEsrb)
                 {
-                    if (game.EsrbRating >= Program.CurrentUser.AllowedEsrb)
-                    {
-                        ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted for" + Program.CurrentUser.Username);
-                        return ("ESRB " + game.EsrbRating + " Is Restricted for" + Program.CurrentUser.Username);
-                    }
+                    ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted for" + Program.CurrentUser.Username);
+                    return ("ESRB " + game.EsrbRating + " Is Restricted for" + Program.CurrentUser.Username);
                 }
             }
 
             else if (Program.RestrictGlobalESRB > 0)
             {
-                if (game.EsrbRating >= Program.RestrictGlobalESRB)
+                if (game.EsrbRating > Program.RestrictGlobalESRB)
                 {
                     ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted\n");
                     return ("ESRB " + game.EsrbRating + " Is Restricted\n");
@@ -720,7 +717,9 @@ namespace UniCade
         /// </summary>
         public static void RestoreDefaultPreferences()
         {
-            Program.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null , "");
+            IUser UniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
+            Program.UserList.Add(UniCadeUser);
+            Program.CurrentUser = UniCadeUser;
             Program.UserList.Add(Program.CurrentUser);
             Program.ShowSplashScreen = false;
             Program.RescanOnStartup = false;

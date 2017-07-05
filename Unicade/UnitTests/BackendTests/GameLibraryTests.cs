@@ -12,17 +12,17 @@ namespace UnitTests
         /// <summary>
         /// A new Random instance to generate a random id tag
         /// </summary>
-        Random random;
+        Random Random;
 
         /// <summary>
         /// The randomly generated int value for the current test instance 
         /// </summary>
-        int id;
+        int Id;
 
         /// <summary>
         /// The first console in the database
         /// </summary>
-        IConsole console;
+        IConsole Console;
 
         #endregion
 
@@ -36,12 +36,12 @@ namespace UnitTests
             Program.Initalize();
 
             //Generate a new random id integer
-            random = new Random();
-            id = random.Next();
+            Random = new Random();
+            Id = Random.Next();
 
             //Create a new console and add it to the database
-            console = new UniCade.Console("newConsole");
-            Program.ConsoleList.Add(console);
+            Console = new UniCade.Console("newConsole");
+            Program.AddConsole(Console);
         }
 
         /// <summary>
@@ -59,32 +59,32 @@ namespace UnitTests
             Assert.AreEqual(0, originalTotalGameCount, "Verify that the TotalGameCount is intially set to zero after creating a new database instance");
 
             //Verify that the console game count is intially set to zero
-            int originalConsoleGameCount = console.GameCount;
+            int originalConsoleGameCount = Console.GameCount;
             Assert.AreEqual(0, originalConsoleGameCount, "Verify that the console game count is intially set to zero");
 
             //Add a game to the new console and verify that AddGame returns true
-            IGame newGame = new Game("newGame.bin", console.ConsoleName);
-            Assert.IsTrue(console.AddGame(newGame), "Verify that AddGame returns true when adding a new (valid) game");
+            IGame newGame = new Game("newGame.bin", Console.ConsoleName);
+            Assert.IsTrue(Console.AddGame(newGame), "Verify that AddGame returns true when adding a new (valid) game");
 
             //Verify that the console game count has been incremented by one
-            Assert.AreEqual((originalConsoleGameCount + 1), console.GameCount, "Verify that the console game count has been incremented by one");
+            Assert.AreEqual((originalConsoleGameCount + 1), Console.GameCount, "Verify that the console game count has been incremented by one");
 
             //Refresh the database that the total game count has been incremented by one
             Program.RefreshTotalGameCount();
             Assert.AreEqual((originalTotalGameCount + 1), Program.TotalGameCount, "Verify that the console game count has been incremented by one");
 
             //Remove the game
-            console.RemoveGame(newGame);
+            Console.RemoveGame(newGame);
 
             //Verify that the console game count has been decremented by one after removing the game
-            Assert.AreEqual(originalConsoleGameCount, console.GameCount, "Verify that the console game count has been incremented by one");
+            Assert.AreEqual(originalConsoleGameCount, Console.GameCount, "Verify that the console game count has been incremented by one");
 
             //Refresh the database and verify that the console game count has been decremented by one after removing the game
             Program.RefreshTotalGameCount();
             Assert.AreEqual(originalTotalGameCount, Program.TotalGameCount, "Verify that the console game count has been incremented by one");
 
             //Verify that attempting to remove a nonexistent game returns false 
-            Assert.IsFalse(console.RemoveGame(newGame), "Verify that attempting to remove a nonexistent game returns false");
+            Assert.IsFalse(Console.RemoveGame(newGame), "Verify that attempting to remove a nonexistent game returns false");
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace UnitTests
         public void VerifyDuplicateConsolesDisallowed()
         {
             //Attempt to add a new console with the same name and verify this returns false
-            IConsole console2 = new UniCade.Console(console.ConsoleName);
+            IConsole console2 = new UniCade.Console(Console.ConsoleName);
             Assert.IsFalse(Program.AddConsole(console2), "Verify that adding a console with a duplicate name is not allowed");
         }
 
@@ -107,16 +107,16 @@ namespace UnitTests
         public void VerifyDuplicateGamesDisallowed()
         {
             //Add a game to the new console and verify that AddGame returns true
-            IGame newGame = new Game("newGame.bin", console.ConsoleName);
-            Assert.IsTrue(console.AddGame(newGame), "Verify that AddGame returns true when adding a new (valid) game");
+            IGame newGame = new Game("newGame.bin", Console.ConsoleName);
+            Assert.IsTrue(Console.AddGame(newGame), "Verify that AddGame returns true when adding a new (valid) game");
 
             //Attempt to add another game with the same filename and verify that duplicates are not allowed
-            IGame game1 = new Game("newGame.bin", console.ConsoleName);
-            Assert.IsFalse(console.AddGame(game1), "Verify that dupliate games with the same filename are not allowed");
+            IGame game1 = new Game("newGame.bin", Console.ConsoleName);
+            Assert.IsFalse(Console.AddGame(game1), "Verify that dupliate games with the same filename are not allowed");
 
             //Attempt to add another game with the same game title and verify that duplicates are not allowed
-            IGame game2 = new Game("newGame.iso", console.ConsoleName);
-            Assert.IsFalse(console.AddGame(game1), "Verify that dupliate games with the same title are not allowed");
+            IGame game2 = new Game("newGame.iso", Console.ConsoleName);
+            Assert.IsFalse(Console.AddGame(game1), "Verify that dupliate games with the same title are not allowed");
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace UnitTests
         {
             //Attempt to add another game with the same filename and verify that duplicates are not allowed
             IGame game = new Game("newGame.bin", "differentConsole");
-            Assert.IsFalse(console.AddGame(game), "Verify that adding a game to an incorrect console is not allowed");
+            Assert.IsFalse(Console.AddGame(game), "Verify that adding a game to an incorrect console is not allowed");
         }
     }
 }

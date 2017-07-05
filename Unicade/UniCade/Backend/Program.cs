@@ -147,6 +147,10 @@ namespace UniCade
             TotalGameCount = 0;
             ConsoleList = new List<IConsole>();
             UserList = new List<IUser>();
+            IUser UniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
+            UserList.Add(UniCadeUser);
+            Program.CurrentUser = UniCadeUser;
+
         }
 
         /// <summary>

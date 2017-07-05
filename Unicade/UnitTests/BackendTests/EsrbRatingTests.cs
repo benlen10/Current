@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics;
 using UniCade;
 using UniCade.Constants;
 
@@ -44,7 +45,7 @@ namespace UnitTests
 
             //Create a new console and add it to the database
             Console = new UniCade.Console("newConsole");
-            Program.ConsoleList.Add(Console);
+            Program.AddConsole(Console);
         }
 
 
@@ -81,13 +82,13 @@ namespace UnitTests
                 EsrbRating = Enums.ESRB.AO
             };
 
-            IGame gameRatedRP = new Game("game5.bin", Console.ConsoleName)
+            IGame gameRatedNone = new Game("game5.bin", Console.ConsoleName)
             {
                 EsrbRating = Enums.ESRB.Null
             };
 
 
-            //Set the global ESRB restriction to everyone
+            //Set the global ESRB restriction to Everyone
             Program.RestrictGlobalESRB = Enums.ESRB.Everyone;
 
             //Verify that a game rated Everyone can be launched properly when the global rating is set to Everyone
@@ -96,6 +97,41 @@ namespace UnitTests
             //Verify that a game rated Everyone 10+ is restricted when global rating is set to Everyone
             Assert.IsTrue(FileOps.Launch(gameRatedE10).Contains("ESRB"), "Verify that a game rated Everyone 10+ is restricted when global rating is set to Everyone");
 
+            //Set the global ESRB restriction to Everyone 10+
+            Program.RestrictGlobalESRB = Enums.ESRB.Everyone10;
+
+            //Verify that a game rated Everyone 10+ can be launched properly when the global rating is set to Everyone 10+
+            Assert.IsFalse(FileOps.Launch(gameRatedE10).Contains("ESRB"), "Verify that a game rated Everyone 10+ can be launched properly when the global rating is set to Everyone 10+");
+
+            //Verify that a game rated Teen is restricted when global rating is set to Everyone 10+
+            Assert.IsTrue(FileOps.Launch(gameRatedT).Contains("ESRB"), "Verify that a game rated Teen is restricted when global rating is set to Everyone 10+");
+
+            //Set the global ESRB restriction to Teen
+            Program.RestrictGlobalESRB = Enums.ESRB.Teen;
+
+            //Verify that a game rated Teen can be launched properly when the global rating is set to Teen
+            Assert.IsFalse(FileOps.Launch(gameRatedT).Contains("ESRB"), "Verify that a game rated Teen can be launched properly when the global rating is set to Teen");
+
+            //Verify that a game rated Mature is restricted when global rating is set to Teen
+            Assert.IsTrue(FileOps.Launch(gameRatedM).Contains("ESRB"), "Verify that a game rated Mature is restricted when global rating is set to Teen");
+
+            //Set the global ESRB restriction to Mature
+            Program.RestrictGlobalESRB = Enums.ESRB.Mature;
+
+            //Verify that a game rated Mature can be launched properly when the global rating is set to Mature
+            Assert.IsFalse(FileOps.Launch(gameRatedM).Contains("ESRB"), "Verify that a game rated Mature can be launched properly when the global rating is set to Mature");
+
+            //Verify that a game rated AO is restricted when global rating is set to Mature
+            Assert.IsTrue(FileOps.Launch(gameRatedAO).Contains("ESRB"), "Verify that a game rated AO is restricted when global rating is set to Mature");
+
+            //Set the global ESRB restriction to AO
+            Program.RestrictGlobalESRB = Enums.ESRB.AO;
+
+            //Verify that a game rated Mature can be launched properly when the global rating is set to AO
+            Assert.IsFalse(FileOps.Launch(gameRatedM).Contains("ESRB"), "Verify that a game rated Mature can be launched properly when the global rating is set to AO");
+
+            //Verify that a game rated AO can be launched properly when the global rating is set to AO
+            Assert.IsFalse(FileOps.Launch(gameRatedAO).Contains("ESRB"), "Verify that a game rated AO can be launched properly when the global rating is set to AO");
         }
 
         /// <summary>
