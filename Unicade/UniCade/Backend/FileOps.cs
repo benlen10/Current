@@ -468,26 +468,25 @@ namespace UniCade
         /// </summary>
         public static string Launch(IGame game)
         {
+            if(game == null)
+            {
+                return "Error: Game is Null";
+            }
             if (Program.CurrentUser.AllowedEsrb> 0)
             {
                 if (game.EsrbRating > Program.CurrentUser.AllowedEsrb)
                 {
-                    ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted for" + Program.CurrentUser.Username);
                     return ("ESRB " + game.EsrbRating + " Is Restricted for" + Program.CurrentUser.Username);
                 }
             }
 
-            else if (Program.RestrictGlobalESRB > 0)
+            if (Program.RestrictGlobalESRB > 0)
             {
                 if (game.EsrbRating > Program.RestrictGlobalESRB)
                 {
-                    ShowNotification("NOTICE", "ESRB " + game.EsrbRating + " Is Restricted\n");
                     return ("ESRB " + game.EsrbRating + " Is Restricted\n");
                 }
             }
-
-            game.LaunchCount++;
-            Program.CurrentUser.TotalLaunchCount++;
             CurrentProcess = new Process();
 
             //Fetch the console object
@@ -497,7 +496,6 @@ namespace UniCade
             string testGamePath = (console.RomPath + game.FileName);
             if (!File.Exists(testGamePath))
             {
-                ShowNotification("System", "ROM does not exist. Launch Failed");
                 return ("ROM does not exist. Launch Failed");
             }
             string args = "";
@@ -524,13 +522,13 @@ namespace UniCade
             {
                 if (!File.Exists(console.EmulatorPath))
                 {
-                    ShowNotification("System", "Emulator does not exist. Launch Failed");
                     return "Emulator does not exist. Launch Failed";
                 }
                 CurrentProcess.StartInfo.FileName = console.EmulatorPath;
                 CurrentProcess.StartInfo.Arguments = args;
             }
-            ShowNotification("System", "Loading ROM File");
+            game.LaunchCount++;
+            Program.CurrentUser.TotalLaunchCount++;
             CurrentProcess.Start();
             IsProcessActive = true;
             MainWindow.IsGameRunning = true;

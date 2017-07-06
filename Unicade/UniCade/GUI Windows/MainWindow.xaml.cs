@@ -629,7 +629,11 @@ namespace UniCade
                 {
                     //If the specified game is found, launch the game and return
                     Task.Delay(3000);
-                    FileOps.Launch(game);
+                    string result = FileOps.Launch(game);
+                    if(!result.Equals("Launch Successful"))
+                    {
+                        ShowNotification("Error", result);
+                    }
                     return;
                 }
             }

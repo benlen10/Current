@@ -220,7 +220,11 @@ namespace UniCade.ConsoleInterface
                     IGame game = console.GameList.Find(g => input.Equals(g.Title));
                     if (game != null)
                     {
-                        FileOps.Launch(game);
+                        string result = FileOps.Launch(game);
+                        if(result.Equals("Launch Successful"))
+                        {
+                            System.Console.WriteLine("Notification: ", result);
+                        }
                     }
                     else
                     {
