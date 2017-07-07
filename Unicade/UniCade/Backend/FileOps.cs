@@ -484,7 +484,7 @@ namespace UniCade
             {
                 if (game.EsrbRating > Program.RestrictGlobalESRB)
                 {
-                    return ("ESRB " + game.EsrbRating + " Is Restricted\n");
+                    return ("ESRB " + game.EsrbRating + " Is Restricted globally\n");
                 }
             }
             CurrentProcess = new Process();

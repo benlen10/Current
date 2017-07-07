@@ -141,6 +141,82 @@ namespace UnitTests
         [Priority(1)]
         public void VerifyUserEsrbRestrictions()
         {
+            //Create a new game for each rating
+            IGame gameRatedE = new Game("game1.bin", Console.ConsoleName)
+            {
+                EsrbRating = Enums.ESRB.Everyone
+            };
+
+            IGame gameRatedE10 = new Game("game2.bin", Console.ConsoleName)
+            {
+                EsrbRating = Enums.ESRB.Everyone10
+            };
+
+            IGame gameRatedT = new Game("game3.bin", Console.ConsoleName)
+            {
+                EsrbRating = Enums.ESRB.Teen
+            };
+
+            IGame gameRatedM = new Game("game4.bin", Console.ConsoleName)
+            {
+                EsrbRating = Enums.ESRB.Mature
+            };
+
+            IGame gameRatedAO = new Game("game5.bin", Console.ConsoleName)
+            {
+                EsrbRating = Enums.ESRB.AO
+            };
+
+            IGame gameRatedNone = new Game("game5.bin", Console.ConsoleName)
+            {
+                EsrbRating = Enums.ESRB.Null
+            };
+
+
+            //Set the user ESRB restriction to Everyone
+            Program.CurrentUser.AllowedEsrb = Enums.ESRB.Everyone;
+
+            //Verify that a game rated Everyone can be launched properly when the user rating is set to Everyone
+            Assert.IsFalse(FileOps.Launch(gameRatedE).Contains("ESRB"), "Verify that a game rated Everyone can be launched properly when the user rating is set to Everyone");
+
+            //Verify that a game rated Everyone 10+ is restricted when user rating is set to Everyone
+            Assert.IsTrue(FileOps.Launch(gameRatedE10).Contains("ESRB"), "Verify that a game rated Everyone 10+ is restricted when user rating is set to Everyone");
+
+            //Set the user ESRB restriction to Everyone 10+
+            Program.CurrentUser.AllowedEsrb = Enums.ESRB.Everyone10;
+
+            //Verify that a game rated Everyone 10+ can be launched properly when the user rating is set to Everyone 10+
+            Assert.IsFalse(FileOps.Launch(gameRatedE10).Contains("ESRB"), "Verify that a game rated Everyone 10+ can be launched properly when the user rating is set to Everyone 10+");
+
+            //Verify that a game rated Teen is restricted when user rating is set to Everyone 10+
+            Assert.IsTrue(FileOps.Launch(gameRatedT).Contains("ESRB"), "Verify that a game rated Teen is restricted when user rating is set to Everyone 10+");
+
+            //Set the user ESRB restriction to Teen
+            Program.CurrentUser.AllowedEsrb = Enums.ESRB.Teen;
+
+            //Verify that a game rated Teen can be launched properly when the user rating is set to Teen
+            Assert.IsFalse(FileOps.Launch(gameRatedT).Contains("ESRB"), "Verify that a game rated Teen can be launched properly when the user rating is set to Teen");
+
+            //Verify that a game rated Mature is restricted when user rating is set to Teen
+            Assert.IsTrue(FileOps.Launch(gameRatedM).Contains("ESRB"), "Verify that a game rated Mature is restricted when user rating is set to Teen");
+
+            //Set the user ESRB restriction to Mature
+            Program.CurrentUser.AllowedEsrb = Enums.ESRB.Mature;
+
+            //Verify that a game rated Mature can be launched properly when the user rating is set to Mature
+            Assert.IsFalse(FileOps.Launch(gameRatedM).Contains("ESRB"), "Verify that a game rated Mature can be launched properly when the user rating is set to Mature");
+
+            //Verify that a game rated AO is restricted when user rating is set to Mature
+            Assert.IsTrue(FileOps.Launch(gameRatedAO).Contains("ESRB"), "Verify that a game rated AO is restricted when user rating is set to Mature");
+
+            //Set the user ESRB restriction to AO
+            Program.CurrentUser.AllowedEsrb = Enums.ESRB.AO;
+
+            //Verify that a game rated Mature can be launched properly when the user rating is set to AO
+            Assert.IsFalse(FileOps.Launch(gameRatedM).Contains("ESRB"), "Verify that a game rated Mature can be launched properly when the user rating is set to AO");
+
+            //Verify that a game rated AO can be launched properly when the user rating is set to AO
+            Assert.IsFalse(FileOps.Launch(gameRatedAO).Contains("ESRB"), "Verify that a game rated AO can be launched properly when the user rating is set to AO");
         }
 
 
