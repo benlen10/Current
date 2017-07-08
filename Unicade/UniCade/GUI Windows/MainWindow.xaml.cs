@@ -608,19 +608,6 @@ namespace UniCade
         /// </summary>
         private void LaunchGame()
         {
-            if (PayPerPlay.PayPerPlayEnabled == true)
-            {
-                if (PayPerPlay.CoinsRequired > 0)
-                {
-                    if (PayPerPlay.CurrentCoins < PayPerPlay.CoinsRequired) { 
-                        ShowNotification("Pay Per Play", "Please Insert Coins");
-                        return;
-                    }
-                }
-            }
-
-            PayPerPlay.CurrentCoins = PayPerPlay.CurrentCoins - PayPerPlay.CoinsRequired;
-                    DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + PayPerPlay.CurrentCoins);
 
             //Search for the selected game title within the game library
             foreach (IGame game in CurrentConsole.GameList)
@@ -762,7 +749,7 @@ namespace UniCade
         /// <summary>
         /// Display a fide payPerPlay notification within the main GUI
         /// </summary>
-        private void DisplayPayNotification(String s)
+        public void DisplayPayNotification(String s)
         {
             label2.Content = s;
         }

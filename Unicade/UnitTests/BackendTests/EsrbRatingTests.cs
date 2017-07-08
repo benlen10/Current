@@ -135,7 +135,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Verify that adding a game to an incorrect console is not allowed
+        /// Verify that user specific ESRB Content restrictions properly restrict game launches
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -171,7 +171,6 @@ namespace UnitTests
             {
                 EsrbRating = Enums.ESRB.Null
             };
-
 
             //Set the user ESRB restriction to Everyone
             Program.CurrentUser.AllowedEsrb = Enums.ESRB.Everyone;
@@ -219,7 +218,43 @@ namespace UnitTests
             Assert.IsFalse(FileOps.Launch(gameRatedAO).Contains("ESRB"), "Verify that a game rated AO can be launched properly when the user rating is set to AO");
         }
 
+        /// <summary>
+        /// Verify that games with a Null/empty ESRB rating are allowed to be launched regardless of rating restriction
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyNullLaunchRestriction()
+        {
 
+            //Set the global ESRB restriction to null
+            Program.RestrictGlobalESRB = Enums.ESRB.Null;
 
+            //Loop through each esrb rating and the game can be launched
+            foreach (Enums.ESRB esrb in Enum.GetValues(typeof(Enums.ESRB)))
+            {
+                IGame game = new Game("game.bin", Console.ConsoleName)
+                {
+                    EsrbRating = esrb
+                };
+
+                //Verify that the game can be launched when the global rating is set to null
+                Assert.IsFalse(FileOps.Launch(game).Contains("ESRB"), String.Format("Verify that a game rated {0} can be launched properly when the user rating is set to Null", esrb.GetStringValue()));
+            }
+
+            //Set the current user ESRB restriction to null
+            Program.CurrentUser.AllowedEsrb = Enums.ESRB.Null;
+
+            //Loop through each esrb rating and the game can be launched
+            foreach (Enums.ESRB esrb in Enum.GetValues(typeof(Enums.ESRB)))
+            {
+                IGame game = new Game("game.bin", Console.ConsoleName)
+                {
+                    EsrbRating = esrb
+                };
+
+                //Verify that the game can be launched when the global rating is set to null
+                Assert.IsFalse(FileOps.Launch(game).Contains("ESRB"), String.Format("Verify that a game rated {0} can be launched properly when the user rating is set to Null", esrb.GetStringValue()));
+            }
+        }
     }
 }
