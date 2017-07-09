@@ -8,6 +8,8 @@ namespace UniCade.Backend
 {
     class PayPerPlay
     {
+#region Properties
+
         /// <summary>
         /// Specifies is PayPerPlay is enforced
         /// </summary>
@@ -27,5 +29,20 @@ namespace UniCade.Backend
         /// Speficies the allowed amount of playtime if PayPerPlay is enabled
         /// </summary>
         public static int Playtime;
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Upon a sucuessful launch method, this method will decrement the current coin count
+        /// by the number of coins required for a launch
+        /// </summary>
+        public static void DecrementCoins()
+        {
+            CurrentCoins = CurrentCoins - CoinsRequired;
+        }
+
+#endregion
     }
 }

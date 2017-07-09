@@ -470,7 +470,7 @@ namespace UniCade
         {
             if(game == null)
             {
-                return "Error: Game is Null";
+                return "Launch Error: Game is NULL";
             }
             if (Program.CurrentUser.AllowedEsrb> 0)
             {
@@ -487,7 +487,6 @@ namespace UniCade
                     return ("ESRB " + game.EsrbRating + " Is Restricted globally\n");
                 }
             }
-            CurrentProcess = new Process();
 
             //Fetch the console object
             IConsole console = Program.ConsoleList.Find(e => e.ConsoleName.Equals(game.ConsoleName));
@@ -507,8 +506,7 @@ namespace UniCade
             {
                 args = console.LaunchParams.Replace("%file", gamePath);
             }
-            CurrentProcess.EnableRaisingEvents = true;
-            CurrentProcess.Exited += new EventHandler(ProcessExited);
+
             if (console.ConsoleName.Equals("PC"))
             {
                 CurrentProcess.StartInfo.FileName = args;
@@ -527,6 +525,28 @@ namespace UniCade
                 CurrentProcess.StartInfo.FileName = console.EmulatorPath;
                 CurrentProcess.StartInfo.Arguments = args;
             }
+
+
+
+            if (PayPerPlay.PayPerPlayEnabled == true)
+            {
+                if (PayPerPlay.CoinsRequired > 0)
+                {
+                    if (PayPerPlay.CurrentCoins < PayPerPlay.CoinsRequired)
+                    {
+                        return "Pay Per Play Active: Please Insert Coins";
+                    }
+                    else
+                    {
+                        PayPerPlay.DecrementCoins();
+                    }
+                }
+            }
+
+            CurrentProcess = new Process();
+            CurrentProcess.EnableRaisingEvents = true;
+            CurrentProcess.Exited += new EventHandler(ProcessExited);
+
             game.LaunchCount++;
             Program.CurrentUser.TotalLaunchCount++;
             CurrentProcess.Start();

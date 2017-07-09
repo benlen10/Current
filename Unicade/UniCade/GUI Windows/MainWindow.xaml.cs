@@ -282,7 +282,7 @@ namespace UniCade
                     }
                 }
                 //If the game library window is active, add or remove the current game selection from global favorites
-                else if (e.KeyCode == Keys.G)  
+                else if (e.KeyCode == Keys.G)
                 {
                     if (IsGameSelectionPageActive)
                     {
@@ -305,7 +305,7 @@ namespace UniCade
                     }
                 }
                 //If the game library window is active, toggle the favorites filter view
-                else if (e.KeyCode == Keys.F)  
+                else if (e.KeyCode == Keys.F)
                 {
                     if (IsGameSelectionPageActive)
                     {
@@ -384,7 +384,7 @@ namespace UniCade
             }
 
             //Close the current window unless you are already on the home page
-            if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))  
+            if ((e.KeyCode == Keys.Escape) || (e.KeyCode == Keys.Delete) || (e.KeyCode == Keys.Back))
             {
                 if (IsInfoWindowActive)
                 {
@@ -394,7 +394,7 @@ namespace UniCade
                 else
                 {
                     //Close Game Selection window
-                    listBox.Visibility = Visibility.Hidden;  
+                    listBox.Visibility = Visibility.Hidden;
                     image2.Visibility = Visibility.Hidden;
                     label1.Visibility = Visibility.Hidden;
                     image.Visibility = Visibility.Visible;
@@ -407,7 +407,7 @@ namespace UniCade
             }
 
             // Insert coin
-            else if (e.KeyCode == Keys.Tab)  
+            else if (e.KeyCode == Keys.Tab)
             {
                 PayPerPlay.CoinsRequired++;
                 if (PayPerPlay.PayPerPlayEnabled == true)
@@ -594,7 +594,7 @@ namespace UniCade
             }
 
             listBox.Visibility = Visibility.Visible;
-            if (listBox.Items.Count > 0)               
+            if (listBox.Items.Count > 0)
             {
                 listBox.SelectedIndex = 0;
                 ListBoxItem item = (ListBoxItem)listBox.ItemContainerGenerator.ContainerFromIndex(0);
@@ -610,19 +610,17 @@ namespace UniCade
         {
 
             //Search for the selected game title within the game library
-            foreach (IGame game in CurrentConsole.GameList)
+            IGame game = CurrentConsole.GameList.Find(g => g.Title.Equals(listBox.SelectedItem.ToString()));
+
+            //If the specified game is found, launch the game and return
+            string result = FileOps.Launch(game);
+            if (!result.Equals("Launch Successful"))
             {
-                if (listBox.SelectedItem.ToString().Equals(game.Title))
-                {
-                    //If the specified game is found, launch the game and return
-                    Task.Delay(3000);
-                    string result = FileOps.Launch(game);
-                    if(!result.Equals("Launch Successful"))
-                    {
-                        ShowNotification("Error", result);
-                    }
-                    return;
-                }
+                ShowNotification("Error", result);
+            }
+            if (PayPerPlay.PayPerPlayEnabled)
+            {
+                DisplayPayNotification("(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + PayPerPlay.CurrentCoins);
             }
         }
 
