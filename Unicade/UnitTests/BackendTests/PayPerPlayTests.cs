@@ -70,6 +70,16 @@ namespace UnitTests.Backend_Tests
         {
             //Enable PayPerPlay
             PayPerPlay.PayPerPlayEnabled = true;
+            PayPerPlay.CoinsRequired = 2;
+            PayPerPlay.CurrentCoins = 0;
+
+            //Attempt to launch a game without inserting any coins and verify that the launch is restricted
+            string result = FileOps.Launch(Game);
+            Assert.IsTrue(result.Contains("Pay"), "Verify that the game cannot be launched if not enough coins are inserted");
+
+            //Insert 4 coins and attempt to launch the game again
+            PayPerPlay.CurrentCoins = 4;
+            Assert.IsFalse(FileOps.Launch(Game).Contains("Pay"), "Verify that the game can be launched if enough coins are inserted");
         }
     }
 }

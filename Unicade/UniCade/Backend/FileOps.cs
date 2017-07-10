@@ -488,6 +488,18 @@ namespace UniCade
                 }
             }
 
+            if ((PayPerPlay.PayPerPlayEnabled == true) && (PayPerPlay.CoinsRequired > 0))
+            {
+                    if (PayPerPlay.CurrentCoins < PayPerPlay.CoinsRequired)
+                    {
+                        return "Pay Per Play Active: Please Insert Coins";
+                    }
+                    else
+                    {
+                        PayPerPlay.DecrementCoins();
+                    }
+            }
+
             //Fetch the console object
             IConsole console = Program.ConsoleList.Find(e => e.ConsoleName.Equals(game.ConsoleName));
 
@@ -524,23 +536,6 @@ namespace UniCade
                 }
                 CurrentProcess.StartInfo.FileName = console.EmulatorPath;
                 CurrentProcess.StartInfo.Arguments = args;
-            }
-
-
-
-            if (PayPerPlay.PayPerPlayEnabled == true)
-            {
-                if (PayPerPlay.CoinsRequired > 0)
-                {
-                    if (PayPerPlay.CurrentCoins < PayPerPlay.CoinsRequired)
-                    {
-                        return "Pay Per Play Active: Please Insert Coins";
-                    }
-                    else
-                    {
-                        PayPerPlay.DecrementCoins();
-                    }
-                }
             }
 
             CurrentProcess = new Process();
