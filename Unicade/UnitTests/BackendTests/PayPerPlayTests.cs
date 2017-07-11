@@ -68,7 +68,7 @@ namespace UnitTests.Backend_Tests
         [Priority(1)]
         public void VerifyPayPerPlayLaunchRestrictions()
         {
-            //Enable PayPerPlay
+            //Enable PayPerPlay and set coin counts
             PayPerPlay.PayPerPlayEnabled = true;
             PayPerPlay.CoinsRequired = 2;
             PayPerPlay.CurrentCoins = 0;
@@ -80,6 +80,35 @@ namespace UnitTests.Backend_Tests
             //Insert 4 coins and attempt to launch the game again
             PayPerPlay.CurrentCoins = 4;
             Assert.IsFalse(FileOps.Launch(Game).Contains("Pay"), "Verify that the game can be launched if enough coins are inserted");
+
+            //Set the required coin count and current coins to zero
+            PayPerPlay.CoinsRequired = 0;
+            PayPerPlay.CurrentCoins = 0;
+
+            //Verify that a game can be launched if the required coins = 0 even if no coins are currently inserted 
+            Assert.IsFalse(FileOps.Launch(Game).Contains("Pay"), "Verify that a game can be launched if the required coins = 0 even if no coins are currently inserted ");
+        }
+
+        /// <summary>
+        /// Verify that PayPerPlay properly restricts game launches when enabled
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyPayPerPlayCoinCounts()
+        {
+            //Enable PayPerPlay and set counts 
+            PayPerPlay.PayPerPlayEnabled = true;
+            PayPerPlay.CoinsRequired = 2;
+            PayPerPlay.CurrentCoins = 8;
+            int originalCoinCount = PayPerPlay.CurrentCoins;
+
+            //Verify that the current count is not decemented on an unsucuessful launch (ROM file not found)
+            FileOps.Launch(Game);
+            Assert.IsTrue(originalCoinCount == PayPerPlay.CurrentCoins, "Verify that the current count is not decemented on an unsucuessful launch (ROM file not found)");
+
+            //Verify that the DecrementCoins method properly decrements the coin count
+            PayPerPlay.DecrementCoins();
+            Assert.IsTrue(PayPerPlay.CurrentCoins == (originalCoinCount - PayPerPlay.CoinsRequired), "Verify that the DecrementCoins method properly decrements the coin count");
         }
     }
 }

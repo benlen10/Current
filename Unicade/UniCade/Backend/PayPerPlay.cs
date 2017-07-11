@@ -8,7 +8,7 @@ namespace UniCade.Backend
 {
     class PayPerPlay
     {
-#region Properties
+        #region Properties
 
         /// <summary>
         /// Specifies is PayPerPlay is enforced
@@ -38,11 +38,16 @@ namespace UniCade.Backend
         /// Upon a sucuessful launch method, this method will decrement the current coin count
         /// by the number of coins required for a launch
         /// </summary>
-        public static void DecrementCoins()
+        public static bool DecrementCoins()
         {
-            CurrentCoins = CurrentCoins - CoinsRequired;
+            if ((CurrentCoins - CoinsRequired) >= 0)
+            {
+                CurrentCoins = CurrentCoins - CoinsRequired;
+                return true;
+            }
+            return false;
         }
 
-#endregion
+        #endregion
     }
 }

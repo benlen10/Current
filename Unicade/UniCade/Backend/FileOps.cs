@@ -494,10 +494,6 @@ namespace UniCade
                     {
                         return "Pay Per Play Active: Please Insert Coins";
                     }
-                    else
-                    {
-                        PayPerPlay.DecrementCoins();
-                    }
             }
 
             //Fetch the console object
@@ -542,7 +538,13 @@ namespace UniCade
             CurrentProcess.EnableRaisingEvents = true;
             CurrentProcess.Exited += new EventHandler(ProcessExited);
 
-            game.LaunchCount++;
+            //Only decrement coin count on a sucuessful launch
+            if ((PayPerPlay.PayPerPlayEnabled == true) && (PayPerPlay.CoinsRequired > 0))
+            {
+                    PayPerPlay.DecrementCoins();
+            }
+
+                game.LaunchCount++;
             Program.CurrentUser.TotalLaunchCount++;
             CurrentProcess.Start();
             IsProcessActive = true;
