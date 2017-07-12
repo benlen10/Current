@@ -171,57 +171,57 @@ namespace UniCade.Windows
             GlobalTab_Textbox_ROMDirectory.Text = Program.RomPath;
 
             //Check specified boxes under the Web tab
-            if (WebOps.ReleaseDate > 0)
+            if (WebOps.ParseReleaseDate > 0)
             {
                 WebTab_Checkbox_ReleaseDate.IsChecked = true;
             }
 
-            if (WebOps.CriticScore > 0)
+            if (WebOps.ParseCriticScore > 0)
             {
                 WebTab_Checkbox_CriticScore.IsChecked = true;
             }
 
-            if (WebOps.Publisher > 0)
+            if (WebOps.ParsePublisher > 0)
             {
                 WebTab_Checkbox_Publisher.IsChecked = true;
             }
 
-            if (WebOps.Developer > 0)
+            if (WebOps.ParseDeveloper > 0)
             {
                 WebTab_Checkbox_Developer.IsChecked = true;
             }
 
-            if (WebOps.EsrbRating > 0)
+            if (WebOps.ParseEsrbRating > 0)
             {
                 WebTab_Checkbox_ESRBRating.IsChecked = true;
             }
 
-            if (WebOps.EsrbDescriptor > 0)
+            if (WebOps.ParseEsrbDescriptors > 0)
             {
                 WebTab_Checkbox_ESRBDescriptor.IsChecked = true;
             }
 
-            if (WebOps.PlayerCount > 0)
+            if (WebOps.ParsePlayerCount > 0)
             {
                 WebTab_Checkbox_Players.IsChecked = true;
             }
 
-            if (WebOps.Description > 0)
+            if (WebOps.ParseDescription > 0)
             {
                 WebTab_Checkbox_Description.IsChecked = true;
             }
 
-            if (WebOps.BoxFrontImage > 0)
+            if (WebOps.ParseBoxFrontImage > 0)
             {
                 WebTab_Checkbox_BoxFront.IsChecked = true;
             }
 
-            if (WebOps.BoxBackImage > 0)
+            if (WebOps.ParseBoxBackImage > 0)
             {
                 WebTab_Checkbox_BoxBack.IsChecked = true;
             }
 
-            if (WebOps.Screenshot > 0)
+            if (WebOps.ParseScreenshot > 0)
             {
                 WebTab_Checkbox_Screenshot.IsChecked = true;
             }
@@ -1299,11 +1299,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_ReleaseDate.IsChecked.Value == true)
             {
-                WebOps.ReleaseDate = 1;
+                WebOps.ParseReleaseDate = 1;
             }
             else
             {
-                WebOps.ReleaseDate = 0;
+                WebOps.ParseReleaseDate = 0;
             }
         }
 
@@ -1314,11 +1314,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_CriticScore.IsChecked.Value == true)
             {
-                WebOps.CriticScore = 1;
+                WebOps.ParseCriticScore = 1;
             }
             else
             {
-                WebOps.CriticScore = 0;
+                WebOps.ParseCriticScore = 0;
             }
         }
 
@@ -1329,11 +1329,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_Publisher.IsChecked.Value == true)
             {
-                WebOps.Publisher = 1;
+                WebOps.ParsePublisher = 1;
             }
             else
             {
-                WebOps.Publisher = 0;
+                WebOps.ParsePublisher = 0;
             }
         }
 
@@ -1344,11 +1344,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_Developer.IsChecked.Value == true)
             {
-                WebOps.Developer = 1;
+                WebOps.ParseDeveloper = 1;
             }
             else
             {
-                WebOps.Developer = 0;
+                WebOps.ParseDeveloper = 0;
             }
         }
 
@@ -1359,11 +1359,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_ESRBRating.IsChecked.Value == true)
             {
-                WebOps.EsrbRating = 1;
+                WebOps.ParseEsrbRating = 1;
             }
             else
             {
-                WebOps.EsrbRating = 0;
+                WebOps.ParseEsrbRating = 0;
             }
         }
 
@@ -1374,11 +1374,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_ESRBDescriptor.IsChecked.Value == true)
             {
-                WebOps.Description = 1;
+                WebOps.ParseDescription = 1;
             }
             else
             {
-                WebOps.Description = 0;
+                WebOps.ParseDescription = 0;
             }
         }
 
@@ -1389,11 +1389,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_Players.IsChecked.Value == true)
             {
-                WebOps.PlayerCount = 1;
+                WebOps.ParsePlayerCount = 1;
             }
             else
             {
-                WebOps.PlayerCount = 0;
+                WebOps.ParsePlayerCount = 0;
             }
         }
 
@@ -1404,11 +1404,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_ESRBDescriptor.IsChecked.Value == true)
             {
-                WebOps.Description = 1;
+                WebOps.ParseDescription = 1;
             }
             else
             {
-                WebOps.Description = 0;
+                WebOps.ParseDescription = 0;
             }
         }
 
@@ -1419,11 +1419,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_BoxFront.IsChecked.Value == true)
             {
-                WebOps.BoxFrontImage = 1;
+                WebOps.ParseBoxFrontImage = 1;
             }
             else
             {
-                WebOps.BoxFrontImage = 0;
+                WebOps.ParseBoxFrontImage = 0;
             }
         }
 
@@ -1434,11 +1434,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_BoxBack.IsChecked.Value == true)
             {
-                WebOps.BoxBackImage = 1;
+                WebOps.ParseBoxBackImage = 1;
             }
             else
             {
-                WebOps.BoxBackImage = 0;
+                WebOps.ParseBoxBackImage = 0;
             }
         }
 
@@ -1449,11 +1449,11 @@ namespace UniCade.Windows
         {
             if (WebTab_Checkbox_Screenshot.IsChecked.Value == true)
             {
-                WebOps.Screenshot = 1;
+                WebOps.ParseScreenshot = 1;
             }
             else
             {
-                WebOps.Screenshot = 0;
+                WebOps.ParseScreenshot = 0;
             }
         }
 

@@ -23,57 +23,57 @@ namespace UniCade
         /// <summary>
         /// Specifies if the publisher will be scraped
         /// </summary>
-        public static int Publisher = 1;
+        public static int ParsePublisher = 1;
 
         /// <summary>
         /// Specifies if the critic score will be scraped
         /// </summary>
-        public static int CriticScore = 1;
+        public static int ParseCriticScore = 1;
 
         /// <summary>
         /// Specifies if the developer will be scraped
         /// </summary>
-        public static int Developer = 1;
+        public static int ParseDeveloper = 1;
 
         /// <summary>
         /// Specifies if the description will be scraped
         /// </summary>
-        public static int Description = 1;
+        public static int ParseDescription = 1;
 
         /// <summary>
         /// Specifies if the ESRB rating will be scraped
         /// </summary>
-        public static int EsrbRating = 1;
+        public static int ParseEsrbRating = 1;
 
         /// <summary>
         /// Specifies if the ESRB descriptor will be scraped
         /// </summary>
-        public static int EsrbDescriptor = 1;
+        public static int ParseEsrbDescriptors = 1;
 
         /// <summary>
         /// Specifies if the player count will be scraped
         /// </summary>
-        public static int PlayerCount = 1;
+        public static int ParsePlayerCount = 1;
 
         /// <summary>
         /// Specifies if the release date will be scraped
         /// </summary>
-        public static int ReleaseDate = 1;
+        public static int ParseReleaseDate = 1;
 
         /// <summary>
         /// Specifies if the box front image will be scraped
         /// </summary>
-        public static int BoxFrontImage = 1;
+        public static int ParseBoxFrontImage = 1;
 
         /// <summary>
         /// Specifies if the box back image will be scraped
         /// </summary>
-        public static int BoxBackImage = 1;
+        public static int ParseBoxBackImage = 1;
 
         /// <summary>
         /// Specifies if the screenshot will be scraped
         /// </summary>
-        public static int Screenshot = 1;
+        public static int ParseScreenshot = 1;
 
         /// <summary>
         /// Specifies if the current game name will be scraped
@@ -131,17 +131,17 @@ namespace UniCade
         /// <summary>
         /// Scrape info for the specified game from Mobygames.com
         /// </summary>
-        public static bool ScrapeMobyGames(IGame g)
+        public static bool ScrapeMobyGames(IGame game)
         {
             //Check for bad input
-            if (g == null)
+            if (game == null)
             {
                 MessageBox.Show("Invalid game");
                 return false;
             }
 
             //Generate the target url and convert the game title to lower case
-            string url = ("http://www.mobygames.com/game/" + g.ConsoleName + "/" + CurrentGameName);
+            string url = ("http://www.mobygames.com/game/" + game.ConsoleName + "/" + CurrentGameName);
             url = url.ToLower();
 
             //Create a new WebClient and attempt a connection
@@ -158,7 +158,7 @@ namespace UniCade
             }
 
             //Parse ESRB rating from Mobygames
-            if (EsrbRating > 0)
+            if (ParseEsrbRating > 0)
             {
                 int indexA = html.IndexOf("ESRB");
                 if (indexA < 0)
@@ -170,86 +170,86 @@ namespace UniCade
                 //Convert the parsed text to a valid ESRB rating
                 if (s.Contains("Everyone"))
                 {
-                    g.EsrbRating = Enums.ESRB.Everyone;
+                    game.EsrbRating = Enums.ESRB.Everyone;
                 }
                 else if (s.Contains("Kids to Adults"))
                 {
-                    g.EsrbRating = Enums.ESRB.Everyone;
+                    game.EsrbRating = Enums.ESRB.Everyone;
                 }
                 else if (s.Contains("Everyone 10+"))
                 {
-                    g.EsrbRating = Enums.ESRB.Everyone10;
+                    game.EsrbRating = Enums.ESRB.Everyone10;
                 }
                 else if (s.Contains("Teen"))
                 {
-                    g.EsrbRating = Enums.ESRB.Teen;
+                    game.EsrbRating = Enums.ESRB.Teen;
                 }
                 else if (s.Contains("Mature"))
                 {
-                    g.EsrbRating = Enums.ESRB.Mature;
+                    game.EsrbRating = Enums.ESRB.Mature;
                 }
                 else if (s.Contains("Adults Only"))
                 {
-                    g.EsrbRating = Enums.ESRB.AO;
+                    game.EsrbRating = Enums.ESRB.AO;
                 }
             }
 
             //Parse Release Date
-            if (ReleaseDate > 0)
+            if (ParseReleaseDate > 0)
             {
                 //Locate the "release-info" tag within the HTML text
-                int tmp = html.IndexOf("release-info");
+                int tempCharIndex = html.IndexOf("release-info");
 
                 //If the parsed index is valid, set the game release date to the value of the parsed text
-                if (tmp > 0)
+                if (tempCharIndex > 0)
                 {
-                    int indexB = html.IndexOf("release-info", (tmp + 20));
-                    g.ReleaseDate = html.Substring((indexB + 14), 4);
+                    int indexB = html.IndexOf("release-info", (tempCharIndex + 20));
+                    game.ReleaseDate = html.Substring((indexB + 14), 4);
                 }
 
                 //Parse Critic Score
-                tmp = 0;
-                tmp = html.IndexOf("scoreHi");
+                tempCharIndex = 0;
+                tempCharIndex = html.IndexOf("scoreHi");
 
                 //If the parsed index is valid, set the critic score to the value of the parsed text
-                if (tmp > 0)
+                if (tempCharIndex > 0)
                 {
-                    string criticScore = html.Substring((tmp + 9), 2); 
-                    g.CriticReviewScore = html.Substring((tmp + 9));
+                    string criticScore = html.Substring((tempCharIndex + 9), 2); 
+                    game.CriticReviewScore = html.Substring((tempCharIndex + 9));
                 }
             }
 
             //Parse Publisher
-            if (Publisher > 0)
+            if (ParsePublisher > 0)
             {
-                int tmp = 0;
-                tmp = html.IndexOf("/company/");
+                int tempCharIndex = 0;
+                tempCharIndex = html.IndexOf("/company/");
 
                 //If the parsed index is valid, set the game company to the value of the parsed text
-                if (tmp > 0)
+                if (tempCharIndex > 0)
                 {
-                    int tmp2 = html.IndexOf("-", tmp + 10);
-                    g.PublisherName = html.Substring((tmp + 9), tmp2 - (tmp + 9));
+                    int tempCharIndex2 = html.IndexOf("-", tempCharIndex + 10);
+                    game.PublisherName = html.Substring((tempCharIndex + 9), tempCharIndex2 - (tempCharIndex + 9));
                 }
             }
 
             //Parse description
-            if (Description > 0)
+            if (ParseDescription > 0)
             {
-                int tmp = 0;
-                tmp = html.IndexOf("Description<");
+                int tempCharIndex = 0;
+                tempCharIndex = html.IndexOf("Description<");
 
                 //Locate the beginning of the game description
-                if (tmp > 0)
+                if (tempCharIndex > 0)
                 {
                     //Locate the end of the game description text
-                    int tmp2 = html.IndexOf("<div class", tmp + 15);
+                    int tempCharIndex2 = html.IndexOf("<div class", tempCharIndex + 15);
 
                     //If the parsed index is valid, set the game description to the value of the parsed text
-                    if (tmp2 > 0)
+                    if (tempCharIndex2 > 0)
                     {
                         //Remove invalid characters from the description
-                        string description = html.Substring((tmp + 16), tmp2 - (tmp + 16));
+                        string description = html.Substring((tempCharIndex + 16), tempCharIndex2 - (tempCharIndex + 16));
                         description = RemoveInvalidChars(description);
 
                         //Trim the description if it exceeds the max length
@@ -259,7 +259,7 @@ namespace UniCade
                         }
 
                         //Set the game description to the formatted string
-                        g.Description = description;
+                        game.Description = description;
                     }
                 }
             }
@@ -269,52 +269,52 @@ namespace UniCade
         /// <summary>
         /// Scrape Metacritic for info related to the specific game
         /// </summary>
-        public static bool ScrapeMetacritic(IGame g)
+        public static bool ScrapeMetacritic(IGame game)
         {
-            string metaCon = "";
+            string consoleName = "";
 
             //Convert the console to the string used by metacritic
-            if (g.ConsoleName.Equals("PS1"))
+            if (game.ConsoleName.Equals("PS1"))
             {
-                metaCon = "playstation";
+                consoleName = "playstation";
             }
-            else if (g.ConsoleName.Equals("N64"))
+            else if (game.ConsoleName.Equals("N64"))
             {
-                metaCon = "nintendo-64";
+                consoleName = "nintendo-64";
             }
-            else if (g.ConsoleName.Equals("GBA"))
+            else if (game.ConsoleName.Equals("GBA"))
             {
-                metaCon = "game-boy-advance";
+                consoleName = "game-boy-advance";
             }
-            else if (g.ConsoleName.Equals("PSP"))
+            else if (game.ConsoleName.Equals("PSP"))
             {
-                metaCon = "psp";
+                consoleName = "psp";
             }
-            else if (g.ConsoleName.Equals("Gamecube"))
+            else if (game.ConsoleName.Equals("Gamecube"))
             {
-                metaCon = "gamecube";
+                consoleName = "gamecube";
             }
-            else if (g.ConsoleName.Equals("Wii"))
+            else if (game.ConsoleName.Equals("Wii"))
             {
-                metaCon = "wii";
+                consoleName = "wii";
             }
-            else if (g.ConsoleName.Equals("NDS"))
+            else if (game.ConsoleName.Equals("NDS"))
             {
-                metaCon = "ds";
+                consoleName = "ds";
             }
-            else if (g.ConsoleName.Equals("Dreamcast"))
+            else if (game.ConsoleName.Equals("Dreamcast"))
             {
-                metaCon = "dreamcast";
+                consoleName = "dreamcast";
             }
 
             //Return false if the console is not supported
-            if (metaCon.Length < 1)
+            if (consoleName.Length < 1)
             {
                 return false;
             }
 
             //Generate the target metacritic url
-            string url = ("http://www.metacritic.com/game/" + metaCon + "/" + CurrentGameName + "/details");
+            string url = ("http://www.metacritic.com/game/" + consoleName + "/" + CurrentGameName + "/details");
             url = url.ToLower();
 
             //Generate the WebRequest from the url and set the user agent to a supported browser
@@ -337,38 +337,37 @@ namespace UniCade
                 return false;
             }
 
-
             //Parse ESRB descriptors
-            if (EsrbDescriptor > 0)
+            if (ParseEsrbDescriptors > 0)
             {
-                int tmp = 0;
-                tmp = html.IndexOf("ESRB Descriptors:");
+                int tempCharIndex = 0;
+                tempCharIndex = html.IndexOf("ESRB Descriptors:");
 
                 //If the parsed index is valid, set the ESRB rating to the value of the parsed text
-                if (tmp > 0)
+                if (tempCharIndex > 0)
                 {
                     //Locate the end of the Rating tag
-                    int tmp2 = html.IndexOf("</td>", tmp + 26);
-                    if (tmp2 > 0)
+                    int tempCharIndex2 = html.IndexOf("</td>", tempCharIndex + 26);
+                    if (tempCharIndex2 > 0)
                     {
-                        g.EsrbDescriptors = html.Substring((tmp + 26), tmp2 - (tmp + 26));
+                        game.EsrbDescriptors = html.Substring((tempCharIndex + 26), tempCharIndex2 - (tempCharIndex + 26));
                     }
                 }
             }
 
             //Parse player count (Metacritic)
-            if (PlayerCount > 0)
+            if (ParsePlayerCount > 0)
             {       
-                int tmp = 0;
-                tmp = html.IndexOf("Players");
+                int tempCharIndex = 0;
+                tempCharIndex = html.IndexOf("Players");
 
                 //If the parsed index is valid, set the player count to the value of the parsed text
-                if (tmp > 0)
+                if (tempCharIndex > 0)
                 {
-                    int tmp2 = html.IndexOf("<", tmp + 17);
-                    if (tmp2 > 0)
+                    int tempCharIndex2 = html.IndexOf("<", tempCharIndex + 17);
+                    if (tempCharIndex2 > 0)
                     {
-                        g.PlayerCount = html.Substring((tmp + 17), tmp2 - (tmp + 17));
+                        game.PlayerCount = html.Substring((tempCharIndex + 17), tempCharIndex2 - (tempCharIndex + 17));
                     }
                 }
             }
