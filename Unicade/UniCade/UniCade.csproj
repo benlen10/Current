@@ -110,6 +110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Backend\Database.cs" />
     <Compile Include="Backend\LicenseEngine.cs" />
     <Compile Include="Backend\PayPerPlay.cs" />
     <Compile Include="ConsoleInterface\UniCadeCmd.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using UniCade.Backend;
 
 namespace UniCade.ConsoleInterface
 {
@@ -72,7 +73,7 @@ namespace UniCade.ConsoleInterface
                 System.Console.WriteLine("Available Consoles: ");
 
                 //Print all available consoles
-                Program.ConsoleList.ForEach(c => System.Console.WriteLine(c.ConsoleName));
+                Database.ConsoleList.ForEach(c => System.Console.WriteLine(c.ConsoleName));
 
                 //Fetch user input
                 string input = System.Console.ReadLine();
@@ -96,7 +97,7 @@ namespace UniCade.ConsoleInterface
                 //(i) = Console Info
                 else if (input.Contains("(i)"))
                 {
-                    foreach (IConsole console in Program.ConsoleList)
+                    foreach (IConsole console in Database.ConsoleList)
                     {
                         if (input.Contains(console.ConsoleName))
                         {
@@ -107,7 +108,7 @@ namespace UniCade.ConsoleInterface
                 //If no modifiers are provided, display the game list for the console
                 else
                 {
-                    IConsole console = Program.ConsoleList.Find(c => c.ConsoleName.Equals(input));
+                    IConsole console = Database.ConsoleList.Find(c => c.ConsoleName.Equals(input));
                     if (console != null)
                     {
                         DisplayGameList(console);
@@ -288,7 +289,7 @@ namespace UniCade.ConsoleInterface
         private static void SwitchUser()
         {
             System.Console.WriteLine("Available Users");
-            Program.UserList.ForEach(u => System.Console.WriteLine(u.Username));
+            Database.UserList.ForEach(u => System.Console.WriteLine(u.Username));
             System.Console.Write("\n");
 
             while (true)
@@ -301,7 +302,7 @@ namespace UniCade.ConsoleInterface
                 }
 
                 //Attempt to fetch the user with the matching username
-                IUser user = Program.UserList.Find(u => u.Username.Equals(userName));
+                IUser user = Database.UserList.Find(u => u.Username.Equals(userName));
                 if (user != null)
                 {
                     while (true)
@@ -315,8 +316,8 @@ namespace UniCade.ConsoleInterface
                         if (ps.Equals(user.GetUserPassword()))
                         {
                             System.Console.WriteLine("Password Accepted");
-                            Program.CurrentUser = user;
-                            Program.CurrentUser.LoginCount++;
+                            Database.CurrentUser = user;
+                            Database.CurrentUser.LoginCount++;
                             return;
                         }
                     }

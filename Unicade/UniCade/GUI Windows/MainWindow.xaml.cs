@@ -110,7 +110,6 @@ namespace UniCade
 
             //Intialize a new settings window instance
             SettingsWindow = new SettingsWindow();
-            Program.SettingsWindow = SettingsWindow;
 
             //Hide currently inactive elements and labels
             listBox.Visibility = Visibility.Hidden;
@@ -152,7 +151,7 @@ namespace UniCade
 
             //Refresh the current gamecount and update the GUI
             //Program.RefreshTotalGameCount();
-            label.Content = "Total Game Count: " + Program.TotalGameCount;
+            label.Content = "Total Game Count: " + Database.TotalGameCount;
             UpdateGUI();
         }
 
@@ -162,7 +161,7 @@ namespace UniCade
         public static void RefreshConsoleList()
         {
             ActiveConsoleList = new ArrayList();
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 ActiveConsoleList.Add(console.ConsoleName);
             }
@@ -256,23 +255,23 @@ namespace UniCade
                             {
                                 if (listBox.SelectedItem.ToString().Equals(g.Title))
                                 {
-                                    if (Program.CurrentUser.FavoritesList.Count < 1)
+                                    if (Database.CurrentUser.FavoritesList.Count < 1)
                                     {
-                                        Program.CurrentUser.FavoritesList.Add(g);
-                                        ShowNotification("UniCade", Program.CurrentUser.Username + " :Added To Favorites");
+                                        Database.CurrentUser.FavoritesList.Add(g);
+                                        ShowNotification("UniCade", Database.CurrentUser.Username + " :Added To Favorites");
                                         return;
                                     }
-                                    foreach (IGame game1 in Program.CurrentUser.FavoritesList)
+                                    foreach (IGame game1 in Database.CurrentUser.FavoritesList)
                                     {
                                         if (game1.Title.Equals(g.Title) && g.ConsoleName.Equals(game1.ConsoleName))
                                         {
-                                            Program.CurrentUser.FavoritesList.Add(g);
-                                            ShowNotification("UniCade", Program.CurrentUser.Username + ": Removed From Favorites");
+                                            Database.CurrentUser.FavoritesList.Add(g);
+                                            ShowNotification("UniCade", Database.CurrentUser.Username + ": Removed From Favorites");
                                         }
                                         else
                                         {
-                                            Program.CurrentUser.FavoritesList.Add(g);
-                                            ShowNotification("UniCade", Program.CurrentUser.Username + ": Added To Favorites");
+                                            Database.CurrentUser.FavoritesList.Add(g);
+                                            ShowNotification("UniCade", Database.CurrentUser.Username + ": Added To Favorites");
                                         }
                                         return;
                                     }
@@ -402,7 +401,7 @@ namespace UniCade
 
                     //Restore the flags for the main GUI view
                     IsGameSelectionPageActive = false;
-                    label.Content = "Total Game Count: " + Program.TotalGameCount;
+                    label.Content = "Total Game Count: " + Database.TotalGameCount;
                 }
             }
 
@@ -526,12 +525,12 @@ namespace UniCade
             }
             else
             {
-                label1.Content = Program.CurrentUser.Username + "'s Favorites List";
+                label1.Content = Database.CurrentUser.Username + "'s Favorites List";
             }
 
             //Populate the game library 
             listBox.Items.Clear();
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 if (console.ConsoleName.Equals(ActiveConsoleList[IndexNumber]))
                 {
@@ -543,7 +542,7 @@ namespace UniCade
                         //Check if the global favorites filter is enabled
                         if (IsFavoritesViewActive)
                         {
-                            foreach (IGame game1 in Program.CurrentUser.FavoritesList)
+                            foreach (IGame game1 in Database.CurrentUser.FavoritesList)
                             {
                                 if (game.Title.Equals(game1.Title) && game.ConsoleName.Equals(game1.ConsoleName))
                                 {
@@ -560,7 +559,7 @@ namespace UniCade
                             if (MainWindow.DisplayEsrbWhileBrowsing == true)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (game.EsrbRating <= Program.CurrentUser.AllowedEsrb)
+                                if (game.EsrbRating <= Database.CurrentUser.AllowedEsrb)
                                 {
                                     listBox.Items.Add(game.Title);
                                 }

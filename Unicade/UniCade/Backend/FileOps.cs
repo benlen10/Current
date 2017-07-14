@@ -55,7 +55,7 @@ namespace UniCade
                 {
                     if (consoleCount > 0)
                     {
-                        Program.AddConsole(console);
+                        Database.AddConsole(console);
                     }
                     console = new Console(spaceChar[0].Substring(3), spaceChar[1], spaceChar[2], spaceChar[3], spaceChar[4], Int32.Parse(spaceChar[5]), spaceChar[6], spaceChar[7], spaceChar[8]);
                     consoleCount++;
@@ -67,7 +67,7 @@ namespace UniCade
             }
             if (consoleCount > 0)
             {
-                Program.AddConsole(console);
+                Database.AddConsole(console);
             }
 
             if (consoleCount < 1)
@@ -94,7 +94,7 @@ namespace UniCade
             {
                 using (StreamWriter streamWriter = File.CreateText(path))
                 {
-                    foreach (IConsole console in Program.ConsoleList)
+                    foreach (IConsole console in Database.ConsoleList)
                     {
                         streamWriter.WriteLine(string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", console.ConsoleName, console.EmulatorPath, console.RomPath, console.PreferencesPath, console.RomExtension, console.GameCount, "Console Info", console.LaunchParams, console.ReleaseDate));
                         if (console.GameCount > 0)
@@ -260,13 +260,13 @@ namespace UniCade
                         iterator++;
                     }
                 }
-                Program.UserList.Add(user);
+                Database.UserList.Add(user);
             }
-            foreach (IUser user in Program.UserList)
+            foreach (IUser user in Database.UserList)
             {
                 if (user.Username.Equals(currentUser))
                 {
-                    Program.CurrentUser = user;
+                    Database.CurrentUser = user;
                 }
             }
             file.Close();
@@ -283,19 +283,19 @@ namespace UniCade
                 File.Delete(path);
             }
 
-            foreach (IUser user in Program.UserList)
+            foreach (IUser user in Database.UserList)
             {
-                if (Program.CurrentUser.Username.Equals(user.Username))
+                if (Database.CurrentUser.Username.Equals(user.Username))
                 {
-                    Program.UserList.Remove(user);
-                    Program.UserList.Add(Program.CurrentUser);
+                    Database.UserList.Remove(user);
+                    Database.UserList.Add(Database.CurrentUser);
                     break;
                 }
             }
 
             using (StreamWriter sw = File.CreateText(path))
             {
-                sw.WriteLine("CurrentUser|" + Program.CurrentUser.Username);
+                sw.WriteLine("CurrentUser|" + Database.CurrentUser.Username);
                 sw.WriteLine("_databasePath|" + Program.DatabasePath);
                 sw.WriteLine("EmulatorFolderPath|" + Program.EmulatorPath);
                 sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
@@ -308,7 +308,7 @@ namespace UniCade
                 sw.WriteLine("PaySettings|" + PayPerPlay.PayPerPlayEnabled + "|" + Program.LaunchOptions + "|" + PayPerPlay.CoinsRequired + "|" + PayPerPlay.Playtime);
                 sw.WriteLine("License Key|" + LicenseEngine.UserLicenseName + "|" + LicenseEngine.UserLicenseKey);
                 sw.WriteLine("***UserData***");
-                foreach (IUser user in Program.UserList)
+                foreach (IUser user in Database.UserList)
                 {
                     string favs = "";
                     foreach (IGame g in user.FavoritesList)
@@ -355,7 +355,7 @@ namespace UniCade
             bool duplicate = false;
 
             IConsole currentConsole = null;
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 if (console.ConsoleName.Equals(emuName))
                 {
@@ -458,7 +458,7 @@ namespace UniCade
             while ((line = file.ReadLine()) != null)
             {
                 r = line.Split(sep);
-                Program.ConsoleList.Add(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[8], " "));
+                Database.ConsoleList.Add(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[8], " "));
             }
             file.Close();
         }
@@ -472,11 +472,11 @@ namespace UniCade
             {
                 return "Launch Error: Game is NULL";
             }
-            if (Program.CurrentUser.AllowedEsrb> 0)
+            if (Database.CurrentUser.AllowedEsrb> 0)
             {
-                if (game.EsrbRating > Program.CurrentUser.AllowedEsrb)
+                if (game.EsrbRating > Database.CurrentUser.AllowedEsrb)
                 {
-                    return ("ESRB " + game.EsrbRating + " Is Restricted for" + Program.CurrentUser.Username);
+                    return ("ESRB " + game.EsrbRating + " Is Restricted for" + Database.CurrentUser.Username);
                 }
             }
 
@@ -497,7 +497,7 @@ namespace UniCade
             }
 
             //Fetch the console object
-            IConsole console = Program.ConsoleList.Find(e => e.ConsoleName.Equals(game.ConsoleName));
+            IConsole console = Database.ConsoleList.Find(e => e.ConsoleName.Equals(game.ConsoleName));
 
             string gamePath = ("\"" + console.RomPath + game.FileName + "\"");
             string testGamePath = (console.RomPath + game.FileName);
@@ -545,7 +545,7 @@ namespace UniCade
             }
 
                 game.LaunchCount++;
-            Program.CurrentUser.TotalLaunchCount++;
+            Database.CurrentUser.TotalLaunchCount++;
             CurrentProcess.Start();
             IsProcessActive = true;
             MainWindow.IsGameRunning = true;
@@ -591,26 +591,26 @@ namespace UniCade
         /// </summary>
         public static void RestoreDefaultConsoles()
         {
-            Program.AddConsole(new Console("Sega Genisis", @"C:\UniCade\Emulators\Fusion\Fusion.exe", @"C:\UniCade\ROMS\Sega Genisis\", "prefPath", ".bin*.iso*.gen*.32x", 0, "consoleInfo", "%file -gen -auto -fullscreen", "1990"));
-            Program.AddConsole(new Console("Wii", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Wii\", "prefPath", ".gcz*.iso", 0, "consoleInfo", "/b /e %file", "2006"));
-            Program.AddConsole(new Console("NDS", @"C:\UniCade\Emulators\NDS\DeSmuME.exe", @"C:\UniCade\ROMS\NDS\", "prefPath", ".nds", 0, "consoleInfo", "%file", "2005"));
-            Program.AddConsole(new Console("GBC", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\GBC\", "prefPath", ".gbc", 0, "consoleInfo", "%file", "1998"));
-            Program.AddConsole(new Console("MAME", @"C:\UniCade\Emulators\MAME\mame.bat", @"C:\UniCade\Emulators\MAME\roms\", "prefPath", ".zip", 0, "consoleInfo", "", "1980")); //%file -skip_gameinfo -nowindow
-            Program.AddConsole(new Console("PC", @"C:\Windows\explorer.exe", @"C:\UniCade\ROMS\PC\", "prefPath", ".lnk*.url", 0, "consoleInfo", "%file", "1980"));
-            Program.AddConsole(new Console("GBA", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\GBA\", "prefPath", ".gba", 0, "consoleInfo", "%file", "2001"));
-            Program.AddConsole(new Console("Gamecube", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Gamecube\", "prefPath", ".iso*.gcz", 0, "consoleInfo", "/b /e %file", "2001"));
-            Program.AddConsole(new Console("NES", @"C:\UniCade\Emulators\NES\Jnes.exe", @"C:\UniCade\ROMS\NES\", "prefPath", ".nes", 0, "consoleInfo", "%file", "1983"));
-            Program.AddConsole(new Console("SNES", @"C:\UniCade\Emulators\ZSNES\zsnesw.exe", @"C:\UniCade\ROMS\SNES\", "prefPath", ".smc", 0, "consoleInfo", "%file", "1990"));
-            Program.AddConsole(new Console("N64", @"C:\UniCade\Emulators\Project64\Project64.exe", @"C:\UniCade\ROMS\N64\", "prefPath", ".n64*.z64", 0, "consoleInfo", "%file", "1996"));
-            Program.AddConsole(new Console("PS1", @"C:\UniCade\Emulators\ePSXe\ePSXe.exe", @"C:\UniCade\ROMS\PS1\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "-nogui -loadbin %file", "1994"));
-            Program.AddConsole(new Console("PS2", @"C:\UniCade\Emulators\PCSX2\pcsx2.exe", @"C:\UniCade\ROMS\PS2\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "%file", "2000"));
-            Program.AddConsole(new Console("Atari 2600", @"C:\UniCade\Emulators\Stella\Stella.exe", @"C:\UniCade\ROMS\Atari 2600\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "file", "1977"));
-            Program.AddConsole(new Console("Dreamcast", @"C:\UniCade\Emulators\NullDC\nullDC_Win32_Release-NoTrace.exe", @"C:\UniCade\ROMS\Dreamcast\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "-config ImageReader:defaultImage=%file", "1998"));
-            Program.AddConsole(new Console("PSP", @"C:\UniCade\Emulators\PPSSPP\PPSSPPWindows64.exe", @"C:\UniCade\ROMS\PSP\", "prefPath", ".iso*.cso", 0, "consoleInfo", "%file", "2005"));
-            Program.AddConsole(new Console("Wii U", @"C:\UniCade\Emulators\WiiU\cemu.exe", @"C:\UniCade\ROMS\Atari 2600\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "file", "2012"));
-            Program.AddConsole(new Console("Xbox 360", @"C:\UniCade\Emulators\X360\x360.exe", @"C:\UniCade\ROMS\X360\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "%file", "2005"));
-            Program.AddConsole(new Console("PS3", @"C:\UniCade\Emulators\PS3\ps3.exe", @"C:\UniCade\ROMS\PS3\", "prefPath", ".iso", 0, "consoleInfo", "%file", "2009"));
-            Program.AddConsole(new Console("3DS", @"C:\UniCade\Emulators\PS3\3ds.exe", @"C:\UniCade\ROMS\3DS\", "prefPath", ".iso", 0, "consoleInfo", "%file", "2014"));
+            Database.AddConsole(new Console("Sega Genisis", @"C:\UniCade\Emulators\Fusion\Fusion.exe", @"C:\UniCade\ROMS\Sega Genisis\", "prefPath", ".bin*.iso*.gen*.32x", 0, "consoleInfo", "%file -gen -auto -fullscreen", "1990"));
+            Database.AddConsole(new Console("Wii", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Wii\", "prefPath", ".gcz*.iso", 0, "consoleInfo", "/b /e %file", "2006"));
+            Database.AddConsole(new Console("NDS", @"C:\UniCade\Emulators\NDS\DeSmuME.exe", @"C:\UniCade\ROMS\NDS\", "prefPath", ".nds", 0, "consoleInfo", "%file", "2005"));
+            Database.AddConsole(new Console("GBC", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\GBC\", "prefPath", ".gbc", 0, "consoleInfo", "%file", "1998"));
+            Database.AddConsole(new Console("MAME", @"C:\UniCade\Emulators\MAME\mame.bat", @"C:\UniCade\Emulators\MAME\roms\", "prefPath", ".zip", 0, "consoleInfo", "", "1980")); //%file -skip_gameinfo -nowindow
+            Database.AddConsole(new Console("PC", @"C:\Windows\explorer.exe", @"C:\UniCade\ROMS\PC\", "prefPath", ".lnk*.url", 0, "consoleInfo", "%file", "1980"));
+            Database.AddConsole(new Console("GBA", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\GBA\", "prefPath", ".gba", 0, "consoleInfo", "%file", "2001"));
+            Database.AddConsole(new Console("Gamecube", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Gamecube\", "prefPath", ".iso*.gcz", 0, "consoleInfo", "/b /e %file", "2001"));
+            Database.AddConsole(new Console("NES", @"C:\UniCade\Emulators\NES\Jnes.exe", @"C:\UniCade\ROMS\NES\", "prefPath", ".nes", 0, "consoleInfo", "%file", "1983"));
+            Database.AddConsole(new Console("SNES", @"C:\UniCade\Emulators\ZSNES\zsnesw.exe", @"C:\UniCade\ROMS\SNES\", "prefPath", ".smc", 0, "consoleInfo", "%file", "1990"));
+            Database.AddConsole(new Console("N64", @"C:\UniCade\Emulators\Project64\Project64.exe", @"C:\UniCade\ROMS\N64\", "prefPath", ".n64*.z64", 0, "consoleInfo", "%file", "1996"));
+            Database.AddConsole(new Console("PS1", @"C:\UniCade\Emulators\ePSXe\ePSXe.exe", @"C:\UniCade\ROMS\PS1\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "-nogui -loadbin %file", "1994"));
+            Database.AddConsole(new Console("PS2", @"C:\UniCade\Emulators\PCSX2\pcsx2.exe", @"C:\UniCade\ROMS\PS2\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "%file", "2000"));
+            Database.AddConsole(new Console("Atari 2600", @"C:\UniCade\Emulators\Stella\Stella.exe", @"C:\UniCade\ROMS\Atari 2600\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "file", "1977"));
+            Database.AddConsole(new Console("Dreamcast", @"C:\UniCade\Emulators\NullDC\nullDC_Win32_Release-NoTrace.exe", @"C:\UniCade\ROMS\Dreamcast\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "-config ImageReader:defaultImage=%file", "1998"));
+            Database.AddConsole(new Console("PSP", @"C:\UniCade\Emulators\PPSSPP\PPSSPPWindows64.exe", @"C:\UniCade\ROMS\PSP\", "prefPath", ".iso*.cso", 0, "consoleInfo", "%file", "2005"));
+            Database.AddConsole(new Console("Wii U", @"C:\UniCade\Emulators\WiiU\cemu.exe", @"C:\UniCade\ROMS\Atari 2600\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "file", "2012"));
+            Database.AddConsole(new Console("Xbox 360", @"C:\UniCade\Emulators\X360\x360.exe", @"C:\UniCade\ROMS\X360\", "prefPath", ".iso*.bin*.img", 0, "consoleInfo", "%file", "2005"));
+            Database.AddConsole(new Console("PS3", @"C:\UniCade\Emulators\PS3\ps3.exe", @"C:\UniCade\ROMS\PS3\", "prefPath", ".iso", 0, "consoleInfo", "%file", "2009"));
+            Database.AddConsole(new Console("3DS", @"C:\UniCade\Emulators\PS3\3ds.exe", @"C:\UniCade\ROMS\3DS\", "prefPath", ".iso", 0, "consoleInfo", "%file", "2014"));
         }
 
         /// <summary>
@@ -733,9 +733,9 @@ namespace UniCade
         public static void RestoreDefaultPreferences()
         {
             IUser UniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
-            Program.UserList.Add(UniCadeUser);
-            Program.CurrentUser = UniCadeUser;
-            Program.UserList.Add(Program.CurrentUser);
+            Database.UserList.Add(UniCadeUser);
+            Database.CurrentUser = UniCadeUser;
+            Database.UserList.Add(Database.CurrentUser);
             Program.ShowSplashScreen = false;
             Program.RescanOnStartup = false;
             Program.RestrictGlobalESRB = 0;
@@ -783,9 +783,9 @@ namespace UniCade
             }
 
             //If the current user is null, generate the default UniCade user and set as the current user  
-            if (Program.CurrentUser == null)
+            if (Database.CurrentUser == null)
             {
-                Program.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
+                Database.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
             }
 
             //Verify the current user license and set flag

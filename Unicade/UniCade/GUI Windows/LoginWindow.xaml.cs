@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using UniCade.Backend;
 
 namespace UniCade.Windows
 {
@@ -67,13 +68,13 @@ namespace UniCade.Windows
             //If the user is a local account, validate the info and close the window if sucuessful 
             else
             {
-                foreach (IUser u in Program.UserList)
+                foreach (IUser u in Database.UserList)
                 {
                     if (u.Username.Equals(Textbox_Username.Text))
                     {
                         if (u.GetUserPassword().Equals(Textbox_Password.Text))
                         {
-                            Program.CurrentUser = u;
+                            Database.CurrentUser = u;
                             Close();
                             return;
                         }

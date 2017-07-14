@@ -2,6 +2,7 @@
 using System;
 using System.Text;
 using System.Windows.Forms;
+using UniCade.Backend;
 using UniCade.Constants;
 
 namespace UniCade
@@ -84,7 +85,7 @@ namespace UniCade
         /// </summary>
         public static void UploadAllGames()
         {
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 console.GameList.ForEach(g => UploadGame(g));
             }
@@ -95,7 +96,7 @@ namespace UniCade
         /// </summary>
         public static void DownloadAllGames()
         {
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 for (int i = 0; i < console.GameList.Count; i++)
                 {

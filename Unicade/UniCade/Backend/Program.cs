@@ -16,21 +16,6 @@ namespace UniCade
         #region Properties
 
         /// <summary>
-        /// The current list of consoles
-        /// </summary>
-        public static List<IConsole> ConsoleList { get; set; }
-
-        /// <summary>
-        /// The list of current users
-        /// </summary>
-        public static List<IUser> UserList { get; set; }
-
-        /// <summary>
-        /// The current number of games across all game consoles
-        /// </summary>
-        public static int TotalGameCount { get; set; }
-
-        /// <summary>
         /// The path to the Database.txt file
         /// </summary>
         public static string DatabasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
@@ -102,16 +87,9 @@ namespace UniCade
         public static int EnforceFileExtensions;
 
         /// <summary>
-        /// The current user object 
-        /// </summary>
-        public static IUser CurrentUser;
-
-        /// <summary>
         /// The current application 
         /// </summary>
         public static App App;
-
-        public static SettingsWindow SettingsWindow;
 
         #endregion
 
@@ -127,6 +105,7 @@ namespace UniCade
 
             FileOps.StartupScan();
 
+            //Launch either the GUI or the legacy command line interface
             if (!PerferCmdInterface)
             {
                 UniCadeCmd.Run();
@@ -144,13 +123,12 @@ namespace UniCade
         /// </summary>
         public static void Initalize()
         {
-            TotalGameCount = 0;
-            ConsoleList = new List<IConsole>();
-            UserList = new List<IUser>();
+            Database.TotalGameCount = 0;
+            Database.ConsoleList = new List<IConsole>();
+            Database.UserList = new List<IUser>();
             IUser UniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
-            UserList.Add(UniCadeUser);
-            Program.CurrentUser = UniCadeUser;
-
+            Database.UserList.Add(UniCadeUser);
+            Database.CurrentUser = UniCadeUser;
         }
 
         /// <summary>
@@ -184,39 +162,6 @@ namespace UniCade
             notification.Show();
         }
 
-        /// <summary>
-        /// Add a new console to the database
-        /// </summary>
-        /// <param name="console"></param>
-        /// <returns>true if the console was sucuessfully added</returns>
-        public static bool AddConsole(IConsole console)
-        {
-            //Return false if a console with a duplicate name already exists
-            if (ConsoleList.Find(e => e.ConsoleName.Equals(console.ConsoleName)) != null)
-            {
-                return false;
-            }
-
-            ConsoleList.Add(console);
-            return true;
-        }
-
-        /// <summary>
-        /// Refresh the total game count across all consoles
-        /// </summary>
-        /// <returns>Total game count</returns>
-        public static int RefreshTotalGameCount()
-        {
-            int count = 0;
-            foreach (Console console in ConsoleList)
-            {
-                count += console.GameCount;
-            }
-            TotalGameCount = count;
-            return count;
-
-
-            #endregion
-        }
+        #endregion
     }
 }

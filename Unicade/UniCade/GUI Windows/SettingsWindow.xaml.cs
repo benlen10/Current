@@ -80,7 +80,7 @@ namespace UniCade.Windows
         private void Populate()
         {
             //Populate console list with the currently active games
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 GamesTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
@@ -278,7 +278,7 @@ namespace UniCade.Windows
             GlobalTab_Textbox_Coins.Text = PayPerPlay.CoinsRequired.ToString();
             GlobalTab_Textbox_Playtime.Text = PayPerPlay.Playtime.ToString();
 
-            foreach (IUser user in Program.UserList)
+            foreach (IUser user in Database.UserList)
             {
                 UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
             }
@@ -457,13 +457,13 @@ namespace UniCade.Windows
             if (GamesTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
             GamesTab_Listbox_GamesList.Items.Clear();
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 if (console.ConsoleName.Equals(curItem))
                 {
                     CurrentConsole = console;
                     GamesTab_Textbox_GamesForConsole.Text = console.GameCount.ToString();
-                    GamesTab_Textbox_TotalGames.Text = Program.TotalGameCount.ToString();
+                    GamesTab_Textbox_TotalGames.Text = Database.TotalGameCount.ToString();
                     if (console.GameCount > 0)
                     {
                         foreach (IGame g in console.GameList)
@@ -637,7 +637,7 @@ namespace UniCade.Windows
         {
             if (EmulatorsTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString();
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 if (console.ConsoleName.Equals(curItem))
                 {
@@ -685,15 +685,15 @@ namespace UniCade.Windows
         private void EmulatorsTab_DeleteConsoleButton_Click(object sender, EventArgs e)
         {
             //Ensure that at least one console exists
-            if (Program.ConsoleList.Count < 2)
+            if (Database.ConsoleList.Count < 2)
             {
                 MessageBox.Show("Cannot have an empty console list");
                 return;
             }
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
             GamesTab_Listbox_ConsoleList.Items.Clear();
-            Program.ConsoleList.Remove(CurrentEmulator);
-            foreach (IConsole console in Program.ConsoleList)
+            Database.ConsoleList.Remove(CurrentEmulator);
+            foreach (IConsole console in Database.ConsoleList)
             {
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
                 GamesTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
@@ -720,10 +720,10 @@ namespace UniCade.Windows
             string newConsoleName = "New Console";
             IConsole console = new Console(newConsoleName);
 
-            Program.ConsoleList.Add(console);
+            Database.ConsoleList.Add(console);
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
             GamesTab_Listbox_ConsoleList.Items.Clear();
-            foreach (IConsole con in Program.ConsoleList)
+            foreach (IConsole con in Database.ConsoleList)
             {
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(con.ConsoleName);
                 GamesTab_Listbox_ConsoleList.Items.Add(con.ConsoleName);
@@ -791,7 +791,7 @@ namespace UniCade.Windows
             }
 
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
             }
@@ -835,7 +835,7 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a console");
                 return;
             }
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 if (console.ConsoleName.Equals(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString()))
                 {
@@ -872,14 +872,14 @@ namespace UniCade.Windows
         private void UsersTab_UsersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Update the current user text         
-            if (Program.CurrentUser != null)
+            if (Database.CurrentUser != null)
             {
-                UsersTab_Label_CurrentUser.Content = "Current User: " + Program.CurrentUser.Username;
+                UsersTab_Label_CurrentUser.Content = "Current User: " + Database.CurrentUser.Username;
             }
 
             //Populate the favorites list for each user
             UsersTab_Listbox_UserFavorites.Items.Clear();
-            foreach (IUser user in Program.UserList)
+            foreach (IUser user in Database.UserList)
             {
                 if (user.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
                 {
@@ -899,7 +899,7 @@ namespace UniCade.Windows
                     UsersTab_Dropdown_AllowedESRB.Text = user.AllowedEsrb.GetStringValue();
 
                     //Only allow the current user to edit their own userdata
-                    bool editEnabled = user.Username.Equals(Program.CurrentUser.Username);
+                    bool editEnabled = user.Username.Equals(Database.CurrentUser.Username);
                     UsersTab_Textbox_Username.IsEnabled = true;
                     UsersTab_Textbox_Email.IsEnabled = true;
                     UsersTab_Textbox_UserInfo.IsEnabled = true;
@@ -923,12 +923,12 @@ namespace UniCade.Windows
             uc.ShowDialog();
 
             //Update the current labels and save the user info to the preferences file
-            UsersTab_Label_CurrentUser.Content = "Current User: " + Program.CurrentUser.Username;
+            UsersTab_Label_CurrentUser.Content = "Current User: " + Database.CurrentUser.Username;
             FileOps.SavePreferences(Program.PreferencesPath);
 
             //Refresh the listbox contents
             UsersTab_Listbox_CurrentUser.Items.Clear();
-            foreach (IUser user in Program.UserList)
+            foreach (IUser user in Database.UserList)
             {
                 UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
             }
@@ -947,20 +947,20 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_DeleteUserButton_Click(object sender, EventArgs e)
         {
-            IUser user = Program.UserList.Find(u => u.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()));
+            IUser user = Database.UserList.Find(u => u.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()));
             //Ensure that there is always at least one user present in the database
-            if (Program.UserList.Count <= 1)
+            if (Database.UserList.Count <= 1)
             {
                 MessageBox.Show("Must at least have one user");
                 return;
             }
 
             //Remove the user and refresh the database
-            Program.UserList.Remove(user);
+            Database.UserList.Remove(user);
             UsersTab_Listbox_CurrentUser.Items.Clear();
-            Program.CurrentUser = Program.UserList[0];
+            Database.CurrentUser = Database.UserList[0];
 
-            foreach (IUser user1 in Program.UserList)
+            foreach (IUser user1 in Database.UserList)
             {
                 UsersTab_Listbox_CurrentUser.Items.Add(user1.Username);
             }
@@ -973,7 +973,7 @@ namespace UniCade.Windows
         private void UsersTab_SaveButton_Click(object sender, EventArgs e)
         {
             //Verify that a user is currently logged in
-            if (!Program.CurrentUser.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
+            if (!Database.CurrentUser.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
             {
                 MessageBox.Show("Must Login First");
                 return;
@@ -991,16 +991,16 @@ namespace UniCade.Windows
                 }
                 else
                 {
-                    Program.CurrentUser.Username = UsersTab_Textbox_Username.Text;
-                    Program.CurrentUser.SetUserPassword(UsersTab_Textbox_Email.Text);
-                    Program.CurrentUser.UserInfo = UsersTab_Textbox_UserInfo.Text;
+                    Database.CurrentUser.Username = UsersTab_Textbox_Username.Text;
+                    Database.CurrentUser.SetUserPassword(UsersTab_Textbox_Email.Text);
+                    Database.CurrentUser.UserInfo = UsersTab_Textbox_UserInfo.Text;
                 }
 
                 if (GamesTab_Textbox_ESRB.Text.Contains("Everyone") || GamesTab_Textbox_ESRB.Text.Contains("Teen") || GamesTab_Textbox_ESRB.Text.Contains("Mature") || GamesTab_Textbox_ESRB.Text.Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
                 {
                     if (UsersTab_Dropdown_AllowedESRB.SelectedItem != null)
                     {
-                        Program.CurrentUser.AllowedEsrb = Enums.ConvertStringToEsrbEnum(UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                        Database.CurrentUser.AllowedEsrb = Enums.ConvertStringToEsrbEnum(UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                     }
                 }
                 else
@@ -1010,7 +1010,7 @@ namespace UniCade.Windows
             }
             UsersTab_Listbox_CurrentUser.Items.Clear();
 
-            foreach (IUser user in Program.UserList)
+            foreach (IUser user in Database.UserList)
             {
                 UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
             }
@@ -1022,15 +1022,15 @@ namespace UniCade.Windows
         private void UsersTab_DeleteFavoriteButton_Click(object sender, EventArgs e)
         {
             //Verify that a user is currenly logged in
-            if (!Program.CurrentUser.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
+            if (!Database.CurrentUser.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
             {
                 MessageBox.Show("Must Login First");
                 return;
             }
 
-            Program.CurrentUser.FavoritesList.RemoveAt(UsersTab_Listbox_UserFavorites.SelectedIndex);
+            Database.CurrentUser.FavoritesList.RemoveAt(UsersTab_Listbox_UserFavorites.SelectedIndex);
             UsersTab_Listbox_UserFavorites.Items.Clear();
-            foreach (IGame g in Program.CurrentUser.FavoritesList)
+            foreach (IGame g in Database.CurrentUser.FavoritesList)
             {
                 UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName);
             }
@@ -1041,12 +1041,12 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_LoginButton_Click(object sender, EventArgs e)
         {
-            foreach (IUser user in Program.UserList)
+            foreach (IUser user in Database.UserList)
             {
-                if (Program.CurrentUser.Username.Equals(user.Username))
+                if (Database.CurrentUser.Username.Equals(user.Username))
                 {
-                    Program.UserList.Remove(user);
-                    Program.UserList.Add(Program.CurrentUser);
+                    Database.UserList.Remove(user);
+                    Database.UserList.Add(Database.CurrentUser);
                     break;
                 }
             }
@@ -1054,10 +1054,10 @@ namespace UniCade.Windows
             //Display the login dialog
             LoginWindow login = new LoginWindow(1);
             login.ShowDialog();
-            if (Program.CurrentUser != null)
+            if (Database.CurrentUser != null)
             {
                 //If the user is logged in sucuesfully, save the current user and preferences file
-                UsersTab_Label_CurrentUser.Content = "Current User: " + Program.CurrentUser.Username;
+                UsersTab_Label_CurrentUser.Content = "Current User: " + Database.CurrentUser.Username;
                 FileOps.SavePreferences(Program.PreferencesPath);
             }
         }
@@ -1067,7 +1067,7 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_RefreshButton_Click(object sender, EventArgs e)
         {
-            UsersTab_Label_CurrentUser.Content = "Current User: " + Program.CurrentUser.Username;
+            UsersTab_Label_CurrentUser.Content = "Current User: " + Database.CurrentUser.Username;
         }
 
         #endregion
@@ -1837,7 +1837,7 @@ namespace UniCade.Windows
         public void RefreshGlobalFavs()
         {
             GlobalTab_Listbox_GlobalFavorites.Items.Clear();
-            foreach (IConsole console in Program.ConsoleList)
+            foreach (IConsole console in Database.ConsoleList)
             {
                 if (console.GameCount > 0)
                 {

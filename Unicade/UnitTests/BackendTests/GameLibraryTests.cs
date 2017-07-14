@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade;
+using UniCade.Backend;
 
 namespace UnitTests
 {
@@ -41,7 +42,7 @@ namespace UnitTests
 
             //Create a new console and add it to the database
             Console = new UniCade.Console("newConsole");
-            Program.AddConsole(Console);
+            Database.AddConsole(Console);
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace UnitTests
         public void AddRemoveGameAndVerifyGameCount()
         {
             //Store the original game count
-            int originalTotalGameCount = Program.TotalGameCount;
+            int originalTotalGameCount = Database.TotalGameCount;
 
             //Verify that the TotalGameCount is intially set to zero after creating a new database instance
             Assert.AreEqual(0, originalTotalGameCount, "Verify that the TotalGameCount is intially set to zero after creating a new database instance");
@@ -70,8 +71,8 @@ namespace UnitTests
             Assert.AreEqual((originalConsoleGameCount + 1), Console.GameCount, "Verify that the console game count has been incremented by one");
 
             //Refresh the database that the total game count has been incremented by one
-            Program.RefreshTotalGameCount();
-            Assert.AreEqual((originalTotalGameCount + 1), Program.TotalGameCount, "Verify that the console game count has been incremented by one");
+            Database.RefreshTotalGameCount();
+            Assert.AreEqual((originalTotalGameCount + 1), Database.TotalGameCount, "Verify that the console game count has been incremented by one");
 
             //Remove the game
             Console.RemoveGame(newGame);
@@ -80,8 +81,8 @@ namespace UnitTests
             Assert.AreEqual(originalConsoleGameCount, Console.GameCount, "Verify that the console game count has been incremented by one");
 
             //Refresh the database and verify that the console game count has been decremented by one after removing the game
-            Program.RefreshTotalGameCount();
-            Assert.AreEqual(originalTotalGameCount, Program.TotalGameCount, "Verify that the console game count has been incremented by one");
+            Database.RefreshTotalGameCount();
+            Assert.AreEqual(originalTotalGameCount, Database.TotalGameCount, "Verify that the console game count has been incremented by one");
 
             //Verify that attempting to remove a nonexistent game returns false 
             Assert.IsFalse(Console.RemoveGame(newGame), "Verify that attempting to remove a nonexistent game returns false");
@@ -96,7 +97,7 @@ namespace UnitTests
         {
             //Attempt to add a new console with the same name and verify this returns false
             IConsole console2 = new UniCade.Console(Console.ConsoleName);
-            Assert.IsFalse(Program.AddConsole(console2), "Verify that adding a console with a duplicate name is not allowed");
+            Assert.IsFalse(Database.AddConsole(console2), "Verify that adding a console with a duplicate name is not allowed");
         }
 
         /// <summary>
@@ -129,6 +130,16 @@ namespace UnitTests
             //Attempt to add another game with the same filename and verify that duplicates are not allowed
             IGame game = new Game("newGame.bin", "differentConsole");
             Assert.IsFalse(Console.AddGame(game), "Verify that adding a game to an incorrect console is not allowed");
+        }
+
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyAddingGameWithNullConsoleDissalowed()
+        {
+            //Attempt to add another game with the same filename and verify that duplicates are not allowed
+            IGame game = new Game("newGame.bin", null);
         }
     }
 }

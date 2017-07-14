@@ -1,4 +1,5 @@
-﻿using UniCade.Constants;
+﻿using System;
+using UniCade.Constants;
 
 namespace UniCade
 {
@@ -20,7 +21,20 @@ namespace UniCade
         /// <summary>
         /// The name of the console that the game belongs to
         /// </summary>
-        public string ConsoleName { get; set; }
+        public string ConsoleName
+        {
+            get
+            {
+                return ConsoleName;
+            }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentException("Console name cannot be null");
+
+                ConsoleName = value;
+            }
+        }
 
         /// <summary>
         /// Brief game description or overview

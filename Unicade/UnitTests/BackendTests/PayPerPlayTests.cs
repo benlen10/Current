@@ -58,7 +58,7 @@ namespace UnitTests.Backend_Tests
             Console.AddGame(Game);
 
             //Add the console to the database
-            Program.AddConsole(Console);
+            Database.AddConsole(Console);
         }
 
         /// <summary>
