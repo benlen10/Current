@@ -15,10 +15,71 @@ namespace UnitTests.CmdInterfaceTests
         /// </summary>
         [TestMethod]
         [Priority(1)]
-        public void CmdInterfaceTest1()
+        public void VerifyConsoleListIsProperlyDisplayed()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyGameListListIsProperlyDisplayed()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyGameInfoIsProperlyDisplayed()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyConsoleInfoIsProperlyDisplayed()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyFavoritesViewIsProperlyDisplayed()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifySwitchUserFunctionality()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyGameLaunch()
         {
 
         }
 
     }
 }
+

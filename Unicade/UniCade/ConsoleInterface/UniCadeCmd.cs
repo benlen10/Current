@@ -8,10 +8,9 @@ namespace UniCade.ConsoleInterface
         #region Properties
 
         /// <summary>
-        /// The currently selectd console for the cmd line interface
+        /// DLL Imports to display the console window with the GUI
         /// </summary>
-        IConsole CurrentConsole;
-
+        /// <returns></returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern bool AllocConsole();
 

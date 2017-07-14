@@ -13,67 +13,67 @@ namespace UniCade
         /// <summary>
         /// Specifies if Metacritic.com will be scraped
         /// </summary>
-        public static int ScanMetacritic = 1;
+        public static bool ScanMetacritic = true;
 
         /// <summary>
         /// Specifies if Metacritic.com will be scraped
         /// </summary>
-        public static int ScanMobygames = 1;
+        public static bool ScanMobygames = true;
 
         /// <summary>
         /// Specifies if the publisher will be scraped
         /// </summary>
-        public static int ParsePublisher = 1;
+        public static bool ParsePublisher = true;
 
         /// <summary>
         /// Specifies if the critic score will be scraped
         /// </summary>
-        public static int ParseCriticScore = 1;
+        public static bool ParseCriticScore = true;
 
         /// <summary>
         /// Specifies if the developer will be scraped
         /// </summary>
-        public static int ParseDeveloper = 1;
+        public static bool ParseDeveloper = true;
 
         /// <summary>
         /// Specifies if the description will be scraped
         /// </summary>
-        public static int ParseDescription = 1;
+        public static bool ParseDescription = true;
 
         /// <summary>
         /// Specifies if the ESRB rating will be scraped
         /// </summary>
-        public static int ParseEsrbRating = 1;
+        public static bool ParseEsrbRating = true;
 
         /// <summary>
         /// Specifies if the ESRB descriptor will be scraped
         /// </summary>
-        public static int ParseEsrbDescriptors = 1;
+        public static bool ParseEsrbDescriptors = true;
 
         /// <summary>
         /// Specifies if the player count will be scraped
         /// </summary>
-        public static int ParsePlayerCount = 1;
+        public static bool ParsePlayerCount = true;
 
         /// <summary>
         /// Specifies if the release date will be scraped
         /// </summary>
-        public static int ParseReleaseDate = 1;
+        public static bool ParseReleaseDate = true;
 
         /// <summary>
         /// Specifies if the box front image will be scraped
         /// </summary>
-        public static int ParseBoxFrontImage = 1;
+        public static bool ParseBoxFrontImage = true;
 
         /// <summary>
         /// Specifies if the box back image will be scraped
         /// </summary>
-        public static int ParseBoxBackImage = 1;
+        public static bool ParseBoxBackImage = true;
 
         /// <summary>
         /// Specifies if the screenshot will be scraped
         /// </summary>
-        public static int ParseScreenshot = 1;
+        public static bool ParseScreenshot = true;
 
         /// <summary>
         /// Specifies if the current game name will be scraped
@@ -101,13 +101,13 @@ namespace UniCade
             CurrentGameName = CurrentGameName.Replace("'", "");
 
             //If neither site is scraped, return false
-            if (ScanMobygames == 0 && ScanMetacritic == 0)
+            if (ScanMobygames && ScanMetacritic)
             {
                 return false;
             }
 
             //Attempt to scrape mobygames if the site setting is enabled
-            if (ScanMobygames > 0)
+            if (ScanMobygames)
             {
                 if (!ScrapeMobyGames(game))
                 {
@@ -116,7 +116,7 @@ namespace UniCade
             }
 
             //Attempt to scrape metacritic if the site setting is enabled
-            if (ScanMetacritic > 0)
+            if (ScanMetacritic)
             {
                 if (!ScrapeMetacritic(game))
                 {
@@ -158,7 +158,7 @@ namespace UniCade
             }
 
             //Parse ESRB rating from Mobygames
-            if (ParseEsrbRating > 0)
+            if (ParseEsrbRating)
             {
                 int indexA = html.IndexOf("ESRB");
                 if (indexA < 0)
@@ -195,7 +195,7 @@ namespace UniCade
             }
 
             //Parse Release Date
-            if (ParseReleaseDate > 0)
+            if (ParseReleaseDate)
             {
                 //Locate the "release-info" tag within the HTML text
                 int tempCharIndex = html.IndexOf("release-info");
@@ -220,7 +220,7 @@ namespace UniCade
             }
 
             //Parse Publisher
-            if (ParsePublisher > 0)
+            if (ParsePublisher)
             {
                 int tempCharIndex = 0;
                 tempCharIndex = html.IndexOf("/company/");
@@ -234,7 +234,7 @@ namespace UniCade
             }
 
             //Parse description
-            if (ParseDescription > 0)
+            if (ParseDescription)
             {
                 int tempCharIndex = 0;
                 tempCharIndex = html.IndexOf("Description<");
@@ -338,7 +338,7 @@ namespace UniCade
             }
 
             //Parse ESRB descriptors
-            if (ParseEsrbDescriptors > 0)
+            if (ParseEsrbDescriptors)
             {
                 int tempCharIndex = 0;
                 tempCharIndex = html.IndexOf("ESRB Descriptors:");
@@ -356,7 +356,7 @@ namespace UniCade
             }
 
             //Parse player count (Metacritic)
-            if (ParsePlayerCount > 0)
+            if (ParsePlayerCount)
             {       
                 int tempCharIndex = 0;
                 tempCharIndex = html.IndexOf("Players");
