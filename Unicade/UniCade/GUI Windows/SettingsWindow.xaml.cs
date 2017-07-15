@@ -626,6 +626,78 @@ namespace UniCade.Windows
             MessageBox.Show("Operation Successful");
         }
 
+        /// <summary>
+        /// Toggle expansion of the boxfront image
+        /// </summary>
+        private void Image_Boxfront_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!IsBoxBackExpanded && !isScreenshotExpanded)
+            {
+                if (!IsBoxfrontExpanded)
+                {
+                    GamesTab_Image_Boxfront.Margin = new Thickness(0, 0, 0, 0);
+                    GamesTab_Image_Boxfront.Height = 500;
+                    GamesTab_Image_Boxfront.Width = 500;
+                    IsBoxfrontExpanded = true;
+                }
+                else
+                {
+                    GamesTab_Image_Boxfront.Margin = new Thickness(550, 57, 0, 0);
+                    GamesTab_Image_Boxfront.Height = 109;
+                    GamesTab_Image_Boxfront.Width = 92;
+                    IsBoxfrontExpanded = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Toggle expansion of the boxfront image
+        /// </summary>
+        private void Image_Boxback_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!IsBoxfrontExpanded && !isScreenshotExpanded)
+            {
+                if (!IsBoxBackExpanded)
+                {
+                    GamesTab_Image_Boxback.Margin = new Thickness(0, 0, 0, 0);
+                    GamesTab_Image_Boxback.Height = 500;
+                    GamesTab_Image_Boxback.Width = 500;
+                    IsBoxBackExpanded = true;
+                }
+                else
+                {
+                    GamesTab_Image_Boxback.Margin = new Thickness(647, 57, 0, 0);
+                    GamesTab_Image_Boxback.Height = 107;
+                    GamesTab_Image_Boxback.Width = 97;
+                    IsBoxBackExpanded = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Toggle expansion of the screenshot image
+        /// </summary>
+        private void Image_Screenshot_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!IsBoxfrontExpanded && !IsBoxBackExpanded)
+            {
+                if (!isScreenshotExpanded)
+                {
+                    GamesTab_Image_Screeshot.Margin = new Thickness(0, 0, 0, 0);
+                    GamesTab_Image_Screeshot.Height = 500;
+                    GamesTab_Image_Screeshot.Width = 500;
+                    isScreenshotExpanded = true;
+                }
+                else
+                {
+                    GamesTab_Image_Screeshot.Margin = new Thickness(572, 196, 0, 0);
+                    GamesTab_Image_Screeshot.Height = 103;
+                    GamesTab_Image_Screeshot.Width = 172;
+                    isScreenshotExpanded = false;
+                }
+            }
+        }
+
         #endregion
 
         #region Emulators Tab
@@ -758,7 +830,7 @@ namespace UniCade.Windows
             }
             else
             {
-                if (IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
+                if (Utilties.IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
                 {
                     if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
                     {
@@ -1617,24 +1689,15 @@ namespace UniCade.Windows
             }
         }
 
+        private void LaunchCmdInterface_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            UniCadeCmd.PrepAndRun();
+        }
+
         #endregion
 
         #region Helper Methods
-
-        /// <summary>
-        /// Verify that a string contains only numeric chars
-        /// </summary>
-        bool IsAllDigits(string s)
-        {
-            foreach (char c in s)
-            {
-                if (!char.IsDigit(c))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
 
         /// <summary>
         /// Refresh the current game info passed in as a Game object
@@ -1716,7 +1779,7 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a console - SaveGameInfo");
                 return;
             }
-            if (IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
+            if (Utilties.IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
             {
                 if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
                 {
@@ -1733,7 +1796,7 @@ namespace UniCade.Windows
                 MessageBox.Show("Release Date score must be only digits");
                 return;
             }
-            if (IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
+            if (Utilties.IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
             {
                 if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
                 {
@@ -1749,7 +1812,7 @@ namespace UniCade.Windows
                 MessageBox.Show("Critic Score must be only digits");
             }
 
-            if (IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
+            if (Utilties.IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
             {
                 if (GamesTab_Textbox_ReleaseDate.Text.Length > 2)
                 {
@@ -1861,83 +1924,5 @@ namespace UniCade.Windows
         }
 
         #endregion
-
-        private void LaunchCmdInterface_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-            UniCadeCmd.PrepAndRun();
-        }
-
-        /// <summary>
-        /// Toggle expansion of the boxfront image
-        /// </summary>
-        private void Image_Boxfront_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (!IsBoxBackExpanded && !isScreenshotExpanded)
-            {
-                if (!IsBoxfrontExpanded)
-                {
-                    GamesTab_Image_Boxfront.Margin = new Thickness(0, 0, 0, 0);
-                    GamesTab_Image_Boxfront.Height = 500;
-                    GamesTab_Image_Boxfront.Width = 500;
-                    IsBoxfrontExpanded = true;
-                }
-                else
-                {
-                    GamesTab_Image_Boxfront.Margin = new Thickness(550, 57, 0, 0);
-                    GamesTab_Image_Boxfront.Height = 109;
-                    GamesTab_Image_Boxfront.Width = 92;
-                    IsBoxfrontExpanded = false;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Toggle expansion of the boxfront image
-        /// </summary>
-        private void Image_Boxback_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (!IsBoxfrontExpanded && !isScreenshotExpanded)
-            {
-                if (!IsBoxBackExpanded)
-                {
-                    GamesTab_Image_Boxback.Margin = new Thickness(0, 0, 0, 0);
-                    GamesTab_Image_Boxback.Height = 500;
-                    GamesTab_Image_Boxback.Width = 500;
-                    IsBoxBackExpanded = true;
-                }
-                else
-                {
-                    GamesTab_Image_Boxback.Margin = new Thickness(647, 57, 0, 0);
-                    GamesTab_Image_Boxback.Height = 107;
-                    GamesTab_Image_Boxback.Width = 97;
-                    IsBoxBackExpanded = false;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Toggle expansion of the screenshot image
-        /// </summary>
-        private void Image_Screenshot_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (!IsBoxfrontExpanded && !IsBoxBackExpanded)
-            {
-                if (!isScreenshotExpanded)
-                {
-                    GamesTab_Image_Screeshot.Margin = new Thickness(0, 0, 0, 0);
-                    GamesTab_Image_Screeshot.Height = 500;
-                    GamesTab_Image_Screeshot.Width = 500;
-                    isScreenshotExpanded = true;
-                }
-                else
-                {
-                    GamesTab_Image_Screeshot.Margin = new Thickness(572, 196, 0, 0);
-                    GamesTab_Image_Screeshot.Height = 103;
-                    GamesTab_Image_Screeshot.Width = 172;
-                    isScreenshotExpanded = false;
-                }
-            }
-        }
     }
 }

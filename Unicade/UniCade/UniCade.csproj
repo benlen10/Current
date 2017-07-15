@@ -113,6 +113,7 @@
     <Compile Include="Backend\Database.cs" />
     <Compile Include="Backend\LicenseEngine.cs" />
     <Compile Include="Backend\PayPerPlay.cs" />
+    <Compile Include="Backend\Utilties.cs" />
     <Compile Include="ConsoleInterface\UniCadeCmd.cs" />
     <Compile Include="Constants\Enums.cs" />
     <Compile Include="Exceptions\UniCadeException1.cs" />
