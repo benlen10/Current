@@ -9,6 +9,8 @@ namespace UniCade.Backend
 {
     static class Database
     {
+        #region Properties
+
         /// <summary>
         /// The current list of consoles
         /// </summary>
@@ -29,6 +31,10 @@ namespace UniCade.Backend
         /// </summary>
         public static IUser CurrentUser;
 
+        #endregion
+
+        #region Public Methods
+
         /// <summary>
         /// Add a new console to the database
         /// </summary>
@@ -47,18 +53,37 @@ namespace UniCade.Backend
         }
 
         /// <summary>
+        /// Add a new console to the database
+        /// </summary>
+        /// <param name="console"></param>
+        /// <param name="consoleName">The name of the console to remove</param>
+        /// <returns>true if the console was sucuessfully added</returns>
+        public static bool RemoveConsole(string consoleName)
+        {
+            //Attempt to fetch the console from the current list
+            IConsole console = ConsoleList.Find(e => e.ConsoleName.Equals(consoleName));
+
+            if (console != null)
+            {
+                ConsoleList.Remove(console);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Refresh the total game count across all consoles
         /// </summary>
         /// <returns>Total game count</returns>
         public static int RefreshTotalGameCount()
         {
-            int count = 0;
-            foreach (Console console in ConsoleList)
-            {
-                count += console.GameCount;
-            }
+            var count = 0;
+            ConsoleList.ForEach(c => count += c.GameCount);
             TotalGameCount = count;
             return count;
         }
+
+        #endregion
+
     }
 }
