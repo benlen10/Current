@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UniCade.Constants;
 
-namespace UniCade
+namespace UniCade.Objects
 {
     public class User : IUser
     {

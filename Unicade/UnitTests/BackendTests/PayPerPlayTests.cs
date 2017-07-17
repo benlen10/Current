@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UniCade;
 using UniCade.Backend;
+using UniCade.Objects;
+using Console = UniCade.Objects.Console;
 
 namespace UnitTests.Backend_Tests
 {
@@ -51,7 +53,7 @@ namespace UnitTests.Backend_Tests
             Id = Random.Next();
 
             //Create a new console and add it to the database
-            Console = new UniCade.Console("newConsole");
+            Console = new Console("newConsole");
 
             //Create a new game and add it to the console
             Game = new Game("game.bin", Console.ConsoleName);

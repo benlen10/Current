@@ -5,18 +5,18 @@ namespace UniCade.Exceptions
     /// <summary>
     /// Custom UniCade exception template
     /// </summary>
-    public class UniCadeException1 : Exception
+    public class LaunchException : Exception
     {
-        public UniCadeException1()
+        public LaunchException()
         {
         }
 
-        public UniCadeException1(string message)
+        public LaunchException(string message)
             : base(message)
         {
         }
 
-        public UniCadeException1(string message, Exception inner)
+        public LaunchException(string message, Exception inner)
             : base(message, inner)
         {
         }

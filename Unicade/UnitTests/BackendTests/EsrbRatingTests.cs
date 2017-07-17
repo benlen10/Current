@@ -4,6 +4,8 @@ using System.Diagnostics;
 using UniCade;
 using UniCade.Backend;
 using UniCade.Constants;
+using UniCade.Objects;
+using Console = UniCade.Objects.Console;
 
 namespace UnitTests
 {
@@ -45,7 +47,7 @@ namespace UnitTests
             Id = Random.Next();
 
             //Create a new console and add it to the database
-            Console = new UniCade.Console("newConsole");
+            Console = new Console("newConsole");
             Database.AddConsole(Console);
         }
 

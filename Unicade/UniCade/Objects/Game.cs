@@ -1,7 +1,7 @@
 ﻿using System;
 using UniCade.Constants;
 
-namespace UniCade
+namespace UniCade.Objects
 {
     public class Game : IGame
     {

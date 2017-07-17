@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using UniCade.Backend;
 using UniCade.ConsoleInterface;
 using UniCade.Constants;
+using Console = UniCade.Objects.Console;
 
 namespace UniCade.Windows
 {

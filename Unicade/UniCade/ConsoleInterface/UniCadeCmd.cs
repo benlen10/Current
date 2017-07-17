@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using UniCade.Backend;
+using UniCade.Objects;
 
 namespace UniCade.ConsoleInterface
 {

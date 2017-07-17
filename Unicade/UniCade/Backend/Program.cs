@@ -7,6 +7,7 @@ using UniCade.Backend;
 using UniCade.ConsoleInterface;
 using UniCade.Constants;
 using UniCade.Exceptions;
+using UniCade.Objects;
 using UniCade.Windows;
 
 namespace UniCade

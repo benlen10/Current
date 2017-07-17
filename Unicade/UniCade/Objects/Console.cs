@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UniCade.Backend;
 
-namespace UniCade
+namespace UniCade.Objects
 {
     public class Console : IConsole
     {

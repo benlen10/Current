@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade;
 using UniCade.Backend;
+using UniCade.Objects;
+using Console = UniCade.Objects.Console;
 
 namespace UnitTests
 {
@@ -41,7 +43,7 @@ namespace UnitTests
             Id = Random.Next();
 
             //Create a new console and add it to the database
-            Console = new UniCade.Console("newConsole");
+            Console = new Console("newConsole");
             Database.AddConsole(Console);
         }
 
@@ -96,7 +98,7 @@ namespace UnitTests
         public void VerifyDuplicateConsolesDisallowed()
         {
             //Attempt to add a new console with the same name and verify this returns false
-            IConsole console2 = new UniCade.Console(Console.ConsoleName);
+            IConsole console2 = new Console(Console.ConsoleName);
             Assert.IsFalse(Database.AddConsole(console2), "Verify that adding a console with a duplicate name is not allowed");
         }
 

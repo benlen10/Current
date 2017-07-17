@@ -116,7 +116,7 @@
     <Compile Include="Backend\Utilties.cs" />
     <Compile Include="ConsoleInterface\UniCadeCmd.cs" />
     <Compile Include="Constants\Enums.cs" />
-    <Compile Include="Exceptions\UniCadeException1.cs" />
+    <Compile Include="Exceptions\LaunchException.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IConsole.cs" />
@@ -139,7 +139,7 @@
     <Compile Include="Network\SQLclient.cs" />
     <Compile Include="Backend\Taskbar.cs" />
     <Compile Include="Constants\TextFiles.cs" />
-    <Compile Include="Backend\User.cs" />
+    <Compile Include="Objects\User.cs" />
     <Compile Include="Network\WebOps.cs" />
     <Compile Include="GUI Windows\PassWindow.xaml.cs">
       <DependentUpon>PassWindow.xaml</DependentUpon>
@@ -164,9 +164,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Backend\Console.cs" />
+    <Compile Include="Objects\Console.cs" />
     <Compile Include="Backend\FileOps.cs" />
-    <Compile Include="Backend\Game.cs" />
+    <Compile Include="Objects\Game.cs" />
     <Compile Include="Backend\Program.cs" />
     <Compile Include="GUI Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
