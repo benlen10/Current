@@ -22,7 +22,7 @@ namespace UnitTests.GUI_Tests
         [Priority(1)]
         public void SettingsWindowTest1()
         {
-            Program.Initalize();
+            Database.Initalize();
             SettingsWindow window = new SettingsWindow();
             //window.SaveGameInfo();
             Button b = new Button();

@@ -46,7 +46,7 @@ namespace UnitTests.Backend_Tests
         public void Initalize()
         {
             //Initalize the program
-            Program.Initalize();
+            Database.Initalize();
 
             //Generate a new random id integer
             Random = new Random();

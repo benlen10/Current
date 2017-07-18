@@ -81,8 +81,10 @@ namespace UniCade.Windows
         private void Populate()
         {
             //Populate console list with the currently active games
-            foreach (IConsole console in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 GamesTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
             }
@@ -458,8 +460,10 @@ namespace UniCade.Windows
             if (GamesTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
             GamesTab_Listbox_GamesList.Items.Clear();
-            foreach (IConsole console in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 if (console.ConsoleName.Equals(curItem))
                 {
                     CurrentConsole = console;
@@ -710,8 +714,10 @@ namespace UniCade.Windows
         {
             if (EmulatorsTab_Listbox_ConsoleList.SelectedItem == null) { return; }
             string curItem = EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString();
-            foreach (IConsole console in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 if (console.ConsoleName.Equals(curItem))
                 {
                     CurrentEmulator = console;
@@ -758,16 +764,18 @@ namespace UniCade.Windows
         private void EmulatorsTab_DeleteConsoleButton_Click(object sender, EventArgs e)
         {
             //Ensure that at least one console exists
-            if (Database.ConsoleList.Count < 2)
+            if (Database.ConsoleCount < 2)
             {
                 MessageBox.Show("Cannot have an empty console list");
                 return;
             }
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
             GamesTab_Listbox_ConsoleList.Items.Clear();
-            Database.ConsoleList.Remove(CurrentEmulator);
-            foreach (IConsole console in Database.ConsoleList)
+            Database.RemoveConsole(CurrentEmulator.ConsoleName);
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
                 GamesTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
             }
@@ -791,13 +799,15 @@ namespace UniCade.Windows
 
             //Create a new console and add it to the datbase
             string newConsoleName = "New Console";
-            IConsole console = new Console(newConsoleName);
+            IConsole newConsole = new Console(newConsoleName);
 
-            Database.ConsoleList.Add(console);
+            Database.AddConsole(newConsole);
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
             GamesTab_Listbox_ConsoleList.Items.Clear();
-            foreach (IConsole con in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole con = Database.GetConsole(consoleName);
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(con.ConsoleName);
                 GamesTab_Listbox_ConsoleList.Items.Add(con.ConsoleName);
             }
@@ -864,9 +874,11 @@ namespace UniCade.Windows
             }
 
             EmulatorsTab_Listbox_ConsoleList.Items.Clear();
-            foreach (IConsole console in Database.ConsoleList)
+
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
-                EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
+                EmulatorsTab_Listbox_ConsoleList.Items.Add(consoleName);
             }
         }
 
@@ -908,8 +920,10 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a console");
                 return;
             }
-            foreach (IConsole console in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 if (console.ConsoleName.Equals(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString()))
                 {
                     if (FileOps.ScanDirectory(console.RomPath, Program.RomPath))
@@ -1901,8 +1915,10 @@ namespace UniCade.Windows
         public void RefreshGlobalFavs()
         {
             GlobalTab_Listbox_GlobalFavorites.Items.Clear();
-            foreach (IConsole console in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 if (console.GameCount > 0)
                 {
                     foreach (IGame game in console.GameList)

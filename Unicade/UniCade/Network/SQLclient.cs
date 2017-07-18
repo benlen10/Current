@@ -86,8 +86,10 @@ namespace UniCade
         /// </summary>
         public static void UploadAllGames()
         {
-            foreach (IConsole console in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 console.GameList.ForEach(g => UploadGame(g));
             }
         }
@@ -97,8 +99,10 @@ namespace UniCade
         /// </summary>
         public static void DownloadAllGames()
         {
-            foreach (IConsole console in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 for (int i = 0; i < console.GameList.Count; i++)
                 {
                     IGame g = (IGame)console.GameList[i];

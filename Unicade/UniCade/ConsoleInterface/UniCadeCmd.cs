@@ -74,7 +74,7 @@ namespace UniCade.ConsoleInterface
                 System.Console.WriteLine("Available Consoles: ");
 
                 //Print all available consoles
-                Database.ConsoleList.ForEach(c => System.Console.WriteLine(c.ConsoleName));
+                Database.GetConsoleList().ForEach(c => System.Console.WriteLine(c));
 
                 //Fetch user input
                 string input = System.Console.ReadLine();
@@ -98,8 +98,10 @@ namespace UniCade.ConsoleInterface
                 //(i) = Console Info
                 else if (input.Contains("(i)"))
                 {
-                    foreach (IConsole console in Database.ConsoleList)
+                    var consoleList = Database.GetConsoleList();
+                    foreach (string consoleName in consoleList)
                     {
+                        IConsole console = Database.GetConsole(consoleName);
                         if (input.Contains(console.ConsoleName))
                         {
                             DisplayConsoleInfo(console);
@@ -109,7 +111,7 @@ namespace UniCade.ConsoleInterface
                 //If no modifiers are provided, display the game list for the console
                 else
                 {
-                    IConsole console = Database.ConsoleList.Find(c => c.ConsoleName.Equals(input));
+                    IConsole console = Database.GetConsole(input);
                     if (console != null)
                     {
                         DisplayGameList(console);

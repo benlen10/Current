@@ -21,20 +21,7 @@ namespace UniCade.Objects
         /// <summary>
         /// The name of the console that the game belongs to
         /// </summary>
-        public string ConsoleName
-        {
-            get
-            {
-                return ConsoleName;
-            }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentException("Console name cannot be null");
-
-                ConsoleName = value;
-            }
-        }
+        public string ConsoleName { get; set; }
 
         /// <summary>
         /// Brief game description or overview

@@ -161,8 +161,10 @@ namespace UniCade
         public static void RefreshConsoleList()
         {
             ActiveConsoleList = new ArrayList();
-            foreach (IConsole console in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 ActiveConsoleList.Add(console.ConsoleName);
             }
         }
@@ -530,8 +532,10 @@ namespace UniCade
 
             //Populate the game library 
             listBox.Items.Clear();
-            foreach (IConsole console in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 if (console.ConsoleName.Equals(ActiveConsoleList[IndexNumber]))
                 {
                     CurrentConsole = console;

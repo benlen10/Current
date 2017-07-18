@@ -96,8 +96,10 @@ namespace UniCade
             {
                 using (StreamWriter streamWriter = File.CreateText(path))
                 {
-                    foreach (IConsole console in Database.ConsoleList)
+                    var consoleList = Database.GetConsoleList();
+                    foreach (string consoleName in consoleList)
                     {
+                        IConsole console = Database.GetConsole(consoleName);
                         streamWriter.WriteLine(string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", console.ConsoleName, console.EmulatorPath, console.RomPath, console.PreferencesPath, console.RomExtension, console.GameCount, "Console Info", console.LaunchParams, console.ReleaseDate));
                         if (console.GameCount > 0)
                         {
@@ -357,8 +359,10 @@ namespace UniCade
             bool duplicate = false;
 
             IConsole currentConsole = null;
-            foreach (IConsole console in Database.ConsoleList)
+            var consoleList = Database.GetConsoleList();
+            foreach (string consoleName in consoleList)
             {
+                IConsole console = Database.GetConsole(consoleName);
                 if (console.ConsoleName.Equals(emuName))
                 {
                     currentConsole = console;
@@ -460,7 +464,7 @@ namespace UniCade
             while ((line = file.ReadLine()) != null)
             {
                 r = line.Split(sep);
-                Database.ConsoleList.Add(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[8], " "));
+                Database.AddConsole(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[8], " "));
             }
             file.Close();
         }
@@ -499,7 +503,7 @@ namespace UniCade
             }
 
             //Fetch the console object
-            IConsole console = Database.ConsoleList.Find(e => e.ConsoleName.Equals(game.ConsoleName));
+            IConsole console = Database.GetConsole(game.ConsoleName);
 
             string gamePath = ("\"" + console.RomPath + game.FileName + "\"");
             string testGamePath = (console.RomPath + game.FileName);

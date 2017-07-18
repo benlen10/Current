@@ -102,12 +102,12 @@ namespace UniCade
         public static void Main(string[] args)
         {
             //Initalize the properties
-            Initalize();
+            Database.Initalize();
 
             FileOps.StartupScan();
 
             //Launch either the GUI or the legacy command line interface
-            if (!PerferCmdInterface)
+            if (PerferCmdInterface)
             {
                 UniCadeCmd.Run();
             }
@@ -117,19 +117,6 @@ namespace UniCade
                 App.InitializeComponent();
                 App.Run();
             }
-        }
-
-        /// <summary>
-        /// Initalize the current properties
-        /// </summary>
-        public static void Initalize()
-        {
-            Database.TotalGameCount = 0;
-            Database.ConsoleList = new List<IConsole>();
-            Database.UserList = new List<IUser>();
-            IUser UniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
-            Database.UserList.Add(UniCadeUser);
-            Database.CurrentUser = UniCadeUser;
         }
 
         /// <summary>
