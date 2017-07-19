@@ -38,6 +38,11 @@ namespace UniCade.Backend
         /// </summary>
         public static int ConsoleCount { get; private set; }
 
+        /// <summary>
+        /// The current number of consoles in the ConsoleList
+        /// </summary>
+        public static int UserCount { get; private set; }
+
         #endregion
 
         #region Public Methods
@@ -110,6 +115,23 @@ namespace UniCade.Backend
         {
             return ConsoleList.Select(c => c.ConsoleName).ToList();
         }
+
+        /// <summary>
+        /// Add a new user to the currentUserList
+        /// Return false if the username already exists
+        /// </summary>
+        /// <returns>true if the user was added sucuessfully</returns>
+        public static bool AddUser(IUser user)
+        {
+            if (UserList.Find(u => u.Username.Equals(user.Username)) == null)
+            {
+                UserList.Add(user);
+                return true;
+            }
+            return false;
+        }
+
+
 
         /// <summary>
         /// Refresh the total game count across all consoles
