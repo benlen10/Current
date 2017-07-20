@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using UniCade.Constants;
@@ -126,6 +127,23 @@ namespace UniCade.Backend
             if (UserList.Find(u => u.Username.Equals(user.Username)) == null)
             {
                 UserList.Add(user);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Remove a user from the current UserList
+        /// Return false if the user is not found
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>True if the user was removed sucuessfully</returns>
+        public static bool RemoveUser(string username)
+        {
+            IUser user = UserList.Find(u => u.Username.Equals(username));
+            if (user != null)
+            {
+                UserList.Remove(user);
                 return true;
             }
             return false;
