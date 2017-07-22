@@ -127,6 +127,7 @@ namespace UniCade.Backend
             if (UserList.Find(u => u.Username.Equals(user.Username)) == null)
             {
                 UserList.Add(user);
+                UserCount++;
                 return true;
             }
             return false;
@@ -144,12 +145,30 @@ namespace UniCade.Backend
             if (user != null)
             {
                 UserList.Remove(user);
+                UserCount--;
                 return true;
             }
             return false;
         }
 
+        /// <summary>
+        /// Return the IUser object with the matching username
+        /// </summary>
+        /// <param name="username">The username of the user to fetch</param>
+        /// <returns>IUser object with matching username</returns>
+        public static IUser GetUser(string username)
+        {
+            return UserList.Find(c => c.Username.Equals(username));
+        }
 
+        /// <summary>
+        /// Return a string list of all usernames
+        /// </summary>
+        /// <returns>List of all usernames</returns>
+        public static List<string> GetUserList()
+        {
+            return UserList.Select(u => u.Username).ToList();
+        }
 
         /// <summary>
         /// Refresh the total game count across all consoles
