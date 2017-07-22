@@ -264,10 +264,12 @@ namespace UniCade
                         iterator++;
                     }
                 }
-                Database.UserList.Add(user);
+                Database.AddUser(user);
             }
-            foreach (IUser user in Database.UserList)
+            var userList = Database.GetUserList();
+            foreach (string username in userList)
             {
+                IUser user = Database.GetUser(username);
                 if (user.Username.Equals(currentUser))
                 {
                     Database.CurrentUser = user;
@@ -287,12 +289,13 @@ namespace UniCade
                 File.Delete(path);
             }
 
-            foreach (IUser user in Database.UserList)
+            var userList = Database.GetUserList();
+            foreach (string username in userList)
             {
-                if (Database.CurrentUser.Username.Equals(user.Username))
+                if (Database.CurrentUser.Username.Equals(username))
                 {
-                    Database.UserList.Remove(user);
-                    Database.UserList.Add(Database.CurrentUser);
+                    Database.RemoveUser(username);
+                    Database.AddUser(Database.CurrentUser);
                     break;
                 }
             }
@@ -312,8 +315,11 @@ namespace UniCade
                 sw.WriteLine("PaySettings|" + PayPerPlay.PayPerPlayEnabled + "|" + Program.LaunchOptions + "|" + PayPerPlay.CoinsRequired + "|" + PayPerPlay.Playtime);
                 sw.WriteLine("License Key|" + LicenseEngine.UserLicenseName + "|" + LicenseEngine.UserLicenseKey);
                 sw.WriteLine("***UserData***");
-                foreach (IUser user in Database.UserList)
+
+                userList = Database.GetUserList();
+                foreach (string username in userList)
                 {
+                    IUser user = Database.GetUser(username);
                     string favs = "";
                     foreach (IGame g in user.FavoritesList)
                     {
@@ -738,10 +744,9 @@ namespace UniCade
         /// </summary>
         public static void RestoreDefaultPreferences()
         {
-            IUser UniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
-            Database.UserList.Add(UniCadeUser);
-            Database.CurrentUser = UniCadeUser;
-            Database.UserList.Add(Database.CurrentUser);
+            IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
+            Database.AddUser(uniCadeUser);
+            Database.CurrentUser = uniCadeUser;
             Program.ShowSplashScreen = false;
             Program.RescanOnStartup = false;
             Program.RestrictGlobalESRB = 0;

@@ -281,9 +281,10 @@ namespace UniCade.Windows
             GlobalTab_Textbox_Coins.Text = PayPerPlay.CoinsRequired.ToString();
             GlobalTab_Textbox_Playtime.Text = PayPerPlay.Playtime.ToString();
 
-            foreach (IUser user in Database.UserList)
+            var userList = Database.GetUserList();
+            foreach (string username in userList)
             {
-                UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
+                UsersTab_Listbox_CurrentUser.Items.Add(username);
             }
 
             //Refresh the global favorites list
@@ -966,8 +967,10 @@ namespace UniCade.Windows
 
             //Populate the favorites list for each user
             UsersTab_Listbox_UserFavorites.Items.Clear();
-            foreach (IUser user in Database.UserList)
+            var userList = Database.GetUserList();
+            foreach (string username in userList)
             {
+                IUser user = Database.GetUser(username);
                 if (user.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
                 {
                     if (user.FavoritesList.Count > 0)
@@ -1015,8 +1018,10 @@ namespace UniCade.Windows
 
             //Refresh the listbox contents
             UsersTab_Listbox_CurrentUser.Items.Clear();
-            foreach (IUser user in Database.UserList)
+            var userList = Database.GetUserList();
+            foreach (string username in userList)
             {
+                IUser user = Database.GetUser(username);
                 UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
             }
         }
@@ -1034,21 +1039,23 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_DeleteUserButton_Click(object sender, EventArgs e)
         {
-            IUser user = Database.UserList.Find(u => u.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()));
+            IUser user = Database.GetUser(UsersTab_Listbox_CurrentUser.SelectedItem.ToString());
             //Ensure that there is always at least one user present in the database
-            if (Database.UserList.Count <= 1)
+            if (Database.UserCount <= 1)
             {
                 MessageBox.Show("Must at least have one user");
                 return;
             }
 
             //Remove the user and refresh the database
-            Database.UserList.Remove(user);
+            Database.RemoveUser(user.Username);
             UsersTab_Listbox_CurrentUser.Items.Clear();
-            Database.CurrentUser = Database.UserList[0];
+            Database.CurrentUser = Database.DefaultUser;
 
-            foreach (IUser user1 in Database.UserList)
+            var userList = Database.GetUserList();
+            foreach (string username in userList)
             {
+                IUser user1 = Database.GetUser(username);
                 UsersTab_Listbox_CurrentUser.Items.Add(user1.Username);
             }
         }
@@ -1097,9 +1104,10 @@ namespace UniCade.Windows
             }
             UsersTab_Listbox_CurrentUser.Items.Clear();
 
-            foreach (IUser user in Database.UserList)
+            var userList = Database.GetUserList();
+            foreach (string username in userList)
             {
-                UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
+                UsersTab_Listbox_CurrentUser.Items.Add(username);
             }
         }
 
@@ -1128,12 +1136,13 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_LoginButton_Click(object sender, EventArgs e)
         {
-            foreach (IUser user in Database.UserList)
+            var userList = Database.GetUserList();
+            foreach (string username in userList)
             {
-                if (Database.CurrentUser.Username.Equals(user.Username))
+                if (Database.CurrentUser.Username.Equals(username))
                 {
-                    Database.UserList.Remove(user);
-                    Database.UserList.Add(Database.CurrentUser);
+                    Database.RemoveUser(username);
+                    Database.AddUser(Database.CurrentUser);
                     break;
                 }
             }

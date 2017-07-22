@@ -68,13 +68,15 @@ namespace UniCade.Windows
             //If the user is a local account, validate the info and close the window if sucuessful 
             else
             {
-                foreach (IUser u in Database.UserList)
+                var userList = Database.GetUserList();
+                foreach (string username in userList)
                 {
-                    if (u.Username.Equals(Textbox_Username.Text))
+                    IUser user = Database.GetUser(username);
+                    if (user.Username.Equals(Textbox_Username.Text))
                     {
-                        if (u.GetUserPassword().Equals(Textbox_Password.Text))
+                        if (user.GetUserPassword().Equals(Textbox_Password.Text))
                         {
-                            Database.CurrentUser = u;
+                            Database.CurrentUser = user;
                             Close();
                             return;
                         }

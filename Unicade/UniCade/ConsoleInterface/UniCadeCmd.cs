@@ -292,7 +292,7 @@ namespace UniCade.ConsoleInterface
         private static void SwitchUser()
         {
             System.Console.WriteLine("Available Users");
-            Database.UserList.ForEach(u => System.Console.WriteLine(u.Username));
+            Database.GetUserList().ForEach(u => System.Console.WriteLine(u));
             System.Console.Write("\n");
 
             while (true)
@@ -305,7 +305,7 @@ namespace UniCade.ConsoleInterface
                 }
 
                 //Attempt to fetch the user with the matching username
-                IUser user = Database.UserList.Find(u => u.Username.Equals(userName));
+                IUser user = Database.GetUser(userName);
                 if (user != null)
                 {
                     while (true)

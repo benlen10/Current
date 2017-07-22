@@ -22,7 +22,7 @@ namespace UniCade.Backend
         /// <summary>
         /// The list of current users
         /// </summary>
-        public static List<IUser> UserList { get; set; }
+        private static List<IUser> UserList;
 
         /// <summary>
         /// The current number of games across all game consoles
@@ -33,6 +33,11 @@ namespace UniCade.Backend
         /// The current user object 
         /// </summary>
         public static IUser CurrentUser;
+
+        /// <summary>
+        /// The default user for the interface
+        /// </summary>
+        public static IUser DefaultUser;
 
         /// <summary>
         /// The current number of consoles in the ConsoleList
@@ -59,6 +64,7 @@ namespace UniCade.Backend
             IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
             UserList.Add(uniCadeUser);
             CurrentUser = uniCadeUser;
+            DefaultUser = uniCadeUser;
         }
 
         /// <summary>
