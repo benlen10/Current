@@ -128,6 +128,36 @@ namespace UniCade.Objects
         }
 
         /// <summary>
+        /// Removes a game with the specified title from the Console
+        /// Returns false if the fame title does not exist
+        /// </summary>
+        /// <param name="gameTitle"></param>
+        /// <returns></returns>
+        public bool RemoveGame(string gameTitle)
+        {
+            //Attempt to fetch the console from the current list
+            IGame game = GameList.Find(e => e.ConsoleName.Equals(gameTitle));
+
+            if (game != null)
+            {
+                GameList.Remove(game);
+                GameCount--;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Return the IGame object with the specified title
+        /// </summary>
+        /// <param name="gameTitle">The title of the game to fetch</param>
+        /// <returns>IGame object with the matching title</returns>
+        public IGame GetGame(string gameTitle)
+        {
+            return GameList.Find(c => c.ConsoleName.Equals(gameTitle));
+        }
+
+        /// <summary>
         /// Remove the specified game from the current console
         /// </summary>
         /// <param name="game"></param>
