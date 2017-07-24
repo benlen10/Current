@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UniCade.Backend;
 
 namespace UniCade.Objects
@@ -180,6 +181,15 @@ namespace UniCade.Objects
                 Database.TotalGameCount--;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Return a string list of all game titles
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetGameList()
+        {
+            return GameList.Select(g => g.Title).ToList();
         }
 
         #endregion
