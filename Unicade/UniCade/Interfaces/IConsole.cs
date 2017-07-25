@@ -22,11 +22,6 @@ namespace UniCade
         int GameCount { get; }
 
         /// <summary>
-        /// A list of game objects for the current console instance
-        /// </summary>
-        List<IGame> GameList { get; }
-
-        /// <summary>
         /// The launch params for the current emulator
         /// </summary>
         string LaunchParams { get; set; }
@@ -70,9 +65,21 @@ namespace UniCade
         /// <summary>
         /// Remove the specified game from the current console
         /// </summary>
-        /// <param name="game"></param>
         /// <returns>true if the game was sucuessfully removed</returns>
-        bool RemoveGame(IGame game);
+        bool RemoveGame(string gameTitle);
+
+        /// <summary>
+        /// Return the IGame object with the specified title
+        /// </summary>
+        /// <param name="gameTitle">The title of the game to fetch</param>
+        /// <returns>IGame object with the matching title</returns>
+        IGame GetGame(string gameTitle);
+
+        /// <summary>
+        /// Return a string list of all game titles
+        /// </summary>
+        /// <returns></returns>
+        List<string> GetGameList();
 
         #endregion
     }

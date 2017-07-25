@@ -117,7 +117,7 @@ namespace UniCade.Windows
                 EmulatorsTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
                 WebTab_Image_UniCadeLogo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
             }
-            catch (DirectoryNotFoundException){ }
+            catch (DirectoryNotFoundException) { }
             //Populate the 'Allowed ESRB' combo box with the specified rating
             if (Program.RestrictGlobalESRB.Equals(Enums.ESRB.Everyone))
             {
@@ -342,19 +342,14 @@ namespace UniCade.Windows
             game = SQLclient.GetSingleGame(CurrentGame.ConsoleName, CurrentGame.Title);
             if (game != null)
             {
-                for (int i = 0; i < CurrentConsole.GameList.Count; i++)
-                {
-                    IGame g = (IGame)CurrentConsole.GameList[i];
-                    if (game.FileName.Equals(g.FileName))
-                    {
-                        CurrentConsole.GameList[i] = game;
-                        RefreshGameInfo(game);
-                        MessageBox.Show("Game Metadata Downloaded");
-                        return;
-                    }
-                }
+                //replace the game
+                CurrentConsole.RemoveGame(game.Title);
+                CurrentConsole.AddGame(game);
+                RefreshGameInfo(game);
+                MessageBox.Show("Download successful");
+                return;
             }
-            MessageBox.Show("Download successful");
+            MessageBox.Show("Download failed");
         }
 
         /// <summary>
@@ -381,11 +376,13 @@ namespace UniCade.Windows
             }
 
             //Upload all games if all initial checks are passed
-            foreach (IGame g in CurrentConsole.GameList)
+            var gameList = CurrentConsole.GetGameList();
+            foreach (string gameTitle in gameList)
             {
-                SQLclient.UploadGame(g);
-                MessageBox.Show("Console Uploaded");
+                IGame game = CurrentConsole.GetGame(gameTitle);
+                SQLclient.UploadGame(game);
             }
+            MessageBox.Show("Console Uploaded");
         }
 
         /// <summary>
@@ -416,17 +413,15 @@ namespace UniCade.Windows
                 return;
             }
 
-            for (int i = 0; i < CurrentConsole.GameList.Count; i++)
+            var gameList = CurrentConsole.GetGameList();
+            foreach (string gameTitle in gameList)
             {
-                IGame game1 = (IGame)CurrentConsole.GameList[i];
-                IGame game2 = null;
-                game2 = SQLclient.GetSingleGame(game1.ConsoleName, game1.Title);
-                if (game2 != null)
+                IGame g = CurrentConsole.GetGame(gameTitle);
+                IGame game = SQLclient.GetSingleGame(g.ConsoleName, g.Title);
+                if (game != null)
                 {
-                    if (game2.FileName.Length > 3)
-                    {
-                        CurrentConsole.GameList[i] = game2;
-                    }
+                    CurrentConsole.RemoveGame(game.Title);
+                    CurrentConsole.AddGame(game);
                 }
             }
 
@@ -442,8 +437,10 @@ namespace UniCade.Windows
         {
             if (GamesTab_Listbox_GamesList.SelectedItem == null) { return; }
             string currentGame = GamesTab_Listbox_GamesList.SelectedItem.ToString();
-            foreach (IGame g in CurrentConsole.GameList)
+            var gameList = CurrentConsole.GetGameList();
+            foreach (string gameTitle in gameList)
             {
+                IGame g = CurrentConsole.GetGame(gameTitle);
                 if (g.Title.Equals(currentGame))
                 {
                     SettingsWindow.CurrentGame = g;
@@ -470,20 +467,18 @@ namespace UniCade.Windows
                     CurrentConsole = console;
                     GamesTab_Textbox_GamesForConsole.Text = console.GameCount.ToString();
                     GamesTab_Textbox_TotalGames.Text = Database.TotalGameCount.ToString();
-                    if (console.GameCount > 0)
-                    {
-                        foreach (IGame g in console.GameList)
-                        {
-                            GamesTab_Listbox_GamesList.Items.Add(g.Title);
-                        }
-                    }
+
+                    //Populate the games list
+                    console.GetGameList().ForEach(g => GamesTab_Listbox_GamesList.Items.Add(g));
                 }
             }
             if (GamesTab_Listbox_GamesList.Items.Count > 0)
             {
                 GamesTab_Listbox_GamesList.SelectedIndex = 0;
-                foreach (IGame g in CurrentConsole.GameList)
+                var gameList = CurrentConsole.GetGameList();
+                foreach (string gameTitle in gameList)
                 {
+                    IGame g = CurrentConsole.GetGame(gameTitle);
                     if (g.Title.Equals(GamesTab_Listbox_GamesList.SelectedItem.ToString()))
                     {
                         CurrentGame = g;
@@ -625,8 +620,10 @@ namespace UniCade.Windows
             }
 
             MessageBox.Show("This may take a while... Please wait for a completed nofication.");
-            foreach (IGame game1 in CurrentConsole.GameList)
+            var gameList = CurrentConsole.GetGameList();
+            foreach (string gameTitle in gameList)
             {
+                IGame game1 = CurrentConsole.GetGame(gameTitle);
                 WebOps.ScrapeInfo(game1);
             }
             MessageBox.Show("Operation Successful");
@@ -821,13 +818,7 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_ForceGlobalMetadataRescrapeButton_Click(object sender, EventArgs e)
         {
-            foreach (IGame game in CurrentEmulator.GameList)
-            {
-                if (!WebOps.ScrapeInfo(game))
-                {
-                    return;
-                }
-            }
+
         }
 
         /// <summary>
@@ -1930,11 +1921,16 @@ namespace UniCade.Windows
                 IConsole console = Database.GetConsole(consoleName);
                 if (console.GameCount > 0)
                 {
-                    foreach (IGame game in console.GameList)
+                    var gameList = console.GetGameList();
+                    foreach (string gameTitle in gameList)
                     {
-                        if (game.Favorite > 0)
+                        IGame game = console.GetGame(gameTitle);
+                        if (game != null)
                         {
-                            GlobalTab_Listbox_GlobalFavorites.Items.Add(game.Title + " (" + game.ConsoleName + ")");
+                            if (game.Favorite > 0)
+                            {
+                                GlobalTab_Listbox_GlobalFavorites.Items.Add(game.Title + " (" + game.ConsoleName + ")");
+                            }
                         }
                     }
                 }

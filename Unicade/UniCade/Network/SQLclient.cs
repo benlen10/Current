@@ -90,7 +90,12 @@ namespace UniCade
             foreach (string consoleName in consoleList)
             {
                 IConsole console = Database.GetConsole(consoleName);
-                console.GameList.ForEach(g => UploadGame(g));
+                var gameList = console.GetGameList();
+                foreach (string gameTitle in gameList)
+                {
+                    IGame g = console.GetGame(gameTitle);
+                    UploadGame(g);
+                }
             }
         }
 
@@ -103,14 +108,15 @@ namespace UniCade
             foreach (string consoleName in consoleList)
             {
                 IConsole console = Database.GetConsole(consoleName);
-                for (int i = 0; i < console.GameList.Count; i++)
+                var gameList = console.GetGameList();
+                foreach (string gameTitle in gameList)
                 {
-                    IGame g = (IGame)console.GameList[i];
-                    IGame game = null;
-                    game = GetSingleGame(g.ConsoleName, g.Title);
-                    if ((game != null) && (game.FileName.Length > 3))
+                    IGame g = console.GetGame(gameTitle);
+                    IGame game = GetSingleGame(g.ConsoleName, g.Title);
+                    if (game != null)
                     {
-                        console.GameList[i] = game;
+                        console.RemoveGame(game.Title);
+                        console.AddGame(game);
                     }
                 }
             }

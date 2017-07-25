@@ -253,8 +253,10 @@ namespace UniCade
                     {
                         if (listBox.SelectedItem != null)
                         {
-                            foreach (IGame g in CurrentConsole.GameList)
+                            var gameList = CurrentConsole.GetGameList();
+                            foreach (string gameTitle in gameList)
                             {
+                                IGame g = CurrentConsole.GetGame(gameTitle);
                                 if (listBox.SelectedItem.ToString().Equals(g.Title))
                                 {
                                     if (Database.CurrentUser.FavoritesList.Count < 1)
@@ -287,8 +289,10 @@ namespace UniCade
                 {
                     if (IsGameSelectionPageActive)
                     {
-                        foreach (IGame game in CurrentConsole.GameList)
+                        var gameList = CurrentConsole.GetGameList();
+                        foreach (string gameTitle in gameList)
                         {
+                            IGame game = CurrentConsole.GetGame(gameTitle);
                             if (listBox.SelectedItem.ToString().Equals(game.Title))
                             {
                                 if (game.Favorite > 0)
@@ -541,8 +545,10 @@ namespace UniCade
                     CurrentConsole = console;
                     label.Content = console.ConsoleName + " Game Count: " + console.GameCount;
 
-                    foreach (IGame game in console.GameList)
+                    var gameList = console.GetGameList();
+                    foreach (string gameTitle in gameList)
                     {
+                        IGame game = console.GetGame(gameTitle);
                         //Check if the global favorites filter is enabled
                         if (IsFavoritesViewActive)
                         {
@@ -613,7 +619,7 @@ namespace UniCade
         {
 
             //Search for the selected game title within the game library
-            IGame game = CurrentConsole.GameList.Find(g => g.Title.Equals(listBox.SelectedItem.ToString()));
+            IGame game = CurrentConsole.GetGame(listBox.SelectedItem.ToString());
 
             //If the specified game is found, launch the game and return
             string result = FileOps.Launch(game);
@@ -641,8 +647,10 @@ namespace UniCade
             IsInfoWindowActive = true;
             BitmapImage bitmapImage;
 
-            foreach (IGame game in CurrentConsole.GameList)
+            var gameList = CurrentConsole.GetGameList();
+            foreach (string gameTitle in gameList)
             {
+                IGame game = CurrentConsole.GetGame(gameTitle);
                 if (listBox.SelectedItem.ToString().Equals(game.Title))
                 {
                     //Populate the game info text

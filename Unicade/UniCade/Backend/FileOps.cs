@@ -103,8 +103,10 @@ namespace UniCade
                         streamWriter.WriteLine(string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", console.ConsoleName, console.EmulatorPath, console.RomPath, console.PreferencesPath, console.RomExtension, console.GameCount, "Console Info", console.LaunchParams, console.ReleaseDate));
                         if (console.GameCount > 0)
                         {
-                            foreach (IGame game in console.GameList)
+                            var gameList = console.GetGameList();
+                            foreach (string gameTitle in gameList)
                             {
+                                IGame game = console.GetGame(gameTitle);
                                 streamWriter.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", game.FileName, game.ConsoleName, game.LaunchCount, game.ReleaseDate, game.PublisherName, game.DeveloperName, game.UserReviewScore, game.CriticReviewScore, game.PlayerCount, "Trivia", game.EsrbRating, game.EsrbDescriptors, game.EsrbSummary, game.Description, game.Genres, game.Tags, game.Favorite));
                             }
                         }
@@ -402,8 +404,10 @@ namespace UniCade
                         if (extension[1].Equals(s))
                         {
                             duplicate = false;
-                            foreach (IGame game in currentConsole.GameList)
+                            var gameList = currentConsole.GetGameList();
+                            foreach (string gameTitle in gameList)
                             {
+                                IGame game = currentConsole.GetGame(gameTitle);
                                 if (game.Title.Equals(Path.GetFileName(fileName)))
                                 {
                                     duplicate = true;
@@ -420,8 +424,10 @@ namespace UniCade
                 else
                 {
                     duplicate = false;
-                    foreach (IGame game in currentConsole.GameList)
+                    var gameList = currentConsole.GetGameList();
+                    foreach (string gameTitle in gameList)
                     {
+                        IGame game = currentConsole.GetGame(gameTitle);
                         if (game.Title.Equals(fileName.Split('.')[0]))
                         {
                             duplicate = true;
@@ -438,8 +444,12 @@ namespace UniCade
             //Delete nonexistent games
             bool found = false;
             IGame foundGame = null;
-            foreach (IGame game in currentConsole.GameList)
+
+
+            var gameTitleList = currentConsole.GetGameList();
+            foreach (string gameTitle in gameTitleList)
             {
+                IGame game = currentConsole.GetGame(gameTitle);
                 found = false;
                 foreach (string fileName in fileEntries)
                 {
@@ -450,7 +460,7 @@ namespace UniCade
                 }
                 if (found)
                 {
-                    currentConsole.RemoveGame(foundGame);
+                    currentConsole.RemoveGame(foundGame.Title);
                     found = false;
                     foundGame = null;
                 }

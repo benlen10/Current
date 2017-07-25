@@ -77,7 +77,7 @@ namespace UnitTests
             Assert.AreEqual((originalTotalGameCount + 1), Database.TotalGameCount, "Verify that the console game count has been incremented by one");
 
             //Remove the game
-            Console.RemoveGame(newGame);
+            Console.RemoveGame(newGame.Title);
 
             //Verify that the console game count has been decremented by one after removing the game
             Assert.AreEqual(originalConsoleGameCount, Console.GameCount, "Verify that the console game count has been incremented by one");
@@ -87,7 +87,7 @@ namespace UnitTests
             Assert.AreEqual(originalTotalGameCount, Database.TotalGameCount, "Verify that the console game count has been incremented by one");
 
             //Verify that attempting to remove a nonexistent game returns false 
-            Assert.IsFalse(Console.RemoveGame(newGame), "Verify that attempting to remove a nonexistent game returns false");
+            Assert.IsFalse(Console.RemoveGame(newGame.Title), "Verify that attempting to remove a nonexistent game returns false");
         }
 
         /// <summary>

@@ -147,8 +147,10 @@ namespace UniCade.ConsoleInterface
                 }
 
                 //Print all games
-                foreach (Game g in console.GameList)
+                var gameList = console.GetGameList();
+                foreach (string gameTitle in gameList)
                 {
+                    IGame g = console.GetGame(gameTitle);
                     if (favoritesView)
                     {
                         if (g.Favorite == 1)
@@ -168,7 +170,8 @@ namespace UniCade.ConsoleInterface
                 string s = input.Substring(3);
                 if (input.Contains("(i)"))
                 {
-                    IGame game = console.GameList.Find(g => s.Contains(g.Title));
+                    string gameTitle = console.GetGameList().Find(g => s.Contains(g));
+                    IGame game = console.GetGame(gameTitle);
                     DisplayGameInfo(game);
                 }
                 //(ci) = Display console info
@@ -193,7 +196,9 @@ namespace UniCade.ConsoleInterface
                 //(f) = Toggle favorite status
                 else if (input.Contains("(f)"))
                 {
-                    IGame game = console.GameList.Find(g => input.Substring(4).Contains(g.Title));
+                    string gameTitle = console.GetGameList().Find(g => input.Substring(4).Contains(g));
+                    IGame game = console.GetGame(gameTitle);
+
                     if (game != null)
                     {
                         if (game.Favorite < 1)
@@ -220,7 +225,8 @@ namespace UniCade.ConsoleInterface
                 //If no modifier is provided, attempt to launch the game with the matching title
                 else
                 {
-                    IGame game = console.GameList.Find(g => input.Equals(g.Title));
+                    string gameTitle = console.GetGameList().Find(g => input.Equals(g));
+                    IGame game = console.GetGame(gameTitle);
                     if (game != null)
                     {
                         string result = FileOps.Launch(game);

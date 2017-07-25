@@ -22,7 +22,7 @@ namespace UniCade.Objects
         /// <summary>
         /// A list of game objects for the current console instance
         /// </summary>
-        public List<IGame> GameList { get; private set; }
+        private List<IGame> GameList;
 
         /// <summary>
         /// Full path for the emulators folder
@@ -155,32 +155,7 @@ namespace UniCade.Objects
         /// <returns>IGame object with the matching title</returns>
         public IGame GetGame(string gameTitle)
         {
-            return GameList.Find(c => c.ConsoleName.Equals(gameTitle));
-        }
-
-        /// <summary>
-        /// Remove the specified game from the current console
-        /// </summary>
-        /// <param name="game"></param>
-        /// <returns>true if the game was sucuessfully removed</returns>
-        public bool RemoveGame(IGame game)
-        {
-            //If the game console does not match the current console, return false
-            if (!game.ConsoleName.Equals(ConsoleName))
-            {
-                return false;
-            }
-
-            //Attempt to locate the specified game by fileName
-            IGame gameToRemove = GameList.Find(e => e.FileName.Equals(game.FileName));
-            if(gameToRemove != null)
-            {
-                //Remove the game and decriment both the console game count and total game count
-                GameList.Remove(gameToRemove);
-                GameCount--;
-                Database.TotalGameCount--;
-            }
-            return false;
+            return GameList.Find(c => c.Title.Equals(gameTitle));
         }
 
         /// <summary>
