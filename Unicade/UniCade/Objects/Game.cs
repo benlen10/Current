@@ -6,7 +6,7 @@ namespace UniCade.Objects
     public class Game : IGame
     {
 
-        #region Properties
+        #region Public Properties
 
         /// <summary>
         /// The raw filename for the ROM file
@@ -21,7 +21,22 @@ namespace UniCade.Objects
         /// <summary>
         /// The name of the console that the game belongs to
         /// </summary>
-        public string ConsoleName { get; set; }
+        public string ConsoleName
+        {
+            get => _consoleName;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Console name cannot be null");
+                }
+                if (value.Length == 0)
+                {
+                    throw new ArgumentException("Console name cannot be empty");
+                }
+                _consoleName = value;
+            }
+        }
 
         /// <summary>
         /// Brief game description or overview
@@ -99,6 +114,16 @@ namespace UniCade.Objects
         public int LaunchCount { get; set; }
 
         #endregion
+
+        #region Private Instance Fields
+
+        /// <summary>
+        /// The name of the console that the game belongs to
+        /// </summary>
+        private string _consoleName;
+
+        #endregion
+
 
         #region Constructors
 

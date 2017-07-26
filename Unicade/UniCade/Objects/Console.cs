@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCade.Backend;
 
@@ -10,9 +11,37 @@ namespace UniCade.Objects
         #region Properties
 
         /// <summary>
+        /// The max length for console
+        /// </summary>
+        private const int MAX_CONSOLE_NAME_LENGTH = 35;
+
+        /// <summary>
         /// The common display name for the console
         /// </summary>
-        public string ConsoleName { get; set; }
+        public string ConsoleName
+        {
+            get => _consoleName;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Console name cannot be null");
+                }
+                if (value.Length == 0)
+                {
+                    throw new ArgumentException("Console name cannot be empty");
+                }
+                if (value.Length == 0)
+                {
+                    throw new ArgumentException("Console name cannot be empty");
+                }
+                if (value.Length > MAX_CONSOLE_NAME_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("Console name cannot exceed {0} chars", MAX_CONSOLE_NAME_LENGTH));
+                }
+                _consoleName = value;
+            }
+        }
 
         /// <summary>
         /// The original release date for the console
@@ -58,6 +87,15 @@ namespace UniCade.Objects
         /// The current game count for the console
         /// </summary>
         public int GameCount { get; private set; }
+
+        #endregion
+
+        #region  Private Instance Fields
+
+        /// <summary>
+        /// The common display name for the console
+        /// </summary>
+        private string _consoleName;
 
         #endregion
 

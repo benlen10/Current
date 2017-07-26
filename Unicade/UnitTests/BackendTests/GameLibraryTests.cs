@@ -134,14 +134,30 @@ namespace UnitTests
             Assert.IsFalse(Console.AddGame(game), "Verify that adding a game to an incorrect console is not allowed");
         }
 
-        /// 
-        /// </summary>
+
         [TestMethod]
         [Priority(1)]
         public void VerifyAddingGameWithNullConsoleDissalowed()
         {
             //Attempt to add another game with the same filename and verify that duplicates are not allowed
-            IGame game = new Game("newGame.bin", null);
+            IGame game = null;
+            try
+            {
+                game = new Game("newGame.bin", Console.ConsoleName);
+            }
+            catch (ArgumentException)
+            {
+                
+            }
+
+            if (game == null)
+            {
+                Assert.IsTrue(true);
+            }
+            else
+            {
+                Assert.IsTrue(false);
+            }
         }
     }
 }
