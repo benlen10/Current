@@ -740,7 +740,7 @@ namespace UniCade.Windows
             CurrentEmulator.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
             CurrentEmulator.RomExtension = EmulatorsTab_Textbox_ROMExtension.Text;
             CurrentEmulator.LaunchParams = EmulatorsTab_Textbox_EmulatorArgs.Text;
-            CurrentEmulator.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
+            CurrentEmulator.ReleaseDate = Int32.Parse(EmulatorsTab_Textbox_ReleaseDate.Text);
             CurrentEmulator.ConsoleInfo = EmulatorsTab_Textbox_ConsoleInfo.Text;
             FileOps.SaveDatabase(Program.DatabasePath);
             MainWindow.RefreshConsoleList();
@@ -837,7 +837,7 @@ namespace UniCade.Windows
                 {
                     if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
                     {
-                        CurrentEmulator.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
+                        CurrentEmulator.ReleaseDate = Int32.Parse(EmulatorsTab_Textbox_ReleaseDate.Text);
                     }
                     else
                     {

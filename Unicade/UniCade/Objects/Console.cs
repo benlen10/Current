@@ -46,7 +46,27 @@ namespace UniCade.Objects
         /// <summary>
         /// The original release date for the console
         /// </summary>
-        public string ReleaseDate { get; set; }
+        public string ReleaseDate
+        {
+            get => _releaseDate;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Release date cannot be null");
+                }
+                if (!Utilties.IsAllDigits(value))
+                {
+                    throw new ArgumentException("Release date must be only digits");
+                }
+                if (value.Length != 4)
+                {
+                    throw new ArgumentException("Release date must be four digits");
+                }
+                _releaseDate = value;
+            }
+        }
+
 
         /// <summary>
         /// A list of game objects for the current console instance
@@ -96,6 +116,11 @@ namespace UniCade.Objects
         /// The common display name for the console
         /// </summary>
         private string _consoleName;
+
+        /// <summary>
+        /// The original release date for the console
+        /// </summary>
+        public string _releaseDate;
 
         #endregion
 

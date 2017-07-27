@@ -480,7 +480,7 @@ namespace UniCade
             while ((line = file.ReadLine()) != null)
             {
                 r = line.Split(sep);
-                Database.AddConsole(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[8], " "));
+                Database.AddConsole(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[8], 0));
             }
             file.Close();
         }
