@@ -16,6 +16,11 @@ namespace UniCade.Objects
         private const int MAX_CONSOLE_NAME_LENGTH = 35;
 
         /// <summary>
+        /// The max length for directory paths
+        /// </summary>
+        private const int MAX_PATH_LENGTH =1000;
+
+        /// <summary>
         /// The common display name for the console
         /// </summary>
         public string ConsoleName
@@ -48,7 +53,7 @@ namespace UniCade.Objects
         /// </summary>
         public string ReleaseDate
         {
-            get => _releaseDate;
+            get => _emulatorPath;
             set
             {
                 if (value == null)
@@ -63,25 +68,65 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Release date must be four digits");
                 }
-                _releaseDate = value;
+                _emulatorPath = value;
             }
         }
-
-
-        /// <summary>
-        /// A list of game objects for the current console instance
-        /// </summary>
-        private List<IGame> GameList;
 
         /// <summary>
         /// Full path for the emulators folder
         /// </summary>
-        public string EmulatorPath { get; set; }
+        public string EmulatorPath
+        {
+            get => _releaseDate;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Emulator path cannot be null");
+                }
+                if (value.Length < 4)
+                {
+                    throw new ArgumentException("Emulator path too short");
+                }
+                if (!value.Contains(":\\"))
+                {
+                    throw new ArgumentException("Emulator path invalid");
+                }
+                if (value.Length > MAX_CONSOLE_NAME_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("Emulator path cannot exceed {0} chars", MAX_PATH_LENGTH));
+                }
+                _releaseDate = value;
+            }
+        }
 
         /// <summary>
         /// The full path for the console preferences file
         /// </summary>
-        public string PreferencesPath { get; set; }
+        public string PreferencesPath
+        {
+            get => _preferencesPath;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Preferences path cannot be null");
+                }
+                if (value.Length < 4)
+                {
+                    throw new ArgumentException("Preferences path too short");
+                }
+                if (!value.Contains(":\\"))
+                {
+                    throw new ArgumentException("Preferences path invalid");
+                }
+                if (value.Length > MAX_CONSOLE_NAME_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("Preferences path cannot exceed {0} chars", MAX_PATH_LENGTH));
+                }
+                _preferencesPath = value;
+            }
+        }
 
         /// <summary>
         /// The full path to the rom directory for the current console
@@ -120,7 +165,22 @@ namespace UniCade.Objects
         /// <summary>
         /// The original release date for the console
         /// </summary>
-        public string _releaseDate;
+        private string _releaseDate;
+
+        /// <summary>
+        /// Full path for the emulators folder
+        /// </summary>
+        private string _emulatorPath;
+
+        /// <summary>
+        /// The full path for the console preferences file
+        /// </summary>
+        private string _preferencesPath;
+
+        /// <summary>
+        /// A list of game objects for the current console instance
+        /// </summary>
+        private List<IGame> _gameList;
 
         #endregion
 
@@ -132,7 +192,7 @@ namespace UniCade.Objects
         public Console(string consoleName)
         {
             ConsoleName = consoleName;
-            GameList = new List<IGame>();
+            _gameList = new List<IGame>();
         }
 
         /// <summary>
@@ -158,7 +218,7 @@ namespace UniCade.Objects
             ConsoleInfo = consoleInfo;
             LaunchParams = launchParam;
             ReleaseDate = releaseDate;
-            GameList = new List<IGame>();
+            _gameList = new List<IGame>();
         }
 
         #endregion 
@@ -179,13 +239,13 @@ namespace UniCade.Objects
             }
 
             //If a game with an identical title (or filename) name already exists, return false
-            if (GameList.Find(e => e.Title.Equals(game.Title)) != null)
+            if (_gameList.Find(e => e.Title.Equals(game.Title)) != null)
             {
                 return false;
             }
 
             //If all conditions are valid, add the game and increment the game count for both the console and database 
-            GameList.Add(game);
+            _gameList.Add(game);
             GameCount++;
             Database.TotalGameCount++;
             return true;
@@ -200,11 +260,11 @@ namespace UniCade.Objects
         public bool RemoveGame(string gameTitle)
         {
             //Attempt to fetch the console from the current list
-            IGame game = GameList.Find(e => e.ConsoleName.Equals(gameTitle));
+            IGame game = _gameList.Find(e => e.ConsoleName.Equals(gameTitle));
 
             if (game != null)
             {
-                GameList.Remove(game);
+                _gameList.Remove(game);
                 GameCount--;
                 return true;
             }
@@ -218,7 +278,7 @@ namespace UniCade.Objects
         /// <returns>IGame object with the matching title</returns>
         public IGame GetGame(string gameTitle)
         {
-            return GameList.Find(c => c.Title.Equals(gameTitle));
+            return _gameList.Find(c => c.Title.Equals(gameTitle));
         }
 
         /// <summary>
@@ -227,7 +287,7 @@ namespace UniCade.Objects
         /// <returns></returns>
         public List<string> GetGameList()
         {
-            return GameList.Select(g => g.Title).ToList();
+            return _gameList.Select(g => g.Title).ToList();
         }
 
         #endregion
