@@ -21,6 +21,11 @@ namespace UniCade.Objects
         private const int MAX_PATH_LENGTH =1000;
 
         /// <summary>
+        /// The max length a ROM file extension
+        /// </summary>
+        private const int MAX_FILE_EXT_LENGTH = 1000;
+
+        /// <summary>
         /// The common display name for the console
         /// </summary>
         public string ConsoleName
@@ -131,7 +136,30 @@ namespace UniCade.Objects
         /// <summary>
         /// The full path to the rom directory for the current console
         /// </summary>
-        public string RomPath { get; set; }
+        public string RomPath
+        {
+            get => _romPath;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("ROM path cannot be null");
+                }
+                if (value.Length < 4)
+                {
+                    throw new ArgumentException("ROM path too short");
+                }
+                if (!value.Contains(":\\"))
+                {
+                    throw new ArgumentException("ROM path invalid");
+                }
+                if (value.Length > MAX_PATH_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("ROM path cannot exceed {0} chars", MAX_PATH_LENGTH));
+                }
+                _romPath = value;
+            }
+        }
 
         /// <summary>
         /// The extensions for the current console
@@ -181,6 +209,11 @@ namespace UniCade.Objects
         /// A list of game objects for the current console instance
         /// </summary>
         private List<IGame> _gameList;
+
+        /// <summary>
+        /// The full path to the rom directory for the current console
+        /// </summary>
+        private string _romPath;
 
         #endregion
 
