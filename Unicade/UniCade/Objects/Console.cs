@@ -164,7 +164,30 @@ namespace UniCade.Objects
         /// <summary>
         /// The extensions for the current console
         /// </summary>
-        public string RomExtension { get; set; }
+        public string RomExtension
+        {
+            get => _romExtensions;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("ROM file extension cannnot be null");
+                }
+                if (value.Length == 0)
+                {
+                    throw new ArgumentException("ROM file extension cannnot be empty");
+                }
+                if (!value.Contains("."))
+                {
+                    throw new ArgumentException("File extension invalid");
+                }
+                if (value.Length > MAX_PATH_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("ROM extension length cannot exceed {0} chars", MAX_FILE_EXT_LENGTH));
+                }
+                _romExtensions = value;
+            }
+        }
 
         /// <summary>
         /// Basic console description and info
@@ -214,6 +237,11 @@ namespace UniCade.Objects
         /// The full path to the rom directory for the current console
         /// </summary>
         private string _romPath;
+
+        /// <summary>
+        /// The extensions for the current console
+        /// </summary>
+        private string _romExtensions;
 
         #endregion
 
