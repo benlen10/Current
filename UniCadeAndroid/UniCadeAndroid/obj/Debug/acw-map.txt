@@ -1,0 +1,4 @@
+UniCadeAndroid.MainActivity, UniCadeAndroid;md5118088a54a37ce7f79152102368ab34d.MainActivity
+UniCadeAndroid.MainActivity, UniCadeAndroid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5118088a54a37ce7f79152102368ab34d.MainActivity
+UniCadeAndroid.MainActivity;md5118088a54a37ce7f79152102368ab34d.MainActivity
+unicadeandroid.MainActivity;md5118088a54a37ce7f79152102368ab34d.MainActivity

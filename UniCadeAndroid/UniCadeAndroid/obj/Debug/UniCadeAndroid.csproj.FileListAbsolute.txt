@@ -1,0 +1,17 @@
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\UniCadeAndroid.dll
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\UniCadeAndroid.pdb
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\UniCadeAndroid.UniCadeAndroid.apk
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\UniCadeAndroid.UniCadeAndroid-Signed.apk
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\UniCadeAndroid.dll
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\UniCadeAndroid.pdb
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\android\bin\UniCadeAndroid.UniCadeAndroid.apk
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\res\layout\main.xml
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\res\values\strings.xml
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\res\drawable\icon.png
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\R.cs.flag
+c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\uploadflags.txt
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\System.Data.SQLite.dll
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\System.Data.SQLite.xml
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\UniCadeAndroid.csprojResolveAssemblyReference.cache
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\UniCadeAndroid.dll.mdb
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\android\assets\UniCadeAndroid.dll.mdb
