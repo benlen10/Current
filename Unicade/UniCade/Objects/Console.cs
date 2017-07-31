@@ -26,6 +26,11 @@ namespace UniCade.Objects
         private const int MAX_FILE_EXT_LENGTH = 1000;
 
         /// <summary>
+        /// The max length a the console info
+        /// </summary>
+        private const int MAX_CONSOLE_INFO_LENGTH = 1000;
+
+        /// <summary>
         /// The common display name for the console
         /// </summary>
         public string ConsoleName
@@ -97,7 +102,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Emulator path invalid");
                 }
-                if (value.Length > MAX_CONSOLE_NAME_LENGTH)
+                if (value.Length > MAX_PATH_LENGTH)
                 {
                     throw new ArgumentException(String.Format("Emulator path cannot exceed {0} chars", MAX_PATH_LENGTH));
                 }
@@ -125,7 +130,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Preferences path invalid");
                 }
-                if (value.Length > MAX_CONSOLE_NAME_LENGTH)
+                if (value.Length > MAX_PATH_LENGTH)
                 {
                     throw new ArgumentException(String.Format("Preferences path cannot exceed {0} chars", MAX_PATH_LENGTH));
                 }
@@ -181,7 +186,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("File extension invalid");
                 }
-                if (value.Length > MAX_PATH_LENGTH)
+                if (value.Length > MAX_FILE_EXT_LENGTH)
                 {
                     throw new ArgumentException(String.Format("ROM extension length cannot exceed {0} chars", MAX_FILE_EXT_LENGTH));
                 }
@@ -192,7 +197,22 @@ namespace UniCade.Objects
         /// <summary>
         /// Basic console description and info
         /// </summary>
-        public string ConsoleInfo { get; set; }
+        public string ConsoleInfo
+        {
+            get => _consoleInfo;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Console info cannnot be null");
+                }
+                if (value.Length > MAX_CONSOLE_INFO_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("ROM extension length cannot exceed {0} chars", MAX_CONSOLE_INFO_LENGTH));
+                }
+                _consoleInfo = value;
+            }
+        }
 
         /// <summary>
         /// The launch params for the current emulator
@@ -229,11 +249,6 @@ namespace UniCade.Objects
         private string _preferencesPath;
 
         /// <summary>
-        /// A list of game objects for the current console instance
-        /// </summary>
-        private List<IGame> _gameList;
-
-        /// <summary>
         /// The full path to the rom directory for the current console
         /// </summary>
         private string _romPath;
@@ -242,6 +257,16 @@ namespace UniCade.Objects
         /// The extensions for the current console
         /// </summary>
         private string _romExtensions;
+
+        /// <summary>
+        /// Basic console description and info
+        /// </summary>
+        private string _consoleInfo;
+
+        /// <summary>
+        /// A list of game objects for the current console instance
+        /// </summary>
+        private List<IGame> _gameList;
 
         #endregion
 
