@@ -100,8 +100,8 @@ namespace UniCade
                     foreach (string consoleName in consoleList)
                     {
                         IConsole console = Database.GetConsole(consoleName);
-                        streamWriter.WriteLine(string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", console.ConsoleName, console.EmulatorPath, console.RomPath, console.PreferencesPath, console.RomExtension, console.GameCount, "Console Info", console.LaunchParams, console.ReleaseDate));
-                        if (console.GameCount > 0)
+                        streamWriter.WriteLine(string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", console.ConsoleName, console.EmulatorPath, console.RomPath, console.PreferencesPath, console.RomExtension, console.GetGameCount(), "Console Info", console.LaunchParams, console.ReleaseDate));
+                        if (console.GetGameCount() > 0)
                         {
                             var gameList = console.GetGameList();
                             foreach (string gameTitle in gameList)
@@ -480,7 +480,7 @@ namespace UniCade
             while ((line = file.ReadLine()) != null)
             {
                 r = line.Split(sep);
-                Database.AddConsole(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[8], 0));
+                Database.AddConsole(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[8], ""));
             }
             file.Close();
         }

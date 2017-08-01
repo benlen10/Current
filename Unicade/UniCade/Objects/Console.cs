@@ -31,6 +31,11 @@ namespace UniCade.Objects
         private const int MAX_CONSOLE_INFO_LENGTH = 1000;
 
         /// <summary>
+        /// The max length a the console info
+        /// </summary>
+        private const int MAX_LAUNCH_PARAMS_LENGTH = 1000;
+
+        /// <summary>
         /// The common display name for the console
         /// </summary>
         public string ConsoleName
@@ -217,12 +222,22 @@ namespace UniCade.Objects
         /// <summary>
         /// The launch params for the current emulator
         /// </summary>
-        public string LaunchParams { get; set; }
-
-        /// <summary>
-        /// The current game count for the console
-        /// </summary>
-        public int GameCount { get; private set; }
+        public string LaunchParams
+        {
+            get => _launchParams;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Launch params cannnot be null");
+                }
+                if (value.Length > MAX_LAUNCH_PARAMS_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("Launch params length cannot exceed {0} chars", MAX_LAUNCH_PARAMS_LENGTH));
+                }
+                _launchParams = value;
+            }
+        }
 
         #endregion
 
@@ -264,9 +279,19 @@ namespace UniCade.Objects
         private string _consoleInfo;
 
         /// <summary>
+        /// The launch params for the current emulator
+        /// </summary>
+        private string _launchParams;
+
+        /// <summary>
         /// A list of game objects for the current console instance
         /// </summary>
         private List<IGame> _gameList;
+
+        /// <summary>
+        /// The current game count for the console
+        /// </summary>
+        private int _gameCount;
 
         #endregion
 
@@ -300,7 +325,7 @@ namespace UniCade.Objects
             RomPath = romPath;
             PreferencesPath = prefPath;
             RomExtension = romExt;
-            GameCount = gameCount;
+            _gameCount = gameCount;
             ConsoleInfo = consoleInfo;
             LaunchParams = launchParam;
             ReleaseDate = releaseDate;
@@ -332,7 +357,7 @@ namespace UniCade.Objects
 
             //If all conditions are valid, add the game and increment the game count for both the console and database 
             _gameList.Add(game);
-            GameCount++;
+            _gameCount++;
             Database.TotalGameCount++;
             return true;
         }
@@ -351,7 +376,7 @@ namespace UniCade.Objects
             if (game != null)
             {
                 _gameList.Remove(game);
-                GameCount--;
+                _gameCount--;
                 return true;
             }
             return false;
@@ -374,6 +399,15 @@ namespace UniCade.Objects
         public List<string> GetGameList()
         {
             return _gameList.Select(g => g.Title).ToList();
+        }
+
+        /// <summary>
+        /// Return the current number of games in the console
+        /// </summary>
+        /// <returns>the current game count</returns>
+        public int GetGameCount()
+        {
+            return _gameCount;
         }
 
         #endregion

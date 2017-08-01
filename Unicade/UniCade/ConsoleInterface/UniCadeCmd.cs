@@ -139,7 +139,7 @@ namespace UniCade.ConsoleInterface
             {
                 //Display the current console, game count and available options
 
-                System.Console.WriteLine(string.Format("{0} (Total Games: {1})", console.ConsoleName, console.GameCount));
+                System.Console.WriteLine(string.Format("{0} (Total Games: {1})", console.ConsoleName, console.GetGameCount()));
                 System.Console.WriteLine("Additional Options: Show Info: (i) <game>, Close (c), Toggle Favs View (fv), Toggle Fav (f))\n");
                 if (favoritesView)
                 {

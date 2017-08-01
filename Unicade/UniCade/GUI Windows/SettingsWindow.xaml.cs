@@ -465,7 +465,7 @@ namespace UniCade.Windows
                 if (console.ConsoleName.Equals(curItem))
                 {
                     CurrentConsole = console;
-                    GamesTab_Textbox_GamesForConsole.Text = console.GameCount.ToString();
+                    GamesTab_Textbox_GamesForConsole.Text = console.GetGameCount().ToString();
                     GamesTab_Textbox_TotalGames.Text = Database.TotalGameCount.ToString();
 
                     //Populate the games list
@@ -724,7 +724,7 @@ namespace UniCade.Windows
                     EmulatorsTab_Textbox_ROMExtension.Text = console.RomExtension;
                     EmulatorsTab_Textbox_EmulatorArgs.Text = console.LaunchParams;
                     EmulatorsTab_Textbox_ConsoleInfo.Text = console.ConsoleInfo;
-                    EmulatorsTab_Textbox_GameCount.Text = console.GameCount.ToString();
+                    EmulatorsTab_Textbox_GameCount.Text = console.GetGameCount().ToString();
                     EmulatorsTab_Textbox_ReleaseDate.Text = console.ReleaseDate;
                 }
             }
@@ -740,7 +740,7 @@ namespace UniCade.Windows
             CurrentEmulator.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
             CurrentEmulator.RomExtension = EmulatorsTab_Textbox_ROMExtension.Text;
             CurrentEmulator.LaunchParams = EmulatorsTab_Textbox_EmulatorArgs.Text;
-            CurrentEmulator.ReleaseDate = Int32.Parse(EmulatorsTab_Textbox_ReleaseDate.Text);
+            CurrentEmulator.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
             CurrentEmulator.ConsoleInfo = EmulatorsTab_Textbox_ConsoleInfo.Text;
             FileOps.SaveDatabase(Program.DatabasePath);
             MainWindow.RefreshConsoleList();
@@ -837,7 +837,7 @@ namespace UniCade.Windows
                 {
                     if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
                     {
-                        CurrentEmulator.ReleaseDate = Int32.Parse(EmulatorsTab_Textbox_ReleaseDate.Text);
+                        CurrentEmulator.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
                     }
                     else
                     {
@@ -1919,7 +1919,7 @@ namespace UniCade.Windows
             foreach (string consoleName in consoleList)
             {
                 IConsole console = Database.GetConsole(consoleName);
-                if (console.GameCount > 0)
+                if (console.GetGameCount() > 0)
                 {
                     var gameList = console.GetGameList();
                     foreach (string gameTitle in gameList)

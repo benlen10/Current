@@ -543,7 +543,7 @@ namespace UniCade
                 if (console.ConsoleName.Equals(ActiveConsoleList[IndexNumber]))
                 {
                     CurrentConsole = console;
-                    label.Content = console.ConsoleName + " Game Count: " + console.GameCount;
+                    label.Content = console.ConsoleName + " Game Count: " + console.GetGameCount();
 
                     var gameList = console.GetGameList();
                     foreach (string gameTitle in gameList)

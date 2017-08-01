@@ -17,11 +17,6 @@ namespace UniCade
         string EmulatorPath { get; set; }
 
         /// <summary>
-        /// The current game count for the console
-        /// </summary>
-        int GameCount { get; }
-
-        /// <summary>
         /// The launch params for the current emulator
         /// </summary>
         string LaunchParams { get; set; }
@@ -80,6 +75,12 @@ namespace UniCade
         /// </summary>
         /// <returns></returns>
         List<string> GetGameList();
+
+        /// <summary>
+        /// Return the current number of games in the console
+        /// </summary>
+        /// <returns>the current game count</returns>
+        int GetGameCount();
 
         #endregion
     }

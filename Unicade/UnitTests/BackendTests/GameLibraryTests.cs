@@ -62,7 +62,7 @@ namespace UnitTests
             Assert.AreEqual(0, originalTotalGameCount, "Verify that the TotalGameCount is intially set to zero after creating a new database instance");
 
             //Verify that the console game count is intially set to zero
-            int originalConsoleGameCount = Console.GameCount;
+            int originalConsoleGameCount = Console.GetGameCount();
             Assert.AreEqual(0, originalConsoleGameCount, "Verify that the console game count is intially set to zero");
 
             //Add a game to the new console and verify that AddGame returns true
@@ -70,7 +70,7 @@ namespace UnitTests
             Assert.IsTrue(Console.AddGame(newGame), "Verify that AddGame returns true when adding a new (valid) game");
 
             //Verify that the console game count has been incremented by one
-            Assert.AreEqual((originalConsoleGameCount + 1), Console.GameCount, "Verify that the console game count has been incremented by one");
+            Assert.AreEqual((originalConsoleGameCount + 1), Console.GetGameCount(), "Verify that the console game count has been incremented by one");
 
             //Refresh the database that the total game count has been incremented by one
             Database.RefreshTotalGameCount();
@@ -80,7 +80,7 @@ namespace UnitTests
             Console.RemoveGame(newGame.Title);
 
             //Verify that the console game count has been decremented by one after removing the game
-            Assert.AreEqual(originalConsoleGameCount, Console.GameCount, "Verify that the console game count has been incremented by one");
+            Assert.AreEqual(originalConsoleGameCount, Console.GetGameCount(), "Verify that the console game count has been incremented by one");
 
             //Refresh the database and verify that the console game count has been decremented by one after removing the game
             Database.RefreshTotalGameCount();

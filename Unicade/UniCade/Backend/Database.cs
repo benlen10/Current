@@ -183,7 +183,7 @@ namespace UniCade.Backend
         public static int RefreshTotalGameCount()
         {
             var count = 0;
-            ConsoleList.ForEach(c => count += c.GameCount);
+            ConsoleList.ForEach(c => count += c.GetGameCount());
             TotalGameCount = count;
             return count;
         }
