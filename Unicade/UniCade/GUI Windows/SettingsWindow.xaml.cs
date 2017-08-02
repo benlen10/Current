@@ -762,7 +762,7 @@ namespace UniCade.Windows
         private void EmulatorsTab_DeleteConsoleButton_Click(object sender, EventArgs e)
         {
             //Ensure that at least one console exists
-            if (Database.ConsoleCount < 2)
+            if (Database.GetConsoleCount() <= 1)
             {
                 MessageBox.Show("Cannot have an empty console list");
                 return;
@@ -1032,7 +1032,7 @@ namespace UniCade.Windows
         {
             IUser user = Database.GetUser(UsersTab_Listbox_CurrentUser.SelectedItem.ToString());
             //Ensure that there is always at least one user present in the database
-            if (Database.UserCount <= 1)
+            if (Database.GetUserCount() <= 1)
             {
                 MessageBox.Show("Must at least have one user");
                 return;
