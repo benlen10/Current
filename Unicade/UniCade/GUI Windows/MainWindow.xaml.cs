@@ -151,7 +151,7 @@ namespace UniCade
 
             //Refresh the current gamecount and update the GUI
             //Program.RefreshTotalGameCount();
-            label.Content = "Total Game Count: " + Database.TotalGameCount;
+            label.Content = "Total Game Count: " + Database.GetTotalGameCount();
             UpdateGUI();
         }
 
@@ -407,7 +407,7 @@ namespace UniCade
 
                     //Restore the flags for the main GUI view
                     IsGameSelectionPageActive = false;
-                    label.Content = "Total Game Count: " + Database.TotalGameCount;
+                    label.Content = "Total Game Count: " + Database.GetTotalGameCount();
                 }
             }
 

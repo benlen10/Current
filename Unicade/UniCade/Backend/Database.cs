@@ -15,11 +15,6 @@ namespace UniCade.Backend
         #region Properties
 
         /// <summary>
-        /// The current number of games across all game consoles
-        /// </summary>
-        public static int TotalGameCount { get; set; }
-
-        /// <summary>
         /// The current user object 
         /// </summary>
         public static IUser CurrentUser;
@@ -53,6 +48,11 @@ namespace UniCade.Backend
         /// </summary>
         private static int _userCount;
 
+        /// <summary>
+        /// The current number of games across all game consoles
+        /// </summary>
+        private static int _totalGameCount;
+
         #endregion
 
         #region Public Methods
@@ -62,7 +62,7 @@ namespace UniCade.Backend
         /// </summary>
         public static void Initalize()
         {
-            TotalGameCount = 0;
+            _totalGameCount = 0;
             _consoleList = new List<IConsole>();
             _userList = new List<IUser>();
             IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
@@ -202,8 +202,17 @@ namespace UniCade.Backend
         {
             var count = 0;
             _consoleList.ForEach(c => count += c.GetGameCount());
-            TotalGameCount = count;
+            _totalGameCount = count;
             return count;
+        }
+
+        /// <summary>
+        /// Return the total number of games across all consoles
+        /// </summary>
+        /// <returns>Total game count</returns>
+        public static int GetTotalGameCount()
+        {
+            return _totalGameCount;
         }
 
         #endregion

@@ -358,7 +358,6 @@ namespace UniCade.Objects
             //If all conditions are valid, add the game and increment the game count for both the console and database 
             _gameList.Add(game);
             _gameCount++;
-            Database.TotalGameCount++;
             return true;
         }
 

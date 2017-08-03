@@ -466,7 +466,7 @@ namespace UniCade.Windows
                 {
                     CurrentConsole = console;
                     GamesTab_Textbox_GamesForConsole.Text = console.GetGameCount().ToString();
-                    GamesTab_Textbox_TotalGames.Text = Database.TotalGameCount.ToString();
+                    GamesTab_Textbox_TotalGames.Text = Database.GetTotalGameCount().ToString();
 
                     //Populate the games list
                     console.GetGameList().ForEach(g => GamesTab_Listbox_GamesList.Items.Add(g));

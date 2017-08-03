@@ -15,17 +15,17 @@ namespace UnitTests
         /// <summary>
         /// A new Random instance to generate a random id tag
         /// </summary>
-        Random Random;
+        private Random Random;
 
         /// <summary>
         /// The randomly generated int value for the current test instance 
         /// </summary>
-        int Id;
+        private int Id;
 
         /// <summary>
         /// The first console in the database
         /// </summary>
-        IConsole Console;
+        private IConsole Console;
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace UnitTests
         public void AddRemoveGameAndVerifyGameCount()
         {
             //Store the original game count
-            int originalTotalGameCount = Database.TotalGameCount;
+            int originalTotalGameCount = Database.GetTotalGameCount();
 
             //Verify that the TotalGameCount is intially set to zero after creating a new database instance
             Assert.AreEqual(0, originalTotalGameCount, "Verify that the TotalGameCount is intially set to zero after creating a new database instance");
@@ -74,7 +74,7 @@ namespace UnitTests
 
             //Refresh the database that the total game count has been incremented by one
             Database.RefreshTotalGameCount();
-            Assert.AreEqual((originalTotalGameCount + 1), Database.TotalGameCount, "Verify that the console game count has been incremented by one");
+            Assert.AreEqual((originalTotalGameCount + 1), Database.GetTotalGameCount(), "Verify that the console game count has been incremented by one");
 
             //Remove the game
             Console.RemoveGame(newGame.Title);
@@ -84,7 +84,7 @@ namespace UnitTests
 
             //Refresh the database and verify that the console game count has been decremented by one after removing the game
             Database.RefreshTotalGameCount();
-            Assert.AreEqual(originalTotalGameCount, Database.TotalGameCount, "Verify that the console game count has been incremented by one");
+            Assert.AreEqual(originalTotalGameCount, Database.GetTotalGameCount(), "Verify that the console game count has been incremented by one");
 
             //Verify that attempting to remove a nonexistent game returns false 
             Assert.IsFalse(Console.RemoveGame(newGame.Title), "Verify that attempting to remove a nonexistent game returns false");
