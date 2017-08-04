@@ -7,8 +7,7 @@ namespace UniCade.Objects
 {
     public class Console : IConsole
     {
-
-        #region Properties
+        #region Constants 
 
         /// <summary>
         /// The max length for console
@@ -18,7 +17,7 @@ namespace UniCade.Objects
         /// <summary>
         /// The max length for directory paths
         /// </summary>
-        private const int MAX_PATH_LENGTH =1000;
+        private const int MAX_PATH_LENGTH = 1000;
 
         /// <summary>
         /// The max length a ROM file extension
@@ -34,6 +33,10 @@ namespace UniCade.Objects
         /// The max length a the console info
         /// </summary>
         private const int MAX_LAUNCH_PARAMS_LENGTH = 1000;
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// The common display name for the console
@@ -130,10 +133,6 @@ namespace UniCade.Objects
                 if (value.Length < 4)
                 {
                     throw new ArgumentException("Preferences path too short");
-                }
-                if (!value.Contains(":\\"))
-                {
-                    throw new ArgumentException("Preferences path invalid");
                 }
                 if (value.Length > MAX_PATH_LENGTH)
                 {
