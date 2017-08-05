@@ -9,7 +9,20 @@ namespace UniCade.Objects
     {
         #region Constants
 
+        /// <summary>
+        /// The max char length for a username
+        /// </summary>
         private const int MAX_USERNAME_LENGTH = 30;
+
+        /// <summary>
+        /// The max char length for user info descriptions
+        /// </summary>
+        private const int MAX_USER_INFO_LENGTH = 200;
+
+        /// <summary>
+        /// The max char length for user email addresses
+        /// </summary>
+        private const int MAX_EMAIL_LENGTH = 200;
 
         #endregion
 
@@ -40,29 +53,52 @@ namespace UniCade.Objects
         }
 
         /// <summary>
-        /// The numer of times this user has logged in
-        /// </summary>
-        public int LoginCount { get; set; }
-
-        /// <summary>
-        /// The total number of games that this user has launched
-        /// </summary>
-        public int TotalLaunchCount { get; set; }
-
-        /// <summary>
         /// A brief description of the user
         /// </summary>
-        public string UserInfo { get; set; }
-
-        /// <summary>
-        /// The max allowed ESRB for the current user (Parental Controls)
-        /// </summary>
-        public Enums.ESRB AllowedEsrb { get; set; }
+        public string UserInfo
+        {
+            get => _userInfo;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("User info cannot be null");
+                }
+                if (value.Length > MAX_USER_INFO_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("User info cannot exceed {0} chars", MAX_USER_INFO_LENGTH));
+                }
+                _userInfo = value;
+            }
+        }
 
         /// <summary>
         /// The user's email address
         /// </summary>
-        public string Email { get; set; }
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Email cannot be null");
+                }
+                if (value.Length < 6)
+                {
+                    throw new ArgumentException("Email must be at least 5 chars");
+                }
+                if (value.Contains("@"))
+                {
+                    throw new ArgumentException("Email is invalid");
+                }
+                if (value.Length > MAX_EMAIL_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("Email cannot exceed {0} chars", MAX_EMAIL_LENGTH));
+                }
+                _email = value;
+            }
+        }
 
         /// <summary>
         /// The password for the current user
@@ -74,6 +110,20 @@ namespace UniCade.Objects
         /// </summary>
         public List<IGame> FavoritesList { get; set; }
 
+        /// <summary>
+        /// The numer of times this user has logged in
+        /// </summary>
+        public int LoginCount { get; set; }
+
+        /// <summary>
+        /// The total number of games that this user has launched
+        /// </summary>
+        public int TotalLaunchCount { get; set; }
+
+        /// <summary>
+        /// The max allowed ESRB for the current user (Parental Controls)
+        /// </summary>
+        public Enums.ESRB AllowedEsrb { get; set; }
 
         #endregion
 
@@ -85,9 +135,19 @@ namespace UniCade.Objects
         private string _username;
 
         /// <summary>
+        /// The current user description
+        /// </summary>
+        private string _userInfo;
+
+        /// <summary>
         /// The password for the current user
         /// </summary>
         private string _password;
+
+        /// <summary>
+        /// The email address for the current user
+        /// </summary>
+        private string _email;
 
         #endregion
 
