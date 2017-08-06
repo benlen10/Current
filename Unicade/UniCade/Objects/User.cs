@@ -24,6 +24,11 @@ namespace UniCade.Objects
         /// </summary>
         private const int MAX_EMAIL_LENGTH = 200;
 
+        /// <summary>
+        /// The max path length for local directories
+        /// </summary>
+        private const int MAX_PATH_LENGTH = 1000;
+
         #endregion
 
         #region Properties
@@ -103,7 +108,22 @@ namespace UniCade.Objects
         /// <summary>
         /// The password for the current user
         /// </summary>
-        public string ProfilePicture { get; set; }
+        public string ProfilePicture
+        {
+            get => _profilePicturePath;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Profile picture path cannot be null");
+                }
+                if (value.Length > MAX_PATH_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("Profile Picture path cannot exceed {0} chars", MAX_PATH_LENGTH));
+                }
+                _profilePicturePath = value;
+            }
+        }
 
         /// <summary>
         /// A list of the user's favorite games
@@ -114,11 +134,6 @@ namespace UniCade.Objects
         /// The numer of times this user has logged in
         /// </summary>
         public int LoginCount { get; set; }
-
-        /// <summary>
-        /// The total number of games that this user has launched
-        /// </summary>
-        public int TotalLaunchCount { get; set; }
 
         /// <summary>
         /// The max allowed ESRB for the current user (Parental Controls)
@@ -149,6 +164,21 @@ namespace UniCade.Objects
         /// </summary>
         private string _email;
 
+        /// <summary>
+        /// The path to the user profile picture
+        /// </summary>
+        private string _profilePicturePath;
+
+        /// <summary>
+        /// The total number of games this user has launched
+        /// </summary>
+        private int _userLaunchCount;
+
+        /// <summary>
+        /// The total number of times this user has logged in
+        /// </summary>
+        private int _userLoginCount;
+
         #endregion
 
         #region Constructors
@@ -158,7 +188,7 @@ namespace UniCade.Objects
             Username = userName;
             _password = password;
             LoginCount = loginCount;
-            TotalLaunchCount = totalLaunchCount;
+            _userLaunchCount = totalLaunchCount;
             UserInfo = userInfo;
             AllowedEsrb = allowedEsrb;
             Email = email;
@@ -188,6 +218,23 @@ namespace UniCade.Objects
         public string GetUserPassword()
         {
             return _password;
+        }
+
+        /// <summary>
+        /// Return the total numer of games this user has launched
+        /// </summary>
+        /// <returns>userLaunchCount</returns>
+        public int GetUserLaunchCount()
+        {
+            return _userLaunchCount;
+        }
+
+        /// <summary>
+        /// Incriment the launch count for the current user by 1
+        /// </summary>
+        public void IncrementUserLaunchCount()
+        {
+            _userLaunchCount++;
         }
 
         #endregion

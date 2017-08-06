@@ -32,10 +32,6 @@ namespace UniCade
         /// </summary>
         string ProfilePicture { get; set; }
 
-        /// <summary>
-        /// The total number of games that this user has launched
-        /// </summary>
-        int TotalLaunchCount { get; set; }
 
         /// <summary>
         /// A brief description of the user
@@ -63,6 +59,19 @@ namespace UniCade
         /// </summary>
         /// <returns>the current user's password</returns>
         string GetUserPassword();
+
+
+        /// <summary>
+        /// Return the total numer of games this user has launched
+        /// </summary>
+        /// <returns>userLaunchCount</returns>
+        int GetUserLaunchCount();
+
+
+        /// <summary>
+        /// Incriment the launch count for the current user by 1
+        /// </summary>
+        void IncrementUserLaunchCount();
 
         #endregion
     }

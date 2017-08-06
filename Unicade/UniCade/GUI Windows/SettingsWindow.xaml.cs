@@ -976,7 +976,7 @@ namespace UniCade.Windows
                     UsersTab_Textbox_Email.Text = user.Email;
                     UsersTab_Textbox_UserInfo.Text = user.UserInfo;
                     UsersTab_Textbox_LoginCount.Text = user.LoginCount.ToString();
-                    UsersTab_Textbox_LaunchCount.Text = user.TotalLaunchCount.ToString();
+                    UsersTab_Textbox_LaunchCount.Text = user.GetUserLaunchCount().ToString();
                     UsersTab_Dropdown_AllowedESRB.Text = user.AllowedEsrb.GetStringValue();
 
                     //Only allow the current user to edit their own userdata
