@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using UniCadeAndroid.Constants;
 using UniCadeAndroid.Interfaces;
 using UniCadeAndroid.Objects;
@@ -29,7 +31,6 @@ namespace UniCadeAndroid.Network
         /// <returns>A list of MobyGame objects</returns>
         public static async Task<bool> FetchGameInfo(IGame game)
         {
-            /*
             //Replace all spaces with underscores for the api request
             string title = game.Title.Replace(' ', '_');
             using (var httpClient = new HttpClient())
@@ -45,28 +46,28 @@ namespace UniCadeAndroid.Network
                     {
                         string result = await httpResponseMessage.Content.ReadAsStringAsync();
                         var rootResult = JsonConvert.DeserializeObject<MobyRootObject>(result);
-                        var gameResult = rootResult.games.First();
+                        var gameResult = rootResult.Games.First();
 
                         //If a game was located, populate the game object fields
                         if (gameResult != null)
                         {
-                            game.MobygamesApiId = gameResult.game_id;
-                            game.MobyGamesUrl = gameResult.moby_url;
+                            game.MobygamesApiId = gameResult.Game_id;
+                            game.MobyGamesUrl = gameResult.Moby_url;
                             if (WebOps.ParseDescription)
                             {
-                                game.Description = gameResult.description;
+                                game.Description = gameResult.Description;
                             }
                             if (WebOps.ParseGenres)
                             {
-                                game.Genres = ConvertGenreListToString(gameResult.genres);
+                                game.Genres = ConvertGenreListToString(gameResult.Genres);
                             }
                             if (WebOps.ParseOtherPlatforms)
                             {
-                                game.OtherPlatforms = ConvertPlatformListToString(gameResult.platforms);
+                                game.OtherPlatforms = ConvertPlatformListToString(gameResult.Platforms);
                             }
                             if (WebOps.ParseUserScore)
                             {
-                                game.UserReviewScore = gameResult.moby_score.ToString(CultureInfo.InvariantCulture);
+                                game.UserReviewScore = gameResult.Moby_score.ToString(CultureInfo.InvariantCulture);
                             }
                         }
                         return true;
@@ -81,10 +82,8 @@ namespace UniCadeAndroid.Network
                 {
                     return false;
                 }
-                return false;
+                return true;
             }
-            */
-            return true;
         }
 
 

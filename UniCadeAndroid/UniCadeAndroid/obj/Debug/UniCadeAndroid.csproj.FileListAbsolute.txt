@@ -15,3 +15,5 @@ C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\b
 C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\UniCadeAndroid.csprojResolveAssemblyReference.cache
 C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\UniCadeAndroid.dll.mdb
 C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\android\assets\UniCadeAndroid.dll.mdb
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\Newtonsoft.Json.xml

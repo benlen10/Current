@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using UniCadeAndroid.Constants;
 
@@ -59,50 +60,6 @@ namespace UniCadeAndroid.Backend
         /// </summary>
         public static bool EnforceFileExtensions;
 
-        #endregion
-
-        #region  Public Methods
-
-        /// <summary>
-        /// Entry point for the program
-        /// </summary>
-        /// <param name="args"></param>
-        [STAThread]
-        public static void Main(string[] args)
-        {
-            //Initalize the database, preform an initial scan and refresh the total game count
-            Database.Initalize();
-
-            //Validate the media directory and attempt to laod both the database.xml and preferences.xml files
-            if (!FileOps.StartupScan())
-            {
-                return;
-            }
-
-            //Refresh the total came count across all consoles
-            Database.RefreshTotalGameCount();
-
-            /*
-            //Launch either the GUI or the legacy command line interface
-            if (PerferCmdInterface)
-            {
-                UniCadeCmd.Run();
-            }
-            else
-            {
-                App = new App();
-                App.InitializeComponent();
-                App.Run();
-            }
-            */
-        }
-
-        #endregion
-
-        #region Helper Methods
-
-        #endregion
-
         /// <summary>
         /// The user name for the current license holder
         /// </summary>
@@ -117,5 +74,57 @@ namespace UniCadeAndroid.Backend
         /// True if the current license key is valid
         /// </summary>
         public static bool IsLicenseValid = false;
+
+        /// <summary>
+        /// The list of currently active consoles
+        /// </summary>
+        public static ArrayList ActiveConsoleList;
+
+        /// <summary>
+        /// The index number for the currently displayed console
+        /// </summary>
+        public static int IndexNumber;
+
+        /// <summary>
+        /// True if the password entered in the passWindow is valid
+        /// </summary>
+        public static bool IsPasswordValid;
+
+        /// <summary>
+        /// True if the game selection screen is the current screen
+        /// </summary>
+        public static bool IsGameSelectionPageActive;
+
+        /// <summary>
+        /// True if a game is currently running
+        /// </summary>
+        public static bool IsGameRunning;
+
+        /// <summary>
+        /// True if the game info window is currently active
+        /// </summary>
+        public static bool IsInfoWindowActive;
+
+        /// <summary>
+        /// True if the SettingsWindow is currently visible
+        /// </summary>
+        public static bool IsSettingsWindowActive;
+
+        /// <summary>
+        /// True if currenly only favorites are being displayed
+        /// </summary>
+        public static bool IsFavoritesViewActive;
+
+        /// <summary>
+        /// Specifies if the ESRB logo should be displayed while browsing games
+        /// </summary>
+        public static bool DisplayEsrbWhileBrowsing;
+
+        /// <summary>
+        /// Specifies if games with a restricted ESRB rating should be hidden 
+        /// </summary>
+        public static bool HideRestrictedEsrbGames;
+
+        #endregion
     }
 }

@@ -7,9 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml;
 using UniCadeAndroid.Constants;
-using UniCadeAndroid.Exceptions;
 using UniCadeAndroid.Interfaces;
-using UniCadeAndroid.Windows;
 using UniCadeAndroid.Objects;
 using Console = UniCadeAndroid.Objects.Console;
 
@@ -222,105 +220,7 @@ namespace UniCadeAndroid.Backend
             return true;
         }
 
-        /// <summary>
-        /// Launch the specified ROM file using the paramaters specified by the console
-        /// </summary>
-        public static bool Launch(IGame game)
-        {
-            if (game == null)
-            {
-                throw new LaunchException("Game is Null");
-            }
-            if (Database.GetCurrentUser().AllowedEsrbRatings > 0)
-            {
-                if (game.EsrbRating > Database.GetCurrentUser().AllowedEsrbRatings)
-                {
-                    throw new LaunchException(("ESRB " + game.EsrbRating + " Is Restricted for" + Database.GetCurrentUser().Username));
-                }
-            }
-
-            if (Program.RestrictGlobalEsrbRatings > 0)
-            {
-                if (game.EsrbRating > Program.RestrictGlobalEsrbRatings)
-                {
-                    throw new LaunchException(("ESRB " + game.EsrbRating + " Is Restricted globally"));
-                }
-            }
-
-            //Fetch the console object
-            IConsole console = Database.GetConsole(game.ConsoleName);
-
-            string gamePath = ("\"" + console.RomFolderPath + game.FileName + "\"");
-            string testGamePath = (console.RomFolderPath + game.FileName);
-            if (!File.Exists(testGamePath))
-            {
-                throw new LaunchException(("ROM does not exist. Launch Failed"));
-            }
-            var args = console.LaunchParams.Replace("%file", console.ConsoleName.Equals("MAME") ? game.Title : gamePath);
-
-            if (console.ConsoleName.Equals("PC"))
-            {
-                Program.CurrentProcess.StartInfo.FileName = args;
-                if (args.Contains("url"))
-                {
-                    IsSteamGame = true;
-                }
-
-            }
-            else
-            {
-                if (!File.Exists(console.EmulatorExePath))
-                {
-                    throw new LaunchException(("Emulator does not exist. Launch Failed"));
-                }
-                Program.CurrentProcess.StartInfo.FileName = console.EmulatorExePath;
-                Program.CurrentProcess.StartInfo.Arguments = args;
-            }
-
-            Program.CurrentProcess = new Process { EnableRaisingEvents = true };
-            Program.CurrentProcess.Exited += ProcessExited;
-
-
-            game.IncrementLaunchCount();
-            Database.GetCurrentUser().IncrementUserLaunchCount();
-            Program.CurrentProcess.Start();
-            Program.IsProcessActive = true;
-            MainWindow.IsGameRunning = true;
-            return true;
-        }
-
-        /// <summary>
-        /// Set instance variables to false after the current game process has exited
-        /// </summary>
-        private static void ProcessExited(object sender, EventArgs e)
-        {
-            MainWindow.IsGameRunning = false;
-            Program.IsProcessActive = false;
-        }
-
-        /// <summary>
-        /// Kill the currently running process and toggle flags
-        /// </summary>
-        public static void KillProcess()
-        {
-            if (IsSteamGame)
-            {
-                //SendKeys.SendWait("^%{F4}");
-                ShowNotification("UniCade System", "Attempting Force Close");
-                MainWindow.IsGameRunning = false;
-                Program.IsProcessActive = false;
-                return;
-            }
-            if (Program.CurrentProcess.HasExited)
-            {
-                return;
-            }
-
-            Program.CurrentProcess.Kill();
-            MainWindow.IsGameRunning = false;
-            Program.IsProcessActive = false;
-        }
-
+  
         /// <summary>
         /// Restore the default consoles. These changes will take effect Immediately. 
         /// </summary>
