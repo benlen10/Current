@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using UniCade.Backend;
+using UniCade.Interfaces;
 using UniCade.Objects;
 
 namespace UniCade.Windows
@@ -68,7 +69,7 @@ namespace UniCade.Windows
                 //Create a new local user if the account type standard Unicade
                 IUser user = new User(Textbox_Username.Text, Textbox_Password.Text, 0, Textbox_Email.Text, 0, Textbox_UserInfo.Text, Constants.Enums.ESRB.Null, "null");
                 Database.AddUser(user);
-                Database.CurrentUser = user;
+                Database.SetCurrentUser(user);
             }
             Close();
         }

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using UniCade.Backend;
+using UniCade.Interfaces;
 
 namespace UniCade.Windows
 {
@@ -76,7 +77,7 @@ namespace UniCade.Windows
                     {
                         if (user.GetUserPassword().Equals(Textbox_Password.Text))
                         {
-                            Database.CurrentUser = user;
+                            Database.SetCurrentUser(user);
                             Close();
                             return;
                         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using UniCade.Constants;
+using UniCade.Interfaces;
 
 namespace UniCade.Objects
 {

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using UniCade;
 using UniCade.Backend;
 using UniCade.Constants;
+using UniCade.Interfaces;
 using UniCade.Objects;
 using Console = UniCade.Objects.Console;
 
@@ -165,7 +166,7 @@ namespace UnitTests
                 EsrbRating = Enums.ESRB.Mature
             };
 
-            IGame gameRatedAO = new Game("game5.bin", Console.ConsoleName)
+            IGame gameRatedAo = new Game("game5.bin", Console.ConsoleName)
             {
                 EsrbRating = Enums.ESRB.AO
             };
@@ -176,7 +177,7 @@ namespace UnitTests
             };
 
             //Set the user ESRB restriction to Everyone
-            Database.CurrentUser.AllowedEsrb = Enums.ESRB.Everyone;
+            Database.GetCurrentUser().AllowedEsrb = Enums.ESRB.Everyone;
 
             //Verify that a game rated Everyone can be launched properly when the user rating is set to Everyone
             Assert.IsFalse(FileOps.Launch(gameRatedE).Contains("ESRB"), "Verify that a game rated Everyone can be launched properly when the user rating is set to Everyone");
@@ -185,7 +186,7 @@ namespace UnitTests
             Assert.IsTrue(FileOps.Launch(gameRatedE10).Contains("ESRB"), "Verify that a game rated Everyone 10+ is restricted when user rating is set to Everyone");
 
             //Set the user ESRB restriction to Everyone 10+
-            Database.CurrentUser.AllowedEsrb = Enums.ESRB.Everyone10;
+            Database.GetCurrentUser().AllowedEsrb = Enums.ESRB.Everyone10;
 
             //Verify that a game rated Everyone 10+ can be launched properly when the user rating is set to Everyone 10+
             Assert.IsFalse(FileOps.Launch(gameRatedE10).Contains("ESRB"), "Verify that a game rated Everyone 10+ can be launched properly when the user rating is set to Everyone 10+");
@@ -194,7 +195,7 @@ namespace UnitTests
             Assert.IsTrue(FileOps.Launch(gameRatedT).Contains("ESRB"), "Verify that a game rated Teen is restricted when user rating is set to Everyone 10+");
 
             //Set the user ESRB restriction to Teen
-            Database.CurrentUser.AllowedEsrb = Enums.ESRB.Teen;
+            Database.GetCurrentUser().AllowedEsrb = Enums.ESRB.Teen;
 
             //Verify that a game rated Teen can be launched properly when the user rating is set to Teen
             Assert.IsFalse(FileOps.Launch(gameRatedT).Contains("ESRB"), "Verify that a game rated Teen can be launched properly when the user rating is set to Teen");
@@ -203,22 +204,22 @@ namespace UnitTests
             Assert.IsTrue(FileOps.Launch(gameRatedM).Contains("ESRB"), "Verify that a game rated Mature is restricted when user rating is set to Teen");
 
             //Set the user ESRB restriction to Mature
-            Database.CurrentUser.AllowedEsrb = Enums.ESRB.Mature;
+            Database.GetCurrentUser().AllowedEsrb = Enums.ESRB.Mature;
 
             //Verify that a game rated Mature can be launched properly when the user rating is set to Mature
             Assert.IsFalse(FileOps.Launch(gameRatedM).Contains("ESRB"), "Verify that a game rated Mature can be launched properly when the user rating is set to Mature");
 
             //Verify that a game rated AO is restricted when user rating is set to Mature
-            Assert.IsTrue(FileOps.Launch(gameRatedAO).Contains("ESRB"), "Verify that a game rated AO is restricted when user rating is set to Mature");
+            Assert.IsTrue(FileOps.Launch(gameRatedAo).Contains("ESRB"), "Verify that a game rated AO is restricted when user rating is set to Mature");
 
             //Set the user ESRB restriction to AO
-            Database.CurrentUser.AllowedEsrb = Enums.ESRB.AO;
+            Database.GetCurrentUser().AllowedEsrb = Enums.ESRB.AO;
 
             //Verify that a game rated Mature can be launched properly when the user rating is set to AO
             Assert.IsFalse(FileOps.Launch(gameRatedM).Contains("ESRB"), "Verify that a game rated Mature can be launched properly when the user rating is set to AO");
 
             //Verify that a game rated AO can be launched properly when the user rating is set to AO
-            Assert.IsFalse(FileOps.Launch(gameRatedAO).Contains("ESRB"), "Verify that a game rated AO can be launched properly when the user rating is set to AO");
+            Assert.IsFalse(FileOps.Launch(gameRatedAo).Contains("ESRB"), "Verify that a game rated AO can be launched properly when the user rating is set to AO");
         }
 
         /// <summary>
@@ -245,7 +246,7 @@ namespace UnitTests
             }
 
             //Set the current user ESRB restriction to null
-            Database.CurrentUser.AllowedEsrb = Enums.ESRB.Null;
+            Database.GetCurrentUser().AllowedEsrb = Enums.ESRB.Null;
 
             //Loop through each esrb rating and the game can be launched
             foreach (Enums.ESRB esrb in Enum.GetValues(typeof(Enums.ESRB)))

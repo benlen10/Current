@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UniCade.Constants;
 
-namespace UniCade
+namespace UniCade.Interfaces
 {
     public interface IUser
     {
@@ -21,11 +21,6 @@ namespace UniCade
         /// A list of the user's favorite games
         /// </summary>
         List<IGame> FavoritesList { get; set; }
-
-        /// <summary>
-        /// The numer of times this user has logged in
-        /// </summary>
-        int LoginCount { get; set; }
 
         /// <summary>
         /// The filename and location for the user's profile pictur
@@ -72,6 +67,17 @@ namespace UniCade
         /// Incriment the launch count for the current user by 1
         /// </summary>
         void IncrementUserLaunchCount();
+
+        /// <summary>
+        /// Return the total number of times this user has logged in
+        /// </summary>
+        /// <returns>userLoginCount</returns>
+        int GetUserLoginCount();
+
+        /// <summary>
+        /// Incriment the login count for the current user by 1
+        /// </summary>
+        void IncrementUserLoginCount();
 
         #endregion
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UniCade.Backend;
 using UniCade.Constants;
+using UniCade.Interfaces;
 
 namespace UniCade.Objects
 {
@@ -130,10 +131,6 @@ namespace UniCade.Objects
         /// </summary>
         public List<IGame> FavoritesList { get; set; }
 
-        /// <summary>
-        /// The numer of times this user has logged in
-        /// </summary>
-        public int LoginCount { get; set; }
 
         /// <summary>
         /// The max allowed ESRB for the current user (Parental Controls)
@@ -187,7 +184,7 @@ namespace UniCade.Objects
         {
             Username = userName;
             _password = password;
-            LoginCount = loginCount;
+            _userLoginCount = loginCount;
             _userLaunchCount = totalLaunchCount;
             UserInfo = userInfo;
             AllowedEsrb = allowedEsrb;
@@ -235,6 +232,23 @@ namespace UniCade.Objects
         public void IncrementUserLaunchCount()
         {
             _userLaunchCount++;
+        }
+
+        /// <summary>
+        /// Return the total number of times this user has logged in
+        /// </summary>
+        /// <returns>userLoginCount</returns>
+        public int GetUserLoginCount()
+        {
+            return _userLoginCount;
+        }
+
+        /// <summary>
+        /// Incriment the login count for the current user by 1
+        /// </summary>
+        public void IncrementUserLoginCount()
+        {
+            _userLoginCount++;
         }
 
         #endregion

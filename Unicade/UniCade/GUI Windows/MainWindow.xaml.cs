@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using UniCade.Backend;
+using UniCade.Interfaces;
 using UniCade.Windows;
 
 namespace UniCade
@@ -259,23 +260,23 @@ namespace UniCade
                                 IGame g = CurrentConsole.GetGame(gameTitle);
                                 if (listBox.SelectedItem.ToString().Equals(g.Title))
                                 {
-                                    if (Database.CurrentUser.FavoritesList.Count < 1)
+                                    if (Database.GetCurrentUser().FavoritesList.Count < 1)
                                     {
-                                        Database.CurrentUser.FavoritesList.Add(g);
-                                        ShowNotification("UniCade", Database.CurrentUser.Username + " :Added To Favorites");
+                                        Database.GetCurrentUser().FavoritesList.Add(g);
+                                        ShowNotification("UniCade", Database.GetCurrentUser().Username + " :Added To Favorites");
                                         return;
                                     }
-                                    foreach (IGame game1 in Database.CurrentUser.FavoritesList)
+                                    foreach (IGame game1 in Database.GetCurrentUser().FavoritesList)
                                     {
                                         if (game1.Title.Equals(g.Title) && g.ConsoleName.Equals(game1.ConsoleName))
                                         {
-                                            Database.CurrentUser.FavoritesList.Add(g);
-                                            ShowNotification("UniCade", Database.CurrentUser.Username + ": Removed From Favorites");
+                                            Database.GetCurrentUser().FavoritesList.Add(g);
+                                            ShowNotification("UniCade", Database.GetCurrentUser().Username + ": Removed From Favorites");
                                         }
                                         else
                                         {
-                                            Database.CurrentUser.FavoritesList.Add(g);
-                                            ShowNotification("UniCade", Database.CurrentUser.Username + ": Added To Favorites");
+                                            Database.GetCurrentUser().FavoritesList.Add(g);
+                                            ShowNotification("UniCade", Database.GetCurrentUser().Username + ": Added To Favorites");
                                         }
                                         return;
                                     }
@@ -531,7 +532,7 @@ namespace UniCade
             }
             else
             {
-                label1.Content = Database.CurrentUser.Username + "'s Favorites List";
+                label1.Content = Database.GetCurrentUser().Username + "'s Favorites List";
             }
 
             //Populate the game library 
@@ -552,7 +553,7 @@ namespace UniCade
                         //Check if the global favorites filter is enabled
                         if (IsFavoritesViewActive)
                         {
-                            foreach (IGame game1 in Database.CurrentUser.FavoritesList)
+                            foreach (IGame game1 in Database.GetCurrentUser().FavoritesList)
                             {
                                 if (game.Title.Equals(game1.Title) && game.ConsoleName.Equals(game1.ConsoleName))
                                 {
@@ -569,7 +570,7 @@ namespace UniCade
                             if (MainWindow.DisplayEsrbWhileBrowsing == true)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (game.EsrbRating <= Database.CurrentUser.AllowedEsrb)
+                                if (game.EsrbRating <= Database.GetCurrentUser().AllowedEsrb)
                                 {
                                     listBox.Items.Add(game.Title);
                                 }

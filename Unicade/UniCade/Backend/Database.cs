@@ -1,30 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.RightsManagement;
-using System.Text;
-using System.Threading.Tasks;
 using UniCade.Constants;
+using UniCade.Interfaces;
 using UniCade.Objects;
-using Console = UniCade.Objects.Console;
 
 namespace UniCade.Backend
 {
-    static class Database
+    internal static class Database
     {
-        #region Properties
-
-        /// <summary>
-        /// The current user object 
-        /// </summary>
-        public static IUser CurrentUser;
-
-        /// <summary>
-        /// The default user for the interface
-        /// </summary>
-        public static IUser DefaultUser;
-
-        #endregion
 
         #region  Private Properties
 
@@ -53,6 +36,16 @@ namespace UniCade.Backend
         /// </summary>
         private static int _totalGameCount;
 
+        /// <summary>
+        /// The current user object 
+        /// </summary>
+        private static IUser _currentUser;
+
+        /// <summary>
+        /// The default UniCade user  
+        /// </summary>
+        private static IUser _defaultUser;
+
         #endregion
 
         #region Public Methods
@@ -67,8 +60,8 @@ namespace UniCade.Backend
             _userList = new List<IUser>();
             IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
             _userList.Add(uniCadeUser);
-            CurrentUser = uniCadeUser;
-            DefaultUser = uniCadeUser;
+            _currentUser = uniCadeUser;
+            _defaultUser = uniCadeUser;
         }
 
         /// <summary>
@@ -213,6 +206,36 @@ namespace UniCade.Backend
         public static int GetTotalGameCount()
         {
             return _totalGameCount;
+        }
+
+        /// <summary>
+        /// Return the current IUser object
+        /// </summary>
+        /// <returns>currentUser</returns>
+        public static IUser GetCurrentUser()
+        {
+            return _currentUser;
+        }
+
+        /// <summary>
+        /// Return the current IUser object
+        /// </summary>
+        public static bool SetCurrentUser(IUser user)
+        {
+            if (user != null)
+            {
+                _currentUser = user;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Sets the CurrentUser to the default UniCade user
+        /// </summary>
+        public static void RestoreDefaultUser()
+        {
+            _currentUser = _defaultUser;
         }
 
         #endregion

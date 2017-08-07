@@ -116,6 +116,7 @@
     <Compile Include="Backend\Utilties.cs" />
     <Compile Include="ConsoleInterface\UniCadeCmd.cs" />
     <Compile Include="Constants\Enums.cs" />
+    <Compile Include="Constants\ErrorStrings.cs" />
     <Compile Include="Exceptions\LaunchException.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Interfaces\IGame.cs" />

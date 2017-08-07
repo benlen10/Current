@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UniCade.Backend;
+using UniCade.Interfaces;
 
 namespace UniCade.Objects
 {

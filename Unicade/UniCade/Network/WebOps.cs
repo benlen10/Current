@@ -3,6 +3,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using UniCade.Constants;
+using UniCade.Interfaces;
 
 namespace UniCade
 {

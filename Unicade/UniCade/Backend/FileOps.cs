@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using UniCade.Backend;
 using UniCade.Constants;
+using UniCade.Interfaces;
 using UniCade.Objects;
 using UniCade.Windows;
 using Console = UniCade.Objects.Console;
@@ -274,7 +275,7 @@ namespace UniCade
                 IUser user = Database.GetUser(username);
                 if (user.Username.Equals(currentUser))
                 {
-                    Database.CurrentUser = user;
+                    Database.SetCurrentUser(user);
                 }
             }
             file.Close();
@@ -291,20 +292,9 @@ namespace UniCade
                 File.Delete(path);
             }
 
-            var userList = Database.GetUserList();
-            foreach (string username in userList)
-            {
-                if (Database.CurrentUser.Username.Equals(username))
-                {
-                    Database.RemoveUser(username);
-                    Database.AddUser(Database.CurrentUser);
-                    break;
-                }
-            }
-
             using (StreamWriter sw = File.CreateText(path))
             {
-                sw.WriteLine("CurrentUser|" + Database.CurrentUser.Username);
+                sw.WriteLine("CurrentUser|" + Database.GetCurrentUser().Username);
                 sw.WriteLine("_databasePath|" + Program.DatabasePath);
                 sw.WriteLine("EmulatorFolderPath|" + Program.EmulatorPath);
                 sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
@@ -318,7 +308,7 @@ namespace UniCade
                 sw.WriteLine("License Key|" + LicenseEngine.UserLicenseName + "|" + LicenseEngine.UserLicenseKey);
                 sw.WriteLine("***UserData***");
 
-                userList = Database.GetUserList();
+                var userList = Database.GetUserList();
                 foreach (string username in userList)
                 {
                     IUser user = Database.GetUser(username);
@@ -327,7 +317,7 @@ namespace UniCade
                     {
                         favs += (g.Title + "#" + g.ConsoleName + "#");
                     }
-                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", user.Username, user.GetUserPassword(), user.LoginCount, user.Email, user.GetUserLaunchCount(), user.UserInfo, user.AllowedEsrb, favs);
+                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", user.Username, user.GetUserPassword(), user.GetUserLoginCount(), user.Email, user.GetUserLaunchCount(), user.UserInfo, user.AllowedEsrb, favs);
                 }
             }
         }
@@ -490,15 +480,15 @@ namespace UniCade
         /// </summary>
         public static string Launch(IGame game)
         {
-            if(game == null)
+            if (game == null)
             {
                 return "Launch Error: Game is NULL";
             }
-            if (Database.CurrentUser.AllowedEsrb> 0)
+            if (Database.GetCurrentUser().AllowedEsrb > 0)
             {
-                if (game.EsrbRating > Database.CurrentUser.AllowedEsrb)
+                if (game.EsrbRating > Database.GetCurrentUser().AllowedEsrb)
                 {
-                    return ("ESRB " + game.EsrbRating + " Is Restricted for" + Database.CurrentUser.Username);
+                    return ("ESRB " + game.EsrbRating + " Is Restricted for" + Database.GetCurrentUser().Username);
                 }
             }
 
@@ -512,10 +502,10 @@ namespace UniCade
 
             if ((PayPerPlay.PayPerPlayEnabled == true) && (PayPerPlay.CoinsRequired > 0))
             {
-                    if (PayPerPlay.CurrentCoins < PayPerPlay.CoinsRequired)
-                    {
-                        return "Pay Per Play Active: Please Insert Coins";
-                    }
+                if (PayPerPlay.CurrentCoins < PayPerPlay.CoinsRequired)
+                {
+                    return "Pay Per Play Active: Please Insert Coins";
+                }
             }
 
             //Fetch the console object
@@ -563,11 +553,11 @@ namespace UniCade
             //Only decrement coin count on a sucuessful launch
             if ((PayPerPlay.PayPerPlayEnabled == true) && (PayPerPlay.CoinsRequired > 0))
             {
-                    PayPerPlay.DecrementCoins();
+                PayPerPlay.DecrementCoins();
             }
 
-                game.LaunchCount++;
-            Database.CurrentUser.IncrementUserLaunchCount();
+            game.LaunchCount++;
+            Database.GetCurrentUser().IncrementUserLaunchCount();
             CurrentProcess.Start();
             IsProcessActive = true;
             MainWindow.IsGameRunning = true;
@@ -754,9 +744,7 @@ namespace UniCade
         /// </summary>
         public static void RestoreDefaultPreferences()
         {
-            IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
-            Database.AddUser(uniCadeUser);
-            Database.CurrentUser = uniCadeUser;
+            Database.RestoreDefaultUser();
             Program.ShowSplashScreen = false;
             Program.RescanOnStartup = false;
             Program.RestrictGlobalESRB = 0;
@@ -801,12 +789,6 @@ namespace UniCade
             if (!FileOps.VerifyMediaDirectory())
             {
                 return;
-            }
-
-            //If the current user is null, generate the default UniCade user and set as the current user  
-            if (Database.CurrentUser == null)
-            {
-                Database.CurrentUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.ESRB.Null, "");
             }
 
             //Verify the current user license and set flag

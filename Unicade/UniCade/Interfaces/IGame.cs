@@ -1,6 +1,6 @@
 ﻿using UniCade.Constants;
 
-namespace UniCade
+namespace UniCade.Interfaces
 {
     public interface IGame
     {

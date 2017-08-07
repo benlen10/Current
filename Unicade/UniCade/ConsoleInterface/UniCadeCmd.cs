@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using UniCade.Backend;
+using UniCade.Interfaces;
 using UniCade.Objects;
 
 namespace UniCade.ConsoleInterface
@@ -325,8 +326,8 @@ namespace UniCade.ConsoleInterface
                         if (ps.Equals(user.GetUserPassword()))
                         {
                             System.Console.WriteLine("Password Accepted");
-                            Database.CurrentUser = user;
-                            Database.CurrentUser.LoginCount++;
+                            Database.SetCurrentUser(user);
+                            Database.GetCurrentUser().IncrementUserLoginCount();
                             return;
                         }
                     }

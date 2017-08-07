@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade;
 using UniCade.Backend;
+using UniCade.Interfaces;
 using UniCade.Objects;
 using Console = UniCade.Objects.Console;
 

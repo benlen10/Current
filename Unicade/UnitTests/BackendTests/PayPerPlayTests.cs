@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UniCade;
 using UniCade.Backend;
+using UniCade.Interfaces;
 using UniCade.Objects;
 using Console = UniCade.Objects.Console;
 
