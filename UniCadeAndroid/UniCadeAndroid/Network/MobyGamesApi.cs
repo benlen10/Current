@@ -37,10 +37,9 @@ namespace UniCadeAndroid.Network
             {
                 //Attempt to access the Mobygames API
                 string mobyUrl = MobygamesApiBaseUrl + title + "&api_key=" + ConstValues.MobyGamesApiKey;
-                HttpResponseMessage httpResponseMessage;
                 try
                 {
-                    httpResponseMessage = await httpClient.GetAsync(mobyUrl);
+                    var httpResponseMessage = await httpClient.GetAsync(mobyUrl);
 
                     if (httpResponseMessage.IsSuccessStatusCode)
                     {

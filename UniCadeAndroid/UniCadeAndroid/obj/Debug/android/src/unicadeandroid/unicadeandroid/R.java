@@ -14,11 +14,45 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int button1=0x7f050001;
-        public static final int relativeLayout1=0x7f050000;
+        public static final int ApplyButton=0x7f050020;
+        public static final int BackupDatabaseButton=0x7f050011;
+        public static final int CloseButton=0x7f05001f;
+        public static final int ConsoleImageView=0x7f050006;
+        public static final int ConsoleSelectionSpinner=0x7f05000a;
+        public static final int DisplayConsoleLogoCheckbox=0x7f050014;
+        public static final int DisplayEsrbLogoCheckbox=0x7f050015;
+        public static final int EnterLicenseKeyButton=0x7f05001b;
+        public static final int GameSelectionListView=0x7f050002;
+        public static final int GlobalfavoritesCheckbox=0x7f050008;
+        public static final int InfoButton=0x7f050003;
+        public static final int LoadBackupButton=0x7f05000e;
+        public static final int LoadDatabaseButton=0x7f05000d;
+        public static final int LoadDatabaseOnStartupCheckbox=0x7f050012;
+        public static final int LoginButton=0x7f050005;
+        public static final int PasswordEditText=0x7f05001d;
+        public static final int RescanLocalLibrariesOnStartupCheckbox=0x7f050013;
+        public static final int SaveDatabaseButton=0x7f050010;
+        public static final int SearchBarEditTExt=0x7f050009;
+        public static final int SettingsButton=0x7f050004;
+        public static final int SettingsViewLinearLayout=0x7f050000;
+        public static final int SettingsViewRelativeLayout0=0x7f05000c;
+        public static final int SettingsViewRelativeLayout1=0x7f05000f;
+        public static final int SettingsViewRelativeLayout2=0x7f050016;
+        public static final int SettingsViewRelativeLayout3=0x7f050019;
+        public static final int SettingsViewRelativeLayout4=0x7f05001c;
+        public static final int ShowFavoritesCheckbox=0x7f050007;
+        public static final int UniCadeCloudButton=0x7f050018;
+        public static final int WebScraperSettingsButton=0x7f05001a;
+        public static final int button2=0x7f050017;
+        public static final int relativeLayout=0x7f050001;
+        public static final int relativeLayout5=0x7f05001e;
+        public static final int spinner1=0x7f05000b;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int gameinfowindow=0x7f030000;
+        public static final int mainview=0x7f030001;
+        public static final int scrapersettingsview=0x7f030002;
+        public static final int settingsview=0x7f030003;
     }
     public static final class string {
         public static final int ApplicationName=0x7f040001;

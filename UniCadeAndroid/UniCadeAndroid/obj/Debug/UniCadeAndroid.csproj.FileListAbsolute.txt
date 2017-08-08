@@ -5,7 +5,6 @@ c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\b
 c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\UniCadeAndroid.dll
 c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\UniCadeAndroid.pdb
 c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\android\bin\UniCadeAndroid.UniCadeAndroid.apk
-c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\res\layout\main.xml
 c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\res\values\strings.xml
 c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\res\drawable\icon.png
 c:\users\ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\R.cs.flag
@@ -17,3 +16,7 @@ C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\b
 C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\android\assets\UniCadeAndroid.dll.mdb
 C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\res\layout\settingsview.xml
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\res\layout\mainview.xml
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\res\layout\scrapersettingsview.xml
+C:\Users\Ben\dropbox\visual studio 2017\Projects\UniCadeAndroid\UniCadeAndroid\obj\Debug\res\layout\gameinfowindow.xml

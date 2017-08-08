@@ -146,7 +146,7 @@ namespace UniCadeAndroid.Backend
             DataContractSerializer s = new DataContractSerializer(typeof(CurrentSettings));
             using (var xmlWriter = XmlWriter.Create(path, xmlWriterSettings))
             {
-                //s.WriteObject(xmlWriter, currentSettings);
+                s.WriteObject(xmlWriter, currentSettings);
             }
             return true;
         }
@@ -351,6 +351,7 @@ namespace UniCadeAndroid.Backend
         {
             //NotificationWindow notification = new NotificationWindow(title, body);
             //notification.Show();
+            // TODO: display android notication
         }
 
         #endregion
