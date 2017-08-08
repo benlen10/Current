@@ -94,7 +94,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Email must be at least 5 chars");
                 }
-                if (value.Contains("@"))
+                if (!value.Contains("@"))
                 {
                     throw new ArgumentException("Email is invalid");
                 }

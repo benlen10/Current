@@ -89,6 +89,12 @@ namespace UniCade.Backend
         /// <returns>true if the console was sucuessfully added</returns>
         public static bool RemoveConsole(string consoleName)
         {
+            //Ensure that at least one console remains
+            if ((_consoleCount <= 1))
+            {
+                return false;
+            }
+
             //Attempt to fetch the console from the current list
             IConsole console = _consoleList.Find(e => e.ConsoleName.Equals(consoleName));
 
@@ -149,12 +155,24 @@ namespace UniCade.Backend
         /// <returns>True if the user was removed sucuessfully</returns>
         public static bool RemoveUser(string username)
         {
-            IUser user = _userList.Find(u => u.Username.Equals(username));
-            if (user != null)
+            //Ensure that at least one console remains and that UniCade account cannot be deleted
+            if ((_consoleCount > 1) && !username.Equals("UniCade"))
             {
-                _userList.Remove(user);
-                _userCount--;
-                return true;
+                //Fetch the user
+                IUser user = _userList.Find(u => u.Username.Equals(username));
+                if (user != null)
+                {
+                    //If the user being removed is the current user, restore the default current user
+                    if (username.Equals(_currentUser.Username))
+                    {
+                        RestoreDefaultUser();
+                    }
+
+                    //Remove the user, decrement the usercount and return true
+                    _userList.Remove(user);
+                    _userCount--;
+                    return true;
+                }
             }
             return false;
         }
