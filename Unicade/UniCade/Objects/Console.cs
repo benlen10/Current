@@ -3,40 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UniCade.Backend;
 using UniCade.Interfaces;
+using UniCade.Constants;
 
 namespace UniCade.Objects
 {
     public class Console : IConsole
     {
-        #region Constants 
-
-        /// <summary>
-        /// The max length for console
-        /// </summary>
-        private const int MAX_CONSOLE_NAME_LENGTH = 35;
-
-        /// <summary>
-        /// The max length for directory paths
-        /// </summary>
-        private const int MAX_PATH_LENGTH = 1000;
-
-        /// <summary>
-        /// The max length a ROM file extension
-        /// </summary>
-        private const int MAX_FILE_EXT_LENGTH = 1000;
-
-        /// <summary>
-        /// The max length a the console info
-        /// </summary>
-        private const int MAX_CONSOLE_INFO_LENGTH = 1000;
-
-        /// <summary>
-        /// The max length a the console info
-        /// </summary>
-        private const int MAX_LAUNCH_PARAMS_LENGTH = 1000;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -59,9 +31,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Console name cannot be empty");
                 }
-                if (value.Length > MAX_CONSOLE_NAME_LENGTH)
+                if (value.Length > ConstValues.MAX_CONSOLE_NAME_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Console name cannot exceed {0} chars", MAX_CONSOLE_NAME_LENGTH));
+                    throw new ArgumentException(String.Format("Console name cannot exceed {0} chars", ConstValues.MAX_CONSOLE_NAME_LENGTH));
                 }
                 _consoleName = value;
             }
@@ -111,9 +83,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Emulator path invalid");
                 }
-                if (value.Length > MAX_PATH_LENGTH)
+                if (value.Length > ConstValues.MAX_PATH_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Emulator path cannot exceed {0} chars", MAX_PATH_LENGTH));
+                    throw new ArgumentException(String.Format("Emulator path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
                 }
                 _releaseDate = value;
             }
@@ -135,9 +107,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Preferences path too short");
                 }
-                if (value.Length > MAX_PATH_LENGTH)
+                if (value.Length > ConstValues.MAX_PATH_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Preferences path cannot exceed {0} chars", MAX_PATH_LENGTH));
+                    throw new ArgumentException(String.Format("Preferences path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
                 }
                 _preferencesPath = value;
             }
@@ -163,9 +135,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("ROM path invalid");
                 }
-                if (value.Length > MAX_PATH_LENGTH)
+                if (value.Length > ConstValues.MAX_PATH_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("ROM path cannot exceed {0} chars", MAX_PATH_LENGTH));
+                    throw new ArgumentException(String.Format("ROM path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
                 }
                 _romPath = value;
             }
@@ -191,9 +163,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("File extension invalid");
                 }
-                if (value.Length > MAX_FILE_EXT_LENGTH)
+                if (value.Length > ConstValues.MAX_FILE_EXT_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("ROM extension length cannot exceed {0} chars", MAX_FILE_EXT_LENGTH));
+                    throw new ArgumentException(String.Format("ROM extension length cannot exceed {0} chars", ConstValues.MAX_FILE_EXT_LENGTH));
                 }
                 _romExtensions = value;
             }
@@ -211,9 +183,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Console info cannnot be null");
                 }
-                if (value.Length > MAX_CONSOLE_INFO_LENGTH)
+                if (value.Length > ConstValues.MAX_CONSOLE_INFO_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("ROM extension length cannot exceed {0} chars", MAX_CONSOLE_INFO_LENGTH));
+                    throw new ArgumentException(String.Format("ROM extension length cannot exceed {0} chars", ConstValues.MAX_CONSOLE_INFO_LENGTH));
                 }
                 _consoleInfo = value;
             }
@@ -231,9 +203,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Launch params cannnot be null");
                 }
-                if (value.Length > MAX_LAUNCH_PARAMS_LENGTH)
+                if (value.Length > ConstValues.MAX_LAUNCH_PARAMS_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Launch params length cannot exceed {0} chars", MAX_LAUNCH_PARAMS_LENGTH));
+                    throw new ArgumentException(String.Format("Launch params length cannot exceed {0} chars", ConstValues.MAX_LAUNCH_PARAMS_LENGTH));
                 }
                 _launchParams = value;
             }

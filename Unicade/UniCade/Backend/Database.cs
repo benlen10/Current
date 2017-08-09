@@ -77,6 +77,12 @@ namespace UniCade.Backend
                 return false;
             }
 
+            //Verify that the console count is valid
+            if (_consoleCount >= ConstValues.MAX_CONSOLE_COUNT)
+            {
+                return false;
+            }
+
             _consoleList.Add(console);
             _consoleCount++;
             return true;

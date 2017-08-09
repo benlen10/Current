@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 
@@ -8,29 +7,6 @@ namespace UniCade.Objects
 {
     public class User : IUser
     {
-        #region Constants
-
-        /// <summary>
-        /// The max char length for a username
-        /// </summary>
-        private const int MAX_USERNAME_LENGTH = 30;
-
-        /// <summary>
-        /// The max char length for user info descriptions
-        /// </summary>
-        private const int MAX_USER_INFO_LENGTH = 200;
-
-        /// <summary>
-        /// The max char length for user email addresses
-        /// </summary>
-        private const int MAX_EMAIL_LENGTH = 200;
-
-        /// <summary>
-        /// The max path length for local directories
-        /// </summary>
-        private const int MAX_PATH_LENGTH = 1000;
-
-        #endregion
 
         #region Properties
 
@@ -50,9 +26,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Username must be at least 4 chars");
                 }
-                if (value.Length > MAX_USERNAME_LENGTH)
+                if (value.Length > ConstValues.MAX_USERNAME_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Username cannot exceed {0} chars", MAX_USERNAME_LENGTH));
+                    throw new ArgumentException(String.Format("Username cannot exceed {0} chars", ConstValues.MAX_USERNAME_LENGTH));
                 }
                 _username = value;
             }
@@ -70,9 +46,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("User info cannot be null");
                 }
-                if (value.Length > MAX_USER_INFO_LENGTH)
+                if (value.Length > ConstValues.MAX_USER_INFO_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("User info cannot exceed {0} chars", MAX_USER_INFO_LENGTH));
+                    throw new ArgumentException(String.Format("User info cannot exceed {0} chars", ConstValues.MAX_USER_INFO_LENGTH));
                 }
                 _userInfo = value;
             }
@@ -98,9 +74,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Email is invalid");
                 }
-                if (value.Length > MAX_EMAIL_LENGTH)
+                if (value.Length > ConstValues.MAX_EMAIL_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Email cannot exceed {0} chars", MAX_EMAIL_LENGTH));
+                    throw new ArgumentException(String.Format("Email cannot exceed {0} chars", ConstValues.MAX_EMAIL_LENGTH));
                 }
                 _email = value;
             }
@@ -118,9 +94,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Profile picture path cannot be null");
                 }
-                if (value.Length > MAX_PATH_LENGTH)
+                if (value.Length > ConstValues.MAX_PATH_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Profile Picture path cannot exceed {0} chars", MAX_PATH_LENGTH));
+                    throw new ArgumentException(String.Format("Profile Picture path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
                 }
                 _profilePicturePath = value;
             }
