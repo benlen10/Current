@@ -66,7 +66,7 @@ namespace UniCade.Backend
 
         /// <summary>
         /// Add a new console to the database
-        /// </summary>
+        /// </summary>a
         /// <param name="console"></param>
         /// <returns>true if the console was sucuessfully added</returns>
         public static bool AddConsole(IConsole console)
@@ -144,6 +144,13 @@ namespace UniCade.Backend
         /// <returns>true if the user was added sucuessfully</returns>
         public static bool AddUser(IUser user)
         {
+            //Verify that the user count does not exceed the max value
+            if (_userCount >= ConstValues.MAX_USER_COUNT)
+            {
+                return false;
+            }
+
+            //Verify that the username is unique
             if (_userList.Find(u => u.Username.Equals(user.Username)) == null)
             {
                 _userList.Add(user);

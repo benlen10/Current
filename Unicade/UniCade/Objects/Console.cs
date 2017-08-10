@@ -321,6 +321,12 @@ namespace UniCade.Objects
                 return false;
             }
 
+            //Verify that the game count does not exceed the max value
+            if (_gameCount >= ConstValues.MAX_GAME_COUNT)
+            {
+                return false;
+            }
+
             //If a game with an identical title (or filename) name already exists, return false
             if (_gameList.Find(e => e.Title.Equals(game.Title)) != null)
             {
