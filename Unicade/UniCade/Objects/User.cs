@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 
@@ -22,13 +23,25 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Username cannot be null");
                 }
+                if (Database.GetUser(value) != null)
+                {
+                    throw new ArgumentException("Username already exists");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Username contains invalid characters");
+                }
+                if (_username.Equals("UniCade"))
+                {
+                    throw new ArgumentException("Default UniCade account cannot be renamed");
+                }
                 if (value.Length < 5)
                 {
                     throw new ArgumentException("Username must be at least 4 chars");
                 }
                 if (value.Length > ConstValues.MAX_USERNAME_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Username cannot exceed {0} chars", ConstValues.MAX_USERNAME_LENGTH));
+                    throw new ArgumentException($"Username cannot exceed {ConstValues.MAX_USERNAME_LENGTH} chars");
                 }
                 _username = value;
             }
@@ -46,9 +59,13 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("User info cannot be null");
                 }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("User info contains invalid characters");
+                }
                 if (value.Length > ConstValues.MAX_USER_INFO_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("User info cannot exceed {0} chars", ConstValues.MAX_USER_INFO_LENGTH));
+                    throw new ArgumentException($"User info cannot exceed {ConstValues.MAX_USER_INFO_LENGTH} chars");
                 }
                 _userInfo = value;
             }
@@ -70,13 +87,17 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Email must be at least 5 chars");
                 }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Email contains invalid characters");
+                }
                 if (!value.Contains("@"))
                 {
                     throw new ArgumentException("Email is invalid");
                 }
                 if (value.Length > ConstValues.MAX_EMAIL_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Email cannot exceed {0} chars", ConstValues.MAX_EMAIL_LENGTH));
+                    throw new ArgumentException($"Email cannot exceed {ConstValues.MAX_EMAIL_LENGTH} chars");
                 }
                 _email = value;
             }
@@ -96,7 +117,8 @@ namespace UniCade.Objects
                 }
                 if (value.Length > ConstValues.MAX_PATH_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Profile Picture path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
+                    throw new ArgumentException(
+                        $"Profile Picture path cannot exceed {ConstValues.MAX_PATH_LENGTH} chars");
                 }
                 _profilePicturePath = value;
             }

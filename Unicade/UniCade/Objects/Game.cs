@@ -1,4 +1,5 @@
 ﻿using System;
+using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 
@@ -12,12 +13,66 @@ namespace UniCade.Objects
         /// <summary>
         /// The raw filename for the ROM file
         /// </summary>
-        public string FileName { get; set; }
+        public string FileName
+        {
+            get => _fileName;
+            private set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Game file name cannot be null");
+                }
+                if (value.Length < 3)
+                {
+                    throw new ArgumentException("Game file name must be 3 or more characters characters");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Game file name contains invalid characters");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Game file name contains invalid characters");
+                }
+                if (!value.Contains("."))
+                {
+                    throw new ArgumentException("Game file name is invalid");
+                }
+                if (value.Length > ConstValues.MAX_GAME_FILENAME_LENGTH)
+                {
+                    throw new ArgumentException($"Game file name length cannot exceed {ConstValues.MAX_GAME_FILENAME_LENGTH} chars");
+                }
+                _fileName = value;
+            }
+        }
 
         /// <summary>
         /// The common title (display name) of the game
         /// </summary>
-        public string Title { get; set; }
+        public string Title
+        {
+            get => _title;
+            private set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Game title cannot be null");
+                }
+                if (value.Length < 2)
+                {
+                    throw new ArgumentException("Game title must be 1 or more characters characters");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Game title contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_GAME_TITLE_LENGTH)
+                {
+                    throw new ArgumentException($"Game title length cannot exceed {ConstValues.MAX_GAME_TITLE_LENGTH} chars");
+                }
+                _title = value;
+            }
+        }
 
         /// <summary>
         /// The name of the console that the game belongs to
@@ -34,6 +89,10 @@ namespace UniCade.Objects
                 if (value.Length == 0)
                 {
                     throw new ArgumentException("Console name cannot be empty");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Username contains invalid characters");
                 }
                 _consoleName = value;
             }
@@ -122,6 +181,16 @@ namespace UniCade.Objects
         /// The name of the console that the game belongs to
         /// </summary>
         private string _consoleName;
+
+        /// <summary>
+        /// The name of the console that the game belongs to
+        /// </summary>
+        private string _fileName;
+
+        /// <summary>
+        /// The title of the game
+        /// </summary>
+        private string _title;
 
         #endregion
 

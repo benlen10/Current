@@ -3,24 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UniCade.Constants;
 
 namespace UniCade.Backend
 {
-    class Utilties
+    internal class Utilties
     {
         /// <summary>
         /// Verify that a string contains only numeric chars
         /// </summary>
-        public static bool IsAllDigits(string s)
+        public static bool IsAllDigits(string str)
         {
-            foreach (char c in s)
+            foreach (var c in str)
             {
-                if (!Char.IsDigit(c))
+                if (!char.IsDigit(c))
                 {
                     return false;
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// Check if a string contains any invalid chars
+        /// </summary>
+        /// <param name="str">The string to validate</param>
+        /// <returns>false if the string contains any invalid characters</returns>
+        public static bool CheckForInvalidChars(string str)
+        {
+            return (str.IndexOfAny(ConstValues.InvalidChars) != -1);
         }
     }
 }

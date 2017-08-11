@@ -49,7 +49,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// The raw filename for the ROM file
         /// </summary>
-        string FileName { get; set; }
+        string FileName { get; }
 
         /// <summary>
         /// The genere(s) for the current game
@@ -84,7 +84,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// The common title (display name) of the game
         /// </summary>
-        string Title { get; set; }
+        string Title { get; }
 
         /// <summary>
         /// Trivia facts for the current game

@@ -115,6 +115,7 @@
     <Compile Include="Backend\PayPerPlay.cs" />
     <Compile Include="Backend\Utilties.cs" />
     <Compile Include="ConsoleInterface\UniCadeCmd.cs" />
+    <Compile Include="Constants\ConstValues.cs" />
     <Compile Include="Constants\Enums.cs" />
     <Compile Include="Constants\ErrorStrings.cs" />
     <Compile Include="Exceptions\LaunchException.cs" />

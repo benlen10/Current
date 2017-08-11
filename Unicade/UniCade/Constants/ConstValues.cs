@@ -6,9 +6,24 @@ using System.Threading.Tasks;
 
 namespace UniCade.Constants
 {
-    class Constants
+    static class ConstValues
     {
         #region Constants 
+
+        /// <summary>
+        /// The maximum number of consoles allowed 
+        /// </summary>
+        public const int MAX_CONSOLE_COUNT = 100;
+
+        /// <summary>
+        /// The maximum number of games allowed per console
+        /// </summary>
+        public const int MAX_GAME_COUNT = 5000;
+
+        /// <summary>
+        /// The maximum number of users allowed 
+        /// </summary>
+        public const int MAX_USER_COUNT = 50;
 
         /// <summary>
         /// The max length for console
@@ -34,6 +49,40 @@ namespace UniCade.Constants
         /// The max length a the console info
         /// </summary>
         public const int MAX_LAUNCH_PARAMS_LENGTH = 1000;
+
+        /// <summary>
+        /// The max char length for a username
+        /// </summary>
+        public const int MAX_USERNAME_LENGTH = 30;
+
+        /// <summary>
+        /// The max char length for user info descriptions
+        /// </summary>
+        public const int MAX_USER_INFO_LENGTH = 200;
+
+        /// <summary>
+        /// The max char length for user email addresses
+        /// </summary>
+        public const int MAX_EMAIL_LENGTH = 200;
+
+        /// <summary>
+        /// The max char length for game filenames
+        /// </summary>
+        public const int MAX_GAME_FILENAME_LENGTH = 200;
+
+        /// <summary>
+        /// The max char length for game titles
+        /// </summary>
+        public const int MAX_GAME_TITLE_LENGTH = 200;
+
+        #endregion
+
+        #region  Static Readonly Fields
+
+        /// <summary>
+        /// Global invalid characters 
+        /// </summary>
+        public static readonly char[] InvalidChars = new char[] { '|', '*' };
 
         #endregion
     }

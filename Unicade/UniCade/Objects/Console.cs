@@ -19,21 +19,25 @@ namespace UniCade.Objects
             get => _consoleName;
             set
             {
-                if (value == null)
+                if (_consoleName != null)
                 {
-                    throw new ArgumentException("Console name cannot be null");
-                }
-                if (value.Length == 0)
-                {
-                    throw new ArgumentException("Console name cannot be empty");
-                }
-                if (value.Length == 0)
-                {
-                    throw new ArgumentException("Console name cannot be empty");
-                }
-                if (value.Length > ConstValues.MAX_CONSOLE_NAME_LENGTH)
-                {
-                    throw new ArgumentException(String.Format("Console name cannot exceed {0} chars", ConstValues.MAX_CONSOLE_NAME_LENGTH));
+                    if (value == null)
+                    {
+                        throw new ArgumentException("Console name cannot be null");
+                    }
+                    if (value.Length == 0)
+                    {
+                        throw new ArgumentException("Console name cannot be empty");
+                    }
+                    if (Utilties.CheckForInvalidChars(value))
+                    {
+                        throw new ArgumentException("Console name contains invalid characters");
+                    }
+                    if (value.Length > ConstValues.MAX_CONSOLE_NAME_LENGTH)
+                    {
+                        throw new ArgumentException(String.Format("Console name cannot exceed {0} chars",
+                            ConstValues.MAX_CONSOLE_NAME_LENGTH));
+                    }
                 }
                 _consoleName = value;
             }
@@ -79,6 +83,10 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Emulator path too short");
                 }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Emulator path contains invalid characters");
+                }
                 if (!value.Contains(":\\"))
                 {
                     throw new ArgumentException("Emulator path invalid");
@@ -102,6 +110,10 @@ namespace UniCade.Objects
                 if (value == null)
                 {
                     throw new ArgumentException("Preferences path cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Preferences path contains invalid characters");
                 }
                 if (value.Length < 4)
                 {
@@ -131,6 +143,10 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("ROM path too short");
                 }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("ROM path contains invalid characters");
+                }
                 if (!value.Contains(":\\"))
                 {
                     throw new ArgumentException("ROM path invalid");
@@ -159,6 +175,10 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("ROM file extension cannnot be empty");
                 }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("File extension contains invalid characters");
+                }
                 if (!value.Contains("."))
                 {
                     throw new ArgumentException("File extension invalid");
@@ -183,6 +203,10 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Console info cannnot be null");
                 }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Console info contains invalid characters");
+                }
                 if (value.Length > ConstValues.MAX_CONSOLE_INFO_LENGTH)
                 {
                     throw new ArgumentException(String.Format("ROM extension length cannot exceed {0} chars", ConstValues.MAX_CONSOLE_INFO_LENGTH));
@@ -203,9 +227,14 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Launch params cannnot be null");
                 }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Launch params contain invalid characters");
+                }
                 if (value.Length > ConstValues.MAX_LAUNCH_PARAMS_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Launch params length cannot exceed {0} chars", ConstValues.MAX_LAUNCH_PARAMS_LENGTH));
+                    throw new ArgumentException(
+                        $"Launch params length cannot exceed {ConstValues.MAX_LAUNCH_PARAMS_LENGTH} chars");
                 }
                 _launchParams = value;
             }
