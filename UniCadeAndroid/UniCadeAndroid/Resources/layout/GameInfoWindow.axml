@@ -83,24 +83,28 @@
         p1:minWidth="25px"
         p1:minHeight="25px"
         p1:layout_width="match_parent"
-        p1:layout_height="57.0dp"
+        p1:layout_height="131.5dp"
         p1:id="@+id/GameInfoViewRelativeLayout1">
         <ImageView
             p1:id="@+id/BoxFrontImageView"
             p1:layout_width="100.0dp"
-            p1:layout_height="100.0dp" />
+            p1:layout_height="100.0dp"
+            p1:layout_marginLeft="4.0dp" />
         <ImageView
             p1:id="@+id/BoxBackImageView"
             p1:layout_width="100.0dp"
-            p1:layout_height="100.0dp" />
+            p1:layout_height="100.0dp"
+            p1:layout_marginLeft="104.0dp" />
         <ImageView
             p1:id="@+id/ScreenshotImageView"
             p1:layout_width="100.0dp"
-            p1:layout_height="100.0dp" />
+            p1:layout_height="100.0dp"
+            p1:layout_marginLeft="206.0dp" />
         <ImageView
             p1:id="@+id/EsrbLogoImageView"
-            p1:layout_width="100.0dp"
-            p1:layout_height="100.0dp" />
+            p1:layout_width="75.0dp"
+            p1:layout_height="100.0dp"
+            p1:layout_marginLeft="311.5dp" />
     </RelativeLayout>
     <RelativeLayout
         p1:minWidth="25px"
@@ -113,13 +117,13 @@
             p1:text="Rescrape Game"
             p1:layout_width="154.5dp"
             p1:layout_height="wrap_content"
-            p1:layout_marginLeft="12.0dp" />
+            p1:layout_marginLeft="185.5dp" />
         <Button
             p1:id="@+id/RescrapeConsoleButton"
             p1:text="Rescrape Console"
             p1:layout_width="154.5dp"
             p1:layout_height="wrap_content"
-            p1:layout_marginLeft="12.0dp" />
+            p1:layout_marginLeft="3.0dp" />
     </RelativeLayout>
     <RelativeLayout
         p1:minWidth="25px"
@@ -130,20 +134,20 @@
         <Button
             p1:id="@+id/CloseButton"
             p1:text="Close"
-            p1:layout_width="154.5dp"
+            p1:layout_width="104.5dp"
             p1:layout_height="wrap_content"
             p1:layout_marginLeft="12.0dp" />
         <Button
             p1:id="@+id/SaveButton"
             p1:text="Save"
-            p1:layout_width="154.5dp"
+            p1:layout_width="112.5dp"
             p1:layout_height="wrap_content"
-            p1:layout_marginLeft="12.0dp" />
+            p1:layout_marginLeft="138.5dp" />
         <Button
             p1:id="@+id/RefreshButton"
             p1:text="Refresh"
-            p1:layout_width="154.5dp"
+            p1:layout_width="103.0dp"
             p1:layout_height="wrap_content"
-            p1:layout_marginLeft="12.0dp" />
+            p1:layout_marginLeft="267.5dp" />
     </RelativeLayout>
 </LinearLayout>
