@@ -94,6 +94,10 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Username contains invalid characters");
                 }
+                if (value.Length > ConstValues.MAX_CONSOLE_NAME_LENGTH)
+                {
+                    throw new ArgumentException($"Console name length cannot exceed {ConstValues.MAX_CONSOLE_NAME_LENGTH} chars");
+                }
                 _consoleName = value;
             }
         }
@@ -101,7 +105,26 @@ namespace UniCade.Objects
         /// <summary>
         /// Brief game description or overview
         /// </summary>
-        public string Description { get; set; }
+        public string Description
+        {
+            get => _consoleName;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Game description cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Game description contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_GAME_DESCRIPTION_LENGTH)
+                {
+                    throw new ArgumentException($"Game description length cannot exceed {ConstValues.MAX_GAME_DESCRIPTION_LENGTH} chars");
+                }
+                _consoleName = value;
+            }
+        }
 
         /// <summary>
         /// The original release date of the game
@@ -191,6 +214,11 @@ namespace UniCade.Objects
         /// The title of the game
         /// </summary>
         private string _title;
+
+        /// <summary>
+        /// A brief description for the current game
+        /// </summary>
+        private string _gameDescription;
 
         #endregion
 

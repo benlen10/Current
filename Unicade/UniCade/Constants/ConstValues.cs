@@ -75,6 +75,11 @@ namespace UniCade.Constants
         /// </summary>
         public const int MAX_GAME_TITLE_LENGTH = 200;
 
+        /// <summary>
+        /// The max char length for game titles
+        /// </summary>
+        public const int MAX_GAME_DESCRIPTION_LENGTH = 500;
+
         #endregion
 
         #region  Static Readonly Fields
