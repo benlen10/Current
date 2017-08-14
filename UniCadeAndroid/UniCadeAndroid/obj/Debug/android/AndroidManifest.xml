@@ -11,6 +11,10 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity android:label="SettingsActivity" android:name="md5d2e8529a032201e319a9f1ea99ea931a.SettingsActivity" />
+    <activity android:label="LoginActivity" android:name="md5d2e8529a032201e319a9f1ea99ea931a.LoginActivity" />
+    <activity android:label="GameInfoActivity" android:name="md5d2e8529a032201e319a9f1ea99ea931a.GameInfoActivity" />
+    <activity android:label="ScraperSettingsActivity" android:name="md5d2e8529a032201e319a9f1ea99ea931a.ScraperSettingsActivity" />
     <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="UniCadeAndroid.UniCadeAndroid.mono.MonoRuntimeProvider.__mono_init__" />
     <!--suppress ExportedReceiver-->
     <receiver android:name="mono.android.Seppuku">

@@ -15,7 +15,7 @@ public final class R {
     }
     public static final class id {
         public static final int ApiSelectionSpinner=0x7f050026;
-        public static final int ApplyButton=0x7f050045;
+        public static final int ApplyButton=0x7f050044;
         public static final int BackupDatabaseButton=0x7f050037;
         public static final int BoxBackImageCheckbox=0x7f050031;
         public static final int BoxBackImageView=0x7f05000e;
@@ -49,8 +49,9 @@ public final class R {
         public static final int LoadDatabaseButton=0x7f050034;
         public static final int LoadDatabaseOnStartupCheckbox=0x7f050038;
         public static final int LoginButton=0x7f05001c;
+        public static final int LoginTextView=0x7f050018;
         public static final int OtherAvailablePlatformsCheckbox=0x7f05002f;
-        public static final int PasswordEditText=0x7f050043;
+        public static final int PasswordEditText=0x7f05001a;
         public static final int PlayerCountCheckbox=0x7f05002c;
         public static final int PlayersTextView=0x7f050005;
         public static final int PublisherTextView=0x7f050003;
@@ -77,13 +78,11 @@ public final class R {
         public static final int TitleTextView=0x7f050001;
         public static final int UniCadeCloudButton=0x7f05003e;
         public static final int UserScoreCheckbox=0x7f050029;
+        public static final int UsernameEditText=0x7f050019;
         public static final int WebScraperSettingsButton=0x7f050040;
         public static final int button2=0x7f05003d;
-        public static final int editText1=0x7f050019;
-        public static final int editText2=0x7f05001a;
         public static final int relativeLayout=0x7f05001d;
-        public static final int relativeLayout5=0x7f050044;
-        public static final int textView1=0x7f050018;
+        public static final int relativeLayout5=0x7f050043;
     }
     public static final class layout {
         public static final int gameinfowindow=0x7f030000;
