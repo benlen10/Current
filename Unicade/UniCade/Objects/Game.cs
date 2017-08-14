@@ -107,7 +107,7 @@ namespace UniCade.Objects
         /// </summary>
         public string Description
         {
-            get => _consoleName;
+            get => _gameDescription;
             set
             {
                 if (value == null)
@@ -122,14 +122,33 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException($"Game description length cannot exceed {ConstValues.MAX_GAME_DESCRIPTION_LENGTH} chars");
                 }
-                _consoleName = value;
+                _gameDescription = value;
             }
         }
 
         /// <summary>
         /// The original release date of the game
         /// </summary>
-        public string ReleaseDate { get; set; }
+        public string ReleaseDate
+        {
+            get => _releaseDate;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Release date cannot be null");
+                }
+                if (!Utilties.IsAllDigits(value))
+                {
+                    throw new ArgumentException("Release date must be only digits");
+                }
+                if (value.Length != 4)
+                {
+                    throw new ArgumentException("Release date must be four digits");
+                }
+                _releaseDate = value;
+            }
+        }
 
         /// <summary>
         /// The publisher of the game
@@ -189,7 +208,7 @@ namespace UniCade.Objects
         /// <summary>
         /// Int value representing the favorite status of the game
         /// </summary>
-        public int Favorite { get; set; }
+        public bool Favorite { get; set; }
 
         /// <summary>
         /// The current launch count for the game
@@ -219,6 +238,11 @@ namespace UniCade.Objects
         /// A brief description for the current game
         /// </summary>
         private string _gameDescription;
+
+        /// <summary>
+        /// The release date for the current game
+        /// </summary>
+        private string _releaseDate;
 
         #endregion
 
@@ -262,7 +286,6 @@ namespace UniCade.Objects
         {
             FileName = fileName;
             ConsoleName = consoleName;
-            Favorite = isFavorite;
             LaunchCount = launchCount;
             ReleaseDate = releaseDate;
             PublisherName = publisherName;
@@ -277,6 +300,8 @@ namespace UniCade.Objects
             EsrbSummary = esrbSummary;
             Genres = genres;
             Tags = tags;
+
+            Favorite = (isFavorite > 0);
 
             //Parse the game title from the raw ROM filename
             if (fileName.Length > 2)

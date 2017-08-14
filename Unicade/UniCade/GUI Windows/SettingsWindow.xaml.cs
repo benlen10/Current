@@ -595,11 +595,11 @@ namespace UniCade.Windows
             //Toggle favorite checkbox
             if (GamesTab_CheckBox__GlobalFavorite.IsChecked.Value == true)
             {
-                CurrentGame.Favorite = 1;
+                CurrentGame.Favorite = true;
             }
             else
             {
-                CurrentGame.Favorite = 0;
+                CurrentGame.Favorite = false;
             }
         }
 
@@ -1743,7 +1743,7 @@ namespace UniCade.Windows
             GamesTab_Textbox_Description.Text = game.Description;
 
             //Set favorite checkbox
-            if (game.Favorite == 1)
+            if (game.Favorite)
             {
                 GamesTab_CheckBox__GlobalFavorite.IsChecked = true;
             }
@@ -1922,7 +1922,7 @@ namespace UniCade.Windows
                         IGame game = console.GetGame(gameTitle);
                         if (game != null)
                         {
-                            if (game.Favorite > 0)
+                            if (game.Favorite)
                             {
                                 GlobalTab_Listbox_GlobalFavorites.Items.Add(game.Title + " (" + game.ConsoleName + ")");
                             }

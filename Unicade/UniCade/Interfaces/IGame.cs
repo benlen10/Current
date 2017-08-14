@@ -44,7 +44,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// Int value representing the favorite status of the game
         /// </summary>
-        int Favorite { get; set; }
+        bool Favorite { get; set; }
 
         /// <summary>
         /// The raw filename for the ROM file
