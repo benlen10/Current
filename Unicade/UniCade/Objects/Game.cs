@@ -153,7 +153,26 @@ namespace UniCade.Objects
         /// <summary>
         /// The publisher of the game
         /// </summary>
-        public string PublisherName { get; set; }
+        public string PublisherName
+        {
+            get => _publisherName;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Publisher name cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Publisher name contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_PUBLISHER_DEVELOPER_LENGTH)
+                {
+                    throw new ArgumentException($"Publisher name length cannot exceed {ConstValues.MAX_PUBLISHER_DEVELOPER_LENGTH} chars");
+                }
+                _publisherName = value;
+            }
+        }
 
         /// <summary>
         /// The developer of the game
@@ -243,6 +262,16 @@ namespace UniCade.Objects
         /// The release date for the current game
         /// </summary>
         private string _releaseDate;
+
+        /// <summary>
+        /// The release date for the current game
+        /// </summary>
+        private string _publisherName;
+
+        /// <summary>
+        /// The release date for the current game
+        /// </summary>
+        private string _developerName;
 
         #endregion
 
