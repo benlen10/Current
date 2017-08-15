@@ -74,7 +74,7 @@
             p1:text="Delete All Local Images"
             p1:layout_width="162.0dp"
             p1:layout_height="wrap_content"
-            p1:id="@+id/button2"
+            p1:id="@+id/DeleteAllLocalImagesButton"
             p1:layout_marginLeft="13.0dp" />
         <Button
             p1:text="UniCade Cloud"

@@ -27,6 +27,7 @@ public final class R {
         public static final int ConsoleTextView=0x7f050002;
         public static final int CriticScoreCheckbox=0x7f050028;
         public static final int CriticScoreTextView=0x7f050004;
+        public static final int DeleteAllLocalImagesButton=0x7f05003d;
         public static final int DescriptionCheckbox=0x7f05002d;
         public static final int DescriptonTextView=0x7f05000a;
         public static final int DisplayConsoleLogoCheckbox=0x7f05003a;
@@ -80,7 +81,6 @@ public final class R {
         public static final int UserScoreCheckbox=0x7f050029;
         public static final int UsernameEditText=0x7f050019;
         public static final int WebScraperSettingsButton=0x7f050040;
-        public static final int button2=0x7f05003d;
         public static final int relativeLayout=0x7f05001d;
         public static final int relativeLayout5=0x7f050043;
     }

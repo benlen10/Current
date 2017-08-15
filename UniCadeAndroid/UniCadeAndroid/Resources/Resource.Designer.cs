@@ -99,6 +99,9 @@ namespace UniCadeAndroid
 			// aapt resource value: 0x7f050004
 			public const int CriticScoreTextView = 2131034116;
 			
+			// aapt resource value: 0x7f05003d
+			public const int DeleteAllLocalImagesButton = 2131034173;
+			
 			// aapt resource value: 0x7f05002d
 			public const int DescriptionCheckbox = 2131034157;
 			
@@ -257,9 +260,6 @@ namespace UniCadeAndroid
 			
 			// aapt resource value: 0x7f050040
 			public const int WebScraperSettingsButton = 2131034176;
-			
-			// aapt resource value: 0x7f05003d
-			public const int button2 = 2131034173;
 			
 			// aapt resource value: 0x7f05001d
 			public const int relativeLayout = 2131034141;
