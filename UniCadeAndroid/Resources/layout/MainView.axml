@@ -26,7 +26,7 @@
         p1:layout_marginLeft="216.5dp"
         p1:layout_marginTop="464.0dp"
         p1:layout_marginBottom="39.0dp"
-        p1:text="Login" />
+        p1:text="Settings" />
     <Button
         p1:id="@+id/LoginButton"
         p1:layout_width="90.0dp"
@@ -34,7 +34,7 @@
         p1:layout_marginLeft="108.5dp"
         p1:layout_marginTop="464.0dp"
         p1:layout_marginBottom="40.0dp"
-        p1:text="Settings" />
+        p1:text="Login" />
     <ImageView
         p1:id="@+id/ConsoleImageView"
         p1:layout_width="90.0dp"

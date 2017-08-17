@@ -18,35 +18,35 @@ namespace UniCadeAndroid.Activities
     {
         #region Private Instance Variables
 
-        Button loadDatabaseButton;
+        private Button _loadDatabaseButton;
 
-        Button loadBackupButton;
+        private Button _loadBackupButton;
 
-        Button saveDatabaseButton;
+        private Button _saveDatabaseButton;
 
-        Button backupDatabaseButton;
+        private Button _backupDatabaseButton;
 
-        CheckBox loadDatabaseOnStartupCheckbox;
+        private CheckBox _loadDatabaseOnStartupCheckbox;
 
-        CheckBox rescanLocalLibrariesOnStartupCheckbox;
+        private CheckBox _rescanLocalLibrariesOnStartupCheckbox;
 
-        CheckBox displayConsoleLogoCheckbox;
+        private CheckBox _displayConsoleLogoCheckbox;
 
-        CheckBox displayEsrbLogoCheckbox;
+        private CheckBox _displayEsrbLogoCheckbox;
 
-        Button deleteAllLocalImagesButton;
+        private Button _deleteAllLocalImagesButton;
 
-        Button unicadeCloudButton;
+        private Button _unicadeCloudButton;
 
-        Button webScraperSettingsButton;
+        private Button _webScraperSettingsButton;
 
-        EditText PasswordEditText;
+        private EditText _passwordEditText;
 
-        Button enterLicenseButton;
+        private Button _enterLicenseButton;
 
-        Button applyButton;
+        private Button _applyButton;
 
-        Button closeSettingsButton;
+        private Button _closeSettingsButton;
 
         #endregion
 
@@ -63,34 +63,34 @@ namespace UniCadeAndroid.Activities
 
         }
 
-		void FindElementsById()
+		private void FindElementsById()
 		{
-            loadDatabaseButton = FindViewById<Button>(Resource.Id.LoadDatabaseButton);
-            loadBackupButton = FindViewById<Button>(Resource.Id.LoadBackupButton);
-            saveDatabaseButton = FindViewById<Button>(Resource.Id.SaveDatabaseButton);
-            backupDatabaseButton = FindViewById<Button>(Resource.Id.BackupDatabaseButton);
-            loadDatabaseOnStartupCheckbox = FindViewById<CheckBox>(Resource.Id.LoadDatabaseOnStartupCheckbox);
-            rescanLocalLibrariesOnStartupCheckbox = FindViewById<CheckBox>(Resource.Id.RescanLocalLibrariesOnStartupCheckbox);
-            displayConsoleLogoCheckbox = FindViewById<CheckBox>(Resource.Id.DisplayConsoleLogoCheckbox);
-            displayEsrbLogoCheckbox = FindViewById<CheckBox>(Resource.Id.DisplayEsrbLogoCheckbox);
-            deleteAllLocalImagesButton = FindViewById<Button>(Resource.Id.DeleteAllLocalImagesButton);
-            unicadeCloudButton = FindViewById<Button>(Resource.Id.UniCadeCloudButton);
-            webScraperSettingsButton = FindViewById<Button>(Resource.Id.WebScraperSettingsButton);
-            PasswordEditText = FindViewById<EditText>(Resource.Id.PasswordEditText);
-            enterLicenseButton = FindViewById<Button>(Resource.Id.EnterLicenseKeyButton);
-            applyButton = FindViewById<Button>(Resource.Id.ApplyButton);
-            closeSettingsButton = FindViewById<Button>(Resource.Id.CloseButton);
+            _loadDatabaseButton = FindViewById<Button>(Resource.Id.LoadDatabaseButton);
+            _loadBackupButton = FindViewById<Button>(Resource.Id.LoadBackupButton);
+            _saveDatabaseButton = FindViewById<Button>(Resource.Id.SaveDatabaseButton);
+            _backupDatabaseButton = FindViewById<Button>(Resource.Id.BackupDatabaseButton);
+            _loadDatabaseOnStartupCheckbox = FindViewById<CheckBox>(Resource.Id.LoadDatabaseOnStartupCheckbox);
+            _rescanLocalLibrariesOnStartupCheckbox = FindViewById<CheckBox>(Resource.Id.RescanLocalLibrariesOnStartupCheckbox);
+            _displayConsoleLogoCheckbox = FindViewById<CheckBox>(Resource.Id.DisplayConsoleLogoCheckbox);
+            _displayEsrbLogoCheckbox = FindViewById<CheckBox>(Resource.Id.DisplayEsrbLogoCheckbox);
+            _deleteAllLocalImagesButton = FindViewById<Button>(Resource.Id.DeleteAllLocalImagesButton);
+            _unicadeCloudButton = FindViewById<Button>(Resource.Id.UniCadeCloudButton);
+            _webScraperSettingsButton = FindViewById<Button>(Resource.Id.WebScraperSettingsButton);
+            _passwordEditText = FindViewById<EditText>(Resource.Id.PasswordEditText);
+            _enterLicenseButton = FindViewById<Button>(Resource.Id.EnterLicenseKeyButton);
+            _applyButton = FindViewById<Button>(Resource.Id.ApplyButton);
+            _closeSettingsButton = FindViewById<Button>(Resource.Id.CloseButton);
 		}
 
-		void LinkClickHandlers()
+		private void LinkClickHandlers()
 		{
-            webScraperSettingsButton.Click += (sender, e) =>
+            _webScraperSettingsButton.Click += (sender, e) =>
 			{
                 var intent = new Intent(this, typeof(ScraperSettingsActivity));
 				StartActivity(intent);
 			};
 
-			unicadeCloudButton.Click += (sender, e) =>
+			_unicadeCloudButton.Click += (sender, e) =>
 			{
                 var intent = new Intent(this, typeof(LoginActivity));
 				StartActivity(intent);

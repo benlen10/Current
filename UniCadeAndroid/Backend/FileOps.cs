@@ -30,10 +30,12 @@ namespace UniCadeAndroid.Backend
         /// Load the database file from the specified path
         /// </summary>
         /// <returns>false if the database file does not exist</returns>
-        public static bool LoadDatabase(string path = ConstValues.DatabaseFileName)
+        public static bool LoadDatabase(string path = ConstValues.DatabaseFilePath)
         {
-            //First check if the database file exists
-            if (!File.Exists(path))
+            var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
+            var filePath = sdCardPath + path;
+
+            if (!File.Exists(filePath))
             {
                 return false;
             }
@@ -41,7 +43,7 @@ namespace UniCadeAndroid.Backend
             List<Console> consoleList;
 
             DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
-            using (FileStream fs = File.Open(path, FileMode.Open))
+            using (FileStream fs = File.Open(filePath, FileMode.Open))
             {
                consoleList = (List<Console>)s.ReadObject(fs);
             }
@@ -54,8 +56,11 @@ namespace UniCadeAndroid.Backend
         /// <summary>
         /// Save the database to the specified path. Delete any preexisting database files
         /// </summary>
-        public static bool SaveDatabase(string path = ConstValues.DatabaseFileName)
+        public static bool SaveDatabase(string path = ConstValues.DatabaseFilePath)
         {
+            var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
+            var filePath = sdCardPath + path;
+
             var consoleList = Database.GetConsoleList().Select(consoleName => (Console)Database.GetConsole(consoleName)).ToList();
             
             var xmlWriterSettings = new XmlWriterSettings()
@@ -65,7 +70,7 @@ namespace UniCadeAndroid.Backend
             };
 
             DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
-            using (var xmlWriter = XmlWriter.Create(path, xmlWriterSettings))
+            using (var xmlWriter = XmlWriter.Create(filePath, xmlWriterSettings))
             {
                 s.WriteObject(xmlWriter, consoleList);
             }
@@ -78,10 +83,13 @@ namespace UniCadeAndroid.Backend
         /// Load preferences from the specified file path
         /// </summary>
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        public static bool LoadPreferences(string path = ConstValues.PreferencesFileName)
+        public static bool LoadPreferences(string path = ConstValues.PreferencesFilePath)
         {
+            var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
+            var filePath = sdCardPath + path;
+
             //First check if the database file exists
-            if (!File.Exists(path))
+            if (!File.Exists(filePath))
             {
                 return false;
             }
@@ -89,7 +97,7 @@ namespace UniCadeAndroid.Backend
             CurrentSettings currentSettings;
             
             DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(CurrentSettings));
-            using (FileStream fileStream = File.Open(path, FileMode.Open))
+            using (FileStream fileStream = File.Open(filePath, FileMode.Open))
             {
                 currentSettings = (CurrentSettings)dataContractSerializer.ReadObject(fileStream);
             }
@@ -113,8 +121,10 @@ namespace UniCadeAndroid.Backend
         /// <summary>
         /// Save preferences file to the specified path
         /// </summary>
-        public static bool SavePreferences(string path = ConstValues.PreferencesFileName)
+        public static bool SavePreferences(string path = ConstValues.PreferencesFilePath)
         {
+            var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
+            var filePath = sdCardPath + path;
 
             var currentSettings = new CurrentSettings
             {
@@ -144,7 +154,7 @@ namespace UniCadeAndroid.Backend
             };
 
             DataContractSerializer s = new DataContractSerializer(typeof(CurrentSettings));
-            using (var xmlWriter = XmlWriter.Create(path, xmlWriterSettings))
+            using (var xmlWriter = XmlWriter.Create(filePath, xmlWriterSettings))
             {
                 s.WriteObject(xmlWriter, currentSettings);
             }
@@ -247,36 +257,6 @@ namespace UniCadeAndroid.Backend
         }
 
         /// <summary>
-        /// Validate the integrity of the Media folder located in the current working directory
-        /// </summary>
-        public static bool VerifyMediaDirectoryIntegrity()
-        {
-            //Check for write privlages
-            if (!Utilties.HasWriteAccessToFolder(Directory.GetCurrentDirectory()))
-            {
-                //MessageBox.Show(Strings.CurrentDirectoryWriteProtected);
-                return false;
-            }
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media"))
-            {
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\Media");
-            }
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath))
-            {
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath);
-            }
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath))
-            {
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath);
-            }
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath))
-            {
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath);
-            }
-            return true;
-        }
-
-        /// <summary>
         /// Restore default preferences. These updated preferences will take effect immediatly.
         /// NOTE: These changes are not automatically saved to the database file.
         /// </summary>
@@ -295,11 +275,8 @@ namespace UniCadeAndroid.Backend
         /// </summary>
         public static bool StartupScan()
         {
-            //Verify the integrity of the local media directory and end the program if corruption is dectected  
-            if (!VerifyMediaDirectoryIntegrity())
-            {
-                return false;
-            }
+
+            var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
 
             //If preferences file does not exist, load default preference values and save a new file
             if (!LoadPreferences())
@@ -317,6 +294,7 @@ namespace UniCadeAndroid.Backend
             {
                 RestoreDefaultConsoles();
                 ScanAllConsoles();
+
                 try
                 {
                     SaveDatabase();
@@ -330,7 +308,7 @@ namespace UniCadeAndroid.Backend
             //Generate folders within the Console directory
             foreach (string consoleName in Database.GetConsoleList())
             {
-                string consoleDirectory = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + consoleName;
+                string consoleDirectory = sdCardPath + ConstValues.GameImagesPath + consoleName;
                 if (!Directory.Exists(consoleDirectory))
                 {
                     Directory.CreateDirectory(consoleDirectory);

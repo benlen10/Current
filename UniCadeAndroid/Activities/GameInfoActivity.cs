@@ -19,43 +19,43 @@ namespace UniCadeAndroid.Activities
 
 		#region Private Instance Variables
 
-        TextView titleTextView;
+        private TextView _titleTextView;
 
-		TextView consoleTextView;
+        private TextView _consoleTextView;
 
-        TextView publisherTextView;
+        private TextView _publisherTextView;
 
-        TextView criticScoreTextView;
+        private TextView _criticScoreTextView;
 
-        TextView playersTextView;
+        private TextView _playersTextView;
 
-        TextView esrbRatingTextView;
+        private TextView _esrbRatingTextView;
 
-        TextView esrbDescriptorsTextView;
+        private TextView _esrbDescriptorsTextView;
 
-        TextView playersCountTextView;
+        private TextView _playersCountTextView;
 
-        TextView releaseDateTextView;
+        private TextView _releaseDateTextView;
 
-        TextView descriptionTextView;
+        private TextView _descriptionTextView;
 
-        Button rescrapeGameButton;
+        private Button _rescrapeGameButton;
 
-        Button rescrapeConsoleButton;
+        private Button _rescrapeConsoleButton;
 
-        Button saveInfoButton;
+        private Button _saveInfoButton;
 
-        Button closeInfoButton;
+        private Button _closeInfoButton;
 
-        Button refreshInfoButton;
+        private Button _refreshInfoButton;
 
-        ImageView boxFrontImageView;
+        private ImageView _boxFrontImageView;
 
-        ImageView boxBackImageView;
+        private ImageView _boxBackImageView;
 
-        ImageView screenshotImageView;
+        private ImageView _screenshotImageView;
 
-        ImageView esrbLogoImageView;
+        private ImageView _esrbLogoImageView;
 
 		#endregion
 
@@ -71,29 +71,29 @@ namespace UniCadeAndroid.Activities
 			LinkClickHandlers();
         }
 
-        void FindElementsById()
+        private void FindElementsById()
         {
-            titleTextView = FindViewById<TextView>(Resource.Id.TitleTextView);
-            consoleTextView = FindViewById<TextView>(Resource.Id.ConsoleTextView);
-            publisherTextView = FindViewById<TextView>(Resource.Id.PublisherTextView);
-            criticScoreTextView = FindViewById<TextView>(Resource.Id.CriticScoreTextView);
-            playersTextView = FindViewById<TextView>(Resource.Id.PlayersTextView);
-            esrbRatingTextView = FindViewById<TextView>(Resource.Id.EsrbRatingTextView);
-            esrbDescriptorsTextView = FindViewById<TextView>(Resource.Id.EsrbDescriptorsTextView);
-            releaseDateTextView = FindViewById<TextView>(Resource.Id.ReleaseDateTextView);
-            descriptionTextView = FindViewById<TextView>(Resource.Id.DescriptonTextView);
-            rescrapeGameButton = FindViewById<Button>(Resource.Id.RescrapeGameButton);
-            rescrapeConsoleButton = FindViewById<Button>(Resource.Id.RescrapeConsoleButton);
-            saveInfoButton = FindViewById<Button>(Resource.Id.SaveButton);
-            closeInfoButton = FindViewById<Button>(Resource.Id.CloseButton);
-            refreshInfoButton = FindViewById<Button>(Resource.Id.RefreshButton);
-            boxFrontImageView = FindViewById<ImageView>(Resource.Id.BoxFrontImageView);
-            boxBackImageView = FindViewById<ImageView>(Resource.Id.BoxBackImageView);
-            screenshotImageView = FindViewById<ImageView>(Resource.Id.ScreenshotImageView);
-            esrbLogoImageView = FindViewById<ImageView>(Resource.Id.EsrbLogoImageView);
+            _titleTextView = FindViewById<TextView>(Resource.Id.TitleTextView);
+            _consoleTextView = FindViewById<TextView>(Resource.Id.ConsoleTextView);
+            _publisherTextView = FindViewById<TextView>(Resource.Id.PublisherTextView);
+            _criticScoreTextView = FindViewById<TextView>(Resource.Id.CriticScoreTextView);
+            _playersTextView = FindViewById<TextView>(Resource.Id.PlayersTextView);
+            _esrbRatingTextView = FindViewById<TextView>(Resource.Id.EsrbRatingTextView);
+            _esrbDescriptorsTextView = FindViewById<TextView>(Resource.Id.EsrbDescriptorsTextView);
+            _releaseDateTextView = FindViewById<TextView>(Resource.Id.ReleaseDateTextView);
+            _descriptionTextView = FindViewById<TextView>(Resource.Id.DescriptonTextView);
+            _rescrapeGameButton = FindViewById<Button>(Resource.Id.RescrapeGameButton);
+            _rescrapeConsoleButton = FindViewById<Button>(Resource.Id.RescrapeConsoleButton);
+            _saveInfoButton = FindViewById<Button>(Resource.Id.SaveButton);
+            _closeInfoButton = FindViewById<Button>(Resource.Id.CloseButton);
+            _refreshInfoButton = FindViewById<Button>(Resource.Id.RefreshButton);
+            _boxFrontImageView = FindViewById<ImageView>(Resource.Id.BoxFrontImageView);
+            _boxBackImageView = FindViewById<ImageView>(Resource.Id.BoxBackImageView);
+            _screenshotImageView = FindViewById<ImageView>(Resource.Id.ScreenshotImageView);
+            _esrbLogoImageView = FindViewById<ImageView>(Resource.Id.EsrbLogoImageView);
         }
 
-        void LinkClickHandlers(){
+        private void LinkClickHandlers(){
             
         }
     }

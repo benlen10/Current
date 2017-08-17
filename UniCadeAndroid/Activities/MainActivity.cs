@@ -1,14 +1,10 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using Android.Widget;
 using UniCadeAndroid.Backend;
-using UniCadeAndroid.Activities;
 
-namespace UniCadeAndroid
+namespace UniCadeAndroid.Activities
 {
     [Activity(Label = "UniCadeAndroid", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
@@ -16,23 +12,23 @@ namespace UniCadeAndroid
 
         #region Private Instance Variables 
 
-        Button settingsButton;
+        private Button _settingsButton;
 
-        Button loginButton;
+        private Button _loginButton;
 
-        Button infoButton;
+        private Button _infoButton;
 
-        CheckBox showFavoritesCheckbox;
+        private CheckBox _showFavoritesCheckbox;
 
-        CheckBox globalSearchCheckbox;
+        private CheckBox _globalSearchCheckbox;
 
-        ListView gameSelectionListView;
+        private ListView _gameSelectionListView;
 
-        Spinner consoleSelectionSpinner;
+        private Spinner _consoleSelectionSpinner;
 
-        EditText SearchBarEditText;
+        private EditText _searchBarEditText;
 
-        ImageView consoleImageView;
+        private ImageView _consoleImageView;
 
         #endregion
 
@@ -40,7 +36,6 @@ namespace UniCadeAndroid
         {
             base.OnCreate(bundle);
 
-            /*
             //Initalize the database, preform an initial scan and refresh the total game count
             Database.Initalize();
 
@@ -52,7 +47,6 @@ namespace UniCadeAndroid
 
             //Refresh the total came count across all consoles
             Database.RefreshTotalGameCount();
-            */
  
             SetContentView (Resource.Layout.MainView);
 
@@ -61,32 +55,32 @@ namespace UniCadeAndroid
             LinkClickHandlers();
         }
 
-         void FindElementsById(){
-			settingsButton = FindViewById<Button>(Resource.Id.SettingsButton);
-			loginButton = FindViewById<Button>(Resource.Id.LoginButton);
-			infoButton = FindViewById<Button>(Resource.Id.InfoButton);
-            showFavoritesCheckbox = FindViewById<CheckBox>(Resource.Id.ShowFavoritesCheckbox);
-            globalSearchCheckbox = FindViewById<CheckBox>(Resource.Id.GlobalfavoritesCheckbox);
-            gameSelectionListView = FindViewById<ListView>(Resource.Id.GameSelectionListView);
-            consoleSelectionSpinner = FindViewById<Spinner>(Resource.Id.ConsoleTextView);
-            SearchBarEditText = FindViewById<EditText>(Resource.Id.SearchBarEditTExt);
-            consoleImageView = FindViewById<ImageView>(Resource.Id.ConsoleImageView);
+        private void FindElementsById(){
+			_settingsButton = FindViewById<Button>(Resource.Id.SettingsButton);
+			_loginButton = FindViewById<Button>(Resource.Id.LoginButton);
+			_infoButton = FindViewById<Button>(Resource.Id.InfoButton);
+            _showFavoritesCheckbox = FindViewById<CheckBox>(Resource.Id.ShowFavoritesCheckbox);
+            _globalSearchCheckbox = FindViewById<CheckBox>(Resource.Id.GlobalfavoritesCheckbox);
+            _gameSelectionListView = FindViewById<ListView>(Resource.Id.GameSelectionListView);
+            _consoleSelectionSpinner = FindViewById<Spinner>(Resource.Id.ConsoleTextView);
+            _searchBarEditText = FindViewById<EditText>(Resource.Id.SearchBarEditTExt);
+            _consoleImageView = FindViewById<ImageView>(Resource.Id.ConsoleImageView);
         }
 
-        void LinkClickHandlers(){
-			settingsButton.Click += (sender, e) =>
+        private void LinkClickHandlers(){
+			_settingsButton.Click += (sender, e) =>
 			{
 				var intent = new Intent(this, typeof(SettingsActivity));
 				StartActivity(intent);
 			};
 
-			loginButton.Click += (sender, e) =>
+			_loginButton.Click += (sender, e) =>
 			{
 				var intent = new Intent(this, typeof(SettingsActivity));
 				StartActivity(intent);
 			};
 
-			infoButton.Click += (sender, e) =>
+			_infoButton.Click += (sender, e) =>
 			{
 				var intent = new Intent(this, typeof(SettingsActivity));
 				StartActivity(intent);
