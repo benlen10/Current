@@ -177,12 +177,50 @@ namespace UniCade.Objects
         /// <summary>
         /// The developer of the game
         /// </summary>
-        public string DeveloperName { get; set; }
+        public string DeveloperName
+        {
+            get => _developerName;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Developer name cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Developer name contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_PUBLISHER_DEVELOPER_LENGTH)
+                {
+                    throw new ArgumentException($"Developer name length cannot exceed {ConstValues.MAX_PUBLISHER_DEVELOPER_LENGTH} chars");
+                }
+                _developerName = value;
+            }
+        }
 
         /// <summary>
         /// The genere(s) for the current game
         /// </summary>
-        public string Genres { get; set; }
+        public string Genres
+        {
+            get => _genres;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Genres cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Genres contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_GAME_GENRE_LENGTH)
+                {
+                    throw new ArgumentException($"Genres length cannot exceed {ConstValues.MAX_GAME_GENRE_LENGTH} chars");
+                }
+                _developerName = _genres;
+            }
+        }
 
         /// <summary>
         /// A list of common tags tags for the current gam
@@ -272,6 +310,11 @@ namespace UniCade.Objects
         /// The release date for the current game
         /// </summary>
         private string _developerName;
+
+        /// <summary>
+        /// The current game genres
+        /// </summary>
+        private string _genres;
 
         #endregion
 

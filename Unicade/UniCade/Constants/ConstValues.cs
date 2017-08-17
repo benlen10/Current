@@ -76,14 +76,19 @@ namespace UniCade.Constants
         public const int MAX_GAME_TITLE_LENGTH = 200;
 
         /// <summary>
-        /// The max char length for game titles
+        /// The max char length for game descriptions
         /// </summary>
         public const int MAX_GAME_DESCRIPTION_LENGTH = 500;
 
         /// <summary>
-        /// The max char length for game titles
+        /// The max char length for game publisher names
         /// </summary>
         public const int MAX_PUBLISHER_DEVELOPER_LENGTH = 500;
+
+        /// <summary>
+        /// The max char length for game generes
+        /// </summary>
+        public const int MAX_GAME_GENRE_LENGTH = 500;
 
         #endregion
 
