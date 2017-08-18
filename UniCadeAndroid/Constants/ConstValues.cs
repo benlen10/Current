@@ -174,7 +174,7 @@ namespace UniCadeAndroid.Constants
         /// The max length for a User password
         /// </summary>
         internal const int MaxUserPasswordLength = 30;
-
+    
         /// <summary>
         /// The min length for a game filename
         /// </summary>
@@ -236,6 +236,6 @@ namespace UniCadeAndroid.Constants
 
         #endregion
 
-
+   
     }
 }

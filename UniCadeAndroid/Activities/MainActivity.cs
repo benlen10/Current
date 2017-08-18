@@ -3,6 +3,14 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using UniCadeAndroid.Backend;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Android.Views;
+using Java.Lang;
+using UniCadeAndroid.Interfaces;
+using UniCadeAndroid.Objects;
+using Console = UniCadeAndroid.Objects.Console;
 
 namespace UniCadeAndroid.Activities
 {
@@ -30,6 +38,8 @@ namespace UniCadeAndroid.Activities
 
         private ImageView _consoleImageView;
 
+        public static IGame CurrentGame;
+
         #endregion
 
         protected override void OnCreate(Bundle bundle)
@@ -47,18 +57,21 @@ namespace UniCadeAndroid.Activities
 
             //Refresh the total came count across all consoles
             Database.RefreshTotalGameCount();
- 
-            SetContentView (Resource.Layout.MainView);
+
+            SetContentView(Resource.Layout.MainView);
 
             FindElementsById();
 
-            LinkClickHandlers();
+            CreateHandlers();
+
         }
 
-        private void FindElementsById(){
-			_settingsButton = FindViewById<Button>(Resource.Id.SettingsButton);
-			_loginButton = FindViewById<Button>(Resource.Id.LoginButton);
-			_infoButton = FindViewById<Button>(Resource.Id.InfoButton);
+
+        private void FindElementsById()
+        {
+            _settingsButton = FindViewById<Button>(Resource.Id.SettingsButton);
+            _loginButton = FindViewById<Button>(Resource.Id.LoginButton);
+            _infoButton = FindViewById<Button>(Resource.Id.InfoButton);
             _showFavoritesCheckbox = FindViewById<CheckBox>(Resource.Id.ShowFavoritesCheckbox);
             _globalSearchCheckbox = FindViewById<CheckBox>(Resource.Id.GlobalfavoritesCheckbox);
             _gameSelectionListView = FindViewById<ListView>(Resource.Id.GameSelectionListView);
@@ -67,27 +80,37 @@ namespace UniCadeAndroid.Activities
             _consoleImageView = FindViewById<ImageView>(Resource.Id.ConsoleImageView);
         }
 
-        private void LinkClickHandlers(){
-			_settingsButton.Click += (sender, e) =>
-			{
-				var intent = new Intent(this, typeof(SettingsActivity));
-				StartActivity(intent);
-			};
+        private void CreateHandlers()
+        {
+            _settingsButton.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(SettingsActivity));
+                StartActivity(intent);
+            };
 
-			_loginButton.Click += (sender, e) =>
-			{
-				var intent = new Intent(this, typeof(SettingsActivity));
-				StartActivity(intent);
-			};
+            _loginButton.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(LoginActivity));
+                StartActivity(intent);
+            };
 
-			_infoButton.Click += (sender, e) =>
-			{
-				var intent = new Intent(this, typeof(SettingsActivity));
-				StartActivity(intent);
-			};
-            
+            _infoButton.Click += (sender, e) =>
+            {
+                var intent = new Intent(this, typeof(GameInfoActivity));
+                StartActivity(intent);
+            };
+
+            _consoleSelectionSpinner.ItemSelected += (sender, e) =>
+            {
+                //RefreshGameList();
+            };
+
+            _gameSelectionListView.ItemSelected += (sender, e) =>
+            {
+                //SelectedGameChanged();
+
+            };
         }
-
     }
 }
 
