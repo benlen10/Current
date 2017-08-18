@@ -9,3 +9,7 @@ UniCadeAndroid/UniCadeAndroid/UniCadeAndroid.csproj.bak
 *.stamp
 UniCadeAndroid/UniCadeAndroid/packages.config
 *.java
+*.mdb
+*.apk
+*.props
+*.mj
