@@ -117,8 +117,7 @@ namespace UniCade.Objects
                 }
                 if (value.Length > ConstValues.MAX_PATH_LENGTH)
                 {
-                    throw new ArgumentException(
-                        $"Profile Picture path cannot exceed {ConstValues.MAX_PATH_LENGTH} chars");
+                    throw new ArgumentException($"Profile Picture path cannot exceed {ConstValues.MAX_PATH_LENGTH} chars");
                 }
                 _profilePicturePath = value;
             }

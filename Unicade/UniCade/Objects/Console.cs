@@ -48,7 +48,7 @@ namespace UniCade.Objects
         /// </summary>
         public string ReleaseDate
         {
-            get => _emulatorPath;
+            get => _releaseDate;
             set
             {
                 if (value == null)
@@ -63,7 +63,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Release date must be four digits");
                 }
-                _emulatorPath = value;
+                _releaseDate = value;
             }
         }
 

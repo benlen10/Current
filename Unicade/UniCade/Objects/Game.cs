@@ -218,19 +218,57 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException($"Genres length cannot exceed {ConstValues.MAX_GAME_GENRE_LENGTH} chars");
                 }
-                _developerName = _genres;
+                _genres = value;
             }
         }
 
         /// <summary>
         /// A list of common tags tags for the current gam
         /// </summary>
-        public string Tags { get; set; }
+        public string Tags
+        {
+            get => _tags;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Tags cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Tags contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_GAME_TAGS_LENGTH)
+                {
+                    throw new ArgumentException($"Tags length cannot exceed {ConstValues.MAX_GAME_TAGS_LENGTH} chars");
+                }
+                _tags = value;
+            }
+        }
 
         /// <summary>
         /// The average user review score out of 100
         /// </summary>
-        public string UserReviewScore { get; set; }
+        public string UserReviewScore
+        {
+            get => _userReviewScore;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("User Review Score cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("User Review score contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_GAME_REVIEW_SCORE_LENGTH)
+                {
+                    throw new ArgumentException($"User review score length cannot exceed {ConstValues.MAX_GAME_REVIEW_SCORE_LENGTH} chars");
+                }
+                _userReviewScore = value;
+            }
+        }
 
         /// <summary>
         /// The average critic review score out of 100
@@ -248,11 +286,6 @@ namespace UniCade.Objects
         public string PlayerCount { get; set; }
 
         /// <summary>
-        /// The ESRB content rating
-        /// </summary>
-        public Enums.ESRB EsrbRating { get; set; }
-
-        /// <summary>
         /// The ESRB content descriptors
         /// </summary>
         public string EsrbDescriptors { get; set; }
@@ -266,6 +299,11 @@ namespace UniCade.Objects
         /// Int value representing the favorite status of the game
         /// </summary>
         public bool Favorite { get; set; }
+
+        /// <summary>
+        /// The ESRB content rating
+        /// </summary>
+        public Enums.ESRB EsrbRating { get; set; }
 
         /// <summary>
         /// The current launch count for the game
@@ -316,8 +354,42 @@ namespace UniCade.Objects
         /// </summary>
         private string _genres;
 
-        #endregion
+        /// <summary>
+        /// A list of common tags tags for the current gam
+        /// </summary>
+        private string _tags;
 
+        /// <summary>
+        /// The average user review score out of 100
+        /// </summary>
+        private string _userReviewScore;
+
+        /// <summary>
+        /// The average critic review score out of 100
+        /// </summary>
+        private string _criticReviewScore;
+
+        /// <summary>
+        /// Trivia facts for the current game
+        /// </summary>
+        private string _trivia;
+
+        /// <summary>
+        /// The supported number of players
+        /// </summary>
+        private string _supportedPlayers;
+
+        /// <summary>
+        /// The ESRB content descriptors
+        /// </summary>
+        private string _esrbDescriptors;
+
+        /// <summary>
+        /// Detailed summary of the ESRB rating
+        /// </summary>
+        private string _esrbSummary;
+
+        #endregion
 
         #region Constructors
 

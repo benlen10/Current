@@ -90,6 +90,16 @@ namespace UniCade.Constants
         /// </summary>
         public const int MAX_GAME_GENRE_LENGTH = 500;
 
+        /// <summary>
+        /// The max char length for game tags
+        /// </summary>
+        public const int MAX_GAME_TAGS_LENGTH = 500;
+
+        /// <summary>
+        /// The max char length for game tags
+        /// </summary>
+        public const int MAX_GAME_REVIEW_SCORE_LENGTH = 500;
+
         #endregion
 
         #region  Static Readonly Fields

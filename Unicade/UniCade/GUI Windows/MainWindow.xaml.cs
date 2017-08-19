@@ -296,14 +296,14 @@ namespace UniCade
                             IGame game = CurrentConsole.GetGame(gameTitle);
                             if (listBox.SelectedItem.ToString().Equals(game.Title))
                             {
-                                if (game.Favorite > 0)
+                                if (game.Favorite)
                                 {
-                                    game.Favorite = 0;
+                                    game.Favorite = false;
                                     ShowNotification("UniCade", "Removed From Global Favorites");
                                 }
                                 else
                                 {
-                                    game.Favorite = 1;
+                                    game.Favorite = true;
                                     ShowNotification("UniCade", "Added To Global Favorites");
                                 }
                             }

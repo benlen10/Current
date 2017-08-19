@@ -13,3 +13,6 @@ UniCadeAndroid/UniCadeAndroid/packages.config
 *.apk
 *.props
 *.mj
+*.suo
+*.cache
+*.pdb

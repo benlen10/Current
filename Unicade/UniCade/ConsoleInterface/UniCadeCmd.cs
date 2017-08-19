@@ -154,7 +154,7 @@ namespace UniCade.ConsoleInterface
                     IGame g = console.GetGame(gameTitle);
                     if (favoritesView)
                     {
-                        if (g.Favorite == 1)
+                        if (g.Favorite)
                         {
                             System.Console.WriteLine(g.Title);
                         }
@@ -202,14 +202,14 @@ namespace UniCade.ConsoleInterface
 
                     if (game != null)
                     {
-                        if (game.Favorite < 1)
+                        if (game.Favorite)
                         {
-                            game.Favorite = 1;
+                            game.Favorite = true;
                             System.Console.WriteLine(game.Title + " Added to favorites");
                         }
                         else
                         {
-                            game.Favorite = 0;
+                            game.Favorite = false;
                             System.Console.WriteLine(game.Title + " Removed from favorites");
                         }
                     }
