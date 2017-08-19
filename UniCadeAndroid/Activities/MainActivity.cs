@@ -64,8 +64,19 @@ namespace UniCadeAndroid.Activities
 
             CreateHandlers();
 
+            PopulateConsoleSpinner();
         }
 
+        public void PopulateConsoleSpinner()
+        {
+
+            List<string> consoleList = Database.GetConsoleList().ToList();
+
+            var consoleSpinnerAdapter =
+                new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, consoleList);
+
+            _consoleSelectionSpinner.Adapter = consoleSpinnerAdapter;
+        }
 
         private void FindElementsById()
         {
