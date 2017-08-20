@@ -78,6 +78,14 @@ namespace UniCadeAndroid.Activities
             _consoleSelectionSpinner.Adapter = consoleSpinnerAdapter;
         }
 
+        private void RefreshGameList()
+        {
+            var currentConsole = _consoleSelectionSpinner.SelectedItem.ToString();
+            var gameList = new List<string>(Database.GetConsole(currentConsole).GetGameList());
+            var gameListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, gameList);
+            _gameSelectionListView.Adapter = gameListAdapter;
+        }
+
         private void FindElementsById()
         {
             _settingsButton = FindViewById<Button>(Resource.Id.SettingsButton);
