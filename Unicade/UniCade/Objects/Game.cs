@@ -273,12 +273,50 @@ namespace UniCade.Objects
         /// <summary>
         /// The average critic review score out of 100
         /// </summary>
-        public string CriticReviewScore { get; set; }
+        public string CriticReviewScore
+        {
+            get => _criticReviewScore;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Critic Review Score cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Critic Review score contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_GAME_REVIEW_SCORE_LENGTH)
+                {
+                    throw new ArgumentException($"Critic review score length cannot exceed {ConstValues.MAX_GAME_REVIEW_SCORE_LENGTH} chars");
+                }
+                _criticReviewScore = value;
+            }
+        }
 
         /// <summary>
         /// Trivia facts for the current game
         /// </summary>
-        public string Trivia { get; set; }
+        public string Trivia
+        {
+            get => _trivia;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Game trivia cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Game trivia contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_GAME_TRIVIA_LENGTH)
+                {
+                    throw new ArgumentException($"Game trivia length cannot exceed {ConstValues.MAX_GAME_TRIVIA_LENGTH} chars");
+                }
+                _trivia = value;
+            }
+        }
 
         /// <summary>
         /// The supported number of players

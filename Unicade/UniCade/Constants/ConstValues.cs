@@ -96,9 +96,29 @@ namespace UniCade.Constants
         public const int MAX_GAME_TAGS_LENGTH = 500;
 
         /// <summary>
-        /// The max char length for game tags
+        /// The max char length for game user/critic review scores
         /// </summary>
-        public const int MAX_GAME_REVIEW_SCORE_LENGTH = 500;
+        public const int MAX_GAME_REVIEW_SCORE_LENGTH = 20;
+
+        /// <summary>
+        /// The max char length for game trivia
+        /// </summary>
+        public const int MAX_GAME_TRIVIA_LENGTH = 500;
+
+        /// <summary>
+        /// The max char length for game trivia
+        /// </summary>
+        public const int MAX_GAME_PLAYERCOUNT_LENGTH = 500;
+
+        /// <summary>
+        /// The max char length for game trivia
+        /// </summary>
+        public const int MAX_GAME_ESRB_DESCRIPTORS_LENGTH = 500;
+
+        /// <summary>
+        /// The max char length for game trivia
+        /// </summary>
+        public const int MAX_GAME_ESRB_SUMMARY_LENGTH = 1000;
 
         #endregion
 
