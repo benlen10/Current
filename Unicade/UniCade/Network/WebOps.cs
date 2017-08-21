@@ -368,7 +368,7 @@ namespace UniCade
                     int tempCharIndex2 = html.IndexOf("<", tempCharIndex + 17);
                     if (tempCharIndex2 > 0)
                     {
-                        game.PlayerCount = html.Substring((tempCharIndex + 17), tempCharIndex2 - (tempCharIndex + 17));
+                        game.SupportedPlayerCount = html.Substring((tempCharIndex + 17), tempCharIndex2 - (tempCharIndex + 17));
                     }
                 }
             }

@@ -64,7 +64,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// The supported number of players
         /// </summary>
-        string PlayerCount { get; set; }
+        string SupportedPlayerCount { get; set; }
 
         /// <summary>
         /// The publisher of the game

@@ -132,7 +132,7 @@ namespace UniCade
             txt = txt + ("\nLaunch Count: " + game.LaunchCount.ToString() + "\n");
             txt = txt + ("\nDeveloper: " + game.DeveloperName + "\n");
             txt = txt + ("\nPublisher: " + game.PublisherName + "\n");
-            txt = txt + ("\nPlayers: " + game.PlayerCount + "\n");
+            txt = txt + ("\nPlayers: " + game.SupportedPlayerCount + "\n");
             txt = txt + ("\nCritic Score: " + game.CriticReviewScore + "\n");
             txt = txt + ("\nESRB Rating: " + game.Tags + "\n");
             txt = txt + ("\nESRB Descriptors: " + game.EsrbDescriptors + "\n");

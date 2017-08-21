@@ -514,7 +514,7 @@ namespace UniCade.Windows
             GamesTab_Textbox_Publisher.Text = CurrentGame.PublisherName;
             GamesTab_Textbox_Developer.Text = CurrentGame.DeveloperName;
             GamesTab_Textbox_ESRB.Text = CurrentGame.EsrbRating.GetStringValue();
-            GamesTab_Textbox_Players.Text = CurrentGame.PlayerCount;
+            GamesTab_Textbox_Players.Text = CurrentGame.SupportedPlayerCount;
             GamesTab_Textbox_ESRBDescriptor.Text = CurrentGame.EsrbDescriptors;
             GamesTab_Textbox_Description.Text = CurrentGame.Description;
             RefreshEsrbIcon(CurrentGame);
@@ -1738,7 +1738,7 @@ namespace UniCade.Windows
             GamesTab_Textbox_Publisher.Text = game.PublisherName;
             GamesTab_Textbox_Developer.Text = game.DeveloperName;
             GamesTab_Textbox_ESRB.Text = game.EsrbRating.GetStringValue();
-            GamesTab_Textbox_Players.Text = game.PlayerCount;
+            GamesTab_Textbox_Players.Text = game.SupportedPlayerCount;
             GamesTab_Textbox_ESRBDescriptor.Text = game.EsrbDescriptors;
             GamesTab_Textbox_Description.Text = game.Description;
 
@@ -1826,7 +1826,7 @@ namespace UniCade.Windows
             {
                 if (GamesTab_Textbox_ReleaseDate.Text.Length > 2)
                 {
-                    CurrentGame.PlayerCount = GamesTab_Textbox_Players.Text;
+                    CurrentGame.SupportedPlayerCount = GamesTab_Textbox_Players.Text;
                 }
                 else
                 {

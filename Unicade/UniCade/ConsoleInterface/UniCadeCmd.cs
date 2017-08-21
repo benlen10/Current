@@ -260,7 +260,7 @@ namespace UniCade.ConsoleInterface
             gameInfo += ("\nRelease Date: " + game.ReleaseDate + "\n");
             gameInfo += ("\nDeveloper: " + game.DeveloperName + "\n");
             gameInfo += ("\nPublisher: " + game.PublisherName + "\n");
-            gameInfo += ("\nPlayers: " + game.PlayerCount + "\n");
+            gameInfo += ("\nPlayers: " + game.SupportedPlayerCount + "\n");
             gameInfo += ("\nUser Score: " + game.UserReviewScore + "\n");
             gameInfo += ("\nCritic Score: " + game.CriticReviewScore + "\n");
             gameInfo += ("\nESRB Rating: " + game.EsrbRating + "\n");

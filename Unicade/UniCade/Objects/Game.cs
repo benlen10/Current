@@ -321,7 +321,26 @@ namespace UniCade.Objects
         /// <summary>
         /// The supported number of players
         /// </summary>
-        public string PlayerCount { get; set; }
+        public string SupportedPlayerCount
+        {
+            get => _supportedPlayerCount;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Supported Player count cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Supported Player count contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH)
+                {
+                    throw new ArgumentException($"Supported Player count length cannot exceed {ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH} chars");
+                }
+                _supportedPlayerCount = value;
+            }
+        }
 
         /// <summary>
         /// The ESRB content descriptors
@@ -415,7 +434,7 @@ namespace UniCade.Objects
         /// <summary>
         /// The supported number of players
         /// </summary>
-        private string _supportedPlayers;
+        private string _supportedPlayerCount;
 
         /// <summary>
         /// The ESRB content descriptors
@@ -455,7 +474,7 @@ namespace UniCade.Objects
         /// <param name="developerName">The developer of teh game</param>
         /// <param name="userReviewScore">The average user review score out of 100</param>
         /// <param name="criticScore">The average critic review score out of 100</param>
-        /// <param name="playerCount">The supported number of players</param>
+        /// <param name="supportedPlayerCount">The supported number of players</param>
         /// <param name="trivia">Trivia facts for the current game</param>
         /// <param name="esrbRating">The ESRB content rating</param>
         /// <param name="esrbDescriptor">The ESRB content descriptors</param>
@@ -464,7 +483,7 @@ namespace UniCade.Objects
         /// <param name="genres">The genere(s) for the current game</param>
         /// <param name="tags">A list of common tags tags for the current game</param>
         /// <param name="isFavorite"></param>
-        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string playerCount, string trivia, Enums.ESRB esrbRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, int isFavorite)
+        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.ESRB esrbRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, int isFavorite)
         {
             FileName = fileName;
             ConsoleName = consoleName;
@@ -474,7 +493,7 @@ namespace UniCade.Objects
             DeveloperName = developerName;
             UserReviewScore = userReviewScore;
             CriticReviewScore = criticScore;
-            PlayerCount = playerCount;
+            SupportedPlayerCount = supportedPlayerCount;
             Trivia = trivia;
             EsrbRating = esrbRating;
             Description = description;

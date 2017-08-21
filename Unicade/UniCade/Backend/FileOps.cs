@@ -108,7 +108,7 @@ namespace UniCade
                             foreach (string gameTitle in gameList)
                             {
                                 IGame game = console.GetGame(gameTitle);
-                                streamWriter.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", game.FileName, game.ConsoleName, game.LaunchCount, game.ReleaseDate, game.PublisherName, game.DeveloperName, game.UserReviewScore, game.CriticReviewScore, game.PlayerCount, "Trivia", game.EsrbRating, game.EsrbDescriptors, game.EsrbSummary, game.Description, game.Genres, game.Tags, game.Favorite));
+                                streamWriter.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", game.FileName, game.ConsoleName, game.LaunchCount, game.ReleaseDate, game.PublisherName, game.DeveloperName, game.UserReviewScore, game.CriticReviewScore, game.SupportedPlayerCount, "Trivia", game.EsrbRating, game.EsrbDescriptors, game.EsrbSummary, game.Description, game.Genres, game.Tags, game.Favorite));
                             }
                         }
                     }
