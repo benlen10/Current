@@ -86,6 +86,13 @@ namespace UniCadeAndroid.Activities
             _gameSelectionListView.Adapter = gameListAdapter;
         }
 
+        private void SelectedGameChanged()
+        {
+            string consoleName = _consoleSelectionSpinner.SelectedItem.ToString();
+            string gameName = _gameSelectionListView.SelectedItem.ToString();
+            CurrentGame = Database.GetConsole(consoleName).GetGame(gameName);
+        }
+
         private void FindElementsById()
         {
             _settingsButton = FindViewById<Button>(Resource.Id.SettingsButton);
