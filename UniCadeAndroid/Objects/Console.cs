@@ -619,6 +619,15 @@ namespace UniCadeAndroid.Objects
         }
 
         /// <summary>
+        /// Return a string list of all game titles that are set as a favorite
+        /// </summary>
+        /// <returns> A list of favorite game titles</returns>
+        public List<string> GetFavoriteGameList()
+        {
+            return (from game in _gameList where game.Favorite select game.Title).ToList();
+        }
+
+        /// <summary>
         /// Return the current number of games in the console
         /// </summary>
         /// <returns>the current game count</returns>

@@ -3,14 +3,9 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using UniCadeAndroid.Backend;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Android.Views;
-using Java.Lang;
 using UniCadeAndroid.Interfaces;
-using UniCadeAndroid.Objects;
-using Console = UniCadeAndroid.Objects.Console;
 
 namespace UniCadeAndroid.Activities
 {
@@ -38,6 +33,15 @@ namespace UniCadeAndroid.Activities
 
         private ImageView _consoleImageView;
 
+        private bool favoritesViewEnabled;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The currently selected IGame object
+        /// </summary>
         public static IGame CurrentGame;
 
         #endregion
@@ -81,7 +85,15 @@ namespace UniCadeAndroid.Activities
         private void RefreshGameList()
         {
             var currentConsole = _consoleSelectionSpinner.SelectedItem.ToString();
-            var gameList = new List<string>(Database.GetConsole(currentConsole).GetGameList());
+            var gameList = new List<string>();
+            if (favoritesViewEnabled)
+            {
+                 gameList = new List<string>(Database.GetConsole(currentConsole).GetFavoriteGameList());
+            }
+            else
+            {
+                gameList = new List<string>(Database.GetConsole(currentConsole).GetGameList());
+            }
             var gameListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, gameList);
             _gameSelectionListView.Adapter = gameListAdapter;
         }
@@ -128,12 +140,22 @@ namespace UniCadeAndroid.Activities
 
             _consoleSelectionSpinner.ItemSelected += (sender, e) =>
             {
-                //RefreshGameList();
+                RefreshGameList();
             };
 
             _gameSelectionListView.ItemSelected += (sender, e) =>
             {
-                //SelectedGameChanged();
+                SelectedGameChanged();
+
+            };
+
+            _showFavoritesCheckbox.CheckedChange += (sender, e) =>
+            {
+                favoritesViewEnabled = _showFavoritesCheckbox.Checked;
+            };
+
+            _globalSearchCheckbox.CheckedChange += (sender, e) =>
+            {
 
             };
         }
