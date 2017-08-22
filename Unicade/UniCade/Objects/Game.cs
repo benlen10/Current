@@ -345,7 +345,26 @@ namespace UniCade.Objects
         /// <summary>
         /// The ESRB content descriptors
         /// </summary>
-        public string EsrbDescriptors { get; set; }
+        public string EsrbDescriptors
+        {
+            get => _esrbDescriptors;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("ESRB Descriptors cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("ESRB Descriptors t contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH)
+                {
+                    throw new ArgumentException($"ESRB Descriptors cannot exceed {ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH} chars");
+                }
+                _esrbDescriptors = value;
+            }
+        }
 
         /// <summary>
         /// Detailed summary of the ESRB rating
