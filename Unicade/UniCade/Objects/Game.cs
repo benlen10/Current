@@ -369,7 +369,26 @@ namespace UniCade.Objects
         /// <summary>
         /// Detailed summary of the ESRB rating
         /// </summary>
-        public string EsrbSummary { get; set; }
+        public string EsrbSummary
+        {
+            get => _esrbSummary;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("ESRB summary cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("ESRB summary contains invalid characters");
+                }
+                if (value.Length > ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH)
+                {
+                    throw new ArgumentException($"ESRB summary length cannot exceed {ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH} chars");
+                }
+                _esrbSummary = value;
+            }
+        }
 
         /// <summary>
         /// Int value representing the favorite status of the game
