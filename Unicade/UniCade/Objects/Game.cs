@@ -484,6 +484,11 @@ namespace UniCade.Objects
         /// </summary>
         private string _esrbSummary;
 
+        /// <summary>
+        /// The number of times the game has been launched
+        /// </summary>
+        private int _launchCount;
+
         #endregion
 
         #region Constructors
@@ -547,6 +552,35 @@ namespace UniCade.Objects
             {
                 Title = fileName.Substring(0, fileName.IndexOf('.'));
             }
+        }
+
+        #endregion
+
+        #region  Public Methods
+
+        /// <summary>
+        /// Return the number of times the game has been launched
+        /// </summary>
+        /// <returns>LaunchCount</returns>
+        public int GetLaunchCount()
+        {
+            return _launchCount;
+        }
+
+        /// <summary>
+        /// Increments the current launch count by 1
+        /// </summary>
+        public void IncrementLaunchCount()
+        {
+            _launchCount++;
+        }
+
+        /// <summary>
+        /// Reets the current launch count to 0
+        /// </summary>
+        public void ResetLaunchCount()
+        {
+            _launchCount = 0;
         }
 
         #endregion

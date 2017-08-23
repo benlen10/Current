@@ -97,5 +97,25 @@ namespace UniCade.Interfaces
         string UserReviewScore { get; set; }
 
         #endregion
+
+        #region  Public Methods
+
+        /// <summary>
+        /// Return the number of times the game has been launched
+        /// </summary>
+        /// <returns>LaunchCount</returns>
+        int GetLaunchCount();
+
+        /// <summary>
+        /// Increments the current launch count by 1
+        /// </summary>
+        void IncrementLaunchCount();
+
+        /// <summary>
+        /// Reets the current launch count to 0
+        /// </summary>
+        void ResetLaunchCount();
+
+        #endregion
     }
 }
