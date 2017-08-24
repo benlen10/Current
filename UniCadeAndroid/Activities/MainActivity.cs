@@ -33,7 +33,9 @@ namespace UniCadeAndroid.Activities
 
         private ImageView _consoleImageView;
 
-        private bool favoritesViewEnabled;
+        private bool _favoritesViewEnabled;
+
+        private bool _globalSearchEnabled;
 
         #endregion
 
@@ -86,7 +88,7 @@ namespace UniCadeAndroid.Activities
         {
             var currentConsole = _consoleSelectionSpinner.SelectedItem.ToString();
             var gameList = new List<string>();
-            if (favoritesViewEnabled)
+            if (_favoritesViewEnabled)
             {
                  gameList = new List<string>(Database.GetConsole(currentConsole).GetFavoriteGameList());
             }
@@ -151,13 +153,18 @@ namespace UniCadeAndroid.Activities
 
             _showFavoritesCheckbox.CheckedChange += (sender, e) =>
             {
-                favoritesViewEnabled = _showFavoritesCheckbox.Checked;
+                _favoritesViewEnabled = _showFavoritesCheckbox.Checked;
             };
 
             _globalSearchCheckbox.CheckedChange += (sender, e) =>
             {
 
             };
+
+            _searchBarEditText.TextChanged += (sender, e) =>
+            {
+                
+            }
         }
     }
 }
