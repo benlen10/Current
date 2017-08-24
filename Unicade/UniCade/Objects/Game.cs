@@ -400,11 +400,6 @@ namespace UniCade.Objects
         /// </summary>
         public Enums.ESRB EsrbRating { get; set; }
 
-        /// <summary>
-        /// The current launch count for the game
-        /// </summary>
-        public int LaunchCount { get; set; }
-
         #endregion
 
         #region Private Instance Fields
@@ -503,7 +498,7 @@ namespace UniCade.Objects
             FileName = fileName;
             ConsoleName = consoleName;
             Title = fileName.Substring(0, fileName.IndexOf('.'));
-            LaunchCount = 0;
+            _launchCount = 0;
         }
 
         /// <summary>
@@ -530,7 +525,7 @@ namespace UniCade.Objects
         {
             FileName = fileName;
             ConsoleName = consoleName;
-            LaunchCount = launchCount;
+            _launchCount = launchCount;
             ReleaseDate = releaseDate;
             PublisherName = publisherName;
             DeveloperName = developerName;

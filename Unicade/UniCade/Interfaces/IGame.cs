@@ -57,11 +57,6 @@ namespace UniCade.Interfaces
         string Genres { get; set; }
 
         /// <summary>
-        /// The current launch count for the game
-        /// </summary>
-        int LaunchCount { get; set; }
-
-        /// <summary>
         /// The supported number of players
         /// </summary>
         string SupportedPlayerCount { get; set; }
