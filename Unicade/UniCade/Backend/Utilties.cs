@@ -33,5 +33,16 @@ namespace UniCade.Backend
         {
             return (str.IndexOfAny(ConstValues.InvalidChars) != -1);
         }
+
+
+        /// <summary>
+        /// Check if a string contains any invalid chars
+        /// </summary>
+        /// <param name="str">The string to validate</param>
+        /// <returns>false if the string contains any invalid characters</returns>
+        public static bool CheckForInvalidSplitChars(string str)
+        {
+            return (str.IndexOfAny(new char[] {'|'}) != -1);
+        }
     }
 }

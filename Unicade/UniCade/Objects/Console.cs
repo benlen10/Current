@@ -72,7 +72,7 @@ namespace UniCade.Objects
         /// </summary>
         public string EmulatorPath
         {
-            get => _releaseDate;
+            get => _emulatorPath;
             set
             {
                 if (value == null)
@@ -95,7 +95,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException(String.Format("Emulator path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
                 }
-                _releaseDate = value;
+                _emulatorPath = value;
             }
         }
 
@@ -175,7 +175,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("ROM file extension cannnot be empty");
                 }
-                if (Utilties.CheckForInvalidChars(value))
+                if (Utilties.CheckForInvalidSplitChars(value))
                 {
                     throw new ArgumentException("File extension contains invalid characters");
                 }

@@ -23,7 +23,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Username cannot be null");
                 }
-                if (Database.GetUser(value) != null)
+                if (_userExists && (Database.GetUser(value) != null))
                 {
                     throw new ArgumentException("Username already exists");
                 }
@@ -31,7 +31,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Username contains invalid characters");
                 }
-                if (_username.Equals("UniCade"))
+                if (_userExists && _username.Equals("UniCade"))
                 {
                     throw new ArgumentException("Default UniCade account cannot be renamed");
                 }
@@ -173,6 +173,11 @@ namespace UniCade.Objects
         /// </summary>
         private int _userLoginCount;
 
+        /// <summary>
+        /// specifies if this user is teh default unicade user
+        /// </summary>
+        private bool _userExists;
+
         #endregion
 
         #region Constructors
@@ -188,6 +193,7 @@ namespace UniCade.Objects
             Email = email;
             ProfilePicture = profPic;
             FavoritesList = new List<IGame>();
+            _userExists = true;
         }
 
         #endregion

@@ -58,7 +58,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Game title cannot be null");
                 }
-                if (value.Length < 2)
+                if (value.Length < 1)
                 {
                     throw new ArgumentException("Game title must be 1 or more characters characters");
                 }
@@ -142,7 +142,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Release date must be only digits");
                 }
-                if (value.Length != 4)
+                if ((value.Length != 4 )&& (value.Length != 0))
                 {
                     throw new ArgumentException("Release date must be four digits");
                 }
