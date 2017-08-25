@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml;
+using Android.App;
+using Android.Widget;
 using UniCadeAndroid.Constants;
 using UniCadeAndroid.Interfaces;
 using UniCadeAndroid.Objects;
 using Console = UniCadeAndroid.Objects.Console;
+
 
 namespace UniCadeAndroid.Backend
 {
@@ -30,7 +32,7 @@ namespace UniCadeAndroid.Backend
         /// Load the database file from the specified path
         /// </summary>
         /// <returns>false if the database file does not exist</returns>
-        public static bool LoadDatabase(string path = ConstValues.DatabaseFilePath)
+        public static bool LoadDatabase(string path = ConstPaths.DatabaseFilePath)
         {
             var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
             var filePath = sdCardPath + path;
@@ -56,7 +58,7 @@ namespace UniCadeAndroid.Backend
         /// <summary>
         /// Save the database to the specified path. Delete any preexisting database files
         /// </summary>
-        public static bool SaveDatabase(string path = ConstValues.DatabaseFilePath)
+        public static bool SaveDatabase(string path = ConstPaths.DatabaseFilePath)
         {
             var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
             var filePath = sdCardPath + path;
@@ -83,7 +85,7 @@ namespace UniCadeAndroid.Backend
         /// Load preferences from the specified file path
         /// </summary>
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        public static bool LoadPreferences(string path = ConstValues.PreferencesFilePath)
+        public static bool LoadPreferences(string path = ConstPaths.PreferencesFilePath)
         {
             var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
             var filePath = sdCardPath + path;
@@ -121,7 +123,7 @@ namespace UniCadeAndroid.Backend
         /// <summary>
         /// Save preferences file to the specified path
         /// </summary>
-        public static bool SavePreferences(string path = ConstValues.PreferencesFilePath)
+        public static bool SavePreferences(string path = ConstPaths.PreferencesFilePath)
         {
             var sdCardPath = Android.OS.Environment.ExternalStorageDirectory.Path;
             var filePath = sdCardPath + path;
@@ -190,7 +192,7 @@ namespace UniCadeAndroid.Backend
             }
             catch
             {
-                Trace.WriteLine("Directory Not Found");
+                ShowNotification("Directory not found");
             }
 
             //Add games to the current console object
@@ -209,7 +211,7 @@ namespace UniCadeAndroid.Backend
                             }
                             catch (ArgumentException exception)
                             {
-                                Trace.WriteLine("Game cannot be added: " + exception.Message);
+                                ShowNotification("Game cannot be added: " + exception.Message);
                             }
                         }
                     }
@@ -283,7 +285,7 @@ namespace UniCadeAndroid.Backend
             {
                 RestoreDefaultPreferences();
                 SavePreferences();
-                ShowNotification("WARNING", "Preference file not found.\n Loading defaults...");
+                ShowNotification("Preference file not found.\n Loading defaults...");
             }
 
             //Verify the current user license and set flag
@@ -301,14 +303,14 @@ namespace UniCadeAndroid.Backend
                 }
                 catch
                 {
-                    //MessageBox.Show(Strings.ErrorSavingDatabase + Strings.TheInterfaceWillNowExit);
+                    ShowNotification("Error saving database");
                     return false;
                 }
             }
             //Generate folders within the Console directory
             foreach (string consoleName in Database.GetConsoleList())
             {
-                string consoleDirectory = sdCardPath + ConstValues.GameImagesPath + consoleName;
+                string consoleDirectory = sdCardPath + ConstPaths.GameImagesPath + consoleName;
                 if (!Directory.Exists(consoleDirectory))
                 {
                     Directory.CreateDirectory(consoleDirectory);
@@ -325,11 +327,9 @@ namespace UniCadeAndroid.Backend
         /// <summary>
         /// Display a timed popup notification in the lower right corner of the interface
         /// </summary>
-        private static void ShowNotification(string title, string body)
+        private static void ShowNotification(string body)
         {
-            //NotificationWindow notification = new NotificationWindow(title, body);
-            //notification.Show();
-            // TODO: display android notication
+            Toast.MakeText(Application.Context, body, ToastLength.Long).Show();
         }
 
         #endregion

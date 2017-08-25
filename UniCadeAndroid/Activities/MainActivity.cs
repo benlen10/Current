@@ -5,25 +5,21 @@ using Android.Widget;
 using UniCadeAndroid.Backend;
 using System.Collections.Generic;
 using System.Linq;
-using UniCadeAndroid.Interfaces;
+using Android;
+using Android.Content.PM;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
+using UniCadeAndroid.Objects;
 
 namespace UniCadeAndroid.Activities
 {
-    [Activity(Label = "UniCadeAndroid", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "UniCade Mobile", MainLauncher = true, Icon = "@drawable/UniCadeIcon")]
     public class MainActivity : Activity
     {
 
         #region Private Instance Variables 
 
         private Button _settingsButton;
-
-        private Button _loginButton;
-
-        private Button _infoButton;
-
-        private CheckBox _showFavoritesCheckbox;
-
-        private CheckBox _globalSearchCheckbox;
 
         private ListView _gameSelectionListView;
 
@@ -33,9 +29,16 @@ namespace UniCadeAndroid.Activities
 
         private ImageView _consoleImageView;
 
-        private bool _favoritesViewEnabled;
+        private string _searchText = "";
 
-        private bool _globalSearchEnabled;
+        private List<GameListObject> _currentGameList;
+
+        readonly string[] _requiredPermissions =
+        {
+            Manifest.Permission.ReadExternalStorage,
+            Manifest.Permission.WriteExternalStorage
+        };
+
 
         #endregion
 
@@ -44,7 +47,7 @@ namespace UniCadeAndroid.Activities
         /// <summary>
         /// The currently selected IGame object
         /// </summary>
-        public static IGame CurrentGame;
+        public static Game CurrentGame;
 
         #endregion
 
@@ -52,6 +55,11 @@ namespace UniCadeAndroid.Activities
         {
             base.OnCreate(bundle);
 
+            CheckPermissions();
+        }
+
+        private void Startup()
+        {
             //Initalize the database, preform an initial scan and refresh the total game count
             Database.Initalize();
 
@@ -68,7 +76,7 @@ namespace UniCadeAndroid.Activities
 
             FindElementsById();
 
-            CreateHandlers();
+            CreateEventHandlers();
 
             PopulateConsoleSpinner();
         }
@@ -79,64 +87,129 @@ namespace UniCadeAndroid.Activities
             List<string> consoleList = Database.GetConsoleList().ToList();
 
             var consoleSpinnerAdapter =
-                new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, consoleList);
+                new ArrayAdapter(this, Resource.Layout.CustomSpinnerItem, consoleList);
 
             _consoleSelectionSpinner.Adapter = consoleSpinnerAdapter;
         }
 
-        private void RefreshGameList()
+        private void CheckPermissions()
         {
-            var currentConsole = _consoleSelectionSpinner.SelectedItem.ToString();
-            var gameList = new List<string>();
-            if (_favoritesViewEnabled)
+
+            if (ContextCompat.CheckSelfPermission(this, _requiredPermissions[0]) == (int)Permission.Granted)
             {
-                 gameList = new List<string>(Database.GetConsole(currentConsole).GetFavoriteGameList());
+                Startup();
             }
             else
             {
-                gameList = new List<string>(Database.GetConsole(currentConsole).GetGameList());
+                ActivityCompat.RequestPermissions(this, _requiredPermissions, 0);
             }
-            var gameListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, gameList);
-            _gameSelectionListView.Adapter = gameListAdapter;
         }
 
-        private void SelectedGameChanged()
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            string consoleName = _consoleSelectionSpinner.SelectedItem.ToString();
-            string gameName = _gameSelectionListView.SelectedItem.ToString();
-            CurrentGame = Database.GetConsole(consoleName).GetGame(gameName);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            if (ContextCompat.CheckSelfPermission(this, _requiredPermissions[0]) == (int)Permission.Granted)
+            {
+                Startup();
+            }
+            else
+            {
+                Toast.MakeText(ApplicationContext, "Fatal Error: Storage Access Required", ToastLength.Long).Show();
+                Finish();
+            }
+
+        }
+
+        private void RefreshGameList()
+        {
+
+            _gameSelectionListView.Adapter = null;
+            var currentConsoleName = _consoleSelectionSpinner.SelectedItem.ToString();
+            _currentGameList = new List<GameListObject>();
+
+            if (currentConsoleName == "All Games")
+            {
+                foreach (string consoleName in Database.GetConsoleList())
+                {
+                    foreach (string gameTitle in Database.GetConsole(consoleName).GetGameList())
+                    {
+                        var item = new GameListObject
+                        {
+                            Title = gameTitle,
+                            Console = currentConsoleName,
+                            ImageResourceId = 0
+                        };
+                        if ((_searchText.Length > 0 && item.Title.Contains(_searchText)) || _searchText.Length == 0)
+                        {
+                            _currentGameList.Add(item);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (var gameTitle in Database.GetConsole(currentConsoleName).GetGameList())
+                {
+                    var item = new GameListObject
+                    {
+                        Title = gameTitle,
+                        Console = currentConsoleName,
+                        ImageResourceId = 0
+                    };
+                    if ((_searchText.Length > 0 && item.Title.Contains(_searchText)) || _searchText.Length == 0)
+                    {
+                        _currentGameList.Add(item);
+                    }
+                }
+            }
+
+            var gameListAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItemActivated2, _currentGameList);
+            _gameSelectionListView.Adapter = gameListAdapter;
+
+            _gameSelectionListView.ChoiceMode = ChoiceMode.Single;
+
+            _gameSelectionListView.Adapter = new GameListViewActivity(this, _currentGameList);
+            _gameSelectionListView.ItemClick += OnListItemClick;
+        }
+
+        private void OnListItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var listItem = _currentGameList[e.Position];
+
+            CurrentGame = (Game)Database.GetConsole(listItem.Console).GetGame(listItem.Title);
+
+            if (CurrentGame != null)
+            {
+                var intent = new Intent(this, typeof(GameInfoActivity));
+                StartActivity(intent);
+            }
+            else
+            {
+                Toast.MakeText(ApplicationContext, "Please select a game", ToastLength.Long).Show();
+            }
         }
 
         private void FindElementsById()
         {
             _settingsButton = FindViewById<Button>(Resource.Id.SettingsButton);
-            _loginButton = FindViewById<Button>(Resource.Id.LoginButton);
-            _infoButton = FindViewById<Button>(Resource.Id.InfoButton);
-            _showFavoritesCheckbox = FindViewById<CheckBox>(Resource.Id.ShowFavoritesCheckbox);
-            _globalSearchCheckbox = FindViewById<CheckBox>(Resource.Id.GlobalfavoritesCheckbox);
             _gameSelectionListView = FindViewById<ListView>(Resource.Id.GameSelectionListView);
-            _consoleSelectionSpinner = FindViewById<Spinner>(Resource.Id.ConsoleTextView);
+            _consoleSelectionSpinner = FindViewById<Spinner>(Resource.Id.ConsoleSelectionSpinner);
             _searchBarEditText = FindViewById<EditText>(Resource.Id.SearchBarEditTExt);
             _consoleImageView = FindViewById<ImageView>(Resource.Id.ConsoleImageView);
         }
 
-        private void CreateHandlers()
+        private void SearchBarTextChanged()
+        {
+            _searchText = _searchBarEditText.Text;
+            RefreshGameList();
+        }
+
+        private void CreateEventHandlers()
         {
             _settingsButton.Click += (sender, e) =>
             {
                 var intent = new Intent(this, typeof(SettingsActivity));
-                StartActivity(intent);
-            };
-
-            _loginButton.Click += (sender, e) =>
-            {
-                var intent = new Intent(this, typeof(LoginActivity));
-                StartActivity(intent);
-            };
-
-            _infoButton.Click += (sender, e) =>
-            {
-                var intent = new Intent(this, typeof(GameInfoActivity));
                 StartActivity(intent);
             };
 
@@ -145,26 +218,12 @@ namespace UniCadeAndroid.Activities
                 RefreshGameList();
             };
 
-            _gameSelectionListView.ItemSelected += (sender, e) =>
-            {
-                SelectedGameChanged();
-
-            };
-
-            _showFavoritesCheckbox.CheckedChange += (sender, e) =>
-            {
-                _favoritesViewEnabled = _showFavoritesCheckbox.Checked;
-            };
-
-            _globalSearchCheckbox.CheckedChange += (sender, e) =>
-            {
-
-            };
-
             _searchBarEditText.TextChanged += (sender, e) =>
             {
-                
-            }
+                SearchBarTextChanged();
+            };
+
+
         }
     }
 }

@@ -3,7 +3,7 @@
     p1:orientation="vertical"
     p1:layout_width="match_parent"
     p1:layout_height="match_parent"
-    p1:id="@+id/SettingsViewLinearLayout"
+    p1:id="@+id/GameInfoViewLinearLayout"
     p1:minWidth="25px"
     p1:minHeight="25px">
     <TextView
@@ -78,6 +78,8 @@
         p1:layout_marginLeft="11.0dp" />
     <CheckBox
         p1:text="Favorite"
+        p1:layout_width="117.5dp"
+        p1:layout_height="30.0dp"
         p1:id="@+id/FavoriteCheckbox" />
     <RelativeLayout
         p1:minWidth="25px"

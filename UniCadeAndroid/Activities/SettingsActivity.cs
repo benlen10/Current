@@ -1,19 +1,13 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
+using UniCadeAndroid.Backend;
+using UniCadeAndroid.Constants;
 
 namespace UniCadeAndroid.Activities
 {
-    [Activity(Label = "SettingsActivity")]
+    [Activity(Label = "UniCade Mobile Settings")]
     public class SettingsActivity : Activity
     {
         #region Private Instance Variables
@@ -26,13 +20,13 @@ namespace UniCadeAndroid.Activities
 
         private Button _backupDatabaseButton;
 
-        private CheckBox _loadDatabaseOnStartupCheckbox;
+        private CheckBox _showSplashScreenCheckbox;
 
-        private CheckBox _rescanLocalLibrariesOnStartupCheckbox;
+        private CheckBox _passwordProtectSettingsCheckBox;
 
-        private CheckBox _displayConsoleLogoCheckbox;
+        private CheckBox _enableFingerprintProtectionCheckbox;
 
-        private CheckBox _displayEsrbLogoCheckbox;
+        private CheckBox _displayModernEsrbIconsCheckBox;
 
         private Button _deleteAllLocalImagesButton;
 
@@ -69,10 +63,10 @@ namespace UniCadeAndroid.Activities
             _loadBackupButton = FindViewById<Button>(Resource.Id.LoadBackupButton);
             _saveDatabaseButton = FindViewById<Button>(Resource.Id.SaveDatabaseButton);
             _backupDatabaseButton = FindViewById<Button>(Resource.Id.BackupDatabaseButton);
-            _loadDatabaseOnStartupCheckbox = FindViewById<CheckBox>(Resource.Id.LoadDatabaseOnStartupCheckbox);
-            _rescanLocalLibrariesOnStartupCheckbox = FindViewById<CheckBox>(Resource.Id.RescanLocalLibrariesOnStartupCheckbox);
-            _displayConsoleLogoCheckbox = FindViewById<CheckBox>(Resource.Id.DisplayConsoleLogoCheckbox);
-            _displayEsrbLogoCheckbox = FindViewById<CheckBox>(Resource.Id.DisplayEsrbLogoCheckbox);
+            _showSplashScreenCheckbox = FindViewById<CheckBox>(Resource.Id.ShowSplashScreenCheckbox);
+            _passwordProtectSettingsCheckBox = FindViewById<CheckBox>(Resource.Id.PasswordProtectSettingsCheckbox);
+            _enableFingerprintProtectionCheckbox = FindViewById<CheckBox>(Resource.Id.EnableFingerprintSecurityCheckbox);
+            _displayModernEsrbIconsCheckBox = FindViewById<CheckBox>(Resource.Id.DisplayModernESRBIconsCheckbox);
             _deleteAllLocalImagesButton = FindViewById<Button>(Resource.Id.DeleteAllLocalImagesButton);
             _unicadeCloudButton = FindViewById<Button>(Resource.Id.UniCadeCloudButton);
             _webScraperSettingsButton = FindViewById<Button>(Resource.Id.WebScraperSettingsButton);
@@ -84,18 +78,58 @@ namespace UniCadeAndroid.Activities
 
 		private void LinkClickHandlers()
 		{
+		    _loadDatabaseButton.Click += (sender, e) =>
+		    {
+		        FileOps.LoadDatabase();
+		    };
+
+		    _loadBackupButton.Click += (sender, e) =>
+		    {
+		        FileOps.LoadDatabase(ConstPaths.DatabaseFileBackupPath);
+            };
+
+		    _saveDatabaseButton.Click += (sender, e) =>
+		    {
+		        FileOps.SaveDatabase();
+		    };
+
+		    _backupDatabaseButton.Click += (sender, e) =>
+		    {
+		        FileOps.SaveDatabase(ConstPaths.DatabaseFileBackupPath);
+		    };
+
+		    _deleteAllLocalImagesButton.Click += (sender, e) =>
+		    {
+
+		    };
+
+		    _unicadeCloudButton.Click += (sender, e) =>
+		    {
+		        var intent = new Intent(this, typeof(LoginActivity));
+		        StartActivity(intent);
+		    };
+
             _webScraperSettingsButton.Click += (sender, e) =>
 			{
                 var intent = new Intent(this, typeof(ScraperSettingsActivity));
 				StartActivity(intent);
 			};
 
-			_unicadeCloudButton.Click += (sender, e) =>
-			{
-                var intent = new Intent(this, typeof(LoginActivity));
-				StartActivity(intent);
-			};
-		}
+		    _enterLicenseButton.Click += (sender, e) =>
+		    {
+
+		    };
+
+            _closeSettingsButton.Click += (sender, e) =>
+		    {
+		        Finish();
+		    };
+
+		    _applyButton.Click += (sender, e) =>
+		    {
+		        //TODO:  Apply Settings
+		    };
+        }
 
 	}
 }

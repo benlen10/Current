@@ -1,19 +1,13 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
+using System.IO;
+using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
+using UniCadeAndroid.Constants;
 
 namespace UniCadeAndroid.Activities
 {
-    [Activity(Label = "GameInfoActivity")]
+    [Activity(Label = "Game Info")]
     public class GameInfoActivity : Activity
     {
 
@@ -32,8 +26,6 @@ namespace UniCadeAndroid.Activities
         private TextView _esrbRatingTextView;
 
         private TextView _esrbDescriptorsTextView;
-
-        private TextView _playersCountTextView;
 
         private TextView _releaseDateTextView;
 
@@ -63,13 +55,68 @@ namespace UniCadeAndroid.Activities
         {
             base.OnCreate(savedInstanceState);
 
-			/// Set the view
-			SetContentView(Resource.Layout.SettingsView);
+			// Set the view
+			SetContentView(Resource.Layout.GameInfoView);
 
 			FindElementsById();
 
-			LinkClickHandlers();
+			CreateEventHandlers();
+
+            PopulateGameInfo();
+
+            PopulateGameImages();
         }
+
+        private void PopulateGameInfo()
+        {
+            _titleTextView.Text = "Title: " + MainActivity.CurrentGame.Title;
+            _consoleTextView.Text = "Console: " + MainActivity.CurrentGame.ConsoleName;
+            _publisherTextView.Text = "Publisher: " + MainActivity.CurrentGame.PublisherName;
+            _criticScoreTextView.Text = "Critic Score: " + MainActivity.CurrentGame.CriticReviewScore;
+            _playersTextView.Text = "Player Count: " + MainActivity.CurrentGame.SupportedPlayerCount;
+            _esrbRatingTextView.Text = "ESRB Rating: " + MainActivity.CurrentGame.EsrbRating.GetStringValue();
+            _esrbDescriptorsTextView.Text = "ESRB Descriptors: " + MainActivity.CurrentGame.GetEsrbDescriptorsString();
+            _releaseDateTextView.Text = "Release Date: " + MainActivity.CurrentGame.ReleaseDate;
+            _descriptionTextView.Text = "Description:" + MainActivity.CurrentGame.Description;
+        }
+
+        private void PopulateGameImages()
+        {
+            var sdCardPath = Environment.ExternalStorageDirectory.Path;
+            string imagePath = sdCardPath + ConstPaths.GameImagesPath + MainActivity.CurrentGame.ConsoleName + "/" + MainActivity.CurrentGame.Title + "_BoxFront.jpg";
+            if (File.Exists(imagePath))
+            {
+                Bitmap bitmap = BitmapFactory.DecodeFile(imagePath);
+                _boxFrontImageView.SetImageBitmap(bitmap);
+            }
+
+            imagePath = sdCardPath + ConstPaths.GameImagesPath + MainActivity.CurrentGame.ConsoleName + "/" + MainActivity.CurrentGame.Title + "_BoxBack.jpg";
+            if (File.Exists(imagePath))
+            {
+                Bitmap bitmap = BitmapFactory.DecodeFile(imagePath);
+                _boxBackImageView.SetImageBitmap(bitmap);
+            }
+
+            imagePath = sdCardPath + ConstPaths.GameImagesPath + MainActivity.CurrentGame.ConsoleName + "/" + MainActivity.CurrentGame.Title + "_Screenshot.jpg";
+            if (File.Exists(imagePath))
+            {
+                Bitmap bitmap = BitmapFactory.DecodeFile(imagePath);
+                _screenshotImageView.SetImageBitmap(bitmap);
+            }
+
+            _esrbLogoImageView.SetImageURI(Backend.Utilties.GetEsrbLogoImage(MainActivity.CurrentGame.EsrbRating));
+        }
+
+        private void SaveGameInfo()
+        {
+            MainActivity.CurrentGame.PublisherName = _publisherTextView.Text;
+            MainActivity.CurrentGame.CriticReviewScore = _criticScoreTextView.Text;
+            MainActivity.CurrentGame.SupportedPlayerCount = _playersTextView.Text;
+            MainActivity.CurrentGame.ReleaseDate = _releaseDateTextView.Text;
+            MainActivity.CurrentGame.Description = _descriptionTextView.Text;
+            //TODO: Properly save ESRB info
+        }
+
 
         private void FindElementsById()
         {
@@ -93,8 +140,47 @@ namespace UniCadeAndroid.Activities
             _esrbLogoImageView = FindViewById<ImageView>(Resource.Id.EsrbLogoImageView);
         }
 
-        private void LinkClickHandlers(){
-            
+        private void CreateEventHandlers(){
+            _boxFrontImageView.Click += (sender, e) =>
+            {
+                //TODO: Expand box front image
+            };
+
+            _boxBackImageView.Click += (sender, e) =>
+            {
+                //TODO: Expand box back image
+            };
+
+            _screenshotImageView.Click += (sender, e) =>
+            {
+                //TODO: Expand screenshot image
+            };
+
+            _rescrapeGameButton.Click += (sender, e) =>
+            {
+                //TODO: 
+            };
+
+            _rescrapeConsoleButton.Click += (sender, e) =>
+            {
+                //TODO: 
+            };
+
+            _saveInfoButton.Click += (sender, e) =>
+            {
+               SaveGameInfo();
+            };
+
+            _closeInfoButton.Click += (sender, e) =>
+            {
+                Finish();
+            };
+
+            _refreshInfoButton.Click += (sender, e) =>
+            {
+                //TODO: 
+            };
+
         }
     }
 }
