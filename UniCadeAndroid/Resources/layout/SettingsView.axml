@@ -45,25 +45,25 @@
             p1:layout_marginLeft="183.5dp" />
     </RelativeLayout>
     <CheckBox
-        p1:text="Show Splash Screen"
+        p1:text="Load Database On Startup"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@+id/ShowSplashScreenCheckbox" />
+        p1:id="@+id/LoadDatabaseOnStartupCheckbox" />
     <CheckBox
-        p1:text="Password Protect Settings"
+        p1:text="Rescan Local Libraries On Startup"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@+id/PasswordProtectSettingsCheckbox" />
+        p1:id="@+id/RescanLocalLibrariesOnStartupCheckbox" />
     <CheckBox
-        p1:text="Enable Fingerprint Security"
+        p1:text="Display Console Logo"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@+id/EnableFingerprintSecurityCheckbox" />
+        p1:id="@+id/DisplayConsoleLogoCheckbox" />
     <CheckBox
-        p1:text="Display Modern ESRB Icons"
+        p1:text="Display ESRB Logo"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@+id/DisplayModernESRBIconsCheckbox" />
+        p1:id="@+id/DisplayEsrbLogoCheckbox" />
     <RelativeLayout
         p1:minWidth="25px"
         p1:minHeight="25px"
