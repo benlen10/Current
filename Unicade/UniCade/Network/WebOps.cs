@@ -191,7 +191,7 @@ namespace UniCade
                 }
                 else if (s.Contains("Adults Only"))
                 {
-                    game.EsrbRating = Enums.ESRB.AO;
+                    game.EsrbRating = Enums.ESRB.Ao;
                 }
             }
 

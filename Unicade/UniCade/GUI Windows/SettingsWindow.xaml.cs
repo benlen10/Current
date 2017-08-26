@@ -101,13 +101,13 @@ namespace UniCade.Windows
             GlobalTab_Dropdown_AllowedESRB.Items.Add("Everyone 10+");
             GlobalTab_Dropdown_AllowedESRB.Items.Add("Teen");
             GlobalTab_Dropdown_AllowedESRB.Items.Add("Mature");
-            GlobalTab_Dropdown_AllowedESRB.Items.Add("Adults Only (AO)");
+            GlobalTab_Dropdown_AllowedESRB.Items.Add("Adults Only (Ao)");
             GlobalTab_Dropdown_AllowedESRB.Items.Add("None");
             UsersTab_Dropdown_AllowedESRB.Items.Add("Everyone");
             UsersTab_Dropdown_AllowedESRB.Items.Add("Everyone 10+");
             UsersTab_Dropdown_AllowedESRB.Items.Add("Teen");
             UsersTab_Dropdown_AllowedESRB.Items.Add("Mature");
-            UsersTab_Dropdown_AllowedESRB.Items.Add("Adults Only (AO)");
+            UsersTab_Dropdown_AllowedESRB.Items.Add("Adults Only (Ao)");
             UsersTab_Dropdown_AllowedESRB.Items.Add("None");
 
             //Load UniCade Logo images within the settings window
@@ -136,9 +136,9 @@ namespace UniCade.Windows
             {
                 GlobalTab_Dropdown_AllowedESRB.Text = "Mature";
             }
-            else if (Program.RestrictGlobalESRB.Equals(Enums.ESRB.AO))
+            else if (Program.RestrictGlobalESRB.Equals(Enums.ESRB.Ao))
             {
-                GlobalTab_Dropdown_AllowedESRB.Text = "Adults Only (AO)";
+                GlobalTab_Dropdown_AllowedESRB.Text = "Adults Only (Ao)";
             }
             else
             {
@@ -1139,9 +1139,9 @@ namespace UniCade.Windows
             LoginWindow login = new LoginWindow(1);
             login.ShowDialog();
 
-                //If the user is logged in sucuesfully, save the current user and preferences file
-                UsersTab_Label_CurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
-                FileOps.SavePreferences(Program.PreferencesPath);
+            //If the user is logged in sucuesfully, save the current user and preferences file
+            UsersTab_Label_CurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
+            FileOps.SavePreferences(Program.PreferencesPath);
         }
 
         /// <summary>
@@ -1777,93 +1777,21 @@ namespace UniCade.Windows
         /// </summary>
         internal void SaveGameInfo()
         {
+            try
+            {
+                CurrentGame.ReleaseDate = GamesTab_Textbox_ReleaseDate.Text;
+                CurrentGame.CriticReviewScore = GamesTab_Textbox_CriticScore.Text;
+                CurrentGame.SupportedPlayerCount = GamesTab_Textbox_Players.Text;
+                CurrentGame.EsrbRating = Enums.ConvertStringToEsrbEnum(GamesTab_Textbox_ESRB.Text);
+                CurrentGame.PublisherName = GamesTab_Textbox_Publisher.Text;
+                CurrentGame.DeveloperName = GamesTab_Textbox_Developer.Text;
+                CurrentGame.Description = GamesTab_Textbox_Description.Text;
+                CurrentGame.EsrbDescriptors = GamesTab_Textbox_ESRBDescriptor.Text;
+            }
+            catch(ArgumentException e)
+            {
+                MessageBox.Show("Error: " + e.ToString());
 
-            //Invalid input checks
-            if (GamesTab_Listbox_GamesList.Items.Count < 1)
-            {
-                return;
-            }
-
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console - SaveGameInfo");
-                return;
-            }
-            if (Utilties.IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
-            {
-                if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
-                {
-                    CurrentGame.ReleaseDate = GamesTab_Textbox_ReleaseDate.Text;
-                }
-                else
-                {
-                    MessageBox.Show("Release Date Invalid");
-                    return;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Release Date score must be only digits");
-                return;
-            }
-            if (Utilties.IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
-            {
-                if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
-                {
-                    CurrentGame.CriticReviewScore = GamesTab_Textbox_CriticScore.Text;
-                }
-                else
-                {
-                    MessageBox.Show("Critic Score Invalid");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Critic Score must be only digits");
-            }
-
-            if (Utilties.IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
-            {
-                if (GamesTab_Textbox_ReleaseDate.Text.Length > 2)
-                {
-                    CurrentGame.SupportedPlayerCount = GamesTab_Textbox_Players.Text;
-                }
-                else
-                {
-                    MessageBox.Show("Players Invalid");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Players must be only digits");
-            }
-
-            if (GamesTab_Textbox_Developer.Text.Contains("|") || GamesTab_Textbox_Publisher.Text.Contains("|") || GamesTab_Textbox_ESRB.Text.Contains("|") || GamesTab_Textbox_Description.Text.Contains("|") || GamesTab_Textbox_ESRBDescriptor.Text.Contains("|"))
-            {
-                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
-            }
-            else
-            {
-                if (GamesTab_Textbox_ESRB.Text.Contains("Everyone") || GamesTab_Textbox_ESRB.Text.Contains("Teen") || GamesTab_Textbox_ESRB.Text.Contains("Mature") || GamesTab_Textbox_ESRB.Text.Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
-                {
-                    CurrentGame.EsrbRating = Enums.ConvertStringToEsrbEnum(GamesTab_Textbox_ESRB.Text);
-                }
-                else
-                {
-                    MessageBox.Show("Invalid ESRB Rating");
-                }
-
-                if ((GamesTab_Textbox_Developer.Text.Length > 20) || (GamesTab_Textbox_Publisher.Text.Length > 20) || (GamesTab_Textbox_Description.Text.Length > 20) || (GamesTab_Textbox_ESRBDescriptor.Text.Length > 20))
-                {
-                    MessageBox.Show("Invalid Length");
-                }
-                else
-                {
-                    CurrentGame.PublisherName = GamesTab_Textbox_Publisher.Text;
-                    CurrentGame.DeveloperName = GamesTab_Textbox_Developer.Text;
-                    CurrentGame.Description = GamesTab_Textbox_Description.Text;
-                    CurrentGame.EsrbDescriptors = GamesTab_Textbox_ESRBDescriptor.Text;
-                }
             }
 
             //If all input fields are valid, save the database
@@ -1898,9 +1826,9 @@ namespace UniCade.Windows
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png"));
             }
 
-            if (g.EsrbRating.Equals("Adults Only (AO)"))
+            if (g.EsrbRating.Equals("Adults Only (Ao)"))
             {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (AO).png"));
+                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png"));
             }
         }
 

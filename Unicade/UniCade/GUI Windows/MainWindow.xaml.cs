@@ -710,9 +710,9 @@ namespace UniCade
                     {
                         EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png";
                     }
-                    else if (game.EsrbRating.Equals("Adults Only (AO)"))
+                    else if (game.EsrbRating.Equals("Adults Only (Ao)"))
                     {
-                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (AO).png";
+                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png";
                     }
 
                     if (EsrbPath.Length > 2)

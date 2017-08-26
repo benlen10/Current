@@ -27,8 +27,8 @@ namespace UniCade.Constants
             Teen,
             [StringValue("Mature")]
             Mature,
-            [StringValue("AO (Adults Only)")]
-            AO
+            [StringValue("Adults Only (Ao)")]
+            Ao
         }
 
         /// <summary>
@@ -90,9 +90,9 @@ namespace UniCade.Constants
         /// <returns></returns>
         public static ESRB ConvertStringToEsrbEnum(string text)
         {
-            if (text.Equals("Everyone"))
+            if (text.Equals("") || text.Contains("Null") || text.Contains("null") || text.Contains("None") || text.Equals(" "))
             {
-                return ESRB.Everyone;
+                return ESRB.Null;
             }
             else if (text.Equals("Everyone"))
             {
@@ -110,11 +110,14 @@ namespace UniCade.Constants
             {
                 return ESRB.Mature;
             }
-            else if (text.Equals("Adults Only"))
+            else if (text.Contains("Adults Only"))
             {
-                return ESRB.AO;
+                return ESRB.Ao;
             }
-            return ESRB.Null;
+            else
+            {
+                throw new ArgumentException("Invalid ESRB Rating");
+            }
         }
 
         #endregion
