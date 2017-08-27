@@ -65,9 +65,22 @@ namespace UniCadeAndroid.Activities
 
 			CreateEventHandlers();
 
-            // PopulateGameInfo();
+            PopulateGameInfo();
 
             // PopulateGameImages();
+        }
+
+        private void PopulateGameInfo()
+        {
+            _titleTextView.Text = MainActivity.CurrentGame.Title;
+            _consoleTextView.Text = MainActivity.CurrentGame.Title;
+            _publisherTextView.Text = MainActivity.CurrentGame.Title;
+            _criticScoreTextView.Text = MainActivity.CurrentGame.Title;
+            _playersTextView.Text = MainActivity.CurrentGame.Title;
+            _esrbRatingTextView.Text = MainActivity.CurrentGame.Title;
+            _esrbDescriptorsTextView.Text = MainActivity.CurrentGame.Title;
+            _releaseDateTextView.Text = MainActivity.CurrentGame.Title;
+            _descriptionTextView.Text = MainActivity.CurrentGame.Title;
         }
 
 
