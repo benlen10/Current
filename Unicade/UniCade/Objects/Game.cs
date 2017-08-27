@@ -521,7 +521,7 @@ namespace UniCade.Objects
         /// <param name="genres">The genere(s) for the current game</param>
         /// <param name="tags">A list of common tags tags for the current game</param>
         /// <param name="isFavorite"></param>
-        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.ESRB esrbRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, int isFavorite)
+        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.ESRB esrbRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, string isFavorite)
         {
             FileName = fileName;
             ConsoleName = consoleName;
@@ -540,7 +540,7 @@ namespace UniCade.Objects
             Genres = genres;
             Tags = tags;
 
-            Favorite = (isFavorite > 0);
+            Favorite = (isFavorite.Equals("True"));
 
             //Parse the game title from the raw ROM filename
             if (fileName.Length > 2)

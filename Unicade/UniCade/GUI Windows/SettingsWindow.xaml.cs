@@ -1790,7 +1790,7 @@ namespace UniCade.Windows
             }
             catch(ArgumentException e)
             {
-                MessageBox.Show("Error: " + e.ToString());
+                MessageBox.Show("Error: " + e.Message);
 
             }
 
@@ -1801,32 +1801,28 @@ namespace UniCade.Windows
         /// <summary>
         /// Refresh the ESRB rating icon to the current ESRB rating
         /// </summary>
-        public void RefreshEsrbIcon(IGame g)
+        public void RefreshEsrbIcon(IGame game)
         {
-            if (g == null) { return; }
+            if (game == null) { return; }
             GamesTab_Image_ESRB.Source = null;
-            if (g.EsrbRating.Equals("Everyone"))
+            if (game.EsrbRating.Equals(Enums.ESRB.Everyone))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
             }
-            else if (g.EsrbRating.Equals("Everyone (KA)"))
-            {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
-            }
-            else if (g.EsrbRating.Equals("Everyone 10+"))
+            else if (game.EsrbRating.Equals(Enums.ESRB.Everyone10))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png"));
             }
-            else if (g.EsrbRating.Equals("Teen"))
+            else if (game.EsrbRating.Equals(Enums.ESRB.Teen))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png"));
             }
-            else if (g.EsrbRating.Equals("Mature"))
+            else if (game.EsrbRating.Equals(Enums.ESRB.Mature))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png"));
             }
 
-            if (g.EsrbRating.Equals("Adults Only (Ao)"))
+            if (game.EsrbRating.Equals(Enums.ESRB.Ao))
             {
                 GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png"));
             }
