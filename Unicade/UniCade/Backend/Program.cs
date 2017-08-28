@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using UniCade.Backend;
 using UniCade.ConsoleInterface;
 using UniCade.Constants;
-using UniCade.Exceptions;
 using UniCade.Interfaces;
-using UniCade.Objects;
-using UniCade.Windows;
 
 namespace UniCade
 {
@@ -95,7 +89,7 @@ namespace UniCade
 
         #endregion
 
-        [System.STAThreadAttribute]
+        [STAThread]
 
         /// <summary>
         /// Entry point for the program

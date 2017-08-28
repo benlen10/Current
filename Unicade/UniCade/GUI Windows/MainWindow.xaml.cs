@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using UniCade.Backend;
+using UniCade.Exceptions;
 using UniCade.Interfaces;
 using UniCade.Windows;
 
@@ -623,10 +624,13 @@ namespace UniCade
             IGame game = CurrentConsole.GetGame(listBox.SelectedItem.ToString());
 
             //If the specified game is found, launch the game and return
-            string result = FileOps.Launch(game);
-            if (!result.Equals("Launch Successful"))
+            try
             {
-                ShowNotification("Error", result);
+                FileOps.Launch(game);
+            }
+            catch(LaunchException e)
+            {
+                ShowNotification("Launch Error", e.Message);
             }
             if (PayPerPlay.PayPerPlayEnabled)
             {

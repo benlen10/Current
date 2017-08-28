@@ -67,7 +67,7 @@ namespace UniCadeAndroid.Activities
 
             PopulateGameInfo();
 
-            // PopulateGameImages();
+            PopulateGameImages();
         }
 
         private void PopulateGameInfo()
@@ -81,6 +81,31 @@ namespace UniCadeAndroid.Activities
             _esrbDescriptorsTextView.Text = MainActivity.CurrentGame.Title;
             _releaseDateTextView.Text = MainActivity.CurrentGame.Title;
             _descriptionTextView.Text = MainActivity.CurrentGame.Title;
+        }
+
+        private void PopulateGameImages()
+        {
+            var sdCardPath = Environment.ExternalStorageDirectory.Path;
+            string imagePath = sdCardPath + ConstValues.GameImagesPath + MainActivity.CurrentGame.ConsoleName + "\\" + MainActivity.CurrentGame.Title + "_BoxFront.jpg";
+            if (File.Exists(imagePath))
+            {
+                Bitmap bitmap = BitmapFactory.DecodeFile(imagePath);
+                _boxFrontImageView.SetImageBitmap(bitmap);
+            }
+
+            imagePath = sdCardPath + ConstValues.GameImagesPath + MainActivity.CurrentGame.ConsoleName + "\\" + MainActivity.CurrentGame.Title + "_BoxBack.jpg";
+            if (File.Exists(imagePath))
+            {
+                Bitmap bitmap = BitmapFactory.DecodeFile(imagePath);
+                _boxBackImageView.SetImageBitmap(bitmap);
+            }
+
+            imagePath = sdCardPath + ConstValues.GameImagesPath + MainActivity.CurrentGame.ConsoleName + "\\" + MainActivity.CurrentGame.Title + "_Screenshot.jpg";
+            if (File.Exists(imagePath))
+            {
+                Bitmap bitmap = BitmapFactory.DecodeFile(imagePath);
+                _screenshotImageView.SetImageBitmap(bitmap);
+            }
         }
 
 

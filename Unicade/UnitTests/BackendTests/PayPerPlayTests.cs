@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UniCade;
 using UniCade.Backend;
+using UniCade.Exceptions;
 using UniCade.Interfaces;
 using UniCade.Objects;
 using Console = UniCade.Objects.Console;
@@ -77,19 +78,42 @@ namespace UnitTests.Backend_Tests
             PayPerPlay.CurrentCoins = 0;
 
             //Attempt to launch a game without inserting any coins and verify that the launch is restricted
-            string result = FileOps.Launch(Game);
-            Assert.IsTrue(result.Contains("Pay"), "Verify that the game cannot be launched if not enough coins are inserted");
+            try
+            {
+                FileOps.Launch(Game);
+                Assert.Fail("Verify that the game cannot be launched if not enough coins are inserted");
+            }
+            catch (LaunchException e)
+            {
+                Assert.IsTrue(e.Message.Contains("Pay"), "Verify that the game cannot be launched if not enough coins are inserted");
+            }
 
             //Insert 4 coins and attempt to launch the game again
             PayPerPlay.CurrentCoins = 4;
-            Assert.IsFalse(FileOps.Launch(Game).Contains("Pay"), "Verify that the game can be launched if enough coins are inserted");
+            try
+            {
+                FileOps.Launch(Game);
+                Assert.Fail("Verify that the game can be launched if enough coins are inserted");
+            }
+            catch (LaunchException e)
+            {
+                Assert.IsFalse(e.Message.Contains("Pay"), "Verify that the game can be launched if enough coins are inserted");
+            }
 
             //Set the required coin count and current coins to zero
             PayPerPlay.CoinsRequired = 0;
             PayPerPlay.CurrentCoins = 0;
 
             //Verify that a game can be launched if the required coins = 0 even if no coins are currently inserted 
-            Assert.IsFalse(FileOps.Launch(Game).Contains("Pay"), "Verify that a game can be launched if the required coins = 0 even if no coins are currently inserted ");
+            try
+            {
+                FileOps.Launch(Game);
+                Assert.Fail("Verify that a game can be launched if the required coins = 0 even if no coins are currently inserted");
+            }
+            catch (LaunchException e)
+            {
+                Assert.IsFalse(e.Message.Contains("Pay"), "Verify that a game can be launched if the required coins = 0 even if no coins are currently inserted");
+            }
         }
 
         /// <summary>

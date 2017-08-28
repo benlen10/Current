@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using UniCade.Backend;
+using UniCade.Exceptions;
 using UniCade.Interfaces;
 using UniCade.Objects;
 
@@ -230,10 +231,13 @@ namespace UniCade.ConsoleInterface
                     IGame game = console.GetGame(gameTitle);
                     if (game != null)
                     {
-                        string result = FileOps.Launch(game);
-                        if(result.Equals("Launch Successful"))
+                        try
                         {
-                            System.Console.WriteLine("Notification: ", result);
+                            FileOps.Launch(game);
+                        }
+                        catch(LaunchException e)
+                        {
+                            System.Console.WriteLine("Launch Error: " + e.Message);
                         }
                     }
                     else

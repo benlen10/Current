@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using UniCade.Backend;
 using UniCade.Constants;
+using UniCade.Exceptions;
 using UniCade.Interfaces;
 using UniCade.Objects;
 using UniCade.Windows;
@@ -481,17 +482,17 @@ namespace UniCade
         /// <summary>
         /// Launch the specified ROM file using the paramaters specified by the console
         /// </summary>
-        public static string Launch(IGame game)
+        public static bool Launch(IGame game)
         {
             if (game == null)
             {
-                return "Launch Error: Game is NULL";
+                throw new LaunchException("Game is Null");
             }
             if (Database.GetCurrentUser().AllowedEsrb > 0)
             {
                 if (game.EsrbRating > Database.GetCurrentUser().AllowedEsrb)
                 {
-                    return ("ESRB " + game.EsrbRating + " Is Restricted for" + Database.GetCurrentUser().Username);
+                    throw new LaunchException(("ESRB " + game.EsrbRating + " Is Restricted for" + Database.GetCurrentUser().Username));
                 }
             }
 
@@ -499,7 +500,7 @@ namespace UniCade
             {
                 if (game.EsrbRating > Program.RestrictGlobalESRB)
                 {
-                    return ("ESRB " + game.EsrbRating + " Is Restricted globally\n");
+                    throw new LaunchException(("ESRB " + game.EsrbRating + " Is Restricted globally"));
                 }
             }
 
@@ -507,7 +508,7 @@ namespace UniCade
             {
                 if (PayPerPlay.CurrentCoins < PayPerPlay.CoinsRequired)
                 {
-                    return "Pay Per Play Active: Please Insert Coins";
+                    throw new LaunchException(("Pay Per Play Active: Please Insert Coins"));
                 }
             }
 
@@ -518,7 +519,7 @@ namespace UniCade
             string testGamePath = (console.RomPath + game.FileName);
             if (!File.Exists(testGamePath))
             {
-                return ("ROM does not exist. Launch Failed");
+                throw new LaunchException(("ROM does not exist. Launch Failed"));
             }
             string args = "";
             if (console.ConsoleName.Equals("MAME"))
@@ -543,14 +544,13 @@ namespace UniCade
             {
                 if (!File.Exists(console.EmulatorPath))
                 {
-                    return "Emulator does not exist. Launch Failed";
+                    throw new LaunchException(("Emulator does not exist. Launch Failed"));
                 }
                 CurrentProcess.StartInfo.FileName = console.EmulatorPath;
                 CurrentProcess.StartInfo.Arguments = args;
             }
 
-            CurrentProcess = new Process();
-            CurrentProcess.EnableRaisingEvents = true;
+            CurrentProcess = new Process {EnableRaisingEvents = true};
             CurrentProcess.Exited += new EventHandler(ProcessExited);
 
             //Only decrement coin count on a sucuessful launch
@@ -564,7 +564,7 @@ namespace UniCade
             CurrentProcess.Start();
             IsProcessActive = true;
             MainWindow.IsGameRunning = true;
-            return "Launch Successful";
+            return true;
         }
 
         /// <summary>
