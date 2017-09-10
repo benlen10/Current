@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UniCade.Backend
+﻿namespace UniCade.Backend
 {
-    class PayPerPlay
+    internal class PayPerPlay
     {
         #region Properties
 

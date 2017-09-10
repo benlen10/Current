@@ -2,17 +2,15 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Exceptions;
 using UniCade.Interfaces;
 using UniCade.Objects;
-using UniCade.Windows;
 using Console = UniCade.Objects.Console;
 
-namespace UniCade
+namespace UniCade.Backend
 {
-    class FileOps
+    internal class FileOps
     {
         #region Properties
 

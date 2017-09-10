@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.ComponentModel;
 
-namespace UniCade
+namespace UniCade.Backend
 {
-    public class GlobalKeyboardHook
+    internal class GlobalKeyboardHook
     {
         #region Properties
 

@@ -7,7 +7,7 @@ using UniCade.Constants;
 
 namespace UniCade.Objects
 {
-    public class Console : IConsole
+    internal class Console : IConsole
     {
         #region Properties
 

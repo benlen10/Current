@@ -1,6 +1,6 @@
-﻿namespace UniCade
+﻿namespace UniCade.Constants
 {
-    class TextFiles
+    internal class TextFiles
     {
         #region Raw Text 
 

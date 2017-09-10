@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniCade.Constants
 {
-    class ErrorStrings
+    internal class ErrorStrings
     {
     }
 }

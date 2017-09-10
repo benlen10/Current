@@ -15,7 +15,7 @@ namespace UniCade.Constants
         /// <summary>
         /// Enum Values for ESRB content ratings
         /// </summary>
-        public enum ESRB
+        public enum Esrb
         {
             [StringValue("")]
             Null,
@@ -64,10 +64,7 @@ namespace UniCade.Constants
             {
                 return attributes[0].StringValue;
             }
-            else
-            {
                 return fieldInfo.Name;
-            }
         }
 
         /// <summary>
@@ -79,7 +76,7 @@ namespace UniCade.Constants
 
             public StringValueAttribute(string value)
             {
-                this.StringValue = value;
+                StringValue = value;
             }
         }
 
@@ -88,31 +85,31 @@ namespace UniCade.Constants
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static ESRB ConvertStringToEsrbEnum(string text)
+        public static Esrb ConvertStringToEsrbEnum(string text)
         {
             if (text.Equals("") || text.Contains("Null") || text.Contains("null") || text.Contains("None") || text.Equals(" "))
             {
-                return ESRB.Null;
+                return Esrb.Null;
             }
             else if (text.Equals("Everyone"))
             {
-                return ESRB.Everyone;
+                return Esrb.Everyone;
             }
             else if (text.Equals("Everyone 10+"))
             {
-                return ESRB.Everyone;
+                return Esrb.Everyone;
             }
             else if (text.Equals("Teen"))
             {
-                return ESRB.Teen;
+                return Esrb.Teen;
             }
             else if (text.Equals("Mature"))
             {
-                return ESRB.Mature;
+                return Esrb.Mature;
             }
             else if (text.Contains("Adults Only"))
             {
-                return ESRB.Ao;
+                return Esrb.Ao;
             }
             else
             {

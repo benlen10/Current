@@ -5,7 +5,7 @@ namespace UniCade.Exceptions
     /// <summary>
     /// Custom UniCade exception template
     /// </summary>
-    public class LaunchException : Exception
+    internal class LaunchException : Exception
     {
         public LaunchException()
         {

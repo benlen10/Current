@@ -1,0 +1,18 @@
+﻿<Window x:Class="UniCade.Windows.LicenseEntry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UniCade.Windows"
+        mc:Ignorable="d"
+        Title="LicenseEntry" Height="154.128" Width="300" ResizeMode="NoResize">
+    <Grid>
+        <TextBox x:Name="Textbox_User" HorizontalAlignment="Left" Height="23" Margin="56,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206"/>
+        <TextBox x:Name="Textbox_Key" HorizontalAlignment="Left" Height="23" Margin="56,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206"/>
+        <Button Content="Close" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="56,93,0,0" Click="LicenseEntryWindow_CloseButton_Click"/>
+        <Button Content="Validate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="187,93,0,0" RenderTransformOrigin="2.297,0.884" Click="LicenseEntryWindow_ValidateButton_Click"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top"/>
+        <Label Content="Key" HorizontalAlignment="Left" Margin="22,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.626,1.682"/>
+
+    </Grid>
+</Window>

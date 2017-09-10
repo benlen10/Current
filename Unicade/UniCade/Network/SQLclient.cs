@@ -1,15 +1,15 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Text;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Objects;
 
-namespace UniCade
+namespace UniCade.Network
 {
-    class SQLclient
+    class SqlClient
     {
         #region Properties
 

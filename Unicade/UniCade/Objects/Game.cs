@@ -398,7 +398,7 @@ namespace UniCade.Objects
         /// <summary>
         /// The ESRB content rating
         /// </summary>
-        public Enums.ESRB EsrbRating { get; set; }
+        public Enums.Esrb EsrbRating { get; set; }
 
         #endregion
 
@@ -521,7 +521,7 @@ namespace UniCade.Objects
         /// <param name="genres">The genere(s) for the current game</param>
         /// <param name="tags">A list of common tags tags for the current game</param>
         /// <param name="isFavorite"></param>
-        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.ESRB esrbRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, string isFavorite)
+        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.Esrb esrbRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, string isFavorite)
         {
             FileName = fileName;
             ConsoleName = consoleName;

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using UniCade.Backend;
 using UniCade.ConsoleInterface;
 using UniCade.Constants;
 using UniCade.Interfaces;
 
-namespace UniCade
+namespace UniCade.Backend
 {
     public class Program
     {
@@ -50,7 +49,7 @@ namespace UniCade
         /// <summary>
         /// Specifies if certain ESRB ratings should be restricted globally (regardless of user)
         /// </summary>
-        public static Enums.ESRB RestrictGlobalESRB;
+        public static Enums.Esrb RestrictGlobalESRB;
 
         /// <summary>
         /// Specifies if you are required to login to a user account on startup

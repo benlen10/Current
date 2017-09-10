@@ -7,7 +7,7 @@ using UniCade.Objects;
 
 namespace UniCade.ConsoleInterface
 {
-    class UniCadeCmd
+    internal class UniCadeCmd
     {
         #region Properties
 

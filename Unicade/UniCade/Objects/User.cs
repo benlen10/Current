@@ -132,7 +132,7 @@ namespace UniCade.Objects
         /// <summary>
         /// The max allowed ESRB for the current user (Parental Controls)
         /// </summary>
-        public Enums.ESRB AllowedEsrb { get; set; }
+        public Enums.Esrb AllowedEsrb { get; set; }
 
         #endregion
 
@@ -182,7 +182,7 @@ namespace UniCade.Objects
 
         #region Constructors
 
-        public User(string userName, string password, int loginCount, string email, int totalLaunchCount, string userInfo, Enums.ESRB allowedEsrb, string profPic)
+        public User(string userName, string password, int loginCount, string email, int totalLaunchCount, string userInfo, Enums.Esrb allowedEsrb, string profPic)
         {
             Username = userName;
             _password = password;

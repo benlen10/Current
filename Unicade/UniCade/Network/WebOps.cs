@@ -5,9 +5,9 @@ using System.Windows.Forms;
 using UniCade.Constants;
 using UniCade.Interfaces;
 
-namespace UniCade
+namespace UniCade.Network
 {
-    class WebOps
+    internal class WebOps
     {
         #region Properties
 
@@ -171,27 +171,27 @@ namespace UniCade
                 //Convert the parsed text to a valid ESRB rating
                 if (s.Contains("Everyone"))
                 {
-                    game.EsrbRating = Enums.ESRB.Everyone;
+                    game.EsrbRating = Enums.Esrb.Everyone;
                 }
                 else if (s.Contains("Kids to Adults"))
                 {
-                    game.EsrbRating = Enums.ESRB.Everyone;
+                    game.EsrbRating = Enums.Esrb.Everyone;
                 }
                 else if (s.Contains("Everyone 10+"))
                 {
-                    game.EsrbRating = Enums.ESRB.Everyone10;
+                    game.EsrbRating = Enums.Esrb.Everyone10;
                 }
                 else if (s.Contains("Teen"))
                 {
-                    game.EsrbRating = Enums.ESRB.Teen;
+                    game.EsrbRating = Enums.Esrb.Teen;
                 }
                 else if (s.Contains("Mature"))
                 {
-                    game.EsrbRating = Enums.ESRB.Mature;
+                    game.EsrbRating = Enums.Esrb.Mature;
                 }
                 else if (s.Contains("Adults Only"))
                 {
-                    game.EsrbRating = Enums.ESRB.Ao;
+                    game.EsrbRating = Enums.Esrb.Ao;
                 }
             }
 

@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>UniCade.Program</StartupObject>
+    <StartupObject>UniCade.Backend.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>
@@ -122,20 +122,20 @@
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IConsole.cs" />
-    <Compile Include="GUI Windows\AccountWindow.xaml.cs">
+    <Compile Include="Windows\AccountWindow.xaml.cs">
       <DependentUpon>AccountWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI Windows\GameInfo.xaml.cs">
+    <Compile Include="Windows\GameInfo.xaml.cs">
       <DependentUpon>GameInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Backend\GlobalKeyboardHook.cs" />
-    <Compile Include="GUI Windows\LicenseEntry.xaml.cs">
+    <Compile Include="Windows\LicenseEntry.xaml.cs">
       <DependentUpon>LicenseEntry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI Windows\LoginWindow.xaml.cs">
+    <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI Windows\NotificationWindow.xaml.cs">
+    <Compile Include="Windows\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Network\SQLclient.cs" />
@@ -143,21 +143,21 @@
     <Compile Include="Constants\TextFiles.cs" />
     <Compile Include="Objects\User.cs" />
     <Compile Include="Network\WebOps.cs" />
-    <Compile Include="GUI Windows\PassWindow.xaml.cs">
+    <Compile Include="Windows\PassWindow.xaml.cs">
       <DependentUpon>PassWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI Windows\SettingsWindow.xaml.cs">
+    <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="GUI Windows\AccountWindow.xaml">
+    <Page Include="Windows\AccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI Windows\GameInfo.xaml">
+    <Page Include="Windows\GameInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI Windows\MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -170,27 +170,27 @@
     <Compile Include="Backend\FileOps.cs" />
     <Compile Include="Objects\Game.cs" />
     <Compile Include="Backend\Program.cs" />
-    <Compile Include="GUI Windows\MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="GUI Windows\LicenseEntry.xaml">
+    <Page Include="Windows\LicenseEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI Windows\LoginWindow.xaml">
+    <Page Include="Windows\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI Windows\NotificationWindow.xaml">
+    <Page Include="Windows\NotificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI Windows\PassWindow.xaml">
+    <Page Include="Windows\PassWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI Windows\SettingsWindow.xaml">
+    <Page Include="Windows\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,7 +213,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI Windows\SettingsWindow.resx" />
+    <EmbeddedResource Include="Windows\SettingsWindow.resx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
