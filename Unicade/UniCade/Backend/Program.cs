@@ -16,21 +16,6 @@ namespace UniCade.Backend
         public static string DatabasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
 
         /// <summary>
-        /// The path to the current ROM directory
-        /// </summary>
-        public static string RomPath = @"C:\UniCade\ROMS";
-
-        /// <summary>
-        /// The path to the current media directory
-        /// </summary>
-        public static string MediaPath = @"C:\UniCade\Media";
-
-        /// <summary>
-        /// The path to the current Emulators directory
-        /// </summary>
-        public static string EmulatorPath = @"C:\UniCade\Emulators";
-
-        /// <summary>
         /// The path to the Preferences.txt file
         /// </summary>
         public static string PreferencesPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
@@ -79,7 +64,7 @@ namespace UniCade.Backend
         /// <summary>
         /// Specifies if ROM files are required to have the proper extension in order to be imported
         /// </summary>
-        public static int EnforceFileExtensions;
+        public static bool EnforceFileExtensions;
 
         /// <summary>
         /// The current application 

@@ -136,3 +136,4 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windo
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\PassWindow.baml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\SettingsWindow.baml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.Windows.SettingsWindow.resources
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.csprojResolveAssemblyReference.cache

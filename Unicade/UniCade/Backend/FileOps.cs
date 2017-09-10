@@ -146,11 +146,11 @@ namespace UniCade.Backend
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
-            Program.EmulatorPath = tokenString[1];
+            Database.EmulatorPath = tokenString[1];
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
-            Program.MediaPath = tokenString[1];
+            Database.MediaPath = tokenString[1];
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
@@ -298,8 +298,8 @@ namespace UniCade.Backend
             {
                 sw.WriteLine("CurrentUser|" + Database.GetCurrentUser().Username);
                 sw.WriteLine("_databasePath|" + Program.DatabasePath);
-                sw.WriteLine("EmulatorFolderPath|" + Program.EmulatorPath);
-                sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
+                sw.WriteLine("EmulatorFolderPath|" + Database.EmulatorPath);
+                sw.WriteLine("MediaFolderPath|" + Database.MediaPath);
                 sw.WriteLine("ShowSplash|" + Program.ShowSplashScreen);
                 sw.WriteLine("ScanOnStartup|" + Program.RescanOnStartup);
                 sw.WriteLine("RestrictESRB|" + Program.RestrictGlobalESRB);
@@ -690,26 +690,26 @@ namespace UniCade.Backend
         /// </summary>
         public static void CreateNewRomDirectory()
         {
-            Directory.CreateDirectory(Program.RomPath + @"\Sega Genisis");
-            Directory.CreateDirectory(Program.RomPath + @"\Wii");
-            Directory.CreateDirectory(Program.RomPath + @"\NDS");
-            Directory.CreateDirectory(Program.RomPath + @"\GBC");
-            Directory.CreateDirectory(Program.RomPath + @"\MAME");
-            Directory.CreateDirectory(Program.RomPath + @"\PC");
-            Directory.CreateDirectory(Program.RomPath + @"\GBA");
-            Directory.CreateDirectory(Program.RomPath + @"\Gamecube");
-            Directory.CreateDirectory(Program.RomPath + @"\NES");
-            Directory.CreateDirectory(Program.RomPath + @"\SNES");
-            Directory.CreateDirectory(Program.RomPath + @"\N64");
-            Directory.CreateDirectory(Program.RomPath + @"\PS1");
-            Directory.CreateDirectory(Program.RomPath + @"\PS2");
-            Directory.CreateDirectory(Program.RomPath + @"\PS3");
-            Directory.CreateDirectory(Program.RomPath + @"\Atari 2600");
-            Directory.CreateDirectory(Program.RomPath + @"\Dreamcast");
-            Directory.CreateDirectory(Program.RomPath + @"\PSP");
-            Directory.CreateDirectory(Program.RomPath + @"\Wii U");
-            Directory.CreateDirectory(Program.RomPath + @"\Xbox 360");
-            Directory.CreateDirectory(Program.RomPath + @"\3DS");
+            Directory.CreateDirectory(Database.RomPath + @"\Sega Genisis");
+            Directory.CreateDirectory(Database.RomPath + @"\Wii");
+            Directory.CreateDirectory(Database.RomPath + @"\NDS");
+            Directory.CreateDirectory(Database.RomPath + @"\GBC");
+            Directory.CreateDirectory(Database.RomPath + @"\MAME");
+            Directory.CreateDirectory(Database.RomPath + @"\PC");
+            Directory.CreateDirectory(Database.RomPath + @"\GBA");
+            Directory.CreateDirectory(Database.RomPath + @"\Gamecube");
+            Directory.CreateDirectory(Database.RomPath + @"\NES");
+            Directory.CreateDirectory(Database.RomPath + @"\SNES");
+            Directory.CreateDirectory(Database.RomPath + @"\N64");
+            Directory.CreateDirectory(Database.RomPath + @"\PS1");
+            Directory.CreateDirectory(Database.RomPath + @"\PS2");
+            Directory.CreateDirectory(Database.RomPath + @"\PS3");
+            Directory.CreateDirectory(Database.RomPath + @"\Atari 2600");
+            Directory.CreateDirectory(Database.RomPath + @"\Dreamcast");
+            Directory.CreateDirectory(Database.RomPath + @"\PSP");
+            Directory.CreateDirectory(Database.RomPath + @"\Wii U");
+            Directory.CreateDirectory(Database.RomPath + @"\Xbox 360");
+            Directory.CreateDirectory(Database.RomPath + @"\3DS");
 
         }
 
@@ -718,25 +718,25 @@ namespace UniCade.Backend
         /// </summary>
         public static void CreateNewEmuDirectory()
         {
-            Directory.CreateDirectory(Program.EmulatorPath + @"\Sega Genisis");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\Wii");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\NDS");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\GBC");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\MAME");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\GBA");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\Gamecube");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\NES");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\SNES");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\N64");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\PS1");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\PS2");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\PS3");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\Atari 2600");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\Dreamcast");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\PSP");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\Wii U");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\Xbox 360");
-            Directory.CreateDirectory(Program.EmulatorPath + @"\3DS");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\Sega Genisis");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\Wii");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\NDS");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\GBC");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\MAME");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\GBA");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\Gamecube");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\NES");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\SNES");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\N64");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\PS1");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\PS2");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\PS3");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\Atari 2600");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\Dreamcast");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\PSP");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\Wii U");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\Xbox 360");
+            Directory.CreateDirectory(Database.EmulatorPath + @"\3DS");
         }
 
         /// <summary>
@@ -772,16 +772,16 @@ namespace UniCade.Backend
             }
 
             //If the specified rom directory does not exist, creat a new one in with the default path
-            if (!Directory.Exists(Program.RomPath))
+            if (!Directory.Exists(Database.RomPath))
             {
-                Directory.CreateDirectory(Program.RomPath);
+                Directory.CreateDirectory(Database.RomPath);
                 CreateNewRomDirectory();
             }
 
             //If the specified emulator directory does not exist, creat a new one in with the default path
-            if (!Directory.Exists(Program.EmulatorPath))
+            if (!Directory.Exists(Database.EmulatorPath))
             {
-                Directory.CreateDirectory(Program.EmulatorPath);
+                Directory.CreateDirectory(Database.EmulatorPath);
                 CreateNewEmuDirectory();
                 //MessageBox.Show("Emulator directory not found. Creating new directory structure");
             }
@@ -802,7 +802,7 @@ namespace UniCade.Backend
             if (!LoadDatabase(Program.DatabasePath))
             {
                 RestoreDefaultConsoles();
-                Scan(Program.RomPath);
+                Scan(Database.RomPath);
                 try
                 {
                     FileOps.SaveDatabase(Program.DatabasePath);

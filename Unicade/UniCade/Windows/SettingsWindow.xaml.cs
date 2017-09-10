@@ -146,7 +146,7 @@ namespace UniCade.Windows
                 GlobalTab_Dropdown_AllowedESRB.Text = "None";
             }
 
-            if (MainWindow.DisplayEsrbWhileBrowsing == true)
+            if (MainWindow.DisplayEsrbWhileBrowsing)
             {
                 GamesTab_CheckBox__GlobalFavorite.IsChecked = true;
             }
@@ -242,42 +242,21 @@ namespace UniCade.Windows
             }
 
             //Populate Global Settings checkboxes
-            if (Program.ShowSplashScreen == true)
-            {
-                GlobalTab_Checkbox_DisplaySplash.IsChecked = true;
-            }
+            GlobalTab_Checkbox_DisplaySplash.IsChecked = Program.ShowSplashScreen;
 
-            if (Program.ShowLoadingScreen == true)
-            {
-                GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked = true;
-            }
+            GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked = Program.ShowLoadingScreen;
 
-            if (Program.RequireLogin == true)
-            {
-                GlobalTab_Checkbox_RequireLogin.IsChecked = true;
-            }
+            GlobalTab_Checkbox_RequireLogin.IsChecked = Program.RequireLogin;
 
-            if (Program.RescanOnStartup == true)
-            {
-                GlobalTab_Checkbox_RescanAllLibraries.IsChecked = true;
-            }
+            GlobalTab_Checkbox_RescanAllLibraries.IsChecked = Program.RescanOnStartup;
 
-            if (Program.EnforceFileExtensions > 0)
-            {
-                EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked = true;
-            }
+            EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked = Program.EnforceFileExtensions;
 
-            if (MainWindow.DisplayEsrbWhileBrowsing == true)
-            {
-                GlobalTab_Checkbox_DisplayESRB.IsChecked = true;
-            }
+            GlobalTab_Checkbox_DisplayESRB.IsChecked = MainWindow.DisplayEsrbWhileBrowsing;
 
-            if (PayPerPlay.PayPerPlayEnabled == true)
-            {
-                GlobalTab_Checkbox_EnablePayPerPlay.IsChecked = true;
-                GlobalTab_Textbox_Coins.IsEnabled = true;
-                GlobalTab_Textbox_Playtime.IsEnabled = true;
-            }
+            GlobalTab_Checkbox_EnablePayPerPlay.IsChecked = PayPerPlay.PayPerPlayEnabled;
+            GlobalTab_Textbox_Coins.IsEnabled = PayPerPlay.PayPerPlayEnabled;
+            GlobalTab_Textbox_Playtime.IsEnabled = PayPerPlay.PayPerPlayEnabled;
 
             //Populate payPerPlay fields
             GlobalTab_Textbox_Coins.Text = PayPerPlay.CoinsRequired.ToString();
@@ -445,11 +424,11 @@ namespace UniCade.Windows
                 IGame g = CurrentConsole.GetGame(gameTitle);
                 if (g.Title.Equals(currentGame))
                 {
-                    SettingsWindow.CurrentGame = g;
+                    CurrentGame = g;
                 }
             }
-            RefreshGameInfo(SettingsWindow.CurrentGame);
-            RefreshEsrbIcon(SettingsWindow.CurrentGame);
+            RefreshGameInfo(CurrentGame);
+            RefreshEsrbIcon(CurrentGame);
         }
 
         /// <summary>
@@ -519,7 +498,6 @@ namespace UniCade.Windows
             GamesTab_Textbox_ESRBDescriptor.Text = CurrentGame.EsrbDescriptors;
             GamesTab_Textbox_Description.Text = CurrentGame.Description;
             RefreshEsrbIcon(CurrentGame);
-            return;
         }
 
         /// <summary>
@@ -594,14 +572,7 @@ namespace UniCade.Windows
                 return;
             }
             //Toggle favorite checkbox
-            if (GamesTab_CheckBox__GlobalFavorite.IsChecked.Value == true)
-            {
-                CurrentGame.Favorite = true;
-            }
-            else
-            {
-                CurrentGame.Favorite = false;
-            }
+            CurrentGame.Favorite = GamesTab_CheckBox__GlobalFavorite.IsChecked.Value;
         }
 
         /// <summary>
@@ -881,14 +852,7 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked.Value == true)
-            {
-                Program.EnforceFileExtensions = 1;
-            }
-            else
-            {
-                Program.EnforceFileExtensions = 0;
-            }
+            Program.EnforceFileExtensions = EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked.Value;
         }
 
         /// <summary>
@@ -1184,7 +1148,6 @@ namespace UniCade.Windows
             {
                 MessageBox.Show("Error" + exception.Message);
             }
-
 
             int.TryParse(GlobalTab_Textbox_Password.Password, out int n);
             Program.PasswordProtection = int.Parse(GlobalTab_Textbox_Password.Password);
@@ -1537,7 +1500,7 @@ namespace UniCade.Windows
             AboutTab_Label_LicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
 
             //Set the license text depending on if the key is valid
-            if (LicenseEngine.IsLicenseValid == true)
+            if (LicenseEngine.IsLicenseValid)
             {
                 AboutTab_Label_Edition.Content = "License Status: Full Version";
             }
