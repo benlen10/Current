@@ -85,6 +85,8 @@ namespace UniCade.Backend
 
             FileOps.StartupScan();
 
+            Database.RefreshTotalGameCount();
+
             //Launch either the GUI or the legacy command line interface
             if (PerferCmdInterface)
             {
