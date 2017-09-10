@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCade.Constants;
 using UniCade.Interfaces;
@@ -9,7 +10,49 @@ namespace UniCade.Backend
     internal static class Database
     {
 
-        #region  Private Properties
+        #region  Private Static Variables
+
+        /// <summary>
+        /// The path to the current ROM directory
+        /// </summary>
+        public static string RomPath = @"C:\UniCade\ROMS";
+
+        /// <summary>
+        /// The path to the current media directory
+        /// </summary>
+        public static string MediaPath = @"C:\UniCade\Media";
+
+        /// <summary>
+        /// The path to the current Emulators directory
+        /// </summary>
+        public static string EmulatorPath
+        {
+            get => _emulatorFolderPath;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Emulator folder path cannot be null");
+                }
+                if (value.Length < 4)
+                {
+                    throw new ArgumentException("Emulator folder path too short");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Emulator folder path contains invalid characters");
+                }
+                if (!value.Contains(":\\"))
+                {
+                    throw new ArgumentException("Emulator path invalid");
+                }
+                if (value.Length > ConstValues.MAX_PATH_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("Emulator folder path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
+                }
+                _emulatorFolderPath = value;
+            }
+        }
 
         /// <summary>
         /// The current number of consoles present in the database
@@ -46,6 +89,21 @@ namespace UniCade.Backend
         /// </summary>
         private static IUser _defaultUser;
 
+        /// <summary>
+        /// The path for the emulators folder
+        /// </summary>
+        private static string _emulatorFolderPath;
+
+        /// <summary>
+        /// The path for the roms folder
+        /// </summary>
+        private static string _romFolderPath;
+
+        /// <summary>
+        /// The path for the media folder
+        /// </summary>
+        private static string _mediaFolderPath;
+
         #endregion
 
         #region Public Methods
@@ -62,6 +120,9 @@ namespace UniCade.Backend
             _userList.Add(uniCadeUser);
             _currentUser = uniCadeUser;
             _defaultUser = uniCadeUser;
+            RomPath = @"C:\UniCade\ROMS";
+            MediaPath = @"C:\UniCade\Media";
+            EmulatorPath = @"C:\UniCade\Emulators";
         }
 
         /// <summary>
@@ -270,5 +331,6 @@ namespace UniCade.Backend
         }
 
         #endregion
+
     }
 }
