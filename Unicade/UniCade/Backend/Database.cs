@@ -20,7 +20,34 @@ namespace UniCade.Backend
         /// <summary>
         /// The path to the current media directory
         /// </summary>
-        public static string MediaPath = @"C:\UniCade\Media";
+        public static string MediaPath
+        {
+            get => _mediaFolderPath;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Media folder path cannot be null");
+                }
+                if (value.Length < 4)
+                {
+                    throw new ArgumentException("Media folder path too short");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Media folder path contains invalid characters");
+                }
+                if (!value.Contains(":\\"))
+                {
+                    throw new ArgumentException("Media path invalid");
+                }
+                if (value.Length > ConstValues.MAX_PATH_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("Media folder path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
+                }
+                _mediaFolderPath = value;
+            }
+        }
 
         /// <summary>
         /// The path to the current Emulators directory
