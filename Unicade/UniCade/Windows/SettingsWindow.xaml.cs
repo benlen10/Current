@@ -176,70 +176,31 @@ namespace UniCade.Windows
             GlobalTab_Textbox_ROMDirectory.Text = Database.RomPath;
 
             //Check specified boxes under the Web tab
-            if (WebOps.ParseReleaseDate)
-            {
-                WebTab_Checkbox_ReleaseDate.IsChecked = true;
-            }
+                WebTab_Checkbox_ReleaseDate.IsChecked = WebOps.ParseReleaseDate;
 
-            if (WebOps.ParseCriticScore)
-            {
-                WebTab_Checkbox_CriticScore.IsChecked = true;
-            }
+                WebTab_Checkbox_CriticScore.IsChecked = WebOps.ParseCriticScore;
 
-            if (WebOps.ParsePublisher)
-            {
-                WebTab_Checkbox_Publisher.IsChecked = true;
-            }
+                WebTab_Checkbox_Publisher.IsChecked = WebOps.ParsePublisher;
 
-            if (WebOps.ParseDeveloper)
-            {
-                WebTab_Checkbox_Developer.IsChecked = true;
-            }
+                WebTab_Checkbox_Developer.IsChecked = WebOps.ParseDeveloper;
 
-            if (WebOps.ParseEsrbRating)
-            {
-                WebTab_Checkbox_ESRBRating.IsChecked = true;
-            }
+                WebTab_Checkbox_ESRBRating.IsChecked = WebOps.ParseEsrbRating;
 
-            if (WebOps.ParseEsrbDescriptors)
-            {
-                WebTab_Checkbox_ESRBDescriptor.IsChecked = true;
-            }
+                WebTab_Checkbox_ESRBDescriptor.IsChecked = WebOps.ParseEsrbDescriptors;
 
-            if (WebOps.ParsePlayerCount)
-            {
-                WebTab_Checkbox_Players.IsChecked = true;
-            }
+                WebTab_Checkbox_Players.IsChecked = WebOps.ParsePlayerCount;
 
-            if (WebOps.ParseDescription)
-            {
-                WebTab_Checkbox_Description.IsChecked = true;
-            }
+                WebTab_Checkbox_Description.IsChecked = WebOps.ParseDescription;
 
-            if (WebOps.ParseBoxFrontImage)
-            {
-                WebTab_Checkbox_BoxFront.IsChecked = true;
-            }
+                WebTab_Checkbox_BoxFront.IsChecked = WebOps.ParseBoxFrontImage;
 
-            if (WebOps.ParseBoxBackImage)
-            {
-                WebTab_Checkbox_BoxBack.IsChecked = true;
-            }
+                WebTab_Checkbox_BoxBack.IsChecked = WebOps.ParseBoxBackImage;
 
-            if (WebOps.ParseScreenshot)
-            {
-                WebTab_Checkbox_Screenshot.IsChecked = true;
-            }
+                WebTab_Checkbox_Screenshot.IsChecked = WebOps.ParseScreenshot;
 
-            if (WebOps.ScanMetacritic)
-            {
-                WebTab_Checkbox_Metacritic.IsChecked = true;
-            }
+                WebTab_Checkbox_Metacritic.IsChecked = WebOps.ScanMetacritic;
 
-            if (WebOps.ScanMobygames)
-            {
-                WebTab_Checkbox_Mobygames1.IsChecked = true;
-            }
+                WebTab_Checkbox_Mobygames1.IsChecked = WebOps.ScanMobygames;
 
             //Populate Global Settings checkboxes
             GlobalTab_Checkbox_DisplaySplash.IsChecked = Program.ShowSplashScreen;

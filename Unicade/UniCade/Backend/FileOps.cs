@@ -388,7 +388,7 @@ namespace UniCade.Backend
             }
             foreach (string fileName in fileEntries)
             {
-                if (Program.EnforceFileExtensions > 0)
+                if (Program.EnforceFileExtensions)
                 {
                     extension = fileName.Split('.');
                     foreach (string s in exs)
