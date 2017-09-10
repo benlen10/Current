@@ -326,7 +326,6 @@ namespace UniCade.Objects
             RomPath = romPath;
             PreferencesPath = prefPath;
             RomExtension = romExt;
-            _gameCount = gameCount;
             ConsoleInfo = consoleInfo;
             LaunchParams = launchParam;
             ReleaseDate = releaseDate;

@@ -16,3 +16,5 @@ UniCadeAndroid/UniCadeAndroid/packages.config
 *.suo
 *.cache
 *.pdb
+*.cache
+*.pdb
