@@ -73,7 +73,7 @@
                 <Grid Background="White">
                     <Label x:Name="EmulatorsTab_Label_ConsoleName" Content="Console Name" HorizontalAlignment="Left" Margin="154,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label Content="Console List" HorizontalAlignment="Left" Margin="18,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
-                    <Label x:Name="EmulatorsTab_Label_EmulatorExe" Content="Emulator Exe" HorizontalAlignment="Left" Margin="154,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label x:Name="EmulatorsTab_Label_EmulatorExe" Content="Emulator Path" HorizontalAlignment="Left" Margin="154,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label x:Name="EmulatorsTab_Label_ROMExtension" Content="ROM Extension" HorizontalAlignment="Left" Margin="154,106,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label x:Name="EmulatorsTab_Label_EmulatorArgs" Content="Emulator Args" HorizontalAlignment="Left" Margin="154,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label x:Name="EmulatorsTab_Label_ConsoleInfo" Content="Console Info" HorizontalAlignment="Left" Margin="154,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
@@ -81,7 +81,7 @@
                     <Label x:Name="EmulatorsTab_Label_GameCount" Content="Game Count" HorizontalAlignment="Left" Margin="334,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <ListBox x:Name="EmulatorsTab_Listbox_ConsoleList" HorizontalAlignment="Left" Height="230" Margin="10,41,0,0" VerticalAlignment="Top" Width="119" SelectionChanged="EmulatorsTab_ConsoleListBox_SelectedIndexChanged"/>
                     <CheckBox x:Name="EmulatorsTab_Checkbox_EnforceFileExtension" Content="Enforce ROM Extension" HorizontalAlignment="Left" Margin="154,256,0,0" VerticalAlignment="Top" Checked="EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged" Unchecked="EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged"/>
-                    <TextBox x:Name="EmulatorsTab_Textbox_ConsoleName1" HorizontalAlignment="Left" Height="23" Margin="246,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
+                    <TextBox x:Name="EmulatorsTab_Textbox_ConsoleName1" HorizontalAlignment="Left" Height="23" Margin="246,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_EmulatorExe" HorizontalAlignment="Left" Height="23" Margin="246,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_ROMExtension" HorizontalAlignment="Left" Height="23" Margin="246,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_EmulatorArgs" HorizontalAlignment="Left" Height="23" Margin="246,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
@@ -112,8 +112,8 @@
                     <TextBox x:Name="UsersTab_Textbox_Username" HorizontalAlignment="Left" Height="23" Margin="248,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
                     <TextBox x:Name="UsersTab_Textbox_Email" HorizontalAlignment="Left" Height="23" Margin="248,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
                     <TextBox x:Name="UsersTab_Textbox_UserInfo" HorizontalAlignment="Left" Height="23" Margin="248,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
-                    <TextBox x:Name="UsersTab_Textbox_LoginCount" HorizontalAlignment="Left" Height="23" Margin="254,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" IsReadOnly="True"/>
-                    <TextBox x:Name="UsersTab_Textbox_LaunchCount" HorizontalAlignment="Left" Height="23" Margin="412,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" IsReadOnly="True"/>
+                    <TextBox x:Name="UsersTab_Textbox_LoginCount" HorizontalAlignment="Left" Height="23" Margin="254,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" IsReadOnly="True" IsEnabled="False"/>
+                    <TextBox x:Name="UsersTab_Textbox_LaunchCount" HorizontalAlignment="Left" Height="23" Margin="412,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" IsReadOnly="True" IsEnabled="False"/>
                     <Label Content="User Favorites" HorizontalAlignment="Left" Margin="632,10,0,0" VerticalAlignment="Top"/>
                     <ListBox x:Name="UsersTab_Listbox_UserFavorites" HorizontalAlignment="Left" Height="300" Margin="616,41,0,0" VerticalAlignment="Top" Width="128"/>
                     <Button x:Name="UsersTab_Button_Save" Content="Save" HorizontalAlignment="Left" Margin="190,232,0,0" VerticalAlignment="Top" Width="75" Height="28" Click="UsersTab_SaveButton_Click"/>
@@ -131,10 +131,9 @@
                 <Grid Background="White">
                     <Label x:Name="GlobalTab_Label_AllowedESRB" Content="Allowed ESRB Rating (Global)" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GlobalTab_Label_PaswordProtection" Content="Password Protection" HorizontalAlignment="Left" Margin="50,61,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="GlobalTab_Label_DatabasePath" Content="Database Path" HorizontalAlignment="Left" Margin="50,92,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="GlobalTab_Label_EmulatorDirectory" Content="Emulator Directory" HorizontalAlignment="Left" Margin="50,123,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="GlobalTab_Label_MediaDirectory" Content="Media Directory" HorizontalAlignment="Left" Margin="50,154,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.642,5.345"/>
-                    <Label x:Name="GlobalTab_Label_ROMDirectory" Content="ROM Directory" HorizontalAlignment="Left" Margin="50,185,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GlobalTab_Label_EmulatorDirectory" Content="Emulator Directory" HorizontalAlignment="Left" Margin="50,98,0,0" VerticalAlignment="Top" Height="27"/>
+                    <Label x:Name="GlobalTab_Label_MediaDirectory" Content="Media Directory" HorizontalAlignment="Left" Margin="50,130,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.642,5.345" Height="26"/>
+                    <Label x:Name="GlobalTab_Label_ROMDirectory" Content="ROM Directory" HorizontalAlignment="Left" Margin="50,162,0,0" VerticalAlignment="Top" Height="26"/>
                     <Label x:Name="GlobalTab_Label_Coins" Content="# Coins" HorizontalAlignment="Left" Margin="273,265,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GlobalTab_Label_Playtime" Content="Playtime" HorizontalAlignment="Left" Margin="273,296,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GlobalTab_Label_GlobalFavorites" Content="Global Favorites" HorizontalAlignment="Left" Margin="629,10,0,0" VerticalAlignment="Top"/>
@@ -147,10 +146,9 @@
                     <CheckBox x:Name="GlobalTab_Checkbox_EnablePayPerPlay" Content="Enable Pay Per Play" HorizontalAlignment="Left" Margin="273,235,0,0" VerticalAlignment="Top" Checked="GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged" Unchecked="GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged"/>
                     <CheckBox x:Name="GlobalTab_Checkbox_ToView" Content="To View" HorizontalAlignment="Left" Margin="334,36,0,0" VerticalAlignment="Top" Checked="GlobalSettingsTab_AllowedToViewEsrbCheckbox_CheckedChanged"/>
                     <ComboBox x:Name="GlobalTab_Dropdown_AllowedESRB" HorizontalAlignment="Left" Margin="219,34,0,0" VerticalAlignment="Top" Width="109" SelectionChanged="GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged"/>
-                    <TextBox x:Name="GlobalTab_Textbox_DatabasePath" HorizontalAlignment="Left" Height="23" Margin="173,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
-                    <TextBox x:Name="GlobalTab_Textbox_EmulatorDirectory" HorizontalAlignment="Left" Height="23" Margin="173,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
-                    <TextBox x:Name="GlobalTab_Textbox_MedaDirectory" HorizontalAlignment="Left" Height="23" Margin="173,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
-                    <TextBox x:Name="GlobalTab_Textbox_ROMDirectory" HorizontalAlignment="Left" Height="23" Margin="173,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox x:Name="GlobalTab_Textbox_EmulatorDirectory" HorizontalAlignment="Left" Height="24" Margin="173,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox x:Name="GlobalTab_Textbox_MedaDirectory" HorizontalAlignment="Left" Height="23" Margin="173,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+                    <TextBox x:Name="GlobalTab_Textbox_ROMDirectory" HorizontalAlignment="Left" Height="23" Margin="173,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
                     <TextBox x:Name="GlobalTab_Textbox_Coins" HorizontalAlignment="Left" Height="23" Margin="328,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
                     <TextBox x:Name="GlobalTab_Textbox_Playtime" HorizontalAlignment="Left" Height="23" Margin="328,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
                     <Button x:Name="GlobalTab_Button_SavePreferences" Content="Save Preferences File" HorizontalAlignment="Left" Margin="157,345,0,0" VerticalAlignment="Top" Width="151" Height="29" Click="GlobalSettings_SavePreferenceFileButton_Click"/>

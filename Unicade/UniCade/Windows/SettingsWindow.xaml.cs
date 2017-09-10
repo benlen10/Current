@@ -93,7 +93,8 @@ namespace UniCade.Windows
             }
 
             //Set initial selected indexes
-            EmulatorsTab_Listbox_ConsoleList.SelectedIndex = 1;
+            EmulatorsTab_Listbox_ConsoleList.SelectedIndex = 0;
+            GamesTab_Listbox_ConsoleList.SelectedIndex = 0;
 
             //Poplate ESRB dropdown combo boxes
             foreach (Enums.Esrb esrb in Enum.GetValues(typeof(Enums.Esrb)))
@@ -125,8 +126,6 @@ namespace UniCade.Windows
             UsersTab_Textbox_UserInfo.IsEnabled = false;
 
             //Set specific textboxes as readonly
-            UsersTab_Textbox_LoginCount.IsEnabled = false;
-            UsersTab_Textbox_LaunchCount.IsEnabled = false;
             GlobalTab_Textbox_Coins.IsEnabled = false;
             GlobalTab_Textbox_Playtime.IsEnabled = false;
 
@@ -137,7 +136,6 @@ namespace UniCade.Windows
 
             //Populate textbox fields
             GlobalTab_Textbox_Password.Password = Program.PasswordProtection.ToString();
-            GlobalTab_Textbox_DatabasePath.Text = Program.DatabasePath;
             GlobalTab_Textbox_EmulatorDirectory.Text = Database.EmulatorPath;
             GlobalTab_Textbox_MedaDirectory.Text = Database.MediaPath;
             GlobalTab_Textbox_ROMDirectory.Text = Database.RomPath;
@@ -605,6 +603,7 @@ namespace UniCade.Windows
                     GlobalTab_Textbox_EmulatorDirectory.Text = console.EmulatorPath;
                     EmulatorsTab_Textbox_ROMExtension.Text = console.RomExtension;
                     EmulatorsTab_Textbox_EmulatorArgs.Text = console.LaunchParams;
+                    EmulatorsTab_Textbox_EmulatorExe.Text = console.EmulatorPath;
                     EmulatorsTab_Textbox_ConsoleInfo.Text = console.ConsoleInfo;
                     EmulatorsTab_Textbox_GameCount.Text = console.GetGameCount().ToString();
                     EmulatorsTab_Textbox_ReleaseDate.Text = console.ReleaseDate;
@@ -618,12 +617,20 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_SaveDatabaseFileButton_Click(object sender, EventArgs e)
         {
-            _currentEmulator.ConsoleName = EmulatorsTab_Textbox_ConsoleName1.Text;
-            _currentEmulator.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
-            _currentEmulator.RomExtension = EmulatorsTab_Textbox_ROMExtension.Text;
-            _currentEmulator.LaunchParams = EmulatorsTab_Textbox_EmulatorArgs.Text;
-            _currentEmulator.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
-            _currentEmulator.ConsoleInfo = EmulatorsTab_Textbox_ConsoleInfo.Text;
+            try
+            {
+                _currentEmulator.ConsoleName = EmulatorsTab_Textbox_ConsoleName1.Text;
+                _currentEmulator.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
+                _currentEmulator.RomExtension = EmulatorsTab_Textbox_ROMExtension.Text;
+                _currentEmulator.EmulatorPath = EmulatorsTab_Textbox_EmulatorExe.Text;
+                _currentEmulator.LaunchParams = EmulatorsTab_Textbox_EmulatorArgs.Text;
+                _currentEmulator.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
+                _currentEmulator.ConsoleInfo = EmulatorsTab_Textbox_ConsoleInfo.Text;
+            }
+            catch (ArgumentException exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
             FileOps.SaveDatabase(Program.DatabasePath);
             MainWindow.RefreshConsoleList();
         }
@@ -691,7 +698,7 @@ namespace UniCade.Windows
                 EmulatorsTab_Listbox_ConsoleList.Items.Add(con.ConsoleName);
                 GamesTab_Listbox_ConsoleList.Items.Add(con.ConsoleName);
             }
-            GamesTab_Listbox_ConsoleList.SelectedIndex = (EmulatorsTab_Listbox_ConsoleList.Items.Count - 1);
+            EmulatorsTab_Listbox_ConsoleList.SelectedIndex = (EmulatorsTab_Listbox_ConsoleList.Items.Count - 1);
             MainWindow.RefreshConsoleList();
         }
 
