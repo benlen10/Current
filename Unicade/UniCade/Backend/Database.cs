@@ -15,7 +15,34 @@ namespace UniCade.Backend
         /// <summary>
         /// The path to the current ROM directory
         /// </summary>
-        public static string RomPath = @"C:\UniCade\ROMS";
+        public static string RomPath
+        {
+            get => _romFolderPath;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("ROM folder path cannot be null");
+                }
+                if (value.Length < 4)
+                {
+                    throw new ArgumentException("ROM folder path too short");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("ROM folder path contains invalid characters");
+                }
+                if (!value.Contains(":\\"))
+                {
+                    throw new ArgumentException("ROM path invalid");
+                }
+                if (value.Length > ConstValues.MAX_PATH_LENGTH)
+                {
+                    throw new ArgumentException(String.Format("ROM folder path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
+                }
+                _romFolderPath = value;
+            }
+        }
 
         /// <summary>
         /// The path to the current media directory

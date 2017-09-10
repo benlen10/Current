@@ -171,9 +171,9 @@ namespace UniCade.Windows
             //Populate textbox fields
             GlobalTab_Textbox_Password.Password = Program.PasswordProtection.ToString();
             GlobalTab_Textbox_DatabasePath.Text = Program.DatabasePath;
-            GlobalTab_Textbox_EmulatorDirectory.Text = Program.EmulatorPath;
-            GlobalTab_Textbox_MedaDirectory.Text = Program.MediaPath;
-            GlobalTab_Textbox_ROMDirectory.Text = Program.RomPath;
+            GlobalTab_Textbox_EmulatorDirectory.Text = Database.EmulatorPath;
+            GlobalTab_Textbox_MedaDirectory.Text = Database.MediaPath;
+            GlobalTab_Textbox_ROMDirectory.Text = Database.RomPath;
 
             //Check specified boxes under the Web tab
             if (WebOps.ParseReleaseDate)
@@ -896,7 +896,7 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
         {
-            if (FileOps.Scan(Program.RomPath))
+            if (FileOps.Scan(Database.RomPath))
             {
                 MessageBox.Show("Global Rescan Successful");
             }
@@ -920,7 +920,7 @@ namespace UniCade.Windows
                 IConsole console = Database.GetConsole(consoleName);
                 if (console.ConsoleName.Equals(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString()))
                 {
-                    if (FileOps.ScanDirectory(console.RomPath, Program.RomPath))
+                    if (FileOps.ScanDirectory(console.RomPath, Database.RomPath))
                     {
                         MessageBox.Show(console.ConsoleName + " Successfully Scanned");
                     }
@@ -1170,67 +1170,40 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettings_SavePreferenceFileButton_Click(object sender, EventArgs e)
         {
-            if (GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("|") || GlobalTab_Textbox_EmulatorDirectory.Text.Contains("|") || GlobalTab_Textbox_MedaDirectory.Text.Contains("|") || GlobalTab_Textbox_ROMDirectory.Text.Contains("|"))
+            try
             {
-                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+                Program.RestrictGlobalESRB =
+                    Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                Program.RestrictGlobalESRB =
+                    Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                Database.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
+                Database.MediaPath = GlobalTab_Textbox_MedaDirectory.Text;
+                Database.RomPath = GlobalTab_Textbox_ROMDirectory.Text;
             }
-            else
+            catch (ArgumentException exception)
             {
-                if (GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Everyone") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Teen") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Mature") || GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString().Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
-                {
-                    Program.RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
-                }
-                else
-                {
-                    MessageBox.Show("Invalid ESRB Rating");
-                }
-
-                if ((GlobalTab_Textbox_EmulatorDirectory.Text.Length > 150) || (GlobalTab_Textbox_MedaDirectory.Text.Length > 150) || (GlobalTab_Textbox_ROMDirectory.Text.Length > 150))
-                {
-                    MessageBox.Show("Invalid Length");
-                }
-                else
-                {
-                    Program.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
-                    Program.MediaPath = GlobalTab_Textbox_MedaDirectory.Text;
-                    Program.RomPath = GlobalTab_Textbox_ROMDirectory.Text;
-                }
-
-                Int32.TryParse(GlobalTab_Textbox_Password.Password, out int n);
-                if (n > 0)
-                {
-                    Program.PasswordProtection = Int32.Parse(GlobalTab_Textbox_Password.Password);
-                }
-
-                Int32.TryParse(GlobalTab_Textbox_Coins.Text, out n);
-                if (n > 0)
-                {
-                    PayPerPlay.CoinsRequired = Int32.Parse(GlobalTab_Textbox_Coins.Text);
-                }
-
-                if (GlobalTab_Dropdown_AllowedESRB.SelectedItem != null)
-                {
-                    Program.RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
-                }
-
-                //Save all active preferences to the local preferences file
-                FileOps.SavePreferences(Program.PreferencesPath);
+                MessageBox.Show("Error" + exception.Message);
             }
+
+
+            int.TryParse(GlobalTab_Textbox_Password.Password, out int n);
+            Program.PasswordProtection = int.Parse(GlobalTab_Textbox_Password.Password);
+
+            int.TryParse(GlobalTab_Textbox_Coins.Text, out n);
+            PayPerPlay.CoinsRequired = int.Parse(GlobalTab_Textbox_Coins.Text);
+
+            //Save all active preferences to the local preferences file
+            FileOps.SavePreferences(Program.PreferencesPath);
         }
+
+
 
         /// <summary>
         /// Toggle viewEsrb checkbox
         /// </summary>
         private void GlobalSettingsTab_AllowedToViewEsrbCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_ToView.IsChecked.Value == true)
-            {
-                MainWindow.DisplayEsrbWhileBrowsing = true;
-            }
-            else
-            {
-                MainWindow.DisplayEsrbWhileBrowsing = false;
-            }
+            MainWindow.DisplayEsrbWhileBrowsing = GlobalTab_Checkbox_ToView.IsChecked.Value;
         }
 
         /// <summary>
@@ -1238,14 +1211,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_ToggleSplashCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_DisplaySplash.IsChecked.Value == true)
-            {
-                Program.ShowSplashScreen = true;
-            }
-            else
-            {
-                Program.ShowSplashScreen = false;
-            }
+            Program.ShowSplashScreen = GlobalTab_Checkbox_DisplaySplash.IsChecked.Value;
         }
 
         /// <summary>
@@ -1253,14 +1219,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_ToggleLoadingCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked.Value == true)
-            {
-                Program.ShowLoadingScreen = true;
-            }
-            else
-            {
-                Program.ShowLoadingScreen = false;
-            }
+            Program.ShowLoadingScreen = GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked.Value;
         }
 
         /// <summary>
@@ -1268,14 +1227,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_ToggleRequireLoginCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_RequireLogin.IsChecked.Value == true)
-            {
-                Program.RequireLogin = true;
-            }
-            else
-            {
-                Program.RequireLogin = false;
-            }
+            Program.RequireLogin = GlobalTab_Checkbox_RequireLogin.IsChecked.Value;
         }
 
         /// <summary>
@@ -1283,14 +1235,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_ToggleScanOnStartupCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_RescanAllLibraries.IsChecked.Value == true)
-            {
-                Program.RescanOnStartup = true;
-            }
-            else
-            {
-                Program.RescanOnStartup = false;
-            }
+            Program.RescanOnStartup = GlobalTab_Checkbox_RescanAllLibraries.IsChecked.Value;
         }
 
         /// <summary>
@@ -1298,14 +1243,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_ToggleEsrbViewCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (GlobalTab_Checkbox_DisplayESRB.IsChecked.Value == true)
-            {
-                MainWindow.DisplayEsrbWhileBrowsing = true;
-            }
-            else
-            {
-                MainWindow.DisplayEsrbWhileBrowsing = false;
-            }
+            MainWindow.DisplayEsrbWhileBrowsing = GlobalTab_Checkbox_DisplayESRB.IsChecked.Value;
         }
 
         /// <summary>
@@ -1316,7 +1254,7 @@ namespace UniCade.Windows
             PayPerPlay.PayPerPlayEnabled = false;
             GlobalTab_Textbox_Coins.IsEnabled = false;
             GlobalTab_Textbox_Playtime.IsEnabled = false;
-            if (GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value == true)
+            if (GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value)
             {
                 PayPerPlay.PayPerPlayEnabled = true;
                 GlobalTab_Textbox_Coins.IsEnabled = true;
@@ -1350,14 +1288,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Metacritic_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Metacritic.IsChecked.Value == true)
-            {
-                WebOps.ScanMetacritic = true;
-            }
-            else
-            {
-                WebOps.ScanMetacritic = false;
-            }
+            WebOps.ScanMetacritic = WebTab_Checkbox_Metacritic.IsChecked.Value;
         }
 
         /// <summary>
@@ -1365,14 +1296,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Mobygames_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Mobygames1.IsChecked.Value == true)
-            {
-                WebOps.ScanMetacritic = true;
-            }
-            else
-            {
-                WebOps.ScanMetacritic = false;
-            }
+            WebOps.ScanMetacritic = WebTab_Checkbox_Mobygames1.IsChecked.Value;
         }
 
         /// <summary>
@@ -1380,14 +1304,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_ReleaseDate_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_ReleaseDate.IsChecked.Value == true)
-            {
-                WebOps.ParseReleaseDate = true;
-            }
-            else
-            {
-                WebOps.ParseReleaseDate = false;
-            }
+            WebOps.ParseReleaseDate = WebTab_Checkbox_ReleaseDate.IsChecked.Value;
         }
 
         /// <summary>
@@ -1395,14 +1312,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_CriticScore_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_CriticScore.IsChecked.Value == true)
-            {
-                WebOps.ParseCriticScore = true;
-            }
-            else
-            {
-                WebOps.ParseCriticScore = false;
-            }
+            WebOps.ParseCriticScore = WebTab_Checkbox_CriticScore.IsChecked.Value;
         }
 
         /// <summary>
@@ -1410,14 +1320,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Publisher_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Publisher.IsChecked.Value == true)
-            {
-                WebOps.ParsePublisher = true;
-            }
-            else
-            {
-                WebOps.ParsePublisher = false;
-            }
+            WebOps.ParsePublisher = WebTab_Checkbox_Publisher.IsChecked.Value;
         }
 
         /// <summary>
@@ -1425,14 +1328,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Developer_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Developer.IsChecked.Value == true)
-            {
-                WebOps.ParseDeveloper = true;
-            }
-            else
-            {
-                WebOps.ParseDeveloper = false;
-            }
+            WebOps.ParseDeveloper = WebTab_Checkbox_Developer.IsChecked.Value;
         }
 
         /// <summary>
@@ -1440,14 +1336,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_ESRBRating_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_ESRBRating.IsChecked.Value == true)
-            {
-                WebOps.ParseEsrbRating = true;
-            }
-            else
-            {
-                WebOps.ParseEsrbRating = false;
-            }
+            WebOps.ParseEsrbRating = WebTab_Checkbox_ESRBRating.IsChecked.Value;
         }
 
         /// <summary>
@@ -1455,14 +1344,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_ESRBDescriptor_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_ESRBDescriptor.IsChecked.Value == true)
-            {
-                WebOps.ParseDescription = true;
-            }
-            else
-            {
-                WebOps.ParseDescription = false;
-            }
+            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
         }
 
         /// <summary>
@@ -1470,14 +1352,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Players_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Players.IsChecked.Value == true)
-            {
-                WebOps.ParsePlayerCount = true;
-            }
-            else
-            {
-                WebOps.ParsePlayerCount = false;
-            }
+            WebOps.ParsePlayerCount = WebTab_Checkbox_Players.IsChecked.Value;
         }
 
         /// <summary>
@@ -1485,14 +1360,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Description_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_ESRBDescriptor.IsChecked.Value == true)
-            {
-                WebOps.ParseDescription = true;
-            }
-            else
-            {
-                WebOps.ParseDescription = false;
-            }
+            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
         }
 
         /// <summary>
@@ -1500,14 +1368,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_BoxFront_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_BoxFront.IsChecked.Value == true)
-            {
-                WebOps.ParseBoxFrontImage = true;
-            }
-            else
-            {
-                WebOps.ParseBoxFrontImage = false;
-            }
+            WebOps.ParseBoxFrontImage = WebTab_Checkbox_BoxFront.IsChecked.Value;
         }
 
         /// <summary>
@@ -1515,14 +1376,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_BoxBack_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_BoxBack.IsChecked.Value == true)
-            {
-                WebOps.ParseBoxBackImage = true;
-            }
-            else
-            {
-                WebOps.ParseBoxBackImage = false;
-            }
+            WebOps.ParseBoxBackImage = WebTab_Checkbox_BoxBack.IsChecked.Value;
         }
 
         /// <summary>
@@ -1530,14 +1384,7 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Checkbox_Screenshot_Checked(object sender, RoutedEventArgs e)
         {
-            if (WebTab_Checkbox_Screenshot.IsChecked.Value == true)
-            {
-                WebOps.ParseScreenshot = true;
-            }
-            else
-            {
-                WebOps.ParseScreenshot = false;
-            }
+            WebOps.ParseScreenshot = WebTab_Checkbox_Screenshot.IsChecked.Value;
         }
 
         /// <summary>
@@ -1789,7 +1636,7 @@ namespace UniCade.Windows
                 CurrentGame.Description = GamesTab_Textbox_Description.Text;
                 CurrentGame.EsrbDescriptors = GamesTab_Textbox_ESRBDescriptor.Text;
             }
-            catch(ArgumentException e)
+            catch (ArgumentException e)
             {
                 MessageBox.Show("Error: " + e.Message);
 
