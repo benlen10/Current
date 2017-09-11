@@ -50,7 +50,7 @@ namespace UniCade.Windows
         /// <summary>
         /// True if the screenshot image within the games tab is currently expanded
         /// </summary>
-         private bool _isScreenshotExpanded;
+        private bool _isScreenshotExpanded;
 
         #endregion
 
@@ -469,20 +469,6 @@ namespace UniCade.Windows
         }
 
         /// <summary>
-        /// Sets the current game as a global favorite
-        /// </summary>
-        private void GamesTab_FavoriteCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            //Verify that a console/game is currently selected
-            if (GamesTab_Listbox_GamesList.SelectedItem == null)
-            {
-                return;
-            }
-            //Toggle favorite checkbox
-            _currentGame.Favorite = GamesTab_CheckBox__GlobalFavorite.IsChecked.Value;
-        }
-
-        /// <summary>
         /// Rescrape console button
         /// Rescrape metadata for all games within teh current console
         /// </summary>
@@ -578,6 +564,64 @@ namespace UniCade.Windows
                     GamesTab_Image_Screeshot.Width = 172;
                     _isScreenshotExpanded = false;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Save the current game info to the database file
+        /// Display an error popup if any of the inputs contain invalid data
+        /// </summary>
+        internal void SaveGameInfo()
+        {
+            try
+            {
+                _currentGame.ReleaseDate = GamesTab_Textbox_ReleaseDate.Text;
+                _currentGame.CriticReviewScore = GamesTab_Textbox_CriticScore.Text;
+                _currentGame.SupportedPlayerCount = GamesTab_Textbox_Players.Text;
+                _currentGame.EsrbRating = Enums.ConvertStringToEsrbEnum(GamesTab_Textbox_ESRB.Text);
+                _currentGame.PublisherName = GamesTab_Textbox_Publisher.Text;
+                _currentGame.DeveloperName = GamesTab_Textbox_Developer.Text;
+                _currentGame.Description = GamesTab_Textbox_Description.Text;
+                _currentGame.EsrbDescriptors = GamesTab_Textbox_ESRBDescriptor.Text;
+                _currentGame.Favorite = GamesTab_CheckBox__GlobalFavorite.IsChecked.Value;
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show("Error: " + e.Message);
+
+            }
+
+            //If all input fields are valid, save the database
+            FileOps.SaveDatabase(Program.DatabasePath);
+        }
+
+        /// <summary>
+        /// Refresh the ESRB rating icon to the current ESRB rating
+        /// </summary>
+        public void RefreshEsrbIcon(IGame game)
+        {
+            if (game == null) { return; }
+            GamesTab_Image_ESRB.Source = null;
+            if (game.EsrbRating.Equals(Enums.Esrb.Everyone))
+            {
+                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
+            }
+            else if (game.EsrbRating.Equals(Enums.Esrb.Everyone10))
+            {
+                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png"));
+            }
+            else if (game.EsrbRating.Equals(Enums.Esrb.Teen))
+            {
+                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png"));
+            }
+            else if (game.EsrbRating.Equals(Enums.Esrb.Mature))
+            {
+                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png"));
+            }
+
+            if (game.EsrbRating.Equals(Enums.Esrb.Ao))
+            {
+                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png"));
             }
         }
 
@@ -1058,6 +1102,13 @@ namespace UniCade.Windows
                 MessageBox.Show("Error" + exception.Message);
             }
 
+            //Save checkboxes
+            MainWindow.DisplayEsrbWhileBrowsing = GlobalTab_Checkbox_ToView.IsChecked.Value;
+            Program.ShowSplashScreen = GlobalTab_Checkbox_DisplaySplash.IsChecked.Value;
+            Program.RequireLogin = GlobalTab_Checkbox_RequireLogin.IsChecked.Value;
+            Program.RescanOnStartup = GlobalTab_Checkbox_RescanAllLibraries.IsChecked.Value;
+            MainWindow.DisplayEsrbWhileBrowsing = GlobalTab_Checkbox_DisplayESRB.IsChecked.Value;
+
             int.TryParse(GlobalTab_Textbox_Password.Password, out int n);
             Program.PasswordProtection = int.Parse(GlobalTab_Textbox_Password.Password);
 
@@ -1066,56 +1117,6 @@ namespace UniCade.Windows
 
             //Save all active preferences to the local preferences file
             FileOps.SavePreferences(Program.PreferencesPath);
-        }
-
-
-
-        /// <summary>
-        /// Toggle viewEsrb checkbox
-        /// </summary>
-        private void GlobalSettingsTab_AllowedToViewEsrbCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            MainWindow.DisplayEsrbWhileBrowsing = GlobalTab_Checkbox_ToView.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle splash screen checkbox
-        /// </summary>
-        private void GlobalSettingsTab_ToggleSplashCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            Program.ShowSplashScreen = GlobalTab_Checkbox_DisplaySplash.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle show loading screen checkbox
-        /// </summary>
-        private void GlobalSettingsTab_ToggleLoadingCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            Program.ShowLoadingScreen = GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle require login checkbox
-        /// </summary>
-        private void GlobalSettingsTab_ToggleRequireLoginCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            Program.RequireLogin = GlobalTab_Checkbox_RequireLogin.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle scan on startup checkbox
-        /// </summary>
-        private void GlobalSettingsTab_ToggleScanOnStartupCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            Program.RescanOnStartup = GlobalTab_Checkbox_RescanAllLibraries.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle view ESRB checkbox
-        /// </summary>
-        private void GlobalSettingsTab_ToggleEsrbViewCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            MainWindow.DisplayEsrbWhileBrowsing = GlobalTab_Checkbox_DisplayESRB.IsChecked.Value;
         }
 
         /// <summary>
@@ -1156,94 +1157,6 @@ namespace UniCade.Windows
         #region Web Options Tab
 
         /// <summary>
-        /// Toggle release date checkbox
-        /// </summary>
-        private void WebTab_Checkbox_ReleaseDate_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParseReleaseDate = WebTab_Checkbox_ReleaseDate.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle critic score checkbox
-        /// </summary>
-        private void WebTab_Checkbox_CriticScore_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParseCriticScore = WebTab_Checkbox_CriticScore.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle Publisher checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Publisher_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParsePublisher = WebTab_Checkbox_Publisher.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle developer checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Developer_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParseDeveloper = WebTab_Checkbox_Developer.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle ESRB Rating checkbox
-        /// </summary>
-        private void WebTab_Checkbox_ESRBRating_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParseEsrbRating = WebTab_Checkbox_ESRBRating.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle ESRB Descriptor checkbox
-        /// </summary>
-        private void WebTab_Checkbox_ESRBDescriptor_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle players checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Players_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParsePlayerCount = WebTab_Checkbox_Players.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle description checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Description_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle boxfront checkbox
-        /// </summary>
-        private void WebTab_Checkbox_BoxFront_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParseBoxFrontImage = WebTab_Checkbox_BoxFront.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle box back checkbox
-        /// </summary>
-        private void WebTab_Checkbox_BoxBack_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParseBoxBackImage = WebTab_Checkbox_BoxBack.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle screenshot textbox
-        /// </summary>
-        private void WebTab_Checkbox_Screenshot_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ParseScreenshot = WebTab_Checkbox_Screenshot.IsChecked.Value;
-        }
-
-        /// <summary>
         /// Close button
         /// </summary>
         private void WebTab_Button_Close_Click(object sender, RoutedEventArgs e)
@@ -1253,11 +1166,34 @@ namespace UniCade.Windows
         }
 
         /// <summary>
-        /// TODO
+        /// Save all current webscraper settings to the database
         /// </summary>
         private void WebTab_Button_SaveScraperSettings_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Implement
+            WebOps.ScanMobygames = WebTab_Checkbox_Mobygames1.IsChecked.Value;
+            WebOps.ScanMetacritic = WebTab_Checkbox_Metacritic.IsChecked.Value;
+            WebOps.ParseReleaseDate = WebTab_Checkbox_ReleaseDate.IsChecked.Value;
+            WebOps.ParseCriticScore = WebTab_Checkbox_CriticScore.IsChecked.Value;
+            WebOps.ParsePublisher = WebTab_Checkbox_Publisher.IsChecked.Value;
+            WebOps.ParseDeveloper = WebTab_Checkbox_Developer.IsChecked.Value;
+            WebOps.ParseEsrbRating = WebTab_Checkbox_ESRBRating.IsChecked.Value;
+            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
+            WebOps.ParsePlayerCount = WebTab_Checkbox_Players.IsChecked.Value;
+            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
+            WebOps.ParseBoxFrontImage = WebTab_Checkbox_BoxFront.IsChecked.Value;
+            WebOps.ParseBoxBackImage = WebTab_Checkbox_BoxBack.IsChecked.Value;
+            WebOps.ParseScreenshot = WebTab_Checkbox_Screenshot.IsChecked.Value;
+            WebOps.ParseReleaseDate = WebTab_Checkbox_ReleaseDate.IsChecked.Value;
+            WebOps.ParseCriticScore = WebTab_Checkbox_CriticScore.IsChecked.Value;
+            WebOps.ParsePublisher = WebTab_Checkbox_Publisher.IsChecked.Value;
+            WebOps.ParseDeveloper = WebTab_Checkbox_Developer.IsChecked.Value;
+            WebOps.ParseEsrbRating = WebTab_Checkbox_ESRBRating.IsChecked.Value;
+            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
+            WebOps.ParsePlayerCount = WebTab_Checkbox_Players.IsChecked.Value;
+            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
+            WebOps.ParseBoxFrontImage = WebTab_Checkbox_BoxFront.IsChecked.Value;
+            WebOps.ParseBoxBackImage = WebTab_Checkbox_BoxBack.IsChecked.Value;
+            WebOps.ParseScreenshot = WebTab_Checkbox_Screenshot.IsChecked.Value;
         }
 
         #endregion
@@ -1474,64 +1410,6 @@ namespace UniCade.Windows
                 GamesTab_Image_Screeshot.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png"));
             }
         }
-
-        /// <summary>
-        /// Save the current game info to the database file
-        /// Display an error popup if any of the inputs contain invalid data
-        /// </summary>
-        internal void SaveGameInfo()
-        {
-            try
-            {
-                _currentGame.ReleaseDate = GamesTab_Textbox_ReleaseDate.Text;
-                _currentGame.CriticReviewScore = GamesTab_Textbox_CriticScore.Text;
-                _currentGame.SupportedPlayerCount = GamesTab_Textbox_Players.Text;
-                _currentGame.EsrbRating = Enums.ConvertStringToEsrbEnum(GamesTab_Textbox_ESRB.Text);
-                _currentGame.PublisherName = GamesTab_Textbox_Publisher.Text;
-                _currentGame.DeveloperName = GamesTab_Textbox_Developer.Text;
-                _currentGame.Description = GamesTab_Textbox_Description.Text;
-                _currentGame.EsrbDescriptors = GamesTab_Textbox_ESRBDescriptor.Text;
-            }
-            catch (ArgumentException e)
-            {
-                MessageBox.Show("Error: " + e.Message);
-
-            }
-
-            //If all input fields are valid, save the database
-            FileOps.SaveDatabase(Program.DatabasePath);
-        }
-
-        /// <summary>
-        /// Refresh the ESRB rating icon to the current ESRB rating
-        /// </summary>
-        public void RefreshEsrbIcon(IGame game)
-        {
-            if (game == null) { return; }
-            GamesTab_Image_ESRB.Source = null;
-            if (game.EsrbRating.Equals(Enums.Esrb.Everyone))
-            {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
-            }
-            else if (game.EsrbRating.Equals(Enums.Esrb.Everyone10))
-            {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png"));
-            }
-            else if (game.EsrbRating.Equals(Enums.Esrb.Teen))
-            {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png"));
-            }
-            else if (game.EsrbRating.Equals(Enums.Esrb.Mature))
-            {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png"));
-            }
-
-            if (game.EsrbRating.Equals(Enums.Esrb.Ao))
-            {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png"));
-            }
-        }
-
         /// <summary>
         /// Refresh global favorites across all consoles and users
         /// </summary>
