@@ -158,7 +158,7 @@ namespace UniCade.Windows
             GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked = Program.ShowLoadingScreen;
             GlobalTab_Checkbox_RequireLogin.IsChecked = Program.RequireLogin;
             GlobalTab_Checkbox_RescanAllLibraries.IsChecked = Program.RescanOnStartup;
-            EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked = Program.EnforceFileExtensions;
+            GlobalTab_Checkbox_EnforceFileExtension.IsChecked = Program.EnforceFileExtensions;
             GlobalTab_Checkbox_DisplayESRB.IsChecked = MainWindow.DisplayEsrbWhileBrowsing;
             GlobalTab_Checkbox_EnablePayPerPlay.IsChecked = PayPerPlay.PayPerPlayEnabled;
             GlobalTab_Textbox_Coins.IsEnabled = PayPerPlay.PayPerPlayEnabled;
@@ -764,14 +764,6 @@ namespace UniCade.Windows
         }
 
         /// <summary>
-        /// Toggle enforceExt checkbox
-        /// </summary>
-        private void EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            Program.EnforceFileExtensions = EmulatorsTab_Checkbox_EnforceFileExtension.IsChecked.Value;
-        }
-
-        /// <summary>
         /// Rescan all games across all emulators
         /// </summary>
         private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
@@ -1059,6 +1051,7 @@ namespace UniCade.Windows
                 Database.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
                 Database.MediaPath = GlobalTab_Textbox_MedaDirectory.Text;
                 Database.RomPath = GlobalTab_Textbox_ROMDirectory.Text;
+                Program.EnforceFileExtensions = GlobalTab_Checkbox_EnforceFileExtension.IsChecked.Value;
             }
             catch (ArgumentException exception)
             {
