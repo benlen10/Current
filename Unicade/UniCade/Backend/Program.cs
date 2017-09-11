@@ -132,5 +132,10 @@ namespace UniCade.Backend
         }
 
         #endregion
+
+        /// <summary>
+        /// The path to the current media directory
+        /// </summary>
+        public static string MediaPath = Directory.GetCurrentDirectory() + @"\Database.txt";
     }
 }

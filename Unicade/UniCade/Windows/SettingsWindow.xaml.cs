@@ -137,7 +137,6 @@ namespace UniCade.Windows
             //Populate textbox fields
             GlobalTab_Textbox_Password.Password = Program.PasswordProtection.ToString();
             GlobalTab_Textbox_EmulatorDirectory.Text = Database.EmulatorPath;
-            GlobalTab_Textbox_MedaDirectory.Text = Database.MediaPath;
             GlobalTab_Textbox_ROMDirectory.Text = Database.RomPath;
 
             //Populate checkboxes
@@ -1093,7 +1092,6 @@ namespace UniCade.Windows
                 Program.RestrictGlobalESRB =
                     Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                 Database.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
-                Database.MediaPath = GlobalTab_Textbox_MedaDirectory.Text;
                 Database.RomPath = GlobalTab_Textbox_ROMDirectory.Text;
                 Program.EnforceFileExtensions = GlobalTab_Checkbox_EnforceFileExtension.IsChecked.Value;
             }

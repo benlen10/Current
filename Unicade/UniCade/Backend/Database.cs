@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UniCade.Constants;
 using UniCade.Interfaces;
@@ -41,38 +42,6 @@ namespace UniCade.Backend
                     throw new ArgumentException(String.Format("ROM folder path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
                 }
                 _romFolderPath = value;
-            }
-        }
-
-        /// <summary>
-        /// The path to the current media directory
-        /// </summary>
-        public static string MediaPath
-        {
-            get => _mediaFolderPath;
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentException("Media folder path cannot be null");
-                }
-                if (value.Length < 4)
-                {
-                    throw new ArgumentException("Media folder path too short");
-                }
-                if (Utilties.CheckForInvalidChars(value))
-                {
-                    throw new ArgumentException("Media folder path contains invalid characters");
-                }
-                if (!value.Contains(":\\"))
-                {
-                    throw new ArgumentException("Media path invalid");
-                }
-                if (value.Length > ConstValues.MAX_PATH_LENGTH)
-                {
-                    throw new ArgumentException(String.Format("Media folder path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
-                }
-                _mediaFolderPath = value;
             }
         }
 
@@ -175,7 +144,7 @@ namespace UniCade.Backend
             _currentUser = uniCadeUser;
             _defaultUser = uniCadeUser;
             RomPath = @"C:\UniCade\ROMS";
-            MediaPath = @"C:\UniCade\Media";
+            Program.MediaPath = @"C:\UniCade\Media";
             EmulatorPath = @"C:\UniCade\Emulators";
         }
 

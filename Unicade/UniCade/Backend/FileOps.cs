@@ -150,7 +150,7 @@ namespace UniCade.Backend
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
-            Database.MediaPath = tokenString[1];
+            Program.MediaPath = tokenString[1];
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
@@ -299,7 +299,7 @@ namespace UniCade.Backend
                 sw.WriteLine("CurrentUser|" + Database.GetCurrentUser().Username);
                 sw.WriteLine("_databasePath|" + Program.DatabasePath);
                 sw.WriteLine("EmulatorFolderPath|" + Database.EmulatorPath);
-                sw.WriteLine("MediaFolderPath|" + Database.MediaPath);
+                sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
                 sw.WriteLine("ShowSplash|" + Program.ShowSplashScreen);
                 sw.WriteLine("ScanOnStartup|" + Program.RescanOnStartup);
                 sw.WriteLine("RestrictESRB|" + Program.RestrictGlobalESRB);
