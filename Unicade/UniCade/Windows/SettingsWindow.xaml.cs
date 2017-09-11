@@ -1156,22 +1156,6 @@ namespace UniCade.Windows
         #region Web Options Tab
 
         /// <summary>
-        /// Toggle Metacritic checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Metacritic_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ScanMetacritic = WebTab_Checkbox_Metacritic.IsChecked.Value;
-        }
-
-        /// <summary>
-        /// Toggle Mobygames checkbox
-        /// </summary>
-        private void WebTab_Checkbox_Mobygames_Checked(object sender, RoutedEventArgs e)
-        {
-            WebOps.ScanMetacritic = WebTab_Checkbox_Mobygames1.IsChecked.Value;
-        }
-
-        /// <summary>
         /// Toggle release date checkbox
         /// </summary>
         private void WebTab_Checkbox_ReleaseDate_Checked(object sender, RoutedEventArgs e)

@@ -80,7 +80,6 @@
                     <Label x:Name="EmulatorsTab_Label_ReleaseDate" Content="Release Date" HorizontalAlignment="Left" Margin="154,196,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label x:Name="EmulatorsTab_Label_GameCount" Content="Game Count" HorizontalAlignment="Left" Margin="334,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <ListBox x:Name="EmulatorsTab_Listbox_ConsoleList" HorizontalAlignment="Left" Height="230" Margin="10,41,0,0" VerticalAlignment="Top" Width="119" SelectionChanged="EmulatorsTab_ConsoleListBox_SelectedIndexChanged"/>
-                    <CheckBox x:Name="EmulatorsTab_Checkbox_EnforceFileExtension" Content="Enforce ROM Extension" HorizontalAlignment="Left" Margin="154,256,0,0" VerticalAlignment="Top" Checked="EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged" Unchecked="EmulatorsTab_EnforceROMExtensionCheckbox_CheckedChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_ConsoleName1" HorizontalAlignment="Left" Height="23" Margin="246,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_EmulatorExe" HorizontalAlignment="Left" Height="23" Margin="246,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTab_Textbox_ROMExtension" HorizontalAlignment="Left" Height="23" Margin="246,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
@@ -155,14 +154,15 @@
                     <Button x:Name="GlobalTab_Button_Close" Content="Close" HorizontalAlignment="Left" Margin="50,345,0,0" VerticalAlignment="Top" Width="90" Height="29" Click="GlobalSettingsTab_CloseButton_Click"/>
                     <Button x:Name="GlobalTab_Button_RefreshFavorites" Content="Refresh Favorites" HorizontalAlignment="Left" Margin="615,345,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="GlobalSettingsTab_RefreshGlobalFavoritesButton_Click"/>
                     <PasswordBox x:Name="GlobalTab_Textbox_Password" HorizontalAlignment="Left" Margin="173,67,0,0" VerticalAlignment="Top" Width="185" Height="23" MaxLength="8"/>
+                    <CheckBox x:Name="GlobalTab_Checkbox_EnforceFileExtension" Content="Enforce ROM Extensions" HorizontalAlignment="Left" Margin="50,207,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Web">
                 <Grid x:Name="WebTab_Checkbox_Mobygames" Background="White">
                     <Label Content="Site Options" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top"/>
                     <Label Content="Scraping Options" HorizontalAlignment="Left" Margin="117,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.864,0.578"/>
-                    <CheckBox x:Name="WebTab_Checkbox_Metacritic" Content="Metacritic" HorizontalAlignment="Left" Margin="21,58,0,0" VerticalAlignment="Top" Checked="WebTab_Checkbox_Metacritic_Checked" Unchecked="WebTab_Checkbox_Metacritic_Checked"/>
-                    <CheckBox x:Name="WebTab_Checkbox_Mobygames1" Content="Mobygames" HorizontalAlignment="Left" Margin="21,78,0,0" VerticalAlignment="Top" Checked="WebTab_Checkbox_Mobygames_Checked" Unchecked="WebTab_Checkbox_Mobygames_Checked"/>
+                    <CheckBox x:Name="WebTab_Checkbox_Metacritic" Content="Metacritic" HorizontalAlignment="Left" Margin="21,58,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTab_Checkbox_Mobygames1" Content="Mobygames" HorizontalAlignment="Left" Margin="21,78,0,0" VerticalAlignment="Top"/>
                     <CheckBox x:Name="WebTab_Checkbox_CriticScore" Content="Critic Score" HorizontalAlignment="Left" Margin="117,81,0,0" VerticalAlignment="Top" Checked="WebTab_Checkbox_CriticScore_Checked" Unchecked="WebTab_Checkbox_CriticScore_Checked"/>
                     <CheckBox x:Name="WebTab_Checkbox_ReleaseDate" Content="Release Date" HorizontalAlignment="Left" Margin="117,61,0,0" VerticalAlignment="Top" Checked="WebTab_Checkbox_ReleaseDate_Checked" Unchecked="WebTab_Checkbox_ReleaseDate_Checked"/>
                     <CheckBox x:Name="WebTab_Checkbox_Publisher" Content="Publisher" HorizontalAlignment="Left" Margin="117,101,0,0" VerticalAlignment="Top" Checked="WebTab_Checkbox_Publisher_Checked" Unchecked="WebTab_Checkbox_Publisher_Checked"/>
