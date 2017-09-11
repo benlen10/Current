@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using UniCade.Constants;
 using UniCade.Exceptions;
@@ -145,8 +146,9 @@ namespace UniCade.Backend
             Program.DatabasePath = tokenString[1];
 
             line = file.ReadLine();
-            tokenString = line.Split(sep);
-            Database.EmulatorPath = tokenString[1];
+            //Default emulator path (Depricated)
+            //tokenString = line.Split(sep);
+            //tokenString[1];
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
@@ -298,7 +300,7 @@ namespace UniCade.Backend
             {
                 sw.WriteLine("CurrentUser|" + Database.GetCurrentUser().Username);
                 sw.WriteLine("_databasePath|" + Program.DatabasePath);
-                sw.WriteLine("EmulatorFolderPath|" + Database.EmulatorPath);
+                sw.WriteLine("EmulatorFolderPath|" + "DefaultEmulatorPath");
                 sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
                 sw.WriteLine("ShowSplash|" + Program.ShowSplashScreen);
                 sw.WriteLine("ScanOnStartup|" + Program.RescanOnStartup);
@@ -327,136 +329,56 @@ namespace UniCade.Backend
         /// <summary>
         /// Scan the target directory for new ROM files and add them to the active database
         /// </summary>
-        public static bool Scan(string targetDirectory)
+        public static void ScanAllConsoles()
         {
-            string[] subdirectoryEntries = null;
-            try
+            foreach (string consoleName in Database.GetConsoleList())
             {
-                subdirectoryEntries = Directory.GetDirectories(targetDirectory);
+                ScanSingleConsole(Database.GetConsole(consoleName));
             }
-            catch
-            {
-                MessageBox.Show("Directory Not Found: " + targetDirectory);
-                return false;
-            }
-            foreach (string subdirectory in subdirectoryEntries)
-            {
-                ScanDirectory(subdirectory, targetDirectory);
-            }
-
-            return true;
         }
 
         /// <summary>
         /// Scan the specied folder for games within a single console
         /// Note: This is a helper function called multiple times by the primary scan function
         /// </summary>
-        public static bool ScanDirectory(string path, string directory)
+        public static bool ScanSingleConsole(IConsole console)
         {
-            string emuName = new DirectoryInfo(path).Name;
-            bool foundConsole = false;
-            string[] extension;
-            bool duplicate = false;
-
-            IConsole currentConsole = null;
-            var consoleList = Database.GetConsoleList();
-            foreach (string consoleName in consoleList)
-            {
-                IConsole console = Database.GetConsole(consoleName);
-                if (console.ConsoleName.Equals(emuName))
-                {
-                    currentConsole = console;
-                    foundConsole = true;
-                    break;
-                }
-            }
-            if (!foundConsole)
+            if (console == null)
             {
                 return false;
             }
-
-            string[] fileEntries = null;
-            string[] exs = currentConsole.RomExtension.Split('*');
+            //Attempt to open the directory and fetch file entries
+            string[] fileEntries;
             try
             {
-                fileEntries = Directory.GetFiles(path);
+                fileEntries = Directory.GetFiles(console.RomPath);
             }
             catch
             {
-                MessageBox.Show("Directory Not Found: " + path);
+                MessageBox.Show("Directory Not Found: " + console.RomPath);
                 return false;
             }
+
+            //Add games to the current console object
             foreach (string fileName in fileEntries)
             {
-                if (Program.EnforceFileExtensions)
+                string gameTitle = fileName.Split('.')[0];
+                if (console.GetGame(gameTitle) == null)
                 {
-                    extension = fileName.Split('.');
-                    foreach (string s in exs)
-                    {
-                        if (extension[1].Equals(s))
-                        {
-                            duplicate = false;
-                            var gameList = currentConsole.GetGameList();
-                            foreach (string gameTitle in gameList)
-                            {
-                                IGame game = currentConsole.GetGame(gameTitle);
-                                if (game.Title.Equals(Path.GetFileName(fileName)))
-                                {
-                                    duplicate = true;
-                                    break;
-                                }
-                            }
-                            if (!duplicate)
-                            {
-                                currentConsole.AddGame(new Game(Path.GetFileName(fileName), currentConsole.ConsoleName));
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    duplicate = false;
-                    var gameList = currentConsole.GetGameList();
-                    foreach (string gameTitle in gameList)
-                    {
-                        IGame game = currentConsole.GetGame(gameTitle);
-                        if (game.Title.Equals(fileName.Split('.')[0]))
-                        {
-                            duplicate = true;
-                            break;
-                        }
-                    }
-                    if (!duplicate)
-                    {
-                        currentConsole.AddGame(new Game(Path.GetFileName(fileName), currentConsole.ConsoleName));
-                    }
+                    console.AddGame(new Game(Path.GetFileName(fileName), console.ConsoleName));
                 }
             }
 
             //Delete nonexistent games
-            bool found = false;
-            IGame foundGame = null;
-
-
-            var gameTitleList = currentConsole.GetGameList();
+            var gameTitleList = console.GetGameList();
             foreach (string gameTitle in gameTitleList)
             {
-                IGame game = currentConsole.GetGame(gameTitle);
-                found = false;
-                foreach (string fileName in fileEntries)
+                if (!fileEntries.Contains(gameTitle))
                 {
-                    if (game.Title.Equals(Path.GetFileName(fileName)))
-                    {
-                        found = true;
-                    }
-                }
-                if (found)
-                {
-                    currentConsole.RemoveGame(foundGame.Title);
-                    found = false;
-                    foundGame = null;
+                    console.RemoveGame(gameTitle);
                 }
             }
+
             return true;
         }
 
@@ -548,7 +470,7 @@ namespace UniCade.Backend
                 CurrentProcess.StartInfo.Arguments = args;
             }
 
-            CurrentProcess = new Process {EnableRaisingEvents = true};
+            CurrentProcess = new Process { EnableRaisingEvents = true };
             CurrentProcess.Exited += new EventHandler(ProcessExited);
 
             //Only decrement coin count on a sucuessful launch
@@ -685,59 +607,7 @@ namespace UniCade.Backend
             return true;
         }
 
-        /// <summary>
-        /// Create a new ROM directory in the current filesystem
-        /// </summary>
-        public static void CreateNewRomDirectory()
-        {
-            Directory.CreateDirectory(Database.RomPath + @"\Sega Genisis");
-            Directory.CreateDirectory(Database.RomPath + @"\Wii");
-            Directory.CreateDirectory(Database.RomPath + @"\NDS");
-            Directory.CreateDirectory(Database.RomPath + @"\GBC");
-            Directory.CreateDirectory(Database.RomPath + @"\MAME");
-            Directory.CreateDirectory(Database.RomPath + @"\PC");
-            Directory.CreateDirectory(Database.RomPath + @"\GBA");
-            Directory.CreateDirectory(Database.RomPath + @"\Gamecube");
-            Directory.CreateDirectory(Database.RomPath + @"\NES");
-            Directory.CreateDirectory(Database.RomPath + @"\SNES");
-            Directory.CreateDirectory(Database.RomPath + @"\N64");
-            Directory.CreateDirectory(Database.RomPath + @"\PS1");
-            Directory.CreateDirectory(Database.RomPath + @"\PS2");
-            Directory.CreateDirectory(Database.RomPath + @"\PS3");
-            Directory.CreateDirectory(Database.RomPath + @"\Atari 2600");
-            Directory.CreateDirectory(Database.RomPath + @"\Dreamcast");
-            Directory.CreateDirectory(Database.RomPath + @"\PSP");
-            Directory.CreateDirectory(Database.RomPath + @"\Wii U");
-            Directory.CreateDirectory(Database.RomPath + @"\Xbox 360");
-            Directory.CreateDirectory(Database.RomPath + @"\3DS");
 
-        }
-
-        /// <summary>
-        /// Generate a new emulator directory with folders for all default emulators
-        /// </summary>
-        public static void CreateNewEmuDirectory()
-        {
-            Directory.CreateDirectory(Database.EmulatorPath + @"\Sega Genisis");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\Wii");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\NDS");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\GBC");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\MAME");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\GBA");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\Gamecube");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\NES");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\SNES");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\N64");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\PS1");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\PS2");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\PS3");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\Atari 2600");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\Dreamcast");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\PSP");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\Wii U");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\Xbox 360");
-            Directory.CreateDirectory(Database.EmulatorPath + @"\3DS");
-        }
 
         /// <summary>
         /// Restore default preferences. These updated preferences will take effect immediatly.
@@ -771,20 +641,6 @@ namespace UniCade.Backend
                 ShowNotification("WARNING", "Preference file not found.\n Loading defaults...");
             }
 
-            //If the specified rom directory does not exist, creat a new one in with the default path
-            if (!Directory.Exists(Database.RomPath))
-            {
-                Directory.CreateDirectory(Database.RomPath);
-                CreateNewRomDirectory();
-            }
-
-            //If the specified emulator directory does not exist, creat a new one in with the default path
-            if (!Directory.Exists(Database.EmulatorPath))
-            {
-                Directory.CreateDirectory(Database.EmulatorPath);
-                CreateNewEmuDirectory();
-                //MessageBox.Show("Emulator directory not found. Creating new directory structure");
-            }
 
             //Verify the integrity of the local media directory and end the program if corruption is dectected  
             if (!FileOps.VerifyMediaDirectory())
@@ -802,7 +658,7 @@ namespace UniCade.Backend
             if (!LoadDatabase(Program.DatabasePath))
             {
                 RestoreDefaultConsoles();
-                Scan(Database.RomPath);
+                ScanAllConsoles();
                 try
                 {
                     FileOps.SaveDatabase(Program.DatabasePath);

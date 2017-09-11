@@ -90,7 +90,7 @@ namespace UniCade.ConsoleInterface
                 }
                 else if (input.Contains("(r)"))
                 {
-                    FileOps.Scan(Database.RomPath);
+                    FileOps.ScanAllConsoles();
                 }
                 //(s) = Switch User
                 else if (input.Contains("(s)"))

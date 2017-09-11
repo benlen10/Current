@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -136,8 +135,6 @@ namespace UniCade.Windows
 
             //Populate textbox fields
             GlobalTab_Textbox_Password.Password = Program.PasswordProtection.ToString();
-            GlobalTab_Textbox_EmulatorDirectory.Text = Database.EmulatorPath;
-            GlobalTab_Textbox_ROMDirectory.Text = Database.RomPath;
 
             //Populate checkboxes
             WebTab_Checkbox_ReleaseDate.IsChecked = WebOps.ParseReleaseDate;
@@ -643,7 +640,6 @@ namespace UniCade.Windows
                 {
                     _currentEmulator = console;
                     EmulatorsTab_Textbox_ConsoleName1.Text = console.ConsoleName;
-                    GlobalTab_Textbox_EmulatorDirectory.Text = console.EmulatorPath;
                     EmulatorsTab_Textbox_ROMExtension.Text = console.RomExtension;
                     EmulatorsTab_Textbox_EmulatorArgs.Text = console.LaunchParams;
                     EmulatorsTab_Textbox_EmulatorExe.Text = console.EmulatorPath;
@@ -663,7 +659,6 @@ namespace UniCade.Windows
             try
             {
                 _currentEmulator.ConsoleName = EmulatorsTab_Textbox_ConsoleName1.Text;
-                _currentEmulator.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
                 _currentEmulator.RomExtension = EmulatorsTab_Textbox_ROMExtension.Text;
                 _currentEmulator.EmulatorPath = EmulatorsTab_Textbox_EmulatorExe.Text;
                 _currentEmulator.LaunchParams = EmulatorsTab_Textbox_EmulatorArgs.Text;
@@ -720,7 +715,6 @@ namespace UniCade.Windows
         private void EmulatorsTab_AddNewConsoleButton_Click(object sender, EventArgs e)
         {
             //Clear all text boxes initially 
-            GlobalTab_Textbox_EmulatorDirectory.Text = null;
             EmulatorsTab_Textbox_ROMExtension.Text = null;
             EmulatorsTab_Textbox_EmulatorArgs.Text = null;
             EmulatorsTab_Textbox_ConsoleInfo.Text = null;
@@ -758,52 +752,19 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_SaveInfoButton_Click(object sender, EventArgs e)
         {
-            //Invalid input check
-            if (EmulatorsTab_Textbox_ConsoleName1.Text.Contains("|") || GlobalTab_Textbox_EmulatorDirectory.Text.Contains("|") || GamesTab_Textbox_TotalGames.Text.Contains("|") || EmulatorsTab_Textbox_ROMExtension.Text.Contains("|") || EmulatorsTab_Textbox_EmulatorArgs.Text.Contains("|") || EmulatorsTab_Textbox_ReleaseDate.Text.Contains("|") || EmulatorsTab_Textbox_ConsoleInfo.Text.Contains("|"))
+            try
             {
-                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+                _currentEmulator.ConsoleName = EmulatorsTab_Textbox_ConsoleName1.Text;
+                _currentEmulator.RomExtension = EmulatorsTab_Textbox_ROMExtension.Text;
+                _currentEmulator.LaunchParams = EmulatorsTab_Textbox_EmulatorArgs.Text;
+                _currentEmulator.ConsoleInfo = EmulatorsTab_Textbox_ConsoleInfo.Text;
             }
-            else
+            catch (ArgumentException exception)
             {
-                if (Utilties.IsAllDigits(GamesTab_Textbox_ReleaseDate.Text))
-                {
-                    if (GamesTab_Textbox_ReleaseDate.Text.Length < 5)
-                    {
-                        _currentEmulator.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Release Date Invalid");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Release Date score must be only digits");
-                }
-
-                if ((EmulatorsTab_Textbox_ConsoleName1.Text.Length > 20) || (GlobalTab_Textbox_EmulatorDirectory.Text.Length > 100) || (GamesTab_Textbox_TotalGames.Text.Length > 100) || (EmulatorsTab_Textbox_ROMExtension.Text.Length > 30) || (EmulatorsTab_Textbox_ROMExtension.Text.Length > 300))
-                {
-                    MessageBox.Show("Invalid Length");
-                }
-                else
-                {
-                    //If all input checks are valid, set console into to the current text field values
-                    _currentEmulator.ConsoleName = EmulatorsTab_Textbox_ConsoleName1.Text;
-                    _currentEmulator.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
-                    _currentEmulator.RomExtension = EmulatorsTab_Textbox_ROMExtension.Text;
-                    _currentEmulator.LaunchParams = EmulatorsTab_Textbox_EmulatorArgs.Text;
-                    _currentEmulator.ConsoleInfo = EmulatorsTab_Textbox_ConsoleInfo.Text;
-                }
-                MainWindow.RefreshConsoleList();
+                MessageBox.Show("Error: " + exception.Message);
             }
-
-            EmulatorsTab_Listbox_ConsoleList.Items.Clear();
-
-            var consoleList = Database.GetConsoleList();
-            foreach (string consoleName in consoleList)
-            {
-                EmulatorsTab_Listbox_ConsoleList.Items.Add(consoleName);
-            }
+            MainWindow.RefreshConsoleList();
+            MessageBox.Show("Saved");
         }
 
         /// <summary>
@@ -811,10 +772,8 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_GlobalRescanButton_Click(object sender, EventArgs e)
         {
-            if (FileOps.Scan(Database.RomPath))
-            {
-                MessageBox.Show("Global Rescan Successful");
-            }
+            FileOps.ScanAllConsoles();
+            MessageBox.Show("Global Rescan Successful");
         }
 
         /// <summary>
@@ -829,23 +788,16 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a console");
                 return;
             }
-            var consoleList = Database.GetConsoleList();
-            foreach (string consoleName in consoleList)
+
+            //Fetch the currently selected console
+            IConsole console = Database.GetConsole(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString());
+
+            if (FileOps.ScanSingleConsole(_currentEmulator))
             {
-                IConsole console = Database.GetConsole(consoleName);
-                if (console.ConsoleName.Equals(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString()))
-                {
-                    if (FileOps.ScanDirectory(console.RomPath, Database.RomPath))
-                    {
-                        MessageBox.Show(console.ConsoleName + " Successfully Scanned");
-                    }
-                    else
-                    {
-                        MessageBox.Show(console.ConsoleName + " Library Rescan Failed");
-                    }
-                    break;
-                }
+                MessageBox.Show(console.ConsoleName + " Successfully Scanned");
+                return;
             }
+            MessageBox.Show(console.ConsoleName + " Library Rescan Failed");
         }
 
         #endregion
@@ -1085,19 +1037,23 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettings_SavePreferenceFileButton_Click(object sender, EventArgs e)
         {
+
             try
             {
-                Program.RestrictGlobalESRB =
-                    Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
-                Program.RestrictGlobalESRB =
-                    Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
-                Database.EmulatorPath = GlobalTab_Textbox_EmulatorDirectory.Text;
-                Database.RomPath = GlobalTab_Textbox_ROMDirectory.Text;
+                if (GlobalTab_Dropdown_AllowedESRB.SelectedItem == null)
+                {
+                    Program.RestrictGlobalESRB = Enums.Esrb.Null;
+                }
+                else
+                {
+                    Program.RestrictGlobalESRB =
+                        Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+                }
                 Program.EnforceFileExtensions = GlobalTab_Checkbox_EnforceFileExtension.IsChecked.Value;
             }
             catch (ArgumentException exception)
             {
-                MessageBox.Show("Error" + exception.Message);
+                MessageBox.Show("Error: " + exception.Message);
             }
 
             //Save checkboxes
@@ -1125,12 +1081,10 @@ namespace UniCade.Windows
             PayPerPlay.PayPerPlayEnabled = false;
             GlobalTab_Textbox_Coins.IsEnabled = false;
             GlobalTab_Textbox_Playtime.IsEnabled = false;
-            if (GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value)
-            {
-                PayPerPlay.PayPerPlayEnabled = true;
-                GlobalTab_Textbox_Coins.IsEnabled = true;
-                GlobalTab_Textbox_Playtime.IsEnabled = true;
-            }
+            PayPerPlay.PayPerPlayEnabled = GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value;
+            GlobalTab_Textbox_Coins.IsEnabled = GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value;
+            GlobalTab_Textbox_Playtime.IsEnabled = GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value;
+
         }
 
         /// <summary>
@@ -1379,16 +1333,8 @@ namespace UniCade.Windows
             GamesTab_Textbox_Players.Text = game.SupportedPlayerCount;
             GamesTab_Textbox_ESRBDescriptor.Text = game.EsrbDescriptors;
             GamesTab_Textbox_Description.Text = game.Description;
-
-            //Set favorite checkbox
-            if (game.Favorite)
-            {
-                GamesTab_CheckBox__GlobalFavorite.IsChecked = true;
-            }
-            else
-            {
-                GamesTab_CheckBox__GlobalFavorite.IsChecked = false;
-            }
+            GamesTab_Textbox_LaunchCount.Text = game.GetLaunchCount().ToString();
+            GamesTab_CheckBox__GlobalFavorite.IsChecked = game.Favorite;
 
             GamesTab_Image_Boxfront.Source = null;
             GamesTab_Image_Boxback.Source = null;

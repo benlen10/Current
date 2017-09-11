@@ -73,7 +73,7 @@
                 <Grid Background="White">
                     <Label x:Name="EmulatorsTab_Label_ConsoleName" Content="Console Name" HorizontalAlignment="Left" Margin="154,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label Content="Console List" HorizontalAlignment="Left" Margin="18,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
-                    <Label x:Name="EmulatorsTab_Label_EmulatorExe" Content="Emulator Path" HorizontalAlignment="Left" Margin="154,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
+                    <Label x:Name="EmulatorsTab_Label_EmulatorExe" Content="Emulator Exe" HorizontalAlignment="Left" Margin="154,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label x:Name="EmulatorsTab_Label_ROMExtension" Content="ROM Extension" HorizontalAlignment="Left" Margin="154,106,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label x:Name="EmulatorsTab_Label_EmulatorArgs" Content="Emulator Args" HorizontalAlignment="Left" Margin="154,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
                     <Label x:Name="EmulatorsTab_Label_ConsoleInfo" Content="Console Info" HorizontalAlignment="Left" Margin="154,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.08,-0.489"/>
@@ -134,27 +134,25 @@
                     </Grid.RowDefinitions>
                     <Label x:Name="GlobalTab_Label_AllowedESRB" Content="Allowed ESRB Rating (Global)" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GlobalTab_Label_PaswordProtection" Content="Password Protection" HorizontalAlignment="Left" Margin="50,64,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="GlobalTab_Label_EmulatorDirectory" Content="Emulator Directory" HorizontalAlignment="Left" Margin="50,107,0,0" VerticalAlignment="Top" Height="27"/>
-                    <Label x:Name="GlobalTab_Label_ROMDirectory" Content="ROM Directory" HorizontalAlignment="Left" Margin="50,147,0,0" VerticalAlignment="Top" Height="26" Grid.RowSpan="2"/>
+                    <Label x:Name="GlobalTab_Label_ROMDirectory" Content="ROM Directory" HorizontalAlignment="Left" Margin="50,104,0,0" VerticalAlignment="Top" Height="26"/>
                     <Label x:Name="GlobalTab_Label_Coins" Content="# Coins" HorizontalAlignment="Left" Margin="273,114.731,0,0" VerticalAlignment="Top" Grid.Row="1"/>
                     <Label x:Name="GlobalTab_Label_Playtime" Content="Playtime" HorizontalAlignment="Left" Margin="273,145.731,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-                    <Label x:Name="GlobalTab_Label_GlobalFavorites" Content="Global Favorites" HorizontalAlignment="Left" Margin="629,10,0,0" VerticalAlignment="Top"/>
-                    <ListBox x:Name="GlobalTab_Listbox_GlobalFavorites" HorizontalAlignment="Left" Height="304" Margin="615,36,0,0" VerticalAlignment="Top" Width="129" Grid.RowSpan="2"/>
+                    <Label x:Name="GlobalTab_Label_GlobalFavorites" Content="Global Favorites" HorizontalAlignment="Left" Margin="607,10,0,0" VerticalAlignment="Top"/>
+                    <ListBox x:Name="GlobalTab_Listbox_GlobalFavorites" HorizontalAlignment="Left" Height="304" Margin="567,36,0,0" VerticalAlignment="Top" Width="177" Grid.RowSpan="2"/>
                     <CheckBox x:Name="GlobalTab_Checkbox_DisplayLoadingScreen" Content="Display Loading Screen" HorizontalAlignment="Left" Margin="50,76.731,0,0" VerticalAlignment="Top" Grid.Row="1"/>
                     <CheckBox x:Name="GlobalTab_Checkbox_RescanAllLibraries" Content="Rescan All Libraries On Statup" HorizontalAlignment="Left" Margin="50,96.731,0,0" VerticalAlignment="Top" Grid.Row="1" />
                     <CheckBox x:Name="GlobalTab_Checkbox_DisplayESRB" Content="Display ESRB While Browising" HorizontalAlignment="Left" Margin="50,116.731,0,0" VerticalAlignment="Top" Grid.Row="1" />
                     <CheckBox x:Name="GlobalTab_Checkbox_RequireLogin" Content="Require Login On Startup" HorizontalAlignment="Left" Margin="50,136.731,0,0" VerticalAlignment="Top" Grid.Row="1" />
                     <CheckBox x:Name="GlobalTab_Checkbox_DisplaySplash" Content="Display Splash" HorizontalAlignment="Left" Margin="50,156.731,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-                    <CheckBox x:Name="GlobalTab_Checkbox_EnablePayPerPlay" Content="Enable Pay Per Play" HorizontalAlignment="Left" Margin="273,84.731,0,0" VerticalAlignment="Top" Grid.Row="1" />
+                    <CheckBox x:Name="GlobalTab_Checkbox_EnablePayPerPlay" Content = "Enable Pay Per Play" HorizontalAlignment="Left" Margin="273,84.731,0,0" VerticalAlignment="Top" Grid.Row="1" Checked  ="GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged"  Unchecked  = "GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged"/>
                     <CheckBox x:Name="GlobalTab_Checkbox_ToView" Content="Restrict Viewing" HorizontalAlignment="Left" Margin="334,36,0,0" VerticalAlignment="Top" />
                     <ComboBox x:Name="GlobalTab_Dropdown_AllowedESRB" HorizontalAlignment="Left" Margin="219,34,0,0" VerticalAlignment="Top" Width="109" SelectionChanged="GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged"/>
-                    <TextBox x:Name="GlobalTab_Textbox_EmulatorDirectory" HorizontalAlignment="Left" Height="24" Margin="173,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="413"/>
-                    <TextBox x:Name="GlobalTab_Textbox_ROMDirectory" HorizontalAlignment="Left" Height="23" Margin="173,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="413" Grid.RowSpan="2"/>
+                    <TextBox x:Name="GlobalTab_Textbox_ROMDirectory" HorizontalAlignment="Left" Height="23" Margin="173,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="365"/>
                     <TextBox x:Name="GlobalTab_Textbox_Coins" HorizontalAlignment="Left" Height="23" Margin="328,114.731,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Grid.Row="1"/>
                     <TextBox x:Name="GlobalTab_Textbox_Playtime" HorizontalAlignment="Left" Height="23" Margin="328,145.731,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Grid.Row="1"/>
                     <Button x:Name="GlobalTab_Button_SavePreferences" Content="Save Preferences File" HorizontalAlignment="Left" Margin="157,194.731,0,0" VerticalAlignment="Top" Width="151" Height="29" Click="GlobalSettings_SavePreferenceFileButton_Click" Grid.Row="1"/>
                     <Button x:Name="GlobalTab_Button_Close" Content="Close" HorizontalAlignment="Left" Margin="50,194.731,0,0" VerticalAlignment="Top" Width="90" Height="29" Click="GlobalSettingsTab_CloseButton_Click" Grid.Row="1"/>
-                    <Button x:Name="GlobalTab_Button_RefreshFavorites" Content="Refresh Favorites" HorizontalAlignment="Left" Margin="615,194.731,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="GlobalSettingsTab_RefreshGlobalFavoritesButton_Click" Grid.Row="1"/>
+                    <Button x:Name="GlobalTab_Button_RefreshFavorites" Content="Refresh Favorites" HorizontalAlignment="Left" Margin="567,195,0,0" VerticalAlignment="Top" Width="177" Height="29" Click="GlobalSettingsTab_RefreshGlobalFavoritesButton_Click" Grid.Row="1"/>
                     <PasswordBox x:Name="GlobalTab_Textbox_Password" HorizontalAlignment="Left" Margin="173,67,0,0" VerticalAlignment="Top" Width="155" Height="23" MaxLength="8"/>
                     <CheckBox x:Name="GlobalTab_Checkbox_EnforceFileExtension" Content="Enforce ROM Extensions" HorizontalAlignment="Left" Margin="50,56.731,0,0" VerticalAlignment="Top" Grid.Row="1"/>
                 </Grid>
