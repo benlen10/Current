@@ -159,7 +159,7 @@ namespace UniCade.Windows
             GlobalTab_Checkbox_EnablePayPerPlay.IsChecked = PayPerPlay.PayPerPlayEnabled;
             GlobalTab_Textbox_Coins.IsEnabled = PayPerPlay.PayPerPlayEnabled;
             GlobalTab_Textbox_Playtime.IsEnabled = PayPerPlay.PayPerPlayEnabled;
-            GlobalTab_Dropdown_AllowedESRB.Text = Program.RestrictGlobalESRB.GetStringValue();
+            GlobalTab_Dropdown_AllowedESRB.Text = Program.RestrictGlobalEsrb.GetStringValue();
             GamesTab_CheckBox__GlobalFavorite.IsChecked = MainWindow.DisplayEsrbWhileBrowsing;
 
             //Populate payPerPlay fields
@@ -819,41 +819,29 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_UsersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UsersTab_Label_CurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
+            //Fetch the current user
+            IUser user = Database.GetUser(UsersTab_Listbox_CurrentUser.SelectedItem.ToString());
 
             //Populate the favorites list for each user
             UsersTab_Listbox_UserFavorites.Items.Clear();
-            var userList = Database.GetUserList();
-            foreach (string username in userList)
+            user.FavoritesList.ForEach(g => UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
+
+            //Populate the user fields
+            UsersTab_Textbox_Username.Text = user.Username;
+            UsersTab_Textbox_Email.Text = user.Email;
+            UsersTab_Textbox_UserInfo.Text = user.UserInfo;
+            UsersTab_Textbox_LoginCount.Text = user.GetUserLoginCount().ToString();
+            UsersTab_Textbox_LaunchCount.Text = user.GetUserLaunchCount().ToString();
+            UsersTab_Dropdown_AllowedESRB.Text = user.AllowedEsrb.GetStringValue();
+
+            //Only allow the current user to edit their own userdata
+            if (user.Username.Equals(Database.GetCurrentUser().Username))
             {
-                IUser user = Database.GetUser(username);
-                if (user.Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
-                {
-                    if (user.FavoritesList.Count > 0)
-                    {
-                        foreach (IGame game in user.FavoritesList)
-                        {
-                            UsersTab_Listbox_UserFavorites.Items.Add(game.Title + " - " + game.ConsoleName);
-                        }
-                    }
-
-                    UsersTab_Textbox_Username.Text = user.Username;
-                    UsersTab_Textbox_Email.Text = user.Email;
-                    UsersTab_Textbox_UserInfo.Text = user.UserInfo;
-                    UsersTab_Textbox_LoginCount.Text = user.GetUserLoginCount().ToString();
-                    UsersTab_Textbox_LaunchCount.Text = user.GetUserLaunchCount().ToString();
-                    UsersTab_Dropdown_AllowedESRB.Text = user.AllowedEsrb.GetStringValue();
-
-                    //Only allow the current user to edit their own userdata
-                    bool editEnabled = user.Username.Equals(Database.GetCurrentUser().Username);
-                    UsersTab_Textbox_Username.IsEnabled = true;
-                    UsersTab_Textbox_Email.IsEnabled = true;
-                    UsersTab_Textbox_UserInfo.IsEnabled = true;
-                    UsersTab_Textbox_LoginCount.IsEnabled = true;
-                    UsersTab_Textbox_LaunchCount.IsEnabled = true;
-                    UsersTab_Dropdown_AllowedESRB.IsEnabled = true;
-                    UsersTab_Listbox_UserFavorites.IsEnabled = true;
-                }
+                UsersTab_Textbox_Username.IsEnabled = true;
+                UsersTab_Textbox_Email.IsEnabled = true;
+                UsersTab_Textbox_UserInfo.IsEnabled = true;
+                UsersTab_Dropdown_AllowedESRB.IsEnabled = true;
+                UsersTab_Listbox_UserFavorites.IsEnabled = true;
             }
         }
 
@@ -863,23 +851,16 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_NewUserButton_Click(object sender, EventArgs e)
         {
-
             //Create a new unicade account and display the dialog
             AccountWindow uc = new AccountWindow(1);
             uc.ShowDialog();
 
-            //Update the current labels and save the user info to the preferences file
-            UsersTab_Label_CurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
+            //Save the user info to the preferences file
             FileOps.SavePreferences(Program.PreferencesPath);
 
             //Refresh the listbox contents
             UsersTab_Listbox_CurrentUser.Items.Clear();
-            var userList = Database.GetUserList();
-            foreach (string username in userList)
-            {
-                IUser user = Database.GetUser(username);
-                UsersTab_Listbox_CurrentUser.Items.Add(user.Username);
-            }
+            Database.GetUserList().ForEach(u => UsersTab_Listbox_CurrentUser.Items.Add(u));
         }
 
         /// <summary>
@@ -896,24 +877,20 @@ namespace UniCade.Windows
         private void UsersTab_DeleteUserButton_Click(object sender, EventArgs e)
         {
             IUser user = Database.GetUser(UsersTab_Listbox_CurrentUser.SelectedItem.ToString());
-            //Ensure that there is always at least one user present in the database
-            if (Database.GetUserCount() <= 1)
+
+            try
             {
-                MessageBox.Show("Must at least have one user");
-                return;
+                //Remove the user and refresh the database
+                Database.RemoveUser(user.Username);
+            }
+            catch(ArgumentException exception)
+            {
+                MessageBox.Show("Error: " + exception.Message);
             }
 
-            //Remove the user and refresh the database
-            Database.RemoveUser(user.Username);
+            //Refresh the user list
             UsersTab_Listbox_CurrentUser.Items.Clear();
-            Database.RestoreDefaultUser();
-
-            var userList = Database.GetUserList();
-            foreach (string username in userList)
-            {
-                IUser user1 = Database.GetUser(username);
-                UsersTab_Listbox_CurrentUser.Items.Add(user1.Username);
-            }
+            Database.GetUserList().ForEach(u => UsersTab_Listbox_CurrentUser.Items.Add(u));
         }
 
         /// <summary>
@@ -922,49 +899,33 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_SaveButton_Click(object sender, EventArgs e)
         {
-            //Verify that a user is currently logged in
-            if (!Database.GetCurrentUser().Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
+            try
             {
-                MessageBox.Show("Must Login First");
-                return;
+                Database.GetCurrentUser().Username = UsersTab_Textbox_Username.Text;
+                Database.GetCurrentUser().SetUserPassword(UsersTab_Textbox_Email.Text);
+                Database.GetCurrentUser().UserInfo = UsersTab_Textbox_UserInfo.Text;
+            }
+            catch (ArgumentException exception)
+            {
+                MessageBox.Show("Error: " + exception.Message);
             }
 
-            if (UsersTab_Textbox_Username.Text.Contains("|") || UsersTab_Textbox_Email.Text.Contains("|") || UsersTab_Textbox_UserInfo.Text.Contains("|"))
+
+            if (UsersTab_Dropdown_AllowedESRB.SelectedItem == null)
             {
-                MessageBox.Show("Fields contain invalid character {|}\nNew data not saved.");
+                Database.GetCurrentUser().AllowedEsrb = Enums.Esrb.Null;
             }
             else
             {
-                if ((UsersTab_Textbox_Username.Text.Length > 20) || (UsersTab_Textbox_Email.Text.Length > 20) || (UsersTab_Textbox_UserInfo.Text.Length > 50))
-                {
-                    MessageBox.Show("Invalid Length");
-                }
-                else
-                {
-                    Database.GetCurrentUser().Username = UsersTab_Textbox_Username.Text;
-                    Database.GetCurrentUser().SetUserPassword(UsersTab_Textbox_Email.Text);
-                    Database.GetCurrentUser().UserInfo = UsersTab_Textbox_UserInfo.Text;
-                }
-
-                if (GamesTab_Textbox_ESRB.Text.Contains("Everyone") || GamesTab_Textbox_ESRB.Text.Contains("Teen") || GamesTab_Textbox_ESRB.Text.Contains("Mature") || GamesTab_Textbox_ESRB.Text.Contains("Adults") || GamesTab_Textbox_ESRB.Text.Length < 1)
-                {
-                    if (UsersTab_Dropdown_AllowedESRB.SelectedItem != null)
-                    {
-                        Database.GetCurrentUser().AllowedEsrb = Enums.ConvertStringToEsrbEnum(UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString());
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Invalid ESRB Rating");
-                }
+                Database.GetCurrentUser().AllowedEsrb =
+                    Enums.ConvertStringToEsrbEnum(UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString());
             }
+
+            
+
+            //Refresh the user list
             UsersTab_Listbox_CurrentUser.Items.Clear();
-
-            var userList = Database.GetUserList();
-            foreach (string username in userList)
-            {
-                UsersTab_Listbox_CurrentUser.Items.Add(username);
-            }
+            Database.GetUserList().ForEach(u => UsersTab_Listbox_CurrentUser.Items.Add(u));
         }
 
         /// <summary>
@@ -972,19 +933,12 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_DeleteFavoriteButton_Click(object sender, EventArgs e)
         {
-            //Verify that a user is currenly logged in
-            if (!Database.GetCurrentUser().Username.Equals(UsersTab_Listbox_CurrentUser.SelectedItem.ToString()))
-            {
-                MessageBox.Show("Must Login First");
-                return;
-            }
-
+            //Remove the favorite game at the current index
             Database.GetCurrentUser().FavoritesList.RemoveAt(UsersTab_Listbox_UserFavorites.SelectedIndex);
+
+            //Refresh the user favorites list
             UsersTab_Listbox_UserFavorites.Items.Clear();
-            foreach (IGame g in Database.GetCurrentUser().FavoritesList)
-            {
-                UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName);
-            }
+             Database.GetCurrentUser().FavoritesList.ForEach(g => UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
         }
 
         /// <summary>
@@ -992,24 +946,12 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_LoginButton_Click(object sender, EventArgs e)
         {
-            var userList = Database.GetUserList();
-            foreach (string username in userList)
-            {
-                if (Database.GetCurrentUser().Username.Equals(username))
-                {
-                    Database.RemoveUser(username);
-                    Database.AddUser(Database.GetCurrentUser());
-                    break;
-                }
-            }
-
             //Display the login dialog
             LoginWindow login = new LoginWindow(1);
             login.ShowDialog();
 
             //If the user is logged in sucuesfully, save the current user and preferences file
             UsersTab_Label_CurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
-            FileOps.SavePreferences(Program.PreferencesPath);
         }
 
         /// <summary>
@@ -1029,7 +971,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+            Program.RestrictGlobalEsrb = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -1042,11 +984,11 @@ namespace UniCade.Windows
             {
                 if (GlobalTab_Dropdown_AllowedESRB.SelectedItem == null)
                 {
-                    Program.RestrictGlobalESRB = Enums.Esrb.Null;
+                    Program.RestrictGlobalEsrb = Enums.Esrb.Null;
                 }
                 else
                 {
-                    Program.RestrictGlobalESRB =
+                    Program.RestrictGlobalEsrb =
                         Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                 }
                 Program.EnforceFileExtensions = GlobalTab_Checkbox_EnforceFileExtension.IsChecked.Value;

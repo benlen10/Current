@@ -16,16 +16,6 @@ namespace UniCade.Backend
         #region Properties
 
         /// <summary>
-        /// True if there is a current game process running
-        /// </summary>
-        public static bool IsProcessActive;
-
-        /// <summary>
-        /// The instance of the current game process
-        /// </summary>
-        public static Process CurrentProcess;
-
-        /// <summary>
         /// True if the current game is a steam URL
         /// </summary>
         public static bool IsSteamGame;
@@ -178,7 +168,7 @@ namespace UniCade.Backend
 
             line = file.ReadLine();
             tokenString = line.Split(sep);
-            Program.RestrictGlobalESRB = Enums.ConvertStringToEsrbEnum(tokenString[1]);
+            Program.RestrictGlobalEsrb = Enums.ConvertStringToEsrbEnum(tokenString[1]);
 
             file.ReadLine();
             tokenString = line.Split(sep);
@@ -304,7 +294,7 @@ namespace UniCade.Backend
                 sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
                 sw.WriteLine("ShowSplash|" + Program.ShowSplashScreen);
                 sw.WriteLine("ScanOnStartup|" + Program.RescanOnStartup);
-                sw.WriteLine("RestrictESRB|" + Program.RestrictGlobalESRB);
+                sw.WriteLine("RestrictESRB|" + Program.RestrictGlobalEsrb);
                 sw.WriteLine("RequireLogin|" + Program.RequireLogin);
                 sw.WriteLine("CmdOrGui|" + Program.PerferCmdInterface);
                 sw.WriteLine("LoadingScreen|" + Program.ShowLoadingScreen);
@@ -416,9 +406,9 @@ namespace UniCade.Backend
                 }
             }
 
-            if (Program.RestrictGlobalESRB > 0)
+            if (Program.RestrictGlobalEsrb > 0)
             {
-                if (game.EsrbRating > Program.RestrictGlobalESRB)
+                if (game.EsrbRating > Program.RestrictGlobalEsrb)
                 {
                     throw new LaunchException(("ESRB " + game.EsrbRating + " Is Restricted globally"));
                 }
@@ -453,7 +443,7 @@ namespace UniCade.Backend
 
             if (console.ConsoleName.Equals("PC"))
             {
-                CurrentProcess.StartInfo.FileName = args;
+                Program.CurrentProcess.StartInfo.FileName = args;
                 if (args.Contains("url"))
                 {
                     IsSteamGame = true;
@@ -466,12 +456,12 @@ namespace UniCade.Backend
                 {
                     throw new LaunchException(("Emulator does not exist. Launch Failed"));
                 }
-                CurrentProcess.StartInfo.FileName = console.EmulatorPath;
-                CurrentProcess.StartInfo.Arguments = args;
+                Program.CurrentProcess.StartInfo.FileName = console.EmulatorPath;
+                Program.CurrentProcess.StartInfo.Arguments = args;
             }
 
-            CurrentProcess = new Process { EnableRaisingEvents = true };
-            CurrentProcess.Exited += new EventHandler(ProcessExited);
+            Program.CurrentProcess = new Process { EnableRaisingEvents = true };
+            Program.CurrentProcess.Exited += new EventHandler(ProcessExited);
 
             //Only decrement coin count on a sucuessful launch
             if ((PayPerPlay.PayPerPlayEnabled == true) && (PayPerPlay.CoinsRequired > 0))
@@ -481,8 +471,8 @@ namespace UniCade.Backend
 
             game.IncrementLaunchCount();
             Database.GetCurrentUser().IncrementUserLaunchCount();
-            CurrentProcess.Start();
-            IsProcessActive = true;
+            Program.CurrentProcess.Start();
+            Program.IsProcessActive = true;
             MainWindow.IsGameRunning = true;
             return true;
         }
@@ -493,7 +483,7 @@ namespace UniCade.Backend
         private static void ProcessExited(object sender, System.EventArgs e)
         {
             MainWindow.IsGameRunning = false;
-            IsProcessActive = false;
+            Program.IsProcessActive = false;
         }
 
         /// <summary>
@@ -506,19 +496,19 @@ namespace UniCade.Backend
                 SendKeys.SendWait("^%{F4}");
                 ShowNotification("UniCade System", "Attempting Force Close");
                 MainWindow.IsGameRunning = false;
-                IsProcessActive = false;
+                Program.IsProcessActive = false;
                 MainWindow.KeyboardHook.HookKeys();
                 return;
             }
-            else if (CurrentProcess.HasExited)
+            else if (Program.CurrentProcess.HasExited)
             {
                 return;
             }
 
-            CurrentProcess.Kill();
+            Program.CurrentProcess.Kill();
             MainWindow.KeyboardHook.HookKeys();
             MainWindow.IsGameRunning = false;
-            IsProcessActive = false;
+            Program.IsProcessActive = false;
         }
 
         /// <summary>
@@ -618,7 +608,7 @@ namespace UniCade.Backend
             Database.RestoreDefaultUser();
             Program.ShowSplashScreen = false;
             Program.RescanOnStartup = false;
-            Program.RestrictGlobalESRB = 0;
+            Program.RestrictGlobalEsrb = 0;
             Program.RequireLogin = false;
             Program.PerferCmdInterface = false;
             Program.ShowLoadingScreen = false;

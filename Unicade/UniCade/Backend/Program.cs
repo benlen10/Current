@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using UniCade.ConsoleInterface;
 using UniCade.Constants;
@@ -32,9 +33,24 @@ namespace UniCade.Backend
         public static bool RescanOnStartup;
 
         /// <summary>
+        /// The path to the current media directory
+        /// </summary>
+        public static string MediaPath = Directory.GetCurrentDirectory() + @"\Database.txt";
+
+        /// <summary>
+        /// True if there is a current game process running
+        /// </summary>
+        public static bool IsProcessActive;
+
+        /// <summary>
+        /// The instance of the current game process
+        /// </summary>
+        public static Process CurrentProcess;
+
+        /// <summary>
         /// Specifies if certain ESRB ratings should be restricted globally (regardless of user)
         /// </summary>
-        public static Enums.Esrb RestrictGlobalESRB;
+        public static Enums.Esrb RestrictGlobalEsrb;
 
         /// <summary>
         /// Specifies if you are required to login to a user account on startup
@@ -73,18 +89,18 @@ namespace UniCade.Backend
 
         #endregion
 
-        [STAThread]
+        #region  Public Methods
 
         /// <summary>
         /// Entry point for the program
         /// </summary>
+        /// <param name="args"></param>
+        [STAThread]
         public static void Main(string[] args)
         {
-            //Initalize the properties
+            //Initalize the database, preform an initial scan and refresh the total game count
             Database.Initalize();
-
             FileOps.StartupScan();
-
             Database.RefreshTotalGameCount();
 
             //Launch either the GUI or the legacy command line interface
@@ -105,20 +121,22 @@ namespace UniCade.Backend
         /// </summary>
         public static string DisplayGameInfo(IGame game)
         {
-            string txt = "";
-            txt = txt + ("\nTitle: " + game.Title + "\n");
-            txt = txt + ("\nRelease Date: " + game.ReleaseDate + "\n");
-            txt = txt + ("\nConsole: " + game.ConsoleName + "\n");
-            txt = txt + ("\nLaunch Count: " + game.GetLaunchCount().ToString() + "\n");
-            txt = txt + ("\nDeveloper: " + game.DeveloperName + "\n");
-            txt = txt + ("\nPublisher: " + game.PublisherName + "\n");
-            txt = txt + ("\nPlayers: " + game.SupportedPlayerCount + "\n");
-            txt = txt + ("\nCritic Score: " + game.CriticReviewScore + "\n");
-            txt = txt + ("\nESRB Rating: " + game.Tags + "\n");
-            txt = txt + ("\nESRB Descriptors: " + game.EsrbDescriptors + "\n");
-            txt = txt + ("\nGame Description: " + game.Description + "\n");
-            return txt;
+            string text = "";
+            text += ("\nTitle: " + game.Title + "\n");
+            text += ("\nRelease Date: " + game.ReleaseDate + "\n");
+            text += ("\nConsole: " + game.ConsoleName + "\n");
+            text += ("\nLaunch Count: " + game.GetLaunchCount().ToString() + "\n");
+            text += ("\nDeveloper: " + game.DeveloperName + "\n");
+            text += ("\nPublisher: " + game.PublisherName + "\n");
+            text += ("\nPlayers: " + game.SupportedPlayerCount + "\n");
+            text += ("\nCritic Score: " + game.CriticReviewScore + "\n");
+            text += ("\nESRB Rating: " + game.Tags + "\n");
+            text += ("\nESRB Descriptors: " + game.EsrbDescriptors + "\n");
+            text += ("\nGame Description: " + game.Description + "\n");
+            return text;
         }
+
+        #endregion
 
         #region Helper Methods
 
@@ -132,10 +150,5 @@ namespace UniCade.Backend
         }
 
         #endregion
-
-        /// <summary>
-        /// The path to the current media directory
-        /// </summary>
-        public static string MediaPath = Directory.GetCurrentDirectory() + @"\Database.txt";
     }
 }
