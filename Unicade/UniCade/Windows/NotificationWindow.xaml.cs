@@ -14,7 +14,7 @@ public partial class NotificationWindow
     /// </summary>
     /// <param name="titleText">Heading text for the nofication</param>
     /// <param name="bodyText"> Body text for the notification</param>
-    public NotificationWindow(String titleText, String bodyText)
+    public NotificationWindow(string titleText, string bodyText)
     {
         InitializeComponent();
 

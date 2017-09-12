@@ -7,7 +7,7 @@ namespace UniCade.Windows
     /// <summary>
     /// Interaction logic for PassWindow.xaml
     /// </summary>
-    public partial class PassWindow : Window
+    public partial class PassWindow
     {
         #region Constructors
 
@@ -36,10 +36,10 @@ namespace UniCade.Windows
         /// </summary>
         private void PassWindow_EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            Int32.TryParse(Textbox_Password.Password, out int n);
+            int.TryParse(Textbox_Password.Password, out int n);
             if (n > 0)
             {
-                if (Int32.Parse(Textbox_Password.Password) == Program.PasswordProtection)
+                if (int.Parse(Textbox_Password.Password) == Program.PasswordProtection)
                 {
                     DialogResult = true;
                     MainWindow.IsPasswordValid = true;

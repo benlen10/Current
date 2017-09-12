@@ -10,12 +10,12 @@ namespace UniCade.Windows
     /// </summary>
     public partial class LoginWindow
     {
-        #region Properties
+        #region Private Instance Variables
 
         /// <summary>
         /// An int value that represents the current user type (local or cloud)
         /// </summary>
-        int UserType;
+        int _userType;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace UniCade.Windows
         /// </summary>
         public LoginWindow(int userType)
         {
-            UserType = userType;
+            _userType = userType;
             InitializeComponent();
         }
 
@@ -55,7 +55,7 @@ namespace UniCade.Windows
             }
 
             //If the user is a SQL client, preform SQL user authentication 
-            if (UserType == 0)
+            if (_userType == 0)
             {
                 if (SqlClient.AuthiencateUser(Textbox_Username.Text, Textbox_Password.Text))
                 {

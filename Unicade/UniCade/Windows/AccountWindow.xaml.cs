@@ -9,7 +9,7 @@ namespace UniCade.Windows
     /// <summary>
     /// Interaction logic for AccountWindow.xaml
     /// </summary>
-    public partial class AccountWindow : Window
+    public partial class AccountWindow
     {
 
         #region Properties
