@@ -6,7 +6,7 @@ namespace UniCade.Windows
     /// <summary>
     /// Interaction logic for LicenseEntry.xaml
     /// </summary>
-    public partial class LicenseEntry : Window
+    public partial class LicenseEntry
     {
 
         #region Constructor
@@ -17,7 +17,7 @@ namespace UniCade.Windows
         public LicenseEntry()
         {
             InitializeComponent();
-            this.ResizeMode = ResizeMode.NoResize;
+            ResizeMode = ResizeMode.NoResize;
         }
 
         #endregion

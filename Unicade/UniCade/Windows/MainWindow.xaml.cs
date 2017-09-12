@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using UniCade.Backend;
+using UniCade.Constants;
 using UniCade.Exceptions;
 using UniCade.Interfaces;
 using UniCade.Windows;
@@ -18,7 +19,7 @@ namespace UniCade
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         #region Properties
 
@@ -82,10 +83,14 @@ namespace UniCade
         /// </summary>
         public static SettingsWindow SettingsWindow;
 
+        #endregion
+
+        #region  Private Instance Variables
+
         /// <summary>
         /// The current GameInfoWindow instance
         /// </summary>
-        private static GameInfo GameInfoWindow;
+        private static GameInfo _gameInfoWindow;
 
         #endregion
 
@@ -122,7 +127,7 @@ namespace UniCade
             //Taskbar.Hide();
 
             //Initialize flags and a new class variable for GameInfo 
-            GameInfoWindow = new GameInfo();
+            _gameInfoWindow = new GameInfo();
             IsGameRunning = false;
 
             //Hook all required hotkeys
@@ -139,7 +144,7 @@ namespace UniCade
             RefreshConsoleList();
 
             //If payPerPlay setting is activated, display a notification in the main GUI
-            if (PayPerPlay.PayPerPlayEnabled == true)
+            if (PayPerPlay.PayPerPlayEnabled)
             {
                 if (PayPerPlay.CoinsRequired > 0)
                 {
@@ -154,7 +159,7 @@ namespace UniCade
             //Refresh the current gamecount and update the GUI
             //Program.RefreshTotalGameCount();
             label.Content = "Total Game Count: " + Database.GetTotalGameCount();
-            UpdateGUI();
+            UpdateGui();
         }
 
         /// <summary>
@@ -209,7 +214,7 @@ namespace UniCade
                     }
                     else if (IsInfoWindowActive)
                     {
-                        GameInfoWindow.Hide();
+                        _gameInfoWindow.Hide();
                         IsInfoWindowActive = false;
                     }
                 }
@@ -316,14 +321,7 @@ namespace UniCade
                 {
                     if (IsGameSelectionPageActive)
                     {
-                        if (IsFavoritesViewActive)
-                        {
-                            IsFavoritesViewActive = false;
-                        }
-                        else
-                        {
-                            IsFavoritesViewActive = true;
-                        }
+                        IsFavoritesViewActive = !IsFavoritesViewActive;
 
                         OpenGameSelection();
                     }
@@ -358,14 +356,7 @@ namespace UniCade
                         UnhookKeys();
                         SettingsWindow.ShowDialog();
                     }
-                    if (LicenseEngine.IsLicenseValid)
-                    {
-                        label3.Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        label3.Visibility = Visibility.Visible;
-                    }
+                    label3.Visibility = LicenseEngine.IsLicenseValid ? Visibility.Hidden : Visibility.Visible;
                 }
             }
 
@@ -374,19 +365,15 @@ namespace UniCade
             {
                 if (e.KeyCode == Keys.F)
                 {
-                    GameInfoWindow.ExpandImage1();
+                    _gameInfoWindow.ExpandImage1();
                 }
                 else if (e.KeyCode == Keys.B)
                 {
-                    GameInfoWindow.ExpandImage2();
+                    _gameInfoWindow.ExpandImage2();
                 }
                 else if (e.KeyCode == Keys.S)
                 {
-                    GameInfoWindow.ExpandImage3();
-                }
-                else if (e.KeyCode == Keys.D4)
-                {
-                    GameInfoWindow.ExpandImage4();
+                    _gameInfoWindow.ExpandImage3();
                 }
             }
 
@@ -395,7 +382,7 @@ namespace UniCade
             {
                 if (IsInfoWindowActive)
                 {
-                    GameInfoWindow.Hide();
+                    _gameInfoWindow.Hide();
                     IsInfoWindowActive = false;
                 }
                 else
@@ -417,7 +404,7 @@ namespace UniCade
             else if (e.KeyCode == Keys.Tab)
             {
                 PayPerPlay.CoinsRequired++;
-                if (PayPerPlay.PayPerPlayEnabled == true)
+                if (PayPerPlay.PayPerPlayEnabled)
                 {
                     if (PayPerPlay.CoinsRequired > 0)
                     {
@@ -432,7 +419,7 @@ namespace UniCade
                     ShowNotification("UniCade", "Free Play Enabled. NO COIN REQUIRED");
                 }
             }
-            UpdateGUI();
+            UpdateGui();
         }
 
         /// <summary>
@@ -449,7 +436,7 @@ namespace UniCade
                 IndexNumber = 0;
             }
 
-            UpdateGUI();
+            UpdateGui();
         }
 
         /// <summary>
@@ -466,16 +453,16 @@ namespace UniCade
                 IndexNumber = (ActiveConsoleList.Count - 1);
             }
 
-            UpdateGUI();
+            UpdateGui();
         }
 
         /// <summary>
         /// Update the info on the primary GUI
         /// </summary>
-        private void UpdateGUI()
+        private void UpdateGui()
         {
             //Update payPerPlay notifications
-            if (PayPerPlay.PayPerPlayEnabled == true)
+            if (PayPerPlay.PayPerPlayEnabled)
             {
                 if (PayPerPlay.CoinsRequired > 0)
                 {
@@ -568,7 +555,7 @@ namespace UniCade
                         else
                         {
                             //Filter the viewable games if the restrict esrb view filter is enabled
-                            if (MainWindow.DisplayEsrbWhileBrowsing == true)
+                            if (DisplayEsrbWhileBrowsing)
                             {
                                 //Display the game if it has an allowed ESRB rating
                                 if (game.EsrbRating <= Database.GetCurrentUser().AllowedEsrb)
@@ -659,8 +646,8 @@ namespace UniCade
                 if (listBox.SelectedItem.ToString().Equals(game.Title))
                 {
                     //Populate the game info text
-                    GameInfoWindow.textBlock1.Text = game.ConsoleName + " - " + game.Title;
-                    GameInfoWindow.textBlock.Text = Program.DisplayGameInfo(game);
+                    _gameInfoWindow.textBlock1.Text = game.ConsoleName + " - " + game.Title;
+                    _gameInfoWindow.textBlock.Text = Program.DisplayGameInfo(game);
 
                     //Load the box front for the current game if it exists
                     if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"))
@@ -669,7 +656,7 @@ namespace UniCade
                         bitmapImage.BeginInit();
                         bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png");
                         bitmapImage.EndInit();
-                        GameInfoWindow.image.Source = bitmapImage;
+                        _gameInfoWindow.image.Source = bitmapImage;
                     }
 
                     //Load the box back image for the current game if it exists
@@ -679,7 +666,7 @@ namespace UniCade
                         bitmapImage.BeginInit();
                         bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png");
                         bitmapImage.EndInit();
-                        GameInfoWindow.image1.Source = bitmapImage;
+                        _gameInfoWindow.image1.Source = bitmapImage;
                     }
 
                     //Load the screenshot for the current game if it exists
@@ -689,45 +676,41 @@ namespace UniCade
                         bitmapImage.BeginInit();
                         bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png");
                         bitmapImage.EndInit();
-                        GameInfoWindow.image2.Source = bitmapImage;
+                        _gameInfoWindow.image2.Source = bitmapImage;
                     }
 
                     //Load the ESRB logo for the curent rating
-                    String EsrbPath = "";
-                    if (game.EsrbRating.Equals("Everyone"))
+                    string esrbPath = "";
+                    if (game.EsrbRating.Equals(Enums.Esrb.Everyone))
                     {
-                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
+                        esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
                     }
-                    else if (game.EsrbRating.Equals("Everyone (KA)"))
+                    else if (game.EsrbRating.Equals(Enums.Esrb.Everyone10))
                     {
-                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
+                        esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png";
                     }
-                    else if (game.EsrbRating.Equals("Everyone 10+"))
+                    else if (game.EsrbRating.Equals(Enums.Esrb.Teen))
                     {
-                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png";
+                        esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png";
                     }
-                    else if (game.EsrbRating.Equals("Teen"))
+                    else if (game.EsrbRating.Equals(Enums.Esrb.Mature))
                     {
-                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png";
+                        esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png";
                     }
-                    else if (game.EsrbRating.Equals("Mature"))
+                    else if (game.EsrbRating.Equals(Enums.Esrb.Ao))
                     {
-                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png";
-                    }
-                    else if (game.EsrbRating.Equals("Adults Only (Ao)"))
-                    {
-                        EsrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png";
+                        esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png";
                     }
 
-                    if (EsrbPath.Length > 2)
+                    if (esrbPath.Length > 2)
                     {
-                        GameInfoWindow.DisplayEsrb(EsrbPath);
+                        _gameInfoWindow.DisplayEsrb(esrbPath);
                     }
                 }
             }
 
             //Display the game info
-            GameInfoWindow.Show();
+            _gameInfoWindow.Show();
         }
 
         #region Helper Methods

@@ -41,7 +41,7 @@ namespace UniCade.Windows
         /// <summary>
         /// Display the icon for the current ESRB rating
         /// </summary>
-        public void DisplayEsrb(String esrbRating)
+        public void DisplayEsrb(string esrbRating)
         {
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();

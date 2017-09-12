@@ -5,7 +5,7 @@ using System.Windows.Threading;
 /// <summary>
 /// Interaction logic for Notification.xaml
 /// </summary>
-public partial class NotificationWindow : Window
+public partial class NotificationWindow
 {
     #region Constructors
 
