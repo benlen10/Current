@@ -124,7 +124,7 @@ namespace UniCade.Backend
         /// <summary>
         /// Load preferences from the specified file path
         /// </summary>
-        public static bool LoadPreferences(String path)
+        public static bool LoadPreferences(string path)
         {
             //Delete any preexisting preference files 
             if (!File.Exists(path))
