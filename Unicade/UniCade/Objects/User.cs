@@ -176,7 +176,7 @@ namespace UniCade.Objects
         /// <summary>
         /// specifies if this user is teh default unicade user
         /// </summary>
-        private bool _userExists;
+        private readonly bool _userExists;
 
         #endregion
 

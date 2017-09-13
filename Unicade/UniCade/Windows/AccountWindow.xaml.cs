@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using UniCade.Backend;
+using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Network;
 using UniCade.Objects;
@@ -12,21 +13,21 @@ namespace UniCade.Windows
     public partial class AccountWindow
     {
 
-        #region Properties
+        #region Private Instance VAriables
 
         /// <summary>
         /// Integer value that represents the current account type (local or cloud)
         /// </summary>
-        int AccountType;
+        private readonly Enums.UserType _userType;
 
         #endregion
 
         /// <summary>
         /// Public constructor for the AccountWindow class
         /// </summary>
-        public AccountWindow(int accountType)
+        public AccountWindow(Enums.UserType userType)
         {
-            AccountType = accountType;
+            _userType = userType;
             InitializeComponent();
         }
 
@@ -44,7 +45,7 @@ namespace UniCade.Windows
         private void AccountWindow_ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             //Check for invalid input
-            if ((Textbox_Username.Text == null) || (Textbox_Email.Text == null) || (Textbox_Email.Text == null) || (Textbox_UserInfo.Text == null))
+            if ((Textbox_Username.Text == null) || Textbox_Email.Text == null || (Textbox_UserInfo.Text == null))
             {
                 MessageBox.Show("Fields cannot be empty");
                 return;
@@ -61,14 +62,14 @@ namespace UniCade.Windows
             }
 
             //Create a new SQL user if the account type is UniCade Cloud
-            if (AccountType == 0)
+            if (_userType == 0)
             {
                 SqlClient.CreateUser(Textbox_Username.Text, Textbox_Email.Text, Textbox_Email.Text, Textbox_UserInfo.Text, "Null", "NullProfPath");
             }
             else
             {
                 //Create a new local user if the account type standard Unicade
-                IUser user = new User(Textbox_Username.Text, Textbox_Password.Text, 0, Textbox_Email.Text, 0, Textbox_UserInfo.Text, Constants.Enums.Esrb.Null, "null");
+                IUser user = new User(Textbox_Username.Text, Textbox_Password.Text, 0, Textbox_Email.Text, 0, Textbox_UserInfo.Text, Enums.Esrb.Null, "null");
                 Database.AddUser(user);
                 Database.SetCurrentUser(user);
             }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Resources;
@@ -134,7 +135,7 @@ namespace UniCade.Network
             //Check for bad input
             if (game == null)
             {
-                MessageBox.Show("Invalid game");
+                MessageBox.Show(Strings.InvalidGame);
                 return false;
             }
 
@@ -247,7 +248,7 @@ namespace UniCade.Network
                     {
                         //Remove invalid characters from the description
                         string description = html.Substring((tempCharIndex + 16), tempCharIndex2 - (tempCharIndex + 16));
-                        description = RemoveInvalidChars(description);
+                        description = Utilties.RemoveInvalidChars(description);
 
                         //Trim the description if it exceeds the max length
                         if (description.Length > ConstValues.MAX_GAME_DESCRIPTION_LENGTH)
@@ -344,7 +345,7 @@ namespace UniCade.Network
                 if (tempCharIndex > 0)
                 {
                     //Locate the end of the Rating tag
-                    int tempCharIndex2 = html.IndexOf("</td>", tempCharIndex + 26);
+                    int tempCharIndex2 = html.IndexOf("</td>", tempCharIndex + 26, StringComparison.Ordinal);
                     if (tempCharIndex2 > 0)
                     {
                         game.EsrbDescriptors = html.Substring((tempCharIndex + 26), tempCharIndex2 - (tempCharIndex + 26));
@@ -370,19 +371,6 @@ namespace UniCade.Network
             }
             return true;
             }
-
-        #endregion
-
-        #region Helper Methods
-
-        /// <summary>
-        /// Remove and replace all invalid chars from the input string
-        /// </summary>
-        private static string RemoveInvalidChars(string str)
-        {
-            str = Regex.Replace(str, @"\t|\n|\r", " ");
-            return str.Replace("\"", "");
-        }
 
         #endregion
     }

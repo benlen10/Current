@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +17,7 @@ namespace UniCade.Windows
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml
     /// </summary>
+    [SuppressMessage("ReSharper", "PossibleInvalidOperationException")]
     public partial class SettingsWindow
     {
 
@@ -177,14 +179,7 @@ namespace UniCade.Windows
 
             //Populate user license info
             AboutTab_Label_LicensedTo.Content = "Licensed to: " + LicenseEngine.UserLicenseName;
-            if (LicenseEngine.IsLicenseValid)
-            {
-                AboutTab_Label_Edition.Content = "License Status: Full Version";
-            }
-            else
-            {
-                AboutTab_Label_Edition.Content = "License Status: Invalid";
-            }
+            AboutTab_Label_Edition.Content = LicenseEngine.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
             AboutTab_Label_LicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
         }
 
@@ -679,7 +674,7 @@ namespace UniCade.Windows
         private void EmulatorsTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow.IsSettingsWindowActive = false;
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -811,7 +806,7 @@ namespace UniCade.Windows
         {
             MainWindow.IsSettingsWindowActive = false;
             FileOps.SavePreferences(Program.PreferencesPath);
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -852,7 +847,7 @@ namespace UniCade.Windows
         private void UsersTab_NewUserButton_Click(object sender, EventArgs e)
         {
             //Create a new unicade account and display the dialog
-            AccountWindow uc = new AccountWindow(1);
+            AccountWindow uc = new AccountWindow(Enums.UserType.LocalAccount);
             uc.ShowDialog();
 
             //Save the user info to the preferences file
@@ -911,15 +906,7 @@ namespace UniCade.Windows
             }
 
 
-            if (UsersTab_Dropdown_AllowedESRB.SelectedItem == null)
-            {
-                Database.GetCurrentUser().AllowedEsrb = Enums.Esrb.Null;
-            }
-            else
-            {
-                Database.GetCurrentUser().AllowedEsrb =
-                    Enums.ConvertStringToEsrbEnum(UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString());
-            }
+            Database.GetCurrentUser().AllowedEsrb = UsersTab_Dropdown_AllowedESRB.SelectedItem == null ? Enums.Esrb.Null : Enums.ConvertStringToEsrbEnum(UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString());
 
             
 
@@ -982,15 +969,7 @@ namespace UniCade.Windows
 
             try
             {
-                if (GlobalTab_Dropdown_AllowedESRB.SelectedItem == null)
-                {
-                    Program.RestrictGlobalEsrb = Enums.Esrb.Null;
-                }
-                else
-                {
-                    Program.RestrictGlobalEsrb =
-                        Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
-                }
+                Program.RestrictGlobalEsrb = GlobalTab_Dropdown_AllowedESRB.SelectedItem == null ? Enums.Esrb.Null : Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
                 Program.EnforceFileExtensions = GlobalTab_Checkbox_EnforceFileExtension.IsChecked.Value;
             }
             catch (ArgumentException exception)
@@ -1035,7 +1014,7 @@ namespace UniCade.Windows
         private void GlobalSettingsTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow.IsSettingsWindowActive = false;
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -1056,7 +1035,7 @@ namespace UniCade.Windows
         private void WebTab_Button_Close_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.IsSettingsWindowActive = false;
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -1200,11 +1179,11 @@ namespace UniCade.Windows
         }
 
         /// <summary>
-        /// TODO
+        /// 
         /// </summary>
         private void CloudTab_Button_EndSession_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Implement
+
         }
 
         #endregion
@@ -1223,19 +1202,12 @@ namespace UniCade.Windows
             AboutTab_Label_LicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
 
             //Set the license text depending on if the key is valid
-            if (LicenseEngine.IsLicenseValid)
-            {
-                AboutTab_Label_Edition.Content = "License Status: Full Version";
-            }
-            else
-            {
-                AboutTab_Label_Edition.Content = "License Status: Invalid";
-            }
+            AboutTab_Label_Edition.Content = LicenseEngine.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
         }
 
         private void LaunchCmdInterface_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
             UniCadeCmd.PrepAndRun();
         }
 

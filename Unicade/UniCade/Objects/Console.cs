@@ -35,8 +35,8 @@ namespace UniCade.Objects
                     }
                     if (value.Length > ConstValues.MAX_CONSOLE_NAME_LENGTH)
                     {
-                        throw new ArgumentException(String.Format("Console name cannot exceed {0} chars",
-                            ConstValues.MAX_CONSOLE_NAME_LENGTH));
+                        throw new ArgumentException(
+                            $"Console name cannot exceed {ConstValues.MAX_CONSOLE_NAME_LENGTH} chars");
                     }
                 }
                 _consoleName = value;
@@ -93,7 +93,7 @@ namespace UniCade.Objects
                 }
                 if (value.Length > ConstValues.MAX_PATH_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Emulator path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
+                    throw new ArgumentException($"Emulator path cannot exceed {ConstValues.MAX_PATH_LENGTH} chars");
                 }
                 _emulatorPath = value;
             }
@@ -121,7 +121,7 @@ namespace UniCade.Objects
                 }
                 if (value.Length > ConstValues.MAX_PATH_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("Preferences path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
+                    throw new ArgumentException($"Preferences path cannot exceed {ConstValues.MAX_PATH_LENGTH} chars");
                 }
                 _preferencesPath = value;
             }
@@ -153,7 +153,7 @@ namespace UniCade.Objects
                 }
                 if (value.Length > ConstValues.MAX_PATH_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("ROM path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
+                    throw new ArgumentException($"ROM path cannot exceed {ConstValues.MAX_PATH_LENGTH} chars");
                 }
                 _romPath = value;
             }
@@ -185,7 +185,8 @@ namespace UniCade.Objects
                 }
                 if (value.Length > ConstValues.MAX_FILE_EXT_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("ROM extension length cannot exceed {0} chars", ConstValues.MAX_FILE_EXT_LENGTH));
+                    throw new ArgumentException(
+                        $"ROM extension length cannot exceed {ConstValues.MAX_FILE_EXT_LENGTH} chars");
                 }
                 _romExtensions = value;
             }
@@ -209,7 +210,8 @@ namespace UniCade.Objects
                 }
                 if (value.Length > ConstValues.MAX_CONSOLE_INFO_LENGTH)
                 {
-                    throw new ArgumentException(String.Format("ROM extension length cannot exceed {0} chars", ConstValues.MAX_CONSOLE_INFO_LENGTH));
+                    throw new ArgumentException(
+                        $"ROM extension length cannot exceed {ConstValues.MAX_CONSOLE_INFO_LENGTH} chars");
                 }
                 _consoleInfo = value;
             }
@@ -287,7 +289,7 @@ namespace UniCade.Objects
         /// <summary>
         /// A list of game objects for the current console instance
         /// </summary>
-        private List<IGame> _gameList;
+        private readonly List<IGame> _gameList;
 
         /// <summary>
         /// The current game count for the console

@@ -1,4 +1,6 @@
-﻿using UniCade.Constants;
+﻿using System;
+using System.Text.RegularExpressions;
+using UniCade.Constants;
 
 namespace UniCade.Backend
 {
@@ -11,7 +13,7 @@ namespace UniCade.Backend
         {
             foreach (var c in str)
             {
-                if (!char.IsDigit(c))
+                if (!Char.IsDigit(c))
                 {
                     return false;
                 }
@@ -38,6 +40,15 @@ namespace UniCade.Backend
         public static bool CheckForInvalidSplitChars(string str)
         {
             return (str.IndexOfAny(new char[] {'|'}) != -1);
+        }
+
+        /// <summary>
+        /// Remove and replace all invalid chars from the input string
+        /// </summary>
+        internal static string RemoveInvalidChars(string str)
+        {
+            str = Regex.Replace(str, @"\t|\n|\r", " ");
+            return str.Replace("\"", "");
         }
     }
 }

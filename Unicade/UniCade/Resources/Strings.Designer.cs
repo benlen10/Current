@@ -68,5 +68,14 @@ namespace UniCade.Resources {
                 return ResourceManager.GetString("ConnectionError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid game.
+        /// </summary>
+        internal static string InvalidGame {
+            get {
+                return ResourceManager.GetString("InvalidGame", resourceCulture);
+            }
+        }
     }
 }
