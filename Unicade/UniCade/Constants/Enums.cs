@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UniCade.Constants
 {
@@ -42,13 +38,14 @@ namespace UniCade.Constants
 
         #endregion
 
-            #region Helper Methods
+        #region Helper Methods
 
-            /// <summary>
-            /// Return the StringValue atribute from the enum
-            /// </summary>
-            /// <param name="enumValue">The current enum</param>
-            /// <returns>the string value for the current enum</returns>
+        /// <summary>
+        /// Return the StringValue atribute from the enum
+        /// </summary>
+        /// <param name="enumValue">The current enum</param>
+        /// <returns>the string value for the current enum</returns>
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public static string GetStringValue(this Enum enumValue)
         {
             //Fetch the type and field info
@@ -60,11 +57,7 @@ namespace UniCade.Constants
                 typeof(StringValueAttribute), false) as StringValueAttribute[];
 
             //Return the StringValue attribute
-            if (attributes.Length > 0)
-            {
-                return attributes[0].StringValue;
-            }
-                return fieldInfo.Name;
+            return attributes.Length > 0 ? attributes[0].StringValue : fieldInfo.Name;
         }
 
         /// <summary>

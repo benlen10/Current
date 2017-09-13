@@ -639,7 +639,7 @@ namespace UniCade.Backend
             }
 
             //Verify the current user license and set flag
-            if (LicenseEngine.ValidateSHA256(LicenseEngine.UserLicenseName + LicenseEngine.HashKey, LicenseEngine.UserLicenseKey))
+            if (LicenseEngine.ValidateSha256(LicenseEngine.UserLicenseName + LicenseEngine.HashKey, LicenseEngine.UserLicenseKey))
             {
                 LicenseEngine.IsLicenseValid = true;
             }

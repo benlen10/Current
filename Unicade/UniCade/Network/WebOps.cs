@@ -1,9 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using UniCade.Constants;
 using UniCade.Interfaces;
+using UniCade.Resources;
 
 namespace UniCade.Network
 {
@@ -81,11 +83,6 @@ namespace UniCade.Network
         /// </summary>
         public static string CurrentGameName;
 
-        /// <summary>
-        /// Specifies if the max number of characters allowed for a game description
-        /// </summary>
-        public const int MAXDESCRIPTIONLENGTH = 5000;
-
         #endregion
 
         #region Public Methods
@@ -154,14 +151,14 @@ namespace UniCade.Network
             }
             catch
             {
-                MessageBox.Show("Connection Error");
+                MessageBox.Show(Strings.ConnectionError);
                 return false;
             }
 
             //Parse ESRB rating from Mobygames
             if (ParseEsrbRating)
             {
-                int indexA = html.IndexOf("ESRB");
+                int indexA = html.IndexOf("ESRB", StringComparison.Ordinal);
                 if (indexA < 0)
                 {
                     indexA = 0;
@@ -199,18 +196,18 @@ namespace UniCade.Network
             if (ParseReleaseDate)
             {
                 //Locate the "release-info" tag within the HTML text
-                int tempCharIndex = html.IndexOf("release-info");
+                int tempCharIndex = html.IndexOf("release-info", StringComparison.Ordinal);
 
                 //If the parsed index is valid, set the game release date to the value of the parsed text
                 if (tempCharIndex > 0)
                 {
-                    int indexB = html.IndexOf("release-info", (tempCharIndex + 20));
+                    int indexB = html.IndexOf("release-info", (tempCharIndex + 20), StringComparison.Ordinal);
                     game.ReleaseDate = html.Substring((indexB + 14), 4);
                 }
 
                 //Parse Critic Score
                 tempCharIndex = 0;
-                tempCharIndex = html.IndexOf("scoreHi");
+                tempCharIndex = html.IndexOf("scoreHi", StringComparison.Ordinal);
 
                 //If the parsed index is valid, set the critic score to the value of the parsed text
                 if (tempCharIndex > 0)
@@ -223,8 +220,7 @@ namespace UniCade.Network
             //Parse Publisher
             if (ParsePublisher)
             {
-                int tempCharIndex = 0;
-                tempCharIndex = html.IndexOf("/company/");
+                var tempCharIndex = html.IndexOf("/company/", StringComparison.Ordinal);
 
                 //If the parsed index is valid, set the game company to the value of the parsed text
                 if (tempCharIndex > 0)
@@ -238,13 +234,13 @@ namespace UniCade.Network
             if (ParseDescription)
             {
                 int tempCharIndex = 0;
-                tempCharIndex = html.IndexOf("Description<");
+                tempCharIndex = html.IndexOf("Description<", StringComparison.Ordinal);
 
                 //Locate the beginning of the game description
                 if (tempCharIndex > 0)
                 {
                     //Locate the end of the game description text
-                    int tempCharIndex2 = html.IndexOf("<div class", tempCharIndex + 15);
+                    int tempCharIndex2 = html.IndexOf("<div class", tempCharIndex + 15, StringComparison.Ordinal);
 
                     //If the parsed index is valid, set the game description to the value of the parsed text
                     if (tempCharIndex2 > 0)
@@ -254,9 +250,9 @@ namespace UniCade.Network
                         description = RemoveInvalidChars(description);
 
                         //Trim the description if it exceeds the max length
-                        if (description.Length > MAXDESCRIPTIONLENGTH)
+                        if (description.Length > ConstValues.MAX_GAME_DESCRIPTION_LENGTH)
                         {
-                            description = description.Substring(0, MAXDESCRIPTIONLENGTH);
+                            description = description.Substring(0, ConstValues.MAX_GAME_DESCRIPTION_LENGTH);
                         }
 
                         //Set the game description to the formatted string
@@ -334,7 +330,7 @@ namespace UniCade.Network
             }
             catch
             {
-                MessageBox.Show("Connection Error");
+                MessageBox.Show(Strings.ConnectionError);
                 return false;
             }
 
@@ -342,7 +338,7 @@ namespace UniCade.Network
             if (ParseEsrbDescriptors)
             {
                 int tempCharIndex = 0;
-                tempCharIndex = html.IndexOf("ESRB Descriptors:");
+                tempCharIndex = html.IndexOf("ESRB Descriptors:", StringComparison.Ordinal);
 
                 //If the parsed index is valid, set the ESRB rating to the value of the parsed text
                 if (tempCharIndex > 0)
@@ -360,12 +356,12 @@ namespace UniCade.Network
             if (ParsePlayerCount)
             {       
                 int tempCharIndex = 0;
-                tempCharIndex = html.IndexOf("Players");
+                tempCharIndex = html.IndexOf("Players", StringComparison.Ordinal);
 
                 //If the parsed index is valid, set the player count to the value of the parsed text
                 if (tempCharIndex > 0)
                 {
-                    int tempCharIndex2 = html.IndexOf("<", tempCharIndex + 17);
+                    int tempCharIndex2 = html.IndexOf("<", tempCharIndex + 17, StringComparison.Ordinal);
                     if (tempCharIndex2 > 0)
                     {
                         game.SupportedPlayerCount = html.Substring((tempCharIndex + 17), tempCharIndex2 - (tempCharIndex + 17));
