@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -7,6 +8,7 @@ using UniCade.Constants;
 using UniCade.Exceptions;
 using UniCade.Interfaces;
 using UniCade.Objects;
+using UniCade.Resources;
 using Console = UniCade.Objects.Console;
 
 namespace UniCade.Backend
@@ -38,12 +40,11 @@ namespace UniCade.Backend
             int consoleCount = 0;
             IConsole console = new Console("newConsole");
             char[] seperatorChar = { '|' };
-            string[] spaceChar = { " " };
             StreamReader file = new StreamReader(path);
 
             while ((rawLine = file.ReadLine()) != null)
             {
-                spaceChar = rawLine.Split(seperatorChar);
+                var spaceChar = rawLine.Split(seperatorChar);
                 if (rawLine.Substring(0, 5).Contains("***"))
                 {
                     if (consoleCount > 0)
@@ -65,7 +66,7 @@ namespace UniCade.Backend
 
             if (consoleCount < 1)
             {
-                MessageBox.Show("Fatal Error: Database File is corrupt");
+                MessageBox.Show(Strings.DatabaseCorrupt);
                 return false;
             }
             file.Close();
@@ -91,14 +92,16 @@ namespace UniCade.Backend
                     foreach (string consoleName in consoleList)
                     {
                         IConsole console = Database.GetConsole(consoleName);
-                        streamWriter.WriteLine(string.Format("***{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|", console.ConsoleName, console.EmulatorPath, console.RomPath, console.PreferencesPath, console.RomExtension, console.GetGameCount(), "Console Info", console.LaunchParams, console.ReleaseDate));
+                        streamWriter.WriteLine(
+                            $"***{console.ConsoleName}|{console.EmulatorPath}|{console.RomPath}|{console.PreferencesPath}|{console.RomExtension}|{console.GetGameCount()}|Console Info|{console.LaunchParams}|{console.ReleaseDate}|");
                         if (console.GetGameCount() > 0)
                         {
                             var gameList = console.GetGameList();
                             foreach (string gameTitle in gameList)
                             {
                                 IGame game = console.GetGame(gameTitle);
-                                streamWriter.WriteLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}|{15}|{16}", game.FileName, game.ConsoleName, game.GetLaunchCount(), game.ReleaseDate, game.PublisherName, game.DeveloperName, game.UserReviewScore, game.CriticReviewScore, game.SupportedPlayerCount, "Trivia", game.EsrbRating, game.EsrbDescriptors, game.EsrbSummary, game.Description, game.Genres, game.Tags, game.Favorite));
+                                streamWriter.WriteLine(
+                                    $"{game.FileName}|{game.ConsoleName}|{game.GetLaunchCount()}|{game.ReleaseDate}|{game.PublisherName}|{game.DeveloperName}|{game.UserReviewScore}|{game.CriticReviewScore}|{game.SupportedPlayerCount}|Trivia|{game.EsrbRating}|{game.EsrbDescriptors}|{game.EsrbSummary}|{game.Description}|{game.Genres}|{game.Tags}|{game.Favorite}");
                             }
                         }
                     }
@@ -106,174 +109,132 @@ namespace UniCade.Backend
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error saving database\n" + Program.DatabasePath + "\n" + e.Message);
-                return;
+                MessageBox.Show(Strings.ErrorSavingDatabase + Program.DatabasePath + Strings.NewLine + e.Message);
             }
         }
 
         /// <summary>
         /// Load preferences from the specified file path
         /// </summary>
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public static bool LoadPreferences(string path)
         {
-            //Delete any preexisting preference files 
-            if (!File.Exists(path))
+            try
+            {
+                //Delete any preexisting preference files 
+                if (!File.Exists(path))
+                {
+                    return false;
+                }
+
+                char[] sep = {'|'};
+                StreamReader file = new StreamReader(path);
+                string line = file.ReadLine();
+
+                var tokenString = line.Split(sep);
+                string currentUser = tokenString[1];
+
+                line = file.ReadLine();
+                tokenString = line.Split(sep);
+                Program.DatabasePath = tokenString[1];
+
+                file.ReadLine();
+                //Default emulator path (Depricated)
+                //tokenString = line.Split(sep);
+                //tokenString[1];
+
+                line = file.ReadLine();
+                tokenString = line.Split(sep);
+                Program.MediaPath = tokenString[1];
+
+                line = file.ReadLine();
+                tokenString = line.Split(sep);
+                Program.ShowSplashScreen = tokenString[1].Contains("1");
+
+                line = file.ReadLine();
+                tokenString = line.Split(sep);
+                Program.RescanOnStartup = (tokenString[1].Contains("1"));
+
+                line = file.ReadLine();
+                tokenString = line.Split(sep);
+                Program.RestrictGlobalEsrb = Enums.ConvertStringToEsrbEnum(tokenString[1]);
+
+                file.ReadLine();
+                tokenString = line.Split(sep);
+                Program.RequireLogin = tokenString[1].Contains("1");
+
+                line = file.ReadLine();
+                tokenString = line.Split(sep);
+                MainWindow.DisplayEsrbWhileBrowsing = tokenString[1].Contains("1");
+
+                line = file.ReadLine();
+                tokenString = line.Split(sep);
+                Program.ShowLoadingScreen = tokenString[1].Contains("1");
+
+                line = file.ReadLine();
+                tokenString = line.Split(sep);
+                PayPerPlay.PayPerPlayEnabled = tokenString[1].Contains("1");
+
+                Program.LaunchOptions = tokenString[2].Contains("1") ? 1 : 0;
+
+                //Parse coin count
+                PayPerPlay.CoinsRequired = Int32.Parse(tokenString[3]);
+                PayPerPlay.Playtime = Int32.Parse(tokenString[4]);
+
+                //Parse user license key
+                line = file.ReadLine();
+                tokenString = line.Split(sep);
+                LicenseEngine.UserLicenseName = tokenString[1];
+                LicenseEngine.UserLicenseKey = tokenString[2];
+
+                //Skip ***Users*** line
+                file.ReadLine();
+
+                //Parse user data
+                while ((line = file.ReadLine()) != null)
+                {
+                    tokenString = line.Split(sep);
+                    IUser user = new User(tokenString[0], tokenString[1], Int32.Parse(tokenString[2]), tokenString[3],
+                        Int32.Parse(tokenString[4]), tokenString[5], Enums.ConvertStringToEsrbEnum(tokenString[6]),
+                        "null");
+                    if (tokenString[6].Length > 0)
+                    {
+                        string[] rawString = tokenString[7].Split('#');
+                        var string1 = "";
+                        int iterator = 1;
+
+                        foreach (string s in rawString)
+                        {
+                            if ((iterator % 2 == 0) && (iterator > 1))
+                            {
+                                user.FavoritesList.Add(new Game(string1, s));
+
+                            }
+                            string1 = s + ".zip";
+                            iterator++;
+                        }
+                    }
+                    if (user.Username != "UniCade")
+                    {
+                        Database.AddUser(user);
+                    }
+                }
+                var userList = Database.GetUserList();
+                foreach (string username in userList)
+                {
+                    IUser user = Database.GetUser(username);
+                    if (user.Username.Equals(currentUser))
+                    {
+                        Database.SetCurrentUser(user);
+                    }
+                }
+                file.Close();
+                return true;
+            }
+            catch (NullReferenceException)
             {
                 return false;
             }
-
-            string[] tmp = { "tmp" };
-            char[] sep = { '|' };
-            string[] tokenString = { " " };
-            StreamReader file = new StreamReader(path);
-            string line = file.ReadLine();
-
-            tokenString = line.Split(sep);
-            String currentUser = tokenString[1];
-
-            line = file.ReadLine();
-            tokenString = line.Split(sep);
-            Program.DatabasePath = tokenString[1];
-
-            line = file.ReadLine();
-            //Default emulator path (Depricated)
-            //tokenString = line.Split(sep);
-            //tokenString[1];
-
-            line = file.ReadLine();
-            tokenString = line.Split(sep);
-            Program.MediaPath = tokenString[1];
-
-            line = file.ReadLine();
-            tokenString = line.Split(sep);
-            if (tokenString[1].Contains("1"))
-            {
-                Program.ShowSplashScreen = true;
-            }
-            else
-            {
-                Program.ShowSplashScreen = false;
-            }
-
-            line = file.ReadLine();
-            tokenString = line.Split(sep);
-            if ((tokenString[1].Contains("1")))
-            {
-                Program.RescanOnStartup = true;
-            }
-            else
-            {
-                Program.RescanOnStartup = false;
-            }
-
-            line = file.ReadLine();
-            tokenString = line.Split(sep);
-            Program.RestrictGlobalEsrb = Enums.ConvertStringToEsrbEnum(tokenString[1]);
-
-            file.ReadLine();
-            tokenString = line.Split(sep);
-            if (tokenString[1].Contains("1"))
-            {
-                Program.RequireLogin = true;
-            }
-            else
-            {
-                Program.RequireLogin = false;
-            }
-
-            line = file.ReadLine();
-            tokenString = line.Split(sep);
-            if (tokenString[1].Contains("1"))
-            {
-                MainWindow.DisplayEsrbWhileBrowsing = true;
-            }
-            else
-            {
-                MainWindow.DisplayEsrbWhileBrowsing = true;
-            }
-
-            line = file.ReadLine();
-            tokenString = line.Split(sep);
-            if (tokenString[1].Contains("1"))
-            {
-                Program.ShowLoadingScreen = true;
-            }
-            else
-            {
-                Program.ShowLoadingScreen = true;
-            }
-
-            line = file.ReadLine();
-            tokenString = line.Split(sep);
-            if (tokenString[1].Contains("1"))
-            {
-                PayPerPlay.PayPerPlayEnabled = true;
-            }
-            else
-            {
-                PayPerPlay.PayPerPlayEnabled = false;
-            }
-
-            if (tokenString[2].Contains("1"))
-            {
-                Program.LaunchOptions = 1;
-            }
-            else
-            {
-                Program.LaunchOptions = 0;
-            }
-
-            //Parse coin count
-            PayPerPlay.CoinsRequired = Int32.Parse(tokenString[3]);
-            PayPerPlay.Playtime = Int32.Parse(tokenString[4]);
-
-            //Parse user license key
-            line = file.ReadLine();
-            tokenString = line.Split(sep);
-            LicenseEngine.UserLicenseName = tokenString[1];
-            LicenseEngine.UserLicenseKey = tokenString[2];
-
-            //Skip ***Users*** line
-            file.ReadLine();
-
-            //Parse user data
-            while ((line = file.ReadLine()) != null)
-            {
-                tokenString = line.Split(sep);
-                IUser user = new User(tokenString[0], tokenString[1], Int32.Parse(tokenString[2]), tokenString[3], Int32.Parse(tokenString[4]), tokenString[5], Enums.ConvertStringToEsrbEnum(tokenString[6]), "null");
-                if (tokenString[6].Length > 0)
-                {
-                    string[] rawString = tokenString[7].Split('#');
-                    String string1 = "";
-                    int iterator = 1;
-
-                    foreach (string s in rawString)
-                    {
-                        if ((iterator % 2 == 0) && (iterator > 1))
-                        {
-                            user.FavoritesList.Add(new Game(string1, s));
-
-                        }
-                        string1 = s + ".zip";
-                        iterator++;
-                    }
-                }
-                if (user.Username != "UniCade")
-                {
-                    Database.AddUser(user);
-                }
-            }
-            var userList = Database.GetUserList();
-            foreach (string username in userList)
-            {
-                IUser user = Database.GetUser(username);
-                if (user.Username.Equals(currentUser))
-                {
-                    Database.SetCurrentUser(user);
-                }
-            }
-            file.Close();
-            return true;
         }
 
         /// <summary>
@@ -345,7 +306,7 @@ namespace UniCade.Backend
             }
             catch
             {
-                MessageBox.Show("Directory Not Found: " + console.RomPath);
+                MessageBox.Show(Strings.DirectoryNotFound + console.RomPath);
                 return false;
             }
 
@@ -368,7 +329,6 @@ namespace UniCade.Backend
                     console.RemoveGame(gameTitle);
                 }
             }
-
             return true;
         }
 
@@ -379,7 +339,7 @@ namespace UniCade.Backend
         {
             string line;
             char[] sep = { '|' };
-            string[] r = { " " };
+            string[] r;
             StreamReader file = new StreamReader(@"C:\UniCade\ConsoleList.txt");
             while ((line = file.ReadLine()) != null)
             {
@@ -414,7 +374,7 @@ namespace UniCade.Backend
                 }
             }
 
-            if ((PayPerPlay.PayPerPlayEnabled == true) && (PayPerPlay.CoinsRequired > 0))
+            if (PayPerPlay.PayPerPlayEnabled && (PayPerPlay.CoinsRequired > 0))
             {
                 if (PayPerPlay.CurrentCoins < PayPerPlay.CoinsRequired)
                 {
@@ -431,7 +391,7 @@ namespace UniCade.Backend
             {
                 throw new LaunchException(("ROM does not exist. Launch Failed"));
             }
-            string args = "";
+            string args;
             if (console.ConsoleName.Equals("MAME"))
             {
                 args = console.LaunchParams.Replace("%file", game.Title);
@@ -461,10 +421,10 @@ namespace UniCade.Backend
             }
 
             Program.CurrentProcess = new Process { EnableRaisingEvents = true };
-            Program.CurrentProcess.Exited += new EventHandler(ProcessExited);
+            Program.CurrentProcess.Exited += ProcessExited;
 
             //Only decrement coin count on a sucuessful launch
-            if ((PayPerPlay.PayPerPlayEnabled == true) && (PayPerPlay.CoinsRequired > 0))
+            if (PayPerPlay.PayPerPlayEnabled && (PayPerPlay.CoinsRequired > 0))
             {
                 PayPerPlay.DecrementCoins();
             }
@@ -480,7 +440,7 @@ namespace UniCade.Backend
         /// <summary>
         /// Set instance variables to false after the current game process has exited
         /// </summary>
-        private static void ProcessExited(object sender, System.EventArgs e)
+        private static void ProcessExited(object sender, EventArgs e)
         {
             MainWindow.IsGameRunning = false;
             Program.IsProcessActive = false;
@@ -500,7 +460,7 @@ namespace UniCade.Backend
                 MainWindow.KeyboardHook.HookKeys();
                 return;
             }
-            else if (Program.CurrentProcess.HasExited)
+            if (Program.CurrentProcess.HasExited)
             {
                 return;
             }
@@ -545,53 +505,53 @@ namespace UniCade.Backend
         {
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media"))
             {
-                MessageBox.Show("Media directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                MessageBox.Show(Strings.MediaDirectoryCorrupt);
                 return false;
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles"))
             {
-                MessageBox.Show("Media (Consoles) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
             }
             if (Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Media\Consoles").Length < 4)
             {
-                MessageBox.Show("Media (Consoles) directory is corrupt. Please reinstall or download UniCade Media Package to the current working directory");
+                MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
             }
             if (Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos").Length < 4)
             {
-                MessageBox.Show("Media (Console Logos) directory is corrupt. Please reinstall or download UniCade Media Package to the current working directory");
+                MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos"))
             {
-                MessageBox.Show("Media (Console Logos) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Games"))
             {
-                MessageBox.Show("Media (Games) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                MessageBox.Show(Strings.MediaDirectoryCorrupt_Games);
                 return false;
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds"))
             {
-                MessageBox.Show("Media (Backgrounds) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                MessageBox.Show(Strings.MediaDirectoryCorrupt_Backgrounds);
                 return false;
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb"))
             {
-                MessageBox.Show("Media (ESRB) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory");
+                MessageBox.Show(Strings.MediaDirectoryCorrupt_Esrb);
                 return false;
             }
             if (!File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\Interface Background.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Marquee.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Icon.ico"))
             {
-                MessageBox.Show("Media (Backgrounds) directory is corrupt. Please reinstall or download UniCade Media Package to the current working directory");
+                MessageBox.Show(Strings.MediaDirectoryCorrupt_Backgrounds);
                 return false;
             }
 
             if (!File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png"))
             {
-                MessageBox.Show("Media (ESRB) directory is corrupt. Please reinstall or download UniCade Media Package to the current working directory");
+                MessageBox.Show(Strings.MediaDirectoryCorrupt_Esrb);
                 return false;
             }
             return true;
@@ -633,7 +593,7 @@ namespace UniCade.Backend
 
 
             //Verify the integrity of the local media directory and end the program if corruption is dectected  
-            if (!FileOps.VerifyMediaDirectory())
+            if (!VerifyMediaDirectory())
             {
                 return;
             }
@@ -651,11 +611,11 @@ namespace UniCade.Backend
                 ScanAllConsoles();
                 try
                 {
-                    FileOps.SaveDatabase(Program.DatabasePath);
+                    SaveDatabase(Program.DatabasePath);
                 }
                 catch
                 {
-                    MessageBox.Show("Error Saving Database\n" + Program.DatabasePath);
+                    MessageBox.Show(Strings.ErrorSavingDatabase + Program.DatabasePath);
                 }
                 ShowNotification("WARNING", "Database file not found.\n Loading defaults...");
             }
