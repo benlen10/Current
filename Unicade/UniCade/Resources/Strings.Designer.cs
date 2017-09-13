@@ -61,6 +61,33 @@ namespace UniCade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available Consoles: .
+        /// </summary>
+        internal static string AvailableConsoles {
+            get {
+                return ResourceManager.GetString("AvailableConsoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available Users.
+        /// </summary>
+        internal static string AvailableUsers {
+            get {
+                return ResourceManager.GetString("AvailableUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options: Exit: (x), Global Rescan (r):, Console Info: (i) &lt;console&gt;, Switch User (s).
+        /// </summary>
+        internal static string CmdConsoleSelectionOptions {
+            get {
+                return ResourceManager.GetString("CmdConsoleSelectionOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection Error.
         /// </summary>
         internal static string ConnectionError {
@@ -70,11 +97,222 @@ namespace UniCade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Console: .
+        /// </summary>
+        internal static string Console {
+            get {
+                return ResourceManager.GetString("Console", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Console Info: .
+        /// </summary>
+        internal static string ConsoleInfo {
+            get {
+                return ResourceManager.GetString("ConsoleInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fatal Error: Database File is corrupt.
+        /// </summary>
+        internal static string DatabaseCorrupt {
+            get {
+                return ResourceManager.GetString("DatabaseCorrupt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory Not Found: .
+        /// </summary>
+        internal static string DirectoryNotFound {
+            get {
+                return ResourceManager.GetString("DirectoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emulator Path: .
+        /// </summary>
+        internal static string EmulatorPath {
+            get {
+                return ResourceManager.GetString("EmulatorPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Saving Database
+        ///.
+        /// </summary>
+        internal static string ErrorSavingDatabase {
+            get {
+                return ResourceManager.GetString("ErrorSavingDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid game.
         /// </summary>
         internal static string InvalidGame {
             get {
                 return ResourceManager.GetString("InvalidGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch Param: .
+        /// </summary>
+        internal static string LaunchParam {
+            get {
+                return ResourceManager.GetString("LaunchParam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media directory does not exist. Please reinstall or download UniCade Media Package to the current working directory.
+        /// </summary>
+        internal static string MediaDirectoryCorrupt {
+            get {
+                return ResourceManager.GetString("MediaDirectoryCorrupt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media (Backgrounds) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory.
+        /// </summary>
+        internal static string MediaDirectoryCorrupt_Backgrounds {
+            get {
+                return ResourceManager.GetString("MediaDirectoryCorrupt_Backgrounds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media (Consoles) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory.
+        /// </summary>
+        internal static string MediaDirectoryCorrupt_Consoles {
+            get {
+                return ResourceManager.GetString("MediaDirectoryCorrupt_Consoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media (ESRB) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory.
+        /// </summary>
+        internal static string MediaDirectoryCorrupt_Esrb {
+            get {
+                return ResourceManager.GetString("MediaDirectoryCorrupt_Esrb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media (Games) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory.
+        /// </summary>
+        internal static string MediaDirectoryCorrupt_Games {
+            get {
+                return ResourceManager.GetString("MediaDirectoryCorrupt_Games", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///.
+        /// </summary>
+        internal static string NewLine {
+            get {
+                return ResourceManager.GetString("NewLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password Accepted.
+        /// </summary>
+        internal static string PasswordAccepted {
+            get {
+                return ResourceManager.GetString("PasswordAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter password (Type &apos;x&apos; to exit).
+        /// </summary>
+        internal static string PleaseEnterPassword {
+            get {
+                return ResourceManager.GetString("PleaseEnterPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter username (Type &apos;x&apos; to exit).
+        /// </summary>
+        internal static string PleaseEnterUsername {
+            get {
+                return ResourceManager.GetString("PleaseEnterUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Press any key to return to previous menu
+        ///.
+        /// </summary>
+        internal static string PressAnyKeyToReturnToPreviousMenu {
+            get {
+                return ResourceManager.GetString("PressAnyKeyToReturnToPreviousMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Release Date: .
+        /// </summary>
+        internal static string ReleaseDate {
+            get {
+                return ResourceManager.GetString("ReleaseDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rom Extension: .
+        /// </summary>
+        internal static string RomExtension {
+            get {
+                return ResourceManager.GetString("RomExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rom Path: .
+        /// </summary>
+        internal static string RomPath {
+            get {
+                return ResourceManager.GetString("RomPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UniCade Cloud connection Error.
+        /// </summary>
+        internal static string UniCadeCloudConnectionError {
+            get {
+                return ResourceManager.GetString("UniCadeCloudConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Already Exists.
+        /// </summary>
+        internal static string UserAlreadyExists {
+            get {
+                return ResourceManager.GetString("UserAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username not found.
+        /// </summary>
+        internal static string UsernameNotFound {
+            get {
+                return ResourceManager.GetString("UsernameNotFound", resourceCulture);
             }
         }
     }

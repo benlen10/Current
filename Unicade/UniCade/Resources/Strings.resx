@@ -101,4 +101,7 @@
   <data name="ConnectionError" xml:space="preserve">
     <value>Connection Error</value>
   </data>
+  <data name="InvalidGame" xml:space="preserve">
+    <value>Invalid game</value>
+  </data>
 </root>

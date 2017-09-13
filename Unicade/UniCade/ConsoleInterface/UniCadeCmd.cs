@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using UniCade.Backend;
 using UniCade.Exceptions;
 using UniCade.Interfaces;
-using UniCade.Objects;
+using UniCade.Resources;
 
 namespace UniCade.ConsoleInterface
 {
@@ -16,16 +17,16 @@ namespace UniCade.ConsoleInterface
         /// </summary>
         /// <returns></returns>
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern bool AllocConsole();
+        private static extern bool AllocConsole();
 
         [DllImport("kernel32.dll")]
-        static extern IntPtr GetConsoleWindow();
+        private static extern IntPtr GetConsoleWindow();
 
         [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-        const int SW_HIDE = 0;
-        const int SW_SHOW = 5;
+        private const int SwHide = 0;
+        private const int SwShow = 5;
 
         #endregion
 
@@ -67,60 +68,63 @@ namespace UniCade.ConsoleInterface
         /// This is the home menu for the command line interface
         /// this menu provides options for the user and exists within an infinte loop
         /// </summary>
+        [SuppressMessage("ReSharper", "LocalizableElement")]
         private static void ConsoleSelection()
         {
             while (true)
             {
                 //Display heading and options
-                System.Console.WriteLine("Options: Exit: (x), Global Rescan (r):, Console Info: (i) <console>, Switch User (s)");
-                System.Console.WriteLine("Available Consoles: ");
+                Console.WriteLine("Options: Exit: (x), Global Rescan (r):, Console Info: (i) <console>, Switch User (s)");
+                Console.WriteLine(Strings.AvailableConsoles);
 
                 //Print all available consoles
-                Database.GetConsoleList().ForEach(c => System.Console.WriteLine(c));
+                Database.GetConsoleList().ForEach(Console.WriteLine);
 
                 //Fetch user input
-                string input = System.Console.ReadLine();
-
-                //(c) = Exit interface
-                if (input.Equals("(x)"))
+                string input = Console.ReadLine();
+                if (input != null)
                 {
-                    FileOps.SaveDatabase(Program.DatabasePath);
-                    FileOps.SavePreferences(Program.PreferencesPath);
-                    return;
-                }
-                else if (input.Contains("(r)"))
-                {
-                    FileOps.ScanAllConsoles();
-                }
-                //(s) = Switch User
-                else if (input.Contains("(s)"))
-                {
-                    SwitchUser();
-                }
-                //(i) = Console Info
-                else if (input.Contains("(i)"))
-                {
-                    var consoleList = Database.GetConsoleList();
-                    foreach (string consoleName in consoleList)
+                    //(c) = Exit interface
+                    if (input.Equals("(x)"))
                     {
-                        IConsole console = Database.GetConsole(consoleName);
-                        if (input.Contains(console.ConsoleName))
+                        FileOps.SaveDatabase(Program.DatabasePath);
+                        FileOps.SavePreferences(Program.PreferencesPath);
+                        return;
+                    }
+                    else if (input.Contains("(r)"))
+                    {
+                        FileOps.ScanAllConsoles();
+                    }
+                    //(s) = Switch User
+                    else if (input.Contains("(s)"))
+                    {
+                        SwitchUser();
+                    }
+                    //(i) = Console Info
+                    else if (input.Contains("(i)"))
+                    {
+                        var consoleList = Database.GetConsoleList();
+                        foreach (string consoleName in consoleList)
                         {
-                            DisplayConsoleInfo(console);
+                            IConsole console = Database.GetConsole(consoleName);
+                            if (input.Contains(console.ConsoleName))
+                            {
+                                DisplayConsoleInfo(console);
+                            }
                         }
                     }
-                }
-                //If no modifiers are provided, display the game list for the console
-                else
-                {
-                    IConsole console = Database.GetConsole(input);
-                    if (console != null)
-                    {
-                        DisplayGameList(console);
-                    }
+                    //If no modifiers are provided, display the game list for the console
                     else
                     {
-                        System.Console.WriteLine("Console not found");
+                        IConsole console = Database.GetConsole(input);
+                        if (console != null)
+                        {
+                            DisplayGameList(console);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Console not found");
+                        }
                     }
                 }
             }
@@ -129,6 +133,7 @@ namespace UniCade.ConsoleInterface
         /// <summary>
         /// This method will display the full list of games for the current console
         /// </summary>
+        [SuppressMessage("ReSharper", "LocalizableElement")]
         public static void DisplayGameList(IConsole console)
         {
             if (console == null)
@@ -141,108 +146,111 @@ namespace UniCade.ConsoleInterface
             {
                 //Display the current console, game count and available options
 
-                System.Console.WriteLine(string.Format("{0} (Total Games: {1})", console.ConsoleName, console.GetGameCount()));
-                System.Console.WriteLine("Additional Options: Show Info: (i) <game>, Close (c), Toggle Favs View (fv), Toggle Fav (f))\n");
+                Console.WriteLine($"{console.ConsoleName} (Total Games: {console.GetGameCount()})");
+                Console.WriteLine("Additional Options: Show Info: (i) <game>, Close (c), Toggle Favs View (fv), Toggle Fav (f))\n");
                 if (favoritesView)
                 {
-                    System.Console.WriteLine("[VIEWING FAVORITES ONLY]");
+                    Console.WriteLine("[VIEWING FAVORITES ONLY]");
                 }
 
                 //Print all games
                 var gameList = console.GetGameList();
                 foreach (string gameTitle in gameList)
                 {
-                    IGame g = console.GetGame(gameTitle);
+                    IGame game = console.GetGame(gameTitle);
                     if (favoritesView)
                     {
-                        if (g.Favorite)
+                        if (game.Favorite)
                         {
-                            System.Console.WriteLine(g.Title);
+                            Console.WriteLine(game.Title);
                         }
                     }
                     else
                     {
-                        System.Console.WriteLine(g.Title);
+                        Console.WriteLine(game.Title);
                     }
 
                 }
 
                 //Fetch user input
-                string input = System.Console.ReadLine();
-                string s = input.Substring(3);
-                if (input.Contains("(i)"))
+                string input = Console.ReadLine();
+                if (input != null)
                 {
-                    string gameTitle = console.GetGameList().Find(g => s.Contains(g));
-                    IGame game = console.GetGame(gameTitle);
-                    DisplayGameInfo(game);
-                }
-                //(ci) = Display console info
-                else if (input.Equals("(ci)"))
-                {
-                    DisplayConsoleInfo(console);
-                }
-                //(fv) = Toggle favorites view
-                else if (input.Equals("(fv)"))
-                {
-                    if (!favoritesView)
+                    string s = input.Substring(3);
+                    if (input.Contains("(i)"))
                     {
-                        System.Console.WriteLine("Favorites View Enabled");
-                        favoritesView = true;
+                        string gameTitle = console.GetGameList().Find(g => s.Contains(g));
+                        IGame game = console.GetGame(gameTitle);
+                        DisplayGameInfo(game);
                     }
-                    else
+                    //(ci) = Display console info
+                    else if (input.Equals("(ci)"))
                     {
-                        System.Console.WriteLine("Favorites View Disabled");
-                        favoritesView = false;
+                        DisplayConsoleInfo(console);
                     }
-                }
-                //(f) = Toggle favorite status
-                else if (input.Contains("(f)"))
-                {
-                    string gameTitle = console.GetGameList().Find(g => input.Substring(4).Contains(g));
-                    IGame game = console.GetGame(gameTitle);
-
-                    if (game != null)
+                    //(fv) = Toggle favorites view
+                    else if (input.Equals("(fv)"))
                     {
-                        if (game.Favorite)
+                        if (!favoritesView)
                         {
-                            game.Favorite = true;
-                            System.Console.WriteLine(game.Title + " Added to favorites");
+                            Console.WriteLine("Favorites View Enabled");
+                            favoritesView = true;
                         }
                         else
                         {
-                            game.Favorite = false;
-                            System.Console.WriteLine(game.Title + " Removed from favorites");
+                            Console.WriteLine("Favorites View Disabled");
+                            favoritesView = false;
                         }
                     }
+                    //(f) = Toggle favorite status
+                    else if (input.Contains("(f)"))
+                    {
+                        string gameTitle = console.GetGameList().Find(g => input.Substring(4).Contains(g));
+                        IGame game = console.GetGame(gameTitle);
+
+                        if (game != null)
+                        {
+                            if (game.Favorite)
+                            {
+                                game.Favorite = true;
+                                Console.WriteLine(game.Title + " Added to favorites");
+                            }
+                            else
+                            {
+                                game.Favorite = false;
+                                Console.WriteLine(game.Title + " Removed from favorites");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: Game not found");
+                        }
+                    }
+                    //(c) = Close current dialog
+                    else if (input.Equals("(c)"))
+                    {
+                        return;
+                    }
+                    //If no modifier is provided, attempt to launch the game with the matching title
                     else
                     {
-                        System.Console.WriteLine("Error: Game not found");
-                    }
-                }
-                //(c) = Close current dialog
-                else if (input.Equals("(c)"))
-                {
-                    return;
-                }
-                //If no modifier is provided, attempt to launch the game with the matching title
-                else
-                {
-                    string gameTitle = console.GetGameList().Find(g => input.Equals(g));
-                    IGame game = console.GetGame(gameTitle);
-                    if (game != null)
-                    {
-                        try
+                        string gameTitle = console.GetGameList().Find(g => input.Equals(g));
+                        IGame game = console.GetGame(gameTitle);
+                        if (game != null)
                         {
-                            FileOps.Launch(game);
+                            try
+                            {
+                                FileOps.Launch(game);
+                            }
+                            catch (LaunchException e)
+                            {
+                                Console.WriteLine("Launch Error: " + e.Message);
+                            }
                         }
-                        catch(LaunchException e)
+                        else
                         {
-                            System.Console.WriteLine("Launch Error: " + e.Message);
+                            Console.WriteLine("Error: Game not found");
                         }
-                    }
-                    else
-                    {
-                        System.Console.WriteLine("Error: Game not found");
                     }
                 }
             }
@@ -252,6 +260,7 @@ namespace UniCade.ConsoleInterface
         /// Display detailed info for the current game
         /// </summary>
         /// <param name="game">The game to display info for</param>
+        [SuppressMessage("ReSharper", "LocalizableElement")]
         private static void DisplayGameInfo(IGame game)
         {
             if (game == null)
@@ -270,9 +279,9 @@ namespace UniCade.ConsoleInterface
             gameInfo += ("\nESRB Rating: " + game.EsrbRating + "\n");
             gameInfo += ("\nESRB Descriptors: " + game.EsrbDescriptors + "\n");
             gameInfo += ("\nGame Description: " + game.Description + "\n");
-            System.Console.WriteLine(gameInfo);
-            System.Console.WriteLine("\nPress any key to return to previous menu\n");
-            System.Console.ReadLine();
+            Console.WriteLine(gameInfo);
+            Console.WriteLine(Strings.PressAnyKeyToReturnToPreviousMenu);
+            Console.ReadLine();
         }
 
         /// <summary>
@@ -286,15 +295,15 @@ namespace UniCade.ConsoleInterface
                 return;
             }
 
-            System.Console.WriteLine("Console: " + console.ConsoleName + "\n");
-            System.Console.WriteLine("Release Date: " + console.ReleaseDate);
-            System.Console.WriteLine("Emulator Path: " + console.EmulatorPath);
-            System.Console.WriteLine("Rom Path: " + console.RomPath);
-            System.Console.WriteLine("Rom Extension: " + console.RomExtension);
-            System.Console.WriteLine("Launch Param: " + console.LaunchParams);
-            System.Console.WriteLine("Console Info: " + console.ConsoleInfo);
-            System.Console.WriteLine("\nPress any key to return to previous menu\n");
-            System.Console.ReadLine();
+            Console.WriteLine(Strings.Console + console.ConsoleName + Strings.NewLine);
+            Console.WriteLine(Strings.ReleaseDate + console.ReleaseDate);
+            Console.WriteLine(Strings.EmulatorPath + console.EmulatorPath);
+            Console.WriteLine(Strings.RomPath + console.RomPath);
+            Console.WriteLine(Strings.RomExtension + console.RomExtension);
+            Console.WriteLine(Strings.LaunchParam + console.LaunchParams);
+            Console.WriteLine(Strings.ConsoleInfo + console.ConsoleInfo);
+            Console.WriteLine(Strings.PressAnyKeyToReturnToPreviousMenu);
+            Console.ReadLine();
         }
 
         /// <summary>
@@ -302,43 +311,46 @@ namespace UniCade.ConsoleInterface
         /// </summary>
         private static void SwitchUser()
         {
-            System.Console.WriteLine("Available Users");
-            Database.GetUserList().ForEach(u => System.Console.WriteLine(u));
-            System.Console.Write("\n");
+            Console.WriteLine(Strings.AvailableUsers);
+            Database.GetUserList().ForEach(Console.WriteLine);
+            Console.Write(Strings.NewLine);
 
             while (true)
             {
-                System.Console.WriteLine("Please enter username (Type 'x' to exit)");
-                string userName = System.Console.ReadLine();
-                if (userName.Equals("x"))
+                Console.WriteLine(Strings.PleaseEnterUsername);
+                string userName = Console.ReadLine();
+                if (userName != null)
                 {
-                    return;
-                }
-
-                //Attempt to fetch the user with the matching username
-                IUser user = Database.GetUser(userName);
-                if (user != null)
-                {
-                    while (true)
+                    if (userName.Equals("x"))
                     {
-                        string ps = System.Console.ReadLine();
-                        System.Console.WriteLine("Please enter password (Type 'x' to exit)");
-                        if (ps.Equals("x"))
+                        return;
+                    }
+
+                    //Attempt to fetch the user with the matching username
+                    IUser user = Database.GetUser(userName);
+                    if (user != null)
+                    {
+                        while (true)
                         {
-                            return;
-                        }
-                        if (ps.Equals(user.GetUserPassword()))
-                        {
-                            System.Console.WriteLine("Password Accepted");
-                            Database.SetCurrentUser(user);
-                            Database.GetCurrentUser().IncrementUserLoginCount();
-                            return;
+                            string pass = Console.ReadLine();
+                            Console.WriteLine(Strings.PleaseEnterPassword);
+                            if (pass != null)
+                            {
+                                if (pass.Equals("x"))
+                                {
+                                    return;
+                                }
+                                if (pass.Equals(user.GetUserPassword()))
+                                {
+                                    Console.WriteLine(Strings.PasswordAccepted);
+                                    Database.SetCurrentUser(user);
+                                    Database.GetCurrentUser().IncrementUserLoginCount();
+                                    return;
+                                }
+                            }
                         }
                     }
-                }
-                else
-                {
-                    System.Console.WriteLine("Username not found");
+                        Console.WriteLine(Strings.UsernameNotFound);
                 }
             }
         }
@@ -360,7 +372,7 @@ namespace UniCade.ConsoleInterface
             }
             else
             {
-                ShowWindow(handle, SW_SHOW);
+                ShowWindow(handle, SwShow);
             }
         }
 
@@ -371,7 +383,7 @@ namespace UniCade.ConsoleInterface
         {
             var handle = GetConsoleWindow();
 
-            ShowWindow(handle, SW_HIDE);
+            ShowWindow(handle, SwHide);
         }
 
         #endregion

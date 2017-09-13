@@ -6,10 +6,11 @@ using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Objects;
+using UniCade.Resources;
 
 namespace UniCade.Network
 {
-    class SqlClient
+    internal class SqlClient
     {
         #region Properties
 
@@ -30,7 +31,7 @@ namespace UniCade.Network
         /// <summary>
         /// Initiate a new SQL connection and return the connection string
         /// </summary>
-        public static string ConnectSQL()
+        public static string ConnectSql()
         {
             //Generate a new SQL connection
             Connection = new MySqlConnection("server=127.0.0.1;" + "uid=root;" + "pwd=Star6120;" + "database=unicade;");
@@ -43,7 +44,7 @@ namespace UniCade.Network
             }
             catch
             {
-                MessageBox.Show("UniCade Cloud connection Error");
+                MessageBox.Show(Strings.UniCadeCloudConnectionError);
                 return string.Empty;
             }
         }
@@ -51,12 +52,12 @@ namespace UniCade.Network
         /// <summary>
         /// Execute the SQL command passed in as a string param
         /// </summary>
-        public static string ProcessSQLcommand(string s)
+        public static string ProcessSqLcommand(string s)
         {
             //If the SQL connection is not already active, call connect function
             if (Connection == null)
             {
-                if(ConnectSQL() == String.Empty) { return "Connection Error"; }
+                if(ConnectSql() == String.Empty) { return "Connection Error"; }
             }
             MySqlCommand myCommand = new MySqlCommand(s, Connection);
 
@@ -64,8 +65,7 @@ namespace UniCade.Network
             StringBuilder sb = new StringBuilder();
             try
             {
-                MySqlDataReader myReader = null;
-                myReader = myCommand.ExecuteReader();
+                var myReader = myCommand.ExecuteReader();
                 int col = 0;
                 while (myReader.Read())
                 {
@@ -130,7 +130,7 @@ namespace UniCade.Network
         {
             if (Connection == null)
             {
-                ConnectSQL();
+                ConnectSql();
             }
 
             //Check if the game already exists in the database
@@ -138,9 +138,9 @@ namespace UniCade.Network
             MySqlDataReader myReader = myCommand.ExecuteReader();
             if (myReader.Read())
             {
-                if ((SafeGetString(myReader, 1).Equals(g.FileName, StringComparison.InvariantCultureIgnoreCase)))
+                if (SafeGetString(myReader, 1).Equals(g.FileName, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    System.Console.WriteLine("User Already Exists");
+                    System.Console.WriteLine(Strings.UserAlreadyExists);
                     myReader.Close();
                     myCommand.Dispose();
                     return false;
@@ -160,7 +160,7 @@ namespace UniCade.Network
         {
             if (Connection == null)
             {
-                ConnectSQL();
+                ConnectSql();
             }
 
             MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM " + SqlUsername + "_games WHERE title = " + "\"" + gam + "\"" + " AND console = " + "\"" + con + "\"" + ";", Connection);
@@ -168,7 +168,7 @@ namespace UniCade.Network
             try
             {
                 myReader = myCommand.ExecuteReader();
-                IGame game = null;
+                IGame game;
                 if (myReader.Read())
                 {
                     game = new Game(SafeGetString(myReader, 1), SafeGetString(myReader, 3), SafeGetInt32(myReader, 4), SafeGetString(myReader, 5), SafeGetString(myReader, 6), SafeGetString(myReader, 7), SafeGetString(myReader, 8), SafeGetString(myReader, 9), SafeGetString(myReader, 10), SafeGetString(myReader, 11), Enums.ConvertStringToEsrbEnum(SafeGetString(myReader, 12)), SafeGetString(myReader, 13), SafeGetString(myReader, 14), SafeGetString(myReader, 15), SafeGetString(myReader, 16), SafeGetString(myReader, 17), SafeGetString(myReader, 18));
@@ -187,7 +187,7 @@ namespace UniCade.Network
             catch (Exception e)
             {
                 System.Console.WriteLine(e.ToString());
-                myReader.Close();
+                myReader?.Close();
                 return null;
             }
         }
@@ -200,7 +200,7 @@ namespace UniCade.Network
         {
             if (Connection == null)
             {
-                if(ConnectSQL() == String.Empty) { return false; }
+                if(ConnectSql() == String.Empty) { return false; }
             }
 
             //Generate a new SQL command
@@ -232,7 +232,7 @@ namespace UniCade.Network
         {
             if (Connection == null)
             {
-                ConnectSQL();
+                ConnectSql();
             }
 
             MySqlCommand myCommand = new MySqlCommand("Use unicade;" + "select * FROM users WHERE username = " + "\"" + username + "\"" + " OR email = " + "\"" + email + "\"" + ";", Connection);
@@ -273,7 +273,7 @@ namespace UniCade.Network
         {
             if (Connection == null)
             {
-                ConnectSQL();
+                ConnectSql();
             }
 
             //Generate and execute the command to delete all games for the current user
@@ -290,7 +290,7 @@ namespace UniCade.Network
         {
             if (Connection == null)
             {
-                ConnectSQL();
+                ConnectSql();
             }
 
             //Generate and execute the command to remove the user profile from the database

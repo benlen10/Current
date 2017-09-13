@@ -15,7 +15,7 @@ namespace UniCade.Windows
         /// <summary>
         /// An int value that represents the current user type (local or cloud)
         /// </summary>
-        int _userType;
+        readonly int _userType;
 
         #endregion
 
