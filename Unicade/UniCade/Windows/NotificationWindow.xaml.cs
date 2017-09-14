@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -14,6 +15,7 @@ public partial class NotificationWindow
     /// </summary>
     /// <param name="titleText">Heading text for the nofication</param>
     /// <param name="bodyText"> Body text for the notification</param>
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public NotificationWindow(string titleText, string bodyText)
     {
         InitializeComponent();
@@ -26,8 +28,8 @@ public partial class NotificationWindow
                 var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
                 var corner = transform.Transform(new Point(workingArea.Right, workingArea.Bottom));
 
-                this.Left = corner.X - this.ActualWidth - 100;
-                this.Top = corner.Y - this.ActualHeight;
+                Left = corner.X - ActualWidth - 100;
+                Top = corner.Y - ActualHeight;
             }));
     }
 
@@ -40,7 +42,7 @@ public partial class NotificationWindow
     /// </summary>
     private void DoubleAnimationCompleted(object sender, EventArgs e)
     {
-        this.Close();
+        Close();
     }
 
     #endregion

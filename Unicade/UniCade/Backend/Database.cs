@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UniCade.Constants;
 using UniCade.Interfaces;
@@ -37,9 +36,9 @@ namespace UniCade.Backend
                 {
                     throw new ArgumentException("ROM path invalid");
                 }
-                if (value.Length > ConstValues.MAX_PATH_LENGTH)
+                if (value.Length > ConstValues.MaxPathLength)
                 {
-                    throw new ArgumentException(String.Format("ROM folder path cannot exceed {0} chars", ConstValues.MAX_PATH_LENGTH));
+                    throw new ArgumentException(String.Format("ROM folder path cannot exceed {0} chars", ConstValues.MaxPathLength));
                 }
                 _romFolderPath = value;
             }
@@ -85,11 +84,6 @@ namespace UniCade.Backend
         /// </summary>
         private static string _romFolderPath;
 
-        /// <summary>
-        /// The path for the media folder
-        /// </summary>
-        private static string _mediaFolderPath;
-
         #endregion
 
         #region Public Methods
@@ -123,7 +117,7 @@ namespace UniCade.Backend
             }
 
             //Verify that the console count is valid
-            if (_consoleCount >= ConstValues.MAX_CONSOLE_COUNT)
+            if (_consoleCount >= ConstValues.MaxConsoleCount)
             {
                 return false;
             }
@@ -190,7 +184,7 @@ namespace UniCade.Backend
         public static bool AddUser(IUser user)
         {
             //Verify that the user count does not exceed the max value
-            if (_userCount >= ConstValues.MAX_USER_COUNT)
+            if (_userCount >= ConstValues.MaxUserCount)
             {
                 return false;
             }

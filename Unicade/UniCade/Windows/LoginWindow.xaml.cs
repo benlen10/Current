@@ -48,7 +48,7 @@ namespace UniCade.Windows
         private void LoginWindow_LoginButton_Click(object sender, RoutedEventArgs e)
         {
             //Bad input checks
-            if ((Textbox_Username.Text == null) || (Textbox_Password.Text == null))
+            if ((TextboxUsername.Text == null) || (TextboxPassword.Text == null))
             {
                 MessageBox.Show("Fields cannot be blank");
                 return;
@@ -57,7 +57,7 @@ namespace UniCade.Windows
             //If the user is a SQL client, preform SQL user authentication 
             if (_userType == 0)
             {
-                if (SqlClient.AuthiencateUser(Textbox_Username.Text, Textbox_Password.Text))
+                if (SqlClient.AuthiencateUser(TextboxUsername.Text, TextboxPassword.Text))
                 {
                     Close();
                 }
@@ -74,9 +74,9 @@ namespace UniCade.Windows
                 foreach (string username in userList)
                 {
                     IUser user = Database.GetUser(username);
-                    if (user.Username.Equals(Textbox_Username.Text))
+                    if (user.Username.Equals(TextboxUsername.Text))
                     {
-                        if (user.GetUserPassword().Equals(Textbox_Password.Text))
+                        if (user.GetUserPassword().Equals(TextboxPassword.Text))
                         {
                             Database.SetCurrentUser(user);
                             Close();

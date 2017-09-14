@@ -39,9 +39,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Username must be at least 4 chars");
                 }
-                if (value.Length > ConstValues.MAX_USERNAME_LENGTH)
+                if (value.Length > ConstValues.MaxUsernameLength)
                 {
-                    throw new ArgumentException($"Username cannot exceed {ConstValues.MAX_USERNAME_LENGTH} chars");
+                    throw new ArgumentException($"Username cannot exceed {ConstValues.MaxUsernameLength} chars");
                 }
                 _username = value;
             }
@@ -63,9 +63,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("User info contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_USER_INFO_LENGTH)
+                if (value.Length > ConstValues.MaxUserInfoLength)
                 {
-                    throw new ArgumentException($"User info cannot exceed {ConstValues.MAX_USER_INFO_LENGTH} chars");
+                    throw new ArgumentException($"User info cannot exceed {ConstValues.MaxUserInfoLength} chars");
                 }
                 _userInfo = value;
             }
@@ -95,9 +95,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Email is invalid");
                 }
-                if (value.Length > ConstValues.MAX_EMAIL_LENGTH)
+                if (value.Length > ConstValues.MaxEmailLength)
                 {
-                    throw new ArgumentException($"Email cannot exceed {ConstValues.MAX_EMAIL_LENGTH} chars");
+                    throw new ArgumentException($"Email cannot exceed {ConstValues.MaxEmailLength} chars");
                 }
                 _email = value;
             }
@@ -115,9 +115,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Profile picture path cannot be null");
                 }
-                if (value.Length > ConstValues.MAX_PATH_LENGTH)
+                if (value.Length > ConstValues.MaxPathLength)
                 {
-                    throw new ArgumentException($"Profile Picture path cannot exceed {ConstValues.MAX_PATH_LENGTH} chars");
+                    throw new ArgumentException($"Profile Picture path cannot exceed {ConstValues.MaxPathLength} chars");
                 }
                 _profilePicturePath = value;
             }

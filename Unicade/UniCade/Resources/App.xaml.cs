@@ -5,18 +5,14 @@ namespace UniCade
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public class App : Application
     {
-        private MainWindow window;
-
-        public App()
-        {
-        }
+        private MainWindow _window;
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            window = new MainWindow();
-            window.Show();
+            _window = new MainWindow();
+            _window.Show();
         }
 
         internal void InitializeComponent()

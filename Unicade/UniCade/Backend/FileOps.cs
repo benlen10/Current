@@ -339,11 +339,10 @@ namespace UniCade.Backend
         {
             string line;
             char[] sep = { '|' };
-            string[] r;
             StreamReader file = new StreamReader(@"C:\UniCade\ConsoleList.txt");
             while ((line = file.ReadLine()) != null)
             {
-                r = line.Split(sep);
+                var r = line.Split(sep);
                 Database.AddConsole(new Console(r[0], r[1], r[2], r[3], r[4], Int32.Parse(r[5]), r[6], r[8], ""));
             }
             file.Close();
@@ -392,14 +391,7 @@ namespace UniCade.Backend
                 throw new LaunchException(("ROM does not exist. Launch Failed"));
             }
             string args;
-            if (console.ConsoleName.Equals("MAME"))
-            {
-                args = console.LaunchParams.Replace("%file", game.Title);
-            }
-            else
-            {
-                args = console.LaunchParams.Replace("%file", gamePath);
-            }
+            args = console.LaunchParams.Replace("%file", console.ConsoleName.Equals("MAME") ? game.Title : gamePath);
 
             if (console.ConsoleName.Equals("PC"))
             {

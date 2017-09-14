@@ -38,9 +38,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Game file name is invalid");
                 }
-                if (value.Length > ConstValues.MAX_GAME_FILENAME_LENGTH)
+                if (value.Length > ConstValues.MaxGameFilenameLength)
                 {
-                    throw new ArgumentException($"Game file name length cannot exceed {ConstValues.MAX_GAME_FILENAME_LENGTH} chars");
+                    throw new ArgumentException($"Game file name length cannot exceed {ConstValues.MaxGameFilenameLength} chars");
                 }
                 _fileName = value;
             }
@@ -66,9 +66,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Game title contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_GAME_TITLE_LENGTH)
+                if (value.Length > ConstValues.MaxGameTitleLength)
                 {
-                    throw new ArgumentException($"Game title length cannot exceed {ConstValues.MAX_GAME_TITLE_LENGTH} chars");
+                    throw new ArgumentException($"Game title length cannot exceed {ConstValues.MaxGameTitleLength} chars");
                 }
                 _title = value;
             }
@@ -94,9 +94,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Username contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_CONSOLE_NAME_LENGTH)
+                if (value.Length > ConstValues.MaxConsoleNameLength)
                 {
-                    throw new ArgumentException($"Console name length cannot exceed {ConstValues.MAX_CONSOLE_NAME_LENGTH} chars");
+                    throw new ArgumentException($"Console name length cannot exceed {ConstValues.MaxConsoleNameLength} chars");
                 }
                 _consoleName = value;
             }
@@ -118,9 +118,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Game description contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_GAME_DESCRIPTION_LENGTH)
+                if (value.Length > ConstValues.MaxGameDescriptionLength)
                 {
-                    throw new ArgumentException($"Game description length cannot exceed {ConstValues.MAX_GAME_DESCRIPTION_LENGTH} chars");
+                    throw new ArgumentException($"Game description length cannot exceed {ConstValues.MaxGameDescriptionLength} chars");
                 }
                 _gameDescription = value;
             }
@@ -166,9 +166,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Publisher name contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_PUBLISHER_DEVELOPER_LENGTH)
+                if (value.Length > ConstValues.MaxPublisherDeveloperLength)
                 {
-                    throw new ArgumentException($"Publisher name length cannot exceed {ConstValues.MAX_PUBLISHER_DEVELOPER_LENGTH} chars");
+                    throw new ArgumentException($"Publisher name length cannot exceed {ConstValues.MaxPublisherDeveloperLength} chars");
                 }
                 _publisherName = value;
             }
@@ -190,9 +190,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Developer name contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_PUBLISHER_DEVELOPER_LENGTH)
+                if (value.Length > ConstValues.MaxPublisherDeveloperLength)
                 {
-                    throw new ArgumentException($"Developer name length cannot exceed {ConstValues.MAX_PUBLISHER_DEVELOPER_LENGTH} chars");
+                    throw new ArgumentException($"Developer name length cannot exceed {ConstValues.MaxPublisherDeveloperLength} chars");
                 }
                 _developerName = value;
             }
@@ -214,9 +214,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Genres contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_GAME_GENRE_LENGTH)
+                if (value.Length > ConstValues.MaxGameGenreLength)
                 {
-                    throw new ArgumentException($"Genres length cannot exceed {ConstValues.MAX_GAME_GENRE_LENGTH} chars");
+                    throw new ArgumentException($"Genres length cannot exceed {ConstValues.MaxGameGenreLength} chars");
                 }
                 _genres = value;
             }
@@ -238,9 +238,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Tags contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_GAME_TAGS_LENGTH)
+                if (value.Length > ConstValues.MaxGameTagsLength)
                 {
-                    throw new ArgumentException($"Tags length cannot exceed {ConstValues.MAX_GAME_TAGS_LENGTH} chars");
+                    throw new ArgumentException($"Tags length cannot exceed {ConstValues.MaxGameTagsLength} chars");
                 }
                 _tags = value;
             }
@@ -262,9 +262,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("User Review score contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_GAME_REVIEW_SCORE_LENGTH)
+                if (value.Length > ConstValues.MaxGameReviewScoreLength)
                 {
-                    throw new ArgumentException($"User review score length cannot exceed {ConstValues.MAX_GAME_REVIEW_SCORE_LENGTH} chars");
+                    throw new ArgumentException($"User review score length cannot exceed {ConstValues.MaxGameReviewScoreLength} chars");
                 }
                 _userReviewScore = value;
             }
@@ -286,9 +286,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Critic Review score contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_GAME_REVIEW_SCORE_LENGTH)
+                if (value.Length > ConstValues.MaxGameReviewScoreLength)
                 {
-                    throw new ArgumentException($"Critic review score length cannot exceed {ConstValues.MAX_GAME_REVIEW_SCORE_LENGTH} chars");
+                    throw new ArgumentException($"Critic review score length cannot exceed {ConstValues.MaxGameReviewScoreLength} chars");
                 }
                 _criticReviewScore = value;
             }
@@ -310,9 +310,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Game trivia contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_GAME_TRIVIA_LENGTH)
+                if (value.Length > ConstValues.MaxGameTriviaLength)
                 {
-                    throw new ArgumentException($"Game trivia length cannot exceed {ConstValues.MAX_GAME_TRIVIA_LENGTH} chars");
+                    throw new ArgumentException($"Game trivia length cannot exceed {ConstValues.MaxGameTriviaLength} chars");
                 }
                 _trivia = value;
             }
@@ -334,9 +334,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Supported Player count contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH)
+                if (value.Length > ConstValues.MaxGamePlayercountLength)
                 {
-                    throw new ArgumentException($"Supported Player count length cannot exceed {ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH} chars");
+                    throw new ArgumentException($"Supported Player count length cannot exceed {ConstValues.MaxGamePlayercountLength} chars");
                 }
                 _supportedPlayerCount = value;
             }
@@ -358,9 +358,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("ESRB Descriptors t contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH)
+                if (value.Length > ConstValues.MaxGamePlayercountLength)
                 {
-                    throw new ArgumentException($"ESRB Descriptors cannot exceed {ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH} chars");
+                    throw new ArgumentException($"ESRB Descriptors cannot exceed {ConstValues.MaxGamePlayercountLength} chars");
                 }
                 _esrbDescriptors = value;
             }
@@ -382,9 +382,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("ESRB summary contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH)
+                if (value.Length > ConstValues.MaxGamePlayercountLength)
                 {
-                    throw new ArgumentException($"ESRB summary length cannot exceed {ConstValues.MAX_GAME_PLAYERCOUNT_LENGTH} chars");
+                    throw new ArgumentException($"ESRB summary length cannot exceed {ConstValues.MaxGamePlayercountLength} chars");
                 }
                 _esrbSummary = value;
             }

@@ -9,12 +9,12 @@ namespace UniCade.Backend
         /// <summary>
         /// Constant for the hidden state of the Windows taskbar
         /// </summary>
-        private const int SW_HIDE = 0;
+        private const int SwHide = 0;
 
         /// <summary>
         /// Constant for the visible state of the Windows taskbar
         /// </summary>
-        private const int SW_SHOW = 1;
+        private const int SwShow = 1;
 
         #endregion
 
@@ -41,8 +41,8 @@ namespace UniCade.Backend
         /// </summary>
         public static void ShowTaskbar()
         {
-            ShowWindow(Handle, SW_SHOW);
-            ShowWindow(HandleOfStartButton, SW_SHOW);
+            ShowWindow(Handle, SwShow);
+            ShowWindow(HandleOfStartButton, SwShow);
         }
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace UniCade.Backend
         /// </summary>
         public static void HideTaskbar()
         {
-            ShowWindow(Handle, SW_HIDE);
-            ShowWindow(HandleOfStartButton, SW_HIDE);
+            ShowWindow(Handle, SwHide);
+            ShowWindow(HandleOfStartButton, SwHide);
         }
 
         #endregion
@@ -61,13 +61,7 @@ namespace UniCade.Backend
         /// <summary>
         /// Return the current handle for Shell_TrayWnd
         /// </summary>
-        protected static int Handle
-        {
-            get
-            {
-                return FindWindow("Shell_TrayWnd", "");
-            }
-        }
+        protected static int Handle => FindWindow("Shell_TrayWnd", "");
 
         /// <summary>
         /// Return the current handle for the start button

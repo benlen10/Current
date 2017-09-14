@@ -47,7 +47,7 @@ namespace UniCade.Windows
             bitmapImage.BeginInit();
             bitmapImage.UriSource = new Uri(esrbRating);
             bitmapImage.EndInit();
-            image3.Source = bitmapImage;
+            Image3.Source = bitmapImage;
         }
 
         /// <summary>
@@ -59,21 +59,21 @@ namespace UniCade.Windows
             {
                 if (!_isImageExpanded1)
                 {
-                    image.Width = 700;
-                    image.Height = 700;
-                    textBlock.Visibility = Visibility.Hidden;
-                    image1.Visibility = Visibility.Hidden;
-                    image2.Visibility = Visibility.Hidden;
+                    Image.Width = 700;
+                    Image.Height = 700;
+                    TextBlock.Visibility = Visibility.Hidden;
+                    Image1.Visibility = Visibility.Hidden;
+                    Image2.Visibility = Visibility.Hidden;
                     _isImageExpanded1 = true;
 
                 }
                 else
                 {
-                    image.Width = 180;
-                    image.Height = 180;
-                    textBlock.Visibility = Visibility.Visible;
-                    image1.Visibility = Visibility.Visible;
-                    image2.Visibility = Visibility.Visible;
+                    Image.Width = 180;
+                    Image.Height = 180;
+                    TextBlock.Visibility = Visibility.Visible;
+                    Image1.Visibility = Visibility.Visible;
+                    Image2.Visibility = Visibility.Visible;
                     _isImageExpanded1 = false;
                 }
             }
@@ -89,22 +89,22 @@ namespace UniCade.Windows
                 {
                     if (!_isImageExpanded2)
                     {
-                        image1.Width = 700;
-                        image1.Height = 700;
-                        textBlock.Visibility = Visibility.Hidden;
-                        image.Visibility = Visibility.Hidden;
-                        image2.Visibility = Visibility.Hidden;
-                        image3.Visibility = Visibility.Hidden;
+                        Image1.Width = 700;
+                        Image1.Height = 700;
+                        TextBlock.Visibility = Visibility.Hidden;
+                        Image.Visibility = Visibility.Hidden;
+                        Image2.Visibility = Visibility.Hidden;
+                        Image3.Visibility = Visibility.Hidden;
                         _isImageExpanded2 = true;
                     }
                     else
                     {
-                        image1.Width = 180;
-                        image1.Height = 180;
-                        textBlock.Visibility = Visibility.Visible;
-                        image.Visibility = Visibility.Visible;
-                        image2.Visibility = Visibility.Visible;
-                        image3.Visibility = Visibility.Visible;
+                        Image1.Width = 180;
+                        Image1.Height = 180;
+                        TextBlock.Visibility = Visibility.Visible;
+                        Image.Visibility = Visibility.Visible;
+                        Image2.Visibility = Visibility.Visible;
+                        Image3.Visibility = Visibility.Visible;
                         _isImageExpanded2 = false;
                     }
                 }
@@ -121,22 +121,22 @@ namespace UniCade.Windows
                 {
                     if (!_isImageExpanded3)
                     {
-                        image2.Width = 700;
-                        image2.Height = 700;
-                        textBlock.Visibility = Visibility.Hidden;
-                        image.Visibility = Visibility.Hidden;
-                        image1.Visibility = Visibility.Hidden;
-                        image3.Visibility = Visibility.Hidden;
+                        Image2.Width = 700;
+                        Image2.Height = 700;
+                        TextBlock.Visibility = Visibility.Hidden;
+                        Image.Visibility = Visibility.Hidden;
+                        Image1.Visibility = Visibility.Hidden;
+                        Image3.Visibility = Visibility.Hidden;
                         _isImageExpanded3 = true;
                     }
                     else
                     {
-                        image2.Width = 180;
-                        image2.Height = 180;
-                        textBlock.Visibility = Visibility.Visible;
-                        image.Visibility = Visibility.Visible;
-                        image1.Visibility = Visibility.Visible;
-                        image3.Visibility = Visibility.Visible;
+                        Image2.Width = 180;
+                        Image2.Height = 180;
+                        TextBlock.Visibility = Visibility.Visible;
+                        Image.Visibility = Visibility.Visible;
+                        Image1.Visibility = Visibility.Visible;
+                        Image3.Visibility = Visibility.Visible;
                         _isImageExpanded3 = false;
                     }
                 }

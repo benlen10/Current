@@ -33,10 +33,10 @@ namespace UniCade.Objects
                     {
                         throw new ArgumentException("Console name contains invalid characters");
                     }
-                    if (value.Length > ConstValues.MAX_CONSOLE_NAME_LENGTH)
+                    if (value.Length > ConstValues.MaxConsoleNameLength)
                     {
                         throw new ArgumentException(
-                            $"Console name cannot exceed {ConstValues.MAX_CONSOLE_NAME_LENGTH} chars");
+                            $"Console name cannot exceed {ConstValues.MaxConsoleNameLength} chars");
                     }
                 }
                 _consoleName = value;
@@ -91,9 +91,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Emulator path invalid");
                 }
-                if (value.Length > ConstValues.MAX_PATH_LENGTH)
+                if (value.Length > ConstValues.MaxPathLength)
                 {
-                    throw new ArgumentException($"Emulator path cannot exceed {ConstValues.MAX_PATH_LENGTH} chars");
+                    throw new ArgumentException($"Emulator path cannot exceed {ConstValues.MaxPathLength} chars");
                 }
                 _emulatorPath = value;
             }
@@ -119,9 +119,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Preferences path too short");
                 }
-                if (value.Length > ConstValues.MAX_PATH_LENGTH)
+                if (value.Length > ConstValues.MaxPathLength)
                 {
-                    throw new ArgumentException($"Preferences path cannot exceed {ConstValues.MAX_PATH_LENGTH} chars");
+                    throw new ArgumentException($"Preferences path cannot exceed {ConstValues.MaxPathLength} chars");
                 }
                 _preferencesPath = value;
             }
@@ -151,9 +151,9 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("ROM path invalid");
                 }
-                if (value.Length > ConstValues.MAX_PATH_LENGTH)
+                if (value.Length > ConstValues.MaxPathLength)
                 {
-                    throw new ArgumentException($"ROM path cannot exceed {ConstValues.MAX_PATH_LENGTH} chars");
+                    throw new ArgumentException($"ROM path cannot exceed {ConstValues.MaxPathLength} chars");
                 }
                 _romPath = value;
             }
@@ -183,10 +183,10 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("File extension invalid");
                 }
-                if (value.Length > ConstValues.MAX_FILE_EXT_LENGTH)
+                if (value.Length > ConstValues.MaxFileExtLength)
                 {
                     throw new ArgumentException(
-                        $"ROM extension length cannot exceed {ConstValues.MAX_FILE_EXT_LENGTH} chars");
+                        $"ROM extension length cannot exceed {ConstValues.MaxFileExtLength} chars");
                 }
                 _romExtensions = value;
             }
@@ -208,10 +208,10 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Console info contains invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_CONSOLE_INFO_LENGTH)
+                if (value.Length > ConstValues.MaxConsoleInfoLength)
                 {
                     throw new ArgumentException(
-                        $"ROM extension length cannot exceed {ConstValues.MAX_CONSOLE_INFO_LENGTH} chars");
+                        $"ROM extension length cannot exceed {ConstValues.MaxConsoleInfoLength} chars");
                 }
                 _consoleInfo = value;
             }
@@ -233,10 +233,10 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Launch params contain invalid characters");
                 }
-                if (value.Length > ConstValues.MAX_LAUNCH_PARAMS_LENGTH)
+                if (value.Length > ConstValues.MaxLaunchParamsLength)
                 {
                     throw new ArgumentException(
-                        $"Launch params length cannot exceed {ConstValues.MAX_LAUNCH_PARAMS_LENGTH} chars");
+                        $"Launch params length cannot exceed {ConstValues.MaxLaunchParamsLength} chars");
                 }
                 _launchParams = value;
             }
@@ -352,7 +352,7 @@ namespace UniCade.Objects
             }
 
             //Verify that the game count does not exceed the max value
-            if (_gameCount >= ConstValues.MAX_GAME_COUNT)
+            if (_gameCount >= ConstValues.MaxGameCount)
             {
                 return false;
             }

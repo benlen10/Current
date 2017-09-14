@@ -4,7 +4,7 @@
     {
         #region Raw Text 
 
-        public static string instructions = @"GUI Operation
+        public static string Instructions = @"GUI Operation
 o	Use the left and right arrow keys to select your console
 o	Press the “I” key to display Console Info. Press I again or escape to close the info window. 
 o	Press the Enter key to select the console.
@@ -53,15 +53,15 @@ o	To rescrape metadata for all games and consoles, navigate to the Emulators tab
 -	Ensure that the case matches for all custom paths
 ";
 
-        public static string description = @"";
+        public static string Description = @"";
 
-        public static string troubleshooting = @"-	If the program crashes on startup. Delete the Database and Preferences txt files. 
+        public static string Troubleshooting = @"-	If the program crashes on startup. Delete the Database and Preferences txt files. 
 -	Skipping or hanging emulator/logo images when browsing. Ensure that the emulator name in the Preferences file. 
 ";
 
-        public static string licenseInfo = @"© Lenington Design ";
+        public static string LicenseInfo = @"© Lenington Design ";
 
-        public static string features = @"UniCade Interface (© Lenington Design) 
+        public static string Features = @"UniCade Interface (© Lenington Design) 
 - Includes 15 preconfigured consoles
 - Command line based interface supports virtually the same feature set as the GUI version (With the exception of displaying game media images)
 - Streamlined, modern and intuitive interface that anyone can operate.

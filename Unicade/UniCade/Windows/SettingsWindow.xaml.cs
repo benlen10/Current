@@ -131,7 +131,7 @@ namespace UniCade.Windows
             GlobalTab_Textbox_Playtime.IsEnabled = false;
 
             //Populate features textbox under the About tab
-            AboutTab_Textbox_SoftwareInfo.Text = TextFiles.features + "\n\n\n\n\n\n" + TextFiles.instructions;
+            AboutTab_Textbox_SoftwareInfo.Text = TextFiles.Features + "\n\n\n\n\n\n" + TextFiles.Instructions;
             AboutTab_Textbox_SoftwareInfo.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
             AboutTab_Textbox_SoftwareInfo.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
 

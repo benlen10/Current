@@ -1,17 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UniCade;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
 using UniCade.Exceptions;
 using UniCade.Interfaces;
 using UniCade.Objects;
 using Console = UniCade.Objects.Console;
 
-namespace UnitTests.Backend_Tests
+namespace UnitTests.BackendTests
 {
     [TestClass]
     public class PayPerPlayTests
@@ -22,22 +17,17 @@ namespace UnitTests.Backend_Tests
         /// <summary>
         /// A new Random instance to generate a random id tag
         /// </summary>
-        Random Random;
-
-        /// <summary>
-        /// The randomly generated int value for the current test instance 
-        /// </summary>
-        int Id;
+        private Random _random;
 
         /// <summary>
         /// The first console in the database
         /// </summary>
-        IConsole Console;
+        private IConsole _console;
 
         /// <summary>
         /// The first game in the new console
         /// </summary>
-        IGame Game;
+        private IGame _game;
 
         #endregion
 
@@ -51,18 +41,18 @@ namespace UnitTests.Backend_Tests
             Database.Initalize();
 
             //Generate a new random id integer
-            Random = new Random();
-            Id = Random.Next();
+            _random = new Random();
+
 
             //Create a new console and add it to the database
-            Console = new Console("newConsole");
+            _console = new Console("newConsole");
 
             //Create a new game and add it to the console
-            Game = new Game("game.bin", Console.ConsoleName);
-            Console.AddGame(Game);
+            _game = new Game("game.bin", _console.ConsoleName);
+            _console.AddGame(_game);
 
             //Add the console to the database
-            Database.AddConsole(Console);
+            Database.AddConsole(_console);
         }
 
         /// <summary>
@@ -80,7 +70,7 @@ namespace UnitTests.Backend_Tests
             //Attempt to launch a game without inserting any coins and verify that the launch is restricted
             try
             {
-                FileOps.Launch(Game);
+                FileOps.Launch(_game);
                 Assert.Fail("Verify that the game cannot be launched if not enough coins are inserted");
             }
             catch (LaunchException e)
@@ -92,7 +82,7 @@ namespace UnitTests.Backend_Tests
             PayPerPlay.CurrentCoins = 4;
             try
             {
-                FileOps.Launch(Game);
+                FileOps.Launch(_game);
                 Assert.Fail("Verify that the game can be launched if enough coins are inserted");
             }
             catch (LaunchException e)
@@ -107,7 +97,7 @@ namespace UnitTests.Backend_Tests
             //Verify that a game can be launched if the required coins = 0 even if no coins are currently inserted 
             try
             {
-                FileOps.Launch(Game);
+                FileOps.Launch(_game);
                 Assert.Fail("Verify that a game can be launched if the required coins = 0 even if no coins are currently inserted");
             }
             catch (LaunchException e)
@@ -130,7 +120,7 @@ namespace UnitTests.Backend_Tests
             int originalCoinCount = PayPerPlay.CurrentCoins;
 
             //Verify that the current count is not decemented on an unsucuessful launch (ROM file not found)
-            FileOps.Launch(Game);
+            FileOps.Launch(_game);
             Assert.IsTrue(originalCoinCount == PayPerPlay.CurrentCoins, "Verify that the current count is not decemented on an unsucuessful launch (ROM file not found)");
 
             //Verify that the DecrementCoins method properly decrements the coin count

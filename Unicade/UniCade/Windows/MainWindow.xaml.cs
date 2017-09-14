@@ -112,7 +112,7 @@ namespace UniCade
             {
                 ImageSource = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\Interface Background.png"))
             };
-            this.Background = myBrush;
+            Background = myBrush;
 
             //Intialize a new settings window instance
             SettingsWindow = new SettingsWindow();
@@ -197,7 +197,7 @@ namespace UniCade
                 {
                     ShowNotification("UniCade System", "Game Successfully Closed");
                     FileOps.KillProcess();
-                    this.Activate();
+                    Activate();
                 }
             }
 
@@ -645,8 +645,8 @@ namespace UniCade
                 if (listBox.SelectedItem.ToString().Equals(game.Title))
                 {
                     //Populate the game info text
-                    _gameInfoWindow.textBlock1.Text = game.ConsoleName + " - " + game.Title;
-                    _gameInfoWindow.textBlock.Text = Program.DisplayGameInfo(game);
+                    _gameInfoWindow.TextBlock1.Text = game.ConsoleName + " - " + game.Title;
+                    _gameInfoWindow.TextBlock.Text = Program.DisplayGameInfo(game);
 
                     //Load the box front for the current game if it exists
                     if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"))
@@ -655,7 +655,7 @@ namespace UniCade
                         bitmapImage.BeginInit();
                         bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png");
                         bitmapImage.EndInit();
-                        _gameInfoWindow.image.Source = bitmapImage;
+                        _gameInfoWindow.Image.Source = bitmapImage;
                     }
 
                     //Load the box back image for the current game if it exists
@@ -665,7 +665,7 @@ namespace UniCade
                         bitmapImage.BeginInit();
                         bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png");
                         bitmapImage.EndInit();
-                        _gameInfoWindow.image1.Source = bitmapImage;
+                        _gameInfoWindow.Image1.Source = bitmapImage;
                     }
 
                     //Load the screenshot for the current game if it exists
@@ -675,7 +675,7 @@ namespace UniCade
                         bitmapImage.BeginInit();
                         bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png");
                         bitmapImage.EndInit();
-                        _gameInfoWindow.image2.Source = bitmapImage;
+                        _gameInfoWindow.Image2.Source = bitmapImage;
                     }
 
                     //Load the ESRB logo for the curent rating
@@ -720,8 +720,8 @@ namespace UniCade
         private void InitilizeGhkHook()
         {
             KeyboardHook = new GlobalKeyboardHook();
-            KeyboardHook.KeyDown += new System.Windows.Forms.KeyEventHandler(Gkh_KeyDown);
-            KeyboardHook.KeyUp += new System.Windows.Forms.KeyEventHandler(Gkh_KeyUp);
+            KeyboardHook.KeyDown += Gkh_KeyDown;
+            KeyboardHook.KeyUp += Gkh_KeyUp;
         }
 
         /// <summary>

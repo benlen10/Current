@@ -104,4 +104,86 @@
   <data name="InvalidGame" xml:space="preserve">
     <value>Invalid game</value>
   </data>
+  <data name="NewLine" xml:space="preserve">
+    <value>
+</value>
+  </data>
+  <data name="ErrorSavingDatabase" xml:space="preserve">
+    <value>Error Saving Database
+</value>
+  </data>
+  <data name="MediaDirectoryCorrupt_Consoles" xml:space="preserve">
+    <value>Media (Consoles) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory</value>
+  </data>
+  <data name="MediaDirectoryCorrupt" xml:space="preserve">
+    <value>Media directory does not exist. Please reinstall or download UniCade Media Package to the current working directory</value>
+  </data>
+  <data name="MediaDirectoryCorrupt_Games" xml:space="preserve">
+    <value>Media (Games) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory</value>
+  </data>
+  <data name="MediaDirectoryCorrupt_Backgrounds" xml:space="preserve">
+    <value>Media (Backgrounds) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory</value>
+  </data>
+  <data name="MediaDirectoryCorrupt_Esrb" xml:space="preserve">
+    <value>Media (ESRB) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory</value>
+  </data>
+  <data name="DatabaseCorrupt" xml:space="preserve">
+    <value>Fatal Error: Database File is corrupt</value>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>Directory Not Found: </value>
+  </data>
+  <data name="AvailableConsoles" xml:space="preserve">
+    <value>Available Consoles: </value>
+  </data>
+  <data name="CmdConsoleSelectionOptions" xml:space="preserve">
+    <value>Options: Exit: (x), Global Rescan (r):, Console Info: (i) &lt;console&gt;, Switch User (s)</value>
+  </data>
+  <data name="Console" xml:space="preserve">
+    <value>Console: </value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Release Date: </value>
+  </data>
+  <data name="EmulatorPath" xml:space="preserve">
+    <value>Emulator Path: </value>
+  </data>
+  <data name="RomPath" xml:space="preserve">
+    <value>Rom Path: </value>
+  </data>
+  <data name="RomExtension" xml:space="preserve">
+    <value>Rom Extension: </value>
+  </data>
+  <data name="LaunchParam" xml:space="preserve">
+    <value>Launch Param: </value>
+  </data>
+  <data name="ConsoleInfo" xml:space="preserve">
+    <value>Console Info: </value>
+  </data>
+  <data name="AvailableUsers" xml:space="preserve">
+    <value>Available Users</value>
+  </data>
+  <data name="PasswordAccepted" xml:space="preserve">
+    <value>Password Accepted</value>
+  </data>
+  <data name="UsernameNotFound" xml:space="preserve">
+    <value>Username not found</value>
+  </data>
+  <data name="PleaseEnterPassword" xml:space="preserve">
+    <value>Please enter password (Type 'x' to exit)</value>
+  </data>
+  <data name="PressAnyKeyToReturnToPreviousMenu" xml:space="preserve">
+    <value>
+Press any key to return to previous menu
+</value>
+  </data>
+  <data name="PleaseEnterUsername" xml:space="preserve">
+    <value>Please enter username (Type 'x' to exit)</value>
+  </data>
+  <data name="UniCadeCloudConnectionError" xml:space="preserve">
+    <value>UniCade Cloud connection Error</value>
+  </data>
+  <data name="UserAlreadyExists" xml:space="preserve">
+    <value>User Already Exists</value>
+  </data>
 </root>
