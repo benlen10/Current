@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using UniCade.Backend;
 using UniCade.Constants;
@@ -93,7 +93,7 @@ namespace UniCade.Network
         /// </summary>
         public static bool ScrapeInfo(IGame game)
         {
-            if(game == null) { return false; }
+            if (game == null) { return false; }
             //Replace invalid chars within game title
             CurrentGameName = game.Title.Replace(" - ", " ");
             CurrentGameName = CurrentGameName.Replace(" ", "-");
@@ -145,7 +145,7 @@ namespace UniCade.Network
 
             //Create a new WebClient and attempt a connection
             WebClient site = new WebClient();
-            string html = "";
+            string html;
             try
             {
                 html = site.DownloadString(url);
@@ -159,13 +159,8 @@ namespace UniCade.Network
             //Parse ESRB rating from Mobygames
             if (ParseEsrbRating)
             {
-                int indexA = html.IndexOf("ESRB", StringComparison.Ordinal);
-                if (indexA < 0)
-                {
-                    indexA = 0;
-                }
-                string s = html; 
-                
+                string s = html;
+
                 //Convert the parsed text to a valid ESRB rating
                 if (s.Contains("Everyone"))
                 {
@@ -207,13 +202,11 @@ namespace UniCade.Network
                 }
 
                 //Parse Critic Score
-                tempCharIndex = 0;
                 tempCharIndex = html.IndexOf("scoreHi", StringComparison.Ordinal);
 
                 //If the parsed index is valid, set the critic score to the value of the parsed text
                 if (tempCharIndex > 0)
                 {
-                    string criticScore = html.Substring((tempCharIndex + 9), 2); 
                     game.CriticReviewScore = html.Substring((tempCharIndex + 9));
                 }
             }
@@ -226,7 +219,7 @@ namespace UniCade.Network
                 //If the parsed index is valid, set the game company to the value of the parsed text
                 if (tempCharIndex > 0)
                 {
-                    int tempCharIndex2 = html.IndexOf("-", tempCharIndex + 10);
+                    int tempCharIndex2 = html.IndexOf("-", tempCharIndex + 10, StringComparison.Ordinal);
                     game.PublisherName = html.Substring((tempCharIndex + 9), tempCharIndex2 - (tempCharIndex + 9));
                 }
             }
@@ -234,8 +227,7 @@ namespace UniCade.Network
             //Parse description
             if (ParseDescription)
             {
-                int tempCharIndex = 0;
-                tempCharIndex = html.IndexOf("Description<", StringComparison.Ordinal);
+                var tempCharIndex = html.IndexOf("Description<", StringComparison.Ordinal);
 
                 //Locate the beginning of the game description
                 if (tempCharIndex > 0)
@@ -251,9 +243,9 @@ namespace UniCade.Network
                         description = Utilties.RemoveInvalidChars(description);
 
                         //Trim the description if it exceeds the max length
-                        if (description.Length > ConstValues.MAX_GAME_DESCRIPTION_LENGTH)
+                        if (description.Length > ConstValues.MaxGameDescriptionLength)
                         {
-                            description = description.Substring(0, ConstValues.MAX_GAME_DESCRIPTION_LENGTH);
+                            description = description.Substring(0, ConstValues.MaxGameDescriptionLength);
                         }
 
                         //Set the game description to the formatted string
@@ -267,6 +259,7 @@ namespace UniCade.Network
         /// <summary>
         /// Scrape Metacritic for info related to the specific game
         /// </summary>
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         public static bool ScrapeMetacritic(IGame game)
         {
             string consoleName = "";
@@ -338,8 +331,7 @@ namespace UniCade.Network
             //Parse ESRB descriptors
             if (ParseEsrbDescriptors)
             {
-                int tempCharIndex = 0;
-                tempCharIndex = html.IndexOf("ESRB Descriptors:", StringComparison.Ordinal);
+                var tempCharIndex = html.IndexOf("ESRB Descriptors:", StringComparison.Ordinal);
 
                 //If the parsed index is valid, set the ESRB rating to the value of the parsed text
                 if (tempCharIndex > 0)
@@ -355,9 +347,8 @@ namespace UniCade.Network
 
             //Parse player count (Metacritic)
             if (ParsePlayerCount)
-            {       
-                int tempCharIndex = 0;
-                tempCharIndex = html.IndexOf("Players", StringComparison.Ordinal);
+            {
+                var tempCharIndex = html.IndexOf("Players", StringComparison.Ordinal);
 
                 //If the parsed index is valid, set the player count to the value of the parsed text
                 if (tempCharIndex > 0)
@@ -370,7 +361,7 @@ namespace UniCade.Network
                 }
             }
             return true;
-            }
+        }
 
         #endregion
     }
