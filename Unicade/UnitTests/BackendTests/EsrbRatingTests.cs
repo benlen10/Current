@@ -82,7 +82,7 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"),"Verify that a game rated Everyone can be launched properly when the global rating is set to Everyone");
+                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Everyone can be launched properly when the global rating is set to Everyone");
             }
 
             //Verify that a game rated Everyone 10+ is restricted when global rating is set to Everyone
@@ -365,38 +365,51 @@ namespace UnitTests.BackendTests
         [Priority(1)]
         public void VerifyNullLaunchRestriction()
         {
-            /*
             //Set the global ESRB restriction to null
-            Program.RestrictGlobalESRB = Enums.ESRB.Null;
+            Program.RestrictGlobalEsrb = Enums.Esrb.Null;
 
             //Loop through each esrb rating and the game can be launched
-            foreach (Enums.ESRB esrb in Enum.GetValues(typeof(Enums.ESRB)))
+            foreach (Enums.Esrb esrb in Enum.GetValues(typeof(Enums.Esrb)))
             {
-                IGame game = new Game("game.bin", Console.ConsoleName)
+                IGame game = new Game("game.bin", _console.ConsoleName)
                 {
                     EsrbRating = esrb
                 };
 
                 //Verify that the game can be launched when the global rating is set to null
-                Assert.IsFalse(FileOps.Launch(game).Contains("ESRB"), String.Format("Verify that a game rated {0} can be launched properly when the user rating is set to Null", esrb.GetStringValue()));
+                try
+                {
+                    FileOps.Launch(game);
+                    Assert.Fail($"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the global rating is set to Null");
+                }
+                catch(Exception exception)
+                {
+                    Assert.IsFalse(exception.Message.Contains("ESRB"), $"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the global rating is set to Null");
+                }
             }
 
             //Set the current user ESRB restriction to null
-            Database.GetCurrentUser().AllowedEsrb = Enums.ESRB.Null;
+            Database.GetCurrentUser().AllowedEsrb = Enums.Esrb.Null;
 
             //Loop through each esrb rating and the game can be launched
-            foreach (Enums.ESRB esrb in Enum.GetValues(typeof(Enums.ESRB)))
+            foreach (Enums.Esrb esrb in Enum.GetValues(typeof(Enums.Esrb)))
             {
-                IGame game = new Game("game.bin", Console.ConsoleName)
+                IGame game = new Game("game.bin", _console.ConsoleName)
                 {
                     EsrbRating = esrb
                 };
 
-                //Verify that the game can be launched when the global rating is set to null
-                Assert.IsFalse(FileOps.Launch(game).Contains("ESRB"), String.Format("Verify that a game rated {0} can be launched properly when the user rating is set to Null", esrb.GetStringValue()));
+                //Verify that the game can be launched when the user rating is set to null
+                try
+                {
+                    FileOps.Launch(game);
+                    Assert.Fail($"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the user rating is set to Null");
+                }
+                catch (Exception exception)
+                {
+                    Assert.IsFalse(exception.Message.Contains("ESRB"), $"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the user rating is set to Null");
+                }
             }
-        }
-        */
         }
     }
 }
