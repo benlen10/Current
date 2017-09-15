@@ -7,7 +7,7 @@ using UniCade.Interfaces;
 
 namespace UniCade.Backend
 {
-    public class Program
+    internal class Program
     {
         #region Properties
 

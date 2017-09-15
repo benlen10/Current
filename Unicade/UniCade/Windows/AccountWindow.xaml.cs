@@ -45,17 +45,17 @@ namespace UniCade.Windows
         private void AccountWindow_ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             //Check for invalid input
-            if ((Textbox_Username.Text == null) || Textbox_Email.Text == null || (Textbox_UserInfo.Text == null))
+            if ((TextboxUsername.Text == null) || TextboxEmail.Text == null || (TextboxUserInfo.Text == null))
             {
                 MessageBox.Show("Fields cannot be empty");
                 return;
             }
-            if ((Textbox_Username.Text.Length > 30) || (Textbox_Email.Text.Length > 30) || (Textbox_Email.Text.Length > 30) || (Textbox_UserInfo.Text.Length > 100))
+            if ((TextboxUsername.Text.Length > 30) || (TextboxEmail.Text.Length > 30) || (TextboxEmail.Text.Length > 30) || (TextboxUserInfo.Text.Length > 100))
             {
                 MessageBox.Show("Invalid Length");
                 return;
             }
-            if (!Textbox_Email.Text.Contains("@"))
+            if (!TextboxEmail.Text.Contains("@"))
             {
                 MessageBox.Show("Invalid Email");
                 return;
@@ -64,12 +64,12 @@ namespace UniCade.Windows
             //Create a new SQL user if the account type is UniCade Cloud
             if (_userType == 0)
             {
-                SqlClient.CreateUser(Textbox_Username.Text, Textbox_Email.Text, Textbox_Email.Text, Textbox_UserInfo.Text, "Null", "NullProfPath");
+                SqlClient.CreateUser(TextboxUsername.Text, TextboxEmail.Text, TextboxEmail.Text, TextboxUserInfo.Text, "Null", "NullProfPath");
             }
             else
             {
                 //Create a new local user if the account type standard Unicade
-                IUser user = new User(Textbox_Username.Text, Textbox_Password.Text, 0, Textbox_Email.Text, 0, Textbox_UserInfo.Text, Enums.Esrb.Null, "null");
+                IUser user = new User(TextboxUsername.Text, TextboxPassword.Text, 0, TextboxEmail.Text, 0, TextboxUserInfo.Text, Enums.Esrb.Null, "null");
                 Database.AddUser(user);
                 Database.SetCurrentUser(user);
             }

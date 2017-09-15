@@ -6,7 +6,7 @@ using UniCade.Interfaces;
 
 namespace UniCade.Objects
 {
-    public class User : IUser
+    internal class User : IUser
     {
 
         #region Properties

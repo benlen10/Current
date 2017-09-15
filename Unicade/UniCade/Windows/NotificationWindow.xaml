@@ -9,9 +9,9 @@
 
         <!-- Notification area -->
         <Border Background="#FFD5D6CE" BorderBrush="Black" CornerRadius="1" Opacity="0.65">
-            <TextBlock x:Name="textBlock0" TextWrapping="Wrap" Text="Body" Margin="10,49,10,10"/>
+            <TextBlock x:Name="TextBlock0" TextWrapping="Wrap" Text="Body" Margin="10,49,10,10"/>
         </Border>
-        <TextBlock x:Name="textBlock11" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Height="30" Width="280" FontWeight="Bold" FontSize="14"/>
+        <TextBlock x:Name="TextBlock11" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Height="30" Width="280" FontWeight="Bold" FontSize="14"/>
 
         <!-- Animation -->
         <Grid.Triggers>

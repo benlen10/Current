@@ -89,31 +89,31 @@ namespace UniCade.Windows
             foreach (string consoleName in consoleList)
             {
                 IConsole console = Database.GetConsole(consoleName);
-                GamesTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
-                EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
+                GamesTabListboxConsoleList.Items.Add(console.ConsoleName);
+                EmulatorsTabListboxConsoleList.Items.Add(console.ConsoleName);
             }
 
             //Set initial selected indexes
-            EmulatorsTab_Listbox_ConsoleList.SelectedIndex = 0;
-            GamesTab_Listbox_ConsoleList.SelectedIndex = 0;
+            EmulatorsTabListboxConsoleList.SelectedIndex = 0;
+            GamesTabListboxConsoleList.SelectedIndex = 0;
 
             //Poplate ESRB dropdown combo boxes
             foreach (Enums.Esrb esrb in Enum.GetValues(typeof(Enums.Esrb)))
             {
-                GlobalTab_Dropdown_AllowedESRB.Items.Add(esrb.GetStringValue());
-                UsersTab_Dropdown_AllowedESRB.Items.Add(esrb.GetStringValue());
+                GlobalTabDropdownAllowedEsrb.Items.Add(esrb.GetStringValue());
+                UsersTabDropdownAllowedEsrb.Items.Add(esrb.GetStringValue());
             }
 
             //Load UniCade Logo images within the settings window
             try
             {
-                AboutTab_Image_UniCadeLogo.Source =
+                AboutTabImageUniCadeLogo.Source =
                     new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
-                CloudTab_Image_UniCadeLogo.Source =
+                CloudTabImageUniCadeLogo.Source =
                     new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
-                EmulatorsTab_Image_UniCadeLogo.Source =
+                EmulatorsTabImageUniCadeLogo.Source =
                     new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
-                WebTab_Image_UniCadeLogo.Source =
+                WebTabImageUniCadeLogo.Source =
                     new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png"));
             }
             catch (DirectoryNotFoundException)
@@ -122,65 +122,65 @@ namespace UniCade.Windows
             }
 
             //Disable editing userinfo unless logged in
-            UsersTab_Textbox_Username.IsEnabled = false;
-            UsersTab_Textbox_Email.IsEnabled = false;
-            UsersTab_Textbox_UserInfo.IsEnabled = false;
+            UsersTabTextboxUsername.IsEnabled = false;
+            UsersTabTextboxEmail.IsEnabled = false;
+            UsersTabTextboxUserInfo.IsEnabled = false;
 
             //Set specific textboxes as readonly
-            GlobalTab_Textbox_Coins.IsEnabled = false;
-            GlobalTab_Textbox_Playtime.IsEnabled = false;
+            GlobalTabTextboxCoins.IsEnabled = false;
+            GlobalTabTextboxPlaytime.IsEnabled = false;
 
             //Populate features textbox under the About tab
-            AboutTab_Textbox_SoftwareInfo.Text = TextFiles.Features + "\n\n\n\n\n\n" + TextFiles.Instructions;
-            AboutTab_Textbox_SoftwareInfo.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-            AboutTab_Textbox_SoftwareInfo.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
+            AboutTabTextboxSoftwareInfo.Text = TextFiles.Features + "\n\n\n\n\n\n" + TextFiles.Instructions;
+            AboutTabTextboxSoftwareInfo.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+            AboutTabTextboxSoftwareInfo.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
 
             //Populate textbox fields
-            GlobalTab_Textbox_Password.Password = Program.PasswordProtection.ToString();
+            GlobalTabTextboxPassword.Password = Program.PasswordProtection.ToString();
 
             //Populate checkboxes
-            WebTab_Checkbox_ReleaseDate.IsChecked = WebOps.ParseReleaseDate;
-            WebTab_Checkbox_CriticScore.IsChecked = WebOps.ParseCriticScore;
-            WebTab_Checkbox_Publisher.IsChecked = WebOps.ParsePublisher;
-            WebTab_Checkbox_Developer.IsChecked = WebOps.ParseDeveloper;
-            WebTab_Checkbox_ESRBRating.IsChecked = WebOps.ParseEsrbRating;
-            WebTab_Checkbox_ESRBDescriptor.IsChecked = WebOps.ParseEsrbDescriptors;
-            WebTab_Checkbox_Players.IsChecked = WebOps.ParsePlayerCount;
-            WebTab_Checkbox_Description.IsChecked = WebOps.ParseDescription;
-            WebTab_Checkbox_BoxFront.IsChecked = WebOps.ParseBoxFrontImage;
-            WebTab_Checkbox_BoxBack.IsChecked = WebOps.ParseBoxBackImage;
-            WebTab_Checkbox_Screenshot.IsChecked = WebOps.ParseScreenshot;
-            WebTab_Checkbox_Metacritic.IsChecked = WebOps.ScanMetacritic;
-            WebTab_Checkbox_Mobygames1.IsChecked = WebOps.ScanMobygames;
-            GlobalTab_Checkbox_DisplaySplash.IsChecked = Program.ShowSplashScreen;
-            GlobalTab_Checkbox_DisplayLoadingScreen.IsChecked = Program.ShowLoadingScreen;
-            GlobalTab_Checkbox_RequireLogin.IsChecked = Program.RequireLogin;
-            GlobalTab_Checkbox_RescanAllLibraries.IsChecked = Program.RescanOnStartup;
-            GlobalTab_Checkbox_EnforceFileExtension.IsChecked = Program.EnforceFileExtensions;
-            GlobalTab_Checkbox_DisplayESRB.IsChecked = MainWindow.DisplayEsrbWhileBrowsing;
-            GlobalTab_Checkbox_EnablePayPerPlay.IsChecked = PayPerPlay.PayPerPlayEnabled;
-            GlobalTab_Textbox_Coins.IsEnabled = PayPerPlay.PayPerPlayEnabled;
-            GlobalTab_Textbox_Playtime.IsEnabled = PayPerPlay.PayPerPlayEnabled;
-            GlobalTab_Dropdown_AllowedESRB.Text = Program.RestrictGlobalEsrb.GetStringValue();
-            GamesTab_CheckBox__GlobalFavorite.IsChecked = MainWindow.DisplayEsrbWhileBrowsing;
+            WebTabCheckboxReleaseDate.IsChecked = WebOps.ParseReleaseDate;
+            WebTabCheckboxCriticScore.IsChecked = WebOps.ParseCriticScore;
+            WebTabCheckboxPublisher.IsChecked = WebOps.ParsePublisher;
+            WebTabCheckboxDeveloper.IsChecked = WebOps.ParseDeveloper;
+            WebTabCheckboxEsrbRating.IsChecked = WebOps.ParseEsrbRating;
+            WebTabCheckboxEsrbDescriptor.IsChecked = WebOps.ParseEsrbDescriptors;
+            WebTabCheckboxPlayers.IsChecked = WebOps.ParsePlayerCount;
+            WebTabCheckboxDescription.IsChecked = WebOps.ParseDescription;
+            WebTabCheckboxBoxFront.IsChecked = WebOps.ParseBoxFrontImage;
+            WebTabCheckboxBoxBack.IsChecked = WebOps.ParseBoxBackImage;
+            WebTabCheckboxScreenshot.IsChecked = WebOps.ParseScreenshot;
+            WebTabCheckboxMetacritic.IsChecked = WebOps.ScanMetacritic;
+            WebTabCheckboxMobygames1.IsChecked = WebOps.ScanMobygames;
+            GlobalTabCheckboxDisplaySplash.IsChecked = Program.ShowSplashScreen;
+            GlobalTabCheckboxDisplayLoadingScreen.IsChecked = Program.ShowLoadingScreen;
+            GlobalTabCheckboxRequireLogin.IsChecked = Program.RequireLogin;
+            GlobalTabCheckboxRescanAllLibraries.IsChecked = Program.RescanOnStartup;
+            GlobalTabCheckboxEnforceFileExtension.IsChecked = Program.EnforceFileExtensions;
+            GlobalTabCheckboxDisplayEsrb.IsChecked = MainWindow.DisplayEsrbWhileBrowsing;
+            GlobalTabCheckboxEnablePayPerPlay.IsChecked = PayPerPlay.PayPerPlayEnabled;
+            GlobalTabTextboxCoins.IsEnabled = PayPerPlay.PayPerPlayEnabled;
+            GlobalTabTextboxPlaytime.IsEnabled = PayPerPlay.PayPerPlayEnabled;
+            GlobalTabDropdownAllowedEsrb.Text = Program.RestrictGlobalEsrb.GetStringValue();
+            GamesTabCheckBoxGlobalFavorite.IsChecked = MainWindow.DisplayEsrbWhileBrowsing;
 
             //Populate payPerPlay fields
-            GlobalTab_Textbox_Coins.Text = PayPerPlay.CoinsRequired.ToString();
-            GlobalTab_Textbox_Playtime.Text = PayPerPlay.Playtime.ToString();
+            GlobalTabTextboxCoins.Text = PayPerPlay.CoinsRequired.ToString();
+            GlobalTabTextboxPlaytime.Text = PayPerPlay.Playtime.ToString();
 
             var userList = Database.GetUserList();
             foreach (string username in userList)
             {
-                UsersTab_Listbox_CurrentUser.Items.Add(username);
+                UsersTabListboxCurrentUser.Items.Add(username);
             }
 
             //Refresh the global favorites list
             RefreshGlobalFavs();
 
             //Populate user license info
-            AboutTab_Label_LicensedTo.Content = "Licensed to: " + LicenseEngine.UserLicenseName;
-            AboutTab_Label_Edition.Content = LicenseEngine.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
-            AboutTab_Label_LicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
+            AboutTabLabelLicensedTo.Content = "Licensed to: " + LicenseEngine.UserLicenseName;
+            AboutTabLabelEdition.Content = LicenseEngine.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
+            AboutTabLabelLicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
         }
 
         #endregion
@@ -201,13 +201,13 @@ namespace UniCade.Windows
             }
 
             //Invalid input checks
-            if (GamesTab_Listbox_GamesList.Items.Count < 1)
+            if (GamesTabListboxGamesList.Items.Count < 1)
             {
                 MessageBox.Show("No games to download");
                 return;
             }
 
-            if (GamesTab_Listbox_GamesList.SelectedItem == null)
+            if (GamesTabListboxGamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
@@ -243,12 +243,12 @@ namespace UniCade.Windows
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            if (GamesTabListboxConsoleList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console");
                 return;
             }
-            if (GamesTab_Listbox_GamesList.Items.Count < 1)
+            if (GamesTabListboxGamesList.Items.Count < 1)
             {
                 MessageBox.Show("No games to upload");
                 return;
@@ -271,7 +271,7 @@ namespace UniCade.Windows
         private void GamesTab_DownloadConsoleButton_Click(object sender, EventArgs e)
         {
             //Invalid input checks
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            if (GamesTabListboxConsoleList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console");
                 return;
@@ -281,7 +281,7 @@ namespace UniCade.Windows
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
-            if (GamesTab_Listbox_GamesList.Items.Count < 1)
+            if (GamesTabListboxGamesList.Items.Count < 1)
             {
                 MessageBox.Show("No games to delete");
                 return;
@@ -314,8 +314,8 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_GamesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (GamesTab_Listbox_GamesList.SelectedItem == null) { return; }
-            string currentGame = GamesTab_Listbox_GamesList.SelectedItem.ToString();
+            if (GamesTabListboxGamesList.SelectedItem == null) { return; }
+            string currentGame = GamesTabListboxGamesList.SelectedItem.ToString();
             var gameList = _currentConsole.GetGameList();
             foreach (string gameTitle in gameList)
             {
@@ -334,9 +334,9 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_ConsoleListBox__SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null) { return; }
-            string curItem = GamesTab_Listbox_ConsoleList.SelectedItem.ToString();
-            GamesTab_Listbox_GamesList.Items.Clear();
+            if (GamesTabListboxConsoleList.SelectedItem == null) { return; }
+            string curItem = GamesTabListboxConsoleList.SelectedItem.ToString();
+            GamesTabListboxGamesList.Items.Clear();
             var consoleList = Database.GetConsoleList();
             foreach (string consoleName in consoleList)
             {
@@ -344,21 +344,21 @@ namespace UniCade.Windows
                 if (console.ConsoleName.Equals(curItem))
                 {
                     _currentConsole = console;
-                    GamesTab_Textbox_GamesForConsole.Text = console.GetGameCount().ToString();
-                    GamesTab_Textbox_TotalGames.Text = Database.GetTotalGameCount().ToString();
+                    GamesTabTextboxGamesForConsole.Text = console.GetGameCount().ToString();
+                    GamesTabTextboxTotalGames.Text = Database.GetTotalGameCount().ToString();
 
                     //Populate the games list
-                    console.GetGameList().ForEach(g => GamesTab_Listbox_GamesList.Items.Add(g));
+                    console.GetGameList().ForEach(g => GamesTabListboxGamesList.Items.Add(g));
                 }
             }
-            if (GamesTab_Listbox_GamesList.Items.Count > 0)
+            if (GamesTabListboxGamesList.Items.Count > 0)
             {
-                GamesTab_Listbox_GamesList.SelectedIndex = 0;
+                GamesTabListboxGamesList.SelectedIndex = 0;
                 var gameList = _currentConsole.GetGameList();
                 foreach (string gameTitle in gameList)
                 {
                     IGame g = _currentConsole.GetGame(gameTitle);
-                    if (g.Title.Equals(GamesTab_Listbox_GamesList.SelectedItem.ToString()))
+                    if (g.Title.Equals(GamesTabListboxGamesList.SelectedItem.ToString()))
                     {
                         _currentGame = g;
                     }
@@ -377,7 +377,7 @@ namespace UniCade.Windows
         internal void GamesTab_RescrapeGameButton_Click(object sender, EventArgs e)
         {
             //Require that a user select a valid game to rescrape
-            if (GamesTab_Listbox_GamesList.SelectedItem == null)
+            if (GamesTabListboxGamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
@@ -385,16 +385,16 @@ namespace UniCade.Windows
 
             //Scrape info and populate local fields
             WebOps.ScrapeInfo(_currentGame);
-            GamesTab_Textbox_Title.Text = _currentGame.Title;
-            GamesTab_Textbox_Console.Text = _currentGame.ConsoleName;
-            GamesTab_Textbox_ReleaseDate.Text = _currentGame.ReleaseDate;
-            GamesTab_Textbox_CriticScore.Text = _currentGame.CriticReviewScore;
-            GamesTab_Textbox_Publisher.Text = _currentGame.PublisherName;
-            GamesTab_Textbox_Developer.Text = _currentGame.DeveloperName;
-            GamesTab_Textbox_ESRB.Text = _currentGame.EsrbRating.GetStringValue();
-            GamesTab_Textbox_Players.Text = _currentGame.SupportedPlayerCount;
-            GamesTab_Textbox_ESRBDescriptor.Text = _currentGame.EsrbDescriptors;
-            GamesTab_Textbox_Description.Text = _currentGame.Description;
+            GamesTabTextboxTitle.Text = _currentGame.Title;
+            GamesTabTextboxConsole.Text = _currentGame.ConsoleName;
+            GamesTabTextboxReleaseDate.Text = _currentGame.ReleaseDate;
+            GamesTabTextboxCriticScore.Text = _currentGame.CriticReviewScore;
+            GamesTabTextboxPublisher.Text = _currentGame.PublisherName;
+            GamesTabTextboxDeveloper.Text = _currentGame.DeveloperName;
+            GamesTabTextboxEsrb.Text = _currentGame.EsrbRating.GetStringValue();
+            GamesTabTextboxPlayers.Text = _currentGame.SupportedPlayerCount;
+            GamesTabTextboxEsrbDescriptor.Text = _currentGame.EsrbDescriptors;
+            GamesTabTextboxDescription.Text = _currentGame.Description;
             RefreshEsrbIcon(_currentGame);
         }
 
@@ -404,7 +404,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_SaveToDatabaseButton_Click(object sender, EventArgs e)
         {
-            if (GamesTab_Listbox_GamesList.SelectedItem == null)
+            if (GamesTabListboxGamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
@@ -418,12 +418,12 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_SaveInfoButton_Click(object sender, EventArgs e)
         {
-            if (GamesTab_Listbox_GamesList.SelectedItem == null)
+            if (GamesTabListboxGamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
             }
-            if (GamesTab_Listbox_GamesList.Items.Count < 1)
+            if (GamesTabListboxGamesList.Items.Count < 1)
             {
                 MessageBox.Show("No games to save");
                 return;
@@ -444,13 +444,13 @@ namespace UniCade.Windows
                 return;
             }
 
-            if (GamesTab_Listbox_GamesList.Items.Count < 1)
+            if (GamesTabListboxGamesList.Items.Count < 1)
             {
                 MessageBox.Show("No games to upload");
                 return;
             }
 
-            if (GamesTab_Listbox_GamesList.SelectedItem == null)
+            if (GamesTabListboxGamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
                 return;
@@ -465,12 +465,12 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_RescrapeConsoleMetadataButton_Click(object sender, EventArgs e)
         {
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            if (GamesTabListboxConsoleList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console");
                 return;
             }
-            if (GamesTab_Listbox_ConsoleList.SelectedItem == null)
+            if (GamesTabListboxConsoleList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console");
                 return;
@@ -495,16 +495,16 @@ namespace UniCade.Windows
             {
                 if (!_isBoxfrontExpanded)
                 {
-                    GamesTab_Image_Boxfront.Margin = new Thickness(0, 0, 0, 0);
-                    GamesTab_Image_Boxfront.Height = 500;
-                    GamesTab_Image_Boxfront.Width = 500;
+                    GamesTabImageBoxfront.Margin = new Thickness(0, 0, 0, 0);
+                    GamesTabImageBoxfront.Height = 500;
+                    GamesTabImageBoxfront.Width = 500;
                     _isBoxfrontExpanded = true;
                 }
                 else
                 {
-                    GamesTab_Image_Boxfront.Margin = new Thickness(550, 57, 0, 0);
-                    GamesTab_Image_Boxfront.Height = 109;
-                    GamesTab_Image_Boxfront.Width = 92;
+                    GamesTabImageBoxfront.Margin = new Thickness(550, 57, 0, 0);
+                    GamesTabImageBoxfront.Height = 109;
+                    GamesTabImageBoxfront.Width = 92;
                     _isBoxfrontExpanded = false;
                 }
             }
@@ -519,16 +519,16 @@ namespace UniCade.Windows
             {
                 if (!_isBoxBackExpanded)
                 {
-                    GamesTab_Image_Boxback.Margin = new Thickness(0, 0, 0, 0);
-                    GamesTab_Image_Boxback.Height = 500;
-                    GamesTab_Image_Boxback.Width = 500;
+                    GamesTabImageBoxback.Margin = new Thickness(0, 0, 0, 0);
+                    GamesTabImageBoxback.Height = 500;
+                    GamesTabImageBoxback.Width = 500;
                     _isBoxBackExpanded = true;
                 }
                 else
                 {
-                    GamesTab_Image_Boxback.Margin = new Thickness(647, 57, 0, 0);
-                    GamesTab_Image_Boxback.Height = 107;
-                    GamesTab_Image_Boxback.Width = 97;
+                    GamesTabImageBoxback.Margin = new Thickness(647, 57, 0, 0);
+                    GamesTabImageBoxback.Height = 107;
+                    GamesTabImageBoxback.Width = 97;
                     _isBoxBackExpanded = false;
                 }
             }
@@ -543,16 +543,16 @@ namespace UniCade.Windows
             {
                 if (!_isScreenshotExpanded)
                 {
-                    GamesTab_Image_Screeshot.Margin = new Thickness(0, 0, 0, 0);
-                    GamesTab_Image_Screeshot.Height = 500;
-                    GamesTab_Image_Screeshot.Width = 500;
+                    GamesTabImageScreeshot.Margin = new Thickness(0, 0, 0, 0);
+                    GamesTabImageScreeshot.Height = 500;
+                    GamesTabImageScreeshot.Width = 500;
                     _isScreenshotExpanded = true;
                 }
                 else
                 {
-                    GamesTab_Image_Screeshot.Margin = new Thickness(572, 196, 0, 0);
-                    GamesTab_Image_Screeshot.Height = 103;
-                    GamesTab_Image_Screeshot.Width = 172;
+                    GamesTabImageScreeshot.Margin = new Thickness(572, 196, 0, 0);
+                    GamesTabImageScreeshot.Height = 103;
+                    GamesTabImageScreeshot.Width = 172;
                     _isScreenshotExpanded = false;
                 }
             }
@@ -566,15 +566,15 @@ namespace UniCade.Windows
         {
             try
             {
-                _currentGame.ReleaseDate = GamesTab_Textbox_ReleaseDate.Text;
-                _currentGame.CriticReviewScore = GamesTab_Textbox_CriticScore.Text;
-                _currentGame.SupportedPlayerCount = GamesTab_Textbox_Players.Text;
-                _currentGame.EsrbRating = Enums.ConvertStringToEsrbEnum(GamesTab_Textbox_ESRB.Text);
-                _currentGame.PublisherName = GamesTab_Textbox_Publisher.Text;
-                _currentGame.DeveloperName = GamesTab_Textbox_Developer.Text;
-                _currentGame.Description = GamesTab_Textbox_Description.Text;
-                _currentGame.EsrbDescriptors = GamesTab_Textbox_ESRBDescriptor.Text;
-                _currentGame.Favorite = GamesTab_CheckBox__GlobalFavorite.IsChecked.Value;
+                _currentGame.ReleaseDate = GamesTabTextboxReleaseDate.Text;
+                _currentGame.CriticReviewScore = GamesTabTextboxCriticScore.Text;
+                _currentGame.SupportedPlayerCount = GamesTabTextboxPlayers.Text;
+                _currentGame.EsrbRating = Enums.ConvertStringToEsrbEnum(GamesTabTextboxEsrb.Text);
+                _currentGame.PublisherName = GamesTabTextboxPublisher.Text;
+                _currentGame.DeveloperName = GamesTabTextboxDeveloper.Text;
+                _currentGame.Description = GamesTabTextboxDescription.Text;
+                _currentGame.EsrbDescriptors = GamesTabTextboxEsrbDescriptor.Text;
+                _currentGame.Favorite = GamesTabCheckBoxGlobalFavorite.IsChecked.Value;
             }
             catch (ArgumentException e)
             {
@@ -592,27 +592,27 @@ namespace UniCade.Windows
         public void RefreshEsrbIcon(IGame game)
         {
             if (game == null) { return; }
-            GamesTab_Image_ESRB.Source = null;
+            GamesTabImageEsrb.Source = null;
             if (game.EsrbRating.Equals(Enums.Esrb.Everyone))
             {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
+                GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
             }
             else if (game.EsrbRating.Equals(Enums.Esrb.Everyone10))
             {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png"));
+                GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png"));
             }
             else if (game.EsrbRating.Equals(Enums.Esrb.Teen))
             {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png"));
+                GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png"));
             }
             else if (game.EsrbRating.Equals(Enums.Esrb.Mature))
             {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png"));
+                GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png"));
             }
 
             if (game.EsrbRating.Equals(Enums.Esrb.Ao))
             {
-                GamesTab_Image_ESRB.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png"));
+                GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png"));
             }
         }
 
@@ -625,8 +625,8 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_ConsoleListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (EmulatorsTab_Listbox_ConsoleList.SelectedItem == null) { return; }
-            string curItem = EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString();
+            if (EmulatorsTabListboxConsoleList.SelectedItem == null) { return; }
+            string curItem = EmulatorsTabListboxConsoleList.SelectedItem.ToString();
             var consoleList = Database.GetConsoleList();
             foreach (string consoleName in consoleList)
             {
@@ -634,13 +634,13 @@ namespace UniCade.Windows
                 if (console.ConsoleName.Equals(curItem))
                 {
                     _currentEmulator = console;
-                    EmulatorsTab_Textbox_ConsoleName1.Text = console.ConsoleName;
-                    EmulatorsTab_Textbox_ROMExtension.Text = console.RomExtension;
-                    EmulatorsTab_Textbox_EmulatorArgs.Text = console.LaunchParams;
-                    EmulatorsTab_Textbox_EmulatorExe.Text = console.EmulatorPath;
-                    EmulatorsTab_Textbox_ConsoleInfo.Text = console.ConsoleInfo;
-                    EmulatorsTab_Textbox_GameCount.Text = console.GetGameCount().ToString();
-                    EmulatorsTab_Textbox_ReleaseDate.Text = console.ReleaseDate;
+                    EmulatorsTabTextboxConsoleName1.Text = console.ConsoleName;
+                    EmulatorsTabTextboxRomExtension.Text = console.RomExtension;
+                    EmulatorsTabTextboxEmulatorArgs.Text = console.LaunchParams;
+                    EmulatorsTabTextboxEmulatorExe.Text = console.EmulatorPath;
+                    EmulatorsTabTextboxConsoleInfo.Text = console.ConsoleInfo;
+                    EmulatorsTabTextboxGameCount.Text = console.GetGameCount().ToString();
+                    EmulatorsTabTextboxReleaseDate.Text = console.ReleaseDate;
                 }
             }
         }
@@ -653,12 +653,12 @@ namespace UniCade.Windows
         {
             try
             {
-                _currentEmulator.ConsoleName = EmulatorsTab_Textbox_ConsoleName1.Text;
-                _currentEmulator.RomExtension = EmulatorsTab_Textbox_ROMExtension.Text;
-                _currentEmulator.EmulatorPath = EmulatorsTab_Textbox_EmulatorExe.Text;
-                _currentEmulator.LaunchParams = EmulatorsTab_Textbox_EmulatorArgs.Text;
-                _currentEmulator.ReleaseDate = EmulatorsTab_Textbox_ReleaseDate.Text;
-                _currentEmulator.ConsoleInfo = EmulatorsTab_Textbox_ConsoleInfo.Text;
+                _currentEmulator.ConsoleName = EmulatorsTabTextboxConsoleName1.Text;
+                _currentEmulator.RomExtension = EmulatorsTabTextboxRomExtension.Text;
+                _currentEmulator.EmulatorPath = EmulatorsTabTextboxEmulatorExe.Text;
+                _currentEmulator.LaunchParams = EmulatorsTabTextboxEmulatorArgs.Text;
+                _currentEmulator.ReleaseDate = EmulatorsTabTextboxReleaseDate.Text;
+                _currentEmulator.ConsoleInfo = EmulatorsTabTextboxConsoleInfo.Text;
             }
             catch (ArgumentException exception)
             {
@@ -689,17 +689,17 @@ namespace UniCade.Windows
                 MessageBox.Show("Cannot have an empty console list");
                 return;
             }
-            EmulatorsTab_Listbox_ConsoleList.Items.Clear();
-            GamesTab_Listbox_ConsoleList.Items.Clear();
+            EmulatorsTabListboxConsoleList.Items.Clear();
+            GamesTabListboxConsoleList.Items.Clear();
             Database.RemoveConsole(_currentEmulator.ConsoleName);
             var consoleList = Database.GetConsoleList();
             foreach (string consoleName in consoleList)
             {
                 IConsole console = Database.GetConsole(consoleName);
-                EmulatorsTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
-                GamesTab_Listbox_ConsoleList.Items.Add(console.ConsoleName);
+                EmulatorsTabListboxConsoleList.Items.Add(console.ConsoleName);
+                GamesTabListboxConsoleList.Items.Add(console.ConsoleName);
             }
-            EmulatorsTab_Listbox_ConsoleList.SelectedIndex = 0;
+            EmulatorsTabListboxConsoleList.SelectedIndex = 0;
 
             MainWindow.RefreshConsoleList();
         }
@@ -710,27 +710,27 @@ namespace UniCade.Windows
         private void EmulatorsTab_AddNewConsoleButton_Click(object sender, EventArgs e)
         {
             //Clear all text boxes initially 
-            EmulatorsTab_Textbox_ROMExtension.Text = null;
-            EmulatorsTab_Textbox_EmulatorArgs.Text = null;
-            EmulatorsTab_Textbox_ConsoleInfo.Text = null;
-            EmulatorsTab_Textbox_GameCount.Text = null;
-            EmulatorsTab_Textbox_ReleaseDate.Text = null;
+            EmulatorsTabTextboxRomExtension.Text = null;
+            EmulatorsTabTextboxEmulatorArgs.Text = null;
+            EmulatorsTabTextboxConsoleInfo.Text = null;
+            EmulatorsTabTextboxGameCount.Text = null;
+            EmulatorsTabTextboxReleaseDate.Text = null;
 
             //Create a new console and add it to the datbase
             string newConsoleName = "New Console";
             IConsole newConsole = new Console(newConsoleName);
 
             Database.AddConsole(newConsole);
-            EmulatorsTab_Listbox_ConsoleList.Items.Clear();
-            GamesTab_Listbox_ConsoleList.Items.Clear();
+            EmulatorsTabListboxConsoleList.Items.Clear();
+            GamesTabListboxConsoleList.Items.Clear();
             var consoleList = Database.GetConsoleList();
             foreach (string consoleName in consoleList)
             {
                 IConsole con = Database.GetConsole(consoleName);
-                EmulatorsTab_Listbox_ConsoleList.Items.Add(con.ConsoleName);
-                GamesTab_Listbox_ConsoleList.Items.Add(con.ConsoleName);
+                EmulatorsTabListboxConsoleList.Items.Add(con.ConsoleName);
+                GamesTabListboxConsoleList.Items.Add(con.ConsoleName);
             }
-            EmulatorsTab_Listbox_ConsoleList.SelectedIndex = (EmulatorsTab_Listbox_ConsoleList.Items.Count - 1);
+            EmulatorsTabListboxConsoleList.SelectedIndex = (EmulatorsTabListboxConsoleList.Items.Count - 1);
             MainWindow.RefreshConsoleList();
         }
 
@@ -749,10 +749,10 @@ namespace UniCade.Windows
         {
             try
             {
-                _currentEmulator.ConsoleName = EmulatorsTab_Textbox_ConsoleName1.Text;
-                _currentEmulator.RomExtension = EmulatorsTab_Textbox_ROMExtension.Text;
-                _currentEmulator.LaunchParams = EmulatorsTab_Textbox_EmulatorArgs.Text;
-                _currentEmulator.ConsoleInfo = EmulatorsTab_Textbox_ConsoleInfo.Text;
+                _currentEmulator.ConsoleName = EmulatorsTabTextboxConsoleName1.Text;
+                _currentEmulator.RomExtension = EmulatorsTabTextboxRomExtension.Text;
+                _currentEmulator.LaunchParams = EmulatorsTabTextboxEmulatorArgs.Text;
+                _currentEmulator.ConsoleInfo = EmulatorsTabTextboxConsoleInfo.Text;
             }
             catch (ArgumentException exception)
             {
@@ -778,14 +778,14 @@ namespace UniCade.Windows
         private void EmulatorsTab_RescanSingleConsoleButton_Click(object sender, EventArgs e)
         {
             //Ensure that a console is currently selected
-            if (EmulatorsTab_Listbox_ConsoleList.SelectedItem == null)
+            if (EmulatorsTabListboxConsoleList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console");
                 return;
             }
 
             //Fetch the currently selected console
-            IConsole console = Database.GetConsole(EmulatorsTab_Listbox_ConsoleList.SelectedItem.ToString());
+            IConsole console = Database.GetConsole(EmulatorsTabListboxConsoleList.SelectedItem.ToString());
 
             if (FileOps.ScanSingleConsole(_currentEmulator))
             {
@@ -815,28 +815,28 @@ namespace UniCade.Windows
         private void UsersTab_UsersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Fetch the current user
-            IUser user = Database.GetUser(UsersTab_Listbox_CurrentUser.SelectedItem.ToString());
+            IUser user = Database.GetUser(UsersTabListboxCurrentUser.SelectedItem.ToString());
 
             //Populate the favorites list for each user
-            UsersTab_Listbox_UserFavorites.Items.Clear();
-            user.FavoritesList.ForEach(g => UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
+            UsersTabListboxUserFavorites.Items.Clear();
+            user.FavoritesList.ForEach(g => UsersTabListboxUserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
 
             //Populate the user fields
-            UsersTab_Textbox_Username.Text = user.Username;
-            UsersTab_Textbox_Email.Text = user.Email;
-            UsersTab_Textbox_UserInfo.Text = user.UserInfo;
-            UsersTab_Textbox_LoginCount.Text = user.GetUserLoginCount().ToString();
-            UsersTab_Textbox_LaunchCount.Text = user.GetUserLaunchCount().ToString();
-            UsersTab_Dropdown_AllowedESRB.Text = user.AllowedEsrb.GetStringValue();
+            UsersTabTextboxUsername.Text = user.Username;
+            UsersTabTextboxEmail.Text = user.Email;
+            UsersTabTextboxUserInfo.Text = user.UserInfo;
+            UsersTabTextboxLoginCount.Text = user.GetUserLoginCount().ToString();
+            UsersTabTextboxLaunchCount.Text = user.GetUserLaunchCount().ToString();
+            UsersTabDropdownAllowedEsrb.Text = user.AllowedEsrb.GetStringValue();
 
             //Only allow the current user to edit their own userdata
             if (user.Username.Equals(Database.GetCurrentUser().Username))
             {
-                UsersTab_Textbox_Username.IsEnabled = true;
-                UsersTab_Textbox_Email.IsEnabled = true;
-                UsersTab_Textbox_UserInfo.IsEnabled = true;
-                UsersTab_Dropdown_AllowedESRB.IsEnabled = true;
-                UsersTab_Listbox_UserFavorites.IsEnabled = true;
+                UsersTabTextboxUsername.IsEnabled = true;
+                UsersTabTextboxEmail.IsEnabled = true;
+                UsersTabTextboxUserInfo.IsEnabled = true;
+                UsersTabDropdownAllowedEsrb.IsEnabled = true;
+                UsersTabListboxUserFavorites.IsEnabled = true;
             }
         }
 
@@ -854,8 +854,8 @@ namespace UniCade.Windows
             FileOps.SavePreferences(Program.PreferencesPath);
 
             //Refresh the listbox contents
-            UsersTab_Listbox_CurrentUser.Items.Clear();
-            Database.GetUserList().ForEach(u => UsersTab_Listbox_CurrentUser.Items.Add(u));
+            UsersTabListboxCurrentUser.Items.Clear();
+            Database.GetUserList().ForEach(u => UsersTabListboxCurrentUser.Items.Add(u));
         }
 
         /// <summary>
@@ -871,7 +871,7 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_DeleteUserButton_Click(object sender, EventArgs e)
         {
-            IUser user = Database.GetUser(UsersTab_Listbox_CurrentUser.SelectedItem.ToString());
+            IUser user = Database.GetUser(UsersTabListboxCurrentUser.SelectedItem.ToString());
 
             try
             {
@@ -884,8 +884,8 @@ namespace UniCade.Windows
             }
 
             //Refresh the user list
-            UsersTab_Listbox_CurrentUser.Items.Clear();
-            Database.GetUserList().ForEach(u => UsersTab_Listbox_CurrentUser.Items.Add(u));
+            UsersTabListboxCurrentUser.Items.Clear();
+            Database.GetUserList().ForEach(u => UsersTabListboxCurrentUser.Items.Add(u));
         }
 
         /// <summary>
@@ -896,9 +896,9 @@ namespace UniCade.Windows
         {
             try
             {
-                Database.GetCurrentUser().Username = UsersTab_Textbox_Username.Text;
-                Database.GetCurrentUser().SetUserPassword(UsersTab_Textbox_Email.Text);
-                Database.GetCurrentUser().UserInfo = UsersTab_Textbox_UserInfo.Text;
+                Database.GetCurrentUser().Username = UsersTabTextboxUsername.Text;
+                Database.GetCurrentUser().SetUserPassword(UsersTabTextboxEmail.Text);
+                Database.GetCurrentUser().UserInfo = UsersTabTextboxUserInfo.Text;
             }
             catch (ArgumentException exception)
             {
@@ -906,13 +906,13 @@ namespace UniCade.Windows
             }
 
 
-            Database.GetCurrentUser().AllowedEsrb = UsersTab_Dropdown_AllowedESRB.SelectedItem == null ? Enums.Esrb.Null : Enums.ConvertStringToEsrbEnum(UsersTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+            Database.GetCurrentUser().AllowedEsrb = UsersTabDropdownAllowedEsrb.SelectedItem == null ? Enums.Esrb.Null : Enums.ConvertStringToEsrbEnum(UsersTabDropdownAllowedEsrb.SelectedItem.ToString());
 
             
 
             //Refresh the user list
-            UsersTab_Listbox_CurrentUser.Items.Clear();
-            Database.GetUserList().ForEach(u => UsersTab_Listbox_CurrentUser.Items.Add(u));
+            UsersTabListboxCurrentUser.Items.Clear();
+            Database.GetUserList().ForEach(u => UsersTabListboxCurrentUser.Items.Add(u));
         }
 
         /// <summary>
@@ -921,11 +921,11 @@ namespace UniCade.Windows
         private void UsersTab_DeleteFavoriteButton_Click(object sender, EventArgs e)
         {
             //Remove the favorite game at the current index
-            Database.GetCurrentUser().FavoritesList.RemoveAt(UsersTab_Listbox_UserFavorites.SelectedIndex);
+            Database.GetCurrentUser().FavoritesList.RemoveAt(UsersTabListboxUserFavorites.SelectedIndex);
 
             //Refresh the user favorites list
-            UsersTab_Listbox_UserFavorites.Items.Clear();
-             Database.GetCurrentUser().FavoritesList.ForEach(g => UsersTab_Listbox_UserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
+            UsersTabListboxUserFavorites.Items.Clear();
+             Database.GetCurrentUser().FavoritesList.ForEach(g => UsersTabListboxUserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
         }
 
         /// <summary>
@@ -938,7 +938,7 @@ namespace UniCade.Windows
             login.ShowDialog();
 
             //If the user is logged in sucuesfully, save the current user and preferences file
-            UsersTab_Label_CurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
+            UsersTabLabelCurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
         }
 
         /// <summary>
@@ -946,7 +946,7 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_RefreshButton_Click(object sender, EventArgs e)
         {
-            UsersTab_Label_CurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
+            UsersTabLabelCurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
         }
 
         #endregion
@@ -958,7 +958,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.RestrictGlobalEsrb = Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
+            Program.RestrictGlobalEsrb = Enums.ConvertStringToEsrbEnum(GlobalTabDropdownAllowedEsrb.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -969,8 +969,8 @@ namespace UniCade.Windows
 
             try
             {
-                Program.RestrictGlobalEsrb = GlobalTab_Dropdown_AllowedESRB.SelectedItem == null ? Enums.Esrb.Null : Enums.ConvertStringToEsrbEnum(GlobalTab_Dropdown_AllowedESRB.SelectedItem.ToString());
-                Program.EnforceFileExtensions = GlobalTab_Checkbox_EnforceFileExtension.IsChecked.Value;
+                Program.RestrictGlobalEsrb = GlobalTabDropdownAllowedEsrb.SelectedItem == null ? Enums.Esrb.Null : Enums.ConvertStringToEsrbEnum(GlobalTabDropdownAllowedEsrb.SelectedItem.ToString());
+                Program.EnforceFileExtensions = GlobalTabCheckboxEnforceFileExtension.IsChecked.Value;
             }
             catch (ArgumentException exception)
             {
@@ -978,17 +978,17 @@ namespace UniCade.Windows
             }
 
             //Save checkboxes
-            MainWindow.DisplayEsrbWhileBrowsing = GlobalTab_Checkbox_ToView.IsChecked.Value;
-            Program.ShowSplashScreen = GlobalTab_Checkbox_DisplaySplash.IsChecked.Value;
-            Program.RequireLogin = GlobalTab_Checkbox_RequireLogin.IsChecked.Value;
-            Program.RescanOnStartup = GlobalTab_Checkbox_RescanAllLibraries.IsChecked.Value;
-            MainWindow.DisplayEsrbWhileBrowsing = GlobalTab_Checkbox_DisplayESRB.IsChecked.Value;
+            MainWindow.DisplayEsrbWhileBrowsing = GlobalTabCheckboxToView.IsChecked.Value;
+            Program.ShowSplashScreen = GlobalTabCheckboxDisplaySplash.IsChecked.Value;
+            Program.RequireLogin = GlobalTabCheckboxRequireLogin.IsChecked.Value;
+            Program.RescanOnStartup = GlobalTabCheckboxRescanAllLibraries.IsChecked.Value;
+            MainWindow.DisplayEsrbWhileBrowsing = GlobalTabCheckboxDisplayEsrb.IsChecked.Value;
 
-            int.TryParse(GlobalTab_Textbox_Password.Password, out int n);
-            Program.PasswordProtection = int.Parse(GlobalTab_Textbox_Password.Password);
+            int.TryParse(GlobalTabTextboxPassword.Password, out int n);
+            Program.PasswordProtection = int.Parse(GlobalTabTextboxPassword.Password);
 
-            int.TryParse(GlobalTab_Textbox_Coins.Text, out n);
-            PayPerPlay.CoinsRequired = int.Parse(GlobalTab_Textbox_Coins.Text);
+            int.TryParse(GlobalTabTextboxCoins.Text, out n);
+            PayPerPlay.CoinsRequired = int.Parse(GlobalTabTextboxCoins.Text);
 
             //Save all active preferences to the local preferences file
             FileOps.SavePreferences(Program.PreferencesPath);
@@ -1000,11 +1000,11 @@ namespace UniCade.Windows
         private void GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             PayPerPlay.PayPerPlayEnabled = false;
-            GlobalTab_Textbox_Coins.IsEnabled = false;
-            GlobalTab_Textbox_Playtime.IsEnabled = false;
-            PayPerPlay.PayPerPlayEnabled = GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value;
-            GlobalTab_Textbox_Coins.IsEnabled = GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value;
-            GlobalTab_Textbox_Playtime.IsEnabled = GlobalTab_Checkbox_EnablePayPerPlay.IsChecked.Value;
+            GlobalTabTextboxCoins.IsEnabled = false;
+            GlobalTabTextboxPlaytime.IsEnabled = false;
+            PayPerPlay.PayPerPlayEnabled = GlobalTabCheckboxEnablePayPerPlay.IsChecked.Value;
+            GlobalTabTextboxCoins.IsEnabled = GlobalTabCheckboxEnablePayPerPlay.IsChecked.Value;
+            GlobalTabTextboxPlaytime.IsEnabled = GlobalTabCheckboxEnablePayPerPlay.IsChecked.Value;
 
         }
 
@@ -1043,30 +1043,30 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Button_SaveScraperSettings_Click(object sender, RoutedEventArgs e)
         {
-            WebOps.ScanMobygames = WebTab_Checkbox_Mobygames1.IsChecked.Value;
-            WebOps.ScanMetacritic = WebTab_Checkbox_Metacritic.IsChecked.Value;
-            WebOps.ParseReleaseDate = WebTab_Checkbox_ReleaseDate.IsChecked.Value;
-            WebOps.ParseCriticScore = WebTab_Checkbox_CriticScore.IsChecked.Value;
-            WebOps.ParsePublisher = WebTab_Checkbox_Publisher.IsChecked.Value;
-            WebOps.ParseDeveloper = WebTab_Checkbox_Developer.IsChecked.Value;
-            WebOps.ParseEsrbRating = WebTab_Checkbox_ESRBRating.IsChecked.Value;
-            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
-            WebOps.ParsePlayerCount = WebTab_Checkbox_Players.IsChecked.Value;
-            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
-            WebOps.ParseBoxFrontImage = WebTab_Checkbox_BoxFront.IsChecked.Value;
-            WebOps.ParseBoxBackImage = WebTab_Checkbox_BoxBack.IsChecked.Value;
-            WebOps.ParseScreenshot = WebTab_Checkbox_Screenshot.IsChecked.Value;
-            WebOps.ParseReleaseDate = WebTab_Checkbox_ReleaseDate.IsChecked.Value;
-            WebOps.ParseCriticScore = WebTab_Checkbox_CriticScore.IsChecked.Value;
-            WebOps.ParsePublisher = WebTab_Checkbox_Publisher.IsChecked.Value;
-            WebOps.ParseDeveloper = WebTab_Checkbox_Developer.IsChecked.Value;
-            WebOps.ParseEsrbRating = WebTab_Checkbox_ESRBRating.IsChecked.Value;
-            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
-            WebOps.ParsePlayerCount = WebTab_Checkbox_Players.IsChecked.Value;
-            WebOps.ParseDescription = WebTab_Checkbox_ESRBDescriptor.IsChecked.Value;
-            WebOps.ParseBoxFrontImage = WebTab_Checkbox_BoxFront.IsChecked.Value;
-            WebOps.ParseBoxBackImage = WebTab_Checkbox_BoxBack.IsChecked.Value;
-            WebOps.ParseScreenshot = WebTab_Checkbox_Screenshot.IsChecked.Value;
+            WebOps.ScanMobygames = WebTabCheckboxMobygames1.IsChecked.Value;
+            WebOps.ScanMetacritic = WebTabCheckboxMetacritic.IsChecked.Value;
+            WebOps.ParseReleaseDate = WebTabCheckboxReleaseDate.IsChecked.Value;
+            WebOps.ParseCriticScore = WebTabCheckboxCriticScore.IsChecked.Value;
+            WebOps.ParsePublisher = WebTabCheckboxPublisher.IsChecked.Value;
+            WebOps.ParseDeveloper = WebTabCheckboxDeveloper.IsChecked.Value;
+            WebOps.ParseEsrbRating = WebTabCheckboxEsrbRating.IsChecked.Value;
+            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
+            WebOps.ParsePlayerCount = WebTabCheckboxPlayers.IsChecked.Value;
+            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
+            WebOps.ParseBoxFrontImage = WebTabCheckboxBoxFront.IsChecked.Value;
+            WebOps.ParseBoxBackImage = WebTabCheckboxBoxBack.IsChecked.Value;
+            WebOps.ParseScreenshot = WebTabCheckboxScreenshot.IsChecked.Value;
+            WebOps.ParseReleaseDate = WebTabCheckboxReleaseDate.IsChecked.Value;
+            WebOps.ParseCriticScore = WebTabCheckboxCriticScore.IsChecked.Value;
+            WebOps.ParsePublisher = WebTabCheckboxPublisher.IsChecked.Value;
+            WebOps.ParseDeveloper = WebTabCheckboxDeveloper.IsChecked.Value;
+            WebOps.ParseEsrbRating = WebTabCheckboxEsrbRating.IsChecked.Value;
+            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
+            WebOps.ParsePlayerCount = WebTabCheckboxPlayers.IsChecked.Value;
+            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
+            WebOps.ParseBoxFrontImage = WebTabCheckboxBoxFront.IsChecked.Value;
+            WebOps.ParseBoxBackImage = WebTabCheckboxBoxBack.IsChecked.Value;
+            WebOps.ParseScreenshot = WebTabCheckboxScreenshot.IsChecked.Value;
         }
 
         #endregion
@@ -1093,7 +1093,7 @@ namespace UniCade.Windows
             l.ShowDialog();
             if (SqlClient.SqlUsername != null)
             {
-                WebTab_Label_CurrentWebUser.Content = "Current Web User: " + SqlClient.SqlUsername;
+                WebTabLabelCurrentWebUser.Content = "Current Web User: " + SqlClient.SqlUsername;
             }
         }
 
@@ -1107,13 +1107,13 @@ namespace UniCade.Windows
             if (SqlClient.SqlUsername == null)
             {
                 MessageBox.Show("User is already logged out");
-                WebTab_Label_CurrentWebUser.Content = "Current Web User: ";
+                WebTabLabelCurrentWebUser.Content = "Current Web User: ";
                 return;
             }
 
             //Log the current user out and update the interface
             SqlClient.SqlUsername = null;
-            WebTab_Label_CurrentWebUser.Content = "Current Web User: ";
+            WebTabLabelCurrentWebUser.Content = "Current Web User: ";
         }
 
         /// <summary>
@@ -1130,7 +1130,7 @@ namespace UniCade.Windows
 
             //Delete the current SQL user and update the label
             SqlClient.DeleteUser();
-            WebTab_Label_CurrentWebUser.Content = "Current Web User: ";
+            WebTabLabelCurrentWebUser.Content = "Current Web User: ";
         }
 
         /// <summary>
@@ -1198,11 +1198,11 @@ namespace UniCade.Windows
             //Create a new license entry info and validate the key
             LicenseEntry le = new LicenseEntry();
             le.ShowDialog();
-            AboutTab_Label_LicensedTo.Content = "Licensed to: " + LicenseEngine.UserLicenseName;
-            AboutTab_Label_LicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
+            AboutTabLabelLicensedTo.Content = "Licensed to: " + LicenseEngine.UserLicenseName;
+            AboutTabLabelLicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
 
             //Set the license text depending on if the key is valid
-            AboutTab_Label_Edition.Content = LicenseEngine.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
+            AboutTabLabelEdition.Content = LicenseEngine.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
         }
 
         private void LaunchCmdInterface_Click(object sender, RoutedEventArgs e)
@@ -1223,49 +1223,49 @@ namespace UniCade.Windows
             if (game == null)
             {
                 //If no game is currently selected, set all info fields to null
-                GamesTab_Textbox_Title.Text = null;
-                GamesTab_Textbox_Console.Text = null;
-                GamesTab_Textbox_ReleaseDate.Text = null;
-                GamesTab_Textbox_CriticScore.Text = null;
-                GamesTab_Textbox_Publisher.Text = null;
-                GamesTab_Textbox_Developer.Text = null;
-                GamesTab_Textbox_ESRB.Text = null;
-                GamesTab_Textbox_Players.Text = null;
-                GamesTab_Textbox_ESRBDescriptor.Text = null;
-                GamesTab_Textbox_Description.Text = null;
+                GamesTabTextboxTitle.Text = null;
+                GamesTabTextboxConsole.Text = null;
+                GamesTabTextboxReleaseDate.Text = null;
+                GamesTabTextboxCriticScore.Text = null;
+                GamesTabTextboxPublisher.Text = null;
+                GamesTabTextboxDeveloper.Text = null;
+                GamesTabTextboxEsrb.Text = null;
+                GamesTabTextboxPlayers.Text = null;
+                GamesTabTextboxEsrbDescriptor.Text = null;
+                GamesTabTextboxDescription.Text = null;
                 return;
             }
 
             //If a valid game is selected, update all info fields
-            GamesTab_Textbox_Title.Text = game.Title;
-            GamesTab_Textbox_Console.Text = game.ConsoleName;
-            GamesTab_Textbox_ReleaseDate.Text = game.ReleaseDate;
-            GamesTab_Textbox_CriticScore.Text = game.CriticReviewScore;
-            GamesTab_Textbox_Publisher.Text = game.PublisherName;
-            GamesTab_Textbox_Developer.Text = game.DeveloperName;
-            GamesTab_Textbox_ESRB.Text = game.EsrbRating.GetStringValue();
-            GamesTab_Textbox_Players.Text = game.SupportedPlayerCount;
-            GamesTab_Textbox_ESRBDescriptor.Text = game.EsrbDescriptors;
-            GamesTab_Textbox_Description.Text = game.Description;
-            GamesTab_Textbox_LaunchCount.Text = game.GetLaunchCount().ToString();
-            GamesTab_CheckBox__GlobalFavorite.IsChecked = game.Favorite;
+            GamesTabTextboxTitle.Text = game.Title;
+            GamesTabTextboxConsole.Text = game.ConsoleName;
+            GamesTabTextboxReleaseDate.Text = game.ReleaseDate;
+            GamesTabTextboxCriticScore.Text = game.CriticReviewScore;
+            GamesTabTextboxPublisher.Text = game.PublisherName;
+            GamesTabTextboxDeveloper.Text = game.DeveloperName;
+            GamesTabTextboxEsrb.Text = game.EsrbRating.GetStringValue();
+            GamesTabTextboxPlayers.Text = game.SupportedPlayerCount;
+            GamesTabTextboxEsrbDescriptor.Text = game.EsrbDescriptors;
+            GamesTabTextboxDescription.Text = game.Description;
+            GamesTabTextboxLaunchCount.Text = game.GetLaunchCount().ToString();
+            GamesTabCheckBoxGlobalFavorite.IsChecked = game.Favorite;
 
-            GamesTab_Image_Boxfront.Source = null;
-            GamesTab_Image_Boxback.Source = null;
-            GamesTab_Image_Screeshot.Source = null;
+            GamesTabImageBoxfront.Source = null;
+            GamesTabImageBoxback.Source = null;
+            GamesTabImageScreeshot.Source = null;
             if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"))
             {
-                GamesTab_Image_Boxfront.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"));
+                GamesTabImageBoxfront.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"));
             }
 
             if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png"))
             {
-                GamesTab_Image_Boxback.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png"));
+                GamesTabImageBoxback.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png"));
             }
 
             if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png"))
             {
-                GamesTab_Image_Screeshot.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png"));
+                GamesTabImageScreeshot.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png"));
             }
         }
         /// <summary>
@@ -1273,7 +1273,7 @@ namespace UniCade.Windows
         /// </summary>
         public void RefreshGlobalFavs()
         {
-            GlobalTab_Listbox_GlobalFavorites.Items.Clear();
+            GlobalTabListboxGlobalFavorites.Items.Clear();
             var consoleList = Database.GetConsoleList();
             foreach (string consoleName in consoleList)
             {
@@ -1288,7 +1288,7 @@ namespace UniCade.Windows
                         {
                             if (game.Favorite)
                             {
-                                GlobalTab_Listbox_GlobalFavorites.Items.Add(game.Title + " (" + game.ConsoleName + ")");
+                                GlobalTabListboxGlobalFavorites.Items.Add(game.Title + " (" + game.ConsoleName + ")");
                             }
                         }
                     }

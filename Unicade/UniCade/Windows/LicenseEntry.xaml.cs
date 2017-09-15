@@ -38,7 +38,7 @@ namespace UniCade.Windows
         private void LicenseEntryWindow_ValidateButton_Click(object sender, RoutedEventArgs e)
         {
             //Bad input checks
-            if ((Textbox_User.Text == null) || (Textbox_Key.Text == null))
+            if ((TextboxUser.Text == null) || (TextboxKey.Text == null))
             {
                 MessageBox.Show("Missing Required Fields");
                 return;
@@ -51,8 +51,8 @@ namespace UniCade.Windows
                 LicenseEngine.IsLicenseValid = true;
 
                 //Save the entered values 
-                LicenseEngine.UserLicenseName = Textbox_User.Text;
-                LicenseEngine.UserLicenseKey = Textbox_Key.Text;
+                LicenseEngine.UserLicenseName = TextboxUser.Text;
+                LicenseEngine.UserLicenseKey = TextboxKey.Text;
                 FileOps.SavePreferences(Program.PreferencesPath);
                 Close();
             }

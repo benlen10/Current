@@ -31,6 +31,11 @@ namespace UniCade.Constants
         public const int MaxPathLength = 1000;
 
         /// <summary>
+        /// The min length for directory paths
+        /// </summary>
+        public const int MinPathLength = 4;
+
+        /// <summary>
         /// The max length a ROM file extension
         /// </summary>
         public const int MaxFileExtLength = 1000;

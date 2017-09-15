@@ -6,6 +6,7 @@ using System.Windows.Threading;
 /// <summary>
 /// Interaction logic for Notification.xaml
 /// </summary>
+// ReSharper disable once CheckNamespace
 public partial class NotificationWindow
 {
     #region Constructors
@@ -22,8 +23,8 @@ public partial class NotificationWindow
 
         Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
             {
-                textBlock11.Text = titleText;
-                textBlock0.Text = bodyText;
+                TextBlock11.Text = titleText;
+                TextBlock0.Text = bodyText;
                 var workingArea = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea;
                 var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
                 var corner = transform.Transform(new Point(workingArea.Right, workingArea.Bottom));

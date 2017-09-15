@@ -63,7 +63,7 @@ namespace UniCade.Constants
         /// <summary>
         /// Define a StringValue attribute for the Enum class
         /// </summary>
-        public class StringValueAttribute : Attribute
+        internal class StringValueAttribute : Attribute
         {
             public string StringValue { get; }
 

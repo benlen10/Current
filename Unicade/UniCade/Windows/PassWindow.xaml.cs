@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using UniCade.Backend;
 
 namespace UniCade.Windows
@@ -36,10 +35,10 @@ namespace UniCade.Windows
         /// </summary>
         private void PassWindow_EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            int.TryParse(Textbox_Password.Password, out int n);
+            int.TryParse(TextboxPassword.Password, out int n);
             if (n > 0)
             {
-                if (int.Parse(Textbox_Password.Password) == Program.PasswordProtection)
+                if (int.Parse(TextboxPassword.Password) == Program.PasswordProtection)
                 {
                     DialogResult = true;
                     MainWindow.IsPasswordValid = true;

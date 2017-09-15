@@ -24,7 +24,7 @@ namespace UniCade.Backend
                 {
                     throw new ArgumentException("ROM folder path cannot be null");
                 }
-                if (value.Length < 4)
+                if (value.Length < ConstValues.MinPathLength)
                 {
                     throw new ArgumentException("ROM folder path too short");
                 }

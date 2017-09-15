@@ -119,11 +119,11 @@ namespace UniCade
             SettingsWindow = new SettingsWindow();
 
             //Hide currently inactive elements and labels
-            listBox.Visibility = Visibility.Hidden;
-            listBox.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
-            listBox.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
-            image2.Visibility = Visibility.Hidden;
-            label1.Visibility = Visibility.Hidden;
+            ListBox.Visibility = Visibility.Hidden;
+            ListBox.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
+            ListBox.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
+            Image2.Visibility = Visibility.Hidden;
+            Label1.Visibility = Visibility.Hidden;
             //Taskbar.Hide();
 
             //Initialize flags and a new class variable for GameInfo 
@@ -134,10 +134,10 @@ namespace UniCade
             InitilizeGhkHook();
 
             //Initialize license flag
-            label3.Content = "Unlicensed Version";
+            Label3.Content = "Unlicensed Version";
             if (LicenseEngine.IsLicenseValid)
             {
-                label3.Visibility = Visibility.Hidden;
+                Label3.Visibility = Visibility.Hidden;
             }
 
             //Refresh the list of currently active consoles
@@ -153,12 +153,12 @@ namespace UniCade
             }
             else
             {
-                label2.Visibility = Visibility.Hidden;
+                Label2.Visibility = Visibility.Hidden;
             }
 
             //Refresh the current gamecount and update the GUI
             //Program.RefreshTotalGameCount();
-            label.Content = "Total Game Count: " + Database.GetTotalGameCount();
+            Label.Content = "Total Game Count: " + Database.GetTotalGameCount();
             UpdateGui();
         }
 
@@ -258,13 +258,13 @@ namespace UniCade
                 {
                     if (IsGameSelectionPageActive)
                     {
-                        if (listBox.SelectedItem != null)
+                        if (ListBox.SelectedItem != null)
                         {
                             var gameList = CurrentConsole.GetGameList();
                             foreach (string gameTitle in gameList)
                             {
                                 IGame g = CurrentConsole.GetGame(gameTitle);
-                                if (listBox.SelectedItem.ToString().Equals(g.Title))
+                                if (ListBox.SelectedItem.ToString().Equals(g.Title))
                                 {
                                     if (Database.GetCurrentUser().FavoritesList.Count < 1)
                                     {
@@ -300,7 +300,7 @@ namespace UniCade
                         foreach (string gameTitle in gameList)
                         {
                             IGame game = CurrentConsole.GetGame(gameTitle);
-                            if (listBox.SelectedItem.ToString().Equals(game.Title))
+                            if (ListBox.SelectedItem.ToString().Equals(game.Title))
                             {
                                 if (game.Favorite)
                                 {
@@ -356,7 +356,7 @@ namespace UniCade
                         UnhookKeys();
                         SettingsWindow.ShowDialog();
                     }
-                    label3.Visibility = LicenseEngine.IsLicenseValid ? Visibility.Hidden : Visibility.Visible;
+                    Label3.Visibility = LicenseEngine.IsLicenseValid ? Visibility.Hidden : Visibility.Visible;
                 }
             }
 
@@ -388,15 +388,15 @@ namespace UniCade
                 else
                 {
                     //Close Game Selection window
-                    listBox.Visibility = Visibility.Hidden;
-                    image2.Visibility = Visibility.Hidden;
-                    label1.Visibility = Visibility.Hidden;
-                    image.Visibility = Visibility.Visible;
-                    image1.Visibility = Visibility.Visible;
+                    ListBox.Visibility = Visibility.Hidden;
+                    Image2.Visibility = Visibility.Hidden;
+                    Label1.Visibility = Visibility.Hidden;
+                    Image.Visibility = Visibility.Visible;
+                    Image1.Visibility = Visibility.Visible;
 
                     //Restore the flags for the main GUI view
                     IsGameSelectionPageActive = false;
-                    label.Content = "Total Game Count: " + Database.GetTotalGameCount();
+                    Label.Content = "Total Game Count: " + Database.GetTotalGameCount();
                 }
             }
 
@@ -408,7 +408,7 @@ namespace UniCade
                 {
                     if (PayPerPlay.CoinsRequired > 0)
                     {
-                        label2.Content = "(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + PayPerPlay.CoinsRequired;
+                        Label2.Content = "(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + PayPerPlay.CoinsRequired;
                     }
 
                     //Display a popup payPerPlay notification
@@ -466,11 +466,11 @@ namespace UniCade
             {
                 if (PayPerPlay.CoinsRequired > 0)
                 {
-                    label2.Content = "(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + PayPerPlay.CurrentCoins;
+                    Label2.Content = "(PayPerPlay) Coins Per Launch: " + PayPerPlay.CoinsRequired + " Current: " + PayPerPlay.CurrentCoins;
                 }
                 else
                 {
-                    label2.Visibility = Visibility.Hidden;
+                    Label2.Visibility = Visibility.Hidden;
                 }
             }
 
@@ -478,27 +478,27 @@ namespace UniCade
             if ((File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\" + ActiveConsoleList[IndexNumber] + ".png")) && (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png")))
             {
                 //Display the console image
-                label1.Visibility = Visibility.Hidden;
+                Label1.Visibility = Visibility.Hidden;
                 BitmapImage b = new BitmapImage();
                 b.BeginInit();
                 b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\" + ActiveConsoleList[IndexNumber] + ".png");
                 b.EndInit();
-                image.Source = b;
+                Image.Source = b;
 
                 //Display the console logo
                 b = new BitmapImage();
                 b.BeginInit();
                 b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png");
                 b.EndInit();
-                image1.Source = b;
+                Image1.Source = b;
             }
             else
             {
                 //If the console image does not exist, display a notification
-                image.Source = null;
-                image1.Source = null;
-                label1.Content = ActiveConsoleList[IndexNumber] + " Missing Console Image/Logo ";
-                label1.Visibility = Visibility.Visible;
+                Image.Source = null;
+                Image1.Source = null;
+                Label1.Content = ActiveConsoleList[IndexNumber] + " Missing Console Image/Logo ";
+                Label1.Visibility = Visibility.Visible;
             }
         }
 
@@ -508,23 +508,23 @@ namespace UniCade
         private void OpenGameSelection()
         {
             IsGameSelectionPageActive = true;
-            image.Visibility = Visibility.Hidden;
-            image1.Visibility = Visibility.Hidden;
-            image2.Visibility = Visibility.Visible;
-            label1.Visibility = Visibility.Visible;
+            Image.Visibility = Visibility.Hidden;
+            Image1.Visibility = Visibility.Hidden;
+            Image2.Visibility = Visibility.Visible;
+            Label1.Visibility = Visibility.Visible;
 
             //Check if the favorites view filter is enabled
             if (!IsFavoritesViewActive)
             {
-                label1.Content = (ActiveConsoleList[IndexNumber] + " Library");
+                Label1.Content = (ActiveConsoleList[IndexNumber] + " Library");
             }
             else
             {
-                label1.Content = Database.GetCurrentUser().Username + "'s Favorites List";
+                Label1.Content = Database.GetCurrentUser().Username + "'s Favorites List";
             }
 
             //Populate the game library 
-            listBox.Items.Clear();
+            ListBox.Items.Clear();
             var consoleList = Database.GetConsoleList();
             foreach (string consoleName in consoleList)
             {
@@ -532,7 +532,7 @@ namespace UniCade
                 if (console.ConsoleName.Equals(ActiveConsoleList[IndexNumber]))
                 {
                     CurrentConsole = console;
-                    label.Content = console.ConsoleName + " Game Count: " + console.GetGameCount();
+                    Label.Content = console.ConsoleName + " Game Count: " + console.GetGameCount();
 
                     var gameList = console.GetGameList();
                     foreach (string gameTitle in gameList)
@@ -546,7 +546,7 @@ namespace UniCade
                                 if (game.Title.Equals(game1.Title) && game.ConsoleName.Equals(game1.ConsoleName))
                                 {
                                     //Add the game if it is present in the favorites list
-                                    listBox.Items.Add(game.Title);
+                                    ListBox.Items.Add(game.Title);
                                     break;
                                 }
                             }
@@ -560,13 +560,13 @@ namespace UniCade
                                 //Display the game if it has an allowed ESRB rating
                                 if (game.EsrbRating <= Database.GetCurrentUser().AllowedEsrb)
                                 {
-                                    listBox.Items.Add(game.Title);
+                                    ListBox.Items.Add(game.Title);
                                 }
                             }
                             else
                             {
                                 //Add the game regardless if the view ESRB 
-                                listBox.Items.Add(game.Title);
+                                ListBox.Items.Add(game.Title);
                             }
                         }
                     }
@@ -581,22 +581,22 @@ namespace UniCade
                 b.BeginInit();
                 b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png");
                 b.EndInit();
-                image2.Source = b;
+                Image2.Source = b;
 
                 //Populate the title label at the top of the page
-                label1.Content = (ActiveConsoleList[IndexNumber] + "Library");
+                Label1.Content = (ActiveConsoleList[IndexNumber] + "Library");
             }
             else
             {
-                image.Source = null;
+                Image.Source = null;
             }
 
-            listBox.Visibility = Visibility.Visible;
-            if (listBox.Items.Count > 0)
+            ListBox.Visibility = Visibility.Visible;
+            if (ListBox.Items.Count > 0)
             {
-                listBox.SelectedIndex = 0;
-                ListBoxItem item = (ListBoxItem)listBox.ItemContainerGenerator.ContainerFromIndex(0);
-                Keyboard.Focus(listBox);
+                ListBox.SelectedIndex = 0;
+                ListBoxItem item = (ListBoxItem)ListBox.ItemContainerGenerator.ContainerFromIndex(0);
+                Keyboard.Focus(ListBox);
                 Keyboard.Focus(item);
             }
         }
@@ -608,7 +608,7 @@ namespace UniCade
         {
 
             //Search for the selected game title within the game library
-            IGame game = CurrentConsole.GetGame(listBox.SelectedItem.ToString());
+            IGame game = CurrentConsole.GetGame(ListBox.SelectedItem.ToString());
 
             //If the specified game is found, launch the game and return
             try
@@ -631,7 +631,7 @@ namespace UniCade
         private void DisplayGameInfo()
         {
             //Check for bad input or an empty game library
-            if (listBox.SelectedItem == null)
+            if (ListBox.SelectedItem == null)
             {
                 return;
             }
@@ -642,7 +642,7 @@ namespace UniCade
             foreach (string gameTitle in gameList)
             {
                 IGame game = CurrentConsole.GetGame(gameTitle);
-                if (listBox.SelectedItem.ToString().Equals(game.Title))
+                if (ListBox.SelectedItem.ToString().Equals(game.Title))
                 {
                     //Populate the game info text
                     _gameInfoWindow.TextBlock1.Text = game.ConsoleName + " - " + game.Title;
@@ -748,7 +748,7 @@ namespace UniCade
         /// </summary>
         public void DisplayPayNotification(String s)
         {
-            label2.Content = s;
+            Label2.Content = s;
         }
 
         #endregion

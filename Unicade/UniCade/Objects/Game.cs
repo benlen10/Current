@@ -5,7 +5,7 @@ using UniCade.Interfaces;
 
 namespace UniCade.Objects
 {
-    public class Game : IGame
+    internal class Game : IGame
     {
 
         #region Public Properties

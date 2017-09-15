@@ -317,11 +317,10 @@ namespace UniCade.Objects
         /// <param name="romPath"></param>
         /// <param name="prefPath"></param>
         /// <param name="romExt"></param>
-        /// <param name="gameCount"></param>
         /// <param name="consoleInfo"></param>
         /// <param name="launchParam"></param>
         /// <param name="releaseDate"></param>
-        public Console(string name, string emuPath, string romPath, string prefPath, string romExt, int gameCount, string consoleInfo, string launchParam, string releaseDate)
+        public Console(string name, string emuPath, string romPath, string prefPath, string romExt, string consoleInfo, string launchParam, string releaseDate)
         {
             ConsoleName = name;
             EmulatorPath = emuPath;

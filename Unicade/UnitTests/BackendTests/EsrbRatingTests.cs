@@ -8,7 +8,6 @@ using Console = UniCade.Objects.Console;
 
 namespace UnitTests.BackendTests
 {
-
     [TestClass]
     public class EsrbRatingTests
     {
