@@ -65,7 +65,7 @@ namespace UniCade.Constants
         /// </summary>
         public class StringValueAttribute : Attribute
         {
-            public string StringValue { get; private set; }
+            public string StringValue { get; }
 
             public StringValueAttribute(string value)
             {

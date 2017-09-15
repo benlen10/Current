@@ -140,15 +140,6 @@ namespace UniCade.Backend
 
         #region Helper Methods
 
-        /// <summary>
-        /// Display a timed notification in the bottom left corner of the interface 
-        /// </summary>
-        private static void ShowNotification(string titleText, string bodyText)
-        {
-            NotificationWindow notification = new NotificationWindow(titleText, bodyText);
-            notification.Show();
-        }
-
         #endregion
     }
 }

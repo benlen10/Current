@@ -136,14 +136,7 @@ namespace UnitTests.BackendTests
                 
             }
 
-            if (game == null)
-            {
-                Assert.IsTrue(true);
-            }
-            else
-            {
-                Assert.IsTrue(false);
-            }
+            Assert.IsTrue(game == null);
         }
     }
 }

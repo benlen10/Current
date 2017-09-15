@@ -15,11 +15,6 @@ namespace UnitTests.BackendTests
         #region Properties
 
         /// <summary>
-        /// A new Random instance to generate a random id tag
-        /// </summary>
-        private Random _random;
-
-        /// <summary>
         /// The first console in the database
         /// </summary>
         private IConsole _console;
@@ -39,10 +34,6 @@ namespace UnitTests.BackendTests
         {
             //Initalize the program
             Database.Initalize();
-
-            //Generate a new random id integer
-            _random = new Random();
-
 
             //Create a new console and add it to the database
             _console = new Console("newConsole");

@@ -13,6 +13,7 @@ using UniCade.Exceptions;
 using UniCade.Interfaces;
 using UniCade.Windows;
 
+// ReSharper disable once CheckNamespace
 namespace UniCade
 {
     /// <summary>
@@ -636,7 +637,6 @@ namespace UniCade
             }
 
             IsInfoWindowActive = true;
-            BitmapImage bitmapImage;
 
             var gameList = CurrentConsole.GetGameList();
             foreach (string gameTitle in gameList)
@@ -649,6 +649,7 @@ namespace UniCade
                     _gameInfoWindow.TextBlock.Text = Program.DisplayGameInfo(game);
 
                     //Load the box front for the current game if it exists
+                    BitmapImage bitmapImage;
                     if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"))
                     {
                         bitmapImage = new BitmapImage();

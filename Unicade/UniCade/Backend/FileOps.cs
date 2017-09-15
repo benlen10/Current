@@ -390,8 +390,7 @@ namespace UniCade.Backend
             {
                 throw new LaunchException(("ROM does not exist. Launch Failed"));
             }
-            string args;
-            args = console.LaunchParams.Replace("%file", console.ConsoleName.Equals("MAME") ? game.Title : gamePath);
+            var args = console.LaunchParams.Replace("%file", console.ConsoleName.Equals("MAME") ? game.Title : gamePath);
 
             if (console.ConsoleName.Equals("PC"))
             {

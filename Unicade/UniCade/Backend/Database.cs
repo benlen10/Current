@@ -38,7 +38,7 @@ namespace UniCade.Backend
                 }
                 if (value.Length > ConstValues.MaxPathLength)
                 {
-                    throw new ArgumentException(String.Format("ROM folder path cannot exceed {0} chars", ConstValues.MaxPathLength));
+                    throw new ArgumentException($"ROM folder path cannot exceed {ConstValues.MaxPathLength} chars");
                 }
                 _romFolderPath = value;
             }

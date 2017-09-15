@@ -39,7 +39,7 @@ namespace UniCade.Backend
         /// <returns>false if the string contains any invalid characters</returns>
         public static bool CheckForInvalidSplitChars(string str)
         {
-            return (str.IndexOfAny(new char[] {'|'}) != -1);
+            return (str.IndexOfAny(new[] {'|'}) != -1);
         }
 
         /// <summary>
