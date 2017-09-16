@@ -97,10 +97,9 @@ namespace UniCade.Backend
             _consoleList = new List<IConsole>();
             _userList = new List<IUser>();
             IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.Esrb.Null, "");
-            _userList.Add(uniCadeUser);
+            AddUser(uniCadeUser);
             _currentUser = uniCadeUser;
             _defaultUser = uniCadeUser;
-            Program.MediaPath = @"C:\UniCade\Media";
         }
 
         /// <summary>
@@ -208,7 +207,7 @@ namespace UniCade.Backend
         public static bool RemoveUser(string username)
         {
             //Ensure that at least one console remains and that UniCade account cannot be deleted
-            if ((_consoleCount > 1) && !username.Equals("UniCade"))
+            if ((_userCount > 1) && !username.Equals("UniCade"))
             {
                 //Fetch the user
                 IUser user = _userList.Find(u => u.Username.Equals(username));

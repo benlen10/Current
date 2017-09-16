@@ -134,18 +134,18 @@ namespace UniCade.Backend
                 var tokenString = line.Split(sep);
                 string currentUser = tokenString[1];
 
-                line = file.ReadLine();
-                tokenString = line.Split(sep);
-                Program.DatabasePath = tokenString[1];
+                file.ReadLine();
+                //tokenString = line.Split(sep);
+                //Program.DatabasePath = tokenString[1];
 
                 file.ReadLine();
                 //Default emulator path (Depricated)
                 //tokenString = line.Split(sep);
                 //tokenString[1];
 
-                line = file.ReadLine();
-                tokenString = line.Split(sep);
-                Program.MediaPath = tokenString[1];
+                file.ReadLine();
+                //tokenString = line.Split(sep);
+                //Program.MediaPath = tokenString[1];
 
                 line = file.ReadLine();
                 tokenString = line.Split(sep);

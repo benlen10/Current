@@ -14,12 +14,12 @@ namespace UniCade.Backend
         /// <summary>
         /// The path to the Database.txt file
         /// </summary>
-        public static string DatabasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
+        public static readonly string DatabasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
 
         /// <summary>
         /// The path to the Preferences.txt file
         /// </summary>
-        public static string PreferencesPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
+        public static readonly string PreferencesPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
 
         /// <summary>
         /// Specifies if the UniCade splash screen should be displayed when the interface is launched
@@ -35,7 +35,7 @@ namespace UniCade.Backend
         /// <summary>
         /// The path to the current media directory
         /// </summary>
-        public static string MediaPath = Directory.GetCurrentDirectory() + @"\Database.txt";
+        public static readonly string MediaPath = Directory.GetCurrentDirectory() + @"\Database.txt";
 
         /// <summary>
         /// True if there is a current game process running

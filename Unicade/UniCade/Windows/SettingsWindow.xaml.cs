@@ -400,7 +400,7 @@ namespace UniCade.Windows
 
         /// <summary>
         /// Save database button
-        /// Save all active info to the text databse
+        /// Save all active info to the text database
         /// </summary>
         private void GamesTab_SaveToDatabaseButton_Click(object sender, EventArgs e)
         {

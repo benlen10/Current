@@ -35,6 +35,83 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
+        /// Verify that the console count value is properly updated when 
+        /// consoles are added or removed from the database
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyConsoleCount()
+        {
+            //Verify that the ConsoleCount equals 1 after adding one console in the Initalize function
+            Assert.AreEqual(1, Database.GetConsoleCount(), "Verify that the ConsoleCount equals 1 after adding one console in the Initalize function");
+
+            //Create a new console and add it to the database
+            IConsole console2 = new Console("console2");
+            Database.AddConsole(console2);
+
+            //Verify that the console count is incrimenented after adding the second console
+            Assert.AreEqual(2, Database.GetConsoleCount(), "Verify that the console count is incrimenented after adding the second console");
+
+            //Remove one console and verify that the ConsoleCount has been decremented by 1
+            Database.RemoveConsole(_console.ConsoleName);
+            Assert.AreEqual(1, Database.GetConsoleCount(), "Remove one console and verify that the ConsoleCount has been decremented by 1");
+
+            //Verify that you are not able to delete the last console
+            Assert.IsFalse(Database.RemoveConsole(console2.ConsoleName), "Verify that you are not able to delete the last console");
+            Assert.AreEqual(1, Database.GetConsoleCount(), "Verify that the console count has not been decremented");
+        }
+
+
+        /// <summary>
+        /// Verify that the user count value is properly updated when 
+        /// users are added or removed from the database
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyUserCount()
+        {
+            //Verify that the user count is equal to 1 intially 
+            Assert.AreEqual(1, Database.GetUserCount(), "Verify that the user count is equal to 1 intially ");
+
+            //Create a new user and add them to the database
+            IUser user2 = new User("User2", "temp", 0, "user2@temp.com", 0, " ", Enums.Esrb.Null, "");
+            Database.AddUser(user2);
+
+            //Verify that the user count is incrimenented after adding the second user
+            Assert.AreEqual(2, Database.GetUserCount(), "Verify that the user count is incrimenented after adding the second user");
+
+            //Remove the new user and verify the user count has been decremented by one
+            Database.RemoveUser(user2.Username);
+            Assert.AreEqual(1, Database.GetUserCount(), "Remove the new user and verify the user count has been decremented by one");
+
+            //Verify that you are not able to delete the UniCade user
+            Assert.IsFalse(Database.RemoveUser("UniCade"), "Verify that you are not able to delete the UniCade user");
+            Assert.AreEqual(1, Database.GetUserCount(), "Verify that the console count has not been decremented after attempting to delete the UniCade user");
+        }
+    
+        /// <summary>
+        /// Verify that the console list is properly updated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyGetConsoleList()
+        {
+           
+        }
+
+
+        /// <summary>
+        /// Verify that the console list is properly updated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyGetUserist()
+        {
+
+        }
+
+
+        /// <summary>
         /// Verify that adding a game to a console properly incriments both the
         /// console game count and total game count
         /// </summary>
@@ -90,7 +167,7 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
-        /// Test that invalid ROM folder paths are not allowed
+        /// Verify that ROM directory paths are properly validated 
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -168,7 +245,7 @@ namespace UnitTests.BackendTests
             }
 
             //Verify that valid ROM paths are properly saved
-            Assert.IsTrue(Database.RomPath.Equals(validRomPath), "Verify that valid ROM paths are properly saved");
+            Assert.AreEqual(Database.RomPath, validRomPath, "Verify that valid ROM paths are properly saved");
         }
     }
 }
