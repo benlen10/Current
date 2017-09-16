@@ -131,7 +131,7 @@ namespace UnitTests.BackendTests
 
             //Call RestoreDafaultUser and verify that the current user has been reset to UniCade
             Database.RestoreDefaultUser();
-            Assert.IsTrue(Database.GetCurrentUser().Username.Equals(newUser.Username));
+            Assert.IsTrue(Database.GetCurrentUser().Username.Equals("UniCade"));
 
             //Add a new user to the UserList and attempt to change the current user
             IUser newUser2 = new User("newUser2", "temp", 0, "newUser2@unicade.com", 0, " ", Enums.Esrb.Null, "");
@@ -206,6 +206,18 @@ namespace UnitTests.BackendTests
         [TestMethod]
         [Priority(1)]
         public void VerifyDuplicateConsolesDisallowed()
+        {
+            //Attempt to add a new console with the same name and verify this returns false
+            IConsole console2 = new Console(_console.ConsoleName);
+            Assert.IsFalse(Database.AddConsole(console2), "Verify that adding a console with a duplicate name is not allowed");
+        }
+
+        /// <summary>
+        /// Verify that adding duplicate users with the same username
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyDuplicateUsersDisallowed()
         {
             //Attempt to add a new console with the same name and verify this returns false
             IConsole console2 = new Console(_console.ConsoleName);
