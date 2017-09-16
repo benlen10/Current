@@ -78,7 +78,7 @@ namespace UniCade.Windows
                     {
                         if (user.GetUserPassword().Equals(TextboxPassword.Text))
                         {
-                            Database.SetCurrentUser(user);
+                            Database.SetCurrentUser(user.Username);
                             Close();
                             return;
                         }

@@ -225,7 +225,7 @@ namespace UniCade.Backend
                     IUser user = Database.GetUser(username);
                     if (user.Username.Equals(currentUser))
                     {
-                        Database.SetCurrentUser(user);
+                        Database.SetCurrentUser(user.Username);
                     }
                 }
                 file.Close();

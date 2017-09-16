@@ -343,7 +343,7 @@ namespace UniCade.ConsoleInterface
                                 if (pass.Equals(user.GetUserPassword()))
                                 {
                                     Console.WriteLine(Strings.PasswordAccepted);
-                                    Database.SetCurrentUser(user);
+                                    Database.SetCurrentUser(user.Username);
                                     Database.GetCurrentUser().IncrementUserLoginCount();
                                     return;
                                 }

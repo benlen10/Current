@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
 using UniCade.Constants;
@@ -99,6 +100,18 @@ namespace UnitTests.BackendTests
            
         }
 
+        /// <summary>
+        /// Verify the GetCurrentUser and SetCurrentUser Functions
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyGetAndSetCurrentUser()
+        {
+            //Verify that the current user is intially set to the default UniCade account
+            Assert.IsTrue(Database.GetCurrentUser().Username.Equals("UniCade"));
+
+            //Verify that 
+        }
 
         /// <summary>
         /// Verify that the console list is properly updated

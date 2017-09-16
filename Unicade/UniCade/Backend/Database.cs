@@ -207,7 +207,7 @@ namespace UniCade.Backend
         public static bool RemoveUser(string username)
         {
             //Ensure that at least one console remains and that UniCade account cannot be deleted
-            if ((_userCount > 1) && !username.Equals("UniCade"))
+            if (_userCount > 1 && !username.Equals("UniCade"))
             {
                 //Fetch the user
                 IUser user = _userList.Find(u => u.Username.Equals(username));
@@ -289,12 +289,16 @@ namespace UniCade.Backend
         /// <summary>
         /// Return the current IUser object
         /// </summary>
-        public static bool SetCurrentUser(IUser user)
+        public static bool SetCurrentUser(string username)
         {
-            if (user != null)
+            if (username != null)
             {
-                _currentUser = user;
-                return true;
+                IUser user = _userList.Find(u => u.Username.Equals(username));
+                if (user != null)
+                {
+                    _currentUser = user;
+                    return true;
+                }
             }
             return false;
         }
