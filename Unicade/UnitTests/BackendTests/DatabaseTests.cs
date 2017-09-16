@@ -110,7 +110,40 @@ namespace UnitTests.BackendTests
             //Verify that the current user is intially set to the default UniCade account
             Assert.IsTrue(Database.GetCurrentUser().Username.Equals("UniCade"));
 
-            //Verify that 
+            //Verify SetCurrentUser returns false when attempting to add a user that does not exist in the current list 
+            string nonExistentUser = "tempUser";
+            Assert.IsFalse(Database.SetCurrentUser(nonExistentUser));
+
+            //Verify that the CurrentUser is not modified after attempting to add a nonexistent user
+            Assert.IsTrue(Database.GetCurrentUser().Username.Equals("UniCade"));
+
+            //Add a new user to the UserList and attempt to change the current user
+            IUser newUser = new User("newUser", "temp", 0, "newUser@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            Database.AddUser(newUser);
+            Assert.IsTrue(Database.SetCurrentUser(newUser.Username));
+
+            //Verify that the current user has been changed
+            Assert.IsTrue(Database.GetCurrentUser().Username.Equals(newUser.Username));
+
+            //Remove the newUser from the userList and verify that the current user has been reset to unicade
+            Database.RemoveUser(newUser.Username);
+            Assert.IsTrue(Database.GetCurrentUser().Username.Equals("UniCade"));
+
+            //Call RestoreDafaultUser and verify that the current user has been reset to UniCade
+            Database.RestoreDefaultUser();
+            Assert.IsTrue(Database.GetCurrentUser().Username.Equals(newUser.Username));
+
+            //Add a new user to the UserList and attempt to change the current user
+            IUser newUser2 = new User("newUser2", "temp", 0, "newUser2@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            Database.AddUser(newUser2);
+            Assert.IsTrue(Database.SetCurrentUser(newUser2.Username));
+
+            //Verify that the current user has been changed
+            Assert.IsTrue(Database.GetCurrentUser().Username.Equals(newUser2.Username));
+
+            //Call RestoreDefaultUser and verify that the current user has been reset to UniCade
+            Database.RestoreDefaultUser();
+            Assert.IsTrue(Database.GetCurrentUser().Username.Equals("UniCade"));
         }
 
         /// <summary>
