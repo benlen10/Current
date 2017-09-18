@@ -219,9 +219,17 @@ namespace UnitTests.BackendTests
         [Priority(1)]
         public void VerifyDuplicateUsersDisallowed()
         {
-            //Attempt to add a new console with the same name and verify this returns false
-            IConsole console2 = new Console(_console.ConsoleName);
-            Assert.IsFalse(Database.AddConsole(console2), "Verify that adding a console with a duplicate name is not allowed");
+            //Verify that you are not able to add a new user with the username "UniCade"
+            IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            Assert.IsFalse(Database.AddUser(uniCadeUser));
+
+            //Verify that you can add a new user with a unique username
+            IUser newUser = new User("newUser", "temp", 0, "newuser@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            Assert.IsTrue(Database.AddUser(newUser));
+
+            //Verify that you can add a new user with a unique username
+            IUser dupUser = new User("newUser", "temp", 0, "newuser2@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            Assert.IsFalse(Database.AddUser(dupUser));
         }
 
         /// <summary>
