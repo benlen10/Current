@@ -341,11 +341,11 @@ namespace UnitTests.BackendTests
             for (int iterator = 1; iterator < ConstValues.MaxUserCount; iterator++)
             {
                 IUser user = new User(("user" + iterator), "temp", 0, "user@unicade.com", 0, " ", Enums.Esrb.Null, "");
-                Assert.IsTrue(Database.AddUser(user), $"Verify that console number {iterator}can be added properly");
+                Assert.IsTrue(Database.AddUser(user), $"Verify that user number {iterator}can be added properly");
             }
 
             IUser lastUser = new User("lastUser", "temp", 0, "user@unicade.com", 0, " ", Enums.Esrb.Null, "");
-            Assert.IsFalse(Database.AddUser(lastUser), $"Verify that console number {ConstValues.MaxUserCount + 1} cannot be added since it exceeeds {ConstValues.MaxUserCount}");
+            Assert.IsFalse(Database.AddUser(lastUser), $"Verify that user number {ConstValues.MaxUserCount + 1} cannot be added since it exceeeds {ConstValues.MaxUserCount}");
         }
     }
 }

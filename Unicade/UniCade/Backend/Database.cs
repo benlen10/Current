@@ -134,7 +134,7 @@ namespace UniCade.Backend
         public static bool RemoveConsole(string consoleName)
         {
             //Ensure that at least one console remains
-            if ((_consoleCount <= 1))
+            if (_consoleCount <= 1)
             {
                 return false;
             }
@@ -312,6 +312,5 @@ namespace UniCade.Backend
         }
 
         #endregion
-
     }
 }

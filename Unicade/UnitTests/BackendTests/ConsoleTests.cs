@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
+using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Objects;
 using Console = UniCade.Objects.Console;
@@ -64,9 +60,30 @@ namespace UnitTests.BackendTests
         [Priority(1)]
         public void AddGameToIncorrectConsoleDisallowed()
         {
-            //Attempt to add another game with the same filename and verify that duplicates are not allowed
+            //Attempt to add a new game to a different console
             IGame game = new Game("newGame.bin", "differentConsole");
             Assert.IsFalse(_console.AddGame(game), "Verify that adding a game to an incorrect console is not allowed");
+
+            //Verify that a new game can be added to the proper console
+            IGame game2 = new Game("newGame.bin", _console.ConsoleName);
+            Assert.IsTrue(_console.AddGame(game2), "Verify that a new game can be added to the proper console");
+        }
+
+        /// <summary>
+        /// Verify that you are not able to add more than the max allowed number of consoles
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyMaxGameCountRestrictions()
+        {
+            for (int iterator = 1; iterator <= ConstValues.MaxGameCount; iterator++)
+            {
+                IGame game = new Game($"newGame {iterator}.bin", _console.ConsoleName);
+                Assert.IsTrue(_console.AddGame(game), $"Verify that game number {iterator} can be added properly");
+            }
+
+            IGame lastGame = new Game("lastGame.bin", _console.ConsoleName);
+            Assert.IsFalse(_console.AddGame(lastGame), $"Verify that game number {ConstValues.MaxGameCount + 1} cannot be added since it exceeeds {ConstValues.MaxGameCount}");
         }
     }
 }
