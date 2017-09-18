@@ -637,7 +637,7 @@ namespace UniCade.Windows
                     EmulatorsTabTextboxConsoleName1.Text = console.ConsoleName;
                     EmulatorsTabTextboxRomExtension.Text = console.RomExtension;
                     EmulatorsTabTextboxEmulatorArgs.Text = console.LaunchParams;
-                    EmulatorsTabTextboxEmulatorExe.Text = console.EmulatorPath;
+                    EmulatorsTabTextboxEmulatorExe.Text = console.EmulatorExePath;
                     EmulatorsTabTextboxConsoleInfo.Text = console.ConsoleInfo;
                     EmulatorsTabTextboxGameCount.Text = console.GetGameCount().ToString();
                     EmulatorsTabTextboxReleaseDate.Text = console.ReleaseDate;
@@ -655,7 +655,7 @@ namespace UniCade.Windows
             {
                 _currentEmulator.ConsoleName = EmulatorsTabTextboxConsoleName1.Text;
                 _currentEmulator.RomExtension = EmulatorsTabTextboxRomExtension.Text;
-                _currentEmulator.EmulatorPath = EmulatorsTabTextboxEmulatorExe.Text;
+                _currentEmulator.EmulatorExePath = EmulatorsTabTextboxEmulatorExe.Text;
                 _currentEmulator.LaunchParams = EmulatorsTabTextboxEmulatorArgs.Text;
                 _currentEmulator.ReleaseDate = EmulatorsTabTextboxReleaseDate.Text;
                 _currentEmulator.ConsoleInfo = EmulatorsTabTextboxConsoleInfo.Text;

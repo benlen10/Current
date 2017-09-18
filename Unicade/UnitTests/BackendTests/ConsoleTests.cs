@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
@@ -19,6 +20,118 @@ namespace UnitTests.BackendTests
 
         #endregion
 
+        #region Console Property Tests 
+
+        /// <summary>
+        /// Verify that ROM directory paths are properly validated 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateConsoleName()
+        {
+            //Verify that a null value for the ROM folder path is not allowed
+            try
+            {
+                _console.ConsoleName = null;
+                Assert.Fail("Verify that a null value for ConsoleName is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for ConsoleName is not allowed");
+            }
+
+            //Verify that an empty value for the ROM folder path is not allowed
+            try
+            {
+                _console.ConsoleName = "";
+                Assert.Fail("Verify that an empty value for ConsoleName is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that an empty value for ConsoleName is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the ConsoleName
+            const string invalidConsoleName = "a|c";
+            try
+            {
+                _console.ConsoleName = invalidConsoleName;
+                Assert.Fail("Verify that invalid chars are not allowed in the console name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the console name");
+            }
+
+            //Verify that a console name that exceeds MaxConsoleNameLength chars is not allowed
+            string longName = new string('-', ConstValues.MaxConsoleNameLength + 1);
+            try
+            {
+                _console.ConsoleName = longName;
+                Assert.Fail($"Verify that a consle name that exceeds {ConstValues.MaxConsoleNameLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a consle name that exceeds {ConstValues.MaxConsoleNameLength} chars is not allowed");
+            }
+
+            //Verify that valid ROM paths are properly saved
+            string validConsoleName = "validConsole";
+            _console.ConsoleName = validConsoleName;
+            Assert.AreEqual(_console.ConsoleName, validConsoleName, "Verify that valid ROM paths are properly saved");
+        }
+
+        /// <summary>
+        /// Verify that ROM directory paths are properly validated 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateReleaseDate()
+        {
+            //Verify that a null value for the release date is not allowed
+            try
+            {
+                _console.ConsoleName = null;
+                Assert.Fail("Verify that a null value for the release date is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for the release date is not allowed");
+            }
+
+            //Verify that a release date under 4 chars is not allowed
+            string shortReleaseDate = new string('-', 3);
+            try
+            {
+                _console.ReleaseDate = shortReleaseDate;
+                Assert.Fail("Verify that a release date under 4 chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a release date under 4 chars is not allowed");
+            }
+
+            //Verify that the release date must be all numbers 
+            string invalidReleaseDate = "200I";
+            try
+            {
+                _console.ReleaseDate = invalidReleaseDate;
+                Assert.Fail("Verify that the release date must be all numbers");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "VVerify that the release date must be all numbers");
+            }
+
+            //Verify that valid release date is properly saved
+            string validReleaseDate = "2007";
+            _console.ReleaseDate = validReleaseDate;
+            Assert.AreEqual(_console.ReleaseDate, validReleaseDate, "Verify that valid ROM paths are properly saved");
+        }
+
+        #endregion
+
         /// <summary>
         /// Create a new database instance, add a console and generate a new random int id
         /// </summary>
@@ -32,6 +145,9 @@ namespace UnitTests.BackendTests
             _console = new Console("newConsole");
             Database.AddConsole(_console);
         }
+
+
+        #region Games Tests
 
         /// <summary>
         /// Verify that adding duplicate games with the same filename or game name are disallowed
@@ -85,5 +201,7 @@ namespace UnitTests.BackendTests
             IGame lastGame = new Game("lastGame.bin", _console.ConsoleName);
             Assert.IsFalse(_console.AddGame(lastGame), $"Verify that game number {ConstValues.MaxGameCount + 1} cannot be added since it exceeeds {ConstValues.MaxGameCount}");
         }
+
+        #endregion
     }
 }

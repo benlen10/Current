@@ -70,9 +70,9 @@ namespace UniCade.Objects
         /// <summary>
         /// Full path for the emulators folder
         /// </summary>
-        public string EmulatorPath
+        public string EmulatorExePath
         {
-            get => _emulatorPath;
+            get => _emulatorExePath;
             set
             {
                 if (value == null)
@@ -95,35 +95,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException($"Emulator path cannot exceed {ConstValues.MaxPathLength} chars");
                 }
-                _emulatorPath = value;
-            }
-        }
-
-        /// <summary>
-        /// The full path for the console preferences file
-        /// </summary>
-        public string PreferencesPath
-        {
-            get => _preferencesPath;
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentException("Preferences path cannot be null");
-                }
-                if (Utilties.CheckForInvalidChars(value))
-                {
-                    throw new ArgumentException("Preferences path contains invalid characters");
-                }
-                if (value.Length < 4)
-                {
-                    throw new ArgumentException("Preferences path too short");
-                }
-                if (value.Length > ConstValues.MaxPathLength)
-                {
-                    throw new ArgumentException($"Preferences path cannot exceed {ConstValues.MaxPathLength} chars");
-                }
-                _preferencesPath = value;
+                _emulatorExePath = value;
             }
         }
 
@@ -259,7 +231,7 @@ namespace UniCade.Objects
         /// <summary>
         /// Full path for the emulators folder
         /// </summary>
-        private string _emulatorPath;
+        private string _emulatorExePath;
 
         /// <summary>
         /// The full path for the console preferences file
@@ -313,17 +285,17 @@ namespace UniCade.Objects
         /// Full constructor for creating a new game console
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="emuPath"></param>
+        /// <param name="emuExePath"></param>
         /// <param name="romPath"></param>
         /// <param name="prefPath"></param>
         /// <param name="romExt"></param>
         /// <param name="consoleInfo"></param>
         /// <param name="launchParam"></param>
         /// <param name="releaseDate"></param>
-        public Console(string name, string emuPath, string romPath, string prefPath, string romExt, string consoleInfo, string launchParam, string releaseDate)
+        public Console(string name, string emuExePath, string romPath, string prefPath, string romExt, string consoleInfo, string launchParam, string releaseDate)
         {
             ConsoleName = name;
-            EmulatorPath = emuPath;
+            EmulatorExePath = emuExePath;
             RomPath = romPath;
             PreferencesPath = prefPath;
             RomExtension = romExt;

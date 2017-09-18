@@ -14,7 +14,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// Full path for the emulators folder
         /// </summary>
-        string EmulatorPath { get; set; }
+        string EmulatorExePath { get; set; }
 
         /// <summary>
         /// The launch params for the current emulator
@@ -25,11 +25,6 @@ namespace UniCade.Interfaces
         /// The common display name for the console
         /// </summary>
         string ConsoleName { get; set; }
-
-        /// <summary>
-        /// The full path for the console preferences file
-        /// </summary>
-        string PreferencesPath { get; set; }
 
         /// <summary>
         /// The original release date for the console

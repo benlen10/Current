@@ -93,7 +93,7 @@ namespace UniCade.Backend
                     {
                         IConsole console = Database.GetConsole(consoleName);
                         streamWriter.WriteLine(
-                            $"***{console.ConsoleName}|{console.EmulatorPath}|{console.RomPath}|{console.PreferencesPath}|{console.RomExtension}|{console.GetGameCount()}|Console Info|{console.LaunchParams}|{console.ReleaseDate}|");
+                            $"***{console.ConsoleName}|{console.EmulatorExePath}|{console.RomPath}|PrefPath|{console.RomExtension}|{console.GetGameCount()}|Console Info|{console.LaunchParams}|{console.ReleaseDate}|");
                         if (console.GetGameCount() > 0)
                         {
                             var gameList = console.GetGameList();
@@ -403,11 +403,11 @@ namespace UniCade.Backend
             }
             else
             {
-                if (!File.Exists(console.EmulatorPath))
+                if (!File.Exists(console.EmulatorExePath))
                 {
                     throw new LaunchException(("Emulator does not exist. Launch Failed"));
                 }
-                Program.CurrentProcess.StartInfo.FileName = console.EmulatorPath;
+                Program.CurrentProcess.StartInfo.FileName = console.EmulatorExePath;
                 Program.CurrentProcess.StartInfo.Arguments = args;
             }
 
