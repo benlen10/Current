@@ -171,7 +171,7 @@ namespace UniCade.Objects
         {
             get => _consoleInfo;
             set
-            {
+            { 
                 if (value == null)
                 {
                     throw new ArgumentException("Console info cannnot be null");

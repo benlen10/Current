@@ -29,7 +29,7 @@ namespace UnitTests.BackendTests
         [Priority(1)]
         public void ValidateConsoleName()
         {
-            //Verify that a null value for the ROM folder path is not allowed
+            //Verify that a null value for the console name is not allowed
             try
             {
                 _console.ConsoleName = null;
@@ -40,7 +40,7 @@ namespace UnitTests.BackendTests
                 Assert.IsTrue(true, "Verify that a null value for ConsoleName is not allowed");
             }
 
-            //Verify that an empty value for the ROM folder path is not allowed
+            //Verify that an empty value for the console name is not allowed
             try
             {
                 _console.ConsoleName = "";
@@ -76,7 +76,7 @@ namespace UnitTests.BackendTests
                     $"Verify that a consle name that exceeds {ConstValues.MaxConsoleNameLength} chars is not allowed");
             }
 
-            //Verify that valid ROM paths are properly saved
+            //Verify that valid console names are properly saved
             string validConsoleName = "validConsole";
             _console.ConsoleName = validConsoleName;
             Assert.AreEqual(_console.ConsoleName, validConsoleName, "Verify that valid ROM paths are properly saved");
@@ -294,6 +294,77 @@ namespace UnitTests.BackendTests
 
             //Verify that valid ROM paths are properly saved
             Assert.AreEqual(_console.RomFolderPath, validRomPath, "Verify that valid ROM paths are properly saved");
+        }
+
+        /// <summary>
+        /// Verify that ROM directory paths are properly validated 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateRomExtension()
+        {
+            //Verify that a null value for the ROM Extension is not allowed
+            try
+            {
+                _console.RomExtension = null;
+                Assert.Fail("Verify that a null value for ROM Extension is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for the ROM Extension is not allowed");
+            }
+
+            //Verify that an empty value for the ROM Extension name is not allowed
+            try
+            {
+                _console.RomExtension = "";
+                Assert.Fail("Verify that an empty value for the ROM Extension is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that an empty value for the ROM Extension is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the ROM extension
+            const string invalidCharExtension = "a|c";
+            try
+            {
+                _console.RomExtension = invalidCharExtension;
+                Assert.Fail("Verify that invalid chars are not allowed in the ROM Extension");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the ROM Extension");
+            }
+            //Verify that invalid chars are not allowed in the ROM extension
+            const string invalidRomExtension = "bin";
+            try
+            {
+                _console.RomExtension = invalidRomExtension;
+                Assert.Fail("Verify that an invalid file extension is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the ROM Extension");
+            }
+
+            //Verify that a rom extension that exceeds MaxFileExtLength chars is not allowed
+            string longName = new string('-', ConstValues.MaxFileExtLength + 1);
+            try
+            {
+                _console.RomExtension = longName;
+                Assert.Fail($"Verify that a ROM extension name that exceeds {ConstValues.MaxFileExtLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a ROM extension that exceeds {ConstValues.MaxFileExtLength} chars is not allowed");
+            }
+
+            //Verify that valid ROM Extensions are properly saved
+            const string validRomExtension = ".bin";
+            _console.RomExtension = validRomExtension;
+            Assert.AreEqual(_console.EmulatorExePath, validRomExtension, "Verify that ROM extension are properly saved");
         }
 
         #endregion
