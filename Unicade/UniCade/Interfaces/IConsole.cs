@@ -39,7 +39,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// The full path to the rom directory for the current console
         /// </summary>
-        string RomPath { get; set; }
+        string RomFolderPath { get; set; }
 
         #endregion
 

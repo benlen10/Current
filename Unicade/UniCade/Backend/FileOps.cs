@@ -93,7 +93,7 @@ namespace UniCade.Backend
                     {
                         IConsole console = Database.GetConsole(consoleName);
                         streamWriter.WriteLine(
-                            $"***{console.ConsoleName}|{console.EmulatorExePath}|{console.RomPath}|PrefPath|{console.RomExtension}|{console.GetGameCount()}|Console Info|{console.LaunchParams}|{console.ReleaseDate}|");
+                            $"***{console.ConsoleName}|{console.EmulatorExePath}|{console.RomFolderPath}|PrefPath|{console.RomExtension}|{console.GetGameCount()}|Console Info|{console.LaunchParams}|{console.ReleaseDate}|");
                         if (console.GetGameCount() > 0)
                         {
                             var gameList = console.GetGameList();
@@ -302,11 +302,11 @@ namespace UniCade.Backend
             string[] fileEntries;
             try
             {
-                fileEntries = Directory.GetFiles(console.RomPath);
+                fileEntries = Directory.GetFiles(console.RomFolderPath);
             }
             catch
             {
-                MessageBox.Show(Strings.DirectoryNotFound + console.RomPath);
+                MessageBox.Show(Strings.DirectoryNotFound + console.RomFolderPath);
                 return false;
             }
 
@@ -384,8 +384,8 @@ namespace UniCade.Backend
             //Fetch the console object
             IConsole console = Database.GetConsole(game.ConsoleName);
 
-            string gamePath = ("\"" + console.RomPath + game.FileName + "\"");
-            string testGamePath = (console.RomPath + game.FileName);
+            string gamePath = ("\"" + console.RomFolderPath + game.FileName + "\"");
+            string testGamePath = (console.RomFolderPath + game.FileName);
             if (!File.Exists(testGamePath))
             {
                 throw new LaunchException(("ROM does not exist. Launch Failed"));

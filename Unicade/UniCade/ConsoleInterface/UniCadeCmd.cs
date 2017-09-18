@@ -298,7 +298,7 @@ namespace UniCade.ConsoleInterface
             Console.WriteLine(Strings.Console + console.ConsoleName + Strings.NewLine);
             Console.WriteLine(Strings.ReleaseDate + console.ReleaseDate);
             Console.WriteLine(Strings.EmulatorPath + console.EmulatorExePath);
-            Console.WriteLine(Strings.RomPath + console.RomPath);
+            Console.WriteLine(Strings.RomPath + console.RomFolderPath);
             Console.WriteLine(Strings.RomExtension + console.RomExtension);
             Console.WriteLine(Strings.LaunchParam + console.LaunchParams);
             Console.WriteLine(Strings.ConsoleInfo + console.ConsoleInfo);

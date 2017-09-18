@@ -133,7 +133,6 @@
                     </Grid.RowDefinitions>
                     <Label x:Name="GlobalTabLabelAllowedEsrb" Content="Allowed ESRB Rating (Global)" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top"/>
                     <Label Grid.Row="0" x:Name="GlobalTabLabelPaswordProtection" Content="Password Protection" HorizontalAlignment="Left" Margin="50,64,0,0" VerticalAlignment="Top"/>
-                    <Label Grid.Row="0" x:Name="GlobalTabLabelRomDirectory" Content="ROM Directory" HorizontalAlignment="Left" Margin="50,104,0,0" VerticalAlignment="Top" Height="26"/>
                     <Label x:Name="GlobalTabLabelCoins" Content="# Coins" HorizontalAlignment="Left" Margin="273,114.731,0,0" VerticalAlignment="Top" Grid.Row="1"/>
                     <Label x:Name="GlobalTabLabelPlaytime" Content="Playtime" HorizontalAlignment="Left" Margin="273,145.731,0,0" VerticalAlignment="Top" Grid.Row="1"/>
                     <Label Grid.Row="0" x:Name="GlobalTabLabelGlobalFavorites" Content="Global Favorites" HorizontalAlignment="Left" Margin="607,10,0,0" VerticalAlignment="Top"/>
@@ -147,7 +146,6 @@
                     <CheckBox x:Name="GlobalTabCheckboxEnablePayPerPlay" Content = "Enable Pay Per Play" HorizontalAlignment="Left" Margin="273,84.731,0,0" VerticalAlignment="Top" Grid.Row="1" Checked  ="GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged"  Unchecked  = "GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged"/>
                     <CheckBox Grid.Row="0" x:Name="GlobalTabCheckboxToView" Content="Restrict Viewing" HorizontalAlignment="Left" Margin="334,36,0,0" VerticalAlignment="Top" />
                     <ComboBox Grid.Row="0" x:Name="GlobalTabDropdownAllowedEsrb" HorizontalAlignment="Left" Margin="219,34,0,0" VerticalAlignment="Top" Width="109" SelectionChanged="GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged"/>
-                    <TextBox Grid.Row="0" x:Name="GlobalTabTextboxRomDirectory" HorizontalAlignment="Left" Height="23" Margin="173,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="365"/>
                     <TextBox x:Name="GlobalTabTextboxCoins" HorizontalAlignment="Left" Height="23" Margin="328,114.731,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Grid.Row="1"/>
                     <TextBox x:Name="GlobalTabTextboxPlaytime" HorizontalAlignment="Left" Height="23" Margin="328,145.731,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Grid.Row="1"/>
                     <Button x:Name="GlobalTabButtonSavePreferences" Content="Save Preferences File" HorizontalAlignment="Left" Margin="157,194.731,0,0" VerticalAlignment="Top" Width="151" Height="29" Click="GlobalSettings_SavePreferenceFileButton_Click" Grid.Row="1"/>

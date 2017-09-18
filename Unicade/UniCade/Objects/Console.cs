@@ -102,9 +102,9 @@ namespace UniCade.Objects
         /// <summary>
         /// The full path to the rom directory for the current console
         /// </summary>
-        public string RomPath
+        public string RomFolderPath
         {
-            get => _romPath;
+            get => _romFolderPath;
             set
             {
                 if (value == null)
@@ -127,7 +127,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException($"ROM path cannot exceed {ConstValues.MaxPathLength} chars");
                 }
-                _romPath = value;
+                _romFolderPath = value;
             }
         }
 
@@ -234,14 +234,9 @@ namespace UniCade.Objects
         private string _emulatorExePath;
 
         /// <summary>
-        /// The full path for the console preferences file
-        /// </summary>
-        private string _preferencesPath;
-
-        /// <summary>
         /// The full path to the rom directory for the current console
         /// </summary>
-        private string _romPath;
+        private string _romFolderPath;
 
         /// <summary>
         /// The extensions for the current console
@@ -286,18 +281,17 @@ namespace UniCade.Objects
         /// </summary>
         /// <param name="name"></param>
         /// <param name="emuExePath"></param>
-        /// <param name="romPath"></param>
+        /// <param name="romFolderPath"></param>
         /// <param name="prefPath"></param>
         /// <param name="romExt"></param>
         /// <param name="consoleInfo"></param>
         /// <param name="launchParam"></param>
         /// <param name="releaseDate"></param>
-        public Console(string name, string emuExePath, string romPath, string prefPath, string romExt, string consoleInfo, string launchParam, string releaseDate)
+        public Console(string name, string emuExePath, string romFolderPath, string prefPath, string romExt, string consoleInfo, string launchParam, string releaseDate)
         {
             ConsoleName = name;
             EmulatorExePath = emuExePath;
-            RomPath = romPath;
-            PreferencesPath = prefPath;
+            RomFolderPath = romFolderPath;
             RomExtension = romExt;
             ConsoleInfo = consoleInfo;
             LaunchParams = launchParam;
