@@ -131,6 +131,89 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
+        /// Verify that Emulator Exe directory paths are properly validated 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateEmulatorExePath()
+        {
+            //Verify that a null value for the Emulator Exe folder path is not allowed
+            try
+            {
+                _console.EmulatorExePath = null;
+                Assert.Fail("Verify that a null value for the Emulator Exe folder path is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for the Emulator Exe folder path is not allowed");
+            }
+
+            //Verify that a Emulator Exe path under 4 chars is not allowed
+            string shortPath = new string('-', ConstValues.MinPathLength - 1);
+            try
+            {
+                _console.EmulatorExePath = shortPath;
+                Assert.Fail($"Verify that a Emulator Exe path under {ConstValues.MinPathLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, $"Verify that a Emulator Exe path under {ConstValues.MinPathLength} chars is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the Emulator Exe path
+            const string invalidCharPath = "a|c";
+            try
+            {
+                _console.EmulatorExePath = invalidCharPath;
+                Assert.Fail("Verify that invalid chars are not allowed in the Emulator Exe path");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the Emulator Exe path");
+            }
+
+            //Verify that invalid path strings are now allowed
+            const string invalidRomPath = "invalidRomPath";
+            try
+            {
+                _console.EmulatorExePath = invalidRomPath;
+                Assert.Fail("Verify that invalid path strings are now allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid path strings are now allowed");
+            }
+
+            //Verify that a Emulator Exe path that exceeds 4000 chars is not allowed
+            string longPath = new string('-', ConstValues.MaxPathLength + 1);
+            try
+            {
+                _console.EmulatorExePath = longPath;
+                Assert.Fail($"Verify that a Emulator Exe path that exceeds {ConstValues.MaxPathLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a Emulator Exe path that exceeds {ConstValues.MaxPathLength} chars is not allowed");
+            }
+
+            //Verify a valid Emulator Exe path does not throw an exception
+            const string validPath = "C:\\ROMS";
+            try
+            {
+                _console.EmulatorExePath = validPath;
+                Assert.IsTrue(true, "Verify a valid Emulator Exe path does not throw an exception");
+            }
+            catch (ArgumentException)
+            {
+                Assert.Fail("Verify a valid Emulator Exe path does not throw an exception");
+            }
+
+            //Verify that valid Emulator Exe paths are properly saved
+            Assert.AreEqual(_console.EmulatorExePath, validPath, "Verify that valid Emulator Exe paths are properly saved");
+        }
+
+        /// <summary>
         /// Verify that ROM directory paths are properly validated 
         /// </summary>
         [TestMethod]
