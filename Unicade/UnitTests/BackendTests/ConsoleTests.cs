@@ -416,6 +416,55 @@ namespace UnitTests.BackendTests
             Assert.AreEqual(_console.ConsoleInfo, validConsoleInfo, "Verify that valid console info is properly saved");
         }
 
+        /// <summary>
+        /// Verify that ROM directory paths are properly validated 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateConsoleLaunchParams()
+        {
+            //Verify that a null value for the console launch params is not allowed
+            try
+            {
+                _console.LaunchParams = null;
+                Assert.Fail("Verify that a null value for console launch params is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for console launch params is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the console info
+            const string invalidParams = "a|c";
+            try
+            {
+                _console.LaunchParams = invalidParams;
+                Assert.Fail("Verify that invalid chars are not allowed in the console info");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the console info");
+            }
+
+            //Verify that console launch params that exceeds MaxConsoleInfoLength chars is not allowed
+            string longlaunch =  new string('-', ConstValues.MaxLaunchParamsLength + 1);
+            try
+            {
+                _console.LaunchParams = longlaunch;
+                Assert.Fail($"Verify that console launch params that exceeds {ConstValues.MaxConsoleInfoLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a consle name that exceeds {ConstValues.MaxConsoleNameLength} chars is not allowed");
+            }
+
+            //Verify that valid consle infos are properly saved
+            const string validConsolelaunchParams = "validParams";
+            _console.LaunchParams = validConsolelaunchParams;
+            Assert.AreEqual(_console.LaunchParams, validConsolelaunchParams, "Verify that valid console launch params is properly saved");
+        }
+
         #endregion
 
         /// <summary>
