@@ -35,7 +35,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Default UniCade account cannot be renamed");
                 }
-                if (value.Length < 5)
+                if (value.Length < ConstValues.MinUsernameLength)
                 {
                     throw new ArgumentException("Username must be at least 4 chars");
                 }

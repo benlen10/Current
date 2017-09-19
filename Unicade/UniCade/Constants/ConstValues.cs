@@ -56,6 +56,11 @@ namespace UniCade.Constants
         public const int MaxUsernameLength = 30;
 
         /// <summary>
+        /// The min char length for a username
+        /// </summary>
+        public const int MinUsernameLength = 4;
+
+        /// <summary>
         /// The max char length for user info descriptions
         /// </summary>
         public const int MaxUserInfoLength = 200;

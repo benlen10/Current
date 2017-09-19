@@ -11,6 +11,20 @@ namespace UnitTests.BackendTests
     [TestClass]
     public class ConsoleTests
     {
+        /// <summary>
+        /// Create a new database instance, add a console and generate a new random int id
+        /// </summary>
+        [TestInitialize]
+        public void Initalize()
+        {
+            //Initalize the program
+            Database.Initalize();
+
+            //Create a new console and add it to the database
+            _console = new Console("newConsole");
+            Database.AddConsole(_console);
+        }
+
         #region Properties
 
         /// <summary>
@@ -23,7 +37,7 @@ namespace UnitTests.BackendTests
         #region Console Property Tests 
 
         /// <summary>
-        /// Verify that ROM directory paths are properly validated 
+        /// Verify that console names are properly validated 
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -77,13 +91,13 @@ namespace UnitTests.BackendTests
             }
 
             //Verify that valid console names are properly saved
-            string validConsoleName = "validConsole";
+            const string validConsoleName = "validConsole";
             _console.ConsoleName = validConsoleName;
             Assert.AreEqual(_console.ConsoleName, validConsoleName, "Verify that valid ROM paths are properly saved");
         }
 
         /// <summary>
-        /// Verify that ROM directory paths are properly validated 
+        /// Verify that console release dates are properly validated 
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -113,7 +127,7 @@ namespace UnitTests.BackendTests
             }
 
             //Verify that the release date must be all numbers 
-            string invalidReleaseDate = "200I";
+            const string invalidReleaseDate = "200I";
             try
             {
                 _console.ReleaseDate = invalidReleaseDate;
@@ -214,7 +228,7 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
-        /// Verify that ROM directory paths are properly validated 
+        /// Verify that ROM folder paths are properly validated 
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -297,7 +311,7 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
-        /// Verify that ROM directory paths are properly validated 
+        /// Verify that ROM file extensions are properly validated 
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -368,7 +382,7 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
-        /// Verify that ROM directory paths are properly validated 
+        /// Verify that console info is properly validated 
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -411,7 +425,7 @@ namespace UnitTests.BackendTests
             }
 
             //Verify that valid consle infos are properly saved
-            string validConsoleInfo = "validInfo";
+            const string validConsoleInfo = "validInfo";
             _console.ConsoleInfo = validConsoleInfo;
             Assert.AreEqual(_console.ConsoleInfo, validConsoleInfo, "Verify that valid console info is properly saved");
         }
@@ -447,7 +461,7 @@ namespace UnitTests.BackendTests
             }
 
             //Verify that console launch params that exceeds MaxConsoleInfoLength chars is not allowed
-            string longlaunch =  new string('-', ConstValues.MaxLaunchParamsLength + 1);
+            string longlaunch = new string('-', ConstValues.MaxLaunchParamsLength + 1);
             try
             {
                 _console.LaunchParams = longlaunch;
@@ -466,23 +480,6 @@ namespace UnitTests.BackendTests
         }
 
         #endregion
-
-        /// <summary>
-        /// Create a new database instance, add a console and generate a new random int id
-        /// </summary>
-        [TestInitialize]
-        public void Initalize()
-        {
-            //Initalize the program
-            Database.Initalize();
-
-            //Create a new console and add it to the database
-            _console = new Console("newConsole");
-            Database.AddConsole(_console);
-        }
-
-
-
 
         #region Games Tests
 
