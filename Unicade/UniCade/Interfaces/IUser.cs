@@ -18,11 +18,6 @@ namespace UniCade.Interfaces
         string Email { get; set; }
 
         /// <summary>
-        /// A list of the user's favorite games
-        /// </summary>
-        List<IGame> FavoritesList { get; set; }
-
-        /// <summary>
         /// The filename and location for the user's profile pictur
         /// </summary>
         string ProfilePicture { get; set; }
@@ -78,6 +73,21 @@ namespace UniCade.Interfaces
         /// Incriment the login count for the current user by 1
         /// </summary>
         void IncrementUserLoginCount();
+
+        /// <summary>
+        ///Add a favorie game to the current favorites list
+        /// </summary>
+        bool AddFavorite(IGame game);
+
+        /// <summary>
+        /// Remove a game from the current favorites list
+        /// </summary>
+        bool RemoveFavorite(IGame game);
+
+        /// <summary>
+        /// Return a copy of the current favories list of IGame Objects
+        /// </summary>
+        List<IGame> GetFavoritesList();
 
         #endregion
     }

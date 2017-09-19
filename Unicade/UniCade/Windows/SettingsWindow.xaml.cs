@@ -819,7 +819,7 @@ namespace UniCade.Windows
 
             //Populate the favorites list for each user
             UsersTabListboxUserFavorites.Items.Clear();
-            user.FavoritesList.ForEach(g => UsersTabListboxUserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
+            user.GetFavoritesList().ForEach(g => UsersTabListboxUserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
 
             //Populate the user fields
             UsersTabTextboxUsername.Text = user.Username;
@@ -878,7 +878,7 @@ namespace UniCade.Windows
                 //Remove the user and refresh the database
                 Database.RemoveUser(user.Username);
             }
-            catch(ArgumentException exception)
+            catch (ArgumentException exception)
             {
                 MessageBox.Show("Error: " + exception.Message);
             }
@@ -908,7 +908,7 @@ namespace UniCade.Windows
 
             Database.GetCurrentUser().AllowedEsrb = UsersTabDropdownAllowedEsrb.SelectedItem == null ? Enums.Esrb.Null : Enums.ConvertStringToEsrbEnum(UsersTabDropdownAllowedEsrb.SelectedItem.ToString());
 
-            
+
 
             //Refresh the user list
             UsersTabListboxCurrentUser.Items.Clear();
@@ -921,11 +921,11 @@ namespace UniCade.Windows
         private void UsersTab_DeleteFavoriteButton_Click(object sender, EventArgs e)
         {
             //Remove the favorite game at the current index
-            Database.GetCurrentUser().FavoritesList.RemoveAt(UsersTabListboxUserFavorites.SelectedIndex);
+            Database.GetCurrentUser().GetFavoritesList().RemoveAt(UsersTabListboxUserFavorites.SelectedIndex);
 
             //Refresh the user favorites list
             UsersTabListboxUserFavorites.Items.Clear();
-             Database.GetCurrentUser().FavoritesList.ForEach(g => UsersTabListboxUserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
+            Database.GetCurrentUser().GetFavoritesList().ForEach(g => UsersTabListboxUserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
         }
 
         /// <summary>

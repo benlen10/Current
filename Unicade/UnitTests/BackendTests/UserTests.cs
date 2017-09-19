@@ -4,7 +4,6 @@ using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Objects;
-using Console = UniCade.Objects.Console;
 
 namespace UnitTests.BackendTests
 {
@@ -109,7 +108,77 @@ namespace UnitTests.BackendTests
 
         #endregion
 
-        #region Public User Function 
+        #region Public User Function Tests
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyChangingUserPassword()
+        {
+            //Fetch the original password
+            string originalPassword = _user.GetUserPassword();
+
+            //Verify that a null value for the password is not allowed
+            try
+            {
+                _user.SetUserPassword(null);
+                Assert.Fail("Verify that a null value for a password is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for a password is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the password
+            const string invalidpassword = "pass|word";
+            try
+            {
+                _user.SetUserPassword(invalidpassword);
+                Assert.Fail("Verify that invalid chars are not allowed in the console name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the password");
+            }
+
+            //Verify that a password that is less than MinpasswordLength chars is not allowed
+            string shortpassword = new string('-', ConstValues.MinUserPasswordLength - 1);
+            try
+            {
+                _user.SetUserPassword(shortpassword);
+                Assert.Fail($"Verify that a password that is less than {ConstValues.MinUserPasswordLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a password that is less than {ConstValues.MinUserPasswordLength} chars is not allowed");
+            }
+
+            //Verify that a passwordthat exceeds MaxConsoleNameLength chars is not allowed
+            string longName = new string('-', ConstValues.MaxUserPasswordLength + 1);
+            try
+            {
+                _user.SetUserPassword(longName);
+                Assert.Fail($"Verify that a password that exceeds {ConstValues.MaxUserPasswordLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a password that exceeds {ConstValues.MaxUserPasswordLength} chars is not allowed");
+            }
+
+            //Verify that the password has not been changed
+            Assert.AreEqual(originalPassword, _user.GetUserPassword(), "Verify that the password has not been changed");
+
+            //Set a new user password
+            const string newPassword = "newPassword";
+            _user.SetUserPassword(newPassword);
+
+            //Verify that the password has been properly saved
+            Assert.IsTrue(_user.GetUserPassword().Equals(newPassword), "Verify that a valid password is properly saved");
+        }
 
         /// <summary>
         /// 
@@ -131,15 +200,6 @@ namespace UnitTests.BackendTests
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        public void VerifyChangingUserPassword()
-        {
-
-        }
         /// <summary>
         /// 
         /// </summary>

@@ -124,12 +124,6 @@ namespace UniCade.Objects
         }
 
         /// <summary>
-        /// A list of the user's favorite games
-        /// </summary>
-        public List<IGame> FavoritesList { get; set; }
-
-
-        /// <summary>
         /// The max allowed ESRB for the current user (Parental Controls)
         /// </summary>
         public Enums.Esrb AllowedEsrb { get; set; }
@@ -178,6 +172,11 @@ namespace UniCade.Objects
         /// </summary>
         private readonly bool _userExists;
 
+        /// <summary>
+        /// A list of the user's favorite games
+        /// </summary>
+        private List<IGame> _favoritesList;
+
         #endregion
 
         #region Constructors
@@ -192,7 +191,7 @@ namespace UniCade.Objects
             AllowedEsrb = allowedEsrb;
             Email = email;
             ProfilePicture = profPic;
-            FavoritesList = new List<IGame>();
+            _favoritesList = new List<IGame>();
             _userExists = true;
         }
 
@@ -207,6 +206,23 @@ namespace UniCade.Objects
         /// <returns>true if the password was changed successfully</returns>
         public bool SetUserPassword(string password)
         {
+            if (password == null)
+            {
+                throw new ArgumentException("Password cannot be null");
+            }
+            if (password.Length < ConstValues.MinUserPasswordLength)
+            {
+                throw new ArgumentException($"Password length cannot be less than {ConstValues.MinUserPasswordLength} chars");
+            }
+            if (password.Length > ConstValues.MaxUserPasswordLength)
+            {
+                throw new ArgumentException($"Password length cannot exceed {ConstValues.MaxUserPasswordLength} chars");
+            }
+            if (Utilties.CheckForInvalidChars(password))
+            {
+                throw new ArgumentException("Password contains invalid characters");
+            }
+
             _password = password;
             return true;
         }
@@ -252,6 +268,34 @@ namespace UniCade.Objects
         public void IncrementUserLoginCount()
         {
             _userLoginCount++;
+        }
+
+        /// <summary>
+        ///Add a favorie game to the current favorites list
+        /// </summary>
+        public bool AddFavorite(IGame game)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Remove a game from the current favorites list
+        /// </summary>
+        public bool RemoveFavorite(IGame game)
+        {
+            if (game != null)
+            {
+                return _favoritesList.Remove(game);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Return a copt of the current favories list of IGame Objects
+        /// </summary>
+        public List<IGame> GetFavoritesList()
+        {
+            return new List<IGame>(_favoritesList);
         }
 
         #endregion

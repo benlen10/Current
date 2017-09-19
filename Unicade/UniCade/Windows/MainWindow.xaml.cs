@@ -266,22 +266,22 @@ namespace UniCade
                                 IGame g = CurrentConsole.GetGame(gameTitle);
                                 if (ListBox.SelectedItem.ToString().Equals(g.Title))
                                 {
-                                    if (Database.GetCurrentUser().FavoritesList.Count < 1)
+                                    if (Database.GetCurrentUser().GetFavoritesList().Count < 1)
                                     {
-                                        Database.GetCurrentUser().FavoritesList.Add(g);
+                                        Database.GetCurrentUser().AddFavorite(g);
                                         ShowNotification("UniCade", Database.GetCurrentUser().Username + " :Added To Favorites");
                                         return;
                                     }
-                                    foreach (IGame game1 in Database.GetCurrentUser().FavoritesList)
+                                    foreach (IGame game1 in Database.GetCurrentUser().GetFavoritesList())
                                     {
                                         if (game1.Title.Equals(g.Title) && g.ConsoleName.Equals(game1.ConsoleName))
                                         {
-                                            Database.GetCurrentUser().FavoritesList.Add(g);
+                                            Database.GetCurrentUser().AddFavorite(g);
                                             ShowNotification("UniCade", Database.GetCurrentUser().Username + ": Removed From Favorites");
                                         }
                                         else
                                         {
-                                            Database.GetCurrentUser().FavoritesList.Add(g);
+                                            Database.GetCurrentUser().AddFavorite(g);
                                             ShowNotification("UniCade", Database.GetCurrentUser().Username + ": Added To Favorites");
                                         }
                                         return;
@@ -541,7 +541,7 @@ namespace UniCade
                         //Check if the global favorites filter is enabled
                         if (IsFavoritesViewActive)
                         {
-                            foreach (IGame game1 in Database.GetCurrentUser().FavoritesList)
+                            foreach (IGame game1 in Database.GetCurrentUser().GetFavoritesList())
                             {
                                 if (game.Title.Equals(game1.Title) && game.ConsoleName.Equals(game1.ConsoleName))
                                 {
