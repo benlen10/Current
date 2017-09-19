@@ -364,7 +364,56 @@ namespace UnitTests.BackendTests
             //Verify that valid ROM Extensions are properly saved
             const string validRomExtension = ".bin";
             _console.RomExtension = validRomExtension;
-            Assert.AreEqual(_console.EmulatorExePath, validRomExtension, "Verify that ROM extension are properly saved");
+            Assert.AreEqual(_console.RomExtension, validRomExtension, "Verify that ROM extension are properly saved");
+        }
+
+        /// <summary>
+        /// Verify that ROM directory paths are properly validated 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateConsoleInfo()
+        {
+            //Verify that a null value for the console info is not allowed
+            try
+            {
+                _console.ConsoleInfo = null;
+                Assert.Fail("Verify that a null value for console info is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for console info is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the console info
+            const string invalidConsoleName = "a|c";
+            try
+            {
+                _console.ConsoleInfo = invalidConsoleName;
+                Assert.Fail("Verify that invalid chars are not allowed in the console info");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the console info");
+            }
+
+            //Verify that console info that exceeds MaxConsoleInfoLength chars is not allowed
+            string longInfo = new string('-', ConstValues.MaxConsoleInfoLength + 1);
+            try
+            {
+                _console.ConsoleInfo = longInfo;
+                Assert.Fail($"Verify that console info that exceeds {ConstValues.MaxConsoleInfoLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a consle name that exceeds {ConstValues.MaxConsoleNameLength} chars is not allowed");
+            }
+
+            //Verify that valid consle infos are properly saved
+            string validConsoleInfo = "validInfo";
+            _console.ConsoleInfo = validConsoleInfo;
+            Assert.AreEqual(_console.ConsoleInfo, validConsoleInfo, "Verify that valid console info is properly saved");
         }
 
         #endregion
@@ -382,6 +431,8 @@ namespace UnitTests.BackendTests
             _console = new Console("newConsole");
             Database.AddConsole(_console);
         }
+
+
 
 
         #region Games Tests
