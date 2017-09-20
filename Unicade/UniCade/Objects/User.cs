@@ -23,6 +23,10 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("Username cannot be null");
                 }
+                if (_userExists && _username.Equals("UniCade"))
+                {
+                    throw new ArgumentException("Default UniCade account cannot be renamed");
+                }
                 if (_userExists && (Database.GetUser(value) != null))
                 {
                     throw new ArgumentException("Username already exists");
@@ -30,10 +34,6 @@ namespace UniCade.Objects
                 if (Utilties.CheckForInvalidChars(value))
                 {
                     throw new ArgumentException("Username contains invalid characters");
-                }
-                if (_userExists && _username.Equals("UniCade"))
-                {
-                    throw new ArgumentException("Default UniCade account cannot be renamed");
                 }
                 if (value.Length < ConstValues.MinUsernameLength)
                 {
@@ -59,6 +59,10 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException("User info cannot be null");
                 }
+                if (_userExists && _username.Equals("UniCade"))
+                {
+                    throw new ArgumentException("User info for the default UniCade account cannot be edited");
+                }
                 if (Utilties.CheckForInvalidChars(value))
                 {
                     throw new ArgumentException("User info contains invalid characters");
@@ -82,6 +86,10 @@ namespace UniCade.Objects
                 if (value == null)
                 {
                     throw new ArgumentException("Email cannot be null");
+                }
+                if (_userExists && _username.Equals("UniCade"))
+                {
+                    throw new ArgumentException("User email for the default UniCade account cannot be edited");
                 }
                 if (value.Length < 6)
                 {
@@ -114,6 +122,10 @@ namespace UniCade.Objects
                 if (value == null)
                 {
                     throw new ArgumentException("Profile picture path cannot be null");
+                }
+                if (_userExists && _username.Equals("UniCade"))
+                {
+                    throw new ArgumentException("Profile pic path for the default UniCade account cannot be edited");
                 }
                 if (value.Length > ConstValues.MaxPathLength)
                 {
@@ -209,6 +221,10 @@ namespace UniCade.Objects
             if (password == null)
             {
                 throw new ArgumentException("Password cannot be null");
+            }
+            if (_userExists && _username.Equals("UniCade"))
+            {
+                throw new ArgumentException("Password for the default UniCade account cannot be edited");
             }
             if (password.Length < ConstValues.MinUserPasswordLength)
             {

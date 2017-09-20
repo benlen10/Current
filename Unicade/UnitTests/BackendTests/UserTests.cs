@@ -29,7 +29,6 @@ namespace UnitTests.BackendTests
         private IUser _user;
 
         #endregion
-        
 
         #region  User Property Validation Tests
 
@@ -181,7 +180,7 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
-        /// 
+        /// Verify that the user launch count is properly incremented
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -198,7 +197,7 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
-        /// 
+        /// Verify that the user login count can be properly incremented 
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -215,7 +214,7 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
-        /// 
+        /// Verify that some fields for the default unicade account cannot be edited
         /// </summary>
         [TestMethod]
         [Priority(1)]

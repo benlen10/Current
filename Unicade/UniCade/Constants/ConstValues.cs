@@ -135,6 +135,16 @@ namespace UniCade.Constants
         /// </summary>
         internal const int MaxUserPasswordLength = 30;
 
+        /// <summary>
+        /// The min length for a game filename
+        /// </summary>
+        internal const int MinGameFileNameLength = 3;
+
+        /// <summary>
+        /// The min length for a game filename
+        /// </summary>
+        internal const int MaxGameFileNameLength = 30;
+
         #endregion
 
         #region  Static Readonly Fields

@@ -481,7 +481,7 @@ namespace UnitTests.BackendTests
 
         #endregion
 
-        #region Games Tests
+        #region Public Method Tests
 
         /// <summary>
         /// Verify that adding duplicate games with the same filename or game name are disallowed
