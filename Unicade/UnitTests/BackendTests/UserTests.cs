@@ -187,7 +187,14 @@ namespace UnitTests.BackendTests
         [Priority(1)]
         public void VerifyUserLaunchCount()
         {
+            //Verify that the user launch count is intially set to zero
+            Assert.IsTrue(_user.GetUserLaunchCount() == 0, "Verify that the user launch count is intially set to zero");
 
+            //Increment the user launch count
+            _user.IncrementUserLaunchCount();
+
+            //Verify that the user launch count has been properly incremented
+            Assert.IsTrue(_user.GetUserLaunchCount() == 1, "Verify that the user launch count is intially set to zero");
         }
 
         /// <summary>
@@ -197,6 +204,14 @@ namespace UnitTests.BackendTests
         [Priority(1)]
         public void VerifyUserLoginCount()
         {
+            //Verify that the user login count is intially set to zero
+            Assert.IsTrue(_user.GetUserLoginCount() == 0, "Verify that the user login count is intially set to zero");
+
+            //Increment the user login count
+            _user.IncrementUserLoginCount();
+
+            //Verify that the user login count has been properly incremented
+            Assert.IsTrue(_user.GetUserLoginCount() == 1, "Verify that the user login count is intially set to zero");
 
         }
 
