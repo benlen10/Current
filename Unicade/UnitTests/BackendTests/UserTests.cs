@@ -212,7 +212,6 @@ namespace UnitTests.BackendTests
 
             //Verify that the user login count has been properly incremented
             Assert.IsTrue(_user.GetUserLoginCount() == 1, "Verify that the user login count is intially set to zero");
-
         }
 
         /// <summary>
@@ -222,7 +221,63 @@ namespace UnitTests.BackendTests
         [Priority(1)]
         public void VerifyUniCadeAccountEditingRestrictions()
         {
+            //Fetch the UniCade user object
+            IUser unicadeUser = Database.GetCurrentUser();
 
+            //Verify that you are not able to edit the username for the UniCade account
+            try
+            {
+                unicadeUser.Username = "newUsername";
+                Assert.Fail("Verify that you are not able to edit the username for the UniCade account");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that you are not able to edit the username for the UniCade account");
+            }
+
+            //Verify that you are not able to edit the password for the UniCade account
+            try
+            {
+                unicadeUser.SetUserPassword("newPass");
+                Assert.Fail("Verify that you are not able to edit the password for the UniCade account");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that you are not able to edit the password for the UniCade account");
+            }
+
+            //Verify that you are not able to edit the email for the UniCade account
+            try
+            {
+                unicadeUser.Email = "newAddress@gmail.com";
+                Assert.Fail("Verify that you are not able to edit the email for the UniCade account");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that you are not able to edit the email for the UniCade account");
+            }
+
+            //Verify that you are not able to edit the user info for the UniCade account
+            try
+            {
+                unicadeUser.UserInfo = "NewUserInfo";
+                Assert.Fail("Verify that you are not able to edit the user info for the UniCade account");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that you are not able to edit the user info for the UniCade account");
+            }
+
+            //Verify that you are not able to edit the profile pic path for the UniCade account
+            try
+            {
+                unicadeUser.UserInfo = "NewUserInfo";
+                Assert.Fail("Verify that you are not able to edit the profile pic for the UniCade account");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that you are not able to edit the profile pic path for the UniCade account");
+            }
         }
 
         #endregion
