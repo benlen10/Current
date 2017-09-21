@@ -98,7 +98,7 @@ namespace UniCade.Windows
             GamesTabListboxConsoleList.SelectedIndex = 0;
 
             //Poplate ESRB dropdown combo boxes
-            foreach (Enums.Esrb esrb in Enum.GetValues(typeof(Enums.Esrb)))
+            foreach (Enums.EsrbRatings esrb in Enum.GetValues(typeof(Enums.EsrbRatings)))
             {
                 GlobalTabDropdownAllowedEsrb.Items.Add(esrb.GetStringValue());
                 UsersTabDropdownAllowedEsrb.Items.Add(esrb.GetStringValue());
@@ -161,7 +161,7 @@ namespace UniCade.Windows
             GlobalTabCheckboxEnablePayPerPlay.IsChecked = PayPerPlay.PayPerPlayEnabled;
             GlobalTabTextboxCoins.IsEnabled = PayPerPlay.PayPerPlayEnabled;
             GlobalTabTextboxPlaytime.IsEnabled = PayPerPlay.PayPerPlayEnabled;
-            GlobalTabDropdownAllowedEsrb.Text = Program.RestrictGlobalEsrb.GetStringValue();
+            GlobalTabDropdownAllowedEsrb.Text = Program.RestrictGlobalEsrbRatings.GetStringValue();
             GamesTabCheckBoxGlobalFavorite.IsChecked = MainWindow.DisplayEsrbWhileBrowsing;
 
             //Populate payPerPlay fields
@@ -391,7 +391,7 @@ namespace UniCade.Windows
             GamesTabTextboxCriticScore.Text = _currentGame.CriticReviewScore;
             GamesTabTextboxPublisher.Text = _currentGame.PublisherName;
             GamesTabTextboxDeveloper.Text = _currentGame.DeveloperName;
-            GamesTabTextboxEsrb.Text = _currentGame.EsrbRating.GetStringValue();
+            GamesTabTextboxEsrb.Text = _currentGame.EsrbRatingsRating.GetStringValue();
             GamesTabTextboxPlayers.Text = _currentGame.SupportedPlayerCount;
             GamesTabTextboxEsrbDescriptor.Text = _currentGame.EsrbDescriptors;
             GamesTabTextboxDescription.Text = _currentGame.Description;
@@ -569,7 +569,7 @@ namespace UniCade.Windows
                 _currentGame.ReleaseDate = GamesTabTextboxReleaseDate.Text;
                 _currentGame.CriticReviewScore = GamesTabTextboxCriticScore.Text;
                 _currentGame.SupportedPlayerCount = GamesTabTextboxPlayers.Text;
-                _currentGame.EsrbRating = Enums.ConvertStringToEsrbEnum(GamesTabTextboxEsrb.Text);
+                _currentGame.EsrbRatingsRating = Enums.ConvertStringToEsrbEnum(GamesTabTextboxEsrb.Text);
                 _currentGame.PublisherName = GamesTabTextboxPublisher.Text;
                 _currentGame.DeveloperName = GamesTabTextboxDeveloper.Text;
                 _currentGame.Description = GamesTabTextboxDescription.Text;
@@ -593,24 +593,24 @@ namespace UniCade.Windows
         {
             if (game == null) { return; }
             GamesTabImageEsrb.Source = null;
-            if (game.EsrbRating.Equals(Enums.Esrb.Everyone))
+            if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Everyone))
             {
                 GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
             }
-            else if (game.EsrbRating.Equals(Enums.Esrb.Everyone10))
+            else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Everyone10))
             {
                 GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png"));
             }
-            else if (game.EsrbRating.Equals(Enums.Esrb.Teen))
+            else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Teen))
             {
                 GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png"));
             }
-            else if (game.EsrbRating.Equals(Enums.Esrb.Mature))
+            else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Mature))
             {
                 GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png"));
             }
 
-            if (game.EsrbRating.Equals(Enums.Esrb.Ao))
+            if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Ao))
             {
                 GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png"));
             }
@@ -827,7 +827,7 @@ namespace UniCade.Windows
             UsersTabTextboxUserInfo.Text = user.UserInfo;
             UsersTabTextboxLoginCount.Text = user.GetUserLoginCount().ToString();
             UsersTabTextboxLaunchCount.Text = user.GetUserLaunchCount().ToString();
-            UsersTabDropdownAllowedEsrb.Text = user.AllowedEsrb.GetStringValue();
+            UsersTabDropdownAllowedEsrb.Text = user.AllowedEsrbRatings.GetStringValue();
 
             //Only allow the current user to edit their own userdata
             if (user.Username.Equals(Database.GetCurrentUser().Username))
@@ -906,7 +906,7 @@ namespace UniCade.Windows
             }
 
 
-            Database.GetCurrentUser().AllowedEsrb = UsersTabDropdownAllowedEsrb.SelectedItem == null ? Enums.Esrb.Null : Enums.ConvertStringToEsrbEnum(UsersTabDropdownAllowedEsrb.SelectedItem.ToString());
+            Database.GetCurrentUser().AllowedEsrbRatings = UsersTabDropdownAllowedEsrb.SelectedItem == null ? Enums.EsrbRatings.Null : Enums.ConvertStringToEsrbEnum(UsersTabDropdownAllowedEsrb.SelectedItem.ToString());
 
 
 
@@ -958,7 +958,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalSettingsTab_AllowedEsrbRatingDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.RestrictGlobalEsrb = Enums.ConvertStringToEsrbEnum(GlobalTabDropdownAllowedEsrb.SelectedItem.ToString());
+            Program.RestrictGlobalEsrbRatings = Enums.ConvertStringToEsrbEnum(GlobalTabDropdownAllowedEsrb.SelectedItem.ToString());
         }
 
         /// <summary>
@@ -969,7 +969,7 @@ namespace UniCade.Windows
 
             try
             {
-                Program.RestrictGlobalEsrb = GlobalTabDropdownAllowedEsrb.SelectedItem == null ? Enums.Esrb.Null : Enums.ConvertStringToEsrbEnum(GlobalTabDropdownAllowedEsrb.SelectedItem.ToString());
+                Program.RestrictGlobalEsrbRatings = GlobalTabDropdownAllowedEsrb.SelectedItem == null ? Enums.EsrbRatings.Null : Enums.ConvertStringToEsrbEnum(GlobalTabDropdownAllowedEsrb.SelectedItem.ToString());
                 Program.EnforceFileExtensions = GlobalTabCheckboxEnforceFileExtension.IsChecked.Value;
             }
             catch (ArgumentException exception)
@@ -1243,7 +1243,7 @@ namespace UniCade.Windows
             GamesTabTextboxCriticScore.Text = game.CriticReviewScore;
             GamesTabTextboxPublisher.Text = game.PublisherName;
             GamesTabTextboxDeveloper.Text = game.DeveloperName;
-            GamesTabTextboxEsrb.Text = game.EsrbRating.GetStringValue();
+            GamesTabTextboxEsrb.Text = game.EsrbRatingsRating.GetStringValue();
             GamesTabTextboxPlayers.Text = game.SupportedPlayerCount;
             GamesTabTextboxEsrbDescriptor.Text = game.EsrbDescriptors;
             GamesTabTextboxDescription.Text = game.Description;

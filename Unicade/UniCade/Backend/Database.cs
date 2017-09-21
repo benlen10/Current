@@ -59,7 +59,7 @@ namespace UniCade.Backend
             _totalGameCount = 0;
             _consoleList = new List<IConsole>();
             _userList = new List<IUser>();
-            IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
             AddUser(uniCadeUser);
             _currentUser = uniCadeUser;
             _defaultUser = uniCadeUser;

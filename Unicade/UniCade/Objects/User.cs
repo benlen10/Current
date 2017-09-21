@@ -138,7 +138,7 @@ namespace UniCade.Objects
         /// <summary>
         /// The max allowed ESRB for the current user (Parental Controls)
         /// </summary>
-        public Enums.Esrb AllowedEsrb { get; set; }
+        public Enums.EsrbRatings AllowedEsrbRatings { get; set; }
 
         #endregion
 
@@ -193,14 +193,14 @@ namespace UniCade.Objects
 
         #region Constructors
 
-        public User(string userName, string password, int loginCount, string email, int totalLaunchCount, string userInfo, Enums.Esrb allowedEsrb, string profPic)
+        public User(string userName, string password, int loginCount, string email, int totalLaunchCount, string userInfo, Enums.EsrbRatings allowedEsrbRatings, string profPic)
         {
             Username = userName;
             _password = password;
             _userLoginCount = loginCount;
             _userLaunchCount = totalLaunchCount;
             UserInfo = userInfo;
-            AllowedEsrb = allowedEsrb;
+            AllowedEsrbRatings = allowedEsrbRatings;
             Email = email;
             ProfilePicture = profPic;
             _favoritesList = new List<IGame>();

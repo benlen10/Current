@@ -78,7 +78,7 @@ namespace UnitTests.BackendTests
             Assert.AreEqual(1, Database.GetUserCount(), "Verify that the user count is equal to 1 intially ");
 
             //Create a new user and add them to the database
-            IUser user2 = new User("User2", "temp", 0, "user2@temp.com", 0, " ", Enums.Esrb.Null, "");
+            IUser user2 = new User("User2", "temp", 0, "user2@temp.com", 0, " ", Enums.EsrbRatings.Null, "");
             Database.AddUser(user2);
 
             //Verify that the user count is incrimenented after adding the second user
@@ -115,7 +115,7 @@ namespace UnitTests.BackendTests
             Assert.IsTrue(Database.GetCurrentUser().Username.Equals("UniCade"));
 
             //Add a new user to the UserList and attempt to change the current user
-            IUser newUser = new User("newUser", "temp", 0, "newUser@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            IUser newUser = new User("newUser", "temp", 0, "newUser@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
             Database.AddUser(newUser);
             Assert.IsTrue(Database.SetCurrentUser(newUser.Username));
 
@@ -131,7 +131,7 @@ namespace UnitTests.BackendTests
             Assert.IsTrue(Database.GetCurrentUser().Username.Equals("UniCade"));
 
             //Add a new user to the UserList and attempt to change the current user
-            IUser newUser2 = new User("newUser2", "temp", 0, "newUser2@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            IUser newUser2 = new User("newUser2", "temp", 0, "newUser2@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
             Database.AddUser(newUser2);
             Assert.IsTrue(Database.SetCurrentUser(newUser2.Username));
 
@@ -219,15 +219,15 @@ namespace UnitTests.BackendTests
         public void VerifyDuplicateUsersDisallowed()
         {
             //Verify that you are not able to add a new user with the username "UniCade"
-            IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
             Assert.IsFalse(Database.AddUser(uniCadeUser));
 
             //Verify that you can add a new user with a unique username
-            IUser newUser = new User("newUser", "temp", 0, "newuser@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            IUser newUser = new User("newUser", "temp", 0, "newuser@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
             Assert.IsTrue(Database.AddUser(newUser));
 
             //Verify that you can add a new user with a unique username
-            IUser dupUser = new User("newUser", "temp", 0, "newuser2@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            IUser dupUser = new User("newUser", "temp", 0, "newuser2@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
             Assert.IsFalse(Database.AddUser(dupUser));
         }
 
@@ -257,11 +257,11 @@ namespace UnitTests.BackendTests
         {
             for (int iterator = 1; iterator < ConstValues.MaxUserCount; iterator++)
             {
-                IUser user = new User(("user" + iterator), "temp", 0, "user@unicade.com", 0, " ", Enums.Esrb.Null, "");
+                IUser user = new User(("user" + iterator), "temp", 0, "user@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
                 Assert.IsTrue(Database.AddUser(user), $"Verify that user number {iterator}can be added properly");
             }
 
-            IUser lastUser = new User("lastUser", "temp", 0, "user@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            IUser lastUser = new User("lastUser", "temp", 0, "user@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
             Assert.IsFalse(Database.AddUser(lastUser), $"Verify that user number {ConstValues.MaxUserCount + 1} cannot be added since it exceeeds {ConstValues.MaxUserCount}");
         }
     }

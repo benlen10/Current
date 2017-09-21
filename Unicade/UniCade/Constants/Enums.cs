@@ -11,7 +11,7 @@ namespace UniCade.Constants
         /// <summary>
         /// Enum Values for ESRB content ratings
         /// </summary>
-        public enum Esrb
+        public enum EsrbRatings
         {
             [StringValue("")]
             Null,
@@ -25,6 +25,55 @@ namespace UniCade.Constants
             Mature,
             [StringValue("Adults Only (Ao)")]
             Ao
+        }
+
+        /// <summary>
+        /// Enum Values for ESRB content ratings
+        /// </summary>
+        public enum EsrbDescriptors
+        {
+            [StringValue("Mild Violence")] MildViolence,
+            [StringValue("Violence")] Violence,
+            [StringValue("Animated Violence")] AnimatedViolence,
+            [StringValue("Realistic Violence")] RealisticViolence,
+            [StringValue("Intense Violence")] IntenseViolence,
+            [StringValue("Violent References")] ViolentReferences,
+            [StringValue("Mild Fantasy Violence")] MildFantasyViolence,
+            [StringValue("Fantasy Violence")] FantasyViolence,
+            [StringValue("Mild Cartoon Violence")] MildCartoonViolence,
+            [StringValue("Mild Cartoon Violence")] CartoonViolence,
+            [StringValue("Comic Mischief")] ComicMischief,
+            [StringValue("Animated Blood")] AnimatedBlood,
+            [StringValue("Mild Blood")] MildBlood,
+            [StringValue("Blood")] Blood,
+            [StringValue("Realistic Blood")] RealisticBlood,
+            [StringValue("Blood & Gore")] BloodGore,
+            [StringValue("Animated Blood & Gore")] AnimatedBloodGore,
+            [StringValue("Realstic Blood & Gore")] RealisticBloodGore,
+            [StringValue("Edutainment")] Edutainment,
+            [StringValue("Informational")] Informational,
+            [StringValue("Crude Humor")] CrudeHumor,
+            [StringValue("Mild Language")] MildLanguage,
+            [StringValue("Language")] Language,
+            [StringValue("Strong Language")] StrongLanguage,
+            [StringValue("Mild Lyrics")] MildLyrics,
+            [StringValue("Lyrics")] Lyrics,
+            [StringValue("Strong Lyrics")] StrongLyrics,
+            [StringValue("Mild Suggestive Themes")] MildSuggestiveThemes,
+            [StringValue("Suggestive Themes")] SuggestiveThemes,
+            [StringValue("Sexual Themes")] SexualThemes,
+            [StringValue("Mild Sexual Theemes")] MildSexualThemes,
+            [StringValue("Mild Sexual Content")] MildSexualContent,
+            [StringValue("Sexual Content")] SexualContent,
+            [StringValue("Strong Sexual Content")] StrongSexualContent,
+            [StringValue("Sexual Violence")] SexualViolence,
+            [StringValue("Simulated Gambling")] SimulatedGambline,
+            [StringValue("Drug Reference")] DrugReferences,
+            [StringValue("Use of Drugs")] UseOfDrugs,
+            [StringValue("Alcohol Reference")] AlcoholReference,
+            [StringValue("Use of Alcohol")] UseOfAlcohol,
+            [StringValue("Use of Drugs and Alcohol")] UseOfDrugsAndAlcohol,
+            [StringValue("Tobacco Reference")] UseOfTobacco,
         }
 
         /// <summary>
@@ -78,36 +127,33 @@ namespace UniCade.Constants
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static Esrb ConvertStringToEsrbEnum(string text)
+        public static EsrbRatings ConvertStringToEsrbEnum(string text)
         {
             if (text.Equals("") || text.Contains("Null") || text.Contains("null") || text.Contains("None") || text.Equals(" "))
             {
-                return Esrb.Null;
+                return EsrbRatings.Null;
             }
-            else if (text.Equals("Everyone"))
+            if (text.Equals("Everyone"))
             {
-                return Esrb.Everyone;
+                return EsrbRatings.Everyone;
             }
-            else if (text.Equals("Everyone 10+"))
+            if (text.Equals("Everyone 10+"))
             {
-                return Esrb.Everyone;
+                return EsrbRatings.Everyone;
             }
-            else if (text.Equals("Teen"))
+            if (text.Equals("Teen"))
             {
-                return Esrb.Teen;
+                return EsrbRatings.Teen;
             }
-            else if (text.Equals("Mature"))
+            if (text.Equals("Mature"))
             {
-                return Esrb.Mature;
+                return EsrbRatings.Mature;
             }
-            else if (text.Contains("Adults Only"))
+            if (text.Contains("Adults Only"))
             {
-                return Esrb.Ao;
+                return EsrbRatings.Ao;
             }
-            else
-            {
                 throw new ArgumentException("Invalid ESRB Rating");
-            }
         }
 
         #endregion

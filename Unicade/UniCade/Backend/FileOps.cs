@@ -101,7 +101,7 @@ namespace UniCade.Backend
                             {
                                 IGame game = console.GetGame(gameTitle);
                                 streamWriter.WriteLine(
-                                    $"{game.FileName}|{game.ConsoleName}|{game.GetLaunchCount()}|{game.ReleaseDate}|{game.PublisherName}|{game.DeveloperName}|{game.UserReviewScore}|{game.CriticReviewScore}|{game.SupportedPlayerCount}|Trivia|{game.EsrbRating}|{game.EsrbDescriptors}|{game.EsrbSummary}|{game.Description}|{game.Genres}|{game.Tags}|{game.Favorite}");
+                                    $"{game.FileName}|{game.ConsoleName}|{game.GetLaunchCount()}|{game.ReleaseDate}|{game.PublisherName}|{game.DeveloperName}|{game.UserReviewScore}|{game.CriticReviewScore}|{game.SupportedPlayerCount}|Trivia|{game.EsrbRatingsRating}|{game.EsrbDescriptors}|{game.EsrbSummary}|{game.Description}|{game.Genres}|{game.Tags}|{game.Favorite}");
                             }
                         }
                     }
@@ -157,7 +157,7 @@ namespace UniCade.Backend
 
                 line = file.ReadLine();
                 tokenString = line.Split(sep);
-                Program.RestrictGlobalEsrb = Enums.ConvertStringToEsrbEnum(tokenString[1]);
+                Program.RestrictGlobalEsrbRatings = Enums.ConvertStringToEsrbEnum(tokenString[1]);
 
                 file.ReadLine();
                 tokenString = line.Split(sep);
@@ -255,7 +255,7 @@ namespace UniCade.Backend
                 sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
                 sw.WriteLine("ShowSplash|" + Program.ShowSplashScreen);
                 sw.WriteLine("ScanOnStartup|" + Program.RescanOnStartup);
-                sw.WriteLine("RestrictESRB|" + Program.RestrictGlobalEsrb);
+                sw.WriteLine("RestrictESRB|" + Program.RestrictGlobalEsrbRatings);
                 sw.WriteLine("RequireLogin|" + Program.RequireLogin);
                 sw.WriteLine("CmdOrGui|" + Program.PerferCmdInterface);
                 sw.WriteLine("LoadingScreen|" + Program.ShowLoadingScreen);
@@ -272,7 +272,7 @@ namespace UniCade.Backend
                     {
                         favs += (g.Title + "#" + g.ConsoleName + "#");
                     }
-                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", user.Username, user.GetUserPassword(), user.GetUserLoginCount(), user.Email, user.GetUserLaunchCount(), user.UserInfo, user.AllowedEsrb, favs);
+                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", user.Username, user.GetUserPassword(), user.GetUserLoginCount(), user.Email, user.GetUserLaunchCount(), user.UserInfo, user.AllowedEsrbRatings, favs);
                 }
             }
         }
@@ -357,19 +357,19 @@ namespace UniCade.Backend
             {
                 throw new LaunchException("Game is Null");
             }
-            if (Database.GetCurrentUser().AllowedEsrb > 0)
+            if (Database.GetCurrentUser().AllowedEsrbRatings > 0)
             {
-                if (game.EsrbRating > Database.GetCurrentUser().AllowedEsrb)
+                if (game.EsrbRatingsRating > Database.GetCurrentUser().AllowedEsrbRatings)
                 {
-                    throw new LaunchException(("ESRB " + game.EsrbRating + " Is Restricted for" + Database.GetCurrentUser().Username));
+                    throw new LaunchException(("ESRB " + game.EsrbRatingsRating + " Is Restricted for" + Database.GetCurrentUser().Username));
                 }
             }
 
-            if (Program.RestrictGlobalEsrb > 0)
+            if (Program.RestrictGlobalEsrbRatings > 0)
             {
-                if (game.EsrbRating > Program.RestrictGlobalEsrb)
+                if (game.EsrbRatingsRating > Program.RestrictGlobalEsrbRatings)
                 {
-                    throw new LaunchException(("ESRB " + game.EsrbRating + " Is Restricted globally"));
+                    throw new LaunchException(("ESRB " + game.EsrbRatingsRating + " Is Restricted globally"));
                 }
             }
 
@@ -559,7 +559,7 @@ namespace UniCade.Backend
             Database.RestoreDefaultUser();
             Program.ShowSplashScreen = false;
             Program.RescanOnStartup = false;
-            Program.RestrictGlobalEsrb = 0;
+            Program.RestrictGlobalEsrbRatings = 0;
             Program.RequireLogin = false;
             Program.PerferCmdInterface = false;
             Program.ShowLoadingScreen = false;

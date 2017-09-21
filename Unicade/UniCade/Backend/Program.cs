@@ -50,7 +50,7 @@ namespace UniCade.Backend
         /// <summary>
         /// Specifies if certain ESRB ratings should be restricted globally (regardless of user)
         /// </summary>
-        public static Enums.Esrb RestrictGlobalEsrb;
+        public static Enums.EsrbRatings RestrictGlobalEsrbRatings;
 
         /// <summary>
         /// Specifies if you are required to login to a user account on startup

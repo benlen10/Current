@@ -352,7 +352,7 @@ namespace UniCade.Objects
         /// <summary>
         /// The ESRB content rating
         /// </summary>
-        public Enums.Esrb EsrbRating { get; set; }
+        public Enums.EsrbRatings EsrbRatingsRating { get; set; }
 
         #endregion
 
@@ -468,14 +468,14 @@ namespace UniCade.Objects
         /// <param name="criticScore">The average critic review score out of 100</param>
         /// <param name="supportedPlayerCount">The supported number of players</param>
         /// <param name="trivia">Trivia facts for the current game</param>
-        /// <param name="esrbRating">The ESRB content rating</param>
+        /// <param name="esrbRatingsRating">The ESRB content rating</param>
         /// <param name="esrbDescriptor">The ESRB content descriptors</param>
         /// <param name="esrbSummary">Detailed summary of the ESRB rating</param>
         /// <param name="description">Brief game description or overview</param>
         /// <param name="genres">The genere(s) for the current game</param>
         /// <param name="tags">A list of common tags tags for the current game</param>
         /// <param name="isFavorite"></param>
-        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.Esrb esrbRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, string isFavorite)
+        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.EsrbRatings esrbRatingsRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, string isFavorite)
         {
             FileName = fileName;
             ConsoleName = consoleName;
@@ -487,7 +487,7 @@ namespace UniCade.Objects
             CriticReviewScore = criticScore;
             SupportedPlayerCount = supportedPlayerCount;
             Trivia = trivia;
-            EsrbRating = esrbRating;
+            EsrbRatingsRating = esrbRatingsRating;
             Description = description;
             EsrbDescriptors = esrbDescriptor;
             EsrbSummary = esrbSummary;

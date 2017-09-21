@@ -10,7 +10,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// The max allowed ESRB for the current user (Parental Controls)
         /// </summary>
-        Enums.Esrb AllowedEsrb { get; set; }
+        Enums.EsrbRatings AllowedEsrbRatings { get; set; }
 
         /// <summary>
         /// The user's email address

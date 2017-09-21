@@ -29,7 +29,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// The ESRB content rating
         /// </summary>
-        Enums.Esrb EsrbRating { get; set; }
+        Enums.EsrbRatings EsrbRatingsRating { get; set; }
 
         /// <summary>
         /// The ESRB content descriptors

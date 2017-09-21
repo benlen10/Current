@@ -164,27 +164,27 @@ namespace UniCade.Network
                 //Convert the parsed text to a valid ESRB rating
                 if (s.Contains("Everyone"))
                 {
-                    game.EsrbRating = Enums.Esrb.Everyone;
+                    game.EsrbRatingsRating = Enums.EsrbRatings.Everyone;
                 }
                 else if (s.Contains("Kids to Adults"))
                 {
-                    game.EsrbRating = Enums.Esrb.Everyone;
+                    game.EsrbRatingsRating = Enums.EsrbRatings.Everyone;
                 }
                 else if (s.Contains("Everyone 10+"))
                 {
-                    game.EsrbRating = Enums.Esrb.Everyone10;
+                    game.EsrbRatingsRating = Enums.EsrbRatings.Everyone10;
                 }
                 else if (s.Contains("Teen"))
                 {
-                    game.EsrbRating = Enums.Esrb.Teen;
+                    game.EsrbRatingsRating = Enums.EsrbRatings.Teen;
                 }
                 else if (s.Contains("Mature"))
                 {
-                    game.EsrbRating = Enums.Esrb.Mature;
+                    game.EsrbRatingsRating = Enums.EsrbRatings.Mature;
                 }
                 else if (s.Contains("Adults Only"))
                 {
-                    game.EsrbRating = Enums.Esrb.Ao;
+                    game.EsrbRatingsRating = Enums.EsrbRatings.Ao;
                 }
             }
 

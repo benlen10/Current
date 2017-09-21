@@ -46,31 +46,31 @@ namespace UnitTests.BackendTests
             //Create a new game for each rating
             IGame gameRatedE = new Game("game1.bin", _console.ConsoleName)
             {
-                EsrbRating = Enums.Esrb.Everyone
+                EsrbRatingsRating = Enums.EsrbRatings.Everyone
             };
 
             IGame gameRatedE10 = new Game("game2.bin", _console.ConsoleName)
             {
-                EsrbRating = Enums.Esrb.Everyone10
+                EsrbRatingsRating = Enums.EsrbRatings.Everyone10
             };
 
             IGame gameRatedT = new Game("game3.bin", _console.ConsoleName)
             {
-                EsrbRating = Enums.Esrb.Teen
+                EsrbRatingsRating = Enums.EsrbRatings.Teen
             };
 
             IGame gameRatedM = new Game("game4.bin", _console.ConsoleName)
             {
-                EsrbRating = Enums.Esrb.Mature
+                EsrbRatingsRating = Enums.EsrbRatings.Mature
             };
 
             IGame gameRatedAo = new Game("game5.bin", _console.ConsoleName)
             {
-                EsrbRating = Enums.Esrb.Ao
+                EsrbRatingsRating = Enums.EsrbRatings.Ao
             };
 
             //Set the global ESRB restriction to Everyone
-            Program.RestrictGlobalEsrb = Enums.Esrb.Everyone;
+            Program.RestrictGlobalEsrbRatings = Enums.EsrbRatings.Everyone;
 
             //Verify that a game rated Everyone can be launched properly when the global rating is set to Everyone
             try
@@ -96,7 +96,7 @@ namespace UnitTests.BackendTests
             }
 
             //Set the global ESRB restriction to Everyone 10+
-            Program.RestrictGlobalEsrb = Enums.Esrb.Everyone10;
+            Program.RestrictGlobalEsrbRatings = Enums.EsrbRatings.Everyone10;
 
             //Verify that a game rated Everyone 10+ can be launched properly when the global rating is set to Everyone 10+
             try
@@ -121,7 +121,7 @@ namespace UnitTests.BackendTests
             }
 
             //Set the global ESRB restriction to Teen
-            Program.RestrictGlobalEsrb = Enums.Esrb.Teen;
+            Program.RestrictGlobalEsrbRatings = Enums.EsrbRatings.Teen;
 
             //Verify that a game rated Teen can be launched properly when the global rating is set to Teen
             try
@@ -146,7 +146,7 @@ namespace UnitTests.BackendTests
             }
 
             //Set the global ESRB restriction to Mature
-            Program.RestrictGlobalEsrb = Enums.Esrb.Mature;
+            Program.RestrictGlobalEsrbRatings = Enums.EsrbRatings.Mature;
 
             //Verify that a game rated Mature can be launched properly when the global rating is set to Mature
             try
@@ -171,7 +171,7 @@ namespace UnitTests.BackendTests
             }
 
             //Set the global ESRB restriction to Ao
-            Program.RestrictGlobalEsrb = Enums.Esrb.Ao;
+            Program.RestrictGlobalEsrbRatings = Enums.EsrbRatings.Ao;
 
             //Verify that a game rated Mature can be launched properly when the global rating is set to Ao
             try
@@ -206,31 +206,31 @@ namespace UnitTests.BackendTests
             //Create a new game for each rating
             IGame gameRatedE = new Game("game1.bin", _console.ConsoleName)
             {
-                EsrbRating = Enums.Esrb.Everyone
+                EsrbRatingsRating = Enums.EsrbRatings.Everyone
             };
 
             IGame gameRatedE10 = new Game("game2.bin", _console.ConsoleName)
             {
-                EsrbRating = Enums.Esrb.Everyone10
+                EsrbRatingsRating = Enums.EsrbRatings.Everyone10
             };
 
             IGame gameRatedT = new Game("game3.bin", _console.ConsoleName)
             {
-                EsrbRating = Enums.Esrb.Teen
+                EsrbRatingsRating = Enums.EsrbRatings.Teen
             };
 
             IGame gameRatedM = new Game("game4.bin", _console.ConsoleName)
             {
-                EsrbRating = Enums.Esrb.Mature
+                EsrbRatingsRating = Enums.EsrbRatings.Mature
             };
 
             IGame gameRatedAo = new Game("game5.bin", _console.ConsoleName)
             {
-                EsrbRating = Enums.Esrb.Ao
+                EsrbRatingsRating = Enums.EsrbRatings.Ao
             };
 
             //Set the user ESRB restriction to Everyone
-            Database.GetCurrentUser().AllowedEsrb = Enums.Esrb.Everyone;
+            Database.GetCurrentUser().AllowedEsrbRatings = Enums.EsrbRatings.Everyone;
 
             //Verify that a game rated Everyone can be launched properly when the user rating is set to Everyone
             try
@@ -256,7 +256,7 @@ namespace UnitTests.BackendTests
             }
 
             //Set the user ESRB restriction to Everyone 10+
-            Database.GetCurrentUser().AllowedEsrb = Enums.Esrb.Everyone10;
+            Database.GetCurrentUser().AllowedEsrbRatings = Enums.EsrbRatings.Everyone10;
 
             //Verify that a game rated Everyone 10+ can be launched properly when the user rating is set to Everyone 10+
             try
@@ -281,7 +281,7 @@ namespace UnitTests.BackendTests
             }
 
             //Set the user ESRB restriction to Teen
-            Database.GetCurrentUser().AllowedEsrb = Enums.Esrb.Teen;
+            Database.GetCurrentUser().AllowedEsrbRatings = Enums.EsrbRatings.Teen;
 
             //Verify that a game rated Teen can be launched properly when the user rating is set to Teen
             try
@@ -306,7 +306,7 @@ namespace UnitTests.BackendTests
             }
 
             //Set the user ESRB restriction to Mature
-            Database.GetCurrentUser().AllowedEsrb = Enums.Esrb.Mature;
+            Database.GetCurrentUser().AllowedEsrbRatings = Enums.EsrbRatings.Mature;
 
             //Verify that a game rated Mature can be launched properly when the user rating is set to Mature
             try
@@ -331,7 +331,7 @@ namespace UnitTests.BackendTests
             }
 
             //Set the user ESRB restriction to Ao
-            Database.GetCurrentUser().AllowedEsrb = Enums.Esrb.Ao;
+            Database.GetCurrentUser().AllowedEsrbRatings = Enums.EsrbRatings.Ao;
 
             //Verify that a game rated Mature can be launched properly when the user rating is set to Ao
             try
@@ -365,14 +365,14 @@ namespace UnitTests.BackendTests
         public void VerifyNullLaunchRestriction()
         {
             //Set the global ESRB restriction to null
-            Program.RestrictGlobalEsrb = Enums.Esrb.Null;
+            Program.RestrictGlobalEsrbRatings = Enums.EsrbRatings.Null;
 
             //Loop through each esrb rating and the game can be launched
-            foreach (Enums.Esrb esrb in Enum.GetValues(typeof(Enums.Esrb)))
+            foreach (Enums.EsrbRatings esrb in Enum.GetValues(typeof(Enums.EsrbRatings)))
             {
                 IGame game = new Game("game.bin", _console.ConsoleName)
                 {
-                    EsrbRating = esrb
+                    EsrbRatingsRating = esrb
                 };
 
                 //Verify that the game can be launched when the global rating is set to null
@@ -388,14 +388,14 @@ namespace UnitTests.BackendTests
             }
 
             //Set the current user ESRB restriction to null
-            Database.GetCurrentUser().AllowedEsrb = Enums.Esrb.Null;
+            Database.GetCurrentUser().AllowedEsrbRatings = Enums.EsrbRatings.Null;
 
             //Loop through each esrb rating and the game can be launched
-            foreach (Enums.Esrb esrb in Enum.GetValues(typeof(Enums.Esrb)))
+            foreach (Enums.EsrbRatings esrb in Enum.GetValues(typeof(Enums.EsrbRatings)))
             {
                 IGame game = new Game("game.bin", _console.ConsoleName)
                 {
-                    EsrbRating = esrb
+                    EsrbRatingsRating = esrb
                 };
 
                 //Verify that the game can be launched when the user rating is set to null

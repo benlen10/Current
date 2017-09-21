@@ -21,7 +21,7 @@ namespace UnitTests.BackendTests
             Database.Initalize();
 
             //Create a new user
-            _user = new User("user", "temp", 0, "user@unicade.com", 0, " ", Enums.Esrb.Null, "");
+            _user = new User("user", "temp", 0, "user@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
         }
 
         #region  Properties

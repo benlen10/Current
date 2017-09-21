@@ -558,7 +558,7 @@ namespace UniCade
                             if (DisplayEsrbWhileBrowsing)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (game.EsrbRating <= Database.GetCurrentUser().AllowedEsrb)
+                                if (game.EsrbRatingsRating <= Database.GetCurrentUser().AllowedEsrbRatings)
                                 {
                                     ListBox.Items.Add(game.Title);
                                 }
@@ -681,23 +681,23 @@ namespace UniCade
 
                     //Load the ESRB logo for the curent rating
                     string esrbPath = "";
-                    if (game.EsrbRating.Equals(Enums.Esrb.Everyone))
+                    if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Everyone))
                     {
                         esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
                     }
-                    else if (game.EsrbRating.Equals(Enums.Esrb.Everyone10))
+                    else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Everyone10))
                     {
                         esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png";
                     }
-                    else if (game.EsrbRating.Equals(Enums.Esrb.Teen))
+                    else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Teen))
                     {
                         esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png";
                     }
-                    else if (game.EsrbRating.Equals(Enums.Esrb.Mature))
+                    else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Mature))
                     {
                         esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png";
                     }
-                    else if (game.EsrbRating.Equals(Enums.Esrb.Ao))
+                    else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Ao))
                     {
                         esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png";
                     }
