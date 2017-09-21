@@ -49,58 +49,12 @@ namespace UniCade.Objects
         /// <summary>
         /// The common title (display name) of the game
         /// </summary>
-        public string Title
-        {
-            get => _title;
-            private set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentException("Game title cannot be null");
-                }
-                if (value.Length < 1)
-                {
-                    throw new ArgumentException("Game title must be 1 or more characters characters");
-                }
-                if (Utilties.CheckForInvalidChars(value))
-                {
-                    throw new ArgumentException("Game title contains invalid characters");
-                }
-                if (value.Length > ConstValues.MaxGameTitleLength)
-                {
-                    throw new ArgumentException($"Game title length cannot exceed {ConstValues.MaxGameTitleLength} chars");
-                }
-                _title = value;
-            }
-        }
+        public string Title { get; }
 
         /// <summary>
         /// The name of the console that the game belongs to
         /// </summary>
-        public string ConsoleName
-        {
-            get => _consoleName;
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentException("Console name cannot be null");
-                }
-                if (value.Length == 0)
-                {
-                    throw new ArgumentException("Console name cannot be empty");
-                }
-                if (Utilties.CheckForInvalidChars(value))
-                {
-                    throw new ArgumentException("Username contains invalid characters");
-                }
-                if (value.Length > ConstValues.MaxConsoleNameLength)
-                {
-                    throw new ArgumentException($"Console name length cannot exceed {ConstValues.MaxConsoleNameLength} chars");
-                }
-                _consoleName = value;
-            }
-        }
+        public string ConsoleName { get; }
 
         /// <summary>
         /// Brief game description or overview

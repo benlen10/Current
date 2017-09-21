@@ -9,7 +9,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// The name of the console that the game belongs to
         /// </summary>
-        string ConsoleName { get; set; }
+        string ConsoleName { get;}
 
         /// <summary>
         /// The average critic review score out of 100
