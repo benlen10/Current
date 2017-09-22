@@ -332,9 +332,59 @@ namespace UnitTests.BackendTests
             Assert.AreEqual(_game.PublisherName, validPublisher, "Verify that a valid publisher is properly saved");
         }
 
+        /// <summary>
+        /// Verify that the game genres are properly validated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateGameGenres()
+        {
+            //Verify that a null value for the genre is not allowed
+            try
+            {
+                _game.Genres = null;
+                Assert.Fail("Verify that a null value for a genre is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for a genre is not allowed");
+            }
 
+            //Verify that invalid chars are not allowed in the genre
+            const string invalidgenre = "invalid|genre";
+            try
+            {
+                _game.Genres = invalidgenre;
+                Assert.Fail("Verify that invalid chars are not allowed in the genre name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the genre name");
+            }
 
+            //Verify that a genre that exceeds MaxgenregenreLength chars is not allowed
+            string longGenre = new string('-', ConstValues.MaxGameGenreLength + 1);
+            try
+            {
+                _game.Genres = longGenre;
+                Assert.Fail($"Verify that a genre that exceeds {ConstValues.MaxGameGenreLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a genre name that exceeds {ConstValues.MaxGameGenreLength} chars is not allowed");
+            }
 
+            //Verify that a game with an invalid genre is not created
+            Assert.IsNull(_game.Genres, "Verify that an invalid genre was not saved");
+
+            //Verify that valid generes are properly saved
+            const string validgenre = "valid genre";
+            _game.Genres = validgenre;
+            Assert.AreEqual(_game.Genres, validgenre, "Verify that a valid genre is properly saved");
+        }
+
+       
         #endregion
 
         #region Public Methods tests
