@@ -228,16 +228,121 @@ namespace UnitTests.BackendTests
             Assert.AreEqual(_game.ReleaseDate, validReleaseDate, "Verify that a valid release date is properly saved");
         }
 
-        
+        /// <summary>
+        /// Verify that the game developer is properly validated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateGameDeveloper()
+        {
+            //Verify that a null value for the developer is not allowed
+            try
+            {
+                _game.DeveloperName = null;
+                Assert.Fail("Verify that a null value for a developer is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for a developer is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the developer
+            const string invalidDeveloper = "invalid|developer";
+            try
+            {
+                _game.DeveloperName = invalidDeveloper;
+                Assert.Fail("Verify that invalid chars are not allowed in the developer name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the developer");
+            }
+
+            //Verify that a developerthat exceeds MaxConsoleNameLength chars is not allowed
+            string longDeveloper = new string('-', ConstValues.MaxPublisherDeveloperLength + 1);
+            try
+            {
+                _game.DeveloperName = longDeveloper;
+                Assert.Fail($"Verify that a developer that exceeds {ConstValues.MaxPublisherDeveloperLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a consle name that exceeds {ConstValues.MaxPublisherDeveloperLength} chars is not allowed");
+            }
+
+            //Verify that a game with an invalid developer is not created
+            Assert.IsNull(_game.DeveloperName, "Verify that an invalid developer was not saved");
+
+            //Verify that valid console names are properly saved
+            const string validDeveloper = "valid developer";
+            _game.DeveloperName = validDeveloper;
+            Assert.AreEqual(_game.DeveloperName, validDeveloper, "Verify that a valid developer is properly saved");
+        }
+
+        /// <summary>
+        /// Verify that the game publisher is properly validated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateGamePublisher()
+        {
+            //Verify that a null value for the publisher is not allowed
+            try
+            {
+                _game.PublisherName = null;
+                Assert.Fail("Verify that a null value for a publisher is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for a publisher is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the publisher
+            const string invalidPublisher = "invalid|publisher";
+            try
+            {
+                _game.PublisherName = invalidPublisher;
+                Assert.Fail("Verify that invalid chars are not allowed in the publisher name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the publisher name");
+            }
+
+            //Verify that a publisher that exceeds MaxPublisherDeveloperLength chars is not allowed
+            string longPublisher = new string('-', ConstValues.MaxPublisherDeveloperLength + 1);
+            try
+            {
+                _game.PublisherName = longPublisher;
+                Assert.Fail($"Verify that a publisher that exceeds {ConstValues.MaxPublisherDeveloperLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a publisher name that exceeds {ConstValues.MaxPublisherDeveloperLength} chars is not allowed");
+            }
+
+            //Verify that a game with an invalid publisher is not created
+            Assert.IsNull(_game.PublisherName, "Verify that an invalid publisher was not saved");
+
+            //Verify that valid [ublisher names are properly saved
+            const string validPublisher = "valid publisher";
+            _game.PublisherName = validPublisher;
+            Assert.AreEqual(_game.PublisherName, validPublisher, "Verify that a valid publisher is properly saved");
+        }
+
+
+
 
         #endregion
 
-            #region Public Methods tests
+        #region Public Methods tests
 
 
 
 
-            #endregion
+        #endregion
 
-        }
+    }
 }
