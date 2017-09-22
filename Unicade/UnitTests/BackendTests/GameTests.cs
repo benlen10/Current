@@ -384,7 +384,58 @@ namespace UnitTests.BackendTests
             Assert.AreEqual(_game.Genres, validgenre, "Verify that a valid genre is properly saved");
         }
 
-       
+        /// <summary>
+        /// Verify that the game UserReviewScore are properly validated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateGameUserReviewScore()
+        {
+            //Verify that a null value for the UserReviewScore is not allowed
+            try
+            {
+                _game.UserReviewScore = null;
+                Assert.Fail("Verify that a null value for a UserReviewScore is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for a UserReviewScore is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the UserReviewScore
+            const string invalidUserReviewScore = "invalid|UserReviewScore";
+            try
+            {
+                _game.UserReviewScore = invalidUserReviewScore;
+                Assert.Fail("Verify that invalid chars are not allowed in the UserReviewScore name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the UserReviewScore name");
+            }
+
+            //Verify that a UserReviewScore that exceeds MaxUserReviewScoreUserReviewScoreLength chars is not allowed
+            string longUserReviewScore = new string('-', ConstValues.MaxGameReviewScoreLength + 1);
+            try
+            {
+                _game.UserReviewScore = longUserReviewScore;
+                Assert.Fail($"Verify that a UserReviewScore that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a UserReviewScore name that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+            }
+
+            //Verify that a game with an invalid UserReviewScore is not created
+            Assert.IsNull(_game.UserReviewScore, "Verify that an invalid UserReviewScore was not saved");
+
+            //Verify that a valid UserReviewScore is properly saved
+            const string validUserReviewScore = "80/100";
+            _game.UserReviewScore = validUserReviewScore;
+            Assert.AreEqual(_game.UserReviewScore, validUserReviewScore, "Verify that a valid UserReviewScore is properly saved");
+        }
+
         #endregion
 
         #region Public Methods tests
