@@ -488,7 +488,57 @@ namespace UnitTests.BackendTests
             Assert.AreEqual(_game.CriticReviewScore, validCriticReviewScore, "Verify that a valid CriticReviewScore is properly saved");
         }
 
-        
+        /// <summary>
+        /// Verify that the game Trivia are properly validated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateGameTrivia()
+        {
+            //Verify that a null value for the Trivia is not allowed
+            try
+            {
+                _game.Trivia = null;
+                Assert.Fail("Verify that a null value for a Trivia is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for a Trivia is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the Trivia
+            const string invalidTrivia = "invalid|Trivia";
+            try
+            {
+                _game.Trivia = invalidTrivia;
+                Assert.Fail("Verify that invalid chars are not allowed in the Trivia name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the Trivia name");
+            }
+
+            //Verify that a Trivia that exceeds MaxTriviaTriviaLength chars is not allowed
+            string longTrivia = new string('-', ConstValues.MaxGameReviewScoreLength + 1);
+            try
+            {
+                _game.Trivia = longTrivia;
+                Assert.Fail($"Verify that a Trivia that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a Trivia name that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+            }
+
+            //Verify that a game with an invalid Trivia is not created
+            Assert.IsNull(_game.Trivia, "Verify that an invalid Trivia was not saved");
+
+            //Verify that a valid Trivia is properly saved
+            const string validTrivia = "validTrivia";
+            _game.Trivia = validTrivia;
+            Assert.AreEqual(_game.Trivia, validTrivia, "Verify that a valid Trivia is properly saved");
+        }
 
 
 
