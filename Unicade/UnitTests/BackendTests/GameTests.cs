@@ -436,6 +436,62 @@ namespace UnitTests.BackendTests
             Assert.AreEqual(_game.UserReviewScore, validUserReviewScore, "Verify that a valid UserReviewScore is properly saved");
         }
 
+        /// <summary>
+        /// Verify that the game CriticReviewScore are properly validated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateGameCriticReviewScore()
+        {
+            //Verify that a null value for the CriticReviewScore is not allowed
+            try
+            {
+                _game.CriticReviewScore = null;
+                Assert.Fail("Verify that a null value for a CriticReviewScore is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for a CriticReviewScore is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the CriticReviewScore
+            const string invalidCriticReviewScore = "invalid|CriticReviewScore";
+            try
+            {
+                _game.CriticReviewScore = invalidCriticReviewScore;
+                Assert.Fail("Verify that invalid chars are not allowed in the CriticReviewScore name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the CriticReviewScore name");
+            }
+
+            //Verify that a CriticReviewScore that exceeds MaxCriticReviewScoreCriticReviewScoreLength chars is not allowed
+            string longCriticReviewScore = new string('-', ConstValues.MaxGameReviewScoreLength + 1);
+            try
+            {
+                _game.CriticReviewScore = longCriticReviewScore;
+                Assert.Fail($"Verify that a CriticReviewScore that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a CriticReviewScore name that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+            }
+
+            //Verify that a game with an invalid CriticReviewScore is not created
+            Assert.IsNull(_game.CriticReviewScore, "Verify that an invalid CriticReviewScore was not saved");
+
+            //Verify that a valid CriticReviewScore is properly saved
+            const string validCriticReviewScore = "80/100";
+            _game.CriticReviewScore = validCriticReviewScore;
+            Assert.AreEqual(_game.CriticReviewScore, validCriticReviewScore, "Verify that a valid CriticReviewScore is properly saved");
+        }
+
+        
+
+
+
         #endregion
 
         #region Public Methods tests
