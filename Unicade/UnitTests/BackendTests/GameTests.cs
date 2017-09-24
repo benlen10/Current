@@ -489,7 +489,7 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
-        /// Verify that the game Trivia are properly validated
+        /// Verify that the game Trivia is properly validated
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -538,6 +538,58 @@ namespace UnitTests.BackendTests
             const string validTrivia = "validTrivia";
             _game.Trivia = validTrivia;
             Assert.AreEqual(_game.Trivia, validTrivia, "Verify that a valid Trivia is properly saved");
+        }
+
+        /// <summary>
+        /// Verify that the game SupportedPlayerCount are properly validated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateGameSupportedPlayerCount()
+        {
+            //Verify that a null value for the SupportedPlayerCount is not allowed
+            try
+            {
+                _game.SupportedPlayerCount = null;
+                Assert.Fail("Verify that a null value for a SupportedPlayerCount is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for a SupportedPlayerCount is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the SupportedPlayerCount
+            const string invalidSupportedPlayerCount = "invalid|SupportedPlayerCount";
+            try
+            {
+                _game.SupportedPlayerCount = invalidSupportedPlayerCount;
+                Assert.Fail("Verify that invalid chars are not allowed in the SupportedPlayerCount name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the SupportedPlayerCount name");
+            }
+
+            //Verify that a SupportedPlayerCount that exceeds MaxSupportedPlayerCountSupportedPlayerCountLength chars is not allowed
+            string longSupportedPlayerCount = new string('-', ConstValues.MaxGameReviewScoreLength + 1);
+            try
+            {
+                _game.SupportedPlayerCount = longSupportedPlayerCount;
+                Assert.Fail($"Verify that a SupportedPlayerCount that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a SupportedPlayerCount name that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+            }
+
+            //Verify that a game with an invalid SupportedPlayerCount is not created
+            Assert.IsNull(_game.SupportedPlayerCount, "Verify that an invalid SupportedPlayerCount was not saved");
+
+            //Verify that a valid SupportedPlayerCount is properly saved
+            const string validSupportedPlayerCount = "validSupportedPlayerCount";
+            _game.SupportedPlayerCount = validSupportedPlayerCount;
+            Assert.AreEqual(_game.SupportedPlayerCount, validSupportedPlayerCount, "Verify that a valid SupportedPlayerCount is properly saved");
         }
 
 
