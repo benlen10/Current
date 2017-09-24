@@ -95,7 +95,8 @@ namespace UnitTests.BackendTests
             try
             {
                 newGame = new Game(shortfilename, _console.ConsoleName);
-                Assert.Fail($"Verify that a filename that is less than {ConstValues.MinGameFileNameLength} chars is not allowed");
+                Assert.Fail(
+                    $"Verify that a filename that is less than {ConstValues.MinGameFileNameLength} chars is not allowed");
             }
             catch (ArgumentException)
             {
@@ -108,7 +109,8 @@ namespace UnitTests.BackendTests
             try
             {
                 newGame = new Game(longFileName, _console.ConsoleName);
-                Assert.Fail($"Verify that a filename that exceeds {ConstValues.MaxGameFileNameLength} chars is not allowed");
+                Assert.Fail(
+                    $"Verify that a filename that exceeds {ConstValues.MaxGameFileNameLength} chars is not allowed");
             }
             catch (ArgumentException)
             {
@@ -122,7 +124,8 @@ namespace UnitTests.BackendTests
             //Verify that valid console names are properly saved
             const string validfilename = "myNewGame.iso";
             newGame = new Game(validfilename, _console.ConsoleName);
-            Assert.AreEqual(newGame.FileName, validfilename, "Verify that a game with a valid filename is properly created");
+            Assert.AreEqual(newGame.FileName, validfilename,
+                "Verify that a game with a valid filename is properly created");
         }
 
         /// <summary>
@@ -160,7 +163,8 @@ namespace UnitTests.BackendTests
             try
             {
                 _game.Description = longdescription;
-                Assert.Fail($"Verify that a description that exceeds {ConstValues.MaxGameDescriptionLength} chars is not allowed");
+                Assert.Fail(
+                    $"Verify that a description that exceeds {ConstValues.MaxGameDescriptionLength} chars is not allowed");
             }
             catch (ArgumentException)
             {
@@ -197,7 +201,7 @@ namespace UnitTests.BackendTests
 
             //Verify that a relase date must be only digits
             const string invalidReleaseDate = "200I";
-            
+
             try
             {
                 _game.ReleaseDate = invalidReleaseDate;
@@ -263,7 +267,8 @@ namespace UnitTests.BackendTests
             try
             {
                 _game.DeveloperName = longDeveloper;
-                Assert.Fail($"Verify that a developer that exceeds {ConstValues.MaxPublisherDeveloperLength} chars is not allowed");
+                Assert.Fail(
+                    $"Verify that a developer that exceeds {ConstValues.MaxPublisherDeveloperLength} chars is not allowed");
             }
             catch (ArgumentException)
             {
@@ -315,7 +320,8 @@ namespace UnitTests.BackendTests
             try
             {
                 _game.PublisherName = longPublisher;
-                Assert.Fail($"Verify that a publisher that exceeds {ConstValues.MaxPublisherDeveloperLength} chars is not allowed");
+                Assert.Fail(
+                    $"Verify that a publisher that exceeds {ConstValues.MaxPublisherDeveloperLength} chars is not allowed");
             }
             catch (ArgumentException)
             {
@@ -419,7 +425,8 @@ namespace UnitTests.BackendTests
             try
             {
                 _game.UserReviewScore = longUserReviewScore;
-                Assert.Fail($"Verify that a UserReviewScore that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+                Assert.Fail(
+                    $"Verify that a UserReviewScore that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
             }
             catch (ArgumentException)
             {
@@ -433,7 +440,8 @@ namespace UnitTests.BackendTests
             //Verify that a valid UserReviewScore is properly saved
             const string validUserReviewScore = "80/100";
             _game.UserReviewScore = validUserReviewScore;
-            Assert.AreEqual(_game.UserReviewScore, validUserReviewScore, "Verify that a valid UserReviewScore is properly saved");
+            Assert.AreEqual(_game.UserReviewScore, validUserReviewScore,
+                "Verify that a valid UserReviewScore is properly saved");
         }
 
         /// <summary>
@@ -471,7 +479,8 @@ namespace UnitTests.BackendTests
             try
             {
                 _game.CriticReviewScore = longCriticReviewScore;
-                Assert.Fail($"Verify that a CriticReviewScore that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+                Assert.Fail(
+                    $"Verify that a CriticReviewScore that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
             }
             catch (ArgumentException)
             {
@@ -485,7 +494,8 @@ namespace UnitTests.BackendTests
             //Verify that a valid CriticReviewScore is properly saved
             const string validCriticReviewScore = "80/100";
             _game.CriticReviewScore = validCriticReviewScore;
-            Assert.AreEqual(_game.CriticReviewScore, validCriticReviewScore, "Verify that a valid CriticReviewScore is properly saved");
+            Assert.AreEqual(_game.CriticReviewScore, validCriticReviewScore,
+                "Verify that a valid CriticReviewScore is properly saved");
         }
 
         /// <summary>
@@ -519,16 +529,17 @@ namespace UnitTests.BackendTests
             }
 
             //Verify that a Trivia that exceeds MaxTriviaTriviaLength chars is not allowed
-            string longTrivia = new string('-', ConstValues.MaxGameReviewScoreLength + 1);
+            string longTrivia = new string('-', ConstValues.MaxGameTriviaLength + 1);
             try
             {
                 _game.Trivia = longTrivia;
-                Assert.Fail($"Verify that a Trivia that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+                Assert.Fail(
+                    $"Verify that a Trivia that exceeds {ConstValues.MaxGameTriviaLength} chars is not allowed");
             }
             catch (ArgumentException)
             {
                 Assert.IsTrue(true,
-                    $"Verify that a Trivia name that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+                    $"Verify that a Trivia name that exceeds {ConstValues.MaxGameTriviaLength} chars is not allowed");
             }
 
             //Verify that a game with an invalid Trivia is not created
@@ -570,17 +581,18 @@ namespace UnitTests.BackendTests
                 Assert.IsTrue(true, "Verify that invalid chars are not allowed in the SupportedPlayerCount name");
             }
 
-            //Verify that a SupportedPlayerCount that exceeds MaxSupportedPlayerCountSupportedPlayerCountLength chars is not allowed
-            string longSupportedPlayerCount = new string('-', ConstValues.MaxGameReviewScoreLength + 1);
+            //Verify that a SupportedPlayerCount that exceeds MaxGamePlayercountLength chars is not allowed
+            string longSupportedPlayerCount = new string('-', ConstValues.MaxGamePlayercountLength + 1);
             try
             {
                 _game.SupportedPlayerCount = longSupportedPlayerCount;
-                Assert.Fail($"Verify that a SupportedPlayerCount that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+                Assert.Fail(
+                    $"Verify that a SupportedPlayerCount that exceeds {ConstValues.MaxGamePlayercountLength} chars is not allowed");
             }
             catch (ArgumentException)
             {
                 Assert.IsTrue(true,
-                    $"Verify that a SupportedPlayerCount name that exceeds {ConstValues.MaxGameReviewScoreLength} chars is not allowed");
+                    $"Verify that a SupportedPlayerCount name that exceeds {ConstValues.MaxGamePlayercountLength} chars is not allowed");
             }
 
             //Verify that a game with an invalid SupportedPlayerCount is not created
@@ -589,7 +601,115 @@ namespace UnitTests.BackendTests
             //Verify that a valid SupportedPlayerCount is properly saved
             const string validSupportedPlayerCount = "validSupportedPlayerCount";
             _game.SupportedPlayerCount = validSupportedPlayerCount;
-            Assert.AreEqual(_game.SupportedPlayerCount, validSupportedPlayerCount, "Verify that a valid SupportedPlayerCount is properly saved");
+            Assert.AreEqual(_game.SupportedPlayerCount, validSupportedPlayerCount,
+                "Verify that a valid SupportedPlayerCount is properly saved");
+        }
+
+        /// <summary>
+        /// Verify that the game EsrbDescriptors are properly validated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateGameEsrbDescriptors()
+        {
+            //Verify that a null value for the EsrbDescriptors is not allowed
+            try
+            {
+                _game.EsrbDescriptors = null;
+                Assert.Fail("Verify that a null value for a EsrbDescriptors is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for a EsrbDescriptors is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the EsrbDescriptors
+            const string invalidEsrbDescriptors = "invalid|EsrbDescriptors";
+            try
+            {
+                _game.EsrbDescriptors = invalidEsrbDescriptors;
+                Assert.Fail("Verify that invalid chars are not allowed in the EsrbDescriptors name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the EsrbDescriptors name");
+            }
+
+            //Verify that a EsrbDescriptors that exceeds MaxGameEsrbDescriptorsLength chars is not allowed
+            string longEsrbDescriptors = new string('-', ConstValues.MaxGameEsrbDescriptorsLength + 1);
+            try
+            {
+                _game.EsrbDescriptors = longEsrbDescriptors;
+                Assert.Fail(
+                    $"Verify that a EsrbDescriptors that exceeds {ConstValues.MaxGameEsrbDescriptorsLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a EsrbDescriptors name that exceeds {ConstValues.MaxGameEsrbDescriptorsLength} chars is not allowed");
+            }
+
+            //Verify that a game with an invalid EsrbDescriptors is not created
+            Assert.IsNull(_game.EsrbDescriptors, "Verify that an invalid EsrbDescriptors was not saved");
+
+            //Verify that a valid EsrbDescriptors is properly saved
+            const string validEsrbDescriptors = "validEsrbDescriptors";
+            _game.EsrbDescriptors = validEsrbDescriptors;
+            Assert.AreEqual(_game.EsrbDescriptors, validEsrbDescriptors,
+                "Verify that a valid EsrbDescriptors is properly saved");
+        }
+
+        /// <summary>
+        /// Verify that the game EsrbSummary are properly validated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateGameEsrbSummary()
+        {
+            //Verify that a null value for the EsrbSummary is not allowed
+            try
+            {
+                _game.EsrbSummary = null;
+                Assert.Fail("Verify that a null value for a EsrbSummary is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that a null value for a EsrbSummary is not allowed");
+            }
+
+            //Verify that invalid chars are not allowed in the EsrbSummary
+            const string invalidEsrbSummary = "invalid|EsrbSummary";
+            try
+            {
+                _game.EsrbSummary = invalidEsrbSummary;
+                Assert.Fail("Verify that invalid chars are not allowed in the EsrbSummary name");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the EsrbSummary name");
+            }
+
+            //Verify that a EsrbSummary that exceeds MaxGameEsrbSummaryLength chars is not allowed
+            string longEsrbSummary = new string('-', ConstValues.MaxGameEsrbSummaryLength + 1);
+            try
+            {
+                _game.EsrbSummary = longEsrbSummary;
+                Assert.Fail(
+                    $"Verify that a EsrbSummary that exceeds {ConstValues.MaxGameEsrbSummaryLength} chars is not allowed");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true,
+                    $"Verify that a EsrbSummary name that exceeds {ConstValues.MaxGameEsrbSummaryLength} chars is not allowed");
+            }
+
+            //Verify that a game with an invalid EsrbSummary is not created
+            Assert.IsNull(_game.EsrbSummary, "Verify that an invalid EsrbSummary was not saved");
+
+            //Verify that a valid EsrbSummary is properly saved
+            const string validEsrbSummary = "validEsrbSummary";
+            _game.EsrbSummary = validEsrbSummary;
+            Assert.AreEqual(_game.EsrbSummary, validEsrbSummary, "Verify that a valid EsrbSummary is properly saved");
         }
 
 
@@ -599,9 +719,29 @@ namespace UnitTests.BackendTests
         #region Public Methods tests
 
 
+        /// <summary>
+        /// Verify that the game launch count is properly incremented
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void ValidateGameLaunchCount()
+        {
+            //Verify that the game launch count is intially set to zero
+            Assert.IsTrue(_game.GetLaunchCount() == 0, "Verify that the game launch count is intially set to zero");
 
+            //Increment the launch count
+            _game.IncrementLaunchCount();
+
+            //Verify that the launch count has been incremented by one
+            Assert.IsTrue(_game.GetLaunchCount() == 1, "Verify that the launch count has been incremented by one");
+
+            //Reset the game launch count
+            _game.ResetLaunchCount();
+
+            //Verify that the game launch count has been reset to zero
+            Assert.IsTrue(_game.GetLaunchCount() == 0, "Verify that the game launch count has been reset to zero");
+        }
 
         #endregion
-
     }
 }
