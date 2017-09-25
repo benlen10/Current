@@ -463,5 +463,42 @@ namespace UnitTests.BackendTests
                 "Verify that a duplicate descriptor cannot be added");
         }
 
+        /// <summary>
+        /// Verify that ESRB descriptors are properly added, returned and removed
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyAddRemoveEsrbDescriptors()
+        {
+            //Create a new game object and verify that a descriptor can be added
+            IGame game = new Game("myGame.bin", _console.ConsoleName);
+
+            //Add the first descriptor
+            Assert.IsTrue(game.AddEsrbDescriptor(Enums.EsrbDescriptors.MildLanguage));
+
+            //Add the second descriptor
+            Assert.IsTrue(game.AddEsrbDescriptor(Enums.EsrbDescriptors.MildViolence));
+
+            //Verify the current ESRB descriptor count
+            Assert.IsTrue(game.GetEsrbDescriptors().Count == 2, "Verify the current ESRB descriptor count");
+
+            //Verify that a nonexistent descriptor cannot be deleted
+            Assert.IsFalse(game.DeleteEsrbDescriptor(Enums.EsrbDescriptors.MildBlood));
+
+            //Remove an existing ESRB descriptor
+            Assert.IsTrue(game.DeleteEsrbDescriptor(Enums.EsrbDescriptors.MildLanguage));
+
+            //Verify that the descriptor count has been decremented
+            Assert.IsTrue(game.GetEsrbDescriptors().Count == 1,
+                "Verify that the descriptor count has been decremented");
+
+            //Clear the esrb desriptor list
+            game.ClearEsrbDescriptors();
+
+            //Verify that the descriptors have been properly cleared
+            Assert.IsTrue(game.GetEsrbDescriptors().Count == 0,
+                "Verify that the descriptors have been properly cleared");
+        }
+
     }
 }
