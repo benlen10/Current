@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
@@ -299,9 +300,9 @@ namespace UniCade.Objects
         /// <summary>
         /// The ESRB content descriptors
         /// </summary>
-        public string EsrbDescriptors
+        public string EsrbDescriptorString
         {
-            get => _esrbDescriptors;
+            get => _esrbDescriptorString;
             set
             {
                 if (value == null)
@@ -316,7 +317,7 @@ namespace UniCade.Objects
                 {
                     throw new ArgumentException($"ESRB Descriptors cannot exceed {ConstValues.MaxGamePlayercountLength} chars");
                 }
-                _esrbDescriptors = value;
+                _esrbDescriptorString = value;
             }
         }
 
@@ -426,7 +427,12 @@ namespace UniCade.Objects
         /// <summary>
         /// The ESRB content descriptors
         /// </summary>
-        private string _esrbDescriptors;
+        private string _esrbDescriptorString;
+
+        /// <summary>
+        /// The ESRB content descriptors
+        /// </summary>
+        private List<Enums.EsrbDescriptors> _esrbDescriptors;
 
         /// <summary>
         /// Detailed summary of the ESRB rating
@@ -452,7 +458,7 @@ namespace UniCade.Objects
             FileName = fileName;
             ConsoleName = consoleName;
             Title = fileName.Substring(0, fileName.IndexOf('.'));
-            _launchCount = 0;
+            _esrbDescriptors = new List<Enums.EsrbDescriptors>();
         }
 
         /// <summary>
@@ -469,13 +475,13 @@ namespace UniCade.Objects
         /// <param name="supportedPlayerCount">The supported number of players</param>
         /// <param name="trivia">Trivia facts for the current game</param>
         /// <param name="esrbRatingsRating">The ESRB content rating</param>
-        /// <param name="esrbDescriptor">The ESRB content descriptors</param>
+        /// <param name="esrbDescriptorString">The ESRB content descriptors</param>
         /// <param name="esrbSummary">Detailed summary of the ESRB rating</param>
         /// <param name="description">Brief game description or overview</param>
         /// <param name="genres">The genere(s) for the current game</param>
         /// <param name="tags">A list of common tags tags for the current game</param>
         /// <param name="isFavorite"></param>
-        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.EsrbRatings esrbRatingsRating, string esrbDescriptor, string esrbSummary, string description, string genres, string tags, string isFavorite)
+        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.EsrbRatings esrbRatingsRating, string esrbDescriptorString, string esrbSummary, string description, string genres, string tags, string isFavorite)
         {
             FileName = fileName;
             ConsoleName = consoleName;
@@ -489,10 +495,11 @@ namespace UniCade.Objects
             Trivia = trivia;
             EsrbRatingsRating = esrbRatingsRating;
             Description = description;
-            EsrbDescriptors = esrbDescriptor;
+            EsrbDescriptorString = esrbDescriptorString;
             EsrbSummary = esrbSummary;
             Genres = genres;
             Tags = tags;
+            _esrbDescriptors = new List<Enums.EsrbDescriptors>();
 
             Favorite = (isFavorite.Equals("True"));
 
@@ -530,6 +537,80 @@ namespace UniCade.Objects
         public void ResetLaunchCount()
         {
             _launchCount = 0;
+        }
+
+        /// <summary>
+        /// Adds a new ESRB descriptor enum 
+        /// Returns false if the same descriptor already exists
+        /// </summary>
+        /// <param name="descriptor">ESRB descriptor enum object</param>
+        /// <returns>false if the desctiptor already exists</returns>
+        public bool AddEsrbDescriptor(Enums.EsrbDescriptors descriptor)
+        {
+            if (!_esrbDescriptors.Contains(descriptor))
+            {
+                _esrbDescriptors.Add(descriptor);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Parse a string and add esrb descriptor enums seperated by ',' 
+        /// </summary>
+        /// <param name="esrbString"></param>
+        public void AddEsrbDescriptorsFromString(string esrbString)
+        {
+            char[] sep = { ',' };
+            var descriptors = esrbString.Split(sep);
+            foreach (string token in descriptors)
+            {
+                var descriptor = Utilties.ParseEsrbDescriptor(token);
+                if (!descriptor.Equals(Enums.EsrbDescriptors.Null))
+                {
+                    _esrbDescriptors.Add(descriptor);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Delete a single ESRB descriptor from the current list
+        /// </summary>
+        /// <param name="descriptor"></param>
+        /// <returns>Return false if not found</returns>
+        public bool DeleteEsrbDescriptor(Enums.EsrbDescriptors descriptor)
+        {
+            return _esrbDescriptors.Remove(descriptor);
+        }
+
+        /// <summary>
+        /// Remove all ESRB descriptors from the current game object
+        /// </summary>
+        public void ClearEsrbDescriptors()
+        {
+            _esrbDescriptors.Clear();
+        }
+
+        /// <summary>
+        /// Return the current list of ESRB descriptor enum objects
+        /// </summary>
+        /// <returns></returns>
+        public List<Enums.EsrbDescriptors> GetEsrbDescriptors()
+        {
+            return new List<Enums.EsrbDescriptors>(_esrbDescriptors);
+        }
+
+        /// <summary>
+        /// Return the string representation of the ESRB descriptors
+        /// </summary>
+        /// <returns>string representation of current ESRB descriptors</returns>
+        public string GetEsrbDescriptorsString()
+        {
+            string descriptors = "";
+            _esrbDescriptors.ForEach(d => descriptors += (d.GetStringValue() + ", "));
+
+            //Trim the last ',' and return the string
+            return descriptors.Substring(0, descriptors.Length - 2);
         }
 
         #endregion

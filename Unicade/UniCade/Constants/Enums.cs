@@ -74,6 +74,7 @@ namespace UniCade.Constants
             [StringValue("Use of Alcohol")] UseOfAlcohol,
             [StringValue("Use of Drugs and Alcohol")] UseOfDrugsAndAlcohol,
             [StringValue("Tobacco Reference")] UseOfTobacco,
+            [StringValue("")] Null
         }
 
         /// <summary>

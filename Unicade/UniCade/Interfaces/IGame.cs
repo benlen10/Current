@@ -1,4 +1,6 @@
-﻿using UniCade.Constants;
+﻿using System.Collections.Generic;
+using UniCade.Backend;
+using UniCade.Constants;
 
 namespace UniCade.Interfaces
 {
@@ -34,7 +36,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// The ESRB content descriptors
         /// </summary>
-        string EsrbDescriptors { get; set; }
+        string EsrbDescriptorString { get; set; }
 
         /// <summary>
         /// Detailed summary of the ESRB rating
@@ -110,6 +112,39 @@ namespace UniCade.Interfaces
         /// Reets the current launch count to 0
         /// </summary>
         void ResetLaunchCount();
+
+        /// <summary>
+        /// Adds a new ESRB descriptor enum 
+        /// Returns false if the same descriptor already exists
+        /// </summary>
+        /// <param name="descriptor">ESRB descriptor enum object</param>
+        /// <returns>false if the desctiptor already exists</returns>
+        bool AddEsrbDescriptor(Enums.EsrbDescriptors descriptor);
+
+        /// <summary>
+        /// Parse a string and add esrb descriptor enums seperated by ',' 
+        /// </summary>
+        /// <param name="esrbString"></param>
+        void AddEsrbDescriptorsFromString(string esrbString);
+
+        bool DeleteEsrbDescriptor(Enums.EsrbDescriptors descriptor);
+
+        /// <summary>
+        /// Remove all ESRB descriptors from the current game object
+        /// </summary>
+        void ClearEsrbDescriptors();
+
+        /// <summary>
+        /// Return the current list of ESRB descriptor enum objects
+        /// </summary>
+        /// <returns></returns>
+        List<Enums.EsrbDescriptors> GetEsrbDescriptors();
+
+        /// <summary>
+        /// Return the string representation of the ESRB descriptors
+        /// </summary>
+        /// <returns>string representation of current ESRB descriptors</returns>
+        string GetEsrbDescriptorsString();
 
         #endregion
     }

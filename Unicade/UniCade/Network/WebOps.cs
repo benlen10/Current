@@ -340,7 +340,7 @@ namespace UniCade.Network
                     int tempCharIndex2 = html.IndexOf("</td>", tempCharIndex + 26, StringComparison.Ordinal);
                     if (tempCharIndex2 > 0)
                     {
-                        game.EsrbDescriptors = html.Substring((tempCharIndex + 26), tempCharIndex2 - (tempCharIndex + 26));
+                        game.EsrbDescriptorString = html.Substring((tempCharIndex + 26), tempCharIndex2 - (tempCharIndex + 26));
                     }
                 }
             }

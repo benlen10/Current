@@ -81,18 +81,21 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Everyone can be launched properly when the global rating is set to Everyone");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Everyone can be launched properly when the global rating is set to Everyone");
             }
 
             //Verify that a game rated Everyone 10+ is restricted when global rating is set to Everyone
             try
             {
                 FileOps.Launch(gameRatedE10);
-                Assert.Fail("Verify that a game rated Everyone 10+ is restricted when global rating is set to Everyone");
+                Assert.Fail(
+                    "Verify that a game rated Everyone 10+ is restricted when global rating is set to Everyone");
             }
             catch (Exception exception)
             {
-                Assert.IsTrue(exception.Message.Contains("ESRB"), "Verify that a game rated Everyone 10+ is restricted when global rating is set to Everyone");
+                Assert.IsTrue(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Everyone 10+ is restricted when global rating is set to Everyone");
             }
 
             //Set the global ESRB restriction to Everyone 10+
@@ -102,11 +105,13 @@ namespace UnitTests.BackendTests
             try
             {
                 FileOps.Launch(gameRatedE10);
-                Assert.Fail("Verify that a game rated Everyone 10+ can be launched properly when the global rating is set to Everyone 10+");
+                Assert.Fail(
+                    "Verify that a game rated Everyone 10+ can be launched properly when the global rating is set to Everyone 10+");
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Everyone 10+ can be launched properly when the global rating is set to Everyone 10+");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Everyone 10+ can be launched properly when the global rating is set to Everyone 10+");
             }
 
             //Verify that a game rated Teen is restricted when global rating is set to Everyone 10+
@@ -117,7 +122,8 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsTrue(exception.Message.Contains("ESRB"), "Verify that a game rated Teen is restricted when global rating is set to Everyone 10+");
+                Assert.IsTrue(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Teen is restricted when global rating is set to Everyone 10+");
             }
 
             //Set the global ESRB restriction to Teen
@@ -127,11 +133,13 @@ namespace UnitTests.BackendTests
             try
             {
                 FileOps.Launch(gameRatedT);
-                Assert.Fail("Verify that a game rated Teen can be launched properly when the global rating is set to Teen");
+                Assert.Fail(
+                    "Verify that a game rated Teen can be launched properly when the global rating is set to Teen");
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Teen can be launched properly when the global rating is set to Teen");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Teen can be launched properly when the global rating is set to Teen");
             }
 
             //Verify that a game rated Mature is restricted when global rating is set to Teen
@@ -142,7 +150,8 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsTrue(exception.Message.Contains("ESRB"), "Verify that a game rated Mature is restricted when global rating is set to Teen");
+                Assert.IsTrue(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Mature is restricted when global rating is set to Teen");
             }
 
             //Set the global ESRB restriction to Mature
@@ -152,11 +161,13 @@ namespace UnitTests.BackendTests
             try
             {
                 FileOps.Launch(gameRatedM);
-                Assert.Fail("Verify that a game rated Mature can be launched properly when the global rating is set to Mature");
+                Assert.Fail(
+                    "Verify that a game rated Mature can be launched properly when the global rating is set to Mature");
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Mature can be launched properly when the global rating is set to Mature");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Mature can be launched properly when the global rating is set to Mature");
             }
 
             //Verify that a game rated Ao is restricted when global rating is set to Mature
@@ -167,7 +178,8 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsTrue(exception.Message.Contains("ESRB"), "Verify that a game rated Ao is restricted when global rating is set to Mature");
+                Assert.IsTrue(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Ao is restricted when global rating is set to Mature");
             }
 
             //Set the global ESRB restriction to Ao
@@ -177,11 +189,13 @@ namespace UnitTests.BackendTests
             try
             {
                 FileOps.Launch(gameRatedM);
-                Assert.Fail("Verify that a game rated Mature can be launched properly when the global rating is set to Ao");
+                Assert.Fail(
+                    "Verify that a game rated Mature can be launched properly when the global rating is set to Ao");
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Mature can be launched properly when the global rating is set to Ao");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Mature can be launched properly when the global rating is set to Ao");
             }
 
             //Verify that a game rated Ao can be launched properly when the global rating is set to Ao
@@ -192,7 +206,8 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Ao can be launched properly when the global rating is set to Ao");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Ao can be launched properly when the global rating is set to Ao");
             }
         }
 
@@ -241,7 +256,8 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Everyone can be launched properly when the user rating is set to Everyone");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Everyone can be launched properly when the user rating is set to Everyone");
             }
 
             //Verify that a game rated Everyone 10+ is restricted when user rating is set to Everyone
@@ -252,7 +268,8 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsTrue(exception.Message.Contains("ESRB"), "Verify that a game rated Everyone 10+ is restricted when user rating is set to Everyone");
+                Assert.IsTrue(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Everyone 10+ is restricted when user rating is set to Everyone");
             }
 
             //Set the user ESRB restriction to Everyone 10+
@@ -262,11 +279,13 @@ namespace UnitTests.BackendTests
             try
             {
                 FileOps.Launch(gameRatedE10);
-                Assert.Fail("Verify that a game rated Everyone 10+ can be launched properly when the user rating is set to Everyone 10+");
+                Assert.Fail(
+                    "Verify that a game rated Everyone 10+ can be launched properly when the user rating is set to Everyone 10+");
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Everyone 10+ can be launched properly when the user rating is set to Everyone 10+");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Everyone 10+ can be launched properly when the user rating is set to Everyone 10+");
             }
 
             //Verify that a game rated Teen is restricted when user rating is set to Everyone 10+
@@ -277,7 +296,8 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsTrue(exception.Message.Contains("ESRB"), "Verify that a game rated Teen is restricted when user rating is set to Everyone 10+");
+                Assert.IsTrue(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Teen is restricted when user rating is set to Everyone 10+");
             }
 
             //Set the user ESRB restriction to Teen
@@ -287,11 +307,13 @@ namespace UnitTests.BackendTests
             try
             {
                 FileOps.Launch(gameRatedT);
-                Assert.Fail("Verify that a game rated Teen can be launched properly when the user rating is set to Teen");
+                Assert.Fail(
+                    "Verify that a game rated Teen can be launched properly when the user rating is set to Teen");
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Teen can be launched properly when the user rating is set to Teen");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Teen can be launched properly when the user rating is set to Teen");
             }
 
             //Verify that a game rated Mature is restricted when user rating is set to Teen
@@ -302,7 +324,8 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsTrue(exception.Message.Contains("ESRB"), "Verify that a game rated Mature is restricted when user rating is set to Teen");
+                Assert.IsTrue(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Mature is restricted when user rating is set to Teen");
             }
 
             //Set the user ESRB restriction to Mature
@@ -312,11 +335,13 @@ namespace UnitTests.BackendTests
             try
             {
                 FileOps.Launch(gameRatedM);
-                Assert.Fail("Verify that a game rated Mature can be launched properly when the user rating is set to Mature");
+                Assert.Fail(
+                    "Verify that a game rated Mature can be launched properly when the user rating is set to Mature");
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Mature can be launched properly when the user rating is set to Mature");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Mature can be launched properly when the user rating is set to Mature");
             }
 
             //Verify that a game rated Ao is restricted when user rating is set to Mature
@@ -327,7 +352,8 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsTrue(exception.Message.Contains("ESRB"), "Verify that a game rated Ao is restricted when user rating is set to Mature");
+                Assert.IsTrue(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Ao is restricted when user rating is set to Mature");
             }
 
             //Set the user ESRB restriction to Ao
@@ -337,11 +363,13 @@ namespace UnitTests.BackendTests
             try
             {
                 FileOps.Launch(gameRatedM);
-                Assert.Fail("Verify that a game rated Mature can be launched properly when the user rating is set to Ao");
+                Assert.Fail(
+                    "Verify that a game rated Mature can be launched properly when the user rating is set to Ao");
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Mature can be launched properly when the user rating is set to Ao");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Mature can be launched properly when the user rating is set to Ao");
             }
 
             //Verify that a game rated Ao can be launched properly when the user rating is set to Ao
@@ -352,7 +380,8 @@ namespace UnitTests.BackendTests
             }
             catch (Exception exception)
             {
-                Assert.IsFalse(exception.Message.Contains("ESRB"), "Verify that a game rated Ao can be launched properly when the user rating is set to Ao");
+                Assert.IsFalse(exception.Message.Contains("ESRB"),
+                    "Verify that a game rated Ao can be launched properly when the user rating is set to Ao");
             }
         }
 
@@ -379,11 +408,13 @@ namespace UnitTests.BackendTests
                 try
                 {
                     FileOps.Launch(game);
-                    Assert.Fail($"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the global rating is set to Null");
+                    Assert.Fail(
+                        $"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the global rating is set to Null");
                 }
-                catch(Exception exception)
+                catch (Exception exception)
                 {
-                    Assert.IsFalse(exception.Message.Contains("ESRB"), $"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the global rating is set to Null");
+                    Assert.IsFalse(exception.Message.Contains("ESRB"),
+                        $"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the global rating is set to Null");
                 }
             }
 
@@ -402,13 +433,35 @@ namespace UnitTests.BackendTests
                 try
                 {
                     FileOps.Launch(game);
-                    Assert.Fail($"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the user rating is set to Null");
+                    Assert.Fail(
+                        $"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the user rating is set to Null");
                 }
                 catch (Exception exception)
                 {
-                    Assert.IsFalse(exception.Message.Contains("ESRB"), $"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the user rating is set to Null");
+                    Assert.IsFalse(exception.Message.Contains("ESRB"),
+                        $"Verify that a game rated {esrb.GetStringValue()} can be launched properly when the user rating is set to Null");
                 }
             }
         }
+
+        /// <summary>
+        /// Verify that duplicate descriptors are not allowed for a game
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyDuplicateDescriptorsAreNotAllowed()
+        {
+            //Create a new game object and verify that a descriptor can be added
+            IGame game = new Game("myGame.bin", _console.ConsoleName);
+
+            //Verify that a descriptor can be added properly
+            Assert.IsTrue(game.AddEsrbDescriptor(Enums.EsrbDescriptors.MildLanguage),
+                "Verify that a descriptor can be added properly");
+
+            //Verify that a duplicate descriptor cannot be added
+            Assert.IsFalse(game.AddEsrbDescriptor(Enums.EsrbDescriptors.MildLanguage),
+                "Verify that a duplicate descriptor cannot be added");
+        }
+
     }
 }

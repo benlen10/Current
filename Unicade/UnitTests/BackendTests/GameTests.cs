@@ -615,7 +615,7 @@ namespace UnitTests.BackendTests
             //Verify that a null value for the EsrbDescriptors is not allowed
             try
             {
-                _game.EsrbDescriptors = null;
+                _game.EsrbDescriptorString = null;
                 Assert.Fail("Verify that a null value for a EsrbDescriptors is not allowed");
             }
             catch (ArgumentException)
@@ -627,7 +627,7 @@ namespace UnitTests.BackendTests
             const string invalidEsrbDescriptors = "invalid|EsrbDescriptors";
             try
             {
-                _game.EsrbDescriptors = invalidEsrbDescriptors;
+                _game.EsrbDescriptorString = invalidEsrbDescriptors;
                 Assert.Fail("Verify that invalid chars are not allowed in the EsrbDescriptors name");
             }
             catch (ArgumentException)
@@ -639,7 +639,7 @@ namespace UnitTests.BackendTests
             string longEsrbDescriptors = new string('-', ConstValues.MaxGameEsrbDescriptorsLength + 1);
             try
             {
-                _game.EsrbDescriptors = longEsrbDescriptors;
+                _game.EsrbDescriptorString = longEsrbDescriptors;
                 Assert.Fail(
                     $"Verify that a EsrbDescriptors that exceeds {ConstValues.MaxGameEsrbDescriptorsLength} chars is not allowed");
             }
@@ -650,12 +650,12 @@ namespace UnitTests.BackendTests
             }
 
             //Verify that a game with an invalid EsrbDescriptors is not created
-            Assert.IsNull(_game.EsrbDescriptors, "Verify that an invalid EsrbDescriptors was not saved");
+            Assert.IsNull(_game.EsrbDescriptorString, "Verify that an invalid EsrbDescriptors was not saved");
 
             //Verify that a valid EsrbDescriptors is properly saved
             const string validEsrbDescriptors = "validEsrbDescriptors";
-            _game.EsrbDescriptors = validEsrbDescriptors;
-            Assert.AreEqual(_game.EsrbDescriptors, validEsrbDescriptors,
+            _game.EsrbDescriptorString = validEsrbDescriptors;
+            Assert.AreEqual(_game.EsrbDescriptorString, validEsrbDescriptors,
                 "Verify that a valid EsrbDescriptors is properly saved");
         }
 

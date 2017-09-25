@@ -101,7 +101,7 @@ namespace UniCade.Backend
                             {
                                 IGame game = console.GetGame(gameTitle);
                                 streamWriter.WriteLine(
-                                    $"{game.FileName}|{game.ConsoleName}|{game.GetLaunchCount()}|{game.ReleaseDate}|{game.PublisherName}|{game.DeveloperName}|{game.UserReviewScore}|{game.CriticReviewScore}|{game.SupportedPlayerCount}|Trivia|{game.EsrbRatingsRating}|{game.EsrbDescriptors}|{game.EsrbSummary}|{game.Description}|{game.Genres}|{game.Tags}|{game.Favorite}");
+                                    $"{game.FileName}|{game.ConsoleName}|{game.GetLaunchCount()}|{game.ReleaseDate}|{game.PublisherName}|{game.DeveloperName}|{game.UserReviewScore}|{game.CriticReviewScore}|{game.SupportedPlayerCount}|Trivia|{game.EsrbRatingsRating}|{game.EsrbDescriptorString}|{game.EsrbSummary}|{game.Description}|{game.Genres}|{game.Tags}|{game.Favorite}");
                             }
                         }
                     }

@@ -74,7 +74,6 @@ namespace UnitTests.CmdInterfaceTests
         {
 
         }
-
     }
 }
 
