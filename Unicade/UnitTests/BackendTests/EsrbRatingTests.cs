@@ -531,7 +531,23 @@ namespace UnitTests.BackendTests
                 "Verify that the third descriptor has been properly parsed");
         }
 
+        /// <summary>
+        /// Verify that ESRB descriptors are properly parsed
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyPrintEsrbDescriptorsAsString()
+        {
+            //Create a new game
+            IGame game = new Game("myGame.bin", _console.ConsoleName);
+
+            //Parse the ESRB content descriptors from a string
+            const string descriptorString = "Mild Violence, Mild Language, Comic Mischief";
+            game.AddEsrbDescriptorsFromString(descriptorString);
+
+            //Verify that the proper string is returned
+            Assert.IsTrue(game.GetEsrbDescriptorsString().Equals(descriptorString));
+        }
+
     }
-
-
 }
