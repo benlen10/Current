@@ -500,5 +500,38 @@ namespace UnitTests.BackendTests
                 "Verify that the descriptors have been properly cleared");
         }
 
+        /// <summary>
+        /// Verify that ESRB descriptors are properly parsed
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyParseEsrbDescriptors()
+        {
+            //Create a new game
+            IGame game = new Game("myGame.bin", _console.ConsoleName);
+
+            //Parse the ESRB content descriptors from a string
+            const string input = "Mild Violence, Mild Language, comic mischief";
+            game.AddEsrbDescriptorsFromString(input);
+
+            //Verify that the first descriptor has been properly parsed
+            Assert.IsTrue(game.GetEsrbDescriptors().Contains(Enums.EsrbDescriptors.MildViolence),
+                "Verify that the first descriptor has been properly parsed");
+
+            //Verify that the second descriptor has been properly parsed
+            Assert.IsTrue(game.GetEsrbDescriptors().Contains(Enums.EsrbDescriptors.MildLanguage),
+                "Verify that the second descriptor has been properly parsed");
+
+            //Verify that the third descriptor has been properly parsed
+            Assert.IsTrue(game.GetEsrbDescriptors().Contains(Enums.EsrbDescriptors.ComicMischief),
+                "Verify that the third descriptor has been properly parsed");
+
+            //Verify that a nonexistnent descriptor does not exist in the current list
+            Assert.IsFalse(game.GetEsrbDescriptors().Contains(Enums.EsrbDescriptors.StrongLanguage),
+                "Verify that the third descriptor has been properly parsed");
+        }
+
     }
+
+
 }
