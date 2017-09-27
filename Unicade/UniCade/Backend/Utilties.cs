@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using UniCade.Constants;
-using UniCade.Interfaces;
 
 namespace UniCade.Backend
 {
@@ -70,6 +69,26 @@ namespace UniCade.Backend
                 }
             }
             return Enums.EsrbDescriptors.Null;
+        }
+
+        /// <summary>
+        /// Attempt to parse an ESRB descriptor enum from a string
+        /// Return Null enum is not found
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        internal static Enums.EsrbRatings ParseEsrbRating(string str)
+        {
+            //Trim leading and trailing spaces before comparing the string values
+            str = str.Trim();
+            foreach (Enums.EsrbRatings esrbRating in Enum.GetValues(typeof(Enums.EsrbDescriptors)))
+            {
+                if (string.Equals(str, esrbRating.GetStringValue(), StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return esrbRating;
+                }
+            }
+            return Enums.EsrbRatings.Null;
         }
 
 

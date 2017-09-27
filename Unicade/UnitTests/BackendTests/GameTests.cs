@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Objects;
+using UniCade.WebOps;
 using Console = UniCade.Objects.Console;
 
 namespace UnitTests.BackendTests
@@ -689,5 +691,21 @@ namespace UnitTests.BackendTests
         }
 
         #endregion
+
+        /// <summary>
+        /// Verify that the game launch count is properly incremented
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void GamesdbApiTest()
+        {
+            var console = new Console("Sony Playstation");
+            var game = new Game("Resident Evil 2.bin", console.ConsoleName);
+
+            GamesdbApi.UpdateGameInfo(game);
+
+            Trace.WriteLine("Descripton: " + game.Description);
+
+        }
     }
 }

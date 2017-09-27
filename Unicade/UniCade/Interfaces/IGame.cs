@@ -90,6 +90,25 @@ namespace UniCade.Interfaces
 
         #endregion
 
+        #region  API IDs
+
+        /// <summary>
+        /// The unique game identifier for the GamesDB API
+        /// </summary>
+        int GamesdbApiId { get; set; }
+
+        /// <summary>
+        /// The unique game identifier for the MobyGames API
+        /// </summary>
+        int MobygamesApiId { get; set; }
+
+        /// <summary>
+        /// The unique game identifier for the IGDB API
+        /// </summary>
+        int IgdbApiId { get; set; }
+
+        #endregion
+
         #region  Public Methods
 
         /// <summary>

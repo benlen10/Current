@@ -121,11 +121,14 @@
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IConsole.cs" />
+    <Compile Include="Objects\GameSearchResult.cs" />
+    <Compile Include="Objects\PlatformSearchResult.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="WebOps\GamesdbApi.cs" />
     <Compile Include="Windows\AccountWindow.xaml.cs">
       <DependentUpon>AccountWindow.xaml</DependentUpon>
     </Compile>
@@ -142,11 +145,11 @@
     <Compile Include="Windows\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Network\SQLclient.cs" />
+    <Compile Include="WebOps\SQLclient.cs" />
     <Compile Include="Backend\Taskbar.cs" />
     <Compile Include="Constants\TextFiles.cs" />
     <Compile Include="Objects\User.cs" />
-    <Compile Include="Network\WebOps.cs" />
+    <Compile Include="WebOps\WebSettings.cs" />
     <Compile Include="Windows\PassWindow.xaml.cs">
       <DependentUpon>PassWindow.xaml</DependentUpon>
     </Compile>

@@ -333,6 +333,25 @@ namespace UniCade.Objects
 
         #endregion
 
+        #region  API IDs
+
+        /// <summary>
+        /// The unique game identifier for the GamesDB API
+        /// </summary>
+        public int GamesdbApiId { get; set; }
+
+        /// <summary>
+        /// The unique game identifier for the MobyGames API
+        /// </summary>
+        public int MobygamesApiId { get; set; }
+
+        /// <summary>
+        /// The unique game identifier for the IGDB API
+        /// </summary>
+        public int IgdbApiId { get; set; }
+
+        #endregion
+
         #region Private Instance Fields
 
         /// <summary>

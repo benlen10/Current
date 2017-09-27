@@ -83,7 +83,7 @@ namespace UniCade.Constants
         /// <summary>
         /// The max char length for game descriptions
         /// </summary>
-        internal const int MaxGameDescriptionLength = 500;
+        internal const int MaxGameDescriptionLength = 5000;
 
         /// <summary>
         /// The max char length for game publisher names

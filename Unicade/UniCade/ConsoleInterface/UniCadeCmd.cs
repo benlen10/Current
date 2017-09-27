@@ -288,7 +288,7 @@ namespace UniCade.ConsoleInterface
         /// Display detailed info for the current console
         /// </summary>
         /// <param name="console"></param>
-        private static void DisplayConsoleInfo(IConsole console)
+        public static void DisplayConsoleInfo(IConsole console)
         {
             if (console == null)
             {

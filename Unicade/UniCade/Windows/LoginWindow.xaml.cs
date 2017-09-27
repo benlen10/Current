@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using UniCade.Backend;
 using UniCade.Interfaces;
-using UniCade.Network;
+using UniCade.WebOps;
 
 namespace UniCade.Windows
 {

@@ -9,7 +9,7 @@ using UniCade.Backend;
 using UniCade.ConsoleInterface;
 using UniCade.Constants;
 using UniCade.Interfaces;
-using UniCade.Network;
+using UniCade.WebOps;
 using Console = UniCade.Objects.Console;
 
 namespace UniCade.Windows
@@ -139,19 +139,19 @@ namespace UniCade.Windows
             GlobalTabTextboxPassword.Password = Program.PasswordProtection.ToString();
 
             //Populate checkboxes
-            WebTabCheckboxReleaseDate.IsChecked = WebOps.ParseReleaseDate;
-            WebTabCheckboxCriticScore.IsChecked = WebOps.ParseCriticScore;
-            WebTabCheckboxPublisher.IsChecked = WebOps.ParsePublisher;
-            WebTabCheckboxDeveloper.IsChecked = WebOps.ParseDeveloper;
-            WebTabCheckboxEsrbRating.IsChecked = WebOps.ParseEsrbRating;
-            WebTabCheckboxEsrbDescriptor.IsChecked = WebOps.ParseEsrbDescriptors;
-            WebTabCheckboxPlayers.IsChecked = WebOps.ParsePlayerCount;
-            WebTabCheckboxDescription.IsChecked = WebOps.ParseDescription;
-            WebTabCheckboxBoxFront.IsChecked = WebOps.ParseBoxFrontImage;
-            WebTabCheckboxBoxBack.IsChecked = WebOps.ParseBoxBackImage;
-            WebTabCheckboxScreenshot.IsChecked = WebOps.ParseScreenshot;
-            WebTabCheckboxMetacritic.IsChecked = WebOps.ScanMetacritic;
-            WebTabCheckboxMobygames1.IsChecked = WebOps.ScanMobygames;
+            WebTabCheckboxReleaseDate.IsChecked = WebSettings.ParseReleaseDate;
+            WebTabCheckboxCriticScore.IsChecked = WebSettings.ParseCriticScore;
+            WebTabCheckboxPublisher.IsChecked = WebSettings.ParsePublisher;
+            WebTabCheckboxDeveloper.IsChecked = WebSettings.ParseDeveloper;
+            WebTabCheckboxEsrbRating.IsChecked = WebSettings.ParseEsrbRating;
+            WebTabCheckboxEsrbDescriptor.IsChecked = WebSettings.ParseEsrbDescriptors;
+            WebTabCheckboxPlayers.IsChecked = WebSettings.ParsePlayerCount;
+            WebTabCheckboxDescription.IsChecked = WebSettings.ParseDescription;
+            WebTabCheckboxBoxFront.IsChecked = WebSettings.ParseBoxFrontImage;
+            WebTabCheckboxBoxBack.IsChecked = WebSettings.ParseBoxBackImage;
+            WebTabCheckboxScreenshot.IsChecked = WebSettings.ParseScreenshot;
+            WebTabCheckboxMetacritic.IsChecked = WebSettings.ScanMetacritic;
+            WebTabCheckboxMobygames1.IsChecked = WebSettings.ScanMobygames;
             GlobalTabCheckboxDisplaySplash.IsChecked = Program.ShowSplashScreen;
             GlobalTabCheckboxDisplayLoadingScreen.IsChecked = Program.ShowLoadingScreen;
             GlobalTabCheckboxRequireLogin.IsChecked = Program.RequireLogin;
@@ -384,7 +384,7 @@ namespace UniCade.Windows
             }
 
             //Scrape info and populate local fields
-            WebOps.ScrapeInfo(_currentGame);
+            //WebOps.ScrapeInfo(_currentGame);
             GamesTabTextboxTitle.Text = _currentGame.Title;
             GamesTabTextboxConsole.Text = _currentGame.ConsoleName;
             GamesTabTextboxReleaseDate.Text = _currentGame.ReleaseDate;
@@ -484,7 +484,7 @@ namespace UniCade.Windows
             foreach (string gameTitle in gameList)
             {
                 IGame game1 = _currentConsole.GetGame(gameTitle);
-                WebOps.ScrapeInfo(game1);
+                //WebOps.ScrapeInfo(game1);
             }
             MessageBox.Show("Operation Successful");
         }
@@ -1046,30 +1046,30 @@ namespace UniCade.Windows
         /// </summary>
         private void WebTab_Button_SaveScraperSettings_Click(object sender, RoutedEventArgs e)
         {
-            WebOps.ScanMobygames = WebTabCheckboxMobygames1.IsChecked.Value;
-            WebOps.ScanMetacritic = WebTabCheckboxMetacritic.IsChecked.Value;
-            WebOps.ParseReleaseDate = WebTabCheckboxReleaseDate.IsChecked.Value;
-            WebOps.ParseCriticScore = WebTabCheckboxCriticScore.IsChecked.Value;
-            WebOps.ParsePublisher = WebTabCheckboxPublisher.IsChecked.Value;
-            WebOps.ParseDeveloper = WebTabCheckboxDeveloper.IsChecked.Value;
-            WebOps.ParseEsrbRating = WebTabCheckboxEsrbRating.IsChecked.Value;
-            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
-            WebOps.ParsePlayerCount = WebTabCheckboxPlayers.IsChecked.Value;
-            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
-            WebOps.ParseBoxFrontImage = WebTabCheckboxBoxFront.IsChecked.Value;
-            WebOps.ParseBoxBackImage = WebTabCheckboxBoxBack.IsChecked.Value;
-            WebOps.ParseScreenshot = WebTabCheckboxScreenshot.IsChecked.Value;
-            WebOps.ParseReleaseDate = WebTabCheckboxReleaseDate.IsChecked.Value;
-            WebOps.ParseCriticScore = WebTabCheckboxCriticScore.IsChecked.Value;
-            WebOps.ParsePublisher = WebTabCheckboxPublisher.IsChecked.Value;
-            WebOps.ParseDeveloper = WebTabCheckboxDeveloper.IsChecked.Value;
-            WebOps.ParseEsrbRating = WebTabCheckboxEsrbRating.IsChecked.Value;
-            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
-            WebOps.ParsePlayerCount = WebTabCheckboxPlayers.IsChecked.Value;
-            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
-            WebOps.ParseBoxFrontImage = WebTabCheckboxBoxFront.IsChecked.Value;
-            WebOps.ParseBoxBackImage = WebTabCheckboxBoxBack.IsChecked.Value;
-            WebOps.ParseScreenshot = WebTabCheckboxScreenshot.IsChecked.Value;
+            WebSettings.ScanMobygames = WebTabCheckboxMobygames1.IsChecked.Value;
+            WebSettings.ScanMetacritic = WebTabCheckboxMetacritic.IsChecked.Value;
+            WebSettings.ParseReleaseDate = WebTabCheckboxReleaseDate.IsChecked.Value;
+            WebSettings.ParseCriticScore = WebTabCheckboxCriticScore.IsChecked.Value;
+            WebSettings.ParsePublisher = WebTabCheckboxPublisher.IsChecked.Value;
+            WebSettings.ParseDeveloper = WebTabCheckboxDeveloper.IsChecked.Value;
+            WebSettings.ParseEsrbRating = WebTabCheckboxEsrbRating.IsChecked.Value;
+            WebSettings.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
+            WebSettings.ParsePlayerCount = WebTabCheckboxPlayers.IsChecked.Value;
+            WebSettings.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
+            WebSettings.ParseBoxFrontImage = WebTabCheckboxBoxFront.IsChecked.Value;
+            WebSettings.ParseBoxBackImage = WebTabCheckboxBoxBack.IsChecked.Value;
+            WebSettings.ParseScreenshot = WebTabCheckboxScreenshot.IsChecked.Value;
+            WebSettings.ParseReleaseDate = WebTabCheckboxReleaseDate.IsChecked.Value;
+            WebSettings.ParseCriticScore = WebTabCheckboxCriticScore.IsChecked.Value;
+            WebSettings.ParsePublisher = WebTabCheckboxPublisher.IsChecked.Value;
+            WebSettings.ParseDeveloper = WebTabCheckboxDeveloper.IsChecked.Value;
+            WebSettings.ParseEsrbRating = WebTabCheckboxEsrbRating.IsChecked.Value;
+            WebSettings.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
+            WebSettings.ParsePlayerCount = WebTabCheckboxPlayers.IsChecked.Value;
+            WebSettings.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
+            WebSettings.ParseBoxFrontImage = WebTabCheckboxBoxFront.IsChecked.Value;
+            WebSettings.ParseBoxBackImage = WebTabCheckboxBoxBack.IsChecked.Value;
+            WebSettings.ParseScreenshot = WebTabCheckboxScreenshot.IsChecked.Value;
         }
 
         #endregion
