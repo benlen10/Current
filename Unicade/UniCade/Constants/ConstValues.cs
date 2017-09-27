@@ -118,7 +118,7 @@ namespace UniCade.Constants
         /// <summary>
         /// The max char length for game trivia
         /// </summary>
-        internal const int MaxGameEsrbDescriptorsLength = 500;
+        internal const int MaxEsrbDescriptorsCount = 10;
 
         /// <summary>
         /// The max char length for game trivia

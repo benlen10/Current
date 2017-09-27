@@ -393,7 +393,7 @@ namespace UniCade.Windows
             GamesTabTextboxDeveloper.Text = _currentGame.DeveloperName;
             GamesTabTextboxEsrb.Text = _currentGame.EsrbRatingsRating.GetStringValue();
             GamesTabTextboxPlayers.Text = _currentGame.SupportedPlayerCount;
-            GamesTabTextboxEsrbDescriptor.Text = _currentGame.EsrbDescriptorString;
+            GamesTabTextboxEsrbDescriptor.Text = _currentGame.GetEsrbDescriptorsString();
             GamesTabTextboxDescription.Text = _currentGame.Description;
             RefreshEsrbIcon(_currentGame);
         }
@@ -410,6 +410,7 @@ namespace UniCade.Windows
                 return;
             }
             SaveGameInfo();
+            RefreshGameInfo(_currentGame);
             MessageBox.Show("Success");
         }
 
@@ -429,6 +430,8 @@ namespace UniCade.Windows
                 return;
             }
             SaveGameInfo();
+            RefreshGameInfo(_currentGame);
+            MessageBox.Show("Success");
         }
 
         /// <summary>
@@ -573,7 +576,7 @@ namespace UniCade.Windows
                 _currentGame.PublisherName = GamesTabTextboxPublisher.Text;
                 _currentGame.DeveloperName = GamesTabTextboxDeveloper.Text;
                 _currentGame.Description = GamesTabTextboxDescription.Text;
-                _currentGame.EsrbDescriptorString = GamesTabTextboxEsrbDescriptor.Text;
+                _currentGame.AddEsrbDescriptorsFromString(GamesTabTextboxEsrbDescriptor.Text);
                 _currentGame.Favorite = GamesTabCheckBoxGlobalFavorite.IsChecked.Value;
             }
             catch (ArgumentException e)
@@ -1245,7 +1248,7 @@ namespace UniCade.Windows
             GamesTabTextboxDeveloper.Text = game.DeveloperName;
             GamesTabTextboxEsrb.Text = game.EsrbRatingsRating.GetStringValue();
             GamesTabTextboxPlayers.Text = game.SupportedPlayerCount;
-            GamesTabTextboxEsrbDescriptor.Text = game.EsrbDescriptorString;
+            GamesTabTextboxEsrbDescriptor.Text = game.GetEsrbDescriptorsString();
             GamesTabTextboxDescription.Text = game.Description;
             GamesTabTextboxLaunchCount.Text = game.GetLaunchCount().ToString();
             GamesTabCheckBoxGlobalFavorite.IsChecked = game.Favorite;

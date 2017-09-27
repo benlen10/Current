@@ -131,7 +131,7 @@ namespace UniCade.Backend
             text += ("\nPlayers: " + game.SupportedPlayerCount + "\n");
             text += ("\nCritic Score: " + game.CriticReviewScore + "\n");
             text += ("\nESRB Rating: " + game.Tags + "\n");
-            text += ("\nESRB Descriptors: " + game.EsrbDescriptorString + "\n");
+            text += ("\nESRB Descriptors: " + game.GetEsrbDescriptorsString() + "\n");
             text += ("\nGame Description: " + game.Description + "\n");
             return text;
         }

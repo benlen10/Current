@@ -298,30 +298,6 @@ namespace UniCade.Objects
         }
 
         /// <summary>
-        /// The ESRB content descriptors
-        /// </summary>
-        public string EsrbDescriptorString
-        {
-            get => _esrbDescriptorString;
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentException("ESRB Descriptors cannot be null");
-                }
-                if (Utilties.CheckForInvalidChars(value))
-                {
-                    throw new ArgumentException("ESRB Descriptors t contains invalid characters");
-                }
-                if (value.Length > ConstValues.MaxGamePlayercountLength)
-                {
-                    throw new ArgumentException($"ESRB Descriptors cannot exceed {ConstValues.MaxGamePlayercountLength} chars");
-                }
-                _esrbDescriptorString = value;
-            }
-        }
-
-        /// <summary>
         /// Detailed summary of the ESRB rating
         /// </summary>
         public string EsrbSummary
@@ -427,11 +403,6 @@ namespace UniCade.Objects
         /// <summary>
         /// The ESRB content descriptors
         /// </summary>
-        private string _esrbDescriptorString;
-
-        /// <summary>
-        /// The ESRB content descriptors
-        /// </summary>
         private List<Enums.EsrbDescriptors> _esrbDescriptors;
 
         /// <summary>
@@ -495,19 +466,17 @@ namespace UniCade.Objects
             Trivia = trivia;
             EsrbRatingsRating = esrbRatingsRating;
             Description = description;
-            EsrbDescriptorString = esrbDescriptorString;
             EsrbSummary = esrbSummary;
             Genres = genres;
             Tags = tags;
+            Title = fileName.Substring(0, fileName.IndexOf('.'));
+
+            //Add esrb descriptors from string argument
             _esrbDescriptors = new List<Enums.EsrbDescriptors>();
+            AddEsrbDescriptorsFromString(esrbDescriptorString);
 
-            Favorite = (isFavorite.Equals("True"));
-
-            //Parse the game title from the raw ROM filename
-            if (fileName.Length > 2)
-            {
-                Title = fileName.Substring(0, fileName.IndexOf('.'));
-            }
+            //Set the favorite bool value
+            Favorite = isFavorite.IndexOf("true", StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         #endregion
@@ -542,11 +511,17 @@ namespace UniCade.Objects
         /// <summary>
         /// Adds a new ESRB descriptor enum 
         /// Returns false if the same descriptor already exists
+        /// Throw an ArgumentException if the descriptor count exceeds 10
         /// </summary>
         /// <param name="descriptor">ESRB descriptor enum object</param>
         /// <returns>false if the desctiptor already exists</returns>
         public bool AddEsrbDescriptor(Enums.EsrbDescriptors descriptor)
         {
+            if (_esrbDescriptors.Count >= ConstValues.MaxEsrbDescriptorsCount)
+            {
+                throw new ArgumentException($"Cannot Exceed {ConstValues.MaxEsrbDescriptorsCount} per game");
+            }
+
             if (!_esrbDescriptors.Contains(descriptor))
             {
                 _esrbDescriptors.Add(descriptor);
@@ -561,6 +536,7 @@ namespace UniCade.Objects
         /// <param name="esrbString"></param>
         public void AddEsrbDescriptorsFromString(string esrbString)
         {
+            ClearEsrbDescriptors();
             char[] sep = { ',' };
             var descriptors = esrbString.Split(sep);
             foreach (string token in descriptors)
@@ -568,7 +544,7 @@ namespace UniCade.Objects
                 var descriptor = Utilties.ParseEsrbDescriptor(token);
                 if (!descriptor.Equals(Enums.EsrbDescriptors.Null))
                 {
-                    _esrbDescriptors.Add(descriptor);
+                    AddEsrbDescriptor(descriptor);
                 }
             }
         }
@@ -607,6 +583,13 @@ namespace UniCade.Objects
         public string GetEsrbDescriptorsString()
         {
             string descriptors = "";
+
+            //If no descriptors exist, return an empty string
+            if (_esrbDescriptors.Count == 0)
+            {
+                return descriptors;
+            }
+
             _esrbDescriptors.ForEach(d => descriptors += (d.GetStringValue() + ", "));
 
             //Trim the last ',' and return the string

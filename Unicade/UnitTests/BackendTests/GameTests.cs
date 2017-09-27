@@ -606,60 +606,6 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
-        /// Verify that the game EsrbDescriptors are properly validated
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        public void ValidateGameEsrbDescriptors()
-        {
-            //Verify that a null value for the EsrbDescriptors is not allowed
-            try
-            {
-                _game.EsrbDescriptorString = null;
-                Assert.Fail("Verify that a null value for a EsrbDescriptors is not allowed");
-            }
-            catch (ArgumentException)
-            {
-                Assert.IsTrue(true, "Verify that a null value for a EsrbDescriptors is not allowed");
-            }
-
-            //Verify that invalid chars are not allowed in the EsrbDescriptors
-            const string invalidEsrbDescriptors = "invalid|EsrbDescriptors";
-            try
-            {
-                _game.EsrbDescriptorString = invalidEsrbDescriptors;
-                Assert.Fail("Verify that invalid chars are not allowed in the EsrbDescriptors name");
-            }
-            catch (ArgumentException)
-            {
-                Assert.IsTrue(true, "Verify that invalid chars are not allowed in the EsrbDescriptors name");
-            }
-
-            //Verify that a EsrbDescriptors that exceeds MaxGameEsrbDescriptorsLength chars is not allowed
-            string longEsrbDescriptors = new string('-', ConstValues.MaxGameEsrbDescriptorsLength + 1);
-            try
-            {
-                _game.EsrbDescriptorString = longEsrbDescriptors;
-                Assert.Fail(
-                    $"Verify that a EsrbDescriptors that exceeds {ConstValues.MaxGameEsrbDescriptorsLength} chars is not allowed");
-            }
-            catch (ArgumentException)
-            {
-                Assert.IsTrue(true,
-                    $"Verify that a EsrbDescriptors name that exceeds {ConstValues.MaxGameEsrbDescriptorsLength} chars is not allowed");
-            }
-
-            //Verify that a game with an invalid EsrbDescriptors is not created
-            Assert.IsNull(_game.EsrbDescriptorString, "Verify that an invalid EsrbDescriptors was not saved");
-
-            //Verify that a valid EsrbDescriptors is properly saved
-            const string validEsrbDescriptors = "validEsrbDescriptors";
-            _game.EsrbDescriptorString = validEsrbDescriptors;
-            Assert.AreEqual(_game.EsrbDescriptorString, validEsrbDescriptors,
-                "Verify that a valid EsrbDescriptors is properly saved");
-        }
-
-        /// <summary>
         /// Verify that the game EsrbSummary are properly validated
         /// </summary>
         [TestMethod]

@@ -60,9 +60,11 @@ namespace UniCade.Backend
         /// <returns></returns>
         internal static Enums.EsrbDescriptors ParseEsrbDescriptor(string str)
         {
+            //Trim leading and trailing spaces before comparing the string values
+            str = str.Trim();
             foreach (Enums.EsrbDescriptors descriptor in Enum.GetValues(typeof(Enums.EsrbDescriptors)))
             {
-                if (str.IndexOf(descriptor.GetStringValue(), StringComparison.OrdinalIgnoreCase) >= 0)
+                if (string.Equals(str, descriptor.GetStringValue(), StringComparison.CurrentCultureIgnoreCase))
                 {
                     return descriptor;
                 }

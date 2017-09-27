@@ -34,11 +34,6 @@ namespace UniCade.Interfaces
         Enums.EsrbRatings EsrbRatingsRating { get; set; }
 
         /// <summary>
-        /// The ESRB content descriptors
-        /// </summary>
-        string EsrbDescriptorString { get; set; }
-
-        /// <summary>
         /// Detailed summary of the ESRB rating
         /// </summary>
         string EsrbSummary { get; set; }
