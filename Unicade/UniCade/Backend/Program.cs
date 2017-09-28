@@ -23,11 +23,6 @@ namespace UniCade.Backend
         public static bool RescanOnStartup;
 
         /// <summary>
-        /// The path to the current media directory
-        /// </summary>
-        public static readonly string MediaPath = Directory.GetCurrentDirectory() + @"\Database.txt";
-
-        /// <summary>
         /// True if there is a current game process running
         /// </summary>
         public static bool IsProcessActive;
@@ -43,11 +38,6 @@ namespace UniCade.Backend
         public static Enums.EsrbRatings RestrictGlobalEsrbRatings;
 
         /// <summary>
-        /// Specifies if you are required to login to a user account on startup
-        /// </summary>
-        public static bool RequireLogin;
-
-        /// <summary>
         /// Specifies if the command line interface should be launched on startup instead of the GUI
         /// </summary>
         public static bool PerferCmdInterface;
@@ -56,11 +46,6 @@ namespace UniCade.Backend
         /// Specifies if a loading screen should be displayed when launching a game
         /// </summary>
         public static bool ShowLoadingScreen;
-
-        /// <summary>
-        /// Spcifies the launch options for games across all consoles (Template)
-        /// </summary>
-        public static int LaunchOptions;
 
         /// <summary>
         /// If this value is greater than 0, passcode protection is enabled

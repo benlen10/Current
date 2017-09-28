@@ -154,7 +154,7 @@ namespace UniCade.Windows
             WebTabCheckboxMobygames1.IsChecked = WebSettings.ScanMobygames;
             GlobalTabCheckboxDisplaySplash.IsChecked = Program.ShowSplashScreen;
             GlobalTabCheckboxDisplayLoadingScreen.IsChecked = Program.ShowLoadingScreen;
-            GlobalTabCheckboxRequireLogin.IsChecked = Program.RequireLogin;
+            //GlobalTabCheckboxRequireLogin.IsChecked = Program.RequireLogin;
             GlobalTabCheckboxRescanAllLibraries.IsChecked = Program.RescanOnStartup;
             GlobalTabCheckboxEnforceFileExtension.IsChecked = Program.EnforceFileExtensions;
             GlobalTabCheckboxDisplayEsrb.IsChecked = MainWindow.DisplayEsrbWhileBrowsing;
@@ -986,7 +986,7 @@ namespace UniCade.Windows
             //Save checkboxes
             MainWindow.DisplayEsrbWhileBrowsing = GlobalTabCheckboxToView.IsChecked.Value;
             Program.ShowSplashScreen = GlobalTabCheckboxDisplaySplash.IsChecked.Value;
-            Program.RequireLogin = GlobalTabCheckboxRequireLogin.IsChecked.Value;
+            //Program.RequireLogin = GlobalTabCheckboxRequireLogin.IsChecked.Value;
             Program.RescanOnStartup = GlobalTabCheckboxRescanAllLibraries.IsChecked.Value;
             MainWindow.DisplayEsrbWhileBrowsing = GlobalTabCheckboxDisplayEsrb.IsChecked.Value;
 

@@ -47,7 +47,7 @@ namespace UniCade.Backend
             DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
             using (FileStream fs = File.Open(ConstValues.DatabaseFileName, FileMode.Open))
             {
-                consoleList = (List<Console>) s.ReadObject(fs);
+                consoleList = (List<Console>)s.ReadObject(fs);
             }
 
             consoleList.ForEach(c => Database.AddConsole(c));
@@ -86,122 +86,36 @@ namespace UniCade.Backend
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public static bool LoadPreferences()
         {
-            try
-            {
-                //Delete any preexisting preference files 
-                if (!File.Exists(ConstValues.PreferencesFileName))
-                {
-                    return false;
-                }
-
-                char[] sep = { '|' };
-                StreamReader file = new StreamReader(ConstValues.PreferencesFileName);
-                string line = file.ReadLine();
-
-                var tokenString = line.Split(sep);
-                string currentUser = tokenString[1];
-
-                file.ReadLine();
-                //tokenString = line.Split(sep);
-                //Program.DatabasePath = tokenString[1];
-
-                file.ReadLine();
-                //Default emulator path (Depricated)
-                //tokenString = line.Split(sep);
-                //tokenString[1];
-
-                file.ReadLine();
-                //tokenString = line.Split(sep);
-                //Program.MediaPath = tokenString[1];
-
-                line = file.ReadLine();
-                tokenString = line.Split(sep);
-                Program.ShowSplashScreen = tokenString[1].Contains("1");
-
-                line = file.ReadLine();
-                tokenString = line.Split(sep);
-                Program.RescanOnStartup = (tokenString[1].Contains("1"));
-
-                line = file.ReadLine();
-                tokenString = line.Split(sep);
-                Program.RestrictGlobalEsrbRatings = Enums.ConvertStringToEsrbEnum(tokenString[1]);
-
-                file.ReadLine();
-                tokenString = line.Split(sep);
-                Program.RequireLogin = tokenString[1].Contains("1");
-
-                line = file.ReadLine();
-                tokenString = line.Split(sep);
-                MainWindow.DisplayEsrbWhileBrowsing = tokenString[1].Contains("1");
-
-                line = file.ReadLine();
-                tokenString = line.Split(sep);
-                Program.ShowLoadingScreen = tokenString[1].Contains("1");
-
-                line = file.ReadLine();
-                tokenString = line.Split(sep);
-                PayPerPlay.PayPerPlayEnabled = tokenString[1].Contains("1");
-
-                Program.LaunchOptions = tokenString[2].Contains("1") ? 1 : 0;
-
-                //Parse coin count
-                PayPerPlay.CoinsRequired = Int32.Parse(tokenString[3]);
-                PayPerPlay.Playtime = Int32.Parse(tokenString[4]);
-
-                //Parse user license key
-                line = file.ReadLine();
-                tokenString = line.Split(sep);
-                LicenseEngine.UserLicenseName = tokenString[1];
-                LicenseEngine.UserLicenseKey = tokenString[2];
-
-                //Skip ***Users*** line
-                file.ReadLine();
-
-                //Parse user data
-                while ((line = file.ReadLine()) != null)
-                {
-                    tokenString = line.Split(sep);
-                    IUser user = new User(tokenString[0], tokenString[1], Int32.Parse(tokenString[2]), tokenString[3],
-                        Int32.Parse(tokenString[4]), tokenString[5], Enums.ConvertStringToEsrbEnum(tokenString[6]),
-                        "null");
-                    if (tokenString[6].Length > 0)
-                    {
-                        string[] rawString = tokenString[7].Split('#');
-                        var string1 = "";
-                        int iterator = 1;
-
-                        foreach (string s in rawString)
-                        {
-                            if ((iterator % 2 == 0) && (iterator > 1))
-                            {
-                                user.AddFavorite(new Game(string1, s));
-
-                            }
-                            string1 = s + ".zip";
-                            iterator++;
-                        }
-                    }
-                    if (user.Username != "UniCade")
-                    {
-                        Database.AddUser(user);
-                    }
-                }
-                var userList = Database.GetUserList();
-                foreach (string username in userList)
-                {
-                    IUser user = Database.GetUser(username);
-                    if (user.Username.Equals(currentUser))
-                    {
-                        Database.SetCurrentUser(user.Username);
-                    }
-                }
-                file.Close();
-                return true;
-            }
-            catch (NullReferenceException)
+            //First check if the database file exists
+            if (!File.Exists(ConstValues.DatabaseFileName))
             {
                 return false;
             }
+
+            CurrentSettings currentSettings = null;
+
+            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(CurrentSettings));
+            using (FileStream fileStream = File.Open(ConstValues.PreferencesFileName, FileMode.Open))
+            {
+                currentSettings = (CurrentSettings)dataContractSerializer.ReadObject(fileStream);
+            }
+
+            Program.ShowSplashScreen = currentSettings.ShowSplashScreen;
+            Program.RescanOnStartup = currentSettings.RescanOnStartup;
+            Program.RestrictGlobalEsrbRatings = currentSettings.RestrictGlobalEsrbRatings;
+            Program.PerferCmdInterface = currentSettings.PerferCmdInterface;
+            Program.ShowLoadingScreen = currentSettings.ShowLoadingScreen;
+            PayPerPlay.PayPerPlayEnabled = currentSettings.PayPerPlayEnabled;
+            PayPerPlay.CoinsRequired = currentSettings.CoinsRequired;
+            PayPerPlay.CurrentCoins = currentSettings.CurrentCoins;
+            LicenseEngine.UserLicenseKey = currentSettings.UserLicenseKey;
+            LicenseEngine.UserLicenseName = currentSettings.UserLicenseName;
+            LicenseEngine.HashKey = currentSettings.HashKey;
+            Program.PasswordProtection = currentSettings.PasswordProtection;
+            currentSettings.UserList.ForEach(u => Database.AddUser(u));
+
+            return true;
+
         }
 
         /// <summary>
@@ -209,38 +123,39 @@ namespace UniCade.Backend
         /// </summary>
         public static void SavePreferences()
         {
-            if (File.Exists(ConstValues.PreferencesFileName))
+
+            var currentSettings = new CurrentSettings
             {
-                File.Delete(ConstValues.PreferencesFileName);
+                ShowSplashScreen = Program.ShowSplashScreen,
+                RescanOnStartup = Program.RescanOnStartup,
+                RestrictGlobalEsrbRatings = Program.RestrictGlobalEsrbRatings,
+                PerferCmdInterface = Program.PerferCmdInterface,
+                ShowLoadingScreen = Program.ShowLoadingScreen,
+                PayPerPlayEnabled = PayPerPlay.PayPerPlayEnabled,
+                CoinsRequired = PayPerPlay.CoinsRequired,
+                CurrentCoins = PayPerPlay.CurrentCoins,
+                UserLicenseKey = LicenseEngine.UserLicenseName,
+                UserLicenseName = LicenseEngine.UserLicenseName,
+                HashKey = LicenseEngine.HashKey,
+                PasswordProtection = Program.PasswordProtection
+            };
+
+            foreach (string userName in Database.GetUserList())
+            {
+                currentSettings.UserList.Add((User)Database.GetUser(userName));
             }
 
-            using (StreamWriter sw = File.CreateText(ConstValues.PreferencesFileName))
-            {
-                sw.WriteLine("CurrentUser|" + Database.GetCurrentUser().Username);
-                sw.WriteLine("_databasePath|" + "databasepath");
-                sw.WriteLine("EmulatorFolderPath|" + "DefaultEmulatorPath");
-                sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
-                sw.WriteLine("ShowSplash|" + Program.ShowSplashScreen);
-                sw.WriteLine("ScanOnStartup|" + Program.RescanOnStartup);
-                sw.WriteLine("RestrictESRB|" + Program.RestrictGlobalEsrbRatings);
-                sw.WriteLine("RequireLogin|" + Program.RequireLogin);
-                sw.WriteLine("CmdOrGui|" + Program.PerferCmdInterface);
-                sw.WriteLine("LoadingScreen|" + Program.ShowLoadingScreen);
-                sw.WriteLine("PaySettings|" + PayPerPlay.PayPerPlayEnabled + "|" + Program.LaunchOptions + "|" + PayPerPlay.CoinsRequired + "|" + PayPerPlay.Playtime);
-                sw.WriteLine("License Key|" + LicenseEngine.UserLicenseName + "|" + LicenseEngine.UserLicenseKey);
-                sw.WriteLine("***UserData***");
 
-                var userList = Database.GetUserList();
-                foreach (string username in userList)
-                {
-                    IUser user = Database.GetUser(username);
-                    string favs = "";
-                    foreach (IGame g in user.GetFavoritesList())
-                    {
-                        favs += (g.Title + "#" + g.ConsoleName + "#");
-                    }
-                    sw.WriteLine("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", user.Username, user.GetUserPassword(), user.GetUserLoginCount(), user.Email, user.GetUserLaunchCount(), user.UserInfo, user.AllowedEsrbRatings, favs);
-                }
+            var xmlWriterSettings = new XmlWriterSettings()
+            {
+                Indent = true,
+                IndentChars = "\t"
+            };
+
+            DataContractSerializer s = new DataContractSerializer(typeof(CurrentSettings));
+            using (var xmlWriter = XmlWriter.Create("preferences.xml", xmlWriterSettings))
+            {
+                s.WriteObject(xmlWriter, currentSettings);
             }
         }
 
@@ -526,14 +441,11 @@ namespace UniCade.Backend
             Database.RestoreDefaultUser();
             Program.ShowSplashScreen = false;
             Program.RescanOnStartup = false;
-            Program.RestrictGlobalEsrbRatings = 0;
-            Program.RequireLogin = false;
+            Program.RestrictGlobalEsrbRatings = Enums.EsrbRatings.Null;
             Program.PerferCmdInterface = false;
             Program.ShowLoadingScreen = false;
             PayPerPlay.PayPerPlayEnabled = false;
-            PayPerPlay.CoinsRequired = 1;
-            PayPerPlay.Playtime = 15;
-            Program.LaunchOptions = 0;
+            PayPerPlay.CoinsRequired = 0;
         }
 
         /// <summary>

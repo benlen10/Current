@@ -153,7 +153,7 @@ namespace UniCade.Constants
         /// <summary>
         /// The min length for a game filename
         /// </summary>
-        internal const string PreferencesFileName = "preferences.txt";
+        internal const string PreferencesFileName = "preferences.xml";
 
         #endregion
 

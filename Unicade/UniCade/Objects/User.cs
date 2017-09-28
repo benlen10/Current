@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 
 namespace UniCade.Objects
 {
+    [DataContract]
     internal class User : IUser
     {
 
@@ -138,6 +140,7 @@ namespace UniCade.Objects
         /// <summary>
         /// The max allowed ESRB for the current user (Parental Controls)
         /// </summary>
+        [DataMember]
         public Enums.EsrbRatings AllowedEsrbRatings { get; set; }
 
         #endregion
@@ -147,47 +150,56 @@ namespace UniCade.Objects
         /// <summary>
         /// The current username
         /// </summary>
+        [DataMember]
         private string _username;
 
         /// <summary>
         /// The current user description
         /// </summary>
+        [DataMember]
         private string _userInfo;
 
         /// <summary>
         /// The password for the current user
         /// </summary>
+        [DataMember]
         private string _password;
 
         /// <summary>
         /// The email address for the current user
         /// </summary>
+        [DataMember]
         private string _email;
 
         /// <summary>
         /// The path to the user profile picture
         /// </summary>
+        [DataMember]
         private string _profilePicturePath;
 
         /// <summary>
         /// The total number of games this user has launched
         /// </summary>
+        [DataMember]
         private int _userLaunchCount;
 
         /// <summary>
         /// The total number of times this user has logged in
         /// </summary>
+        [DataMember]
         private int _userLoginCount;
 
         /// <summary>
         /// specifies if this user is teh default unicade user
         /// </summary>
+        [DataMember]
         private readonly bool _userExists;
 
         /// <summary>
         /// A list of the user's favorite games
         /// </summary>
-        private List<IGame> _favoritesList;
+        [DataMember]
+        private List<Game> _favoritesList;
 
         #endregion
 
@@ -203,7 +215,7 @@ namespace UniCade.Objects
             AllowedEsrbRatings = allowedEsrbRatings;
             Email = email;
             ProfilePicture = profPic;
-            _favoritesList = new List<IGame>();
+            _favoritesList = new List<Game>();
             _userExists = true;
         }
 
@@ -301,7 +313,7 @@ namespace UniCade.Objects
         {
             if (game != null)
             {
-                return _favoritesList.Remove(game);
+                return _favoritesList.Remove((Game) game);
             }
             return false;
         }
