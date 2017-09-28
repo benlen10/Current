@@ -33,10 +33,15 @@ namespace UniCade.Backend
         /// <summary>
         /// Load the database file from the specified path
         /// </summary>
+        /// <returns>false if the database file does not exist</returns>
         public static bool LoadDatabase()
         {
             //First check if the database file exists
-            
+            if (!File.Exists(ConstValues.DatabaseFileName))
+            {
+                return false;
+            }
+
             var consoleList = new List<Console>();
 
             DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
@@ -50,29 +55,11 @@ namespace UniCade.Backend
             return true;
         }
 
-        public static void SaveToXml()
-        {
-            var consoleList = new List<IConsole>();
-
-            foreach (string consoleName in Database.GetConsoleList())
-            {
-                consoleList.Add(Database.GetConsole(consoleName));
-            }
-
-            DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
-            using (FileStream fs = File.Open("database2.xml", FileMode.Create))
-            {
-                s.WriteObject(fs, consoleList);
-            }
-
-        }
-
         /// <summary>
         /// Save the database to the specified path. Delete any preexisting database files
         /// </summary>
         public static void SaveDatabase()
         {
-
             var consoleList = new List<Console>();
             foreach (string consoleName in Database.GetConsoleList())
             {
@@ -90,54 +77,6 @@ namespace UniCade.Backend
             {
                 s.WriteObject(xmlWriter, consoleList);
             }
-
-            /*
-            XmlSerializer xs = new XmlSerializer(typeof(List<Console>));
-            TextWriter tw = new StreamWriter(@"database.xml");
-            var consoleList = new List<Console>();
-
-            foreach (string consoleName in Database.GetConsoleList())
-            {
-                consoleList.Add((Console) Database.GetConsole(consoleName));
-            }
-
-            xs.Serialize(tw, consoleList);
-            */
-
-            /*
-            //Delete any preexisting database files 
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-
-            try
-            {
-                using (StreamWriter streamWriter = File.CreateText(path))
-                {
-                    foreach (string consoleName in Database.GetConsoleList())
-                    {
-                        IConsole console = Database.GetConsole(consoleName);
-                        streamWriter.WriteLine(
-                            $"***{console.ConsoleName}|{console.EmulatorExePath}|{console.RomFolderPath}|PrefPath|{console.RomExtension}|{console.GetGameCount()}|Console Info|{console.LaunchParams}|{console.ReleaseDate}|");
-                        if (console.GetGameCount() > 0)
-                        {
-                            var gameList = console.GetGameList();
-                            foreach (string gameTitle in gameList)
-                            {
-                                IGame game = console.GetGame(gameTitle);
-                                streamWriter.WriteLine(
-                                    $"{game.FileName}|{game.ConsoleName}|{game.GetLaunchCount()}|{game.ReleaseDate}|{game.PublisherName}|{game.DeveloperName}|{game.UserReviewScore}|{game.CriticReviewScore}|{game.SupportedPlayerCount}|Trivia|{game.EsrbRatingsRating}|{game.GetEsrbDescriptorsString()}|{game.EsrbSummary}|{game.Description}|{game.Genres}|{game.Tags}|{game.Favorite}");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(Strings.ErrorSavingDatabase + Program.DatabasePath + Strings.NewLine + e.Message);
-            }
-            */
         }
 
 

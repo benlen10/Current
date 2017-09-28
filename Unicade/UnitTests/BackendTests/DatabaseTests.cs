@@ -270,16 +270,5 @@ namespace UnitTests.BackendTests
             Assert.IsFalse(Database.AddUser(lastUser),
                 $"Verify that user number {ConstValues.MaxUserCount + 1} cannot be added since it exceeeds {ConstValues.MaxUserCount}");
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        public void SaveToXmlTest()
-        {
-            //FileOps.StartupScan();
-            FileOps.SaveToXml();
-        }
     }
 }
