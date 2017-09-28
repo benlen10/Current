@@ -1,15 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 
 namespace UniCade.Objects
 {
-    internal class Game : IGame
+    [DataContract]
+    public class Game : IGame
     {
 
         #region Public Properties
+
+        /// <summary>
+        /// The common title (display name) of the game
+        /// </summary>
+        [DataMember]
+        public string Title { get; private set; }
+
+        /// <summary>
+        /// The name of the console that the game belongs to
+        /// </summary>
+        [DataMember]
+        public string ConsoleName { get; private set; }
 
         /// <summary>
         /// The raw filename for the ROM file
@@ -46,16 +60,6 @@ namespace UniCade.Objects
                 _fileName = value;
             }
         }
-
-        /// <summary>
-        /// The common title (display name) of the game
-        /// </summary>
-        public string Title { get; }
-
-        /// <summary>
-        /// The name of the console that the game belongs to
-        /// </summary>
-        public string ConsoleName { get; }
 
         /// <summary>
         /// Brief game description or overview
@@ -324,11 +328,13 @@ namespace UniCade.Objects
         /// <summary>
         /// Int value representing the favorite status of the game
         /// </summary>
+        [DataMember]
         public bool Favorite { get; set; }
 
         /// <summary>
         /// The ESRB content rating
         /// </summary>
+        [DataMember]
         public Enums.EsrbRatings EsrbRatingsRating { get; set; }
 
         #endregion
@@ -338,16 +344,19 @@ namespace UniCade.Objects
         /// <summary>
         /// The unique game identifier for the GamesDB API
         /// </summary>
+        [DataMember]
         public int GamesdbApiId { get; set; }
 
         /// <summary>
         /// The unique game identifier for the MobyGames API
         /// </summary>
+        [DataMember]
         public int MobygamesApiId { get; set; }
 
         /// <summary>
         /// The unique game identifier for the IGDB API
         /// </summary>
+        [DataMember]
         public int IgdbApiId { get; set; }
 
         #endregion
@@ -357,81 +366,85 @@ namespace UniCade.Objects
         /// <summary>
         /// The name of the console that the game belongs to
         /// </summary>
-        private string _consoleName;
-
-        /// <summary>
-        /// The name of the console that the game belongs to
-        /// </summary>
+        [DataMember]
         private string _fileName;
-
-        /// <summary>
-        /// The title of the game
-        /// </summary>
-        private string _title;
 
         /// <summary>
         /// A brief description for the current game
         /// </summary>
+        [DataMember]
         private string _gameDescription;
 
         /// <summary>
         /// The release date for the current game
         /// </summary>
+        [DataMember]
         private string _releaseDate;
 
         /// <summary>
         /// The release date for the current game
         /// </summary>
+        [DataMember]
         private string _publisherName;
 
         /// <summary>
         /// The release date for the current game
         /// </summary>
+        [DataMember]
         private string _developerName;
 
         /// <summary>
         /// The current game genres
         /// </summary>
+        [DataMember]
         private string _genres;
 
         /// <summary>
         /// A list of common tags tags for the current gam
         /// </summary>
+        [DataMember]
         private string _tags;
 
         /// <summary>
         /// The average user review score out of 100
         /// </summary>
+        [DataMember]
         private string _userReviewScore;
 
         /// <summary>
         /// The average critic review score out of 100
         /// </summary>
+        [DataMember]
         private string _criticReviewScore;
 
         /// <summary>
         /// Trivia facts for the current game
         /// </summary>
+        [DataMember]
         private string _trivia;
 
         /// <summary>
         /// The supported number of players
         /// </summary>
+        [DataMember]
         private string _supportedPlayerCount;
 
         /// <summary>
         /// The ESRB content descriptors
         /// </summary>
+        [DataMember]
         private List<Enums.EsrbDescriptors> _esrbDescriptors;
 
         /// <summary>
         /// Detailed summary of the ESRB rating
         /// </summary>
+        [DataMember]
         private string _esrbSummary;
 
         /// <summary>
         /// The number of times the game has been launched
         /// </summary>
+        [DataMember]
         private int _launchCount;
 
         #endregion

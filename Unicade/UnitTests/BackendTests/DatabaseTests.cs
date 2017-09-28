@@ -131,7 +131,8 @@ namespace UnitTests.BackendTests
             Assert.IsTrue(Database.GetCurrentUser().Username.Equals("UniCade"));
 
             //Add a new user to the UserList and attempt to change the current user
-            IUser newUser2 = new User("newUser2", "temp", 0, "newUser2@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
+            IUser newUser2 = new User("newUser2", "temp", 0, "newUser2@unicade.com", 0, " ", Enums.EsrbRatings.Null,
+                "");
             Database.AddUser(newUser2);
             Assert.IsTrue(Database.SetCurrentUser(newUser2.Username));
 
@@ -219,7 +220,8 @@ namespace UnitTests.BackendTests
         public void VerifyDuplicateUsersDisallowed()
         {
             //Verify that you are not able to add a new user with the username "UniCade"
-            IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
+            IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.EsrbRatings.Null,
+                "");
             Assert.IsFalse(Database.AddUser(uniCadeUser));
 
             //Verify that you can add a new user with a unique username
@@ -241,11 +243,13 @@ namespace UnitTests.BackendTests
             for (int iterator = 1; iterator < ConstValues.MaxConsoleCount; iterator++)
             {
                 IConsole console = new Console(("console" + iterator));
-                Assert.IsTrue(Database.AddConsole(console), $"Verify that console number {iterator}can be added properly");
+                Assert.IsTrue(Database.AddConsole(console),
+                    $"Verify that console number {iterator}can be added properly");
             }
 
             IConsole lastConsole = new Console("lastConsole");
-            Assert.IsFalse(Database.AddConsole(lastConsole), $"Verify that console number {ConstValues.MaxConsoleCount + 1} cannot be added since it exceeeds {ConstValues.MaxConsoleCount}");
+            Assert.IsFalse(Database.AddConsole(lastConsole),
+                $"Verify that console number {ConstValues.MaxConsoleCount + 1} cannot be added since it exceeeds {ConstValues.MaxConsoleCount}");
         }
 
         /// <summary>
@@ -257,12 +261,25 @@ namespace UnitTests.BackendTests
         {
             for (int iterator = 1; iterator < ConstValues.MaxUserCount; iterator++)
             {
-                IUser user = new User(("user" + iterator), "temp", 0, "user@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
+                IUser user = new User(("user" + iterator), "temp", 0, "user@unicade.com", 0, " ",
+                    Enums.EsrbRatings.Null, "");
                 Assert.IsTrue(Database.AddUser(user), $"Verify that user number {iterator}can be added properly");
             }
 
             IUser lastUser = new User("lastUser", "temp", 0, "user@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
-            Assert.IsFalse(Database.AddUser(lastUser), $"Verify that user number {ConstValues.MaxUserCount + 1} cannot be added since it exceeeds {ConstValues.MaxUserCount}");
+            Assert.IsFalse(Database.AddUser(lastUser),
+                $"Verify that user number {ConstValues.MaxUserCount + 1} cannot be added since it exceeeds {ConstValues.MaxUserCount}");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void SaveToXmlTest()
+        {
+            //FileOps.StartupScan();
+            FileOps.SaveToXml();
         }
     }
 }

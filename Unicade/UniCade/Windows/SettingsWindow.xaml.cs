@@ -358,9 +358,12 @@ namespace UniCade.Windows
                 foreach (string gameTitle in gameList)
                 {
                     IGame g = _currentConsole.GetGame(gameTitle);
-                    if (g.Title.Equals(GamesTabListboxGamesList.SelectedItem.ToString()))
+                    if (g != null)
                     {
-                        _currentGame = g;
+                        if (g.Title.Equals(GamesTabListboxGamesList.SelectedItem.ToString()))
+                        {
+                            _currentGame = g;
+                        }
                     }
                 }
             }
@@ -586,7 +589,7 @@ namespace UniCade.Windows
             }
 
             //If all input fields are valid, save the database
-            FileOps.SaveDatabase(Program.DatabasePath);
+            FileOps.SaveDatabase();
         }
 
         /// <summary>
@@ -667,7 +670,7 @@ namespace UniCade.Windows
             {
                 MessageBox.Show(exception.Message);
             }
-            FileOps.SaveDatabase(Program.DatabasePath);
+            FileOps.SaveDatabase();
             MainWindow.RefreshConsoleList();
         }
 
@@ -808,7 +811,7 @@ namespace UniCade.Windows
         private void UsersTab_CloseButton_Click(object sender, EventArgs e)
         {
             MainWindow.IsSettingsWindowActive = false;
-            FileOps.SavePreferences(Program.PreferencesPath);
+            FileOps.SavePreferences();
             Close();
         }
 
@@ -854,7 +857,7 @@ namespace UniCade.Windows
             uc.ShowDialog();
 
             //Save the user info to the preferences file
-            FileOps.SavePreferences(Program.PreferencesPath);
+            FileOps.SavePreferences();
 
             //Refresh the listbox contents
             UsersTabListboxCurrentUser.Items.Clear();
@@ -866,7 +869,7 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_SaveAllUsersButton_Click(object sender, EventArgs e)
         {
-            FileOps.SavePreferences(Program.PreferencesPath);
+            FileOps.SavePreferences();
         }
 
         /// <summary>
@@ -994,7 +997,7 @@ namespace UniCade.Windows
             PayPerPlay.CoinsRequired = int.Parse(GlobalTabTextboxCoins.Text);
 
             //Save all active preferences to the local preferences file
-            FileOps.SavePreferences(Program.PreferencesPath);
+            FileOps.SavePreferences();
         }
 
         /// <summary>

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using UniCade.Backend;
 using UniCade.Interfaces;
 using UniCade.Constants;
 
 namespace UniCade.Objects
 {
-    internal class Console : IConsole
+    [DataContract]
+    public class Console : IConsole
     {
         #region Properties
 
@@ -216,51 +218,82 @@ namespace UniCade.Objects
 
         #endregion
 
+        #region  API IDs
+
+        /// <summary>
+        /// The unique game identifier for the GamesDB API
+        /// </summary>
+        [DataMember]
+        public int GamesdbApiId { get; set; }
+
+        /// <summary>
+        /// The unique game identifier for the MobyGames API
+        /// </summary>
+        [DataMember]
+        public int MobygamesApiId { get; set; }
+
+        /// <summary>
+        /// The unique game identifier for the IGDB API
+        /// </summary>
+        [DataMember]
+        public int IgdbApiId { get; set; }
+
+        #endregion
+
         #region  Private Instance Fields
 
         /// <summary>
         /// The common display name for the console
         /// </summary>
+        [DataMember]
         private string _consoleName;
 
         /// <summary>
         /// The original release date for the console
         /// </summary>
+        [DataMember]
         private string _releaseDate;
 
         /// <summary>
         /// Full path for the emulators folder
         /// </summary>
+        [DataMember]
         private string _emulatorExePath;
 
         /// <summary>
         /// The full path to the rom directory for the current console
         /// </summary>
+        [DataMember]
         private string _romFolderPath;
 
         /// <summary>
         /// The extensions for the current console
         /// </summary>
+        [DataMember]
         private string _romExtensions;
 
         /// <summary>
         /// Basic console description and info
         /// </summary>
+        [DataMember]
         private string _consoleInfo;
 
         /// <summary>
         /// The launch params for the current emulator
         /// </summary>
+        [DataMember]
         private string _launchParams;
 
         /// <summary>
         /// A list of game objects for the current console instance
         /// </summary>
-        private readonly List<IGame> _gameList;
+        [DataMember]
+        private List<Game> GameList;
 
         /// <summary>
         /// The current game count for the console
         /// </summary>
+        [DataMember]
         private int _gameCount;
 
         #endregion
@@ -273,7 +306,7 @@ namespace UniCade.Objects
         public Console(string consoleName)
         {
             ConsoleName = consoleName;
-            _gameList = new List<IGame>();
+            GameList = new List<Game>();
         }
 
         /// <summary>
@@ -296,7 +329,7 @@ namespace UniCade.Objects
             ConsoleInfo = consoleInfo;
             LaunchParams = launchParam;
             ReleaseDate = releaseDate;
-            _gameList = new List<IGame>();
+            GameList = new List<Game>();
         }
 
         #endregion 
@@ -323,13 +356,13 @@ namespace UniCade.Objects
             }
 
             //If a game with an identical title (or filename) name already exists, return false
-            if (_gameList.Find(e => e.Title.Equals(game.Title)) != null)
+            if (GameList.Find(e => e.Title.Equals(game.Title)) != null)
             {
                 return false;
             }
 
             //If all conditions are valid, add the game and increment the game count for both the console and database 
-            _gameList.Add(game);
+            GameList.Add((Game) game);
             _gameCount++;
             return true;
         }
@@ -343,11 +376,11 @@ namespace UniCade.Objects
         public bool RemoveGame(string gameTitle)
         {
             //Attempt to fetch the console from the current list
-            IGame game = _gameList.Find(e => e.ConsoleName.Equals(gameTitle));
+            Game game = GameList.Find(e => e.ConsoleName.Equals(gameTitle));
 
             if (game != null)
             {
-                _gameList.Remove(game);
+                GameList.Remove(game);
                 _gameCount--;
                 return true;
             }
@@ -361,7 +394,11 @@ namespace UniCade.Objects
         /// <returns>IGame object with the matching title</returns>
         public IGame GetGame(string gameTitle)
         {
-            return _gameList.Find(c => c.Title.Equals(gameTitle));
+            if (gameTitle != null)
+            {
+                return GameList.Find(c => c.Title.Equals(gameTitle));
+            }
+            return null;
         }
 
         /// <summary>
@@ -370,7 +407,7 @@ namespace UniCade.Objects
         /// <returns></returns>
         public List<string> GetGameList()
         {
-            return _gameList.Select(g => g.Title).ToList();
+            return GameList.Select(g => g.Title).ToList();
         }
 
         /// <summary>

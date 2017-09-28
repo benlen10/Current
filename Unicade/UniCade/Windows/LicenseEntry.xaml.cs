@@ -53,13 +53,13 @@ namespace UniCade.Windows
                 //Save the entered values 
                 LicenseEngine.UserLicenseName = TextboxUser.Text;
                 LicenseEngine.UserLicenseKey = TextboxKey.Text;
-                FileOps.SavePreferences(Program.PreferencesPath);
+                FileOps.SavePreferences();
                 Close();
             }
             else
             {
                 LicenseEngine.IsLicenseValid = false;
-                FileOps.SavePreferences(Program.PreferencesPath);
+                FileOps.SavePreferences();
                 MessageBox.Show(this, "License is INVALID");
                 Close();
             }

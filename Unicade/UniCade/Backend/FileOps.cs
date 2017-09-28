@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 using UniCade.Constants;
 using UniCade.Exceptions;
 using UniCade.Interfaces;
@@ -29,55 +33,78 @@ namespace UniCade.Backend
         /// <summary>
         /// Load the database file from the specified path
         /// </summary>
-        public static bool LoadDatabase(string path)
+        public static bool LoadDatabase()
         {
-            if (!File.Exists(path))
+            //First check if the database file exists
+            
+            var consoleList = new List<Console>();
+
+            DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
+            using (FileStream fs = File.Open(ConstValues.DatabaseFileName, FileMode.Open))
             {
-                return false;
+                consoleList = (List<Console>) s.ReadObject(fs);
             }
 
-            string rawLine;
-            int consoleCount = 0;
-            IConsole console = new Console("newConsole");
-            char[] seperatorChar = { '|' };
-            StreamReader file = new StreamReader(path);
+            consoleList.ForEach(c => Database.AddConsole(c));
 
-            while ((rawLine = file.ReadLine()) != null)
-            {
-                var spaceChar = rawLine.Split(seperatorChar);
-                if (rawLine.Substring(0, 5).Contains("***"))
-                {
-                    if (consoleCount > 0)
-                    {
-                        Database.AddConsole(console);
-                    }
-                    console = new Console(spaceChar[0].Substring(3), spaceChar[1], spaceChar[2], spaceChar[3], spaceChar[4], spaceChar[6], spaceChar[7], spaceChar[8]);
-                    consoleCount++;
-                }
-                else
-                {
-                    console.AddGame(new Game(spaceChar[0], spaceChar[1], Int32.Parse(spaceChar[2]), spaceChar[3], spaceChar[4], spaceChar[5], spaceChar[6], spaceChar[7], spaceChar[8], spaceChar[9], Enums.ConvertStringToEsrbEnum(spaceChar[10]), spaceChar[11], spaceChar[12], spaceChar[13], spaceChar[14], spaceChar[15], spaceChar[16]));
-                }
-            }
-            if (consoleCount > 0)
-            {
-                Database.AddConsole(console);
-            }
-
-            if (consoleCount < 1)
-            {
-                MessageBox.Show(Strings.DatabaseCorrupt);
-                return false;
-            }
-            file.Close();
             return true;
+        }
+
+        public static void SaveToXml()
+        {
+            var consoleList = new List<IConsole>();
+
+            foreach (string consoleName in Database.GetConsoleList())
+            {
+                consoleList.Add(Database.GetConsole(consoleName));
+            }
+
+            DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
+            using (FileStream fs = File.Open("database2.xml", FileMode.Create))
+            {
+                s.WriteObject(fs, consoleList);
+            }
+
         }
 
         /// <summary>
         /// Save the database to the specified path. Delete any preexisting database files
         /// </summary>
-        public static void SaveDatabase(string path)
+        public static void SaveDatabase()
         {
+
+            var consoleList = new List<Console>();
+            foreach (string consoleName in Database.GetConsoleList())
+            {
+                consoleList.Add((Console)Database.GetConsole(consoleName));
+            }
+
+            var xmlWriterSettings = new XmlWriterSettings()
+            {
+                Indent = true,
+                IndentChars = "\t"
+            };
+
+            DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
+            using (var xmlWriter = XmlWriter.Create(ConstValues.DatabaseFileName, xmlWriterSettings))
+            {
+                s.WriteObject(xmlWriter, consoleList);
+            }
+
+            /*
+            XmlSerializer xs = new XmlSerializer(typeof(List<Console>));
+            TextWriter tw = new StreamWriter(@"database.xml");
+            var consoleList = new List<Console>();
+
+            foreach (string consoleName in Database.GetConsoleList())
+            {
+                consoleList.Add((Console) Database.GetConsole(consoleName));
+            }
+
+            xs.Serialize(tw, consoleList);
+            */
+
+            /*
             //Delete any preexisting database files 
             if (File.Exists(path))
             {
@@ -88,8 +115,7 @@ namespace UniCade.Backend
             {
                 using (StreamWriter streamWriter = File.CreateText(path))
                 {
-                    var consoleList = Database.GetConsoleList();
-                    foreach (string consoleName in consoleList)
+                    foreach (string consoleName in Database.GetConsoleList())
                     {
                         IConsole console = Database.GetConsole(consoleName);
                         streamWriter.WriteLine(
@@ -111,24 +137,26 @@ namespace UniCade.Backend
             {
                 MessageBox.Show(Strings.ErrorSavingDatabase + Program.DatabasePath + Strings.NewLine + e.Message);
             }
+            */
         }
+
 
         /// <summary>
         /// Load preferences from the specified file path
         /// </summary>
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        public static bool LoadPreferences(string path)
+        public static bool LoadPreferences()
         {
             try
             {
                 //Delete any preexisting preference files 
-                if (!File.Exists(path))
+                if (!File.Exists(ConstValues.PreferencesFileName))
                 {
                     return false;
                 }
 
-                char[] sep = {'|'};
-                StreamReader file = new StreamReader(path);
+                char[] sep = { '|' };
+                StreamReader file = new StreamReader(ConstValues.PreferencesFileName);
                 string line = file.ReadLine();
 
                 var tokenString = line.Split(sep);
@@ -240,17 +268,17 @@ namespace UniCade.Backend
         /// <summary>
         /// Save preferences file to the specified path
         /// </summary>
-        public static void SavePreferences(String path)
+        public static void SavePreferences()
         {
-            if (File.Exists(path))
+            if (File.Exists(ConstValues.PreferencesFileName))
             {
-                File.Delete(path);
+                File.Delete(ConstValues.PreferencesFileName);
             }
 
-            using (StreamWriter sw = File.CreateText(path))
+            using (StreamWriter sw = File.CreateText(ConstValues.PreferencesFileName))
             {
                 sw.WriteLine("CurrentUser|" + Database.GetCurrentUser().Username);
-                sw.WriteLine("_databasePath|" + Program.DatabasePath);
+                sw.WriteLine("_databasePath|" + "databasepath");
                 sw.WriteLine("EmulatorFolderPath|" + "DefaultEmulatorPath");
                 sw.WriteLine("MediaFolderPath|" + Program.MediaPath);
                 sw.WriteLine("ShowSplash|" + Program.ShowSplashScreen);
@@ -575,10 +603,10 @@ namespace UniCade.Backend
         public static void StartupScan()
         {
             //If preferences file does not exist, load default preference values and save a new file
-            if (!LoadPreferences(Program.PreferencesPath))
+            if (!LoadPreferences())
             {
                 RestoreDefaultPreferences();
-                SavePreferences(Program.PreferencesPath);
+                SavePreferences();
                 ShowNotification("WARNING", "Preference file not found.\n Loading defaults...");
             }
 
@@ -596,17 +624,17 @@ namespace UniCade.Backend
             }
 
             //If the database file does not exist in the specified location, load default values and rescan rom directories
-            if (!LoadDatabase(Program.DatabasePath))
+            if (!LoadDatabase())
             {
                 RestoreDefaultConsoles();
                 ScanAllConsoles();
                 try
                 {
-                    SaveDatabase(Program.DatabasePath);
+                    SaveDatabase();
                 }
                 catch
                 {
-                    MessageBox.Show(Strings.ErrorSavingDatabase + Program.DatabasePath);
+                    MessageBox.Show(Strings.ErrorSavingDatabase);
                 }
                 ShowNotification("WARNING", "Database file not found.\n Loading defaults...");
             }

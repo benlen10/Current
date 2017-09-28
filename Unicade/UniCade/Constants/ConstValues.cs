@@ -145,6 +145,16 @@ namespace UniCade.Constants
         /// </summary>
         internal const int MaxGameFileNameLength = 30;
 
+        /// <summary>
+        /// The min length for a game filename
+        /// </summary>
+        internal const string DatabaseFileName = "database.xml";
+
+        /// <summary>
+        /// The min length for a game filename
+        /// </summary>
+        internal const string PreferencesFileName = "preferences.txt";
+
         #endregion
 
         #region  Static Readonly Fields

@@ -12,16 +12,6 @@ namespace UniCade.Backend
         #region Properties
 
         /// <summary>
-        /// The path to the Database.txt file
-        /// </summary>
-        public static readonly string DatabasePath = Directory.GetCurrentDirectory() + @"\Database.txt";
-
-        /// <summary>
-        /// The path to the Preferences.txt file
-        /// </summary>
-        public static readonly string PreferencesPath = Directory.GetCurrentDirectory() + @"\Preferences.txt";
-
-        /// <summary>
         /// Specifies if the UniCade splash screen should be displayed when the interface is launched
         /// </summary>
         public static bool ShowSplashScreen;
@@ -102,6 +92,7 @@ namespace UniCade.Backend
             Database.Initalize();
             FileOps.StartupScan();
             Database.RefreshTotalGameCount();
+
 
             //Launch either the GUI or the legacy command line interface
             if (PerferCmdInterface)

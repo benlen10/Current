@@ -87,8 +87,8 @@ namespace UniCade.ConsoleInterface
                     //(c) = Exit interface
                     if (input.Equals("(x)"))
                     {
-                        FileOps.SaveDatabase(Program.DatabasePath);
-                        FileOps.SavePreferences(Program.PreferencesPath);
+                        FileOps.SaveDatabase();
+                        FileOps.SavePreferences();
                         return;
                     }
                     else if (input.Contains("(r)"))
