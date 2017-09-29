@@ -31,9 +31,10 @@ namespace UniCade.Network
         /// <returns>A collection of games that matched the search terms</returns>
         public static bool UpdateGameInfo(IGame game)
         {
+            string consoleName = ConvertConsoleName(game.ConsoleName);
+
             XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(@"http://thegamesdb.net/api/GetGamesList.php?name=" + game.Title + @"&platform=" +
-                             game.ConsoleName);
+            xmlDocument.Load(@"http://thegamesdb.net/api/GetGamesList.php?name=" + game.Title + @"&platform=" + consoleName);
 
             //Debug
             xmlDocument.Save("searchresults.xml");
@@ -195,7 +196,7 @@ namespace UniCade.Network
                         }
                         else if (attributeNode.Name == "maxcontrollers")
                         {
-                           // int.TryParse(attributeNode.InnerText, out platform.MaxControllers);
+                            // int.TryParse(attributeNode.InnerText, out platform.MaxControllers);
                         }
                         else if (attributeNode.Name == "Rating")
                         {
@@ -203,7 +204,7 @@ namespace UniCade.Network
                         }
                         else if (attributeNode.Name == "Images")
                         {
-                           // platform.Images.FromXmlNode(attributeNode);
+                            // platform.Images.FromXmlNode(attributeNode);
                         }
                     }
                 }
@@ -213,6 +214,18 @@ namespace UniCade.Network
             return false;
         }
 
+        #endregion
+
+        #region Helper Methods
+
+        static string ConvertConsoleName(string consoleName)
+        {
+            if (consoleName.Equals("PS1"))
+            {
+                return "Sony Playstation";
+            }
+            return consoleName;
+        }
         #endregion
     }
 }

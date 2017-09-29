@@ -39,7 +39,7 @@ namespace UniCade.Backend
         /// <returns>false if the string contains any invalid characters</returns>
         public static bool CheckForInvalidSplitChars(string str)
         {
-            return (str.IndexOfAny(new[] { '|' }) != -1);
+            return (str.IndexOfAny(new[] { '|', '<', '>' }) != -1);
         }
 
         /// <summary>
@@ -79,13 +79,27 @@ namespace UniCade.Backend
         /// <returns></returns>
         internal static Enums.EsrbRatings ParseEsrbRating(string str)
         {
-            //Trim leading and trailing spaces before comparing the string values
-            str = str.Trim();
-            foreach (Enums.EsrbRatings esrbRating in Enum.GetValues(typeof(Enums.EsrbDescriptors)))
+            if (str != null)
             {
-                if (string.Equals(str, esrbRating.GetStringValue(), StringComparison.CurrentCultureIgnoreCase))
+                if (str.IndexOf("Everyone 10", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    return esrbRating;
+                    return Enums.EsrbRatings.Everyone10;
+                }
+                if (str.IndexOf("Everyone", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return Enums.EsrbRatings.Everyone;
+                }
+                if (str.IndexOf("Teen", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return Enums.EsrbRatings.Teen;
+                }
+                if (str.IndexOf("Mature", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return Enums.EsrbRatings.Mature;
+                }
+                if (str.IndexOf("Adult", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return Enums.EsrbRatings.Ao;
                 }
             }
             return Enums.EsrbRatings.Null;

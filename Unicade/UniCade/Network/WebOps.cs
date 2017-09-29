@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
@@ -92,6 +93,7 @@ namespace UniCade.Network
 
             if (CurrentApi.Equals(Enums.Api.ThegamesDb))
             {
+                Trace.WriteLine("SCRAPE GAMESDB");
                 GamesdbApi.UpdateGameInfo(game);
             }
             else if (CurrentApi.Equals(Enums.Api.Igdb))

@@ -104,6 +104,12 @@ namespace UniCade.Windows
                 UsersTabDropdownAllowedEsrb.Items.Add(esrb.GetStringValue());
             }
 
+            //Populate the API combo box in the web tab
+            foreach (Enums.Api api in Enum.GetValues(typeof(Enums.Api)))
+            {
+                WebTabApiComboBox.Items.Add(api.GetStringValue());
+            }
+
             //Load UniCade Logo images within the settings window
             try
             {
@@ -384,7 +390,7 @@ namespace UniCade.Windows
             }
 
             //Scrape info and populate local fields
-            //WebOps.ScrapeInfo(_currentGame);
+            WebOps.ScrapeInfo(_currentGame);
             GamesTabTextboxTitle.Text = _currentGame.Title;
             GamesTabTextboxConsole.Text = _currentGame.ConsoleName;
             GamesTabTextboxReleaseDate.Text = _currentGame.ReleaseDate;
@@ -484,7 +490,7 @@ namespace UniCade.Windows
             foreach (string gameTitle in gameList)
             {
                 IGame game1 = _currentConsole.GetGame(gameTitle);
-                //WebOps.ScrapeInfo(game1);
+                WebOps.ScrapeInfo(game1);
             }
             MessageBox.Show("Operation Successful");
         }
@@ -1029,7 +1035,7 @@ namespace UniCade.Windows
 
         #endregion
 
-        #region Web Options Tab
+        #region Web Tab
 
         /// <summary>
         /// Close button
@@ -1067,6 +1073,11 @@ namespace UniCade.Windows
             WebOps.ParseBoxFrontImage = WebTabCheckboxBoxFront.IsChecked.Value;
             WebOps.ParseBoxBackImage = WebTabCheckboxBoxBack.IsChecked.Value;
             WebOps.ParseScreenshot = WebTabCheckboxScreenshot.IsChecked.Value;
+        }
+
+        private void WebTabApiComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            WebOps.CurrentApi = (Enums.Api) WebTabApiComboBox.SelectedIndex;
         }
 
         #endregion
