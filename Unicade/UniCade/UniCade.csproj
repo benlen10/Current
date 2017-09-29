@@ -128,7 +128,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="WebOps\GamesdbApi.cs" />
+    <Compile Include="Network\GamesdbApi.cs" />
     <Compile Include="Windows\AccountWindow.xaml.cs">
       <DependentUpon>AccountWindow.xaml</DependentUpon>
     </Compile>
@@ -145,11 +145,11 @@
     <Compile Include="Windows\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WebOps\SQLclient.cs" />
+    <Compile Include="Network\SQLclient.cs" />
     <Compile Include="Backend\Taskbar.cs" />
     <Compile Include="Constants\TextFiles.cs" />
     <Compile Include="Objects\User.cs" />
-    <Compile Include="WebOps\WebSettings.cs" />
+    <Compile Include="Network\WebOps.cs" />
     <Compile Include="Windows\PassWindow.xaml.cs">
       <DependentUpon>PassWindow.xaml</DependentUpon>
     </Compile>

@@ -5,7 +5,7 @@ using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Objects;
-using UniCade.WebOps;
+using UniCade.Network;
 using Console = UniCade.Objects.Console;
 
 namespace UnitTests.BackendTests
