@@ -9,6 +9,16 @@ namespace UniCade.Constants
         #region Enums
 
         /// <summary>
+        /// Enum Values for the supported APIs
+        /// </summary>
+        public enum Api
+        {
+            [StringValue("ThegamesDB")] ThegamesDb,
+            [StringValue("IGDB")] Igdb,
+            [StringValue("MobyGames")] MobyGames,
+        }
+
+        /// <summary>
         /// Enum Values for ESRB content ratings
         /// </summary>
         public enum EsrbRatings

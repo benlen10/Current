@@ -138,10 +138,9 @@
                     <Label Grid.Row="0" x:Name="GlobalTabLabelGlobalFavorites" Content="Global Favorites" HorizontalAlignment="Left" Margin="607,10,0,0" VerticalAlignment="Top"/>
                     <ListBox x:Name="GlobalTabListboxGlobalFavorites" HorizontalAlignment="Left" Height="304" Margin="567,36,0,0" VerticalAlignment="Top" Width="177"
                              Grid.Row="0" Grid.RowSpan="2"/>
-                    <CheckBox x:Name="GlobalTabCheckboxDisplayLoadingScreen" Content="Display Loading Screen" HorizontalAlignment="Left" Margin="50,76.731,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-                    <CheckBox x:Name="GlobalTabCheckboxRescanAllLibraries" Content="Rescan All Libraries On Statup" HorizontalAlignment="Left" Margin="50,96.731,0,0" VerticalAlignment="Top" Grid.Row="1" />
-                    <CheckBox x:Name="GlobalTabCheckboxDisplayEsrb" Content="Display ESRB While Browising" HorizontalAlignment="Left" Margin="50,116.731,0,0" VerticalAlignment="Top" Grid.Row="1" />
-                    <CheckBox x:Name="GlobalTabCheckboxRequireLogin" Content="Require Login On Startup" HorizontalAlignment="Left" Margin="50,136.731,0,0" VerticalAlignment="Top" Grid.Row="1" />
+                    <CheckBox x:Name="GlobalTabCheckboxDisplayLoadingScreen" Content="Display Loading Screen" HorizontalAlignment="Left" Margin="50,97,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <CheckBox x:Name="GlobalTabCheckboxRescanAllLibraries" Content="Rescan All Libraries On Statup" HorizontalAlignment="Left" Margin="50,117,0,0" VerticalAlignment="Top" Grid.Row="1" />
+                    <CheckBox x:Name="GlobalTabCheckboxDisplayEsrb" Content="Display ESRB While Browising" HorizontalAlignment="Left" Margin="50,137,0,0" VerticalAlignment="Top" Grid.Row="1" />
                     <CheckBox x:Name="GlobalTabCheckboxDisplaySplash" Content="Display Splash" HorizontalAlignment="Left" Margin="50,156.731,0,0" VerticalAlignment="Top" Grid.Row="1"/>
                     <CheckBox x:Name="GlobalTabCheckboxEnablePayPerPlay" Content = "Enable Pay Per Play" HorizontalAlignment="Left" Margin="273,84.731,0,0" VerticalAlignment="Top" Grid.Row="1" Checked  ="GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged"  Unchecked  = "GlobalSettingsTab_TogglePayPerPlayCheckbox_CheckedChanged"/>
                     <CheckBox Grid.Row="0" x:Name="GlobalTabCheckboxToView" Content="Restrict Viewing" HorizontalAlignment="Left" Margin="334,36,0,0" VerticalAlignment="Top" />
@@ -152,7 +151,7 @@
                     <Button x:Name="GlobalTabButtonClose" Content="Close" HorizontalAlignment="Left" Margin="50,194.731,0,0" VerticalAlignment="Top" Width="90" Height="29" Click="GlobalSettingsTab_CloseButton_Click" Grid.Row="1"/>
                     <Button x:Name="GlobalTabButtonRefreshFavorites" Content="Refresh Favorites" HorizontalAlignment="Left" Margin="567,195,0,0" VerticalAlignment="Top" Width="177" Height="29" Click="GlobalSettingsTab_RefreshGlobalFavoritesButton_Click" Grid.Row="1"/>
                     <PasswordBox Grid.Row="0" x:Name="GlobalTabTextboxPassword" HorizontalAlignment="Left" Margin="173,67,0,0" VerticalAlignment="Top" Width="155" Height="23" MaxLength="8"/>
-                    <CheckBox x:Name="GlobalTabCheckboxEnforceFileExtension" Content="Enforce ROM Extensions" HorizontalAlignment="Left" Margin="50,56.731,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <CheckBox x:Name="GlobalTabCheckboxEnforceFileExtension" Content="Enforce ROM Extensions" HorizontalAlignment="Left" Margin="50,77,0,0" VerticalAlignment="Top" Grid.Row="1"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Web">

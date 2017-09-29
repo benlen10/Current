@@ -7,7 +7,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
 using System.Xml;
-using System.Xml.Serialization;
 using UniCade.Constants;
 using UniCade.Exceptions;
 using UniCade.Interfaces;
@@ -42,7 +41,7 @@ namespace UniCade.Backend
                 return false;
             }
 
-            var consoleList = new List<Console>();
+            List<Console> consoleList;
 
             DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
             using (FileStream fs = File.Open(ConstValues.DatabaseFileName, FileMode.Open))
@@ -60,11 +59,7 @@ namespace UniCade.Backend
         /// </summary>
         public static void SaveDatabase()
         {
-            var consoleList = new List<Console>();
-            foreach (string consoleName in Database.GetConsoleList())
-            {
-                consoleList.Add((Console)Database.GetConsole(consoleName));
-            }
+            var consoleList = Database.GetConsoleList().Select(consoleName => (Console) Database.GetConsole(consoleName)).ToList();
 
             var xmlWriterSettings = new XmlWriterSettings()
             {
@@ -92,7 +87,7 @@ namespace UniCade.Backend
                 return false;
             }
 
-            CurrentSettings currentSettings = null;
+            CurrentSettings currentSettings;
 
             DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(CurrentSettings));
             using (FileStream fileStream = File.Open(ConstValues.PreferencesFileName, FileMode.Open))
@@ -153,7 +148,7 @@ namespace UniCade.Backend
             };
 
             DataContractSerializer s = new DataContractSerializer(typeof(CurrentSettings));
-            using (var xmlWriter = XmlWriter.Create("preferences.xml", xmlWriterSettings))
+            using (var xmlWriter = XmlWriter.Create(ConstValues.PreferencesFileName, xmlWriterSettings))
             {
                 s.WriteObject(xmlWriter, currentSettings);
             }
@@ -374,7 +369,7 @@ namespace UniCade.Backend
         /// <summary>
         /// Validate the integrity of the Media folder located in the current working directory
         /// </summary>
-        public static bool VerifyMediaDirectory()
+        public static bool VerifyMediaDirectoryIntegrity()
         {
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media"))
             {
@@ -463,7 +458,7 @@ namespace UniCade.Backend
 
 
             //Verify the integrity of the local media directory and end the program if corruption is dectected  
-            if (!VerifyMediaDirectory())
+            if (!VerifyMediaDirectoryIntegrity())
             {
                 return;
             }
