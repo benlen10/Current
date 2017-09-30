@@ -382,7 +382,7 @@ namespace UniCade.Windows
         /// </summary>
         internal void GamesTab_RescrapeGameButton_Click(object sender, EventArgs e)
         {
-            //Require that a user select a valid game to rescrape
+            //Require that a user select a valid game to rglescrape
             if (GamesTabListboxGamesList.SelectedItem == null)
             {
                 MessageBox.Show("Must select a console/game");
@@ -1015,7 +1015,23 @@ namespace UniCade.Windows
             PayPerPlay.PayPerPlayEnabled = GlobalTabCheckboxEnablePayPerPlay.IsChecked.Value;
             GlobalTabTextboxCoins.IsEnabled = GlobalTabCheckboxEnablePayPerPlay.IsChecked.Value;
             GlobalTabTextboxPlaytime.IsEnabled = GlobalTabCheckboxEnablePayPerPlay.IsChecked.Value;
+        }
 
+        /// <summary>
+        /// Refresh global favorites button
+        /// </summary>
+        private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, EventArgs e)
+        {
+            RefreshGlobalFavs();
+        }
+
+        /// <summary>
+        /// Refresh the most played games list
+        /// </summary>
+        private void GlobalTabButtonRefreshMostPlayedList_Click(object sender, EventArgs e)
+        {
+            //TODO
+            //GlobalTabListBoxMostPlayedList
         }
 
         /// <summary>
@@ -1025,14 +1041,6 @@ namespace UniCade.Windows
         {
             MainWindow.IsSettingsWindowActive = false;
             Close();
-        }
-
-        /// <summary>
-        /// Refresh global favorites button
-        /// </summary>
-        private void GlobalSettingsTab_RefreshGlobalFavoritesButton_Click(object sender, EventArgs e)
-        {
-            RefreshGlobalFavs();
         }
 
         #endregion
@@ -1319,5 +1327,7 @@ namespace UniCade.Windows
         }
 
         #endregion
+
+        
     }
 }
