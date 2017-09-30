@@ -400,6 +400,7 @@ namespace UniCade.Windows
             GamesTabTextboxEsrb.Text = _currentGame.EsrbRatingsRating.GetStringValue();
             GamesTabTextboxPlayers.Text = _currentGame.SupportedPlayerCount;
             GamesTabTextboxEsrbDescriptor.Text = _currentGame.GetEsrbDescriptorsString();
+            GamesTabTextboxGenres.Text = _currentGame.Genres;
             GamesTabTextboxDescription.Text = _currentGame.Description;
             RefreshEsrbIcon(_currentGame);
         }
@@ -583,6 +584,7 @@ namespace UniCade.Windows
                 _currentGame.DeveloperName = GamesTabTextboxDeveloper.Text;
                 _currentGame.Description = GamesTabTextboxDescription.Text;
                 _currentGame.AddEsrbDescriptorsFromString(GamesTabTextboxEsrbDescriptor.Text);
+                _currentGame.Genres = GamesTabTextboxGenres.Text;
                 _currentGame.Favorite = GamesTabCheckBoxGlobalFavorite.IsChecked.Value;
             }
             catch (ArgumentException e)
@@ -1257,6 +1259,7 @@ namespace UniCade.Windows
             GamesTabTextboxEsrb.Text = game.EsrbRatingsRating.GetStringValue();
             GamesTabTextboxPlayers.Text = game.SupportedPlayerCount;
             GamesTabTextboxEsrbDescriptor.Text = game.GetEsrbDescriptorsString();
+            GamesTabTextboxGenres.Text = game.Genres;
             GamesTabTextboxDescription.Text = game.Description;
             GamesTabTextboxLaunchCount.Text = game.GetLaunchCount().ToString();
             GamesTabCheckBoxGlobalFavorite.IsChecked = game.Favorite;

@@ -91,11 +91,7 @@ namespace UniCade.Network
                     var attributeNode = (XmlNode)ienumGame.Current;
 
                     // Iterate through all platform attributes
-                    if (attributeNode.Name == "Overview")
-                    {
-                        game.Description = attributeNode.InnerText;
-                    }
-                    else if (attributeNode.Name == "overview")
+                    if ((attributeNode.Name == "Overview") || (attributeNode.Name == "overview"))
                     {
                         game.Description = attributeNode.InnerText;
                     }
@@ -117,15 +113,17 @@ namespace UniCade.Network
                     }
                     else if (attributeNode.Name == "Rating")
                     {
-                        game.UserReviewScore = attributeNode.InnerText;
+                        game.CriticReviewScore = attributeNode.InnerText;
                     }
                     else if (attributeNode.Name == "Genres")
                     {
                         IEnumerator ienumGenres = attributeNode.GetEnumerator();
+                        game.Genres = "";
                         while (ienumGenres.MoveNext())
                         {
-                            game.Genres += ((XmlNode)ienumGenres.Current).InnerText + " ";
+                            game.Genres += ((XmlNode)ienumGenres.Current).InnerText + ", ";
                         }
+                        game.Genres = game.Genres.Substring(0, game.Genres.Length - 2);
                     }
                 }
                 return true;
