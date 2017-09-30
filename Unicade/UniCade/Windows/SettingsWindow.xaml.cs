@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -10,6 +12,7 @@ using UniCade.ConsoleInterface;
 using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Network;
+using UniCade.Objects;
 using Console = UniCade.Objects.Console;
 
 namespace UniCade.Windows
@@ -1030,12 +1033,25 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalTabButtonRefreshMostPlayedList_Click(object sender, EventArgs e)
         {
-            //TODO
-            //GlobalTabListBoxMostPlayedList
+            List<Game> unsortedList = new List<Game>();
+
+            foreach (string consoleName in Database.GetConsoleList())
+            {
+                Console console = (Console) Database.GetConsole(consoleName);
+                foreach (string gameName in console.GetGameList())
+                {
+                    unsortedList.Add( (Game) console.GetGame(gameName));
+                }
+            }
+            List <Game> sortedList = unsortedList.OrderBy(g => g.GetLaunchCount()).ToList();
+
+            List<Game> mostPlayedList = sortedList.Take(10).ToList();
+            mostPlayedList.ForEach(g => GlobalTabListBoxMostPlayedList.Items.Add($"({g.GetLaunchCount()}) " + g.Title + " - " + g.ConsoleName )); 
+            System.Console.WriteLine("Debug");
         }
 
         /// <summary>
-        /// Close button
+        /// Close buttonl
         /// </summary>
         private void GlobalSettingsTab_CloseButton_Click(object sender, EventArgs e)
         {
