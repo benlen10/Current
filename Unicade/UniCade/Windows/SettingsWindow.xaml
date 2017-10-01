@@ -33,7 +33,7 @@
                     <Label x:Name="GamesTabLabelPlayers" Content="Players" HorizontalAlignment="Left" Margin="330,321,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.149,0.467"/>
                     <Label x:Name="GamesTabLabelLaunchCount" Content="Launch Count" HorizontalAlignment="Left" Margin="425,321,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelBoxFront" Content="Boxfront" HorizontalAlignment="Left" Margin="563,26,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="GamesTabLabelBoxBack" Content="Boxback" HorizontalAlignment="Left" Margin="671,26,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTabLabelBoxBack" Content="Boxback" HorizontalAlignment="Left" Margin="667,26,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelScreenshot" Content="Screenshot" HorizontalAlignment="Left" Margin="622,165,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelEsrb" Content="ESRB" HorizontalAlignment="Left" Margin="684,289,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelTotalGames" Content="Total Games" HorizontalAlignment="Left" Margin="10,343,0,0" VerticalAlignment="Top"/>
@@ -208,7 +208,9 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="GamesTabButtonAddBoxfrontImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34" Margin="624,35,0,0" Click="GamesTabButtonAddBoxfrontImage_Click"/>
+        <Button x:Name="GamesTabButtonAddBoxfrontImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34" Margin="624,35,0,0" Click="GamesTabButtonAddBoxfrontImage_Click" Height="20"/>
+        <Button x:Name="GamesTabButtonAddBoxbackImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="33" Margin="723,35,0,0" RenderTransformOrigin="0.711,1.328" Height="20" Click="GamesTabButtonAddBoxbackImage_Click"/>
+        <Button x:Name="GamesTabButtonAddscreenshotImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="33" Margin="694,174,0,0" Click="GamesTabButtonAddscreenshotImage_Click"/>
 
 
     </Grid>

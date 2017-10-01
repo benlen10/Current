@@ -1370,7 +1370,55 @@ namespace UniCade.Windows
                 System.IO.Directory.CreateDirectory(directoryPath);
             }
 
+            string destFileName = directoryPath + _currentGame.Title + "_BoxFront.jpg";
+
+            //Save the image as a jpg in the proper directory
+            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            //After saving the image as a jpg file, refresh the current game info
+            RefreshGameInfo(_currentGame);
+        }
+
+        private void GamesTabButtonAddBoxbackImage_Click(object sender, RoutedEventArgs e)
+        {
+            //Display the open file dialog
+            string sourcePath = BrowseForImage();
+
+            //Load the image
+            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
+
+            //If the directory does not exist, create it
+            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
+            if (!System.IO.Directory.Exists(directoryPath))
+            {
+                System.IO.Directory.CreateDirectory(directoryPath);
+            }
+
             string destFileName = directoryPath + _currentGame.Title + "_BoxBack.jpg";
+
+            //Save the image as a jpg in the proper directory
+            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            //After saving the image as a jpg file, refresh the current game info
+            RefreshGameInfo(_currentGame);
+        }
+
+        private void GamesTabButtonAddscreenshotImage_Click(object sender, RoutedEventArgs e)
+        {
+            //Display the open file dialog
+            string sourcePath = BrowseForImage();
+
+            //Load the image
+            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
+
+            //If the directory does not exist, create it
+            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
+            if (!System.IO.Directory.Exists(directoryPath))
+            {
+                System.IO.Directory.CreateDirectory(directoryPath);
+            }
+
+            string destFileName = directoryPath + _currentGame.Title + "_Screenshot.jpg";
 
             //Save the image as a jpg in the proper directory
             image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
