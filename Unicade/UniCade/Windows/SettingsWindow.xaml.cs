@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -1047,7 +1048,6 @@ namespace UniCade.Windows
 
             List<Game> mostPlayedList = sortedList.Take(10).ToList();
             mostPlayedList.ForEach(g => GlobalTabListBoxMostPlayedList.Items.Add($"({g.GetLaunchCount()}) " + g.Title + " - " + g.ConsoleName )); 
-            System.Console.WriteLine("Debug");
         }
 
         /// <summary>
@@ -1291,19 +1291,19 @@ namespace UniCade.Windows
             GamesTabImageBoxfront.Source = null;
             GamesTabImageBoxback.Source = null;
             GamesTabImageScreeshot.Source = null;
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"))
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.jpg"))
             {
-                GamesTabImageBoxfront.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"));
+                GamesTabImageBoxfront.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.jpg"));
             }
 
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png"))
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.jpg"))
             {
-                GamesTabImageBoxback.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png"));
+                GamesTabImageBoxback.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.jpg"));
             }
 
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png"))
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.jpg"))
             {
-                GamesTabImageScreeshot.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png"));
+                GamesTabImageScreeshot.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.jpg"));
             }
         }
         /// <summary>
@@ -1342,8 +1342,41 @@ namespace UniCade.Windows
 
         }
 
+        public string BrowseForImage()
+        {
+            var openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                return openFileDialog.FileName;
+            }
+            return null;
+        }
+
+
         #endregion
 
-        
+        private void GamesTabButtonAddBoxfrontImage_Click(object sender, RoutedEventArgs e)
+        {
+            //Display the open file dialog
+            string sourcePath = BrowseForImage();
+
+            //Load the image
+            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
+            
+            //If the directory does not exist, create it
+            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
+            if (!System.IO.Directory.Exists(directoryPath))
+            {
+                System.IO.Directory.CreateDirectory(directoryPath);
+            }
+
+            string destFileName = directoryPath + _currentGame.Title + "_BoxBack.jpg";
+
+            //Save the image as a jpg in the proper directory
+            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            //After saving the image as a jpg file, refresh the current game info
+            RefreshGameInfo(_currentGame);
+        }
     }
 }

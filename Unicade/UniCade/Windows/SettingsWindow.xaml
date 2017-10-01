@@ -32,7 +32,7 @@
                     <Label x:Name="GamesTabLabelCriticScore" Content="Critic Score" HorizontalAlignment="Left" Margin="218,321,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelPlayers" Content="Players" HorizontalAlignment="Left" Margin="330,321,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.149,0.467"/>
                     <Label x:Name="GamesTabLabelLaunchCount" Content="Launch Count" HorizontalAlignment="Left" Margin="425,321,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="GamesTabLabelBoxFront" Content="Boxfront" HorizontalAlignment="Left" Margin="572,26,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="GamesTabLabelBoxFront" Content="Boxfront" HorizontalAlignment="Left" Margin="563,26,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelBoxBack" Content="Boxback" HorizontalAlignment="Left" Margin="671,26,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelScreenshot" Content="Screenshot" HorizontalAlignment="Left" Margin="622,165,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelEsrb" Content="ESRB" HorizontalAlignment="Left" Margin="684,289,0,0" VerticalAlignment="Top"/>
@@ -208,6 +208,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Button x:Name="GamesTabButtonAddBoxfrontImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34" Margin="624,35,0,0" Click="GamesTabButtonAddBoxfrontImage_Click"/>
 
 
     </Grid>
