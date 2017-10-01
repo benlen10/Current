@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Xml;
 using UniCade.Backend;
 using UniCade.Interfaces;
+using UniCade.Objects;
 using Console = UniCade.Objects.Console;
 
 namespace UniCade.Network
@@ -125,6 +130,41 @@ namespace UniCade.Network
                         }
                         game.Genres = game.Genres.Substring(0, game.Genres.Length - 2);
                     }
+                    else if (attributeNode.Name == "Images")
+                    {
+                        GameImages gameImages = new GameImages();
+                        gameImages.LoadFromNode(attributeNode);
+
+                        using (WebClient client = new WebClient())
+                        {
+                            if (gameImages.BoxartBack != null)
+                            {
+                                string boxBackImagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" +
+                                                          game.ConsoleName + "\\" + game.Title + "_BoxBack.jpg";
+                                string boxbackImageUrl = BaseImgUrl + gameImages.BoxartBack;
+                                client.DownloadFile(boxbackImageUrl, boxBackImagePath);
+                            }
+
+                            if (gameImages.BoxartFront != null)
+                            {
+                                string boxfrontImagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" +
+                                                           game.ConsoleName + "\\" + game.Title + "_BoxFront.jpg";
+                                string boxfrontImageUrl = BaseImgUrl + gameImages.BoxartFront;
+                                client.DownloadFile(boxfrontImageUrl, boxfrontImagePath);
+                            }
+
+                            if (gameImages.Screenshots.Count > 0)
+                            {
+                                string screenshotImagePath =
+                                    Directory.GetCurrentDirectory() + @"\Media\Games\" + game.ConsoleName + "\\" + game.Title + "_Screenshot.jpg";
+                                string screenshotImageUrl = BaseImgUrl + gameImages.Screenshots.First();
+                                client.DownloadFile(screenshotImageUrl, screenshotImagePath);
+                            }
+                        }
+                    }
+
+
+
                 }
                 return true;
             }
@@ -227,3 +267,4 @@ namespace UniCade.Network
         #endregion
     }
 }
+

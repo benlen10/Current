@@ -395,18 +395,9 @@ namespace UniCade.Windows
 
             //Scrape info and populate local fields
             WebOps.ScrapeInfo(_currentGame);
-            GamesTabTextboxTitle.Text = _currentGame.Title;
-            GamesTabTextboxConsole.Text = _currentGame.ConsoleName;
-            GamesTabTextboxReleaseDate.Text = _currentGame.ReleaseDate;
-            GamesTabTextboxCriticScore.Text = _currentGame.CriticReviewScore;
-            GamesTabTextboxPublisher.Text = _currentGame.PublisherName;
-            GamesTabTextboxDeveloper.Text = _currentGame.DeveloperName;
-            GamesTabTextboxEsrb.Text = _currentGame.EsrbRatingsRating.GetStringValue();
-            GamesTabTextboxPlayers.Text = _currentGame.SupportedPlayerCount;
-            GamesTabTextboxEsrbDescriptor.Text = _currentGame.GetEsrbDescriptorsString();
-            GamesTabTextboxGenres.Text = _currentGame.Genres;
-            GamesTabTextboxDescription.Text = _currentGame.Description;
-            RefreshEsrbIcon(_currentGame);
+
+            //Refresh the info for the current game
+            RefreshGameInfo(_currentGame);
         }
 
         /// <summary>
@@ -1287,6 +1278,8 @@ namespace UniCade.Windows
             GamesTabTextboxDescription.Text = game.Description;
             GamesTabTextboxLaunchCount.Text = game.GetLaunchCount().ToString();
             GamesTabCheckBoxGlobalFavorite.IsChecked = game.Favorite;
+
+            RefreshEsrbIcon(_currentGame);
 
             GamesTabImageBoxfront.Source = null;
             GamesTabImageBoxback.Source = null;

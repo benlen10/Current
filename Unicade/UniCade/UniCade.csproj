@@ -123,6 +123,7 @@
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IConsole.cs" />
     <Compile Include="Objects\CurrentSettings.cs" />
+    <Compile Include="Objects\GameImages.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
