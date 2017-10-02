@@ -509,7 +509,13 @@ namespace UniCade.Windows
         /// </summary>
         private void Image_Screenshot_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-         
+            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentGame.ConsoleName + "\\" + _currentGame.Title + "_Screenshot.jpg";
+            if (File.Exists(imagePath))
+            {
+                ImagePopup imagePopup = new ImagePopup(imagePath);
+                imagePopup.Title = _currentGame.Title + " Screenshot Image";
+                imagePopup.ShowDialog();
+            }
         }
 
         /// <summary>
