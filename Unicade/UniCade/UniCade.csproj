@@ -137,6 +137,9 @@
       <DependentUpon>GameInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Backend\GlobalKeyboardHook.cs" />
+    <Compile Include="Windows\ImagePopup.xaml.cs">
+      <DependentUpon>ImagePopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LicenseEntry.xaml.cs">
       <DependentUpon>LicenseEntry.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\GameInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ImagePopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

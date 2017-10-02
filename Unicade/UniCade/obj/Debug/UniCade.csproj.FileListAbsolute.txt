@@ -136,3 +136,6 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCa
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.exe
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.pdb
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.csprojResolveAssemblyReference.cache
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\ImagePopup.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade_MarkupCompile.lref
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\ImagePopup.baml

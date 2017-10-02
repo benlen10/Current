@@ -520,6 +520,15 @@ namespace UniCade.Windows
         /// </summary>
         private void Image_Boxback_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+
+
+            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentGame.ConsoleName + "\\" + _currentGame.Title + "_BoxFront.jpg";
+            if (File.Exists(imagePath))
+            {
+                ImagePopup imagePopup = new ImagePopup(imagePath);
+                imagePopup.ShowDialog();
+            }
+            /*
             if (!_isBoxfrontExpanded && !_isScreenshotExpanded)
             {
                 if (!_isBoxBackExpanded)
@@ -537,6 +546,7 @@ namespace UniCade.Windows
                     _isBoxBackExpanded = false;
                 }
             }
+            */
         }
 
         /// <summary>
@@ -1029,16 +1039,16 @@ namespace UniCade.Windows
 
             foreach (string consoleName in Database.GetConsoleList())
             {
-                Console console = (Console) Database.GetConsole(consoleName);
+                Console console = (Console)Database.GetConsole(consoleName);
                 foreach (string gameName in console.GetGameList())
                 {
-                    unsortedList.Add( (Game) console.GetGame(gameName));
+                    unsortedList.Add((Game)console.GetGame(gameName));
                 }
             }
-            List <Game> sortedList = unsortedList.OrderBy(g => g.GetLaunchCount()).ToList();
+            List<Game> sortedList = unsortedList.OrderBy(g => g.GetLaunchCount()).ToList();
 
             List<Game> mostPlayedList = sortedList.Take(10).ToList();
-            mostPlayedList.ForEach(g => GlobalTabListBoxMostPlayedList.Items.Add($"({g.GetLaunchCount()}) " + g.Title + " - " + g.ConsoleName )); 
+            mostPlayedList.ForEach(g => GlobalTabListBoxMostPlayedList.Items.Add($"({g.GetLaunchCount()}) " + g.Title + " - " + g.ConsoleName));
         }
 
         /// <summary>
@@ -1094,7 +1104,7 @@ namespace UniCade.Windows
 
         private void WebTabApiComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WebOps.CurrentApi = (Enums.Api) WebTabApiComboBox.SelectedIndex;
+            WebOps.CurrentApi = (Enums.Api)WebTabApiComboBox.SelectedIndex;
         }
 
         #endregion
@@ -1355,7 +1365,7 @@ namespace UniCade.Windows
 
             //Load the image
             System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
-            
+
             //If the directory does not exist, create it
             string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
             if (!System.IO.Directory.Exists(directoryPath))

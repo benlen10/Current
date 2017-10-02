@@ -30,7 +30,7 @@
                     <Label x:Name="GamesTabLabelDescription" Content="Game Description" HorizontalAlignment="Left" Margin="220,281,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelGameMetadata" Content="Game Metadata" HorizontalAlignment="Left" Margin="379,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.338,0.478"/>
                     <Label x:Name="GamesTabLabelCriticScore" Content="Critic Score" HorizontalAlignment="Left" Margin="218,321,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="GamesTabLabelPlayers" Content="Players" HorizontalAlignment="Left" Margin="330,321,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.149,0.467"/>
+                    <Label x:Name="GamesTabLabelPlayers" Content="Players" HorizontalAlignment="Left" Margin="341,321,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.149,0.467"/>
                     <Label x:Name="GamesTabLabelLaunchCount" Content="Launch Count" HorizontalAlignment="Left" Margin="425,321,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelBoxFront" Content="Boxfront" HorizontalAlignment="Left" Margin="563,26,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GamesTabLabelBoxBack" Content="Boxback" HorizontalAlignment="Left" Margin="667,26,0,0" VerticalAlignment="Top"/>
@@ -54,8 +54,8 @@
                     <TextBox x:Name="GamesTabTextboxEsrb" HorizontalAlignment="Left" Height="23" Margin="325,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
                     <TextBox x:Name="GamesTabTextboxEsrbDescriptor" HorizontalAlignment="Left" Height="23" Margin="325,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
                     <TextBox x:Name="GamesTabTextboxDescription" HorizontalAlignment="Left" Height="23" Margin="325,284,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
-                    <TextBox x:Name="GamesTabTextboxCriticScore" HorizontalAlignment="Left" Height="23" Margin="290,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35"/>
-                    <TextBox x:Name="GamesTabTextboxPlayers" HorizontalAlignment="Left" Height="23" Margin="379,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35"/>
+                    <TextBox x:Name="GamesTabTextboxCriticScore" HorizontalAlignment="Left" Height="23" Margin="290,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
+                    <TextBox x:Name="GamesTabTextboxPlayers" HorizontalAlignment="Left" Height="23" Margin="390,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35"/>
                     <TextBox x:Name="GamesTabTextboxLaunchCount" HorizontalAlignment="Left" Height="23" Margin="513,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.173,0.574" IsReadOnly="True"/>
                     <Button x:Name="GamesTabButtonSaveInfo" Content="Save Info" HorizontalAlignment="Left" Margin="190,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_SaveInfoButton_Click"/>
                     <Button x:Name="GamesTabButtonRescrapeGameMetadata" Content="Rescrape &#xD;&#xA;Game&#xD;&#xA;Metadata" HorizontalAlignment="Left" Margin="285,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_RescrapeGameButton_Click"/>
