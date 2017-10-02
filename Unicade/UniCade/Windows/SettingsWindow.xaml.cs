@@ -42,21 +42,6 @@ namespace UniCade.Windows
         /// </summary>
         private static IConsole _currentEmulator;
 
-        /// <summary>
-        /// True if the box front image within the games tab is currently expanded
-        /// </summary>
-        private bool _isBoxfrontExpanded;
-
-        /// <summary>
-        /// True if the box back image within the games tab is currently expanded
-        /// </summary>
-        private bool _isBoxBackExpanded;
-
-        /// <summary>
-        /// True if the screenshot image within the games tab is currently expanded
-        /// </summary>
-        private bool _isScreenshotExpanded;
-
         #endregion
 
         #region Constructors
@@ -496,22 +481,12 @@ namespace UniCade.Windows
         /// </summary>
         private void Image_Boxfront_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (!_isBoxBackExpanded && !_isScreenshotExpanded)
+            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentGame.ConsoleName + "\\" + _currentGame.Title + "_BoxFront.jpg";
+            if (File.Exists(imagePath))
             {
-                if (!_isBoxfrontExpanded)
-                {
-                    GamesTabImageBoxfront.Margin = new Thickness(0, 0, 0, 0);
-                    GamesTabImageBoxfront.Height = 500;
-                    GamesTabImageBoxfront.Width = 500;
-                    _isBoxfrontExpanded = true;
-                }
-                else
-                {
-                    GamesTabImageBoxfront.Margin = new Thickness(550, 57, 0, 0);
-                    GamesTabImageBoxfront.Height = 109;
-                    GamesTabImageBoxfront.Width = 92;
-                    _isBoxfrontExpanded = false;
-                }
+                ImagePopup imagePopup = new ImagePopup(imagePath);
+                imagePopup.Title = _currentGame.Title + " BoxFront Image";
+                imagePopup.ShowDialog();
             }
         }
 
@@ -520,33 +495,13 @@ namespace UniCade.Windows
         /// </summary>
         private void Image_Boxback_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
-
-            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentGame.ConsoleName + "\\" + _currentGame.Title + "_BoxFront.jpg";
+            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentGame.ConsoleName + "\\" + _currentGame.Title + "_BoxBack.jpg";
             if (File.Exists(imagePath))
             {
                 ImagePopup imagePopup = new ImagePopup(imagePath);
+                imagePopup.Title = _currentGame.Title + " BoxBack Image";
                 imagePopup.ShowDialog();
             }
-            /*
-            if (!_isBoxfrontExpanded && !_isScreenshotExpanded)
-            {
-                if (!_isBoxBackExpanded)
-                {
-                    GamesTabImageBoxback.Margin = new Thickness(0, 0, 0, 0);
-                    GamesTabImageBoxback.Height = 500;
-                    GamesTabImageBoxback.Width = 500;
-                    _isBoxBackExpanded = true;
-                }
-                else
-                {
-                    GamesTabImageBoxback.Margin = new Thickness(647, 57, 0, 0);
-                    GamesTabImageBoxback.Height = 107;
-                    GamesTabImageBoxback.Width = 97;
-                    _isBoxBackExpanded = false;
-                }
-            }
-            */
         }
 
         /// <summary>
@@ -554,23 +509,7 @@ namespace UniCade.Windows
         /// </summary>
         private void Image_Screenshot_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (!_isBoxfrontExpanded && !_isBoxBackExpanded)
-            {
-                if (!_isScreenshotExpanded)
-                {
-                    GamesTabImageScreeshot.Margin = new Thickness(0, 0, 0, 0);
-                    GamesTabImageScreeshot.Height = 500;
-                    GamesTabImageScreeshot.Width = 500;
-                    _isScreenshotExpanded = true;
-                }
-                else
-                {
-                    GamesTabImageScreeshot.Margin = new Thickness(572, 196, 0, 0);
-                    GamesTabImageScreeshot.Height = 103;
-                    GamesTabImageScreeshot.Width = 172;
-                    _isScreenshotExpanded = false;
-                }
-            }
+         
         }
 
         /// <summary>
