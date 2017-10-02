@@ -135,7 +135,7 @@ namespace UniCade
 
             //Initialize license flag
             Label3.Content = "Unlicensed Version";
-            if (LicenseEngine.IsLicenseValid)
+            if (Program.IsLicenseValid)
             {
                 Label3.Visibility = Visibility.Hidden;
             }
@@ -335,19 +335,19 @@ namespace UniCade
                 //Launch the settings window
                 else if ((e.KeyCode == Keys.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
                 {
-                    if (Program.PasswordProtection > 0)
+                    if (Program.PasswordProtection.Length >= 4)
                     {
-                        IsPasswordValid = false;
-                        PassWindow pw = new PassWindow();
-                        pw.ShowDialog();
+                            IsPasswordValid = false;
+                            PassWindow pw = new PassWindow();
+                            pw.ShowDialog();
 
-                        if (IsPasswordValid)
-                        {
-                            SettingsWindow = new SettingsWindow();
-                            UnhookKeys();
-                            IsSettingsWindowActive = true;
-                            SettingsWindow.ShowDialog();
-                        }
+                            if (IsPasswordValid)
+                            {
+                                SettingsWindow = new SettingsWindow();
+                                UnhookKeys();
+                                IsSettingsWindowActive = true;
+                                SettingsWindow.ShowDialog();
+                            }
                     }
                     else
                     {
@@ -356,7 +356,7 @@ namespace UniCade
                         UnhookKeys();
                         SettingsWindow.ShowDialog();
                     }
-                    Label3.Visibility = LicenseEngine.IsLicenseValid ? Visibility.Hidden : Visibility.Visible;
+                    Label3.Visibility = Program.IsLicenseValid ? Visibility.Hidden : Visibility.Visible;
                 }
             }
 

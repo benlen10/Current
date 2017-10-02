@@ -68,6 +68,9 @@
                     <CheckBox x:Name="GamesTabCheckBoxGlobalFavorite" Content="Favorite" HorizontalAlignment="Left" Margin="226,37,0,0" VerticalAlignment="Top"/>
                     <Label Content="Genres" HorizontalAlignment="Left" Margin="220,255,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="GamesTabTextboxGenres" HorizontalAlignment="Left" Height="23" Margin="325,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+                    <Button x:Name="GamesTabButtonAddBoxfrontImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34" Margin="622,29,0,0" Click="GamesTabButtonAddBoxfrontImage_Click" Height="20"/>
+                    <Button x:Name="GamesTabButtonAddBoxbackImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="33" Margin="721,32,0,0" RenderTransformOrigin="0.711,1.328" Height="20" Click="GamesTabButtonAddBoxbackImage_Click"/>
+                    <Button x:Name="GamesTabButtonAddscreenshotImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="33" Margin="691,168,0,0" Click="GamesTabButtonAddscreenshotImage_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="EmulatorsTabTextboxConsoleName" Header="Emulators">
@@ -208,9 +211,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="GamesTabButtonAddBoxfrontImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34" Margin="624,35,0,0" Click="GamesTabButtonAddBoxfrontImage_Click" Height="20"/>
-        <Button x:Name="GamesTabButtonAddBoxbackImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="33" Margin="723,35,0,0" RenderTransformOrigin="0.711,1.328" Height="20" Click="GamesTabButtonAddBoxbackImage_Click"/>
-        <Button x:Name="GamesTabButtonAddscreenshotImage" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="33" Margin="694,174,0,0" Click="GamesTabButtonAddscreenshotImage_Click"/>
 
 
     </Grid>

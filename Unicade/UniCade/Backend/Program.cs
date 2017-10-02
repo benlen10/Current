@@ -50,7 +50,7 @@ namespace UniCade.Backend
         /// <summary>
         /// If this value is greater than 0, passcode protection is enabled
         /// </summary>
-        public static int PasswordProtection;
+        public static string PasswordProtection;
 
         /// <summary>
         /// Specifies if ROM files are required to have the proper extension in order to be imported
@@ -117,5 +117,20 @@ namespace UniCade.Backend
         #region Helper Methods
 
         #endregion
+
+        /// <summary>
+        /// The user name for the current license holder
+        /// </summary>
+        public static string UserLicenseName;
+
+        /// <summary>
+        /// The curent license key
+        /// </summary>
+        public static string UserLicenseKey;
+
+        /// <summary>
+        /// True if the current license key is valid
+        /// </summary>
+        public static bool IsLicenseValid = false;
     }
 }

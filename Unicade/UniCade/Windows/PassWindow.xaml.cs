@@ -35,10 +35,7 @@ namespace UniCade.Windows
         /// </summary>
         private void PassWindow_EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            int.TryParse(TextboxPassword.Password, out int n);
-            if (n > 0)
-            {
-                if (int.Parse(TextboxPassword.Password) == Program.PasswordProtection)
+                if (CryptoEngine.Sha256Hash(TextboxPassword.Password).Equals(Program.PasswordProtection))
                 {
                     DialogResult = true;
                     MainWindow.IsPasswordValid = true;
@@ -46,9 +43,9 @@ namespace UniCade.Windows
                 else
                 {
                     MessageBox.Show("Incorrect Password");
+                    TextboxPassword.Clear();
+                    MainWindow.IsPasswordValid = false;
                 }
-            }
-            Close();
         }
 
         #endregion

@@ -103,9 +103,9 @@ namespace UniCade.Backend
             PayPerPlay.PayPerPlayEnabled = currentSettings.PayPerPlayEnabled;
             PayPerPlay.CoinsRequired = currentSettings.CoinsRequired;
             PayPerPlay.CurrentCoins = currentSettings.CurrentCoins;
-            LicenseEngine.UserLicenseKey = currentSettings.UserLicenseKey;
-            LicenseEngine.UserLicenseName = currentSettings.UserLicenseName;
-            LicenseEngine.HashKey = currentSettings.HashKey;
+            Program.UserLicenseKey = currentSettings.UserLicenseKey;
+            Program.UserLicenseName = currentSettings.UserLicenseName;
+            CryptoEngine.HashKey = currentSettings.HashKey;
             Program.PasswordProtection = currentSettings.PasswordProtection;
             currentSettings.UserList.ForEach(u => Database.AddUser(u));
 
@@ -129,9 +129,9 @@ namespace UniCade.Backend
                 PayPerPlayEnabled = PayPerPlay.PayPerPlayEnabled,
                 CoinsRequired = PayPerPlay.CoinsRequired,
                 CurrentCoins = PayPerPlay.CurrentCoins,
-                UserLicenseKey = LicenseEngine.UserLicenseName,
-                UserLicenseName = LicenseEngine.UserLicenseName,
-                HashKey = LicenseEngine.HashKey,
+                UserLicenseKey = Program.UserLicenseName,
+                UserLicenseName = Program.UserLicenseName,
+                HashKey = CryptoEngine.HashKey,
                 PasswordProtection = Program.PasswordProtection
             };
 
@@ -464,9 +464,9 @@ namespace UniCade.Backend
             }
 
             //Verify the current user license and set flag
-            if (LicenseEngine.ValidateSha256(LicenseEngine.UserLicenseName + LicenseEngine.HashKey, LicenseEngine.UserLicenseKey))
+            if (CryptoEngine.ValidateSha256(Program.UserLicenseName + CryptoEngine.HashKey, Program.UserLicenseKey))
             {
-                LicenseEngine.IsLicenseValid = true;
+                Program.IsLicenseValid = true;
             }
 
             //If the database file does not exist in the specified location, load default values and rescan rom directories

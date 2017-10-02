@@ -131,7 +131,10 @@ namespace UniCade.Windows
             AboutTabTextboxSoftwareInfo.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
 
             //Populate textbox fields
-            GlobalTabTextboxPassword.Password = Program.PasswordProtection.ToString();
+            if (Program.PasswordProtection.Length >= 4)
+            {
+                GlobalTabTextboxPassword.Password = "Active";
+            }
 
             //Populate checkboxes
             WebTabCheckboxReleaseDate.IsChecked = WebOps.ParseReleaseDate;
@@ -170,9 +173,9 @@ namespace UniCade.Windows
             RefreshGlobalFavs();
 
             //Populate user license info
-            AboutTabLabelLicensedTo.Content = "Licensed to: " + LicenseEngine.UserLicenseName;
-            AboutTabLabelEdition.Content = LicenseEngine.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
-            AboutTabLabelLicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
+            AboutTabLabelLicensedTo.Content = "Licensed to: " + Program.UserLicenseName;
+            AboutTabLabelEdition.Content = Program.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
+            AboutTabLabelLicenseKey.Content = "License Key: " + Program.UserLicenseKey;
         }
 
         #endregion
@@ -944,9 +947,18 @@ namespace UniCade.Windows
             Program.RescanOnStartup = GlobalTabCheckboxRescanAllLibraries.IsChecked.Value;
             MainWindow.DisplayEsrbWhileBrowsing = GlobalTabCheckboxDisplayEsrb.IsChecked.Value;
 
-            int.TryParse(GlobalTabTextboxPassword.Password, out int n);
-            Program.PasswordProtection = int.Parse(GlobalTabTextboxPassword.Password);
-
+            if (!GlobalTabTextboxPassword.Password.Equals("Active"))
+            {
+                if ((GlobalTabTextboxPassword.Password.Length >= 4) && (GlobalTabTextboxPassword.Password.Length <= 20))
+                {
+                    Program.PasswordProtection = CryptoEngine.Sha256Hash(GlobalTabTextboxPassword.Password);
+                }
+                else
+                {
+                    MessageBox.Show("Password must be between 4 and 20 chars");
+                }
+            }
+            int n;
             int.TryParse(GlobalTabTextboxCoins.Text, out n);
             PayPerPlay.CoinsRequired = int.Parse(GlobalTabTextboxCoins.Text);
 
@@ -1181,11 +1193,11 @@ namespace UniCade.Windows
             //Create a new license entry info and validate the key
             LicenseEntry le = new LicenseEntry();
             le.ShowDialog();
-            AboutTabLabelLicensedTo.Content = "Licensed to: " + LicenseEngine.UserLicenseName;
-            AboutTabLabelLicenseKey.Content = "License Key: " + LicenseEngine.UserLicenseKey;
+            AboutTabLabelLicensedTo.Content = "Licensed to: " + Program.UserLicenseName;
+            AboutTabLabelLicenseKey.Content = "License Key: " + Program.UserLicenseKey;
 
             //Set the license text depending on if the key is valid
-            AboutTabLabelEdition.Content = LicenseEngine.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
+            AboutTabLabelEdition.Content = Program.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
         }
 
         private void LaunchCmdInterface_Click(object sender, RoutedEventArgs e)

@@ -44,7 +44,7 @@ namespace UniCade.Objects
         /// If this value is greater than 0, passcode protection is enabled
         /// </summary>
         [DataMember]
-        internal int PasswordProtection;
+        internal string PasswordProtection;
 
         /// <summary>
         /// Specifies if ROM files are required to have the proper extension in order to be imported
