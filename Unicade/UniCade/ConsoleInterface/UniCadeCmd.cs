@@ -332,15 +332,15 @@ namespace UniCade.ConsoleInterface
                     {
                         while (true)
                         {
-                            string pass = Console.ReadLine();
+                            string password = Console.ReadLine();
                             Console.WriteLine(Strings.PleaseEnterPassword);
-                            if (pass != null)
+                            if (password != null)
                             {
-                                if (pass.Equals("x"))
+                                if (password.Equals("x"))
                                 {
                                     return;
                                 }
-                                if (pass.Equals(user.GetUserPassword()))
+                                if (user.ValidatePassword(password))
                                 {
                                     Console.WriteLine(Strings.PasswordAccepted);
                                     Database.SetCurrentUser(user.Username);

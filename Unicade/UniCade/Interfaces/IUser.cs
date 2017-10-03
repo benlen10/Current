@@ -45,10 +45,10 @@ namespace UniCade.Interfaces
         bool SetUserPassword(string password);
 
         /// <summary>
-        /// Return the current password for the user
+        /// Returns true if the entered password is correct
         /// </summary>
-        /// <returns>the current user's password</returns>
-        string GetUserPassword();
+        /// <returns>true if the password matches the saved hash</returns>
+        bool ValidatePassword(string password);
 
 
         /// <summary>

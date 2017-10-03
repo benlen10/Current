@@ -77,7 +77,7 @@ namespace UniCade.Windows
                     IUser user = Database.GetUser(username);
                     if (user.Username.Equals(TextboxUsername.Text))
                     {
-                        if (user.GetUserPassword().Equals(CryptoEngine.Sha256Hash(TextboxPassword.Text)))
+                        if (user.ValidatePassword(TextboxPassword.Text))
                         {
                             Database.SetCurrentUser(user.Username);
                             Close();

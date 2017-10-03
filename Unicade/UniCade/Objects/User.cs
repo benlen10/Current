@@ -256,12 +256,12 @@ namespace UniCade.Objects
         }
 
         /// <summary>
-        /// Return the current password for the user
+        /// Returns true if the entered password is correct
         /// </summary>
-        /// <returns>the current user's password</returns>
-        public string GetUserPassword()
+        /// <returns>true if the password matches the saved hash</returns>
+        public bool ValidatePassword(string password)
         {
-            return _password;
+            return _password.Equals(CryptoEngine.Sha256Hash(password));
         }
 
         /// <summary>
@@ -299,11 +299,18 @@ namespace UniCade.Objects
         }
 
         /// <summary>
-        ///Add a favorie game to the current favorites list
+        /// Add a favorie game to the current favorites list
         /// </summary>
+        /// <param name="game">The game to add to the favorites list</param>
+        /// <returns>false if a game with the same title and console already exists</returns>
         public bool AddFavorite(IGame game)
         {
-            return true;
+            if (_favoritesList.Find(g => g.Title.Equals(game.Title) && g.ConsoleName.Equals(game.ConsoleName))== null)
+            {
+                _favoritesList.Add((Game) game);
+                return true;
+            }
+            return false;
         }
 
         /// <summary>

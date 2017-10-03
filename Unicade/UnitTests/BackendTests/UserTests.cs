@@ -116,8 +116,6 @@ namespace UnitTests.BackendTests
         [Priority(1)]
         public void VerifyChangingUserPassword()
         {
-            //Fetch the original password
-            string originalPassword = _user.GetUserPassword();
 
             //Verify that a null value for the password is not allowed
             try
@@ -168,15 +166,12 @@ namespace UnitTests.BackendTests
                     $"Verify that a password that exceeds {ConstValues.MaxUserPasswordLength} chars is not allowed");
             }
 
-            //Verify that the password has not been changed
-            Assert.AreEqual(originalPassword, _user.GetUserPassword(), "Verify that the password has not been changed");
-
             //Set a new user password
             const string newPassword = "newPassword";
             _user.SetUserPassword(newPassword);
 
             //Verify that the password has been properly saved
-            Assert.IsTrue(_user.GetUserPassword().Equals(newPassword), "Verify that a valid password is properly saved");
+            Assert.IsTrue(_user.ValidatePassword(newPassword), "Verify that a valid password is properly saved");
         }
 
         /// <summary>

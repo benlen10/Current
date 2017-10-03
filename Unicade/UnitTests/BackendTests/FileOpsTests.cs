@@ -1,6 +1,8 @@
 ﻿using System.IO;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
+using UniCade.Constants;
 using UniCade.Objects;
 using Console = UniCade.Objects.Console;
 
@@ -149,13 +151,121 @@ namespace UnitTests.BackendTests
         [Priority(1)]
         public void VerifySaveLoadPrefrences()
         {
-            //Set all preferences
+            //Declare all preferences 
+            const bool showSplashScreen = true;
+            const bool rescanOnStartup = true;
+            const Enums.EsrbRatings globalEsrbRestriction = Enums.EsrbRatings.Mature;
+            const bool preferCmdInterface = true;
+            const bool showLoadingScreen = true;
+            const string passwordProtection = "Password";
+            const bool enforceFileExtension = true;
+            const bool payPerPlayEnabled = true;
+            const int coinsRequired = 3;
+            const int currentCoins = 5;
+            const string userLicenseName = "BenLen10";
+            const string userLiceneseKey = "myKey";
+
+            //Set the preferences
+            Program.ShowSplashScreen = showSplashScreen;
+            Program.RescanOnStartup = rescanOnStartup;
+            Program.RestrictGlobalEsrbRatings = globalEsrbRestriction;
+            Program.PerferCmdInterface = preferCmdInterface;
+            Program.ShowLoadingScreen = showLoadingScreen;
+            Program.PasswordProtection = passwordProtection;
+            Program.EnforceFileExtensions = enforceFileExtension;
+            PayPerPlay.PayPerPlayEnabled = payPerPlayEnabled;
+            PayPerPlay.CoinsRequired = coinsRequired;
+            PayPerPlay.CurrentCoins = currentCoins;
+            Program.UserLicenseName = userLicenseName;
+            Program.UserLicenseKey = userLiceneseKey;
+
+            //Create a new user
+            const string userName = "benlen10";
+            const string userPassword = "tempPass";
+            const int userLoginCount = 3;
+            const string userEmail = "benlen10@unicade.com";
+            const int totalLaunchCount = 11;
+            const string userInfo = "tempInfo";
+            const Enums.EsrbRatings userAllowedEsrb = Enums.EsrbRatings.Teen;
+            const string profPicPath = @"c:\temp\";
+            User user = new User(userName, userPassword,userLoginCount, userEmail, totalLaunchCount, userInfo, userAllowedEsrb, profPicPath);
+
+            //Create a new game
+            const string gameFileName = "Resident Evil 2.bin";
+            const string gameTitle = "Resident Evil 2";
+            const string consoleName = "Sony Playstation";
+            Game game = new Game(gameFileName, consoleName);
+
+            //Add the game to the user's favorites list
+            user.AddFavorite(game);
+
+            //Add the new user to the database
+            Database.AddUser(user);
 
             //Save the preferences XML file
+            const string preferencesPath = "testPreferences.xml";
+            FileOps.SavePreferences(preferencesPath);
+
+            //Modify the current preferences 
+            Program.ShowSplashScreen = false;
+            Program.RescanOnStartup = false;
+            Program.RestrictGlobalEsrbRatings = Enums.EsrbRatings.Null;
+            Program.PerferCmdInterface = false;
+            Program.ShowLoadingScreen = false;
+            Program.PasswordProtection = "none";
+            Program.EnforceFileExtensions = false;
+            PayPerPlay.PayPerPlayEnabled = false;
+            PayPerPlay.CoinsRequired = 1;
+            PayPerPlay.CurrentCoins = 0;
+            Program.UserLicenseName = "temp";
+            Program.UserLicenseKey = "temp";
+
+            //Reset the database and clear the user list
+            Database.Initalize();
+
+            //Set the user and game variables to Null
+            user = null;
+            game = null;
 
             //Load the preferences XML file
+            FileOps.LoadPreferences(preferencesPath);
 
-            //Verify that the perferences have been properly loaded
+            //Verify that the preference fields have been properly loaded
+            Assert.AreEqual(showSplashScreen, Program.ShowSplashScreen, "Verify that ShowSplashScreen has been loaded properly");
+            Assert.AreEqual(rescanOnStartup, Program.RescanOnStartup, "Verify that RescanOnStartup has been loaded properly");
+            Assert.AreEqual(globalEsrbRestriction, Program.RestrictGlobalEsrbRatings, "Verify that RestrictGlobalEsrbRatings has been loaded properly");
+            Assert.AreEqual(preferCmdInterface, Program.PerferCmdInterface, "Verify that PerferCmdInterface has been loaded properly");
+            Assert.AreEqual(passwordProtection, Program.PasswordProtection, "Verify that PasswordProtection has been loaded properly");
+            Assert.AreEqual(enforceFileExtension, Program.EnforceFileExtensions, "Verify that EnforceFileExtensions has been loaded properly");
+            Assert.AreEqual(payPerPlayEnabled, PayPerPlay.PayPerPlayEnabled, "Verify that PayPerPlayEnabled has been loaded properly");
+            Assert.AreEqual(coinsRequired, PayPerPlay.CoinsRequired, "Verify that CoinsRequired has been loaded properly");
+            Assert.AreEqual(currentCoins, PayPerPlay.CurrentCoins, "Verify that CurrentCoins has been loaded properly");
+            Assert.AreEqual(userLicenseName, Program.UserLicenseName, "Verify that UserLicenseName has been loaded properly");
+            Assert.AreEqual(userLiceneseKey, Program.UserLicenseKey, "Verify that UserLicenseKey has been loaded properly");
+
+            //Attempt to fetch the user
+            user = (User) Database.GetUser(userName);
+            Assert.IsNotNull(user, "Verify that the user has been loaded");
+
+            //Verify that the user info has been loaded properly
+            Assert.AreEqual(userName, user.Username, "Verify that the UserName has been properly loaded");
+            Assert.AreEqual(userLoginCount, user.GetUserLoginCount(), "Verify that the UserName has been properly loaded");
+            Assert.AreEqual(userEmail, user.Email, "Verify that the UserName has been properly loaded");
+            Assert.AreEqual(totalLaunchCount, user.GetUserLaunchCount(), "Verify that the UserName has been properly loaded");
+            Assert.AreEqual(userInfo, user.UserInfo, "Verify that the UserName has been properly loaded");
+            Assert.AreEqual(userAllowedEsrb, user.AllowedEsrbRatings, "Verify that the UserName has been properly loaded");
+            Assert.AreEqual(profPicPath, user.ProfilePicture, "Verify that the UserName has been properly loaded");
+            Assert.IsTrue(user.ValidatePassword(userPassword), "Verify that the userPassword has been properly loaded");
+
+            //Attempt to fetch the user's favorite game list
+            game = (Game) user.GetFavoritesList().First();
+            Assert.IsNotNull(user, "Verify that the game has been loaded");
+
+            //Verify that the game info has been properly loaded
+            Assert.AreEqual(gameTitle, game.Title, "Verify that the game's title has been properly loaded");
+            Assert.AreEqual(gameFileName, game.FileName, "Verify that the game's filename has been properly loaded");
+            Assert.AreEqual(consoleName, game.ConsoleName, "Verify that the game's console name has been properly loaded");
+
         }
 
         /// <summary>

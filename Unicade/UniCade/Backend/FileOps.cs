@@ -100,6 +100,7 @@ namespace UniCade.Backend
             Program.RestrictGlobalEsrbRatings = currentSettings.RestrictGlobalEsrbRatings;
             Program.PerferCmdInterface = currentSettings.PerferCmdInterface;
             Program.ShowLoadingScreen = currentSettings.ShowLoadingScreen;
+            Program.EnforceFileExtensions = currentSettings.EnforceFileExtensions;
             PayPerPlay.PayPerPlayEnabled = currentSettings.PayPerPlayEnabled;
             PayPerPlay.CoinsRequired = currentSettings.CoinsRequired;
             PayPerPlay.CurrentCoins = currentSettings.CurrentCoins;
@@ -124,11 +125,12 @@ namespace UniCade.Backend
                 RescanOnStartup = Program.RescanOnStartup,
                 RestrictGlobalEsrbRatings = Program.RestrictGlobalEsrbRatings,
                 PerferCmdInterface = Program.PerferCmdInterface,
+                EnforceFileExtensions = Program.EnforceFileExtensions,
                 ShowLoadingScreen = Program.ShowLoadingScreen,
                 PayPerPlayEnabled = PayPerPlay.PayPerPlayEnabled,
                 CoinsRequired = PayPerPlay.CoinsRequired,
                 CurrentCoins = PayPerPlay.CurrentCoins,
-                UserLicenseKey = Program.UserLicenseName,
+                UserLicenseKey = Program.UserLicenseKey,
                 UserLicenseName = Program.UserLicenseName,
                 PasswordProtection = Program.PasswordProtection
             };
