@@ -83,12 +83,6 @@ namespace UniCade.Objects
         internal string UserLicenseKey;
 
         /// <summary>
-        /// The current hash key used to generate the license key
-        /// </summary>
-        [DataMember]
-        internal string HashKey { get; set; }
-
-        /// <summary>
         /// The list of current users
         /// </summary>
         [DataMember]

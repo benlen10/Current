@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace UniCade.Backend
 {
-    class CryptoEngine
+    internal class CryptoEngine
     {
-        /// <summary>
-        /// The current hash key used to generate the license key
-        /// </summary>
-        public static string HashKey { get; set; }
+        #region Public Methods
 
         /// <summary>
         /// Hashes a string using SHA256 algorthim 
@@ -42,7 +35,10 @@ namespace UniCade.Backend
         public static bool ValidateSha256(string input, string storedHashData)
         {
             string getHashInputData = Sha256Hash(input);
-            return (String.CompareOrdinal(getHashInputData, storedHashData) == 0);
+            return (string.CompareOrdinal(getHashInputData, storedHashData) == 0);
         }
+
+        #endregion
+
     }
 }

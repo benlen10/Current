@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using UniCade.Backend;
+using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Network;
 
@@ -15,7 +16,7 @@ namespace UniCade.Windows
         /// <summary>
         /// An int value that represents the current user type (local or cloud)
         /// </summary>
-        readonly int _userType;
+        readonly Enums.UserType _userType;
 
         #endregion
 
@@ -24,7 +25,7 @@ namespace UniCade.Windows
         /// <summary>
         /// Public constructor for the LoginWindow instance
         /// </summary>
-        public LoginWindow(int userType)
+        public LoginWindow(Enums.UserType userType)
         {
             _userType = userType;
             InitializeComponent();
@@ -55,7 +56,7 @@ namespace UniCade.Windows
             }
 
             //If the user is a SQL client, preform SQL user authentication 
-            if (_userType == 0)
+            if (_userType.Equals(Enums.UserType.CloudAccount))
             {
                 if (SqlClient.AuthiencateUser(TextboxUsername.Text, TextboxPassword.Text))
                 {
@@ -76,7 +77,7 @@ namespace UniCade.Windows
                     IUser user = Database.GetUser(username);
                     if (user.Username.Equals(TextboxUsername.Text))
                     {
-                        if (user.GetUserPassword().Equals(TextboxPassword.Text))
+                        if (user.GetUserPassword().Equals(CryptoEngine.Sha256Hash(TextboxPassword.Text)))
                         {
                             Database.SetCurrentUser(user.Username);
                             Close();

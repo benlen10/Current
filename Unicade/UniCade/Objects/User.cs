@@ -208,7 +208,7 @@ namespace UniCade.Objects
         public User(string userName, string password, int loginCount, string email, int totalLaunchCount, string userInfo, Enums.EsrbRatings allowedEsrbRatings, string profPic)
         {
             Username = userName;
-            _password = password;
+            SetUserPassword(password);
             _userLoginCount = loginCount;
             _userLaunchCount = totalLaunchCount;
             UserInfo = userInfo;
@@ -251,7 +251,7 @@ namespace UniCade.Objects
                 throw new ArgumentException("Password contains invalid characters");
             }
 
-            _password = password;
+            _password = CryptoEngine.Sha256Hash(password);
             return true;
         }
 

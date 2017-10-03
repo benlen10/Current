@@ -155,6 +155,11 @@ namespace UniCade.Constants
         /// </summary>
         internal const string PreferencesFileName = "preferences.xml";
 
+        /// <summary>
+        /// The current hash key used to generate the license key
+        /// </summary>
+        internal const string HashKey = "Hash";
+
         #endregion
 
         #region  Static Readonly Fields
@@ -162,8 +167,10 @@ namespace UniCade.Constants
         /// <summary>
         /// Global invalid characters 
         /// </summary>
-        internal static readonly char[] InvalidChars = new char[] { '|', '*' };
+        internal static readonly char[] InvalidChars = { '|', '*' };
 
         #endregion
+
+
     }
 }

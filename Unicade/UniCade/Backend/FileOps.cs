@@ -105,7 +105,6 @@ namespace UniCade.Backend
             PayPerPlay.CurrentCoins = currentSettings.CurrentCoins;
             Program.UserLicenseKey = currentSettings.UserLicenseKey;
             Program.UserLicenseName = currentSettings.UserLicenseName;
-            CryptoEngine.HashKey = currentSettings.HashKey;
             Program.PasswordProtection = currentSettings.PasswordProtection;
             currentSettings.UserList.ForEach(u => Database.AddUser(u));
 
@@ -131,7 +130,6 @@ namespace UniCade.Backend
                 CurrentCoins = PayPerPlay.CurrentCoins,
                 UserLicenseKey = Program.UserLicenseName,
                 UserLicenseName = Program.UserLicenseName,
-                HashKey = CryptoEngine.HashKey,
                 PasswordProtection = Program.PasswordProtection
             };
 
@@ -464,7 +462,7 @@ namespace UniCade.Backend
             }
 
             //Verify the current user license and set flag
-            if (CryptoEngine.ValidateSha256(Program.UserLicenseName + CryptoEngine.HashKey, Program.UserLicenseKey))
+            if (CryptoEngine.ValidateSha256(Program.UserLicenseName + ConstValues.HashKey, Program.UserLicenseKey))
             {
                 Program.IsLicenseValid = true;
             }
