@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using UniCade.Backend;
+using UniCade.Constants;
 
 namespace UniCade.Windows
 {
@@ -45,7 +46,7 @@ namespace UniCade.Windows
             }
 
             //If the key is valid, save the key text to the preferences file and close the current window
-            if (CryptoEngine.ValidateSha256(Program.UserLicenseName + CryptoEngine.HashKey, Program.UserLicenseKey))
+            if (CryptoEngine.ValidateSha256(Program.UserLicenseName + ConstValues.HashKey, Program.UserLicenseKey))
             {
                 MessageBox.Show(this, "License is VALID");
                 Program.IsLicenseValid = true;

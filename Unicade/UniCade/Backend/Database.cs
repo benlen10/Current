@@ -56,13 +56,15 @@ namespace UniCade.Backend
         /// </summary>
         public static void Initalize()
         {
-            _totalGameCount = 0;
             _consoleList = new List<IConsole>();
             _userList = new List<IUser>();
             IUser uniCadeUser = new User("UniCade", "temp", 0, "unicade@unicade.com", 0, " ", Enums.EsrbRatings.Null, "");
             AddUser(uniCadeUser);
             _currentUser = uniCadeUser;
             _defaultUser = uniCadeUser;
+            _totalGameCount = 0;
+            _userCount = 0;
+            _consoleCount = 0;
         }
 
         /// <summary>

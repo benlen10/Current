@@ -898,7 +898,7 @@ namespace UniCade.Windows
         private void UsersTab_LoginButton_Click(object sender, EventArgs e)
         {
             //Display the login dialog
-            LoginWindow login = new LoginWindow(1);
+            LoginWindow login = new LoginWindow(Enums.UserType.LocalAccount);
             login.ShowDialog();
 
             //If the user is logged in sucuesfully, save the current user and preferences file

@@ -158,7 +158,7 @@ namespace UniCade.Constants
         /// <summary>
         /// The current hash key used to generate the license key
         /// </summary>
-        internal const string HashKey = "Hash";
+        internal const string HashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
 
         #endregion
 

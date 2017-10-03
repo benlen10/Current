@@ -58,9 +58,12 @@
     <Compile Include="BackendTests\ConsoleTests.cs" />
     <Compile Include="BackendTests\EsrbRatingTests.cs" />
     <Compile Include="BackendTests\DatabaseTests.cs" />
+    <Compile Include="BackendTests\FileOpsTests.cs" />
     <Compile Include="BackendTests\GameTests.cs" />
     <Compile Include="BackendTests\PayPerPlayTests.cs" />
     <Compile Include="BackendTests\UserTests.cs" />
+    <Compile Include="NetworkTests\ApiTests.cs" />
+    <Compile Include="NetworkTests\SqlTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

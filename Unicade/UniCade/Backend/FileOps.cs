@@ -33,10 +33,10 @@ namespace UniCade.Backend
         /// Load the database file from the specified path
         /// </summary>
         /// <returns>false if the database file does not exist</returns>
-        public static bool LoadDatabase()
+        public static bool LoadDatabase(string path = ConstValues.DatabaseFileName)
         {
             //First check if the database file exists
-            if (!File.Exists(ConstValues.DatabaseFileName))
+            if (!File.Exists(path))
             {
                 return false;
             }
@@ -44,7 +44,7 @@ namespace UniCade.Backend
             List<Console> consoleList;
 
             DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
-            using (FileStream fs = File.Open(ConstValues.DatabaseFileName, FileMode.Open))
+            using (FileStream fs = File.Open(path, FileMode.Open))
             {
                 consoleList = (List<Console>)s.ReadObject(fs);
             }
@@ -57,7 +57,7 @@ namespace UniCade.Backend
         /// <summary>
         /// Save the database to the specified path. Delete any preexisting database files
         /// </summary>
-        public static void SaveDatabase()
+        public static void SaveDatabase(string path = ConstValues.DatabaseFileName)
         {
             var consoleList = Database.GetConsoleList().Select(consoleName => (Console) Database.GetConsole(consoleName)).ToList();
 
@@ -68,7 +68,7 @@ namespace UniCade.Backend
             };
 
             DataContractSerializer s = new DataContractSerializer(typeof(List<Console>));
-            using (var xmlWriter = XmlWriter.Create(ConstValues.DatabaseFileName, xmlWriterSettings))
+            using (var xmlWriter = XmlWriter.Create(path, xmlWriterSettings))
             {
                 s.WriteObject(xmlWriter, consoleList);
             }
@@ -79,10 +79,10 @@ namespace UniCade.Backend
         /// Load preferences from the specified file path
         /// </summary>
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        public static bool LoadPreferences()
+        public static bool LoadPreferences(string path = ConstValues.PreferencesFileName)
         {
             //First check if the database file exists
-            if (!File.Exists(ConstValues.DatabaseFileName))
+            if (!File.Exists(path))
             {
                 return false;
             }
@@ -90,7 +90,7 @@ namespace UniCade.Backend
             CurrentSettings currentSettings;
 
             DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(CurrentSettings));
-            using (FileStream fileStream = File.Open(ConstValues.PreferencesFileName, FileMode.Open))
+            using (FileStream fileStream = File.Open(path, FileMode.Open))
             {
                 currentSettings = (CurrentSettings)dataContractSerializer.ReadObject(fileStream);
             }
@@ -115,7 +115,7 @@ namespace UniCade.Backend
         /// <summary>
         /// Save preferences file to the specified path
         /// </summary>
-        public static void SavePreferences()
+        public static void SavePreferences(string path = ConstValues.PreferencesFileName)
         {
 
             var currentSettings = new CurrentSettings
@@ -146,7 +146,7 @@ namespace UniCade.Backend
             };
 
             DataContractSerializer s = new DataContractSerializer(typeof(CurrentSettings));
-            using (var xmlWriter = XmlWriter.Create(ConstValues.PreferencesFileName, xmlWriterSettings))
+            using (var xmlWriter = XmlWriter.Create(path, xmlWriterSettings))
             {
                 s.WriteObject(xmlWriter, currentSettings);
             }
