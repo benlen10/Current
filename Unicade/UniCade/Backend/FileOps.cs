@@ -464,7 +464,7 @@ namespace UniCade.Backend
             }
 
             //Verify the current user license and set flag
-            if (CryptoEngine.ValidateSha256(Program.UserLicenseName + ConstValues.HashKey, Program.UserLicenseKey))
+            if (CryptoEngine.ValidateLicense(Program.UserLicenseName, Program.UserLicenseKey))
             {
                 Program.IsLicenseValid = true;
             }

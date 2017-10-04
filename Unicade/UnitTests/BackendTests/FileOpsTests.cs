@@ -309,6 +309,23 @@ namespace UnitTests.BackendTests
             Directory.Delete(directoryPath, true);
         }
 
+        /// <summary>
+        /// Verify that the licensing engine properly validates user licenses
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyLicenseEngine()
+        {
+            //Verify that a valid license is accepted
+            const string userLicenseName = "BenLen10";
+            const string userLicenseKey = "24320420022819010692496915919435921962121478220617428618620410761867811517834147129";
+            Assert.IsTrue(CryptoEngine.ValidateLicense(userLicenseName, userLicenseKey));
+
+            //Verify that an invalid license is denied
+            const string invalidLicenseKey = "24320420022819010692496915919435921962121478220617428618620410761867811517834147120";
+            Assert.IsFalse(CryptoEngine.ValidateLicense(userLicenseName, invalidLicenseKey));
+        }
+
         #endregion
-    }
+        }
 }

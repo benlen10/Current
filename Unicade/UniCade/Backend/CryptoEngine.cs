@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using UniCade.Constants;
 
 namespace UniCade.Backend
 {
@@ -29,13 +30,9 @@ namespace UniCade.Backend
             return returnValue.ToString();
         }
 
-        /// <summary>
-        /// Return true if the input hash matches the stored hash data
-        /// </summary>
-        public static bool ValidateSha256(string input, string storedHashData)
+        public static bool ValidateLicense(string licenseUserName, string licenseKey)
         {
-            string getHashInputData = Sha256Hash(input);
-            return (string.CompareOrdinal(getHashInputData, storedHashData) == 0);
+            return Sha256Hash(licenseUserName + ConstValues.HashKey).Equals(licenseKey);
         }
 
         #endregion
