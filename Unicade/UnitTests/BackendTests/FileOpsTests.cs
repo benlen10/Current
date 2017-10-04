@@ -1,9 +1,11 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Objects;
+using UniCade.Resources;
 using Console = UniCade.Objects.Console;
 
 namespace UnitTests.BackendTests
@@ -275,13 +277,36 @@ namespace UnitTests.BackendTests
         [Priority(1)]
         public void VerifyRomScanning()
         {
-            //Create a new rom directory
+            //Create a new rom folder in the test directory
+            string directoryPath = Directory.GetCurrentDirectory() + @"\TestRoms\";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            //Create a new console
+            Console console = new Console("SNES");
+            console.RomFolderPath = directoryPath;
 
             //Populate the new rom directory 
+            string romFilename1 = "Super Mario World.snes";
+            string romFilename2 = "Super Mario Kart.snes";
+            string romTitle1 = "Super Mario World";
+            string romTitle2 = "Super Mario Kart";
+            var rom1 = File.Create(directoryPath + romFilename1);
+            var rom2 = File.Create(directoryPath + romFilename2);
 
             //Scan the rom directory
+            FileOps.ScanSingleConsole(console);
 
             //Verify that the rom files have been properly imported
+            Assert.IsNotNull(console.GetGame(romTitle1), "Verify that the first ROM is properly imported");
+            Assert.IsNotNull(console.GetGame(romTitle2), "Verify that the second ROM is properly imported");
+
+            //Cleanup 
+            rom1.Close();
+            rom2.Close();
+            Directory.Delete(directoryPath, true);
         }
 
         #endregion

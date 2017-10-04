@@ -366,7 +366,7 @@ namespace UniCade.Backend
             Database.AddConsole(new Console("3DS", @"C:\UniCade\Emulators\PS3\3ds.exe", @"C:\UniCade\ROMS\3DS\", "prefPath", ".iso", "consoleInfo", "%file", "2014"));
         }
 
-        /// <summary>
+        /// <summary>s
         /// Validate the integrity of the Media folder located in the current working directory
         /// </summary>
         public static bool VerifyMediaDirectoryIntegrity()
