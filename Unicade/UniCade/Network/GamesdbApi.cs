@@ -34,7 +34,7 @@ namespace UniCade.Network
         /// Gets a collection of games matched up with loose search terms.
         /// </summary>
         /// <returns>A collection of games that matched the search terms</returns>
-        public static bool UpdateGameInfo(IGame game)
+        public static bool UpdateGameInfo(IGame game, bool scrapeImages = true)
         {
             string consoleName = ConvertConsoleName(game.ConsoleName);
 
@@ -132,33 +132,41 @@ namespace UniCade.Network
                     }
                     else if (attributeNode.Name == "Images")
                     {
-                        GameImages gameImages = new GameImages();
-                        gameImages.LoadFromNode(attributeNode);
-
-                        using (WebClient client = new WebClient())
+                        if (scrapeImages)
                         {
-                            if (gameImages.BoxartBack != null)
+                            GameImages gameImages = new GameImages();
+                            gameImages.LoadFromNode(attributeNode);
+
+                            //If the media directory does not exist, create it
+                            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + game.ConsoleName + "\\";
+                            if (!Directory.Exists(directoryPath))
                             {
-                                string boxBackImagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" +
-                                                          game.ConsoleName + "\\" + game.Title + "_BoxBack.jpg";
-                                string boxbackImageUrl = BaseImgUrl + gameImages.BoxartBack;
-                                client.DownloadFile(boxbackImageUrl, boxBackImagePath);
+                                Directory.CreateDirectory(directoryPath);
                             }
 
-                            if (gameImages.BoxartFront != null)
+                            using (WebClient client = new WebClient())
                             {
-                                string boxfrontImagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" +
-                                                           game.ConsoleName + "\\" + game.Title + "_BoxFront.jpg";
-                                string boxfrontImageUrl = BaseImgUrl + gameImages.BoxartFront;
-                                client.DownloadFile(boxfrontImageUrl, boxfrontImagePath);
-                            }
+                                if (gameImages.BoxartBack != null)
+                                {
+                                    string boxBackImagePath = directoryPath + game.Title + "_BoxBack.jpg";
+                                    string boxbackImageUrl = BaseImgUrl + gameImages.BoxartBack;
+                                    client.DownloadFile(boxbackImageUrl, boxBackImagePath);
+                                }
 
-                            if (gameImages.Screenshots.Count > 0)
-                            {
-                                string screenshotImagePath =
-                                    Directory.GetCurrentDirectory() + @"\Media\Games\" + game.ConsoleName + "\\" + game.Title + "_Screenshot.jpg";
-                                string screenshotImageUrl = BaseImgUrl + gameImages.Screenshots.First();
-                                client.DownloadFile(screenshotImageUrl, screenshotImagePath);
+                                if (gameImages.BoxartFront != null)
+                                {
+                                    string boxfrontImagePath = directoryPath + game.Title + "_BoxFront.jpg";
+                                    string boxfrontImageUrl = BaseImgUrl + gameImages.BoxartFront;
+                                    client.DownloadFile(boxfrontImageUrl, boxfrontImagePath);
+                                }
+
+                                if (gameImages.Screenshots.Count > 0)
+                                {
+                                    string screenshotImagePath =
+                                        directoryPath + game.Title + "_Screenshot.jpg";
+                                    string screenshotImageUrl = BaseImgUrl + gameImages.Screenshots.First();
+                                    client.DownloadFile(screenshotImageUrl, screenshotImagePath);
+                                }
                             }
                         }
                     }

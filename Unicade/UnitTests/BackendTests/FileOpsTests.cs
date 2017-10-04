@@ -271,7 +271,7 @@ namespace UnitTests.BackendTests
         }
 
         /// <summary>
-        /// 
+        /// Create new ROM fles in a temp rom directory and verify that they are properly imported
         /// </summary>
         [TestMethod]
         [Priority(1)]
