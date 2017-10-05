@@ -31,7 +31,7 @@ namespace UnitTests.NetworkTests
         [Priority(1)]
         public void NullTest()
         {
-            SqlLiteClient.Initalize();
+            //SqlLiteClient.in();
         }
 
         #endregion

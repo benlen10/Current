@@ -326,6 +326,12 @@ namespace UniCade.Objects
         }
 
         /// <summary>
+        /// A list of other platforms this game is available for
+        /// </summary>
+        [DataMember]
+        public string OtherPlatforms { get; set; }
+
+        /// <summary>
         /// Int value representing the favorite status of the game
         /// </summary>
         [DataMember]
@@ -352,6 +358,12 @@ namespace UniCade.Objects
         /// </summary>
         [DataMember]
         public int MobygamesApiId { get; set; }
+
+        /// <summary>
+        /// The direct url for MobyGames
+        /// </summary>
+        [DataMember]
+        public string MobyGamesUrl { get; set; }
 
         /// <summary>
         /// The unique game identifier for the IGDB API

@@ -71,16 +71,17 @@ namespace UnitTests.NetworkTests
         [Priority(1)]
         public void VerifyMobyGamesApiScraping()
         {
-            //Create a new game
-            //Game game = new Game("Resident Evil 2.bin", "Sony Playstation");
 
             //Attempt to fetch info from MobyGames API
-            var gameList = MobyGamesApi.Fetch("Resident_Evil_2").Result;
-            gameList.ForEach(g => Trace.WriteLine("title: " + g.title + "Platforms: " + g.platforms) );
-
+            var result = MobyGamesApi.FetchGameInfo(_game).Result;
 
             //Verify that the game info has been properly scraped
-            //TODO: Verify all fields
+            Assert.IsNotNull(_game.MobyGamesUrl, "Verify that the mobygames url is properly fetched");
+            Assert.IsNotNull(_game.MobygamesApiId, "Verify that the mobygames API id is properly fetched");
+            Assert.IsNotNull(_game.Description, "Verify that the mobygames desription is properly fetched");
+            Assert.IsNotNull(_game.Genres, "Verify that the mobygames url geners are properly fetched");
+            Assert.IsNotNull(_game.OtherPlatforms, "Verify that the list of other platforms is properly fetched");
+            Assert.IsNotNull(_game.UserReviewScore, "Verify that the user review score is properly fetched");
 
         }
 
@@ -95,7 +96,7 @@ namespace UnitTests.NetworkTests
             string mediaDirectoryPath = Directory.GetCurrentDirectory() + @"\Media\";
             if (Directory.Exists(mediaDirectoryPath))
             {
-                Directory.Delete(mediaDirectoryPath), true);
+                Directory.Delete(mediaDirectoryPath, true);
             }
         }
     }

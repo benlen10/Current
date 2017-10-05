@@ -39,6 +39,11 @@ namespace UniCade.Interfaces
         string EsrbSummary { get; set; }
 
         /// <summary>
+        /// A list of other platforms this game is available for
+        /// </summary>
+        string OtherPlatforms { get; set; }
+
+        /// <summary>
         /// Int value representing the favorite status of the game
         /// </summary>
         bool Favorite { get; set; }
@@ -101,6 +106,11 @@ namespace UniCade.Interfaces
         /// The unique game identifier for the MobyGames API
         /// </summary>
         int MobygamesApiId { get; set; }
+
+        /// <summary>
+        /// The direct url for MobyGames
+        /// </summary>
+        string MobyGamesUrl { get; set; }
 
         /// <summary>
         /// The unique game identifier for the IGDB API
