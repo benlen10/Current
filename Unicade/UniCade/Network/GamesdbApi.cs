@@ -264,11 +264,80 @@ namespace UniCade.Network
 
         #region Helper Methods
 
-        static string ConvertConsoleName(string consoleName)
+        /// <summary>
+        /// Convert console names into valid platform
+        /// </summary>
+        /// <param name="consoleName"></param>
+        /// <returns></returns>
+        private static string ConvertConsoleName(string consoleName)
         {
-            if (consoleName.Equals("PS1"))
+            if (consoleName.Contains("PS1") || consoleName.Contains("PSX") || consoleName.Equals("Sony Playstation 1"))
             {
                 return "Sony Playstation";
+            }
+            if (consoleName.Contains("PS2"))
+            {
+                return "Sony Playstation 2";
+            }
+            if (consoleName.Contains("PSP"))
+            {
+                return "Sony Playstation Portable";
+            }
+            if (consoleName.Contains("GBA"))
+            {
+                return "Nintendo N64";
+            }
+            if (consoleName.Contains("GBA"))
+            {
+                return "Nintendo Game Boy Advance";
+            }
+            if (consoleName.Contains("GBC"))
+            {
+                return "Nintendo Game Boy Color";
+            }
+            if (consoleName.Equals("DS"))
+            {
+                return "Nintendo DS";
+            }
+            if (consoleName.Contains("3DS"))
+            {
+                return "Nintendo 3DS";
+            }
+            if (consoleName.Contains("SNES"))
+            {
+                return "Super Nintendo (SNES)";
+            }
+            if (consoleName.Equals("NES"))
+            {
+                return " Nintendo Entertainment System (NES)";
+            }
+            if (consoleName.Contains("Gamecube"))
+            {
+                return "Nintendo Gamecube";
+            }
+            if (consoleName.Contains("Wii U"))
+            {
+                return "Nintendo Wii U";
+            }
+            if (consoleName.Equals("Wii"))
+            {
+                return "Nintendo Wii";
+            }
+            if (consoleName.Contains("Windows")|| consoleName.Contains("Steam"))
+            {
+                return "PC";
+            }
+            if (consoleName.Contains("Genisis"))
+            {
+                return "Sega Genesis";
+            }
+            if (consoleName.Contains("Dreamcast"))
+            {
+                return "Sega Dreamcast";
+            }
+            if (consoleName.Contains("Saturn"))
+            {
+                return "Sega Saturn";
             }
             return consoleName;
         }
