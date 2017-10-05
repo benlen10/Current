@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
 using UniCade.Constants;
@@ -52,7 +53,7 @@ namespace UnitTests.NetworkTests
             GamesdbApi.UpdateGameInfo(_game);
 
             //Verify that the game info has been properly scraped
-            Assert.IsTrue(_game.Description.Contains("Suspense"),"Verify that the game desription is properly fetched");
+            Assert.IsTrue(_game.Description.Contains("Suspense"), "Verify that the game desription is properly fetched");
             Assert.AreEqual(Enums.EsrbRatings.Mature, _game.EsrbRatingsRating, "Verify that the ESRB rating is properly fetched");
             Assert.AreEqual("Capcom", _game.PublisherName, "Verify that the publisher is properly fetched");
 
@@ -71,12 +72,16 @@ namespace UnitTests.NetworkTests
         public void VerifyMobyGamesApiScraping()
         {
             //Create a new game
-            Game game = new Game("Resident Evil 2.bin", "Sony Playstation");
+            //Game game = new Game("Resident Evil 2.bin", "Sony Playstation");
 
             //Attempt to fetch info from MobyGames API
+            var gameList = MobyGamesApi.Fetch("Resident_Evil_2").Result;
+            gameList.ForEach(g => Trace.WriteLine("title: " + g.title + "Platforms: " + g.platforms) );
+
 
             //Verify that the game info has been properly scraped
             //TODO: Verify all fields
+
         }
 
         #endregion
@@ -87,7 +92,11 @@ namespace UnitTests.NetworkTests
         [TestCleanup]
         public void Cleanup()
         {
-            Directory.Delete(Directory.GetCurrentDirectory() + @"\Media\", true);
+            string mediaDirectoryPath = Directory.GetCurrentDirectory() + @"\Media\";
+            if (Directory.Exists(mediaDirectoryPath))
+            {
+                Directory.Delete(mediaDirectoryPath), true);
+            }
         }
     }
 }

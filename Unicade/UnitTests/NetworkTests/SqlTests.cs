@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
+using UniCade.Network;
 
 namespace UnitTests.NetworkTests
 {
@@ -30,7 +31,7 @@ namespace UnitTests.NetworkTests
         [Priority(1)]
         public void NullTest()
         {
-            //TODO
+            SqlLiteClient.Initalize();
         }
 
         #endregion

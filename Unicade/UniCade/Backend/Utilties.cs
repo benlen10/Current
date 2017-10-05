@@ -105,6 +105,5 @@ namespace UniCade.Backend
             return Enums.EsrbRatings.Null;
         }
 
-
     }
 }

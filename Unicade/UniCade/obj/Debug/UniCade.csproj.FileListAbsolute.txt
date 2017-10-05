@@ -139,3 +139,7 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCa
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\ImagePopup.g.cs
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade_MarkupCompile.lref
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\ImagePopup.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\System.Data.SQLite.xml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\System.Data.SQLite.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\Newtonsoft.Json.xml

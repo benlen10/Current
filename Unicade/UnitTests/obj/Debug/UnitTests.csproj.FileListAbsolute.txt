@@ -32,3 +32,7 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\Mic
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\obj\Debug\UnitTests.dll
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\obj\Debug\UnitTests.pdb
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\System.Data.SQLite.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\System.Data.SQLite.xml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\Newtonsoft.Json.xml

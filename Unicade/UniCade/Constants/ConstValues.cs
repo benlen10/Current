@@ -160,6 +160,11 @@ namespace UniCade.Constants
         /// </summary>
         internal const string HashKey = "JI3vgsD6Nc6VSMrNw0b4wvuJmDw6Lrld";
 
+        /// <summary>
+        /// The current API key for MobyGames
+        /// </summary>
+        internal const string MobyGamesApiKey = "xkaobsFA5xGdr8PEBtT8Zg==";
+
         #endregion
 
         #region  Static Readonly Fields
@@ -168,6 +173,8 @@ namespace UniCade.Constants
         /// Global invalid characters 
         /// </summary>
         internal static readonly char[] InvalidChars = { '|', '*' };
+
+
 
         #endregion
 

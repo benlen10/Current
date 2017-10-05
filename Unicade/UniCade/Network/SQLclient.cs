@@ -255,7 +255,7 @@ namespace UniCade.Network
             myCommand.ExecuteNonQuery();
 
             //Fetch the SQL structure command from the TextFiles class
-            command = TextFiles.SqlStructure;
+            command = SqlCommands.SqlStructure;
 
             //Execute the command and add the new user to the database
             command = command.Replace("games", (username + "_games"));
