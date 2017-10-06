@@ -1,9 +1,7 @@
 ﻿using System.Data.SQLite;
-using System.Diagnostics;
 using System.IO;
 using UniCade.Constants;
 using UniCade.Interfaces;
-using UniCade.Objects;
 
 namespace UniCade.Network
 {
@@ -44,7 +42,7 @@ namespace UniCade.Network
 
         internal static void CreateUsersTable()
         {
-            ExecuteNonQuery(Constants.SqlCommands.CreateUsersTable);
+            ExecuteNonQuery(SqlCommands.CreateUsersTable);
         }
 
         internal static void CreateNewUser(string username, string password, string email, string userInfo, string allowedEsrb)
@@ -54,7 +52,7 @@ namespace UniCade.Network
             ExecuteNonQuery(command);
 
             //Create a games table for the new user
-            command = SqlCommands.CreateGamesTable.Replace("[UserName]", username);
+            command = SqlCommands.CreateGamesTable.Replace("[Username]", username);
             ExecuteNonQuery(command);
         }
 

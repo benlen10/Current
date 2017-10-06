@@ -31,7 +31,9 @@ namespace UnitTests.NetworkTests
         [Priority(1)]
         public void NullTest()
         {
-            //SqlLiteClient.in();
+            SqlLiteClient.Connect();
+            SqlLiteClient.CreateUsersTable();
+            SqlLiteClient.CreateNewUser("BenLen", "tempPass", "benlen10@gmail.com", "userInfo", "Null");
         }
 
         #endregion

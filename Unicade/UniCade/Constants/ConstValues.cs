@@ -168,7 +168,7 @@ namespace UniCade.Constants
         /// <summary>
         /// The current API key for MobyGames
         /// </summary>
-        internal const string SqlDatabaseFileName = "unicade.sqlite";
+        internal const string SqlDatabaseFileName = "C:\\UniCade\\unicade.sqlite";
 
         #endregion
 
@@ -178,8 +178,6 @@ namespace UniCade.Constants
         /// Global invalid characters 
         /// </summary>
         internal static readonly char[] InvalidChars = { '|', '*' };
-
-
 
         #endregion
 
