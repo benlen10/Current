@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
 using UniCade.Network;
+using UniCade.Objects;
 
 namespace UnitTests.NetworkTests
 {
@@ -33,7 +34,20 @@ namespace UnitTests.NetworkTests
         {
             SqlLiteClient.Connect();
             SqlLiteClient.CreateUsersTable();
-            SqlLiteClient.CreateNewUser("BenLen", "tempPass", "benlen10@gmail.com", "userInfo", "Null");
+
+            const string userName = "BenLen";
+            const string password = "tempPass";
+
+            SqlLiteClient.CreateNewUser(userName, password, "benlen10@gmail.com", "userInfo", "Null");
+            Assert.IsTrue(SqlLiteClient.Login(userName, password));
+
+            string gameName = "Super Mario World.snes";
+            string consoleName = "SNES";
+            Game game = new Game(gameName, consoleName);
+            Assert.IsTrue(SqlLiteClient.UploadGame(game));
+
+            //game = new Game("Null.bin", "Null");
+
         }
 
         #endregion

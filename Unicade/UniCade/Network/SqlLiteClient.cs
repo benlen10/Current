@@ -95,8 +95,8 @@ namespace UniCade.Network
             {
                 return false;
             }
-
-            string command =  $"INSERT INTO + { _currentSqlUsername}_games (filename, title, Console, LaunchCount, releaseDate, publisher, developer, userscore, criticscore, players, trivia, esrb, esrbdescriptors, esrbsummary, description, genres, tags, favorite) VALUES (\"{g.FileName}\" \"{g.Title}\" \"{g.ConsoleName}\" \"{g.GetLaunchCount()}\" \"{g.ReleaseDate}\" \"{g.PublisherName}\" \"{g.DeveloperName}\" \"{g.UserReviewScore}\" \"{g.SupportedPlayerCount}\" \"{g.Trivia}\" \"{g.EsrbRatingsRating.GetStringValue()}\" \"{g.GetEsrbDescriptorsString()}\" \"{g.EsrbSummary}\" \"{g.Description}\" \"{g.Genres}\" \"{g.Tags}\" \"{g.Favorite}\"  );";
+            int fav = g.Favorite ? 1 : 0; 
+            string command =  $"INSERT INTO games_{ _currentSqlUsername}  VALUES (\"{g.FileName}\", \"{g.Title}\", \"{g.ConsoleName}\" ,{g.GetLaunchCount()}, \"{g.ReleaseDate}\", \"{g.PublisherName}\", \"{g.DeveloperName}\", \"{g.UserReviewScore}\",  \"{g.CriticReviewScore}\", \"{g.SupportedPlayerCount}\", \"{g.Trivia}\", \"{g.EsrbRatingsRating.GetStringValue()}\", \"{g.GetEsrbDescriptorsString()}\", \"{g.EsrbSummary}\", \"{g.Description}\", \"{g.Genres}\", \"{g.Tags}\", {fav});";
             ExecuteNonQuery(command);
 
             return true;
@@ -108,7 +108,8 @@ namespace UniCade.Network
             {
                 return false;
             }
-
+            string command = $"DELETE FROM games_{_currentSqlUsername}";
+            ExecuteNonQuery(command);
             return true;
         }
 
