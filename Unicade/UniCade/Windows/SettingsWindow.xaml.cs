@@ -189,7 +189,7 @@ namespace UniCade.Windows
         private void GamesTab_DownloadGameButton_Click(object sender, RoutedEventArgs e)
         {
             //Check if a UniCade Cloud user is currently active
-            if (SqlClient.SqlUsername == null)
+            if (SqlLiteClient.GetCurrentUsername() == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
@@ -213,17 +213,15 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a game");
                 return;
             }
-            IGame game = SqlClient.GetSingleGame(_currentGame.ConsoleName, _currentGame.Title);
-            if (game != null)
+            if (SqlLiteClient.DownloadGameInfo(_currentGame))
             {
-                //replace the game
-                _currentConsole.RemoveGame(game.Title);
-                _currentConsole.AddGame(game);
-                RefreshGameInfo(game);
+                RefreshGameInfo(_currentGame);
                 MessageBox.Show("Download successful");
-                return;
             }
-            MessageBox.Show("Download failed");
+            else
+            {
+                MessageBox.Show("Download failed");
+            }
         }
 
         /// <summary>
@@ -233,7 +231,7 @@ namespace UniCade.Windows
         private void GamesTab_UploadConsoleButton_Click(object sender, EventArgs e)
         {
             //Invalid input checks
-            if (SqlClient.SqlUsername == null)
+            if (SqlLiteClient.GetCurrentUsername() == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
@@ -254,7 +252,7 @@ namespace UniCade.Windows
             foreach (string gameTitle in gameList)
             {
                 IGame game = _currentConsole.GetGame(gameTitle);
-                SqlClient.UploadGame(game);
+                SqlLiteClient.UploadGame(game);
             }
             MessageBox.Show("Console Uploaded");
         }
@@ -271,7 +269,7 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a console");
                 return;
             }
-            if (SqlClient.SqlUsername == null)
+            if (SqlLiteClient.GetCurrentUsername() == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
@@ -290,13 +288,9 @@ namespace UniCade.Windows
             var gameList = _currentConsole.GetGameList();
             foreach (string gameTitle in gameList)
             {
-                IGame g = _currentConsole.GetGame(gameTitle);
-                IGame game = SqlClient.GetSingleGame(g.ConsoleName, g.Title);
-                if (game != null)
-                {
-                    _currentConsole.RemoveGame(game.Title);
-                    _currentConsole.AddGame(game);
-                }
+                IGame game = _currentConsole.GetGame(gameTitle);
+                SqlLiteClient.DownloadGameInfo(game);
+
             }
 
             //Refresh the current game info
@@ -431,7 +425,7 @@ namespace UniCade.Windows
         private void GamesTab_UploadButton_Click(object sender, EventArgs e)
         {
 
-            if (SqlClient.SqlUsername == null)
+            if (SqlLiteClient.GetCurrentUsername() == null)
             {
                 MessageBox.Show("UniCade Cloud login required");
                 return;
@@ -448,7 +442,7 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a console/game");
                 return;
             }
-            SqlClient.UploadGame(_currentGame);
+            SqlLiteClient.UploadGame(_currentGame);
             MessageBox.Show("Game Uploaded");
         }
 
@@ -1086,9 +1080,9 @@ namespace UniCade.Windows
         {
             LoginWindow l = new LoginWindow(0);
             l.ShowDialog();
-            if (SqlClient.SqlUsername != null)
+            if (SqlLiteClient.GetCurrentUsername() != null)
             {
-                WebTabLabelCurrentWebUser.Content = "Current Web User: " + SqlClient.SqlUsername;
+                WebTabLabelCurrentWebUser.Content = "Current Web User: " + SqlLiteClient.GetCurrentUsername();
             }
         }
 
@@ -1099,7 +1093,7 @@ namespace UniCade.Windows
         private void CloudTab_Button_Logout_Click(object sender, RoutedEventArgs e)
         {
             //Check if a user is actually logged in
-            if (SqlClient.SqlUsername == null)
+            if (SqlLiteClient.GetCurrentUsername() == null)
             {
                 MessageBox.Show("User is already logged out");
                 WebTabLabelCurrentWebUser.Content = "Current Web User: ";
@@ -1107,7 +1101,7 @@ namespace UniCade.Windows
             }
 
             //Log the current user out and update the interface
-            SqlClient.SqlUsername = null;
+            SqlLiteClient.Logout();
             WebTabLabelCurrentWebUser.Content = "Current Web User: ";
         }
 
@@ -1117,14 +1111,14 @@ namespace UniCade.Windows
         /// </summary>
         private void CloudTab_Button_DeleteAccount_Click(object sender, RoutedEventArgs e)
         {
-            if (SqlClient.SqlUsername == null)
+            if (SqlLiteClient.GetCurrentUsername() == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
 
             //Delete the current SQL user and update the label
-            SqlClient.DeleteUser();
+            SqlLiteClient.DeleteCurrentUser(SqlLiteClient.GetCurrentUsername());
             WebTabLabelCurrentWebUser.Content = "Current Web User: ";
         }
 
@@ -1134,12 +1128,12 @@ namespace UniCade.Windows
         /// </summary>
         private void CloudTab_Button_UploadAllGames_Click(object sender, RoutedEventArgs e)
         {
-            if (SqlClient.SqlUsername == null)
+            if (SqlLiteClient.GetCurrentUsername() == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
-            SqlClient.UploadAllGames();
+            SqlLiteClient.UploadAllGames();
             MessageBox.Show("Library successfully uploaded");
         }
 
@@ -1149,12 +1143,13 @@ namespace UniCade.Windows
         private void CloudTab_Button_DeleteAllGamesInCloud_Click(object sender, RoutedEventArgs e)
         {
             //Check if a SQL user is currently logged in
-            if (SqlClient.SqlUsername == null)
+            if (SqlLiteClient.GetCurrentUsername() == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
-            SqlClient.Deletegames();
+
+            SqlLiteClient.DeleteAllUserGames();
             MessageBox.Show("Library successfully deleted");
         }
 
@@ -1164,13 +1159,19 @@ namespace UniCade.Windows
         /// </summary>
         private void CloudTab_Button_DownloadAllGames_Click(object sender, RoutedEventArgs e)
         {
-            if (SqlClient.SqlUsername == null)
+            if (SqlLiteClient.GetCurrentUsername() == null)
             {
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
-            SqlClient.DownloadAllGames();
-            MessageBox.Show("Library metadata sucuessfully updated");
+            if (SqlLiteClient.DownloadAllGames())
+            {
+                MessageBox.Show("Library metadata sucuessfully updated");
+            }
+            else
+            {
+                MessageBox.Show("SQL Operation failed");
+            }
         }
 
         /// <summary>

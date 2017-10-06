@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
+using UniCade.Objects;
 using UniCade.Resources;
 
 namespace UniCade.Network
@@ -93,14 +94,13 @@ namespace UniCade.Network
 
             if (CurrentApi.Equals(Enums.Api.ThegamesDb))
             {
-                Trace.WriteLine("SCRAPE GAMESDB");
                 GamesdbApi.UpdateGameInfo(game);
             }
-            else if (CurrentApi.Equals(Enums.Api.Igdb))
-            {
-                //TODO
-            }
             else if (CurrentApi.Equals(Enums.Api.MobyGames))
+            {
+                var result = MobyGamesApi.FetchGameInfo(game);
+            }
+            else if (CurrentApi.Equals(Enums.Api.Igdb))
             {
                 //TODO
             }

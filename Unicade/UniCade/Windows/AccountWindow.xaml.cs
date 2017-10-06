@@ -64,7 +64,7 @@ namespace UniCade.Windows
             //Create a new SQL user if the account type is UniCade Cloud
             if (_userType.Equals(Enums.UserType.CloudAccount))
             {
-                SqlClient.CreateUser(TextboxUsername.Text, TextboxEmail.Text, TextboxEmail.Text, TextboxUserInfo.Text, "Null", "NullProfPath");
+                SqlLiteClient.CreateNewUser(TextboxUsername.Text, TextboxPassword.Text, TextboxEmail.Text, TextboxUserInfo.Text, "Null");
             }
             else
             {

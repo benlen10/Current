@@ -160,7 +160,6 @@
     <Compile Include="Windows\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Network\SQLclient.cs" />
     <Compile Include="Backend\Taskbar.cs" />
     <Compile Include="Constants\TextFiles.cs" />
     <Compile Include="Objects\User.cs" />

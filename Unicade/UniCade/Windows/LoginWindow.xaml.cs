@@ -58,7 +58,7 @@ namespace UniCade.Windows
             //If the user is a SQL client, preform SQL user authentication 
             if (_userType.Equals(Enums.UserType.CloudAccount))
             {
-                if (SqlClient.AuthiencateUser(TextboxUsername.Text, TextboxPassword.Text))
+                if (SqlLiteClient.Login(TextboxUsername.Text, TextboxPassword.Text))
                 {
                     Close();
                 }

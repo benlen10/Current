@@ -24,7 +24,6 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\Uni
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\UniCade.exe
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\MySql.Data.dll
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\UniCade.pdb
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\UniCade.exe.config
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml

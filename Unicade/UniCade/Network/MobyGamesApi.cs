@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using Newtonsoft.Json;
 using UniCade.Constants;
 using UniCade.Interfaces;
 using UniCade.Objects;
@@ -29,7 +27,7 @@ namespace UniCade.Network
         /// Update the info for the Game object with the MobyGames API
         /// </summary>
         /// <returns>A list of MobyGame objects</returns>
-        public static async Task<List<MobyGameResult>> FetchGameInfo(Game game)
+        public static async Task<List<MobyGameResult>> FetchGameInfo(IGame game)
         {
             //Replace all spaces with underscores for the api request
             string title = game.Title.Replace(' ', '_');

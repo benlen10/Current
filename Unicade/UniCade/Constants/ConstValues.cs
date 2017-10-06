@@ -165,6 +165,11 @@ namespace UniCade.Constants
         /// </summary>
         internal const string MobyGamesApiKey = "xkaobsFA5xGdr8PEBtT8Zg==";
 
+        /// <summary>
+        /// The current API key for MobyGames
+        /// </summary>
+        internal const string SqlDatabaseFileName = "unicade.sqlite";
+
         #endregion
 
         #region  Static Readonly Fields
