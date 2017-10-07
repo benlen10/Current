@@ -97,7 +97,35 @@ namespace UnitTests.NetworkTests
             Assert.AreEqual(launchCount, game.GetLaunchCount(), "Verify that the game launch count is correct");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void TestLoginFunctionality()
+        {
+            SqlLiteClient.Connect();
+            SqlLiteClient.CreateUsersTable();
 
+            const string userName = "BenLen";
+            const string password = "tempPass";
+            const string invalidPass = "tempPass2";
+
+            //Create a new user
+            SqlLiteClient.CreateNewUser(userName, password, "benlen10@gmail.com", "userInfo", "Null");
+
+            //Verify that an invalid password is not accepted
+            Assert.IsFalse(SqlLiteClient.Login(userName, invalidPass), "Verify that an invalid password is not accepted");
+
+            //Verify that the current user is stil null
+            Assert.IsNull(SqlLiteClient.GetCurrentUsername(), "Verify that the current user is stil null");
+
+            //Verify that a valid password returns true
+            Assert.IsTrue(SqlLiteClient.Login(userName, password), "Verify that a valid password returns true");
+
+            //Verify that the current user is stil null
+            Assert.IsNull(SqlLiteClient.GetCurrentUsername().Equals(userName), "Verify that the current user has been updated");
+        }
 
 
         #endregion
