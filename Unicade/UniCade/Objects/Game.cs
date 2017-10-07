@@ -545,11 +545,20 @@ namespace UniCade.Objects
         }
 
         /// <summary>
-        /// Reets the current launch count to 0
+        /// Resets the current launch count to 0
         /// </summary>
         public void ResetLaunchCount()
         {
             _launchCount = 0;
+        }
+
+
+        /// <summary>
+        /// Sets the current launch count
+        /// </summary>
+        public void SetLaunchCount(int count)
+        {
+            _launchCount = count;
         }
 
         /// <summary>

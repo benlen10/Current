@@ -16,8 +16,8 @@ CREATE TABLE games_[Username](
   releaseDate     TEXT,      -- Release date
   publisher       TEXT,      -- Game publisher
   developer       TEXT,      -- Game developer
-  userscore       TEXT,      -- Average user score
-  criticscore     TEXT,      -- Average critic score
+  userScore       TEXT,      -- Average user score
+  criticScore     TEXT,      -- Average critic score
   players         TEXT,      -- Number of supported local players
   trivia          TEXT,      -- Trivia or extra info related to the game
   esrbRating      TEXT,      -- ESRB content rating

@@ -1,5 +1,6 @@
 ﻿using System.Data.SQLite;
 using System.IO;
+using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
 
@@ -75,11 +76,11 @@ namespace UniCade.Network
             var reader = ExecuteQuery(command);
             while (reader.Read())
             {
-                if (password.Equals(reader["password"]))
+                if (password.Equals(reader["password"].ToString()))
                 {
                     _currentSqlUsername = username;
+                    return true;
                 }
-                return true;
             }
             return false;
         }
@@ -95,8 +96,8 @@ namespace UniCade.Network
             {
                 return false;
             }
-            int fav = g.Favorite ? 1 : 0; 
-            string command =  $"INSERT INTO games_{ _currentSqlUsername}  VALUES (\"{g.FileName}\", \"{g.Title}\", \"{g.ConsoleName}\" ,{g.GetLaunchCount()}, \"{g.ReleaseDate}\", \"{g.PublisherName}\", \"{g.DeveloperName}\", \"{g.UserReviewScore}\",  \"{g.CriticReviewScore}\", \"{g.SupportedPlayerCount}\", \"{g.Trivia}\", \"{g.EsrbRatingsRating.GetStringValue()}\", \"{g.GetEsrbDescriptorsString()}\", \"{g.EsrbSummary}\", \"{g.Description}\", \"{g.Genres}\", \"{g.Tags}\", {fav});";
+            int fav = g.Favorite ? 1 : 0;
+            string command = $"INSERT INTO games_{ _currentSqlUsername}  VALUES (\"{g.FileName}\", \"{g.Title}\", \"{g.ConsoleName}\" ,{g.GetLaunchCount()}, \"{g.ReleaseDate}\", \"{g.PublisherName}\", \"{g.DeveloperName}\", \"{g.UserReviewScore}\",  \"{g.CriticReviewScore}\", \"{g.SupportedPlayerCount}\", \"{g.Trivia}\", \"{g.EsrbRatingsRating.GetStringValue()}\", \"{g.GetEsrbDescriptorsString()}\", \"{g.EsrbSummary}\", \"{g.Description}\", \"{g.Genres}\", \"{g.Tags}\", {fav});";
             ExecuteNonQuery(command);
 
             return true;
@@ -108,6 +109,7 @@ namespace UniCade.Network
             {
                 return false;
             }
+
             string command = $"DELETE FROM games_{_currentSqlUsername}";
             ExecuteNonQuery(command);
             return true;
@@ -118,9 +120,42 @@ namespace UniCade.Network
             return true;
         }
 
-            internal static bool DownloadGameInfo(IGame game)
+
+        internal static bool DownloadGameInfo(IGame game)
         {
-            return false;
+            if (_currentSqlUsername == null)
+            {
+                return false;
+            }
+
+            string command = $"SELECT * FROM games_{_currentSqlUsername} WHERE filename = \"{game.FileName}\" AND console = \"{game.ConsoleName}\"";
+
+            var reader = ExecuteQuery(command);
+
+            //Return false if the game is not found
+            if (!reader.HasRows)
+            {
+                return false;
+            }
+
+            //Populate the game fields
+            reader.Read();
+            game.SetLaunchCount(int.Parse(reader["launchCount"].ToString()));
+            game.ReleaseDate = reader["releaseDate"].ToString();
+            game.PublisherName = reader["publisher"].ToString();
+            game.DeveloperName = reader["developer"].ToString();
+            game.UserReviewScore = reader["userScore"].ToString();
+            game.CriticReviewScore = reader["criticScore"].ToString();
+            game.SupportedPlayerCount = reader["players"].ToString();
+            game.Trivia = reader["trivia"].ToString();
+            game.EsrbRatingsRating = Utilties.ParseEsrbRating(reader["esrbRating"].ToString());
+            game.AddEsrbDescriptorsFromString(reader["esrbDescriptors"].ToString());
+            game.EsrbSummary = reader["esrbSummary"].ToString();
+            game.Description = reader["description"].ToString();
+            game.Genres = reader["genres"].ToString();
+            game.Tags = reader["tags"].ToString();
+            game.Favorite = int.Parse(reader["favorite"].ToString()) == 1;
+            return true;
         }
 
         internal static bool DownloadAllGamesForConsole(IConsole console)

@@ -138,6 +138,11 @@ namespace UniCade.Interfaces
         void ResetLaunchCount();
 
         /// <summary>
+        /// Sets the current launch count
+        /// </summary>
+        void SetLaunchCount(int count);
+
+        /// <summary>
         /// Adds a new ESRB descriptor enum 
         /// Returns false if the same descriptor already exists
         /// </summary>
