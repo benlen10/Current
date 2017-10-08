@@ -130,7 +130,7 @@ namespace UnitTests.NetworkTests
         /// </summary>
         [TestMethod]
         [Priority(1)]
-        public void VerifyCreateDeleteUsers ()
+        public void VerifyCreateDeleteUsers()
         {
             const string userName = "BenLen";
             const string password = "tempPass";
@@ -152,6 +152,40 @@ namespace UnitTests.NetworkTests
 
             //Verify that the current user is now null
             Assert.IsNull(SqlLiteClient.GetCurrentUsername(), "Verify that the current user is now null");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyDeleteUserGames()
+        {
+            SqlLiteClient.Connect();
+            SqlLiteClient.CreateUsersTable();
+
+            const string userName = "BenLen";
+            const string password = "tempPass";
+
+            SqlLiteClient.CreateNewUser(userName, password, "benlen10@gmail.com", "userInfo", "Null");
+            Assert.IsTrue(SqlLiteClient.Login(userName, password));
+
+            //Create a new game
+            const string fileName = "Super Mario World.snes";
+            const string gameConsole = "SNES";
+            Game game = new Game(fileName, gameConsole);
+
+            //Upload the game
+            Assert.IsTrue(SqlLiteClient.UploadGame(game), "Verify that the game is sucuessfully uploaded");
+
+            //Confirm that the game exists in the database
+            Assert.IsTrue(SqlLiteClient.DownloadGameInfo(game), "Confirm that the game exists in the database");
+
+            //Delete all games for the current user
+            SqlLiteClient.DeleteAllUserGames();
+
+            //Verify that the game no longer exists
+            Assert.IsFalse(SqlLiteClient.DownloadGameInfo(game), "Verify that the game no longer exists");
         }
 
 

@@ -70,8 +70,15 @@ namespace UniCade.Network
         {
             if (_currentSqlUsername != null)
             {
+                //Delete the current user from the users table
                 string command = $"DELETE FROM users WHERE username = \"{_currentSqlUsername}\";";
                 ExecuteNonQuery(command);
+
+                //Drop the user's games table
+                command = $"DROP TABLE games_{_currentSqlUsername}";
+                ExecuteNonQuery(command);
+
+                //Set the current user to null
                 _currentSqlUsername = null;
             }
         }
