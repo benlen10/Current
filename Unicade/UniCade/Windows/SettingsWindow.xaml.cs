@@ -1118,7 +1118,7 @@ namespace UniCade.Windows
             }
 
             //Delete the current SQL user and update the label
-            SqlLiteClient.DeleteCurrentUser(SqlLiteClient.GetCurrentUsername());
+            SqlLiteClient.DeleteCurrentUser();
             WebTabLabelCurrentWebUser.Content = "Current Web User: ";
         }
 

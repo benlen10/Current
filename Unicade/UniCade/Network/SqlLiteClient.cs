@@ -46,27 +46,34 @@ namespace UniCade.Network
             ExecuteNonQuery(SqlCommands.CreateUsersTable);
         }
 
-        internal static void CreateNewUser(string username, string password, string email, string userInfo, string allowedEsrb)
+        internal static bool CreateNewUser(string username, string password, string email, string userInfo, string allowedEsrb)
         {
+            //Check if an user with the existing username exists
+            string command = $"SELECT * FROM users WHERE username = \"{username}\"";
+            var reader = ExecuteQuery(command);
+            if (reader.HasRows)
+            {
+                return false;
+            }
+            
             //Create a new user entry in the users table
-            string command = $"INSERT INTO users (username,password,email,userinfo,allowedEsrb) VALUES (\"{username}\", \"{password}\", \"{email}\", \"{userInfo}\", \"{allowedEsrb}\");";
+            command = $"INSERT INTO users (username,password,email,userinfo,allowedEsrb) VALUES (\"{username}\", \"{password}\", \"{email}\", \"{userInfo}\", \"{allowedEsrb}\");";
             ExecuteNonQuery(command);
 
             //Create a games table for the new user
             command = SqlCommands.CreateGamesTable.Replace("[Username]", username);
             ExecuteNonQuery(command);
+            return true;
         }
 
-        internal static bool DeleteCurrentUser(string username)
+        internal static void DeleteCurrentUser()
         {
-            if (username.Equals(_currentSqlUsername))
+            if (_currentSqlUsername != null)
             {
-                string command = $"DELETE FROM users WHERE username = \"{username}\";";
+                string command = $"DELETE FROM users WHERE username = \"{_currentSqlUsername}\";";
                 ExecuteNonQuery(command);
                 _currentSqlUsername = null;
-                return true;
             }
-            return false;
         }
 
         internal static bool Login(string username, string password)

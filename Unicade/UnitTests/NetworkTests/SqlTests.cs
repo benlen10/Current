@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,13 +17,13 @@ namespace UnitTests.NetworkTests
     public class SqlTests
     {
         /// <summary>
-        /// Initalize the database
+        /// Initalize the sqlite database
         /// </summary>
         [TestInitialize]
         public void Initalize()
         {
-            //Initalize the program
-            Database.Initalize();
+            SqlLiteClient.Connect();
+            SqlLiteClient.CreateUsersTable();
         }
 
         #region SQL Tests
@@ -104,15 +105,12 @@ namespace UnitTests.NetworkTests
         [Priority(1)]
         public void TestLoginFunctionality()
         {
-            SqlLiteClient.Connect();
-            SqlLiteClient.CreateUsersTable();
-
             const string userName = "BenLen";
             const string password = "tempPass";
             const string invalidPass = "tempPass2";
 
             //Create a new user
-            SqlLiteClient.CreateNewUser(userName, password, "benlen10@gmail.com", "userInfo", "Null");
+            Assert.IsTrue(SqlLiteClient.CreateNewUser(userName, password, "benlen10@gmail.com", "userInfo", "Null"), "Verify that the user is properly created");
 
             //Verify that an invalid password is not accepted
             Assert.IsFalse(SqlLiteClient.Login(userName, invalidPass), "Verify that an invalid password is not accepted");
@@ -123,11 +121,58 @@ namespace UnitTests.NetworkTests
             //Verify that a valid password returns true
             Assert.IsTrue(SqlLiteClient.Login(userName, password), "Verify that a valid password returns true");
 
-            //Verify that the current user is stil null
-            Assert.IsNull(SqlLiteClient.GetCurrentUsername().Equals(userName), "Verify that the current user has been updated");
+            //Verify that the current user has been updated
+            Assert.IsTrue(SqlLiteClient.GetCurrentUsername().Equals(userName), "Verify that the current user has been updated");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyCreateDeleteUsers ()
+        {
+            const string userName = "BenLen";
+            const string password = "tempPass";
+
+            //Create a new user
+            Assert.IsTrue(SqlLiteClient.CreateNewUser(userName, password, "benlen10@gmail.com", "userInfo", "Null"), "Verify that the user is properly created");
+
+            //Verify that a user with a duplicate username cannot be created
+            Assert.IsFalse(SqlLiteClient.CreateNewUser(userName, password, "benlen10@gmail.com", "userInfo", "Null"), "Verify that the user is properly created");
+
+            //Verify that the user login is accepted
+            Assert.IsTrue(SqlLiteClient.Login(userName, password), "Verify that the user login is accepted");
+
+            //Verify that the current user has been updated
+            Assert.IsTrue(SqlLiteClient.GetCurrentUsername().Equals(userName), "Verify that the current user has been updated");
+
+            //Delete the current user
+            SqlLiteClient.DeleteCurrentUser();
+
+            //Verify that the current user is now null
+            Assert.IsNull(SqlLiteClient.GetCurrentUsername(), "Verify that the current user is now null");
         }
 
 
         #endregion
+
+        #region  Helper Methods
+
+        /// <summary>
+        /// Cleanup the sqlite database file
+        /// </summary>
+        [TestCleanup]
+        public void Cleanup()
+        {
+            /*
+            if (File.Exists(ConstValues.SqlDatabaseFileName))
+            {
+                File.Delete(ConstValues.SqlDatabaseFileName);
+            }
+            */
         }
+
+        #endregion
+    }
 }
