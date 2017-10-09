@@ -1,8 +1,10 @@
 ﻿using System.Data.SQLite;
 using System.IO;
+using System.Text;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
+using UniCade.Objects;
 
 namespace UniCade.Network
 {
@@ -55,7 +57,7 @@ namespace UniCade.Network
             {
                 return false;
             }
-            
+
             //Create a new user entry in the users table
             command = $"INSERT INTO users (username,password,email,userinfo,allowedEsrb) VALUES (\"{username}\", \"{password}\", \"{email}\", \"{userInfo}\", \"{allowedEsrb}\");";
             ExecuteNonQuery(command);
@@ -129,12 +131,6 @@ namespace UniCade.Network
             return true;
         }
 
-        internal static bool UploadAllGames()
-        {
-            return true;
-        }
-
-
         internal static bool DownloadGameInfo(IGame game)
         {
             if (_currentSqlUsername == null)
@@ -172,19 +168,97 @@ namespace UniCade.Network
             return true;
         }
 
+        internal static string GetCurrentUsername()
+        {
+            return _currentSqlUsername;
+        }
+
+
+        internal static bool UploadAllGamesForConsole(IConsole console)
+        {
+            if (_currentSqlUsername == null)
+            {
+                return false;
+            }
+            StringBuilder command = new StringBuilder();
+
+            foreach (string gameName in console.GetGameList())
+            {
+                Game g = (Game)console.GetGame(gameName);
+                int fav = g.Favorite ? 1 : 0;
+                command.Append(
+                    $"INSERT INTO games_{_currentSqlUsername}  VALUES (\"{g.FileName}\", \"{g.Title}\", \"{g.ConsoleName}\" ,{g.GetLaunchCount()}, \"{g.ReleaseDate}\", \"{g.PublisherName}\", \"{g.DeveloperName}\", \"{g.UserReviewScore}\",  \"{g.CriticReviewScore}\", \"{g.SupportedPlayerCount}\", \"{g.Trivia}\", \"{g.EsrbRatingsRating.GetStringValue()}\", \"{g.GetEsrbDescriptorsString()}\", \"{g.EsrbSummary}\", \"{g.Description}\", \"{g.Genres}\", \"{g.Tags}\", {fav});\n");
+            }
+            ExecuteNonQuery(command.ToString());
+
+            return false;
+        }
+
+        internal static bool UploadAllGames()
+        {
+            if (_currentSqlUsername == null)
+            {
+                return false;
+            }
+
+            foreach (string consoleName in Database.GetConsoleList())
+            {
+                UploadAllGamesForConsole(Database.GetConsole(consoleName));
+            }
+            return true;
+        }
+
+
         internal static bool DownloadAllGamesForConsole(IConsole console)
         {
+            if (_currentSqlUsername == null)
+            {
+                return false;
+            }
+
+            string command = $"SELECT * FROM games_{_currentSqlUsername} WHERE console = \"{console.ConsoleName}\";";
+
+            var reader = ExecuteQuery(command);
+
+            while (reader.Read())
+            {
+                Game game = (Game) console.GetGame(reader["title"].ToString());
+                if (game != null)
+                {
+                    game.SetLaunchCount(int.Parse(reader["launchCount"].ToString()));
+                    game.ReleaseDate = reader["releaseDate"].ToString();
+                    game.PublisherName = reader["publisher"].ToString();
+                    game.DeveloperName = reader["developer"].ToString();
+                    game.UserReviewScore = reader["userScore"].ToString();
+                    game.CriticReviewScore = reader["criticScore"].ToString();
+                    game.SupportedPlayerCount = reader["players"].ToString();
+                    game.Trivia = reader["trivia"].ToString();
+                    game.EsrbRatingsRating = Utilties.ParseEsrbRating(reader["esrbRating"].ToString());
+                    game.AddEsrbDescriptorsFromString(reader["esrbDescriptors"].ToString());
+                    game.EsrbSummary = reader["esrbSummary"].ToString();
+                    game.Description = reader["description"].ToString();
+                    game.Genres = reader["genres"].ToString();
+                    game.Tags = reader["tags"].ToString();
+                    game.Favorite = int.Parse(reader["favorite"].ToString()) == 1;
+                }
+            }
+
             return false;
         }
 
         internal static bool DownloadAllGames()
         {
-            return false;
-        }
+            if (_currentSqlUsername == null)
+            {
+                return false;
+            }
 
-        internal static string GetCurrentUsername()
-        {
-            return _currentSqlUsername;
+            foreach (string consoleName in Database.GetConsoleList())
+            {
+                DownloadAllGamesForConsole(Database.GetConsole(consoleName));
+            }
+
+            return false;
         }
 
 
