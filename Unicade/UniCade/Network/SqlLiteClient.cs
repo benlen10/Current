@@ -13,7 +13,7 @@ namespace UniCade.Network
         #region Properties
 
         /// <summary>
-        /// The current connection to the database
+        /// The current connection to the SQL database
         /// </summary>
         private static SQLiteConnection _connection;
 
@@ -24,17 +24,32 @@ namespace UniCade.Network
 
         #endregion
 
-        #region  Methods
+        #region Public Methods
+
+        /// <summary>
+        /// Create a new SQL database, tables and connect to the new database
+        /// </summary>
+        internal static void CreateNewSqlDatabase()
+        {
+            //If the sql database file does not exist, create it
+            if (!File.Exists(ConstValues.SqlDatabaseFileName))
+            {
+                SQLiteConnection.CreateFile(ConstValues.SqlDatabaseFileName);
+            }
+
+            //Create a new table to store all user info
+            ExecuteNonQuery(SqlCommands.CreateUsersTable);
+
+            //Connect to the new database
+            Connect();
+        }
 
         /// <summary>
         /// Create a new local database file and connect
         /// </summary>
         internal static void Connect()
         {
-            if (!File.Exists(ConstValues.SqlDatabaseFileName))
-            {
-                SQLiteConnection.CreateFile(ConstValues.SqlDatabaseFileName);
-            }
+
             if (_connection == null)
             {
                 _connection = new SQLiteConnection($"Data Source={ConstValues.SqlDatabaseFileName};Version=3;");
@@ -42,12 +57,10 @@ namespace UniCade.Network
             }
         }
 
-
-        internal static void CreateUsersTable()
-        {
-            ExecuteNonQuery(SqlCommands.CreateUsersTable);
-        }
-
+        /// <summary>
+        /// Create a new unicade cloud user
+        /// </summary>
+        /// <returns>True if the user was created sucuessfully </returns>
         internal static bool CreateNewUser(string username, string password, string email, string userInfo, string allowedEsrb)
         {
             //Check if an user with the existing username exists
@@ -68,6 +81,9 @@ namespace UniCade.Network
             return true;
         }
 
+        /// <summary>
+        /// Delete the current UniCade cloud user from the database and set the currentUsername to null
+        /// </summary>
         internal static void DeleteCurrentUser()
         {
             if (_currentSqlUsername != null)
@@ -92,6 +108,7 @@ namespace UniCade.Network
             var reader = ExecuteQuery(command);
             while (reader.Read())
             {
+                //If the password is valid, set the _currentSqlUsername
                 if (password.Equals(reader["password"].ToString()))
                 {
                     _currentSqlUsername = username;
@@ -101,24 +118,39 @@ namespace UniCade.Network
             return false;
         }
 
+        /// <summary>
+        /// Log out the current SQL user
+        /// </summary>
         internal static void Logout()
         {
             _currentSqlUsername = null;
         }
 
-        internal static bool UploadGame(IGame g)
+        /// <summary>
+        /// Upload a single game to the SQL database
+        /// </summary>
+        /// <param name="game">The game to upload</param>
+        /// <returns></returns>
+        internal static bool UploadGame(IGame game)
         {
             if (_currentSqlUsername == null)
             {
                 return false;
             }
-            int fav = g.Favorite ? 1 : 0;
-            string command = $"INSERT INTO games_{ _currentSqlUsername}  VALUES (\"{g.FileName}\", \"{g.Title}\", \"{g.ConsoleName}\" ,{g.GetLaunchCount()}, \"{g.ReleaseDate}\", \"{g.PublisherName}\", \"{g.DeveloperName}\", \"{g.UserReviewScore}\",  \"{g.CriticReviewScore}\", \"{g.SupportedPlayerCount}\", \"{g.Trivia}\", \"{g.EsrbRatingsRating.GetStringValue()}\", \"{g.GetEsrbDescriptorsString()}\", \"{g.EsrbSummary}\", \"{g.Description}\", \"{g.Genres}\", \"{g.Tags}\", {fav});";
-            ExecuteNonQuery(command);
 
+            //Convert the favorite bool value to an int value
+            int fav = game.Favorite ? 1 : 0;
+
+            //Generate and execute teh command
+            string command = $"INSERT INTO games_{ _currentSqlUsername}  VALUES (\"{game.FileName}\", \"{game.Title}\", \"{game.ConsoleName}\" ,{game.GetLaunchCount()}, \"{game.ReleaseDate}\", \"{game.PublisherName}\", \"{game.DeveloperName}\", \"{game.UserReviewScore}\",  \"{game.CriticReviewScore}\", \"{game.SupportedPlayerCount}\", \"{game.Trivia}\", \"{game.EsrbRatingsRating.GetStringValue()}\", \"{game.GetEsrbDescriptorsString()}\", \"{game.EsrbSummary}\", \"{game.Description}\", \"{game.Genres}\", \"{game.Tags}\", {fav});";
+            ExecuteNonQuery(command);
             return true;
         }
 
+        /// <summary>
+        /// Delete all games for the current user
+        /// </summary>
+        /// <returns>true if the user's games were deleted</returns>
         internal static bool DeleteAllUserGames()
         {
             if (_currentSqlUsername == null)
@@ -131,6 +163,11 @@ namespace UniCade.Network
             return true;
         }
 
+        /// <summary>
+        /// Download metadata for a single game
+        /// </summary>
+        /// <param name="game">The game to update</param>
+        /// <returns>True if the game was found and metadata updated</returns>
         internal static bool DownloadGameInfo(IGame game)
         {
             if (_currentSqlUsername == null)
@@ -168,12 +205,20 @@ namespace UniCade.Network
             return true;
         }
 
+        /// <summary>
+        /// Returns the currently logged in username
+        /// </summary>
+        /// <returns></returns>
         internal static string GetCurrentUsername()
         {
             return _currentSqlUsername;
         }
 
-
+        /// <summary>
+        /// Upload all game metadata for games within the specified the console
+        /// </summary>
+        /// <param name="console">The console to upload</param>
+        /// <returns>True if the games were sucuessfully uploaded</returns>
         internal static bool UploadAllGamesForConsole(IConsole console)
         {
             if (_currentSqlUsername == null)
@@ -182,6 +227,7 @@ namespace UniCade.Network
             }
             StringBuilder command = new StringBuilder();
 
+            //Append all insert commands into a single string for efficiency
             foreach (string gameName in console.GetGameList())
             {
                 Game g = (Game)console.GetGame(gameName);
@@ -194,6 +240,10 @@ namespace UniCade.Network
             return false;
         }
 
+        /// <summary>
+        /// Upload metadata for all games across all consoles
+        /// </summary>
+        /// <returns>true if the operation was successful</returns>
         internal static bool UploadAllGames()
         {
             if (_currentSqlUsername == null)
@@ -208,7 +258,11 @@ namespace UniCade.Network
             return true;
         }
 
-
+        /// <summary>
+        /// Download metadata for all games belonging to the specified console
+        /// </summary>
+        /// <param name="console">The console to fetch data for</param>
+        /// <returns>true if the operation was successful</returns>
         internal static bool DownloadAllGamesForConsole(IConsole console)
         {
             if (_currentSqlUsername == null)
@@ -216,13 +270,16 @@ namespace UniCade.Network
                 return false;
             }
 
+            //Generate and execute the SQL command
             string command = $"SELECT * FROM games_{_currentSqlUsername} WHERE console = \"{console.ConsoleName}\";";
-
             var reader = ExecuteQuery(command);
 
             while (reader.Read())
             {
+                //Attempt to fetch a game object by its title
                 Game game = (Game) console.GetGame(reader["title"].ToString());
+
+                //If a game was found, update its metadata
                 if (game != null)
                 {
                     game.SetLaunchCount(int.Parse(reader["launchCount"].ToString()));
@@ -243,9 +300,13 @@ namespace UniCade.Network
                 }
             }
 
-            return false;
+            return true;
         }
 
+        /// <summary>
+        /// Download metadata for all games across all consoles
+        /// </summary>
+        /// <returns></returns>
         internal static bool DownloadAllGames()
         {
             if (_currentSqlUsername == null)
@@ -253,12 +314,9 @@ namespace UniCade.Network
                 return false;
             }
 
-            foreach (string consoleName in Database.GetConsoleList())
-            {
-                DownloadAllGamesForConsole(Database.GetConsole(consoleName));
-            }
-
-            return false;
+            //Download metadata for all games across all consoles
+            Database.GetConsoleList().ForEach(c => DownloadAllGamesForConsole(Database.GetConsole(c)));
+            return true;
         }
 
 
@@ -266,6 +324,11 @@ namespace UniCade.Network
 
         #region  Helper Methods
 
+        /// <summary>
+        /// Execute a non query SQL command
+        /// </summary>
+        /// <param name="input">The command string to execute</param>
+        /// <returns>The int status of the operation</returns>
         private static int ExecuteNonQuery(string input)
         {
             Connect();
@@ -273,6 +336,11 @@ namespace UniCade.Network
             return command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Execute an SQL query return a SQLiteDataReader object
+        /// </summary>
+        /// <param name="query">The command string to execute</param>
+        /// <returns>A SQLiteDataReader object representing the response</returns>
         private static SQLiteDataReader ExecuteQuery(string query)
         {
             Connect();
