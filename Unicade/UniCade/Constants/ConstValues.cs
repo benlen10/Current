@@ -71,6 +71,11 @@ namespace UniCade.Constants
         internal const int MaxEmailLength = 200;
 
         /// <summary>
+        /// The max char length for user email addresses
+        /// </summary>
+        internal const int MinEmailLength = 4;
+
+        /// <summary>
         /// The max char length for game filenames
         /// </summary>
         internal const int MaxGameFilenameLength = 200;

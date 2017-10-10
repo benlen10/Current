@@ -58,6 +58,7 @@ namespace UniCade.Windows
             //If the user is a SQL client, preform SQL user authentication 
             if (_userType.Equals(Enums.UserType.CloudAccount))
             {
+                Title = "Cloud Account Login";
                 if (SqlLiteClient.Login(TextboxUsername.Text, TextboxPassword.Text))
                 {
                     Close();
@@ -71,6 +72,7 @@ namespace UniCade.Windows
             //If the user is a local account, validate the info and close the window if sucuessful 
             else
             {
+                Title = "Local Account Login";
                 IUser user = Database.GetUser(TextboxUsername.Text);
                 if (user != null)
                 {
@@ -80,15 +82,13 @@ namespace UniCade.Windows
                         Close();
                     }
                     MessageBox.Show(this, "Incorrect Password");
-                    return;
                 }
+                MessageBox.Show(this, "User does not exist");
             }
-            MessageBox.Show(this, "User does not exist");
-
         }
+
+        #endregion
+
     }
-
-    #endregion
-
 }
 

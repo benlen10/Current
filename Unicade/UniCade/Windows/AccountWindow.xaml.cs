@@ -45,28 +45,29 @@ namespace UniCade.Windows
         /// </summary>
         private void AccountWindow_ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-
             //Create a new SQL user if the account type is UniCade Cloud
             try
             {
                 if (_userType.Equals(Enums.UserType.CloudAccount))
                 {
+                    Title = "Cloud Account Creation";
                     SqlLiteClient.CreateNewUser(TextboxUsername.Text, TextboxPassword.Text, TextboxEmail.Text,
                         TextboxUserInfo.Text, "Null");
                 }
                 else
                 {
+                    Title = "Local Account Creation";
                     //Create a new local user if the account type standard 
                     IUser user = new User(TextboxUsername.Text, TextboxPassword.Text, 0, TextboxEmail.Text, 0,
                         TextboxUserInfo.Text, Enums.EsrbRatings.Null, "null");
                     Database.AddUser(user);
                 }
+                Close();
             }
             catch (ArgumentException exception)
             {
                 MessageBox.Show("Error: " + exception.Message);
-            }
-            Close();
+            } 
         }
     }
 }

@@ -23,7 +23,7 @@ namespace UnitTests.NetworkTests
         public void Initalize()
         {
             SqlLiteClient.Connect();
-            SqlLiteClient.CreateUsersTable();
+            SqlLiteClient.CreateNewSqlDatabase();
         }
 
         #region SQL Tests
@@ -36,7 +36,7 @@ namespace UnitTests.NetworkTests
         public void TestUploadDownloadGames()
         {
             SqlLiteClient.Connect();
-            SqlLiteClient.CreateUsersTable();
+            SqlLiteClient.CreateNewSqlDatabase();
 
             const string userName = "BenLen";
             const string password = "tempPass";
@@ -162,7 +162,7 @@ namespace UnitTests.NetworkTests
         public void VerifyDeleteUserGames()
         {
             SqlLiteClient.Connect();
-            SqlLiteClient.CreateUsersTable();
+            SqlLiteClient.CreateNewSqlDatabase();
 
             const string userName = "BenLen";
             const string password = "tempPass";
@@ -188,14 +188,24 @@ namespace UnitTests.NetworkTests
             Assert.IsFalse(SqlLiteClient.DownloadGameInfo(game), "Verify that the game no longer exists");
         }
 
+        /// <summary>
+        /// Verify that info for a new SQL user is properly validated
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyUserInfoValidation()
+        {
+            //TODO
+        }
+
 
         #endregion
 
-        #region  Helper Methods
+            #region  Helper Methods
 
-        /// <summary>
-        /// Cleanup the sqlite database file
-        /// </summary>
+            /// <summary>
+            /// Cleanup the sqlite database file
+            /// </summary>
         [TestCleanup]
         public void Cleanup()
         {

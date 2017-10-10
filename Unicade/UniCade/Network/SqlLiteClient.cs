@@ -1,6 +1,8 @@
-﻿using System.Data.SQLite;
+﻿using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Text;
+using System.Windows;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
@@ -68,8 +70,81 @@ namespace UniCade.Network
             var reader = ExecuteQuery(command);
             if (reader.HasRows)
             {
-                return false;
+                throw new ArgumentException("Username already exists");
             }
+
+            //Validate username
+            if (username == null)
+            {
+                throw new ArgumentException("Username cannot be null");
+            }
+            if (Utilties.CheckForInvalidChars(username))
+            {
+                throw new ArgumentException("Username contains invalid characters");
+            }
+            if (username.Length < ConstValues.MinUsernameLength)
+            {
+                throw new ArgumentException("Username must be at least 4 chars");
+            }
+            if (username.Length > ConstValues.MaxUsernameLength)
+            {
+                throw new ArgumentException($"Username cannot exceed {ConstValues.MaxUsernameLength} chars");
+            }
+
+            //Validate password
+            if (password == null)
+            {
+                throw new ArgumentException("Password cannot be null");
+            }
+            if (password.Length < ConstValues.MinUserPasswordLength)
+            {
+                throw new ArgumentException($"Password length cannot be less than {ConstValues.MinUserPasswordLength} chars");
+            }
+            if (password.Length > ConstValues.MaxUserPasswordLength)
+            {
+                throw new ArgumentException($"Password length cannot exceed {ConstValues.MaxUserPasswordLength} chars");
+            }
+            if (Utilties.CheckForInvalidChars(password))
+            {
+                throw new ArgumentException("Password contains invalid characters");
+            }
+
+            //Validate email
+            if (email == null)
+            {
+                throw new ArgumentException("Email cannot be null");
+            }
+            if (email.Length < ConstValues.MinEmailLength)
+            {
+                throw new ArgumentException($"Email must be at least {ConstValues.MinEmailLength} chars");
+            }
+            if (Utilties.CheckForInvalidChars(email))
+            {
+                throw new ArgumentException("Email contains invalid characters");
+            }
+            if (!email.Contains("@"))
+            {
+                throw new ArgumentException("Email is invalid");
+            }
+            if (email.Length > ConstValues.MaxEmailLength)
+            {
+                throw new ArgumentException($"Email cannot exceed {ConstValues.MaxEmailLength} chars");
+            }
+
+            //Validate user info
+            if (userInfo == null)
+            {
+                throw new ArgumentException("User info cannot be null");
+            }
+            if (Utilties.CheckForInvalidChars(userInfo))
+            {
+                throw new ArgumentException("User info contains invalid characters");
+            }
+            if (userInfo.Length > ConstValues.MaxUserInfoLength)
+            {
+                throw new ArgumentException($"User info cannot exceed {ConstValues.MaxUserInfoLength} chars");
+            }
+
 
             //Create a new user entry in the users table
             command = $"INSERT INTO users (username,password,email,userinfo,allowedEsrb) VALUES (\"{username}\", \"{password}\", \"{email}\", \"{userInfo}\", \"{allowedEsrb}\");";
@@ -124,6 +199,7 @@ namespace UniCade.Network
         internal static void Logout()
         {
             _currentSqlUsername = null;
+            MessageBox.Show("User logged out");
         }
 
         /// <summary>
@@ -237,7 +313,7 @@ namespace UniCade.Network
             }
             ExecuteNonQuery(command.ToString());
 
-            return false;
+            return true;
         }
 
         /// <summary>

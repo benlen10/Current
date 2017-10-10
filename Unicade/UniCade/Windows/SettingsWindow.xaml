@@ -189,12 +189,11 @@
                     <Button x:Name="CloudTabButtonLogin" Content="Login" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="75" Click="CloudTab_Button_Login_Click"/>
                     <Button x:Name="CloudTabButtonLogout" Content="Logout" HorizontalAlignment="Left" Margin="97,36,0,0" VerticalAlignment="Top" Width="76" Click="CloudTab_Button_Logout_Click"/>
                     <TextBlock x:Name="CloudTabTextblockInfo" HorizontalAlignment="Left" Margin="10,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="188" Width="271" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
-                    <Button x:Name="CloudTabButtonCreateNewAccount" Content="Create New &#xD;&#xA;UniCade Account" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="87" Height="45" Click="CloudTab_Button_CreateNewAccount_Click"/>
+                    <Button x:Name="CloudTabButtonCreateNewAccount" Content="Create New &#xA;Cloud Account" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="87" Height="45" Click="CloudTab_Button_CreateNewAccount_Click"/>
                     <Button x:Name="CloudTabButtonUploadAllGames" Content="Upload All&#xD;&#xA;Games" HorizontalAlignment="Left" Margin="10,331,0,0" VerticalAlignment="Top" Width="87" Height="45" Click="CloudTab_Button_UploadAllGames_Click"/>
                     <Button x:Name="CloudTabButtonDeleteAccount" Content="Delete&#xD;&#xA;Current Account" HorizontalAlignment="Left" Margin="102,281,0,0" VerticalAlignment="Top" Width="87" Height="45" Click="CloudTab_Button_DeleteAccount_Click"/>
-                    <Button x:Name="CloudTabButtonDeleteAllGamesInCloud" Content="Delete All&#xA;Games In Cloud" HorizontalAlignment="Left" Margin="102,331,0,0" VerticalAlignment="Top" Width="87" Height="45" Click="CloudTab_Button_DeleteAllGamesInCloud_Click"/>
+                    <Button x:Name="CloudTabButtonDeleteAllGamesInCloud" Content="Delete All &#xD;&#xA;Games for User" HorizontalAlignment="Left" Margin="102,331,0,0" VerticalAlignment="Top" Width="87" Height="45" Click="CloudTab_Button_DeleteAllGamesInCloud_Click"/>
                     <Button x:Name="CloudTabButtonDownloadAllGames" Content="Download All&#xD;&#xA;Games" HorizontalAlignment="Left" Margin="194,281,0,0" VerticalAlignment="Top" Width="87" Height="45" RenderTransformOrigin="2.267,0.897" Click="CloudTab_Button_DownloadAllGames_Click"/>
-                    <Button x:Name="CloudTabButtonEndSession" Content="End Session" HorizontalAlignment="Left" Margin="194,331,0,0" VerticalAlignment="Top" Width="87" Height="45" Click="CloudTab_Button_EndSession_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="About">

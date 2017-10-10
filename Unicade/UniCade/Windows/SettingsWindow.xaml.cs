@@ -216,11 +216,11 @@ namespace UniCade.Windows
             if (SqlLiteClient.DownloadGameInfo(_currentGame))
             {
                 RefreshGameInfo(_currentGame);
-                MessageBox.Show("Download successful");
+                MessageBox.Show("Game metadata updated");
             }
             else
             {
-                MessageBox.Show("Download failed");
+                MessageBox.Show("SQL operation failed");
             }
         }
 
@@ -247,14 +247,14 @@ namespace UniCade.Windows
                 return;
             }
 
-            //Upload all games if all initial checks are passed
-            var gameList = _currentConsole.GetGameList();
-            foreach (string gameTitle in gameList)
+            if (SqlLiteClient.UploadAllGamesForConsole(_currentConsole))
             {
-                IGame game = _currentConsole.GetGame(gameTitle);
-                SqlLiteClient.UploadGame(game);
+                MessageBox.Show("Console Uploaded");
             }
-            MessageBox.Show("Console Uploaded");
+            else
+            {
+                MessageBox.Show("SQL operation failed");
+            }
         }
 
         /// <summary>
@@ -293,9 +293,16 @@ namespace UniCade.Windows
 
             }
 
-            //Refresh the current game info
-            MessageBox.Show("Download successful");
-            RefreshGameInfo(_currentGame);
+            if (SqlLiteClient.DownloadAllGamesForConsole(_currentConsole))
+            {
+                MessageBox.Show("Metadata download");
+                RefreshGameInfo(_currentGame);
+            }
+            else
+            {
+                MessageBox.Show("SQL operation failed");
+            }
+            
         }
 
         /// <summary>
@@ -442,8 +449,14 @@ namespace UniCade.Windows
                 MessageBox.Show("Must select a console/game");
                 return;
             }
-            SqlLiteClient.UploadGame(_currentGame);
-            MessageBox.Show("Game Uploaded");
+            if (SqlLiteClient.UploadGame(_currentGame))
+            {
+                MessageBox.Show("Game Uploaded");
+            }
+            else
+            {
+                MessageBox.Show("SQL operation failed");
+            }
         }
 
         /// <summary>
@@ -1119,6 +1132,7 @@ namespace UniCade.Windows
 
             //Delete the current SQL user and update the label
             SqlLiteClient.DeleteCurrentUser();
+            MessageBox.Show("Account deleted");
             WebTabLabelCurrentWebUser.Content = "Current Web User: ";
         }
 
