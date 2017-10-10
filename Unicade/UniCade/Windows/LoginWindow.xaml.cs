@@ -71,28 +71,24 @@ namespace UniCade.Windows
             //If the user is a local account, validate the info and close the window if sucuessful 
             else
             {
-                var userList = Database.GetUserList();
-                foreach (string username in userList)
+                IUser user = Database.GetUser(TextboxUsername.Text);
+                if (user != null)
                 {
-                    IUser user = Database.GetUser(username);
-                    if (user.Username.Equals(TextboxUsername.Text))
+                    if (user.ValidatePassword(TextboxPassword.Text))
                     {
-                        if (user.ValidatePassword(TextboxPassword.Text))
-                        {
-                            Database.SetCurrentUser(user.Username);
-                            Close();
-                            return;
-                        }
-                            MessageBox.Show(this, "Incorrect Password");
-                            return;
+                        Database.SetCurrentUser(user.Username);
+                        Close();
                     }
+                    MessageBox.Show(this, "Incorrect Password");
+                    return;
                 }
-                MessageBox.Show(this, "User does not exist");
-
             }
+            MessageBox.Show(this, "User does not exist");
+
         }
-
-        #endregion
-
     }
+
+    #endregion
+
 }
+

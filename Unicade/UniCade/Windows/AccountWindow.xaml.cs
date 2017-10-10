@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Interfaces;
@@ -13,7 +14,7 @@ namespace UniCade.Windows
     public partial class AccountWindow
     {
 
-        #region Private Instance VAriables
+        #region Private Instance Variables
 
         /// <summary>
         /// Integer value that represents the current account type (local or cloud)
@@ -44,34 +45,26 @@ namespace UniCade.Windows
         /// </summary>
         private void AccountWindow_ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            //Check for invalid input
-            if ((TextboxUsername.Text == null) || TextboxEmail.Text == null || (TextboxUserInfo.Text == null))
-            {
-                MessageBox.Show("Fields cannot be empty");
-                return;
-            }
-            if ((TextboxUsername.Text.Length > 30) || (TextboxEmail.Text.Length > 30) || (TextboxEmail.Text.Length > 30) || (TextboxUserInfo.Text.Length > 100))
-            {
-                MessageBox.Show("Invalid Length");
-                return;
-            }
-            if (!TextboxEmail.Text.Contains("@"))
-            {
-                MessageBox.Show("Invalid Email");
-                return;
-            }
 
             //Create a new SQL user if the account type is UniCade Cloud
-            if (_userType.Equals(Enums.UserType.CloudAccount))
+            try
             {
-                SqlLiteClient.CreateNewUser(TextboxUsername.Text, TextboxPassword.Text, TextboxEmail.Text, TextboxUserInfo.Text, "Null");
+                if (_userType.Equals(Enums.UserType.CloudAccount))
+                {
+                    SqlLiteClient.CreateNewUser(TextboxUsername.Text, TextboxPassword.Text, TextboxEmail.Text,
+                        TextboxUserInfo.Text, "Null");
+                }
+                else
+                {
+                    //Create a new local user if the account type standard 
+                    IUser user = new User(TextboxUsername.Text, TextboxPassword.Text, 0, TextboxEmail.Text, 0,
+                        TextboxUserInfo.Text, Enums.EsrbRatings.Null, "null");
+                    Database.AddUser(user);
+                }
             }
-            else
+            catch (ArgumentException exception)
             {
-                //Create a new local user if the account type standard Unicade
-                IUser user = new User(TextboxUsername.Text, TextboxPassword.Text, 0, TextboxEmail.Text, 0, TextboxUserInfo.Text, Enums.EsrbRatings.Null, "null");
-                Database.AddUser(user);
-                Database.SetCurrentUser(user.Username);
+                MessageBox.Show("Error: " + exception.Message);
             }
             Close();
         }

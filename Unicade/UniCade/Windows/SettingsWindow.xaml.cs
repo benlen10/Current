@@ -1068,7 +1068,7 @@ namespace UniCade.Windows
         /// </summary>
         private void CloudTab_Button_CreateNewAccount_Click(object sender, RoutedEventArgs e)
         {
-            AccountWindow ua = new AccountWindow(0);
+            AccountWindow ua = new AccountWindow(Enums.UserType.CloudAccount);
             ua.ShowDialog();
         }
 
@@ -1078,8 +1078,8 @@ namespace UniCade.Windows
         /// </summary>
         private void CloudTab_Button_Login_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow l = new LoginWindow(0);
-            l.ShowDialog();
+            LoginWindow loginWindow = new LoginWindow(Enums.UserType.CloudAccount);
+            loginWindow.ShowDialog();
             if (SqlLiteClient.GetCurrentUsername() != null)
             {
                 WebTabLabelCurrentWebUser.Content = "Current Web User: " + SqlLiteClient.GetCurrentUsername();
@@ -1096,13 +1096,13 @@ namespace UniCade.Windows
             if (SqlLiteClient.GetCurrentUsername() == null)
             {
                 MessageBox.Show("User is already logged out");
-                WebTabLabelCurrentWebUser.Content = "Current Web User: ";
-                return;
             }
-
-            //Log the current user out and update the interface
-            SqlLiteClient.Logout();
-            WebTabLabelCurrentWebUser.Content = "Current Web User: ";
+            else
+            {
+                //Log the current user out and update the interface
+                SqlLiteClient.Logout();
+                WebTabLabelCurrentWebUser.Content = "Current Web User: ";
+            }
         }
 
         /// <summary>

@@ -142,7 +142,7 @@ namespace UniCade.Network
             int fav = game.Favorite ? 1 : 0;
 
             //Generate and execute teh command
-            string command = $"INSERT INTO games_{ _currentSqlUsername}  VALUES (\"{game.FileName}\", \"{game.Title}\", \"{game.ConsoleName}\" ,{game.GetLaunchCount()}, \"{game.ReleaseDate}\", \"{game.PublisherName}\", \"{game.DeveloperName}\", \"{game.UserReviewScore}\",  \"{game.CriticReviewScore}\", \"{game.SupportedPlayerCount}\", \"{game.Trivia}\", \"{game.EsrbRatingsRating.GetStringValue()}\", \"{game.GetEsrbDescriptorsString()}\", \"{game.EsrbSummary}\", \"{game.Description}\", \"{game.Genres}\", \"{game.Tags}\", {fav});";
+            string command = $"INSERT OR REPLACE INTO games_{ _currentSqlUsername}  VALUES (\"{game.FileName}\", \"{game.Title}\", \"{game.ConsoleName}\" ,{game.GetLaunchCount()}, \"{game.ReleaseDate}\", \"{game.PublisherName}\", \"{game.DeveloperName}\", \"{game.UserReviewScore}\",  \"{game.CriticReviewScore}\", \"{game.SupportedPlayerCount}\", \"{game.Trivia}\", \"{game.EsrbRatingsRating.GetStringValue()}\", \"{game.GetEsrbDescriptorsString()}\", \"{game.EsrbSummary}\", \"{game.Description}\", \"{game.Genres}\", \"{game.Tags}\", {fav});";
             ExecuteNonQuery(command);
             return true;
         }
@@ -233,7 +233,7 @@ namespace UniCade.Network
                 Game g = (Game)console.GetGame(gameName);
                 int fav = g.Favorite ? 1 : 0;
                 command.Append(
-                    $"INSERT INTO games_{_currentSqlUsername}  VALUES (\"{g.FileName}\", \"{g.Title}\", \"{g.ConsoleName}\" ,{g.GetLaunchCount()}, \"{g.ReleaseDate}\", \"{g.PublisherName}\", \"{g.DeveloperName}\", \"{g.UserReviewScore}\",  \"{g.CriticReviewScore}\", \"{g.SupportedPlayerCount}\", \"{g.Trivia}\", \"{g.EsrbRatingsRating.GetStringValue()}\", \"{g.GetEsrbDescriptorsString()}\", \"{g.EsrbSummary}\", \"{g.Description}\", \"{g.Genres}\", \"{g.Tags}\", {fav});\n");
+                    $"INSERT OR REPLACE INTO games_{_currentSqlUsername}  VALUES (\"{g.FileName}\", \"{g.Title}\", \"{g.ConsoleName}\" ,{g.GetLaunchCount()}, \"{g.ReleaseDate}\", \"{g.PublisherName}\", \"{g.DeveloperName}\", \"{g.UserReviewScore}\",  \"{g.CriticReviewScore}\", \"{g.SupportedPlayerCount}\", \"{g.Trivia}\", \"{g.EsrbRatingsRating.GetStringValue()}\", \"{g.GetEsrbDescriptorsString()}\", \"{g.EsrbSummary}\", \"{g.Description}\", \"{g.Genres}\", \"{g.Tags}\", {fav});\n");
             }
             ExecuteNonQuery(command.ToString());
 
