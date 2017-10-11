@@ -80,10 +80,10 @@ namespace UniCade.Windows
                     {
                         Database.SetCurrentUser(user.Username);
                         Close();
+                        return;
                     }
-                    MessageBox.Show(this, "Incorrect Password");
                 }
-                MessageBox.Show(this, "User does not exist");
+                MessageBox.Show(this, "Incorrect login details");
             }
         }
 

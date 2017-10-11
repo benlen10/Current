@@ -116,10 +116,15 @@ namespace UniCade.Windows
                 //Do nothing
             }
 
+            UsersTabLabelCurrentUser.Content = "Current Local User: " + Database.GetCurrentUser().Username;
+
             //Disable editing userinfo unless logged in
             UsersTabTextboxUsername.IsEnabled = false;
             UsersTabTextboxEmail.IsEnabled = false;
             UsersTabTextboxUserInfo.IsEnabled = false;
+            UsersTabButtonSave.IsEnabled = false;
+            UsersTabButtonDeleteUserFavorite.IsEnabled = false;
+            UsersTabButtonDeleteUser.IsEnabled = false;
 
             //Set specific textboxes as readonly
             GlobalTabTextboxCoins.IsEnabled = false;
@@ -169,13 +174,14 @@ namespace UniCade.Windows
                 UsersTabListboxCurrentUser.Items.Add(username);
             }
 
+            WebTabApiComboBox.SelectedIndex = 0;
+
             //Refresh the global favorites list
             RefreshGlobalFavs();
 
             //Populate user license info
             AboutTabLabelLicensedTo.Content = "Licensed to: " + Program.UserLicenseName;
             AboutTabLabelEdition.Content = Program.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
-            AboutTabLabelLicenseKey.Content = "License Key: " + Program.UserLicenseKey;
         }
 
         #endregion
@@ -387,6 +393,7 @@ namespace UniCade.Windows
 
             //Refresh the info for the current game
             RefreshGameInfo(_currentGame);
+            SaveGameInfo();
         }
 
         /// <summary>
@@ -785,6 +792,11 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_UsersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (UsersTabListboxCurrentUser.Items.Count == 0)
+            {
+                return;
+            }
+
             //Fetch the current user
             IUser user = Database.GetUser(UsersTabListboxCurrentUser.SelectedItem.ToString());
 
@@ -792,23 +804,8 @@ namespace UniCade.Windows
             UsersTabListboxUserFavorites.Items.Clear();
             user.GetFavoritesList().ForEach(g => UsersTabListboxUserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
 
-            //Populate the user fields
-            UsersTabTextboxUsername.Text = user.Username;
-            UsersTabTextboxEmail.Text = user.Email;
-            UsersTabTextboxUserInfo.Text = user.UserInfo;
-            UsersTabTextboxLoginCount.Text = user.GetUserLoginCount().ToString();
-            UsersTabTextboxLaunchCount.Text = user.GetUserLaunchCount().ToString();
-            UsersTabDropdownAllowedEsrb.Text = user.AllowedEsrbRatings.GetStringValue();
-
-            //Only allow the current user to edit their own userdata
-            if (user.Username.Equals(Database.GetCurrentUser().Username))
-            {
-                UsersTabTextboxUsername.IsEnabled = true;
-                UsersTabTextboxEmail.IsEnabled = true;
-                UsersTabTextboxUserInfo.IsEnabled = true;
-                UsersTabDropdownAllowedEsrb.IsEnabled = true;
-                UsersTabListboxUserFavorites.IsEnabled = true;
-            }
+            //Refresh the info for the current user
+            RefreshLocalUserInfo();
         }
 
         /// <summary>
@@ -821,12 +818,15 @@ namespace UniCade.Windows
             AccountWindow uc = new AccountWindow(Enums.UserType.LocalAccount);
             uc.ShowDialog();
 
-            //Save the user info to the preferences file
-            FileOps.SavePreferences();
-
             //Refresh the listbox contents
             UsersTabListboxCurrentUser.Items.Clear();
             Database.GetUserList().ForEach(u => UsersTabListboxCurrentUser.Items.Add(u));
+
+            UsersTabListboxCurrentUser.SelectedIndex = 0;
+            RefreshLocalUserInfo();
+
+            //Save the user info to the preferences file
+            FileOps.SavePreferences();
         }
 
         /// <summary>
@@ -835,6 +835,7 @@ namespace UniCade.Windows
         private void UsersTab_SaveAllUsersButton_Click(object sender, EventArgs e)
         {
             FileOps.SavePreferences();
+            MessageBox.Show("Database saved");
         }
 
         /// <summary>
@@ -857,6 +858,9 @@ namespace UniCade.Windows
             //Refresh the user list
             UsersTabListboxCurrentUser.Items.Clear();
             Database.GetUserList().ForEach(u => UsersTabListboxCurrentUser.Items.Add(u));
+
+            UsersTabListboxCurrentUser.SelectedIndex = 0;
+            RefreshLocalUserInfo();
         }
 
         /// <summary>
@@ -867,8 +871,7 @@ namespace UniCade.Windows
         {
             try
             {
-                Database.GetCurrentUser().Username = UsersTabTextboxUsername.Text;
-                Database.GetCurrentUser().SetUserPassword(UsersTabTextboxEmail.Text);
+                Database.GetCurrentUser().Email = UsersTabTextboxEmail.Text;
                 Database.GetCurrentUser().UserInfo = UsersTabTextboxUserInfo.Text;
             }
             catch (ArgumentException exception)
@@ -878,12 +881,7 @@ namespace UniCade.Windows
 
 
             Database.GetCurrentUser().AllowedEsrbRatings = UsersTabDropdownAllowedEsrb.SelectedItem == null ? Enums.EsrbRatings.Null : Enums.ConvertStringToEsrbEnum(UsersTabDropdownAllowedEsrb.SelectedItem.ToString());
-
-
-
-            //Refresh the user list
-            UsersTabListboxCurrentUser.Items.Clear();
-            Database.GetUserList().ForEach(u => UsersTabListboxCurrentUser.Items.Add(u));
+            MessageBox.Show("Local user info saved");
         }
 
         /// <summary>
@@ -891,12 +889,17 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_DeleteFavoriteButton_Click(object sender, EventArgs e)
         {
-            //Remove the favorite game at the current index
-            Database.GetCurrentUser().GetFavoritesList().RemoveAt(UsersTabListboxUserFavorites.SelectedIndex);
+            if (Database.GetCurrentUser().GetFavoritesList().Count > 0)
+            {
+                //Remove the favorite game at the current index
+                Database.GetCurrentUser().GetFavoritesList().RemoveAt(UsersTabListboxUserFavorites.SelectedIndex);
 
-            //Refresh the user favorites list
-            UsersTabListboxUserFavorites.Items.Clear();
-            Database.GetCurrentUser().GetFavoritesList().ForEach(g => UsersTabListboxUserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
+                //Refresh the user favorites list
+                UsersTabListboxUserFavorites.Items.Clear();
+                Database.GetCurrentUser()
+                    .GetFavoritesList()
+                    .ForEach(g => UsersTabListboxUserFavorites.Items.Add(g.Title + " - " + g.ConsoleName));
+            }
         }
 
         /// <summary>
@@ -909,7 +912,8 @@ namespace UniCade.Windows
             login.ShowDialog();
 
             //If the user is logged in sucuesfully, save the current user and preferences file
-            UsersTabLabelCurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
+            UsersTabLabelCurrentUser.Content = "Current Local User: " + Database.GetCurrentUser().Username;
+            RefreshLocalUserInfo();
         }
 
         /// <summary>
@@ -917,7 +921,46 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_RefreshButton_Click(object sender, EventArgs e)
         {
-            UsersTabLabelCurrentUser.Content = "Current User: " + Database.GetCurrentUser().Username;
+            UsersTabLabelCurrentUser.Content = "Current Local User: " + Database.GetCurrentUser().Username;
+        }
+
+        /// <summary>
+        /// Refresh the info for the currently selected local user
+        /// </summary>
+        private void RefreshLocalUserInfo()
+        {
+            //Fetch the currently selected user
+            IUser user = Database.GetUser(UsersTabListboxCurrentUser.SelectedItem.ToString());
+
+            //Populate the user fields
+            UsersTabTextboxUsername.Text = user.Username;
+            UsersTabTextboxEmail.Text = user.Email;
+            UsersTabTextboxUserInfo.Text = user.UserInfo;
+            UsersTabTextboxLoginCount.Text = user.GetUserLoginCount().ToString();
+            UsersTabTextboxLaunchCount.Text = user.GetUserLaunchCount().ToString();
+            UsersTabDropdownAllowedEsrb.Text = user.AllowedEsrbRatings.GetStringValue();
+
+            //Only allow the current user to edit their own userdata
+            if (user.Username.Equals(Database.GetCurrentUser().Username) && !user.Username.Equals("UniCade"))
+            {
+                UsersTabTextboxEmail.IsEnabled = true;
+                UsersTabTextboxUserInfo.IsEnabled = true;
+                UsersTabDropdownAllowedEsrb.IsEnabled = true;
+                UsersTabListboxUserFavorites.IsEnabled = true;
+                UsersTabButtonSave.IsEnabled = true;
+                UsersTabButtonDeleteUserFavorite.IsEnabled = true;
+                UsersTabButtonDeleteUser.IsEnabled = true;
+            }
+            else
+            {
+                UsersTabTextboxEmail.IsEnabled = false;
+                UsersTabTextboxUserInfo.IsEnabled = false;
+                UsersTabDropdownAllowedEsrb.IsEnabled = false;
+                UsersTabListboxUserFavorites.IsEnabled = false;
+                UsersTabButtonSave.IsEnabled = false;
+                UsersTabButtonDeleteUserFavorite.IsEnabled = false;
+                UsersTabButtonDeleteUser.IsEnabled = false;
+            }
         }
 
         #endregion
@@ -1209,10 +1252,10 @@ namespace UniCade.Windows
             LicenseEntry le = new LicenseEntry();
             le.ShowDialog();
             AboutTabLabelLicensedTo.Content = "Licensed to: " + Program.UserLicenseName;
-            AboutTabLabelLicenseKey.Content = "License Key: " + Program.UserLicenseKey;
 
             //Set the license text depending on if the key is valid
             AboutTabLabelEdition.Content = Program.IsLicenseValid ? "License Status: Full Version" : "License Status: Invalid";
+            FileOps.SavePreferences();
         }
 
         private void LaunchCmdInterface_Click(object sender, RoutedEventArgs e)

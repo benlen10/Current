@@ -46,7 +46,7 @@ namespace UniCade.Windows
             }
 
             //If the key is valid, save the key text to the preferences file and close the current window
-            if (CryptoEngine.ValidateLicense(Program.UserLicenseName, Program.UserLicenseKey))
+            if (CryptoEngine.ValidateLicense(TextboxUser.Text, TextboxKey.Text))
             {
                 MessageBox.Show(this, "License is VALID");
                 Program.IsLicenseValid = true;

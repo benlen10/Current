@@ -188,17 +188,6 @@ namespace UnitTests.NetworkTests
             Assert.IsFalse(SqlLiteClient.DownloadGameInfo(game), "Verify that the game no longer exists");
         }
 
-        /// <summary>
-        /// Verify that info for a new SQL user is properly validated
-        /// </summary>
-        [TestMethod]
-        [Priority(1)]
-        public void VerifyUserInfoValidation()
-        {
-            //TODO
-        }
-
-
         #endregion
 
             #region  Helper Methods

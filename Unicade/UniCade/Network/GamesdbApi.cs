@@ -146,24 +146,28 @@ namespace UniCade.Network
 
                             using (WebClient client = new WebClient())
                             {
-                                if (gameImages.BoxartBack != null)
+                                string boxBackImagePath = directoryPath + game.Title + "_BoxBack.jpg";
+                                string boxfrontImagePath = directoryPath + game.Title + "_BoxFront.jpg";
+                                string screenshotImagePath =
+                                    directoryPath + game.Title + "_Screenshot.jpg";
+
+                                if (gameImages.BoxartBack != null && !File.Exists(boxBackImagePath))
                                 {
-                                    string boxBackImagePath = directoryPath + game.Title + "_BoxBack.jpg";
+                                    
                                     string boxbackImageUrl = BaseImgUrl + gameImages.BoxartBack;
                                     client.DownloadFile(boxbackImageUrl, boxBackImagePath);
                                 }
 
-                                if (gameImages.BoxartFront != null)
+                                if (gameImages.BoxartFront != null && !File.Exists(boxfrontImagePath))
                                 {
-                                    string boxfrontImagePath = directoryPath + game.Title + "_BoxFront.jpg";
+                                    
                                     string boxfrontImageUrl = BaseImgUrl + gameImages.BoxartFront;
                                     client.DownloadFile(boxfrontImageUrl, boxfrontImagePath);
                                 }
 
-                                if (gameImages.Screenshots.Count > 0)
+                                if (gameImages.Screenshots.Count > 0 && !File.Exists(screenshotImagePath))
                                 {
-                                    string screenshotImagePath =
-                                        directoryPath + game.Title + "_Screenshot.jpg";
+                                    
                                     string screenshotImageUrl = BaseImgUrl + gameImages.Screenshots.First();
                                     client.DownloadFile(screenshotImageUrl, screenshotImagePath);
                                 }
