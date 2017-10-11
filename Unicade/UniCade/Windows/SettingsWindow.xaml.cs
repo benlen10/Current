@@ -308,7 +308,7 @@ namespace UniCade.Windows
             {
                 MessageBox.Show("SQL operation failed");
             }
-            
+
         }
 
         /// <summary>
@@ -564,10 +564,121 @@ namespace UniCade.Windows
             FileOps.SaveDatabase();
         }
 
+        private void GamesTabButtonAddBoxfrontImage_Click(object sender, RoutedEventArgs e)
+        {
+            //Display the open file dialog
+            string sourcePath = BrowseForImage();
+
+            //Load the image
+            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
+
+            //If the directory does not exist, create it
+            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            string destFileName = directoryPath + _currentGame.Title + "_BoxFront.jpg";
+
+            //Save the image as a jpg in the proper directory
+            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            //After saving the image as a jpg file, refresh the current game info
+            RefreshGameInfo(_currentGame);
+        }
+
+        private void GamesTabButtonAddBoxbackImage_Click(object sender, RoutedEventArgs e)
+        {
+            //Display the open file dialog
+            string sourcePath = BrowseForImage();
+
+            //Load the image
+            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
+
+            //If the directory does not exist, create it
+            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            string destFileName = directoryPath + _currentGame.Title + "_BoxBack.jpg";
+
+            //Save the image as a jpg in the proper directory
+            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            //After saving the image as a jpg file, refresh the current game info
+            RefreshGameInfo(_currentGame);
+        }
+
+        private void GamesTabButtonAddscreenshotImage_Click(object sender, RoutedEventArgs e)
+        {
+            //Display the open file dialog
+            string sourcePath = BrowseForImage();
+
+            //Load the image
+            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
+
+            //If the directory does not exist, create it
+            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
+            if (!System.IO.Directory.Exists(directoryPath))
+            {
+                System.IO.Directory.CreateDirectory(directoryPath);
+            }
+
+            string destFileName = directoryPath + _currentGame.Title + "_Screenshot.jpg";
+
+            //Save the image as a jpg in the proper directory
+            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            //After saving the image as a jpg file, refresh the current game info
+            RefreshGameInfo(_currentGame);
+        }
+
+        /// <summary>
+        /// Delete the boxfront image for the current game
+        /// </summary>
+        private void GamesTabButtonRemoveBoxfrontImage_Click(object sender, RoutedEventArgs e)
+        {
+            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" +
+                               _currentGame.Title + "_BoxFront.jpg";
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+            }
+        }
+
+        /// <summary>
+        /// Delete the boxback image for the current game
+        /// </summary>
+        private void GamesTabButtonRemoveBoxbackImage_Click(object sender, RoutedEventArgs e)
+        {
+            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" +
+                               _currentGame.Title + "_BoxBack.jpg";
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+            }
+        }
+
+        /// <summary>
+        /// Delete the screenshot image for the current game
+        /// </summary>
+        private void GamesTabButtonRemovescreenshotImage_Click(object sender, RoutedEventArgs e)
+        {
+            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" +
+                               _currentGame.Title + "_Screenshot.jpg";
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+            }
+        }
+
         /// <summary>
         /// Refresh the ESRB rating icon to the current ESRB rating
         /// </summary>
-        public void RefreshEsrbIcon(IGame game)
+        private void RefreshEsrbIcon(IGame game)
         {
             if (game == null) { return; }
             GamesTabImageEsrb.Source = null;
@@ -1372,77 +1483,5 @@ namespace UniCade.Windows
 
 
         #endregion
-
-        private void GamesTabButtonAddBoxfrontImage_Click(object sender, RoutedEventArgs e)
-        {
-            //Display the open file dialog
-            string sourcePath = BrowseForImage();
-
-            //Load the image
-            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
-
-            //If the directory does not exist, create it
-            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
-            if (!System.IO.Directory.Exists(directoryPath))
-            {
-                System.IO.Directory.CreateDirectory(directoryPath);
-            }
-
-            string destFileName = directoryPath + _currentGame.Title + "_BoxFront.jpg";
-
-            //Save the image as a jpg in the proper directory
-            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-            //After saving the image as a jpg file, refresh the current game info
-            RefreshGameInfo(_currentGame);
-        }
-
-        private void GamesTabButtonAddBoxbackImage_Click(object sender, RoutedEventArgs e)
-        {
-            //Display the open file dialog
-            string sourcePath = BrowseForImage();
-
-            //Load the image
-            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
-
-            //If the directory does not exist, create it
-            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
-            if (!System.IO.Directory.Exists(directoryPath))
-            {
-                System.IO.Directory.CreateDirectory(directoryPath);
-            }
-
-            string destFileName = directoryPath + _currentGame.Title + "_BoxBack.jpg";
-
-            //Save the image as a jpg in the proper directory
-            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-            //After saving the image as a jpg file, refresh the current game info
-            RefreshGameInfo(_currentGame);
-        }
-
-        private void GamesTabButtonAddscreenshotImage_Click(object sender, RoutedEventArgs e)
-        {
-            //Display the open file dialog
-            string sourcePath = BrowseForImage();
-
-            //Load the image
-            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
-
-            //If the directory does not exist, create it
-            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
-            if (!System.IO.Directory.Exists(directoryPath))
-            {
-                System.IO.Directory.CreateDirectory(directoryPath);
-            }
-
-            string destFileName = directoryPath + _currentGame.Title + "_Screenshot.jpg";
-
-            //Save the image as a jpg in the proper directory
-            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-            //After saving the image as a jpg file, refresh the current game info
-            RefreshGameInfo(_currentGame);
-        }
     }
 }
