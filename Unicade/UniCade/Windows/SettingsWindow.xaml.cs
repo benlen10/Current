@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Microsoft.Win32;
 using UniCade.Backend;
 using UniCade.ConsoleInterface;
 using UniCade.Constants;
@@ -15,6 +17,7 @@ using UniCade.Interfaces;
 using UniCade.Network;
 using UniCade.Objects;
 using Console = UniCade.Objects.Console;
+using Image = System.Windows.Controls.Image;
 
 namespace UniCade.Windows
 {
@@ -569,6 +572,11 @@ namespace UniCade.Windows
             //Display the open file dialog
             string sourcePath = BrowseForImage();
 
+            if (sourcePath == null)
+            {
+                return;
+            }
+
             //Load the image
             System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
 
@@ -593,6 +601,11 @@ namespace UniCade.Windows
             //Display the open file dialog
             string sourcePath = BrowseForImage();
 
+            if (sourcePath == null)
+            {
+                return;
+            }
+
             //Load the image
             System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
 
@@ -614,11 +627,17 @@ namespace UniCade.Windows
 
         private void GamesTabButtonAddscreenshotImage_Click(object sender, RoutedEventArgs e)
         {
-            //Display the open file dialog
-            string sourcePath = BrowseForImage();
+            //Create an OpenFileDialog and set image filters
+            OpenFileDialog fileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp"
+            };
 
+            //Display the open file dialog and check the result
+            if (fileDialog.ShowDialog() == true)
+            {
             //Load the image
-            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
+                System.Drawing.Image image = System.Drawing.Image.FromFile(fileDialog.FileName);
 
             //If the directory does not exist, create it
             string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
@@ -634,6 +653,7 @@ namespace UniCade.Windows
 
             //After saving the image as a jpg file, refresh the current game info
             RefreshGameInfo(_currentGame);
+            }
         }
 
         /// <summary>
@@ -654,6 +674,7 @@ namespace UniCade.Windows
                                _currentGame.Title + "_BoxFront.jpg";
             if (File.Exists(imagePath))
             {
+                GamesTabImageBoxfront.Source = null;
                 File.Delete(imagePath);
             }
         }
@@ -667,6 +688,7 @@ namespace UniCade.Windows
                                _currentGame.Title + "_BoxBack.jpg";
             if (File.Exists(imagePath))
             {
+                GamesTabImageBoxback.Source = null;
                 File.Delete(imagePath);
             }
         }
@@ -680,6 +702,7 @@ namespace UniCade.Windows
                                _currentGame.Title + "_Screenshot.jpg";
             if (File.Exists(imagePath))
             {
+                GamesTabImageScreeshot.Source = null;
                 File.Delete(imagePath);
             }
         }
@@ -693,6 +716,7 @@ namespace UniCade.Windows
             GamesTabImageEsrb.Source = null;
             if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Everyone))
             {
+
                 GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
             }
             else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Everyone10))
@@ -1441,19 +1465,41 @@ namespace UniCade.Windows
             GamesTabImageBoxfront.Source = null;
             GamesTabImageBoxback.Source = null;
             GamesTabImageScreeshot.Source = null;
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.jpg"))
+
+            string boxfrontImagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.jpg";
+            if (File.Exists(boxfrontImagePath))
             {
-                GamesTabImageBoxfront.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.jpg"));
+                BitmapImage imageSource = new BitmapImage();
+                imageSource.BeginInit();
+                imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                imageSource.UriSource = new Uri(boxfrontImagePath);
+                imageSource.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                imageSource.EndInit();
+                GamesTabImageBoxfront.Source = imageSource;
             }
 
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.jpg"))
+            string boxbackImagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.jpg";
+            if (File.Exists(boxbackImagePath))
             {
-                GamesTabImageBoxback.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.jpg"));
+                BitmapImage imageSource = new BitmapImage();
+                imageSource.BeginInit();
+                imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                imageSource.UriSource = new Uri(boxbackImagePath);
+                imageSource.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                imageSource.EndInit();
+                GamesTabImageBoxback.Source = imageSource;
             }
 
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.jpg"))
+            string screenshotImagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title +"_Screenshot.jpg";
+            if (File.Exists(screenshotImagePath))
             {
-                GamesTabImageScreeshot.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.jpg"));
+                BitmapImage imageSource = new BitmapImage();
+                imageSource.BeginInit();
+                imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                imageSource.UriSource = new Uri(screenshotImagePath);
+                imageSource.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                imageSource.EndInit();
+                GamesTabImageScreeshot.Source = imageSource;
             }
         }
         /// <summary>
@@ -1514,7 +1560,7 @@ namespace UniCade.Windows
                                     "\\";
                 if (Directory.Exists(folderPath))
                 {
-                    Directory.Delete(folderPath);
+                    Directory.Delete(folderPath, true);
                 }
                 Directory.CreateDirectory(folderPath);
             }
