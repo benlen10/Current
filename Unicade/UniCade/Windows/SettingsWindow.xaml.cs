@@ -637,6 +637,15 @@ namespace UniCade.Windows
         }
 
         /// <summary>
+        /// Delete all images in the media folder for the current console
+        /// </summary>
+        private void GamesTabButtonDeleteAllConsoleImages_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteAllConsoleImages(_currentConsole);
+            MessageBox.Show("Console images deleted sucuessfully");
+        }
+
+        /// <summary>
         /// Delete the boxfront image for the current game
         /// </summary>
         private void GamesTabButtonRemoveBoxfrontImage_Click(object sender, RoutedEventArgs e)
@@ -1178,6 +1187,18 @@ namespace UniCade.Windows
             Close();
         }
 
+        /// <summary>
+        /// Delete all images in the media folder across all consoles
+        /// </summary>
+        private void GlobalTabButtonDeleteAllGameImages_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (string consoleName in Database.GetConsoleList())
+            {
+                DeleteAllConsoleImages(Database.GetConsole(consoleName));
+            }
+            MessageBox.Show("All images deleted sucuessfully");
+        }
+
         #endregion
 
         #region Web Tab
@@ -1481,7 +1502,26 @@ namespace UniCade.Windows
             return null;
         }
 
+        /// <summary>
+        /// Delete all images for the specified console
+        /// </summary>
+        /// <param name="console"></param>
+        private void DeleteAllConsoleImages(IConsole console)
+        {
+            if (console != null)
+            {
+                string folderPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + console.ConsoleName +
+                                    "\\";
+                if (Directory.Exists(folderPath))
+                {
+                    Directory.Delete(folderPath);
+                }
+                Directory.CreateDirectory(folderPath);
+            }
+        }
+
 
         #endregion
+
     }
 }

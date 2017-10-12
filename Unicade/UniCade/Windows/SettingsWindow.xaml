@@ -40,9 +40,9 @@
                     <Label x:Name="GamesTabLabelGamesForConsole" Content="Games For Console" HorizontalAlignment="Left" Margin="11,375,0,0" VerticalAlignment="Top"/>
                     <ListBox x:Name="GamesTabListboxConsoleList" HorizontalAlignment="Left" Height="289" Margin="11,52,0,0" VerticalAlignment="Top" Width="92" SelectionChanged="GamesTab_ConsoleListBox__SelectedIndexChanged"/>
                     <ListBox x:Name="GamesTabListboxGamesList" HorizontalAlignment="Left" Height="289" Margin="118,52,0,0" VerticalAlignment="Top" Width="92" SelectionChanged="GamesTab_GamesListBox_SelectedIndexChanged"/>
-                    <Image x:Name="GamesTabImageEsrb" HorizontalAlignment="Left" Height="94" Margin="663,313,0,0" VerticalAlignment="Top" Width="91"/>
-                    <Image x:Name="GamesTabImageScreeshot" HorizontalAlignment="Left" Height="103" Margin="572,196,0,0" Panel.ZIndex="3" VerticalAlignment="Top" Width="172" MouseDown="Image_Screenshot_Expand"/>
-                    <Image x:Name="GamesTabImageBoxback" HorizontalAlignment="Left" Height="107" Margin="647,57,0,0" Panel.ZIndex="2" VerticalAlignment="Top" Width="97" MouseDown="Image_Boxback_Expand"/>
+                    <Image x:Name="GamesTabImageEsrb" HorizontalAlignment="Left" Height="106" Margin="663,313,0,0" VerticalAlignment="Top" Width="91"/>
+                    <Image x:Name="GamesTabImageScreeshot" HorizontalAlignment="Left" Height="93" Margin="550,196,0,0" Panel.ZIndex="3" VerticalAlignment="Top" Width="194" MouseDown="Image_Screenshot_Expand"/>
+                    <Image x:Name="GamesTabImageBoxback" HorizontalAlignment="Left" Height="107" Margin="647,57,0,0" Panel.ZIndex="2" VerticalAlignment="Top" Width="98" MouseDown="Image_Boxback_Expand"/>
                     <Image x:Name="GamesTabImageBoxfront" HorizontalAlignment="Left" Height="109" Panel.ZIndex="1" Margin="550,57,0,0" VerticalAlignment="Top" Width="92" MouseDown="Image_Boxfront_Expand"/>
                     <TextBox x:Name="GamesTabTextboxTotalGames" HorizontalAlignment="Left" Height="23" Margin="128,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" IsReadOnly="True"/>
                     <TextBox x:Name="GamesTabTextboxGamesForConsole" HorizontalAlignment="Left" Height="23" Margin="128,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.014,0.629" IsReadOnly="True"/>
@@ -57,14 +57,14 @@
                     <TextBox x:Name="GamesTabTextboxCriticScore" HorizontalAlignment="Left" Height="23" Margin="290,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
                     <TextBox x:Name="GamesTabTextboxPlayers" HorizontalAlignment="Left" Height="23" Margin="390,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35"/>
                     <TextBox x:Name="GamesTabTextboxLaunchCount" HorizontalAlignment="Left" Height="23" Margin="513,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.173,0.574" IsReadOnly="True"/>
-                    <Button x:Name="GamesTabButtonSaveInfo" Content="Save Info" HorizontalAlignment="Left" Margin="190,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_SaveInfoButton_Click"/>
-                    <Button x:Name="GamesTabButtonRescrapeGameMetadata" Content="Rescrape &#xD;&#xA;Game&#xD;&#xA;Metadata" HorizontalAlignment="Left" Margin="285,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_RescrapeGameButton_Click"/>
-                    <Button x:Name="GamesTabButtonRescrapeConsoleMetadata" Content="Resrape&#xD;&#xA;Console&#xD;&#xA;Metadata&#xD;&#xA;" HorizontalAlignment="Left" Margin="379,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_RescrapeConsoleMetadataButton_Click"/>
-                    <Button x:Name="GamesTabButtonSaveToDatabase" Content="Save to &#xD;&#xA;Database" HorizontalAlignment="Left" Margin="471,352,0,0" VerticalAlignment="Top" Width="87" Height="49" Click="GamesTab_SaveToDatabaseButton_Click"/>
-                    <Button x:Name="GamesTabButtonUploadGame" Content="Upload Game" HorizontalAlignment="Left" Margin="563,307,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_UploadButton_Click"/>
-                    <Button x:Name="GamesTabButtonDownloadGame" Content="Download Game" HorizontalAlignment="Left" Margin="563,332,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_DownloadGameButton_Click"/>
-                    <Button x:Name="GamesTabButtonUploadConsole" Content="Upload Console" HorizontalAlignment="Left" Margin="563,356,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_UploadConsoleButton_Click"/>
-                    <Button x:Name="GamesTabButtonDownloadConsole" Content="Download Console" HorizontalAlignment="Left" Margin="563,381,0,0" VerticalAlignment="Top" Width="95" Click="GamesTab_DownloadConsoleButton_Click"/>
+                    <Button x:Name="GamesTabButtonSaveInfo" Content="Save Game Info" HorizontalAlignment="Left" Margin="180,352,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="GamesTab_SaveInfoButton_Click"/>
+                    <Button x:Name="GamesTabButtonRescrapeGameMetadata" Content="Fetch Game Info" HorizontalAlignment="Left" Margin="285,352,0,0" VerticalAlignment="Top" Width="103" Height="24" Click="GamesTab_RescrapeGameButton_Click"/>
+                    <Button x:Name="GamesTabButtonRescrapeConsoleMetadata" Content="Fetch Console Info&#xA;" HorizontalAlignment="Left" Margin="285,381,0,0" VerticalAlignment="Top" Width="103" Height="23" Click="GamesTab_RescrapeConsoleMetadataButton_Click"/>
+                    <Button x:Name="GamesTabButtonSaveToDatabase" Content="Save Database" HorizontalAlignment="Left" Margin="180,381,0,0" VerticalAlignment="Top" Width="100" Height="23" Click="GamesTab_SaveToDatabaseButton_Click"/>
+                    <Button x:Name="GamesTabButtonUploadGame" Content="Upload Game" HorizontalAlignment="Left" Margin="550,315,0,0" VerticalAlignment="Top" Width="108" Click="GamesTab_UploadButton_Click"/>
+                    <Button x:Name="GamesTabButtonDownloadGame" Content="Download Game" HorizontalAlignment="Left" Margin="550,340,0,0" VerticalAlignment="Top" Width="108" Click="GamesTab_DownloadGameButton_Click"/>
+                    <Button x:Name="GamesTabButtonUploadConsole" Content="Upload Console" HorizontalAlignment="Left" Margin="550,364,0,0" VerticalAlignment="Top" Width="108" Click="GamesTab_UploadConsoleButton_Click"/>
+                    <Button x:Name="GamesTabButtonDownloadConsole" Content="Download Console" HorizontalAlignment="Left" Margin="550,389,0,0" VerticalAlignment="Top" Width="108" Click="GamesTab_DownloadConsoleButton_Click"/>
                     <CheckBox x:Name="GamesTabCheckBoxGlobalFavorite" Content="Favorite" HorizontalAlignment="Left" Margin="226,37,0,0" VerticalAlignment="Top"/>
                     <Label Content="Genres" HorizontalAlignment="Left" Margin="220,255,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="GamesTabTextboxGenres" HorizontalAlignment="Left" Height="23" Margin="325,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
@@ -74,6 +74,8 @@
                     <Button x:Name="GamesTabButtonRemoveBoxfrontImage" Content="-" HorizontalAlignment="Left" Margin="597,32,0,0" VerticalAlignment="Top" Width="19" Click="GamesTabButtonRemoveBoxfrontImage_Click"/>
                     <Button x:Name="GamesTabButtonRemoveBoxbackImage" Content="-" HorizontalAlignment="Left" Margin="695,34,0,0" VerticalAlignment="Top" Width="19" Click="GamesTabButtonRemoveBoxbackImage_Click"/>
                     <Button x:Name="GamesTabButtonRemovescreenshotImage" Content="-" Margin="716,168,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="19" Height="20" Click="GamesTabButtonRemovescreenshotImage_Click"/>
+                    <Button x:Name="GamesTabButtonDeleteAllConsoleImages" Content="Delete All &#xD;&#xA;Console &#xD;&#xA;Images" HorizontalAlignment="Left" Margin="393,352,0,0" VerticalAlignment="Top" Width="87" Height="52" Click="GamesTabButtonDeleteAllConsoleImages_Click"/>
+                    <Label Content="UniCade Cloud " HorizontalAlignment="Left" Margin="563,289,0,0" VerticalAlignment="Top" Width="95"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="EmulatorsTabTextboxConsoleName" Header="Emulators">
@@ -162,7 +164,7 @@
                     <ListBox x:Name="GlobalTabListBoxMostPlayedList" HorizontalAlignment="Left" Height="304" Margin="409,36,0,0" VerticalAlignment="Top" Width="153"/>
                     <Label Content="Most Played Games" HorizontalAlignment="Left" Margin="424,12,0,0" VerticalAlignment="Top" Width="122"/>
                     <Button x:Name="GlobalTabButtonRefreshMostPlayedList" Content="Refresh List" HorizontalAlignment="Left" Margin="409,345,0,0" VerticalAlignment="Top" Width="153" Height="28" Click="GlobalTabButtonRefreshMostPlayedList_Click"/>
-                    <Button Content="Delete All Game Images" HorizontalAlignment="Left" Margin="244,345,0,0" VerticalAlignment="Top" Width="149" Height="29"/>
+                    <Button x:Name="GlobalTabButtonDeleteAllGameImages" Content="Delete All Game Images" HorizontalAlignment="Left" Margin="244,345,0,0" VerticalAlignment="Top" Width="149" Height="29" Click="GlobalTabButtonDeleteAllGameImages_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Web">
@@ -202,9 +204,9 @@
             </TabItem>
             <TabItem Header="About">
                 <Grid Background="White" Margin="0,0,-3,-3">
-                    <Label x:Name="AboutTabLabelLicenseInfo" Content="License Info" HorizontalAlignment="Left" Margin="21,254,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="AboutTabLabelEdition" Content="Edition" HorizontalAlignment="Left" Margin="21,285,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="AboutTabLabelLicensedTo" Content="Licensed To" HorizontalAlignment="Left" Margin="21,316,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="AboutTabLabelLicenseInfo" Content="License Status:" HorizontalAlignment="Left" Margin="21,254,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="AboutTabLabelEdition" Content="Edition:" HorizontalAlignment="Left" Margin="21,285,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="AboutTabLabelLicensedTo" Content="Licensed To:" HorizontalAlignment="Left" Margin="21,316,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="AboutTabButtonEnterLicenseKey" Content="Enter License Key" HorizontalAlignment="Left" Margin="346,334,0,0" VerticalAlignment="Top" Width="116" Height="40" Click="AboutTab_Button_EnterLicenseKey_Click"/>
                     <Image x:Name="AboutTabImageUniCadeLogo" HorizontalAlignment="Left" Height="384" Margin="568,0,0,0" VerticalAlignment="Top" Width="186" Stretch="Fill"/>
                     <Label Content="Software Info" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top"/>
