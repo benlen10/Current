@@ -96,31 +96,31 @@ namespace UniCade.Network
                     var attributeNode = (XmlNode)ienumGame.Current;
 
                     // Iterate through all platform attributes
-                    if ((attributeNode.Name == "Overview") || (attributeNode.Name == "overview"))
+                    if ((attributeNode.Name == "Overview") || (attributeNode.Name == "overview") && WebOps.ParseDescription)
                     {
                         game.Description = attributeNode.InnerText;
                     }
-                    else if (attributeNode.Name == "ESRB")
+                    else if (attributeNode.Name == "ESRB" && WebOps.ParseEsrbRating)
                     {
                         game.EsrbRatingsRating = Utilties.ParseEsrbRating(attributeNode.InnerText);
                     }
-                    else if (attributeNode.Name == "Players")
+                    else if (attributeNode.Name == "Players" && WebOps.ParsePlayerCount)
                     {
                         game.SupportedPlayerCount = attributeNode.InnerText;
                     }
-                    else if (attributeNode.Name == "Publisher")
+                    else if (attributeNode.Name == "Publisher" && WebOps.ParsePublisher)
                     {
                         game.PublisherName = attributeNode.InnerText;
                     }
-                    else if (attributeNode.Name == "Developer")
+                    else if (attributeNode.Name == "Developer" && WebOps.ParseDeveloper)
                     {
                         game.DeveloperName = attributeNode.InnerText;
                     }
-                    else if (attributeNode.Name == "Rating")
+                    else if (attributeNode.Name == "Rating" && WebOps.ParseCriticScore)
                     {
                         game.CriticReviewScore = attributeNode.InnerText;
                     }
-                    else if (attributeNode.Name == "Genres")
+                    else if (attributeNode.Name == "Genres" && WebOps.ParseGenres)
                     {
                         IEnumerator ienumGenres = attributeNode.GetEnumerator();
                         game.Genres = "";
@@ -151,32 +151,26 @@ namespace UniCade.Network
                                 string screenshotImagePath =
                                     directoryPath + game.Title + "_Screenshot.jpg";
 
-                                if (gameImages.BoxartBack != null && !File.Exists(boxBackImagePath))
-                                {
-                                    
+                                if (gameImages.BoxartBack != null && !File.Exists(boxBackImagePath) && WebOps.ParseBoxBackImage)
+                                {   
                                     string boxbackImageUrl = BaseImgUrl + gameImages.BoxartBack;
                                     client.DownloadFile(boxbackImageUrl, boxBackImagePath);
                                 }
 
-                                if (gameImages.BoxartFront != null && !File.Exists(boxfrontImagePath))
-                                {
-                                    
+                                if (gameImages.BoxartFront != null && !File.Exists(boxfrontImagePath) && WebOps.ParseBoxFrontImage)
+                                {  
                                     string boxfrontImageUrl = BaseImgUrl + gameImages.BoxartFront;
                                     client.DownloadFile(boxfrontImageUrl, boxfrontImagePath);
                                 }
 
-                                if (gameImages.Screenshots.Count > 0 && !File.Exists(screenshotImagePath))
-                                {
-                                    
+                                if (gameImages.Screenshots.Count > 0 && !File.Exists(screenshotImagePath) && WebOps.ParseScreenshot)
+                                {  
                                     string screenshotImageUrl = BaseImgUrl + gameImages.Screenshots.First();
                                     client.DownloadFile(screenshotImageUrl, screenshotImagePath);
                                 }
                             }
                         }
                     }
-
-
-
                 }
                 return true;
             }

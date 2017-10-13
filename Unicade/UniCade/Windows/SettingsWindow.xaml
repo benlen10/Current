@@ -173,19 +173,22 @@
                     <Label Content="Metadata Options" HorizontalAlignment="Left" Margin="117,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.864,0.578"/>
                     <CheckBox x:Name="WebTabCheckboxCriticScore" Content="Critic Score" HorizontalAlignment="Left" Margin="117,81,0,0" VerticalAlignment="Top"/>
                     <CheckBox x:Name="WebTabCheckboxReleaseDate" Content="Release Date" HorizontalAlignment="Left" Margin="117,61,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxPublisher" Content="Publisher" HorizontalAlignment="Left" Margin="117,101,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxDeveloper" Content="Developer" HorizontalAlignment="Left" Margin="117,121,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxEsrbRating" Content="ESRB Rating" HorizontalAlignment="Left" Margin="117,141,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxEsrbDescriptor" Content="ESRB Descriptors" HorizontalAlignment="Left" Margin="117,161,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxPlayers" Content="Players" HorizontalAlignment="Left" Margin="117,181,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxDescription" Content="Description" HorizontalAlignment="Left" Margin="117,201,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxBoxFront" Content="(Media) Box Front" HorizontalAlignment="Left" Margin="117,221,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxBoxBack" Content="(Media) Box Back" HorizontalAlignment="Left" Margin="117,241,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxScreenshot" Content="(Media) Screenshot" HorizontalAlignment="Left" Margin="117,261,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxPublisher" Content="Publisher" HorizontalAlignment="Left" Margin="117,118,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxDeveloper" Content="Developer" HorizontalAlignment="Left" Margin="117,138,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxEsrbRating" Content="ESRB Rating" HorizontalAlignment="Left" Margin="117,158,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxEsrbDescriptor" Content="ESRB Descriptors" HorizontalAlignment="Left" Margin="117,178,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxPlayers" Content="Players" HorizontalAlignment="Left" Margin="117,198,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxDescription" Content="Description" HorizontalAlignment="Left" Margin="117,218,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxBoxFront" Content="(Media) Box Front" HorizontalAlignment="Left" Margin="261,61,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxBoxBack" Content="(Media) Box Back" HorizontalAlignment="Left" Margin="261,81,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxScreenshot" Content="(Media) Screenshot" HorizontalAlignment="Left" Margin="261,101,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="WebTabButtonSaveScraperSettings" Content="Save Scraper &#xD;&#xA;Settings" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top" Width="87" Height="42" Click="WebTab_Button_SaveScraperSettings_Click"/>
                     <Button x:Name="WebTabButtonClose" Content="Close" HorizontalAlignment="Left" Margin="117,303,0,0" VerticalAlignment="Top" Width="96" Height="42" Click="WebTab_Button_Close_Click"/>
                     <Image x:Name="WebTabImageUniCadeLogo" HorizontalAlignment="Left" Height="384" Margin="545,0,-10,0" VerticalAlignment="Top" Width="219" Stretch="Fill"/>
                     <ComboBox x:Name="WebTabApiComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Margin="10,54,0,0" SelectionChanged="WebTabApiComboBox_SelectionChanged"/>
+                    <CheckBox x:Name="WebTabCheckboxUserScore" Content="User Score" HorizontalAlignment="Left" Margin="117,101,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxOtherPlatforms" Content="Other Available Platforms" HorizontalAlignment="Left" Margin="117,258,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxGenres" Content="Genres" HorizontalAlignment="Left" Margin="117,238,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="UniCade Cloud">

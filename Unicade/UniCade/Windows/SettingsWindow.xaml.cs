@@ -1254,26 +1254,17 @@ namespace UniCade.Windows
         {
             WebOps.ParseReleaseDate = WebTabCheckboxReleaseDate.IsChecked.Value;
             WebOps.ParseCriticScore = WebTabCheckboxCriticScore.IsChecked.Value;
+            WebOps.ParseUserScore = WebTabCheckboxUserScore.IsChecked.Value;
             WebOps.ParsePublisher = WebTabCheckboxPublisher.IsChecked.Value;
             WebOps.ParseDeveloper = WebTabCheckboxDeveloper.IsChecked.Value;
             WebOps.ParseEsrbRating = WebTabCheckboxEsrbRating.IsChecked.Value;
             WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
             WebOps.ParsePlayerCount = WebTabCheckboxPlayers.IsChecked.Value;
-            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
             WebOps.ParseBoxFrontImage = WebTabCheckboxBoxFront.IsChecked.Value;
             WebOps.ParseBoxBackImage = WebTabCheckboxBoxBack.IsChecked.Value;
             WebOps.ParseScreenshot = WebTabCheckboxScreenshot.IsChecked.Value;
-            WebOps.ParseReleaseDate = WebTabCheckboxReleaseDate.IsChecked.Value;
-            WebOps.ParseCriticScore = WebTabCheckboxCriticScore.IsChecked.Value;
-            WebOps.ParsePublisher = WebTabCheckboxPublisher.IsChecked.Value;
-            WebOps.ParseDeveloper = WebTabCheckboxDeveloper.IsChecked.Value;
-            WebOps.ParseEsrbRating = WebTabCheckboxEsrbRating.IsChecked.Value;
-            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
-            WebOps.ParsePlayerCount = WebTabCheckboxPlayers.IsChecked.Value;
-            WebOps.ParseDescription = WebTabCheckboxEsrbDescriptor.IsChecked.Value;
-            WebOps.ParseBoxFrontImage = WebTabCheckboxBoxFront.IsChecked.Value;
-            WebOps.ParseBoxBackImage = WebTabCheckboxBoxBack.IsChecked.Value;
-            WebOps.ParseScreenshot = WebTabCheckboxScreenshot.IsChecked.Value;
+            WebOps.ParseGenres = WebTabCheckboxGenres.IsChecked.Value;
+            WebOps.ParseOtherPlatforms = WebTabCheckboxOtherPlatforms.IsChecked.Value;
         }
 
         private void WebTabApiComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -46,10 +46,21 @@ namespace UniCade.Network
                     {
                         game.MobygamesApiId = gameResult.game_id;
                         game.MobyGamesUrl = gameResult.moby_url;
-                        game.Description = gameResult.description;
-                        game.Genres = ConvertGenreListToString(gameResult.genres);
-                        game.OtherPlatforms = ConvertPlatformListToString(gameResult.platforms);
-                        game.UserReviewScore = gameResult.moby_score.ToString(CultureInfo.InvariantCulture);
+                        if (WebOps.ParseDescription)
+                        {
+                            game.Description = gameResult.description;
+                        }
+                        if (WebOps.ParseGenres)
+                        {
+                            game.Genres = ConvertGenreListToString(gameResult.genres);
+                        }
+                        if (WebOps.ParseOtherPlatforms)
+                        {
+                            game.OtherPlatforms = ConvertPlatformListToString(gameResult.platforms);
+                        }
+                        if (WebOps.ParseUserScore)
+                        {
+                            game.UserReviewScore = gameResult.moby_score.ToString(CultureInfo.InvariantCulture);
                     }
                     return rootResult.games;
                 }

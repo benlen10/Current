@@ -62,6 +62,21 @@ namespace UniCade.Network
         public static bool ParseReleaseDate = true;
 
         /// <summary>
+        /// Specifies if the genres will be scraped
+        /// </summary>
+        public static bool ParseGenres = true;
+
+        /// <summary>
+        /// Specifies if the the list of other platforms will be scraped
+        /// </summary>
+        public static bool ParseOtherPlatforms = true;
+
+        /// <summary>
+        /// Specifies if user review score will be scraped
+        /// </summary>
+        public static bool ParseUserScore = true;
+
+        /// <summary>
         /// Specifies if the box front image will be scraped
         /// </summary>
         public static bool ParseBoxFrontImage = true;
