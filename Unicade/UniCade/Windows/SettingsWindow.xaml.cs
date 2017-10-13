@@ -569,60 +569,68 @@ namespace UniCade.Windows
 
         private void GamesTabButtonAddBoxfrontImage_Click(object sender, RoutedEventArgs e)
         {
-            //Display the open file dialog
-            string sourcePath = BrowseForImage();
-
-            if (sourcePath == null)
+            //Create an OpenFileDialog and set image filters
+            OpenFileDialog fileDialog = new OpenFileDialog
             {
-                return;
-            }
+                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp",
+                Title = "Select BoxFront Image for " + _currentGame.Title
+            };
 
-            //Load the image
-            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
-
-            //If the directory does not exist, create it
-            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
-            if (!Directory.Exists(directoryPath))
+            //Display the open file dialog and check the result
+            if (fileDialog.ShowDialog() == true)
             {
-                Directory.CreateDirectory(directoryPath);
+                //Load the image
+                System.Drawing.Image image = System.Drawing.Image.FromFile(fileDialog.FileName);
+
+                //If the directory does not exist, create it
+                string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" +
+                                       _currentConsole.ConsoleName + "\\";
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                string destFileName = directoryPath + _currentGame.Title + "_BoxFront.jpg";
+
+                //Save the image as a jpg in the proper directory
+                image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                //After saving the image as a jpg file, refresh the current game info
+                RefreshGameInfo(_currentGame);
             }
-
-            string destFileName = directoryPath + _currentGame.Title + "_BoxFront.jpg";
-
-            //Save the image as a jpg in the proper directory
-            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-            //After saving the image as a jpg file, refresh the current game info
-            RefreshGameInfo(_currentGame);
         }
 
         private void GamesTabButtonAddBoxbackImage_Click(object sender, RoutedEventArgs e)
         {
-            //Display the open file dialog
-            string sourcePath = BrowseForImage();
-
-            if (sourcePath == null)
+            //Create an OpenFileDialog and set image filters
+            OpenFileDialog fileDialog = new OpenFileDialog
             {
-                return;
-            }
+                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp",
+                Title = "Select BoxBack Image for " + _currentGame.Title
+            };
 
-            //Load the image
-            System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
-
-            //If the directory does not exist, create it
-            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
-            if (!Directory.Exists(directoryPath))
+            //Display the open file dialog and check the result
+            if (fileDialog.ShowDialog() == true)
             {
-                Directory.CreateDirectory(directoryPath);
+                //Load the image
+                System.Drawing.Image image = System.Drawing.Image.FromFile(fileDialog.FileName);
+
+                //If the directory does not exist, create it
+                string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" +
+                                       _currentConsole.ConsoleName + "\\";
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                string destFileName = directoryPath + _currentGame.Title + "_BoxBack.jpg";
+
+                //Save the image as a jpg in the proper directory
+                image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                //After saving the image as a jpg file, refresh the current game info
+                RefreshGameInfo(_currentGame);
             }
-
-            string destFileName = directoryPath + _currentGame.Title + "_BoxBack.jpg";
-
-            //Save the image as a jpg in the proper directory
-            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-            //After saving the image as a jpg file, refresh the current game info
-            RefreshGameInfo(_currentGame);
         }
 
         private void GamesTabButtonAddscreenshotImage_Click(object sender, RoutedEventArgs e)
@@ -630,7 +638,8 @@ namespace UniCade.Windows
             //Create an OpenFileDialog and set image filters
             OpenFileDialog fileDialog = new OpenFileDialog
             {
-                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp"
+                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp",
+                Title = "Select screenshot Image for " + _currentGame.Title
             };
 
             //Display the open file dialog and check the result
@@ -662,6 +671,7 @@ namespace UniCade.Windows
         private void GamesTabButtonDeleteAllConsoleImages_Click(object sender, RoutedEventArgs e)
         {
             DeleteAllConsoleImages(_currentConsole);
+            RefreshGameInfo(_currentGame);
             MessageBox.Show("Console images deleted sucuessfully");
         }
 
@@ -1220,6 +1230,7 @@ namespace UniCade.Windows
             {
                 DeleteAllConsoleImages(Database.GetConsole(consoleName));
             }
+            RefreshGameInfo(_currentGame);
             MessageBox.Show("All images deleted sucuessfully");
         }
 
