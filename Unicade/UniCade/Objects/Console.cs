@@ -222,7 +222,23 @@ namespace UniCade.Objects
         public string Cpu
         {
             get => _cpu;
-            set => _cpu = value;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("CPU description cannnot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("CPU description contains invalid characters");
+                }
+                if (value.Length > ConstValues.MaxConsoleCpuStringLength)
+                {
+                    throw new ArgumentException(
+                        $"CPU description length cannot exceed {ConstValues.MaxConsoleCpuStringLength} chars");
+                }
+                _cpu = value;
+            }
         }
 
         /// <summary>
@@ -231,7 +247,23 @@ namespace UniCade.Objects
         public string Ram
         {
             get => _ram;
-            set => _ram = value;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("RAM description cannnot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("RAM description contains invalid characters");
+                }
+                if (value.Length > ConstValues.MaxConsoleRamStringLength)
+                {
+                    throw new ArgumentException(
+                        $"RAM description length cannot exceed {ConstValues.MaxConsoleRamStringLength} chars");
+                }
+                _ram = value;
+            }
         }
 
         /// <summary>
@@ -240,7 +272,23 @@ namespace UniCade.Objects
         public string Graphics
         {
             get => _graphics;
-            set => _graphics = value;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Graphics description cannnot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Graphics description contains invalid characters");
+                }
+                if (value.Length > ConstValues.MaxConsoleGraphicsStringLength)
+                {
+                    throw new ArgumentException(
+                        $"Graphics description length cannot exceed {ConstValues.MaxConsoleGraphicsStringLength} chars");
+                }
+                _graphics = value;
+            }
         }
 
         /// <summary>
@@ -249,7 +297,23 @@ namespace UniCade.Objects
         public string DisplayResolution
         {
             get => _displayResolution;
-            set => _displayResolution = value;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Display Resolution cannnot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Display Resolution contains invalid characters");
+                }
+                if (value.Length > ConstValues.MaxConsoleDisplayResolutionLength)
+                {
+                    throw new ArgumentException(
+                        $"Display Resolution length cannot exceed {ConstValues.MaxConsoleDisplayResolutionLength} chars");
+                }
+                _displayResolution = value;
+            }
         }
 
         /// <summary>
@@ -258,7 +322,23 @@ namespace UniCade.Objects
         public string ConsoleRating
         {
             get => _consoleRating;
-            set => _consoleRating = value;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Console rating cannnot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Console rating contains invalid characters");
+                }
+                if (value.Length > ConstValues.MaxConsoleRatingLength)
+                {
+                    throw new ArgumentException(
+                        $"Console rating length cannot exceed {ConstValues.MaxConsoleRatingLength} chars");
+                }
+                _consoleRating = value;
+            }
         }
 
         /// <summary>
@@ -267,7 +347,23 @@ namespace UniCade.Objects
         public string AdditionalConsoleInfo
         {
             get => _additionalConsoleInfo;
-            set => _additionalConsoleInfo = value;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Additional Console Info cannnot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Additional Console Info contains invalid characters");
+                }
+                if (value.Length > ConstValues.MaxAdditionalConsoleInfoLength)
+                {
+                    throw new ArgumentException(
+                        $"Additional Console Info length cannot exceed {ConstValues.MaxAdditionalConsoleInfoLength} chars");
+                }
+                _additionalConsoleInfo = value;
+            }
         }
 
         #endregion

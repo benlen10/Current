@@ -116,19 +116,49 @@ namespace UniCade.Constants
         internal const int MaxGameTriviaLength = 500;
 
         /// <summary>
-        /// The max char length for game trivia
+        /// The max char length for the supported player count
         /// </summary>
         internal const int MaxGamePlayercountLength = 500;
 
         /// <summary>
-        /// The max char length for game trivia
+        /// The max number of esrb descriptors for a game
         /// </summary>
         internal const int MaxEsrbDescriptorsCount = 10;
 
         /// <summary>
-        /// The max char length for game trivia
+        /// The max char length for game esrb summary
         /// </summary>
         internal const int MaxGameEsrbSummaryLength = 1000;
+
+        /// <summary>
+        /// The max char length for a console's CPU description
+        /// </summary>
+        internal const int MaxConsoleCpuStringLength = 50;
+
+        /// <summary>
+        /// The max char length for a console's RAM description
+        /// </summary>
+        internal const int MaxConsoleRamStringLength = 50;
+
+        /// <summary>
+        /// The max char length for a console's graphcis card description
+        /// </summary>
+        internal const int MaxConsoleGraphicsStringLength = 50;
+
+        /// <summary>
+        /// The max char length for a console's max display resolution description
+        /// </summary>
+        internal const int MaxConsoleDisplayResolutionLength = 50;
+
+        /// <summary>
+        /// The max char length for a console's user review score
+        /// </summary>
+        internal const int MaxConsoleRatingLength = 50;
+
+        /// <summary>
+        /// The max char length for additional info for a console
+        /// </summary>
+        internal const int MaxAdditionalConsoleInfoLength = 5000;
 
         /// <summary>
         /// The min length for a User password
