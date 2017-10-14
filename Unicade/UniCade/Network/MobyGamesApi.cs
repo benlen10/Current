@@ -61,6 +61,7 @@ namespace UniCade.Network
                         if (WebOps.ParseUserScore)
                         {
                             game.UserReviewScore = gameResult.moby_score.ToString(CultureInfo.InvariantCulture);
+                        }
                     }
                     return rootResult.games;
                 }

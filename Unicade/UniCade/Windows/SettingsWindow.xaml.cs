@@ -145,17 +145,6 @@ namespace UniCade.Windows
             }
 
             //Populate checkboxes
-            WebTabCheckboxReleaseDate.IsChecked = WebOps.ParseReleaseDate;
-            WebTabCheckboxCriticScore.IsChecked = WebOps.ParseCriticScore;
-            WebTabCheckboxPublisher.IsChecked = WebOps.ParsePublisher;
-            WebTabCheckboxDeveloper.IsChecked = WebOps.ParseDeveloper;
-            WebTabCheckboxEsrbRating.IsChecked = WebOps.ParseEsrbRating;
-            WebTabCheckboxEsrbDescriptor.IsChecked = WebOps.ParseEsrbDescriptors;
-            WebTabCheckboxPlayers.IsChecked = WebOps.ParsePlayerCount;
-            WebTabCheckboxDescription.IsChecked = WebOps.ParseDescription;
-            WebTabCheckboxBoxFront.IsChecked = WebOps.ParseBoxFrontImage;
-            WebTabCheckboxBoxBack.IsChecked = WebOps.ParseBoxBackImage;
-            WebTabCheckboxScreenshot.IsChecked = WebOps.ParseScreenshot;
             GlobalTabCheckboxDisplaySplash.IsChecked = Program.ShowSplashScreen;
             GlobalTabCheckboxDisplayLoadingScreen.IsChecked = Program.ShowLoadingScreen;
             GlobalTabCheckboxRescanAllLibraries.IsChecked = Program.RescanOnStartup;
@@ -504,8 +493,7 @@ namespace UniCade.Windows
             string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentGame.ConsoleName + "\\" + _currentGame.Title + "_BoxFront.jpg";
             if (File.Exists(imagePath))
             {
-                ImagePopup imagePopup = new ImagePopup(imagePath);
-                imagePopup.Title = _currentGame.Title + " BoxFront Image";
+                ImagePopup imagePopup = new ImagePopup(imagePath) {Title = _currentGame.Title + " BoxFront Image"};
                 imagePopup.ShowDialog();
             }
         }
@@ -797,7 +785,7 @@ namespace UniCade.Windows
                 MessageBox.Show(exception.Message);
             }
             FileOps.SaveDatabase();
-            MainWindow.RefreshConsoleList();
+            MessageBox.Show("Databse info saved");
         }
 
         /// <summary>
@@ -883,7 +871,9 @@ namespace UniCade.Windows
             {
                 _currentEmulator.ConsoleName = EmulatorsTabTextboxConsoleName1.Text;
                 _currentEmulator.RomExtension = EmulatorsTabTextboxRomExtension.Text;
+                _currentEmulator.EmulatorExePath = EmulatorsTabTextboxEmulatorExe.Text;
                 _currentEmulator.LaunchParams = EmulatorsTabTextboxEmulatorArgs.Text;
+                _currentEmulator.ReleaseDate = EmulatorsTabTextboxReleaseDate.Text;
                 _currentEmulator.ConsoleInfo = EmulatorsTabTextboxConsoleInfo.Text;
             }
             catch (ArgumentException exception)
@@ -891,7 +881,7 @@ namespace UniCade.Windows
                 MessageBox.Show("Error: " + exception.Message);
             }
             MainWindow.RefreshConsoleList();
-            MessageBox.Show("Saved");
+            MessageBox.Show("Console info saved");
         }
 
         /// <summary>

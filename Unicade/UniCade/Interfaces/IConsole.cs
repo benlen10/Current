@@ -41,6 +41,36 @@ namespace UniCade.Interfaces
         /// </summary>
         string RomFolderPath { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        string Cpu { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        string Ram { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        string Graphics { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        string DisplayResolution { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        string ConsoleRating { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        string AdditionalConsoleInfo { get; set; }
+
         #endregion
 
         #region  API IDs

@@ -64,26 +64,32 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Res
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade_Content.g.cs
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade_MarkupCompile.cache
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade_MarkupCompile.lref
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Resources\App.baml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.g.resources
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.Properties.Resources.resources
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.csproj.GenerateResource.Cache
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.exe
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.pdb
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\NotificationWindow.baml
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\AccountWindow.g.cs
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\GameInfo.g.cs
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\MainWindow.g.cs
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\LicenseEntry.g.cs
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\LoginWindow.g.cs
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\NotificationWindow.g.cs
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\PassWindow.g.cs
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\SettingsWindow.g.cs
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\AccountWindow.baml
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\GameInfo.baml
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\MainWindow.baml
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\LicenseEntry.baml
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\LoginWindow.baml
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\PassWindow.baml
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\GUI Windows\SettingsWindow.baml
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.GUI_Windows.SettingsWindow.resources
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Release\Newtonsoft.Json.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Release\System.Data.SQLite.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Release\Newtonsoft.Json.xml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Release\System.Data.SQLite.xml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\AccountWindow.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\GameInfo.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\MainWindow.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\LicenseEntry.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\LoginWindow.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\NotificationWindow.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\PassWindow.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\SettingsWindow.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\AccountWindow.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\GameInfo.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\ImagePopup.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\MainWindow.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\LicenseEntry.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\LoginWindow.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\NotificationWindow.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\PassWindow.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\SettingsWindow.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\ImagePopup.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.Resources.Strings.resources
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.Windows.SettingsWindow.resources

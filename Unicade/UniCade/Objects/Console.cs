@@ -216,6 +216,60 @@ namespace UniCade.Objects
             }
         }
 
+        /// <summary>
+        /// The CPU of the console
+        /// </summary>
+        public string Cpu
+        {
+            get => _cpu;
+            set => _cpu = value;
+        }
+
+        /// <summary>
+        /// The amount and type of RAM for the console
+        /// </summary>
+        public string Ram
+        {
+            get => _ram;
+            set => _ram = value;
+        }
+
+        /// <summary>
+        /// The graphics card for the console
+        /// </summary>
+        public string Graphics
+        {
+            get => _graphics;
+            set => _graphics = value;
+        }
+
+        /// <summary>
+        /// The console's native display resolution
+        /// </summary>
+        public string DisplayResolution
+        {
+            get => _displayResolution;
+            set => _displayResolution = value;
+        }
+
+        /// <summary>
+        /// The average user reviews for the console
+        /// </summary>
+        public string ConsoleRating
+        {
+            get => _consoleRating;
+            set => _consoleRating = value;
+        }
+
+        /// <summary>
+        ///  Additional info for the console
+        /// </summary>
+        public string AdditionalConsoleInfo
+        {
+            get => _additionalConsoleInfo;
+            set => _additionalConsoleInfo = value;
+        }
+
         #endregion
 
         #region  API IDs
@@ -285,16 +339,46 @@ namespace UniCade.Objects
         private string _launchParams;
 
         /// <summary>
+        /// The CPU of the console
+        /// </summary>
+        [DataMember]
+        private string _cpu;
+
+        /// <summary>
+        /// The amount and type of RAM for the console
+        /// </summary>
+        [DataMember]
+        private string _ram;
+
+        /// <summary>
+        /// The graphics card for the console
+        /// </summary>
+        [DataMember]
+        private string _graphics;
+
+        /// <summary>
+        ///  The console's native display resolution
+        /// </summary>
+        [DataMember]
+        private string _displayResolution;
+
+        /// <summary>
+        /// The average user reviews for the console
+        /// </summary>
+        [DataMember]
+        private string _consoleRating;
+
+        /// <summary>
+        /// Additional info for the console
+        /// </summary>
+        [DataMember]
+        private string _additionalConsoleInfo;
+
+        /// <summary>
         /// A list of game objects for the current console instance
         /// </summary>
         [DataMember]
-        private List<Game> GameList;
-
-        /// <summary>
-        /// The current game count for the console
-        /// </summary>
-        [DataMember]
-        private int _gameCount;
+        private List<Game> _gameList;
 
         #endregion
 
@@ -306,7 +390,7 @@ namespace UniCade.Objects
         public Console(string consoleName)
         {
             ConsoleName = consoleName;
-            GameList = new List<Game>();
+            _gameList = new List<Game>();
         }
 
         /// <summary>
@@ -329,7 +413,7 @@ namespace UniCade.Objects
             ConsoleInfo = consoleInfo;
             LaunchParams = launchParam;
             ReleaseDate = releaseDate;
-            GameList = new List<Game>();
+            _gameList = new List<Game>();
         }
 
         #endregion 
@@ -350,20 +434,19 @@ namespace UniCade.Objects
             }
 
             //Verify that the game count does not exceed the max value
-            if (_gameCount >= ConstValues.MaxGameCount)
+            if (_gameList.Count >= ConstValues.MaxGameCount)
             {
                 return false;
             }
 
             //If a game with an identical title (or filename) name already exists, return false
-            if (GameList.Find(e => e.Title.Equals(game.Title)) != null)
+            if (_gameList.Find(e => e.Title.Equals(game.Title)) != null)
             {
                 return false;
             }
 
             //If all conditions are valid, add the game and increment the game count for both the console and database 
-            GameList.Add((Game) game);
-            _gameCount++;
+            _gameList.Add((Game) game);
             return true;
         }
 
@@ -376,12 +459,11 @@ namespace UniCade.Objects
         public bool RemoveGame(string gameTitle)
         {
             //Attempt to fetch the console from the current list
-            Game game = GameList.Find(e => e.ConsoleName.Equals(gameTitle));
+            Game game = _gameList.Find(e => e.ConsoleName.Equals(gameTitle));
 
             if (game != null)
             {
-                GameList.Remove(game);
-                _gameCount--;
+                _gameList.Remove(game);
                 return true;
             }
             return false;
@@ -396,7 +478,7 @@ namespace UniCade.Objects
         {
             if (gameTitle != null)
             {
-                return GameList.Find(c => c.Title.Equals(gameTitle));
+                return _gameList.Find(c => c.Title.Equals(gameTitle));
             }
             return null;
         }
@@ -407,7 +489,7 @@ namespace UniCade.Objects
         /// <returns></returns>
         public List<string> GetGameList()
         {
-            return GameList.Select(g => g.Title).ToList();
+            return _gameList.Select(g => g.Title).ToList();
         }
 
         /// <summary>
@@ -416,7 +498,7 @@ namespace UniCade.Objects
         /// <returns>the current game count</returns>
         public int GetGameCount()
         {
-            return _gameCount;
+            return _gameList?.Count ?? 0;
         }
 
         #endregion

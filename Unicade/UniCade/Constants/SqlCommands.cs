@@ -44,5 +44,21 @@ CREATE TABLE users(
   userLaunchCount INTEGER,
   allowedEsrb      TEXT,
   PRIMARY KEY(username));";
+
+
+        /// <summary>
+        /// Creates a new table to store all consoles
+        /// </summary>
+        public const string CreateConsolesTable = @"
+DROP TABLE IF EXISTS users;
+CREATE TABLE users(
+  username        TEXT,
+  password        TEXT,
+  email           TEXT,     
+  userinfo        TEXT, 
+  userLoginCount  INTEGER, 
+  userLaunchCount INTEGER,
+  allowedEsrb      TEXT,
+  PRIMARY KEY(username));";
     }
 }

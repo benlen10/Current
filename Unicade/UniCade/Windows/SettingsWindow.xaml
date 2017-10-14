@@ -99,9 +99,9 @@
                     <Image x:Name="EmulatorsTabImageUniCadeLogo" HorizontalAlignment="Left" Height="391" Margin="570,0,0,0" VerticalAlignment="Top" Width="184" Stretch="Fill"/>
                     <Button x:Name="EmulatorsTabButtonForceGlobalRescrape" Content="Force Global &#xD;&#xA;Metadata Rescrape" HorizontalAlignment="Left" Margin="10,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_ForceGlobalMetadataRescrapeButton_Click"/>
                     <Button x:Name="EmulatorsTabButtonAddNewConsole" Content="Add New Console" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_AddNewConsoleButton_Click"/>
-                    <Button x:Name="EmulatorsTabButtonRescanSingleConsole" Content="Rescan Single&#xD;&#xA;Console" HorizontalAlignment="Left" Margin="134,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_RescanSingleConsoleButton_Click"/>
+                    <Button x:Name="EmulatorsTabButtonRescanSingleConsole" Content="Rescan Single&#xA;Console ROMs" HorizontalAlignment="Left" Margin="134,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_RescanSingleConsoleButton_Click"/>
                     <Button x:Name="EmulatorsTabButtonDeleteConsole" Content="Delete Console" HorizontalAlignment="Left" Margin="134,334,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_DeleteConsoleButton_Click"/>
-                    <Button x:Name="EmulatorsTabButtonGlobalRescane" Content="Global Rescan" HorizontalAlignment="Left" Margin="258,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_GlobalRescanButton_Click"/>
+                    <Button x:Name="EmulatorsTabButtonGlobalRescane" Content="Global ROM Rescan" HorizontalAlignment="Left" Margin="258,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_GlobalRescanButton_Click"/>
                     <Button x:Name="EmulatorsTabButtonSaveDatabaseFile" Content="Save Database File" HorizontalAlignment="Left" Margin="258,334,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_SaveDatabaseFileButton_Click"/>
                     <Button x:Name="EmulatorsTabButtonSaveInfo" Content="Save Info" HorizontalAlignment="Left" Margin="382,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_SaveInfoButton_Click"/>
                     <Button x:Name="EmulatorsTabButtonClose" Content="Close" HorizontalAlignment="Left" Margin="382,334,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_CloseButton_Click"/>
@@ -171,24 +171,24 @@
                 <Grid x:Name="WebTabCheckboxMobygames" Background="White">
                     <Label Content="API" HorizontalAlignment="Left" Margin="35,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.249,0.601"/>
                     <Label Content="Metadata Options" HorizontalAlignment="Left" Margin="117,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.864,0.578"/>
-                    <CheckBox x:Name="WebTabCheckboxCriticScore" Content="Critic Score" HorizontalAlignment="Left" Margin="117,81,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxReleaseDate" Content="Release Date" HorizontalAlignment="Left" Margin="117,61,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxPublisher" Content="Publisher" HorizontalAlignment="Left" Margin="117,118,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxDeveloper" Content="Developer" HorizontalAlignment="Left" Margin="117,138,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxEsrbRating" Content="ESRB Rating" HorizontalAlignment="Left" Margin="117,158,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxEsrbDescriptor" Content="ESRB Descriptors" HorizontalAlignment="Left" Margin="117,178,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxPlayers" Content="Players" HorizontalAlignment="Left" Margin="117,198,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxDescription" Content="Description" HorizontalAlignment="Left" Margin="117,218,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxBoxFront" Content="(Media) Box Front" HorizontalAlignment="Left" Margin="261,61,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxBoxBack" Content="(Media) Box Back" HorizontalAlignment="Left" Margin="261,81,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxScreenshot" Content="(Media) Screenshot" HorizontalAlignment="Left" Margin="261,101,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxCriticScore" Content="Critic Score" HorizontalAlignment="Left" Margin="117,81,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxReleaseDate" Content="Release Date" HorizontalAlignment="Left" Margin="117,61,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxPublisher" Content="Publisher" HorizontalAlignment="Left" Margin="117,118,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxDeveloper" Content="Developer" HorizontalAlignment="Left" Margin="117,138,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxEsrbRating" Content="ESRB Rating" HorizontalAlignment="Left" Margin="117,158,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxEsrbDescriptor" Content="ESRB Descriptors" HorizontalAlignment="Left" Margin="117,178,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxPlayers" Content="Players" HorizontalAlignment="Left" Margin="117,198,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxDescription" Content="Description" HorizontalAlignment="Left" Margin="117,218,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxBoxFront" Content="(Media) Box Front" HorizontalAlignment="Left" Margin="261,61,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxBoxBack" Content="(Media) Box Back" HorizontalAlignment="Left" Margin="261,81,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxScreenshot" Content="(Media) Screenshot" HorizontalAlignment="Left" Margin="261,101,0,0" VerticalAlignment="Top" IsChecked="True"/>
                     <Button x:Name="WebTabButtonSaveScraperSettings" Content="Save Scraper &#xD;&#xA;Settings" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top" Width="87" Height="42" Click="WebTab_Button_SaveScraperSettings_Click"/>
                     <Button x:Name="WebTabButtonClose" Content="Close" HorizontalAlignment="Left" Margin="117,303,0,0" VerticalAlignment="Top" Width="96" Height="42" Click="WebTab_Button_Close_Click"/>
                     <Image x:Name="WebTabImageUniCadeLogo" HorizontalAlignment="Left" Height="384" Margin="545,0,-10,0" VerticalAlignment="Top" Width="219" Stretch="Fill"/>
                     <ComboBox x:Name="WebTabApiComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Margin="10,54,0,0" SelectionChanged="WebTabApiComboBox_SelectionChanged"/>
-                    <CheckBox x:Name="WebTabCheckboxUserScore" Content="User Score" HorizontalAlignment="Left" Margin="117,101,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxOtherPlatforms" Content="Other Available Platforms" HorizontalAlignment="Left" Margin="117,258,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="WebTabCheckboxGenres" Content="Genres" HorizontalAlignment="Left" Margin="117,238,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxUserScore" Content="User Score" HorizontalAlignment="Left" Margin="117,101,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxOtherPlatforms" Content="Other Available Platforms" HorizontalAlignment="Left" Margin="117,258,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxGenres" Content="Genres" HorizontalAlignment="Left" Margin="117,238,0,0" VerticalAlignment="Top" IsChecked="True"/>
                 </Grid>
             </TabItem>
             <TabItem Header="UniCade Cloud">

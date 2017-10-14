@@ -108,7 +108,10 @@ C:\Users\Ben\Workspace\Unicade\UniCade\bin\Debug\UniCade.exe.CodeAnalysisLog.xml
 C:\Users\Ben\Workspace\Unicade\UniCade\bin\Debug\UniCade.exe.lastcodeanalysissucceeded
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\UniCade.exe.config
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\UniCade.exe
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\UniCade.pdb
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\System.Data.SQLite.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\System.Data.SQLite.xml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\AccountWindow.baml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\GameInfo.baml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\MainWindow.baml
@@ -119,6 +122,7 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windo
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\SettingsWindow.baml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\AccountWindow.g.cs
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\GameInfo.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\ImagePopup.g.cs
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\MainWindow.g.cs
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\LicenseEntry.g.cs
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\LoginWindow.g.cs
@@ -128,6 +132,8 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windo
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Resources\App.g.cs
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade_Content.g.cs
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade_MarkupCompile.cache
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade_MarkupCompile.lref
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\ImagePopup.baml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.g.resources
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.Properties.Resources.resources
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.Resources.Strings.resources
@@ -136,10 +142,4 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCa
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.exe
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.pdb
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade.csprojResolveAssemblyReference.cache
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\ImagePopup.g.cs
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\UniCade_MarkupCompile.lref
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Debug\Windows\ImagePopup.baml
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\System.Data.SQLite.xml
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\System.Data.SQLite.dll
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Debug\UniCade.pdb
