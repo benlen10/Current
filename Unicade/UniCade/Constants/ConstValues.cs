@@ -161,6 +161,11 @@ namespace UniCade.Constants
         internal const int MaxAdditionalConsoleInfoLength = 5000;
 
         /// <summary>
+        /// The max char length for a web link
+        /// </summary>
+        internal const int MaxWebLinkLength = 1000;
+
+        /// <summary>
         /// The min length for a User password
         /// </summary>
         internal const int MinUserPasswordLength = 4;

@@ -27,7 +27,8 @@ CREATE TABLE games_[Username](
   genres          TEXT,      -- Main genres associated with the game
   tags            TEXT,      -- Revelant game tags
   favorite        INTEGER,   -- int value describing the favorite status
-  PRIMARY KEY(title, console));";
+  PRIMARY KEY(title, console))
+  FOREGIN KEY(console) REFERENCES consoles;";
 
 
         /// <summary>
@@ -50,15 +51,20 @@ CREATE TABLE users(
         /// Creates a new table to store all consoles
         /// </summary>
         public const string CreateConsolesTable = @"
-DROP TABLE IF EXISTS users;
-CREATE TABLE users(
-  username        TEXT,
-  password        TEXT,
-  email           TEXT,     
-  userinfo        TEXT, 
-  userLoginCount  INTEGER, 
-  userLaunchCount INTEGER,
-  allowedEsrb      TEXT,
-  PRIMARY KEY(username));";
+DROP TABLE IF EXISTS consoles;
+CREATE TABLE consoles(
+  consoleName                TEXT,
+  consoleInfo                TEXT,
+  launchParams               TEXT,     
+  releaseDate                TEXT, 
+  romExtension               TEXT, 
+  romFolderPath              TEXT,
+  cpu                        TEXT,
+  ram                        TEXT,
+  graphics                   TEXT,
+  displayResolution          TEXT,
+  consoleRating              TEXT,
+  additionalConsoleInfo      TEXT,
+  PRIMARY KEY(consoleName));";
     }
 }

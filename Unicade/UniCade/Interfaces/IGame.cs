@@ -93,6 +93,11 @@ namespace UniCade.Interfaces
         /// </summary>
         string UserReviewScore { get; set; }
 
+        /// <summary>
+        /// The average user review score out of 100
+        /// </summary>
+        string VideoLink { get; set; }
+
         #endregion
 
         #region  API IDs
