@@ -185,9 +185,45 @@ namespace UniCade.Network
         {
             int consoleId = -1;
             XmlDocument doc = new XmlDocument();
+
+            string validConsoleName = ConvertConsoleName(console.ConsoleName);
+
+            doc.Load(@"http://thegamesdb.net/api/GetPlatformsList.php");
+            XmlNode root = doc.DocumentElement;
+            if (root != null)
+            {
+                root.GetEnumerator();
+
+                XmlNode platformNode = root.FirstChild.NextSibling;
+
+                if (platformNode != null)
+                {
+                    IEnumerator ienumPlatform = platformNode.GetEnumerator();
+                    while (ienumPlatform.MoveNext())
+                    {
+                        var attributeNode = (XmlNode) ienumPlatform.Current;
+                        string tmpId = "";
+                        if (attributeNode.Name == "id")
+                        {
+                            consoleId = int.Parse(attributeNode.InnerText);
+                        }
+
+                        // Iterate through all platform attributes
+                        if (attributeNode.Name == "name")
+                        {
+                            if (validConsoleName.Equals(attributeNode.InnerText))
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+
             doc.Load(@"http://thegamesdb.net/api/GetPlatform.php?id=" + consoleId);
 
-            XmlNode root = doc.DocumentElement;
+            root = doc.DocumentElement;
             if (root != null)
             {
                 root.GetEnumerator();
@@ -208,43 +244,27 @@ namespace UniCade.Network
                         }
                         else if (attributeNode.Name == "developer")
                         {
-                            //console.Developer = attributeNode.InnerText;
-                        }
-                        else if (attributeNode.Name == "manufacturer")
-                        {
-                            //console.Manufacturer = attributeNode.InnerText;
+                            console.Developer = attributeNode.InnerText;
                         }
                         else if (attributeNode.Name == "cpu")
                         {
-                            //console.CPU = attributeNode.InnerText;
+                            console.Cpu = attributeNode.InnerText;
                         }
                         else if (attributeNode.Name == "memory")
                         {
-                            //console.Memory = attributeNode.InnerText;
+                            console.Ram = attributeNode.InnerText;
                         }
                         else if (attributeNode.Name == "graphics")
                         {
-                            //console.Graphics = attributeNode.InnerText;
-                        }
-                        else if (attributeNode.Name == "sound")
-                        {
-                            //console.Sound = attributeNode.InnerText;
+                            console.Graphics = attributeNode.InnerText;
                         }
                         else if (attributeNode.Name == "display")
                         {
-                            //console.Display = attributeNode.InnerText;
-                        }
-                        else if (attributeNode.Name == "media")
-                        {
-                            //console.Media = attributeNode.InnerText;
-                        }
-                        else if (attributeNode.Name == "maxcontrollers")
-                        {
-                            // int.TryParse(attributeNode.InnerText, out platform.MaxControllers);
+                            console.DisplayResolution = attributeNode.InnerText;
                         }
                         else if (attributeNode.Name == "Rating")
                         {
-                            //float.TryParse(attributeNode.InnerText, out platform.Rating);
+                            console.ConsoleRating = attributeNode.InnerText;
                         }
                         else if (attributeNode.Name == "Images")
                         {

@@ -42,32 +42,37 @@ namespace UniCade.Interfaces
         string RomFolderPath { get; set; }
 
         /// <summary>
-        /// 
+        /// The developer of the console
+        /// </summary>
+        string Developer { get; set; }
+
+        /// <summary>
+        /// The CPU of the console
         /// </summary>
         string Cpu { get; set; }
 
         /// <summary>
-        /// 
+        /// The amount and type of RAM for the console
         /// </summary>
         string Ram { get; set; }
 
         /// <summary>
-        /// 
+        /// The graphics card for the console
         /// </summary>
         string Graphics { get; set; }
 
         /// <summary>
-        /// 
+        /// The console's native display resolution
         /// </summary>
         string DisplayResolution { get; set; }
 
         /// <summary>
-        /// 
+        /// The average user reviews for the console
         /// </summary>
         string ConsoleRating { get; set; }
 
         /// <summary>
-        /// 
+        /// Additional info for the console
         /// </summary>
         string AdditionalConsoleInfo { get; set; }
 

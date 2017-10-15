@@ -217,6 +217,31 @@ namespace UniCade.Objects
         }
 
         /// <summary>
+        /// The developer of the console
+        /// </summary>
+        public string Developer
+        {
+            get => _cpu;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Console developer cannnot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Console developer contains invalid characters");
+                }
+                if (value.Length > ConstValues.MaxPublisherDeveloperLength)
+                {
+                    throw new ArgumentException(
+                        $"Console developelength cannot exceed {ConstValues.MaxPublisherDeveloperLength} chars");
+                }
+                _developer = value;
+            }
+        }
+
+        /// <summary>
         /// The CPU of the console
         /// </summary>
         public string Cpu
@@ -433,6 +458,12 @@ namespace UniCade.Objects
         /// </summary>
         [DataMember]
         private string _launchParams;
+
+        /// <summary>
+        /// The developer of the console
+        /// </summary>
+        [DataMember]
+        private string _developer;
 
         /// <summary>
         /// The CPU of the console
