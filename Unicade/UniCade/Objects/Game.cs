@@ -326,6 +326,30 @@ namespace UniCade.Objects
         }
 
         /// <summary>
+        /// A link to a gameplay video or game trailer
+        /// </summary>
+        public string VideoLink
+        {
+            get => _videoLink;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Video link cannot be null");
+                }
+                if (Utilties.CheckForInvalidChars(value))
+                {
+                    throw new ArgumentException("Video link contains invalid characters");
+                }
+                if (value.Length > ConstValues.MaxWebLinkLength)
+                {
+                    throw new ArgumentException($"Video link length cannot exceed {ConstValues.MaxWebLinkLength} chars");
+                }
+                _videoLink = value;
+            }
+        }
+
+        /// <summary>
         /// A list of other platforms this game is available for
         /// </summary>
         [DataMember]
@@ -440,6 +464,12 @@ namespace UniCade.Objects
         /// </summary>
         [DataMember]
         private string _supportedPlayerCount;
+
+        /// <summary>
+        ///  A link to a gameplay video or game trailer
+        /// </summary>
+        [DataMember]
+        private string _videoLink;
 
         /// <summary>
         /// The ESRB content descriptors
