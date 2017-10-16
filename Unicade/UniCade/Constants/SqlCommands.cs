@@ -37,13 +37,13 @@ CREATE TABLE games_[Username](
         public const string CreateUsersTable = @"
 DROP TABLE IF EXISTS users;
 CREATE TABLE users(
-  username        TEXT,
-  password        TEXT,
-  email           TEXT,     
-  userinfo        TEXT, 
-  userLoginCount  INTEGER, 
-  userLaunchCount INTEGER,
-  allowedEsrb      TEXT,
+  username        TEXT,    -- The current user's username (Primary key)
+  password        TEXT,    -- The current user's password
+  email           TEXT,    -- The current user's email address
+  userinfo        TEXT,    -- A brief description of the user
+  userLoginCount  INTEGER, -- The number of times the current user has logged in
+  userLaunchCount INTEGER, -- The total number of games the user has launched
+  allowedEsrb      TEXT,   -- The max ESRB rating the user is allowed to launch
   PRIMARY KEY(username));";
 
 
@@ -53,18 +53,19 @@ CREATE TABLE users(
         public const string CreateConsolesTable = @"
 DROP TABLE IF EXISTS consoles;
 CREATE TABLE consoles(
-  consoleName                TEXT,
-  consoleInfo                TEXT,
-  launchParams               TEXT,     
-  releaseDate                TEXT, 
-  romExtension               TEXT, 
-  romFolderPath              TEXT,
-  cpu                        TEXT,
-  ram                        TEXT,
-  graphics                   TEXT,
-  displayResolution          TEXT,
-  consoleRating              TEXT,
-  additionalConsoleInfo      TEXT,
+  consoleName                TEXT,  -- The common name of the console
+  consoleInfo                TEXT,  -- Basic console description and info
+  launchParams               TEXT,  -- The launch params for the current emulator   
+  releaseDate                TEXT,  -- The original release date for the console
+  romExtension               TEXT,  -- The extensions for ROMS belonging to the current console
+  romFolderPath              TEXT,  -- The full path to the rom directory for the current console
+  developer                  TEXT,  -- The developer of the console
+  cpu                        TEXT,  -- The CPU of the console
+  ram                        TEXT,  -- The amount and type of RAM for the console
+  graphics                   TEXT,  -- The graphics card for the console
+  displayResolution          TEXT,  -- The console's native display resolution
+  consoleRating              TEXT,  -- The average user review score for the console
+  additionalConsoleInfo      TEXT,  -- Additional info for the console
   PRIMARY KEY(consoleName));";
     }
 }
