@@ -51,8 +51,8 @@ CREATE TABLE users(
         /// Creates a new table to store all consoles
         /// </summary>
         public const string CreateConsolesTable = @"
-DROP TABLE IF EXISTS consoles;
-CREATE TABLE consoles(
+DROP TABLE IF EXISTS consoles_[Username];
+CREATE TABLE consoles_[Username](
   consoleName                TEXT,  -- The common name of the console
   consoleInfo                TEXT,  -- Basic console description and info
   launchParams               TEXT,  -- The launch params for the current emulator   

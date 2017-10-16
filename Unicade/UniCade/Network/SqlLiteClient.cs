@@ -150,8 +150,12 @@ namespace UniCade.Network
             command = $"INSERT INTO users (username,password,email,userinfo,allowedEsrb) VALUES (\"{username}\", \"{password}\", \"{email}\", \"{userInfo}\", \"{allowedEsrb}\");";
             ExecuteNonQuery(command);
 
-            //Create a games table for the new user
+            //Create a new games table for the user
             command = SqlCommands.CreateGamesTable.Replace("[Username]", username);
+            ExecuteNonQuery(command);
+
+            //Create a new consoles table for the user
+            command = SqlCommands.CreateConsolesTable.Replace("[Username]", username);
             ExecuteNonQuery(command);
             return true;
         }
