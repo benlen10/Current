@@ -32,7 +32,7 @@ namespace UniCade.Interfaces
         string ReleaseDate { get; set; }
 
         /// <summary>
-        /// The extensions for the current console
+        /// The extensions for ROMS belonging to the current console
         /// </summary>
         string RomExtension { get; set; }
 
@@ -67,7 +67,7 @@ namespace UniCade.Interfaces
         string DisplayResolution { get; set; }
 
         /// <summary>
-        /// The average user reviews for the console
+        /// The average user review score for the console
         /// </summary>
         string ConsoleRating { get; set; }
 

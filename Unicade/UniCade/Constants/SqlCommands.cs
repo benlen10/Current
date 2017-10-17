@@ -26,6 +26,12 @@ CREATE TABLE games_[Username](
   description     INTEGER,   -- Brief game description
   genres          TEXT,      -- Main genres associated with the game
   tags            TEXT,      -- Revelant game tags
+  otherConsoles   TEXT,      -- A list of other consoles that this game is available for
+  videoLink       TEXT,      -- A web link to video gameplay or the game trailer
+  gamesDbApiId    TEXT,      -- The game's API id for TheGamesDB
+  mobygamesApiId  TEXT,      -- The game's API id for MobyGames
+  mobygamesApiUrl TEXT,      -- The game's direct url for MobyGames
+  IgdbApiId       TEXT,      -- The game's API id for IGDB
   favorite        INTEGER,   -- int value describing the favorite status
   PRIMARY KEY(title, console))
   FOREGIN KEY(console) REFERENCES consoles;";
@@ -66,6 +72,9 @@ CREATE TABLE consoles_[Username](
   displayResolution          TEXT,  -- The console's native display resolution
   consoleRating              TEXT,  -- The average user review score for the console
   additionalConsoleInfo      TEXT,  -- Additional info for the console
+  gamesDbApiId               TEXT,  -- The console's API id for TheGamesDB
+  mobygamesApiId             TEXT,  -- The console's API id for MobyGames
+  IgdbApiId                  TEXT,  -- The console's API id for IGDB
   PRIMARY KEY(consoleName));";
     }
 }
