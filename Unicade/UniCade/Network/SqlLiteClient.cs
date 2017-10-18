@@ -246,6 +246,26 @@ namespace UniCade.Network
         }
 
         /// <summary>
+        /// Upload metadata for all consoles in the current interface
+        /// </summary>
+        /// <returns></returns>
+        internal static bool UploadAllConsoles()
+        {
+            if (_currentSqlUsername == null)
+            {
+                return false;
+            }
+
+            foreach (string consoleName in Database.GetConsoleList())
+            {
+                UploadConsole(Database.GetConsole(consoleName));
+            }
+
+            return true;
+
+        }
+
+        /// <summary>
         /// Delete all games for the current user
         /// </summary>
         /// <returns>true if the user's games were deleted</returns>
