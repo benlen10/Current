@@ -240,8 +240,51 @@ namespace UniCade.Network
             }
 
             //Generate and execute the command
-            string command = $"INSERT OR REPLACE INTO consoles_{ _currentSqlUsername} (consoleName, consoleInfo, launchParams, releaseDate, romExtension, romFolderPath, developer, cpu, ram, graphics, displayResolution, consoleRating, additionalConsoleInfo, gamesDbApiId, mobygamesApiId, IgdbApiId) VALUES (\"{console.ConsoleName}\", \"{console.ConsoleInfo}\", \"{console.LaunchParams}\" ,{console.ReleaseDate}, \"{console.RomExtension}\", \"{console.RomFolderPath}\", \"{console.Developer}\", \"{console.Cpu}\",  \"{console.Ram}\", \"{console.Graphics}\", \"{console.DisplayResolution}\", \"{console.ConsoleRating}\", \"{console.AdditionalConsoleInfo}\", \"{console.GamesdbApiId}\", \"{console.MobygamesApiId}\", \"{console.IgdbApiId}\");";
+            string command = $"INSERT OR REPLACE INTO consoles_{ _currentSqlUsername} (consoleName, consoleInfo, launchParams, releaseDate, romExtension, romFolderPath, emulatorExePath, developer, cpu, ram, graphics, displayResolution, consoleRating, additionalConsoleInfo, gamesDbApiId, mobygamesApiId, IgdbApiId) VALUES (\"{console.ConsoleName}\", \"{console.ConsoleInfo}\", \"{console.LaunchParams}\" ,{console.ReleaseDate}, \"{console.RomExtension}\", \"{console.RomFolderPath}\", \"{console.EmulatorExePath}\", \"{console.Developer}\", \"{console.Cpu}\",  \"{console.Ram}\", \"{console.Graphics}\", \"{console.DisplayResolution}\", \"{console.ConsoleRating}\", \"{console.AdditionalConsoleInfo}\", \"{console.GamesdbApiId}\", \"{console.MobygamesApiId}\", \"{console.IgdbApiId}\");";
             ExecuteNonQuery(command);
+            return true;
+        }
+
+        /// <summary>
+        /// Download the metadata for the specified console
+        /// </summary>
+        /// <returns>true if the console metadata was downloaded</returns>
+        internal static bool DownloadConsoleInfo(IConsole console)
+        {
+            if (_currentSqlUsername == null)
+            {
+                return false;
+            }
+
+            string command = $"SELECT * FROM consoles_{_currentSqlUsername} WHERE consoleName = \"{console.ConsoleName}\"";
+
+            var reader = ExecuteQuery(command);
+
+            //Return false if the console is not found
+            if (!reader.HasRows)
+            {
+                return false;
+            }
+
+            //Populate the console fields
+            reader.Read();
+            console.ReleaseDate = reader["releaseDate"].ToString();
+            console.ConsoleInfo = reader["consoleInfo"].ToString();
+            console.EmulatorExePath = reader["emulatorExePath"].ToString();
+            console.LaunchParams = reader["launchParams"].ToString();
+            console.RomExtension = reader["romExtension"].ToString();
+            console.RomFolderPath = reader["romFolderPath"].ToString();
+            console.Developer = reader["developer"].ToString();
+            console.Cpu = reader["cpu"].ToString();
+            console.Ram = reader["ram"].ToString();
+            console.Graphics = reader["graphics"].ToString();
+            console.DisplayResolution = reader["displayResolution"].ToString();
+            console.ConsoleRating = reader["consoleRating"].ToString();
+            console.AdditionalConsoleInfo = reader["additionalConsoleInfo"].ToString();
+            console.GamesdbApiId = int.Parse(reader["gamesDbApiId"].ToString());
+            console.MobygamesApiId = int.Parse(reader["mobygamesApiId"].ToString());
+            console.IgdbApiId = int.Parse(reader["IgdbApiId"].ToString());
+
             return true;
         }
 
