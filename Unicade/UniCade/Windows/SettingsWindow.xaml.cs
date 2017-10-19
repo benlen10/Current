@@ -917,6 +917,54 @@ namespace UniCade.Windows
             MessageBox.Show(console.ConsoleName + " Library Rescan Failed");
         }
 
+        private void EmulatorsTabButtonConsoleInfo_Click(object sender, RoutedEventArgs e)
+        {
+            if (SqlLiteClient.UploadConsole(_currentEmulator))
+            {
+                MessageBox.Show("Console info uploaded sucuessful");
+            }
+            else
+            {
+                MessageBox.Show("Unicade cloud login required");
+            }
+        }
+
+        private void EmulatorsTabButtonUploadAllConsoles_Click(object sender, RoutedEventArgs e)
+        {
+            if (SqlLiteClient.UploadAllConsoles())
+            {
+                MessageBox.Show("All consoles uploaded sucuessfully");
+            }
+            else
+            {
+                MessageBox.Show("Unicade cloud login required");
+            }
+        }
+
+        private void EmulatorsTabButtonDownloadConsoleInfo_Click(object sender, RoutedEventArgs e)
+        {
+            if (SqlLiteClient.DownloadConsoleInfo(_currentEmulator))
+            {
+                MessageBox.Show("Console info downloaded sucuessfully");
+            }
+            else
+            {
+                MessageBox.Show("Unicade cloud login required");
+            }
+        }
+
+        private void EmulatorsTabButtonDownloadAllConsoles_Click(object sender, RoutedEventArgs e)
+        {
+            if (SqlLiteClient.DownloadAllConsoles())
+            {
+                MessageBox.Show("All console info downloaded sucuessfully");
+            }
+            else
+            {
+                MessageBox.Show("Unicade cloud login required");
+            }
+        }
+
         #endregion
 
         #region Users Tab
@@ -1560,6 +1608,5 @@ namespace UniCade.Windows
 
 
         #endregion
-
     }
 }
