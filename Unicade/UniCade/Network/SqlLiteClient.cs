@@ -256,8 +256,8 @@ namespace UniCade.Network
                 return false;
             }
 
+            //Generate and execute the command
             string command = $"SELECT * FROM consoles_{_currentSqlUsername} WHERE consoleName = \"{console.ConsoleName}\"";
-
             var reader = ExecuteQuery(command);
 
             //Return false if the console is not found
@@ -289,7 +289,27 @@ namespace UniCade.Network
         }
 
         /// <summary>
-        /// Upload metadata for all consoles in the current interface
+        /// Download metadata for all consoles 
+        /// </summary>
+        /// <returns></returns>
+        internal static bool DownloadAllConsoles()
+        {
+            if (_currentSqlUsername == null)
+            {
+                return false;
+            }
+
+            foreach (string consoleName in Database.GetConsoleList())
+            {
+                DownloadConsoleInfo(Database.GetConsole(consoleName));
+            }
+
+            return true;
+
+        }
+
+        /// <summary>
+        /// Upload metadata for all consoles 
         /// </summary>
         /// <returns></returns>
         internal static bool UploadAllConsoles()
