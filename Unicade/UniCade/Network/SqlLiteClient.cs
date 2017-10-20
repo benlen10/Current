@@ -226,7 +226,7 @@ namespace UniCade.Network
             int fav = game.Favorite ? 1 : 0;
 
             //Generate and execute teh command
-            string command = $"INSERT OR REPLACE INTO games_{ _currentSqlUsername} (filename, title, console, launchCount, releaseDate, publisher, developer, userScore, criticScore, players, trivia, esrbRating, esrbDescriptors, esrbSummary, description, genres, tags, otherConsoles, videoLink, gamesDbApiId, mobygamesApiId, mobygamesApiUrl, IgdbApiId, favorite)  VALUES (\"{game.FileName}\", \"{game.Title}\", \"{game.ConsoleName}\" ,{game.GetLaunchCount()}, \"{game.ReleaseDate}\", \"{game.PublisherName}\", \"{game.DeveloperName}\", \"{game.UserReviewScore}\",  \"{game.CriticReviewScore}\", \"{game.SupportedPlayerCount}\", \"{game.Trivia}\", \"{game.EsrbRatingsRating.GetStringValue()}\", \"{game.GetEsrbDescriptorsString()}\", \"{game.EsrbSummary}\", \"{game.Description}\", \"{game.Genres}\", \"{game.Tags}\", \"{game.OtherPlatforms}\", \"{game.VideoLink}\", \"{game.GamesdbApiId}\", \"{game.MobygamesApiId}\", \"{game.MobyGamesUrl}\",\"{game.IgdbApiId}\"  {fav});";
+            string command = $"INSERT OR REPLACE INTO games_{ _currentSqlUsername} (filename, title, console, launchCount, releaseDate, publisher, developer, userScore, criticScore, players, trivia, esrbRating, esrbDescriptors, esrbSummary, description, genres, tags, otherConsoles, videoLink, gamesDbApiId, mobygamesApiId, mobygamesApiUrl, IgdbApiId, favorite)  VALUES (\"{game.FileName}\", \"{game.Title}\", \"{game.ConsoleName}\" ,{game.GetLaunchCount()}, \"{game.ReleaseDate}\", \"{game.PublisherName}\", \"{game.DeveloperName}\", \"{game.UserReviewScore}\",  \"{game.CriticReviewScore}\", \"{game.SupportedPlayerCount}\", \"{game.Trivia}\", \"{game.EsrbRatingsRating.GetStringValue()}\", \"{game.GetEsrbDescriptorsString()}\", \"{game.EsrbSummary}\", \"{game.Description}\", \"{game.Genres}\", \"{game.Tags}\", \"{game.OtherPlatforms}\", \"{game.VideoLink}\", {game.GamesdbApiId}, {game.MobygamesApiId}, \"{game.MobyGamesUrl}\", {game.IgdbApiId}, {fav});";
             ExecuteNonQuery(command);                                                                                                                                                                                                                                                                                                                                           
             return true;
         }
@@ -403,6 +403,12 @@ namespace UniCade.Network
             game.Description = reader["description"].ToString();
             game.Genres = reader["genres"].ToString();
             game.Tags = reader["tags"].ToString();
+            game.OtherPlatforms = reader["otherConsoles"].ToString();
+            game.VideoLink = reader["videoLink"].ToString();
+            game.GamesdbApiId = int.Parse(reader["gamesDbApiId"].ToString());
+            game.MobygamesApiId = int.Parse(reader["mobygamesApiId"].ToString());
+            game.MobyGamesUrl = reader["mobygamesApiUrl"].ToString();
+            game.IgdbApiId = int.Parse(reader["IgdbApiId"].ToString());
             game.Favorite = int.Parse(reader["favorite"].ToString()) == 1;
             return true;
         }
@@ -435,7 +441,7 @@ namespace UniCade.Network
                 Game game = (Game)console.GetGame(gameName);
                 int fav = game.Favorite ? 1 : 0;
                 command.Append(
-                    $"INSERT OR REPLACE INTO games_{ _currentSqlUsername} (filename, title, console, launchCount, releaseDate, publisher, developer, userScore, criticScore, players, trivia, esrbRating, esrbDescriptors, esrbSummary, description, genres, tags, otherConsoles, videoLink, gamesDbApiId, mobygamesApiId, mobygamesApiUrl, IgdbApiId, favorite)  VALUES (\"{game.FileName}\", \"{game.Title}\", \"{game.ConsoleName}\" ,{game.GetLaunchCount()}, \"{game.ReleaseDate}\", \"{game.PublisherName}\", \"{game.DeveloperName}\", \"{game.UserReviewScore}\",  \"{game.CriticReviewScore}\", \"{game.SupportedPlayerCount}\", \"{game.Trivia}\", \"{game.EsrbRatingsRating.GetStringValue()}\", \"{game.GetEsrbDescriptorsString()}\", \"{game.EsrbSummary}\", \"{game.Description}\", \"{game.Genres}\", \"{game.Tags}\", \"{game.OtherPlatforms}\", \"{game.VideoLink}\", \"{game.GamesdbApiId}\", \"{game.MobygamesApiId}\", \"{game.MobyGamesUrl}\",\"{game.IgdbApiId}\"  {fav});");
+                    $"INSERT OR REPLACE INTO games_{ _currentSqlUsername} (filename, title, console, launchCount, releaseDate, publisher, developer, userScore, criticScore, players, trivia, esrbRating, esrbDescriptors, esrbSummary, description, genres, tags, otherConsoles, videoLink, gamesDbApiId, mobygamesApiId, mobygamesApiUrl, IgdbApiId, favorite)  VALUES (\"{game.FileName}\", \"{game.Title}\", \"{game.ConsoleName}\" ,{game.GetLaunchCount()}, \"{game.ReleaseDate}\", \"{game.PublisherName}\", \"{game.DeveloperName}\", \"{game.UserReviewScore}\",  \"{game.CriticReviewScore}\", \"{game.SupportedPlayerCount}\", \"{game.Trivia}\", \"{game.EsrbRatingsRating.GetStringValue()}\", \"{game.GetEsrbDescriptorsString()}\", \"{game.EsrbSummary}\", \"{game.Description}\", \"{game.Genres}\", \"{game.Tags}\", \"{game.OtherPlatforms}\", \"{game.VideoLink}\", \"{game.GamesdbApiId}\", \"{game.MobygamesApiId}\", \"{game.MobyGamesUrl}\",\"{game.IgdbApiId}\",  {fav});");
             }
             ExecuteNonQuery(command.ToString());
 

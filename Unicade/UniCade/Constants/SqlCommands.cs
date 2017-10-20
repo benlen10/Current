@@ -33,8 +33,7 @@ CREATE TABLE games_[Username](
   mobygamesApiUrl TEXT,      -- The game's direct url for MobyGames
   IgdbApiId       TEXT,      -- The game's API id for IGDB
   favorite        INTEGER,   -- int value describing the favorite status
-  PRIMARY KEY(title, console))
-  FOREGIN KEY(console) REFERENCES consoles;";
+  PRIMARY KEY(title, console));";
 
 
         /// <summary>
@@ -65,6 +64,7 @@ CREATE TABLE consoles_[Username](
   releaseDate                TEXT,  -- The original release date for the console
   romExtension               TEXT,  -- The extensions for ROMS belonging to the current console
   romFolderPath              TEXT,  -- The full path to the rom directory for the current console
+  emulatorExePath              TEXT,  -- The full path to the rom directory for the current console
   developer                  TEXT,  -- The developer of the console
   cpu                        TEXT,  -- The CPU of the console
   ram                        TEXT,  -- The amount and type of RAM for the console

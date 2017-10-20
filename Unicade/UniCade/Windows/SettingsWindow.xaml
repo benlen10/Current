@@ -106,10 +106,10 @@
                     <Button x:Name="EmulatorsTabButtonSaveInfo" Content="Save Info" HorizontalAlignment="Left" Margin="134,338,0,0" VerticalAlignment="Top" Width="119" Height="22" Click="EmulatorsTab_SaveInfoButton_Click"/>
                     <Button x:Name="EmulatorsTabButtonClose" Content="  Close&#xD;&#xA;Window" HorizontalAlignment="Left" Margin="407,342,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_CloseButton_Click"/>
                     <Label Content="UniCade Cloud Ops" HorizontalAlignment="Left" Margin="271,258,0,0" VerticalAlignment="Top" Width="120"/>
-                    <Button x:Name="EmulatorsTabButtonConsoleInfo" Content="Upload Console Info" HorizontalAlignment="Left" Margin="258,287,0,0" VerticalAlignment="Top" Width="144"/>
-                    <Button x:Name="EmulatorsTabButtonUploadAllConsoles" Content="Upload All Consoles" HorizontalAlignment="Left" Margin="258,314,0,0" VerticalAlignment="Top" Width="144"/>
-                    <Button x:Name="EmulatorsTabButtonDownloadConsoleInfo" Content="Download Console Info" HorizontalAlignment="Left" Margin="258,340,0,0" VerticalAlignment="Top" Width="144"/>
-                    <Button x:Name="EmulatorsTabButtonDownloadAllConsoles" Content="Download All Consoles" HorizontalAlignment="Left" Margin="258,365,0,0" VerticalAlignment="Top" Width="144"/>
+                    <Button x:Name="EmulatorsTabButtonConsoleInfo" Content="Upload Console Info" HorizontalAlignment="Left" Margin="258,287,0,0" VerticalAlignment="Top" Width="144" Click="EmulatorsTabButtonConsoleInfo_Click"/>
+                    <Button x:Name="EmulatorsTabButtonUploadAllConsoles" Content="Upload All Consoles" HorizontalAlignment="Left" Margin="258,314,0,0" VerticalAlignment="Top" Width="144" Click="EmulatorsTabButtonUploadAllConsoles_Click"/>
+                    <Button x:Name="EmulatorsTabButtonDownloadConsoleInfo" Content="Download Console Info" HorizontalAlignment="Left" Margin="258,340,0,0" VerticalAlignment="Top" Width="144" Click="EmulatorsTabButtonDownloadConsoleInfo_Click"/>
+                    <Button x:Name="EmulatorsTabButtonDownloadAllConsoles" Content="Download All Consoles" HorizontalAlignment="Left" Margin="258,365,0,0" VerticalAlignment="Top" Width="144" Click="EmulatorsTabButtonDownloadAllConsoles_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Users">

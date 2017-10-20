@@ -29,7 +29,7 @@ namespace UniCade.Interfaces
         string UserInfo { get; set; }
 
         /// <summary>
-        /// The current (unique) username
+        /// The current user's username
         /// </summary>
         string Username { get; set; }
 
