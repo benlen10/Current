@@ -180,6 +180,10 @@ namespace UniCade.Network
             }
         }
 
+        /// <summary>
+        /// Login a SQL user
+        /// </summary>
+        /// <returns>True if the username and password were accepted</returns>
         internal static bool Login(string username, string password)
         {
             string command = $"SELECT * FROM users WHERE username = \"{username}\"";
@@ -340,6 +344,23 @@ namespace UniCade.Network
             }
 
             string command = $"DELETE FROM games_{_currentSqlUsername}";
+            ExecuteNonQuery(command);
+            return true;
+        }
+
+
+        /// <summary>
+        /// Delete all games for the current user
+        /// </summary>
+        /// <returns>true if the user's games were deleted</returns>
+        internal static bool DeleteAllUserConsoles()
+        {
+            if (_currentSqlUsername == null)
+            {
+                return false;
+            }
+
+            string command = $"DELETE FROM consoles_{_currentSqlUsername}";
             ExecuteNonQuery(command);
             return true;
         }

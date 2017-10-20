@@ -60,6 +60,12 @@ namespace UnitTests.NetworkTests
             const string criticReviewScore = "93/100";
             const string trivia = "This game was later ported to the GBA";
             const string supportedPlayers = "2";
+            const string otherConsoles = "GBA";
+            const string videoLink = "htp:\\youtube.com";
+            const int gamesdbApiId = 001;
+            const int mobygamesApiId = 001;
+            const string mobyGamesUrl = "mobygamesUrl";
+            const int igdbApiId = 003;
 
 
             Game game = new Game(fileName, gameConsole)
@@ -74,7 +80,13 @@ namespace UnitTests.NetworkTests
                 UserReviewScore = userReviewScorew,
                 CriticReviewScore = criticReviewScore,
                 Trivia = trivia,
-                SupportedPlayerCount = supportedPlayers
+                SupportedPlayerCount = supportedPlayers,
+                OtherPlatforms =  otherConsoles,
+                VideoLink = videoLink,
+                GamesdbApiId = gamesdbApiId,
+                MobygamesApiId = mobygamesApiId,
+                MobyGamesUrl = mobyGamesUrl,
+                IgdbApiId = igdbApiId
             };
             game.SetLaunchCount(launchCount);
 
@@ -96,6 +108,12 @@ namespace UnitTests.NetworkTests
             Assert.AreEqual(trivia, game.Trivia, "Verify that the game trivia is correct");
             Assert.AreEqual(supportedPlayers, game.SupportedPlayerCount, "Verify that the game trivia is correct");
             Assert.AreEqual(launchCount, game.GetLaunchCount(), "Verify that the game launch count is correct");
+            Assert.AreEqual(otherConsoles, game.OtherPlatforms, "Verify that the other playforms list is correct");
+            Assert.AreEqual(videoLink, game.VideoLink, "Verify that the video link is correct");
+            Assert.AreEqual(gamesdbApiId, game.GamesdbApiId, "Verify that the GamesdbApiId is correct");
+            Assert.AreEqual(mobygamesApiId, game.MobygamesApiId, "Verify that the MobygamesApiId is correct");
+            Assert.AreEqual(mobyGamesUrl, game.MobyGamesUrl, "Verify that the MobyGamesUrl is correct");
+            Assert.AreEqual(igdbApiId, game.IgdbApiId, "Verify that the IgdbApiId is correct");
         }
 
         /// <summary>
