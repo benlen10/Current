@@ -10,6 +10,7 @@ using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Network;
 using UniCade.Objects;
+using Console = UniCade.Objects.Console;
 
 namespace UnitTests.NetworkTests
 {
@@ -135,14 +136,73 @@ namespace UnitTests.NetworkTests
             Assert.IsTrue(SqlLiteClient.Login(userName, password));
 
             //Create a new console and populate all fields
+            const string consoleName = "SNES";
+            const string releaseDate = "1992";
+            const string emulatorExePath = @"C:\temp\zsnes.exe";
+            const string romFolderPath = @"C:\Roms\";
+            const string romExtensions = ".snes";
+            const string consoleInfo = "Description";
+            const string launchParams = "args";
+            const string developer = "Nintendo";
+            const string cpu = "SNES CPU";
+            const string ram = "256MB";
+            const string graphics = "Properity Nintendo Card";
+            const string displayResolution = "640x480";
+            const string consoleRating = "9/10";
+            const string additionalConsoleInfo = "Addional SNES info";
+            const int gamesDbApiId = 001;
+            const int mobygamesApiId = 002;
+            const int igdbApiId = 003;
+
+
+            Console console = new Console(consoleName)
+            {
+                ReleaseDate = releaseDate,
+                EmulatorExePath = emulatorExePath,
+                RomFolderPath = romFolderPath,
+                RomExtension = romExtensions,
+                ConsoleInfo = consoleInfo,
+                LaunchParams = launchParams,
+                Developer = developer,
+                Cpu = cpu,
+                Ram = ram,
+                Graphics = graphics,
+                DisplayResolution = displayResolution,
+                ConsoleRating = consoleRating,
+                AdditionalConsoleInfo = additionalConsoleInfo,
+                GamesdbApiId = gamesDbApiId,
+                MobygamesApiId = mobygamesApiId,
+                IgdbApiId = igdbApiId
+
+            };
 
             //Upload the console
+            SqlLiteClient.UploadConsole(console);
 
-            //Create a new blank console with the same name
+            //Create a new blank console
+            console = new Console(consoleName);
 
             //Download the console info
+            SqlLiteClient.DownloadConsoleInfo(console);
 
-            //Verify that all console fields have been restored
+            //Verify that the console info has been properly restored
+            Assert.AreEqual(consoleName, console.ConsoleName, "Verify that the ConsoleName is correct");
+            Assert.AreEqual(releaseDate, console.ReleaseDate, "Verify that the releaseDate is correct");
+            Assert.AreEqual(emulatorExePath, console.EmulatorExePath, "Verify that the emulatorExePath is correct");
+            Assert.AreEqual(romFolderPath, console.RomFolderPath, "Verify that the romFolderPath is correct");
+            Assert.AreEqual(romExtensions, console.RomExtension, "Verify that the romExtensions is correct");
+            Assert.AreEqual(consoleInfo, console.ConsoleInfo, "Verify that the consoleInfo is correct");
+            Assert.AreEqual(launchParams, console.LaunchParams, "Verify that the launchParams is correct");
+            Assert.AreEqual(developer, console.Developer, "Verify that the Developer is correct");
+            Assert.AreEqual(cpu, console.Cpu, "Verify that the Cpu is correct");
+            Assert.AreEqual(ram, console.Ram, "Verify that the Ram is correct");
+            Assert.AreEqual(graphics, console.Graphics, "Verify that the Graphics is correct");
+            Assert.AreEqual(displayResolution, console.DisplayResolution, "Verify that the DisplayResolution is correct");
+            Assert.AreEqual(consoleRating, console.ConsoleRating, "Verify that the ConsoleRating is correct");
+            Assert.AreEqual(additionalConsoleInfo, console.AdditionalConsoleInfo, "Verify that the AdditionalConsoleInfo is correct");
+            Assert.AreEqual(gamesDbApiId, console.GamesdbApiId, "Verify that the GamesdbApiId is correct");
+            Assert.AreEqual(mobygamesApiId, console.MobygamesApiId, "Verify that the MobygamesApiId is correct");
+            Assert.AreEqual(igdbApiId, console.IgdbApiId, "Verify that the IgdbApiId is correct");
         }
 
         /// <summary>

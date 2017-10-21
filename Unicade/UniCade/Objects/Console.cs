@@ -221,7 +221,7 @@ namespace UniCade.Objects
         /// </summary>
         public string Developer
         {
-            get => _cpu;
+            get => _developer;
             set
             {
                 if (value == null)
