@@ -81,7 +81,7 @@ namespace UnitTests.NetworkTests
                 CriticReviewScore = criticReviewScore,
                 Trivia = trivia,
                 SupportedPlayerCount = supportedPlayers,
-                OtherPlatforms =  otherConsoles,
+                OtherPlatforms = otherConsoles,
                 VideoLink = videoLink,
                 GamesdbApiId = gamesdbApiId,
                 MobygamesApiId = mobygamesApiId,
@@ -90,8 +90,10 @@ namespace UnitTests.NetworkTests
             };
             game.SetLaunchCount(launchCount);
 
+            //Upload the game
             Assert.IsTrue(SqlLiteClient.UploadGame(game), "Verify the game is uploaded properly");
 
+            //Download the game info
             game = new Game(fileName, gameConsole);
             SqlLiteClient.DownloadGameInfo(game);
 
@@ -114,6 +116,33 @@ namespace UnitTests.NetworkTests
             Assert.AreEqual(mobygamesApiId, game.MobygamesApiId, "Verify that the MobygamesApiId is correct");
             Assert.AreEqual(mobyGamesUrl, game.MobyGamesUrl, "Verify that the MobyGamesUrl is correct");
             Assert.AreEqual(igdbApiId, game.IgdbApiId, "Verify that the IgdbApiId is correct");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void TestUploadDownloadConsoles()
+        {
+            SqlLiteClient.Connect();
+            SqlLiteClient.CreateNewSqlDatabase();
+
+            const string userName = "BenLen";
+            const string password = "tempPass";
+
+            SqlLiteClient.CreateNewUser(userName, password, "benlen10@gmail.com", "userInfo", "Null");
+            Assert.IsTrue(SqlLiteClient.Login(userName, password));
+
+            //Create a new console and populate all fields
+
+            //Upload the console
+
+            //Create a new blank console with the same name
+
+            //Download the console info
+
+            //Verify that all console fields have been restored
         }
 
         /// <summary>
@@ -208,11 +237,11 @@ namespace UnitTests.NetworkTests
 
         #endregion
 
-            #region  Helper Methods
+        #region  Helper Methods
 
-            /// <summary>
-            /// Cleanup the sqlite database file
-            /// </summary>
+        /// <summary>
+        /// Cleanup the sqlite database file
+        /// </summary>
         [TestCleanup]
         public void Cleanup()
         {

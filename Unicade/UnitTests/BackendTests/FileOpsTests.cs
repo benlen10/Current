@@ -40,6 +40,16 @@ namespace UnitTests.BackendTests
             const string romExtensions = ".snes";
             const string consoleInfo = "Description";
             const string launchParams = "args";
+            const string developer = "Nintendo";
+            const string cpu = "SNES CPU";
+            const string ram = "256MB";
+            const string graphics = "Properity Nintendo Card";
+            const string displayResolution = "640x480";
+            const string consoleRating = "9/10";
+            const string additionalConsoleInfo = "Addional SNES info";
+            const int gamesDbApiId = 001;
+            const int mobygamesApiId = 002;
+            const int IgdbApiId = 003;
 
 
             Console console = new Console(consoleName)
@@ -49,7 +59,18 @@ namespace UnitTests.BackendTests
                 RomFolderPath = romFolderPath,
                 RomExtension = romExtensions,
                 ConsoleInfo = consoleInfo,
-                LaunchParams = launchParams
+                LaunchParams = launchParams,
+                Developer = developer,
+                Cpu = cpu,
+                Ram = ram,
+                Graphics = graphics,
+                DisplayResolution = displayResolution,
+                ConsoleRating = consoleRating,
+                AdditionalConsoleInfo = additionalConsoleInfo,
+                GamesdbApiId =gamesDbApiId,
+                MobygamesApiId = mobygamesApiId,
+                IgdbApiId = IgdbApiId
+
             };
 
             //Create a new game and populate all fields
@@ -124,6 +145,16 @@ namespace UnitTests.BackendTests
             Assert.AreEqual(consoleInfo, console.ConsoleInfo, "Verify that the consoleInfo is correct");
             Assert.AreEqual(launchParams, console.LaunchParams, "Verify that the launchParams is correct");
             Assert.AreEqual(1, console.GetGameCount(), "Verify that the gameCount is correct");
+            Assert.AreEqual(developer, console.Developer, "Verify that the Developer is correct");
+            Assert.AreEqual(cpu, console.Cpu, "Verify that the Cpu is correct");
+            Assert.AreEqual(ram, console.Ram, "Verify that the Ram is correct");
+            Assert.AreEqual(graphics, console.Graphics, "Verify that the Graphics is correct");
+            Assert.AreEqual(displayResolution, console.DisplayResolution, "Verify that the DisplayResolution is correct");
+            Assert.AreEqual(consoleRating, console.ConsoleRating, "Verify that the ConsoleRating is correct");
+            Assert.AreEqual(additionalConsoleInfo, console.AdditionalConsoleInfo, "Verify that the AdditionalConsoleInfo is correct");
+            Assert.AreEqual(gamesDbApiId, console.GamesdbApiId, "Verify that the GamesdbApiId is correct");
+            Assert.AreEqual(mobygamesApiId, console.MobygamesApiId, "Verify that the MobygamesApiId is correct");
+            Assert.AreEqual(IgdbApiId, console.IgdbApiId, "Verify that the IgdbApiId is correct");
 
             //Attempt to fetch the game and verify that it exists
             game = (Game) console.GetGame(gameTitle);
