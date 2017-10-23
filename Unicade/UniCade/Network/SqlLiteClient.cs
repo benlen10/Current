@@ -186,8 +186,12 @@ namespace UniCade.Network
         /// <returns>True if the username and password were accepted</returns>
         internal static bool Login(string username, string password)
         {
-            string command = $"SELECT * FROM users WHERE username = \"{username}\"";
+            if (username == null || password == null)
+            {
+                return false;
+            }
 
+            string command = $"SELECT * FROM users WHERE username = \"{username}\"";
             var reader = ExecuteQuery(command);
             while (reader.Read())
             {
@@ -217,7 +221,7 @@ namespace UniCade.Network
         /// <returns></returns>
         internal static bool UploadGame(IGame game)
         {
-            if (_currentSqlUsername == null)
+            if (_currentSqlUsername == null || game == null)
             {
                 return false;
             }
@@ -238,7 +242,7 @@ namespace UniCade.Network
         /// <returns></returns>
         internal static bool UploadConsole(IConsole console)
         {
-            if (_currentSqlUsername == null )
+            if (_currentSqlUsername == null || console == null)
             {
                 return false;
             }
@@ -255,7 +259,7 @@ namespace UniCade.Network
         /// <returns>true if the console metadata was downloaded</returns>
         internal static bool DownloadConsoleInfo(IConsole console)
         {
-            if (_currentSqlUsername == null)
+            if (_currentSqlUsername == null || console == null)
             {
                 return false;
             }
@@ -372,7 +376,7 @@ namespace UniCade.Network
         /// <returns>True if the game was found and metadata updated</returns>
         internal static bool DownloadGameInfo(IGame game)
         {
-            if (_currentSqlUsername == null)
+            if (_currentSqlUsername == null || game == null)
             {
                 return false;
             }
@@ -429,7 +433,7 @@ namespace UniCade.Network
         /// <returns>True if the games were sucuessfully uploaded</returns>
         internal static bool UploadAllGamesForConsole(IConsole console)
         {
-            if (_currentSqlUsername == null)
+            if (_currentSqlUsername == null || console == null)
             {
                 return false;
             }
@@ -473,7 +477,7 @@ namespace UniCade.Network
         /// <returns>true if the operation was successful</returns>
         internal static bool DownloadAllGamesForConsole(IConsole console)
         {
-            if (_currentSqlUsername == null)
+            if (_currentSqlUsername == null || console == null)
             {
                 return false;
             }
@@ -539,9 +543,13 @@ namespace UniCade.Network
         /// <returns>The int status of the operation</returns>
         private static int ExecuteNonQuery(string input)
         {
-            Connect();
-            SQLiteCommand command = new SQLiteCommand(input, _connection);
-            return command.ExecuteNonQuery();
+            if (input != null)
+            {
+                Connect();
+                SQLiteCommand command = new SQLiteCommand(input, _connection);
+                return command.ExecuteNonQuery();
+            }
+            return -1;
         }
 
         /// <summary>
@@ -551,9 +559,13 @@ namespace UniCade.Network
         /// <returns>A SQLiteDataReader object representing the response</returns>
         private static SQLiteDataReader ExecuteQuery(string query)
         {
-            Connect();
-            SQLiteCommand command = new SQLiteCommand(query, _connection);
-            return command.ExecuteReader();
+            if (query != null)
+            {
+                Connect();
+                SQLiteCommand command = new SQLiteCommand(query, _connection);
+                return command.ExecuteReader();
+            }
+            return null;
         }
 
         #endregion

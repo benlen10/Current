@@ -22,7 +22,7 @@ namespace UnitTests.NetworkTests
         /// <summary>
         /// The current consoleName for API testing
         /// </summary>
-        private const string _consoleName = "Sony Playstation";
+        private const string ConsoleName = "Sony Playstation";
 
         #endregion 
 
@@ -37,7 +37,7 @@ namespace UnitTests.NetworkTests
             Database.Initalize();
 
             //Create a new game 
-            _game = new Game("Resident Evil 2.bin", _consoleName);
+            _game = new Game("Resident Evil 2.bin", ConsoleName);
         }
 
         #region API Tests
@@ -63,6 +63,8 @@ namespace UnitTests.NetworkTests
             Assert.IsTrue(File.Exists(mediaDirectoryPath + _game.Title + "_BoxFront.jpg"));
             Assert.IsTrue(File.Exists(mediaDirectoryPath + _game.Title + "_Screenshot.jpg"));
         }
+
+        
 
         /// <summary>
         /// Verify that the MobyGames API properly fetches info for games

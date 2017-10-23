@@ -43,7 +43,7 @@ namespace UniCade.Constants
         /// <summary>
         /// The max length a the console info
         /// </summary>
-        internal const int MaxConsoleInfoLength = 1000;
+        internal const int MaxConsoleInfoLength = 5000;
 
         /// <summary>
         /// The max length a the console info

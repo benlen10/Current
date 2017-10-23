@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -184,12 +185,12 @@ namespace UniCade.Network
         internal static bool UpdateConsoleInfo(Console console)
         {
             int consoleId = -1;
-            XmlDocument doc = new XmlDocument();
+            XmlDocument consoleListDoc = new XmlDocument();
 
             string validConsoleName = ConvertConsoleName(console.ConsoleName);
 
-            doc.Load(@"http://thegamesdb.net/api/GetPlatformsList.php");
-            XmlNode root = doc.DocumentElement;
+            consoleListDoc.Load(@"http://thegamesdb.net/api/GetPlatformsList.php");
+            XmlNode root = consoleListDoc.DocumentElement;
             if (root != null)
             {
                 root.GetEnumerator();
@@ -202,25 +203,31 @@ namespace UniCade.Network
                     while (ienumPlatform.MoveNext())
                     {
                         var attributeNode = (XmlNode) ienumPlatform.Current;
-                        string tmpId = "";
-                        if (attributeNode.Name == "id")
-                        {
-                            consoleId = int.Parse(attributeNode.InnerText);
-                        }
 
-                        // Iterate through all platform attributes
-                        if (attributeNode.Name == "name")
+                        IEnumerator ienumAttr = attributeNode.GetEnumerator();
+                        int tempId = -1;
+                        while (ienumAttr.MoveNext())
                         {
-                            if (validConsoleName.Equals(attributeNode.InnerText))
+                            var fieldNode = (XmlNode)ienumAttr.Current;
+
+                            if (fieldNode.Name == "id")
                             {
-                                break;
+                                tempId = int.Parse(fieldNode.InnerText);
+                            }
+                            if (fieldNode.Name == "name")
+                            {
+                                if (validConsoleName.Equals(fieldNode.InnerText))
+                                {
+                                    consoleId = tempId;
+                                    break;
+                                }
                             }
                         }
                     }
                 }
             }
 
-
+            XmlDocument doc = new XmlDocument();
             doc.Load(@"http://thegamesdb.net/api/GetPlatform.php?id=" + consoleId);
 
             root = doc.DocumentElement;
