@@ -208,7 +208,7 @@
                     <Button x:Name="CloudTabButtonDeleteAccount" Content="Delete&#xD;&#xA;Current Account" HorizontalAlignment="Left" Margin="102,281,0,0" VerticalAlignment="Top" Width="87" Height="45" Click="CloudTab_Button_DeleteAccount_Click"/>
                     <Button x:Name="CloudTabButtonDeleteAllGamesInCloud" Content="Delete All &#xD;&#xA;Games for User" HorizontalAlignment="Left" Margin="102,331,0,0" VerticalAlignment="Top" Width="87" Height="45" Click="CloudTab_Button_DeleteAllGamesInCloud_Click"/>
                     <Button x:Name="CloudTabButtonDownloadAllGames" Content="Download All&#xD;&#xA;Games" HorizontalAlignment="Left" Margin="194,281,0,0" VerticalAlignment="Top" Width="87" Height="45" RenderTransformOrigin="2.267,0.897" Click="CloudTab_Button_DownloadAllGames_Click"/>
-                    <Button x:Name="UniCadeCloudTabDeleteAllUserConsolesButton" Content="Delete All&#xD;&#xA;User Consoles" HorizontalAlignment="Left" Margin="194,331,0,0" VerticalAlignment="Top" Width="87" Height="45"/>
+                    <Button x:Name="UniCadeCloudTabDeleteAllUserConsolesButton" Content="Delete All&#xD;&#xA;User Consoles" HorizontalAlignment="Left" Margin="194,331,0,0" VerticalAlignment="Top" Width="87" Height="45" Click="UniCadeCloudTabDeleteAllUserConsolesButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="About">

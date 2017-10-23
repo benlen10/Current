@@ -339,31 +339,13 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_UploadButton_Click(object sender, EventArgs e)
         {
-
-            if (SqlLiteClient.GetCurrentUsername() == null)
-            {
-                MessageBox.Show("UniCade Cloud login required");
-                return;
-            }
-
-            if (GamesTabListboxGamesList.Items.Count < 1)
-            {
-                MessageBox.Show("No games to upload");
-                return;
-            }
-
-            if (GamesTabListboxGamesList.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console/game");
-                return;
-            }
             if (SqlLiteClient.UploadGame(_currentGame))
             {
                 MessageBox.Show("Game Uploaded");
             }
             else
             {
-                MessageBox.Show("SQL operation failed");
+                MessageBox.Show("Unicade cloud login required");
             }
         }
 
