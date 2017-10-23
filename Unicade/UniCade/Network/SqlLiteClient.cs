@@ -238,7 +238,7 @@ namespace UniCade.Network
         /// <returns></returns>
         internal static bool UploadConsole(IConsole console)
         {
-            if (_currentSqlUsername == null)
+            if (_currentSqlUsername == null )
             {
                 return false;
             }

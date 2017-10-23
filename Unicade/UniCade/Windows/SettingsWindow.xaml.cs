@@ -186,31 +186,6 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_DownloadGameButton_Click(object sender, RoutedEventArgs e)
         {
-            //Check if a UniCade Cloud user is currently active
-            if (SqlLiteClient.GetCurrentUsername() == null)
-            {
-                MessageBox.Show("UniCade Cloud Login Required");
-                return;
-            }
-
-            //Invalid input checks
-            if (GamesTabListboxGamesList.Items.Count < 1)
-            {
-                MessageBox.Show("No games to download");
-                return;
-            }
-
-            if (GamesTabListboxGamesList.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console/game");
-                return;
-            }
-
-            if (_currentGame == null)
-            {
-                MessageBox.Show("Must select a game");
-                return;
-            }
             if (SqlLiteClient.DownloadGameInfo(_currentGame))
             {
                 RefreshGameInfo(_currentGame);
@@ -218,7 +193,7 @@ namespace UniCade.Windows
             }
             else
             {
-                MessageBox.Show("SQL operation failed");
+                MessageBox.Show("Unicade cloud login required");
             }
         }
 
@@ -228,30 +203,13 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_UploadConsoleButton_Click(object sender, EventArgs e)
         {
-            //Invalid input checks
-            if (SqlLiteClient.GetCurrentUsername() == null)
-            {
-                MessageBox.Show("UniCade Cloud Login Required");
-                return;
-            }
-            if (GamesTabListboxConsoleList.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console");
-                return;
-            }
-            if (GamesTabListboxGamesList.Items.Count < 1)
-            {
-                MessageBox.Show("No games to upload");
-                return;
-            }
-
             if (SqlLiteClient.UploadAllGamesForConsole(_currentConsole))
             {
                 MessageBox.Show("Console Uploaded");
             }
             else
             {
-                MessageBox.Show("SQL operation failed");
+                MessageBox.Show("UniCade cloud login required");
             }
         }
 
@@ -261,40 +219,10 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_DownloadConsoleButton_Click(object sender, EventArgs e)
         {
-            //Invalid input checks
-            if (GamesTabListboxConsoleList.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console");
-                return;
-            }
-            if (SqlLiteClient.GetCurrentUsername() == null)
-            {
-                MessageBox.Show("UniCade Cloud Login Required");
-                return;
-            }
-            if (GamesTabListboxGamesList.Items.Count < 1)
-            {
-                MessageBox.Show("No games to delete");
-                return;
-            }
-            if (_currentConsole == null)
-            {
-                MessageBox.Show("Please select console");
-                return;
-            }
-
-            var gameList = _currentConsole.GetGameList();
-            foreach (string gameTitle in gameList)
-            {
-                IGame game = _currentConsole.GetGame(gameTitle);
-                SqlLiteClient.DownloadGameInfo(game);
-
-            }
-
             if (SqlLiteClient.DownloadAllGamesForConsole(_currentConsole))
             {
-                MessageBox.Show("Metadata download");
                 RefreshGameInfo(_currentGame);
+                MessageBox.Show("Metadata downloaded for all games in the current console");
             }
             else
             {
@@ -373,19 +301,17 @@ namespace UniCade.Windows
         /// </summary>
         internal void GamesTab_RescrapeGameButton_Click(object sender, EventArgs e)
         {
-            //Require that a user select a valid game to rglescrape
-            if (GamesTabListboxGamesList.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console/game");
-                return;
-            }
-
             //Scrape info and populate local fields
-            WebOps.ScrapeInfo(_currentGame);
-
-            //Refresh the info for the current game
-            RefreshGameInfo(_currentGame);
-            SaveGameInfo();
+            if (WebOps.ScrapeInfo(_currentGame))
+            {
+                RefreshGameInfo(_currentGame);
+                SaveGameInfo();
+                MessageBox.Show("Game info updated");
+            }
+            else
+            {
+                MessageBox.Show("API operation failed");
+            }
         }
 
         /// <summary>
@@ -394,14 +320,8 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_SaveToDatabaseButton_Click(object sender, EventArgs e)
         {
-            if (GamesTabListboxGamesList.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console/game");
-                return;
-            }
             SaveGameInfo();
-            RefreshGameInfo(_currentGame);
-            MessageBox.Show("Success");
+            MessageBox.Show("Databse saved");
         }
 
         /// <summary>
@@ -409,19 +329,8 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_SaveInfoButton_Click(object sender, EventArgs e)
         {
-            if (GamesTabListboxGamesList.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console/game");
-                return;
-            }
-            if (GamesTabListboxGamesList.Items.Count < 1)
-            {
-                MessageBox.Show("No games to save");
-                return;
-            }
             SaveGameInfo();
-            RefreshGameInfo(_currentGame);
-            MessageBox.Show("Success");
+            MessageBox.Show("Game info saved");
         }
 
         /// <summary>
@@ -464,25 +373,12 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_RescrapeConsoleMetadataButton_Click(object sender, EventArgs e)
         {
-            if (GamesTabListboxConsoleList.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console");
-                return;
-            }
-            if (GamesTabListboxConsoleList.SelectedItem == null)
-            {
-                MessageBox.Show("Must select a console");
-                return;
-            }
-
             MessageBox.Show("This may take a while... Please wait for a completed nofication.");
-            var gameList = _currentConsole.GetGameList();
-            foreach (string gameTitle in gameList)
+            foreach (string gameTitle in _currentConsole.GetGameList())
             {
-                IGame game1 = _currentConsole.GetGame(gameTitle);
-                WebOps.ScrapeInfo(game1);
+                WebOps.ScrapeInfo(_currentConsole.GetGame(gameTitle));
             }
-            MessageBox.Show("Operation Successful");
+            MessageBox.Show("Operation completed");
         }
 
         /// <summary>
@@ -555,6 +451,9 @@ namespace UniCade.Windows
             FileOps.SaveDatabase();
         }
 
+        /// <summary>
+        /// Browse for a BoxFront image for the current game
+        /// </summary>
         private void GamesTabButtonAddBoxfrontImage_Click(object sender, RoutedEventArgs e)
         {
             //Create an OpenFileDialog and set image filters
@@ -588,6 +487,9 @@ namespace UniCade.Windows
             }
         }
 
+        /// <summary>
+        /// Browse for a BoxBack image for the current game
+        /// </summary>
         private void GamesTabButtonAddBoxbackImage_Click(object sender, RoutedEventArgs e)
         {
             //Create an OpenFileDialog and set image filters
@@ -621,6 +523,9 @@ namespace UniCade.Windows
             }
         }
 
+        /// <summary>
+        /// Browse for a screenshot image for the current game
+        /// </summary>
         private void GamesTabButtonAddscreenshotImage_Click(object sender, RoutedEventArgs e)
         {
             //Create an OpenFileDialog and set image filters
@@ -1427,12 +1332,20 @@ namespace UniCade.Windows
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private void CloudTab_Button_EndSession_Click(object sender, RoutedEventArgs e)
-        {
 
+        /// <summary>
+        /// Delete all console for the current user
+        /// </summary>
+        private void UniCadeCloudTabDeleteAllUserConsolesButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SqlLiteClient.DeleteAllUserConsoles())
+            {
+                MessageBox.Show("All consoles for the current user have been deleted from the cloud");
+            }
+            else
+            {
+                MessageBox.Show("All consoles for the current user have been deleted from the cloud");
+            }
         }
 
         #endregion
@@ -1608,5 +1521,6 @@ namespace UniCade.Windows
 
 
         #endregion
+
     }
 }
