@@ -92,6 +92,41 @@ namespace UniCade.Network
         public static bool ParseScreenshot = true;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public static bool ParseConsoleDeveloper = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool ParseConsoleCpu = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool ParseConsoleRam = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool ParseConsoleGraphics = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool ParseConsoleDescription = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool ParseConsoleNativeResolution = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool ParseConsoleUserReviews = true;
+
+        /// <summary>
         /// Specifies if the current game name will be scraped
         /// </summary>
         public static string CurrentGameName;

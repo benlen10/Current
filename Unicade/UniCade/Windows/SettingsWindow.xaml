@@ -184,9 +184,9 @@
                     <CheckBox x:Name="WebTabCheckboxEsrbDescriptor" Content="ESRB Descriptors" HorizontalAlignment="Left" Margin="117,178,0,0" VerticalAlignment="Top" IsChecked="True"/>
                     <CheckBox x:Name="WebTabCheckboxPlayers" Content="Players" HorizontalAlignment="Left" Margin="117,198,0,0" VerticalAlignment="Top" IsChecked="True"/>
                     <CheckBox x:Name="WebTabCheckboxDescription" Content="Description" HorizontalAlignment="Left" Margin="117,218,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <CheckBox x:Name="WebTabCheckboxBoxFront" Content="(Media) Box Front" HorizontalAlignment="Left" Margin="261,61,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <CheckBox x:Name="WebTabCheckboxBoxBack" Content="(Media) Box Back" HorizontalAlignment="Left" Margin="261,81,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <CheckBox x:Name="WebTabCheckboxScreenshot" Content="(Media) Screenshot" HorizontalAlignment="Left" Margin="261,101,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxBoxFront" Content="(Media) Box Front" HorizontalAlignment="Left" Margin="234,61,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxBoxBack" Content="(Media) Box Back" HorizontalAlignment="Left" Margin="234,81,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxScreenshot" Content="(Media) Screenshot" HorizontalAlignment="Left" Margin="234,101,0,0" VerticalAlignment="Top" IsChecked="True"/>
                     <Button x:Name="WebTabButtonSaveScraperSettings" Content="Save Scraper &#xD;&#xA;Settings" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="87" Height="42" Click="WebTab_Button_SaveScraperSettings_Click"/>
                     <Button x:Name="WebTabButtonClose" Content="Close" HorizontalAlignment="Left" Margin="117,337,0,0" VerticalAlignment="Top" Width="96" Height="42" Click="WebTab_Button_Close_Click"/>
                     <Image x:Name="WebTabImageUniCadeLogo" HorizontalAlignment="Left" Height="384" Margin="545,0,-10,0" VerticalAlignment="Top" Width="219" Stretch="Fill"/>
@@ -194,6 +194,14 @@
                     <CheckBox x:Name="WebTabCheckboxUserScore" Content="User Score" HorizontalAlignment="Left" Margin="117,101,0,0" VerticalAlignment="Top" IsChecked="True"/>
                     <CheckBox x:Name="WebTabCheckboxOtherPlatforms" Content="Other Available Platforms" HorizontalAlignment="Left" Margin="117,258,0,0" VerticalAlignment="Top" IsChecked="True"/>
                     <CheckBox x:Name="WebTabCheckboxGenres" Content="Genres" HorizontalAlignment="Left" Margin="117,238,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <Label Content="Console Metadata" HorizontalAlignment="Left" Margin="417,35,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="WebTabCheckboxConsoleDeveloper" Content="Console Developer" HorizontalAlignment="Left" Margin="417,64,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxCpu" Content="CPU" HorizontalAlignment="Left" Margin="417,84,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxRam" Content="RAM" HorizontalAlignment="Left" Margin="417,104,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxGraphics" Content="Graphics" HorizontalAlignment="Left" Margin="417,124,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxNativeResolution" Content="Native Resolution" HorizontalAlignment="Left" Margin="417,144,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxConsoleOverview" Content="Console Overview" HorizontalAlignment="Left" Margin="417,164,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <CheckBox x:Name="WebTabCheckboxConsoleUserRating" Content="Console User Rating" HorizontalAlignment="Left" Margin="417,184,0,0" VerticalAlignment="Top" IsChecked="True"/>
                 </Grid>
             </TabItem>
             <TabItem Header="UniCade Cloud">

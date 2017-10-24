@@ -245,31 +245,31 @@ namespace UniCade.Network
                         var attributeNode = (XmlNode)ienumPlatform.Current;
 
                         // Iterate through all platform attributes
-                        if (attributeNode.Name == "overview")
+                        if (attributeNode.Name == "overview" && WebOps.ParseConsoleDescription)
                         {
                             console.ConsoleInfo = attributeNode.InnerText;
                         }
-                        else if (attributeNode.Name == "developer")
+                        else if (attributeNode.Name == "developer" && WebOps.ParseConsoleDeveloper)
                         {
                             console.Developer = attributeNode.InnerText;
                         }
-                        else if (attributeNode.Name == "cpu")
+                        else if (attributeNode.Name == "cpu" && WebOps.ParseConsoleCpu)
                         {
                             console.Cpu = attributeNode.InnerText;
                         }
-                        else if (attributeNode.Name == "memory")
+                        else if (attributeNode.Name == "memory" && WebOps.ParseConsoleRam)
                         {
                             console.Ram = attributeNode.InnerText;
                         }
-                        else if (attributeNode.Name == "graphics")
+                        else if (attributeNode.Name == "graphics" && WebOps.ParseConsoleGraphics)
                         {
                             console.Graphics = attributeNode.InnerText;
                         }
-                        else if (attributeNode.Name == "display")
+                        else if (attributeNode.Name == "display" && WebOps.ParseConsoleNativeResolution)
                         {
                             console.DisplayResolution = attributeNode.InnerText;
                         }
-                        else if (attributeNode.Name == "Rating")
+                        else if (attributeNode.Name == "Rating" && WebOps.ParseConsoleUserReviews)
                         {
                             console.ConsoleRating = attributeNode.InnerText;
                         }

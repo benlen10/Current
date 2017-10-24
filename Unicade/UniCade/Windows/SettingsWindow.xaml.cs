@@ -1190,6 +1190,14 @@ namespace UniCade.Windows
             WebOps.ParseScreenshot = WebTabCheckboxScreenshot.IsChecked.Value;
             WebOps.ParseGenres = WebTabCheckboxGenres.IsChecked.Value;
             WebOps.ParseOtherPlatforms = WebTabCheckboxOtherPlatforms.IsChecked.Value;
+            WebOps.ParseConsoleDeveloper = WebTabCheckboxConsoleDeveloper.IsChecked.Value;
+            WebOps.ParseConsoleCpu = WebTabCheckboxCpu.IsChecked.Value;
+            WebOps.ParseConsoleRam = WebTabCheckboxRam.IsChecked.Value;
+            WebOps.ParseConsoleGraphics = WebTabCheckboxGraphics.IsChecked.Value;
+            WebOps.ParseConsoleNativeResolution = WebTabCheckboxNativeResolution.IsChecked.Value;
+            WebOps.ParseConsoleDescription = WebTabCheckboxConsoleOverview.IsChecked.Value;
+            WebOps.ParseConsoleUserReviews = WebTabCheckboxConsoleUserRating.IsChecked.Value;
+
         }
 
         private void WebTabApiComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

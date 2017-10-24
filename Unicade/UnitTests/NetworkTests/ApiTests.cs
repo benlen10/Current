@@ -64,7 +64,26 @@ namespace UnitTests.NetworkTests
             Assert.IsTrue(File.Exists(mediaDirectoryPath + _game.Title + "_Screenshot.jpg"));
         }
 
-        
+        /// <summary>
+        /// Verify that the GamesDB API properly fetches info for consoles
+        /// </summary>
+        [TestMethod]
+        [Priority(1)]
+        public void VerifyGamesDbApiConsoleScraping()
+        {
+            //Attempt to fetch info from GameDB API
+            Console console = new Console("Nintendo Gamecube");
+            GamesdbApi.UpdateConsoleInfo(console);
+
+            //Verify that the console info has been properly updated
+            Assert.AreEqual("Nintendo", console.Developer, "Verify that the developer is properly fetched");
+            Assert.AreEqual("486 MHz IBM \"Gekko\" PowerPC CPU", console.Cpu, "Verify that the cpu is properly fetched");
+            Assert.AreEqual("43 MB total non-unified RAM", console.Ram, "Verify that the ram is properly fetched");
+            Assert.AreEqual("162 MHz \"Flipper\" LSI (co-developed by Nintendo and ArtX, acquired by ATI)", console.Graphics, "Verify that the graphics card info is properly fetched");
+            Assert.AreEqual("640×480 interlaced (480i) or progressive scan (480p) - 60 Hz", console.DisplayResolution, "Verify that the display resolution is properly fetched");
+            Assert.IsTrue(console.ConsoleInfo.Contains("first Nintendo console"), "Verify that the console info is properly fetched");
+            Assert.IsNotNull(console.ConsoleRating, "Verify that the avg user rating is properly fetched");
+        }
 
         /// <summary>
         /// Verify that the MobyGames API properly fetches info for games
