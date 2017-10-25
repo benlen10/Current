@@ -6,8 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using UniCade.Backend;
@@ -422,6 +424,7 @@ namespace UniCade.Windows
                 _currentGame.AddEsrbDescriptorsFromString(GamesTabTextboxEsrbDescriptor.Text);
                 _currentGame.Genres = GamesTabTextboxGenres.Text;
                 _currentGame.Favorite = GamesTabCheckBoxGlobalFavorite.IsChecked.Value;
+                RefreshEsrbIcon(_currentGame);
             }
             catch (ArgumentException e)
             {
@@ -602,24 +605,24 @@ namespace UniCade.Windows
             if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Everyone))
             {
 
-                GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png"));
+                GamesTabImageEsrb.Source = new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/E.png"));
             }
             else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Everyone10))
             {
-                GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png"));
+                GamesTabImageEsrb.Source = new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/E10.png"));
             }
             else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Teen))
             {
-                GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png"));
+                GamesTabImageEsrb.Source = new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/T.png"));
             }
             else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Mature))
             {
-                GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png"));
+                GamesTabImageEsrb.Source = new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/M.png"));
             }
 
             if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Ao))
             {
-                GamesTabImageEsrb.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png"));
+                GamesTabImageEsrb.Source = new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/AO.png"));
             }
         }
 
@@ -1508,7 +1511,6 @@ namespace UniCade.Windows
                 Directory.CreateDirectory(folderPath);
             }
         }
-
 
         #endregion
 

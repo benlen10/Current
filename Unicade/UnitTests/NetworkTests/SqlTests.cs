@@ -120,7 +120,7 @@ namespace UnitTests.NetworkTests
         }
 
         /// <summary>
-        /// 
+        /// Verify that console info is properly uploaded and downloaded from the SQL database
         /// </summary>
         [TestMethod]
         [Priority(1)]

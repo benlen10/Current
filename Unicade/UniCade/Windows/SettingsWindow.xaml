@@ -40,7 +40,7 @@
                     <Label x:Name="GamesTabLabelGamesForConsole" Content="Games For Console" HorizontalAlignment="Left" Margin="11,375,0,0" VerticalAlignment="Top"/>
                     <ListBox x:Name="GamesTabListboxConsoleList" HorizontalAlignment="Left" Height="289" Margin="11,52,0,0" VerticalAlignment="Top" Width="92" SelectionChanged="GamesTab_ConsoleListBox__SelectedIndexChanged"/>
                     <ListBox x:Name="GamesTabListboxGamesList" HorizontalAlignment="Left" Height="289" Margin="118,52,0,0" VerticalAlignment="Top" Width="92" SelectionChanged="GamesTab_GamesListBox_SelectedIndexChanged"/>
-                    <Image x:Name="GamesTabImageEsrb" HorizontalAlignment="Left" Height="106" Margin="663,313,0,0" VerticalAlignment="Top" Width="91"/>
+                    <Image x:Name="GamesTabImageEsrb" HorizontalAlignment="Left" Height="106" Margin="663,313,0,0" VerticalAlignment="Top" Width="91" />
                     <Image x:Name="GamesTabImageScreeshot" HorizontalAlignment="Left" Height="93" Margin="550,196,0,0" Panel.ZIndex="3" VerticalAlignment="Top" Width="194" MouseDown="Image_Screenshot_Expand"/>
                     <Image x:Name="GamesTabImageBoxback" HorizontalAlignment="Left" Height="107" Margin="647,57,0,0" Panel.ZIndex="2" VerticalAlignment="Top" Width="98" MouseDown="Image_Boxback_Expand"/>
                     <Image x:Name="GamesTabImageBoxfront" HorizontalAlignment="Left" Height="109" Panel.ZIndex="1" Margin="550,57,0,0" VerticalAlignment="Top" Width="92" MouseDown="Image_Boxfront_Expand"/>

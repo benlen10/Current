@@ -1,14 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Net;
-using System.Windows.Forms;
-using UniCade.Backend;
-using UniCade.Constants;
+﻿using UniCade.Constants;
 using UniCade.Interfaces;
-using UniCade.Objects;
-using UniCade.Resources;
 
 namespace UniCade.Network
 {

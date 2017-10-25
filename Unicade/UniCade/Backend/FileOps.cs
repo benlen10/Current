@@ -183,7 +183,6 @@ namespace UniCade.Backend
             }
             catch
             {
-                MessageBox.Show(Strings.DirectoryNotFound + console.RomFolderPath);
                 return false;
             }
 
@@ -344,27 +343,27 @@ namespace UniCade.Backend
         /// </summary>
         public static void RestoreDefaultConsoles()
         {
-            Database.AddConsole(new Console("Sega Genesis", @"C:\UniCade\Emulators\Fusion\Fusion.exe", @"C:\UniCade\ROMS\Sega Genisis\", "prefPath", ".bin*.iso*.gen*.32x", "consoleInfo", "%file -gen -auto -fullscreen", "1990"));
-            Database.AddConsole(new Console("Nintendo Wii", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Wii\", "prefPath", ".gcz*.iso", "consoleInfo", "/b /e %file", "2006"));
-            Database.AddConsole(new Console("Nintendo DS", @"C:\UniCade\Emulators\NDS\DeSmuME.exe", @"C:\UniCade\ROMS\NDS\", "prefPath", ".nds", "consoleInfo", "%file", "2005"));
-            Database.AddConsole(new Console("Nintendo GBC", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\GBC\", "prefPath", ".gbc", "consoleInfo", "%file", "1998"));
+            Database.AddConsole(new Console("Sega Genesis", @"C:\UniCade\Emulators\Fusion\Fusion.exe", @"C:\UniCade\ROMS\Sega Genesis\", "prefPath", ".bin*.iso*.gen*.32x", "consoleInfo", "%file -gen -auto -fullscreen", "1990"));
+            Database.AddConsole(new Console("Nintendo Wii", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Nintendo Wii\", "prefPath", ".gcz*.iso", "consoleInfo", "/b /e %file", "2006"));
+            Database.AddConsole(new Console("Nintendo DS", @"C:\UniCade\Emulators\NDS\DeSmuME.exe", @"C:\UniCade\ROMS\Nintendo DS\", "prefPath", ".nds", "consoleInfo", "%file", "2005"));
+            Database.AddConsole(new Console("Nintendo GBC", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\Nintendo GBC\", "prefPath", ".gbc", "consoleInfo", "%file", "1998"));
             Database.AddConsole(new Console("MAME", @"C:\UniCade\Emulators\MAME\mame.bat", @"C:\UniCade\Emulators\MAME\roms\", "prefPath", ".zip", "consoleInfo", "", "1980")); //%file -skip_gameinfo -nowindow
             Database.AddConsole(new Console("PC", @"C:\Windows\explorer.exe", @"C:\UniCade\ROMS\PC\", "prefPath", ".lnk*.url", "consoleInfo", "%file", "1980"));
-            Database.AddConsole(new Console("Nintendo GBA", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\GBA\", "prefPath", ".gba", "consoleInfo", "%file", "2001"));
-            Database.AddConsole(new Console("Nintendo Gamecube", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Gamecube\", "prefPath", ".iso*.gcz", "consoleInfo", "/b /e %file", "2001"));
+            Database.AddConsole(new Console("Nintendo GBA", @"C:\UniCade\Emulators\GBA\VisualBoyAdvance.exe", @"C:\UniCade\ROMS\Nintendo GBA\", "prefPath", ".gba", "consoleInfo", "%file", "2001"));
+            Database.AddConsole(new Console("Nintendo Gamecube", @"C:\UniCade\Emulators\Dolphin\dolphin.exe", @"C:\UniCade\ROMS\Nintendo Gamecube\", "prefPath", ".iso*.gcz", "consoleInfo", "/b /e %file", "2001"));
             Database.AddConsole(new Console("NES", @"C:\UniCade\Emulators\NES\Jnes.exe", @"C:\UniCade\ROMS\NES\", "prefPath", ".nes", "consoleInfo", "%file", "1983"));
             Database.AddConsole(new Console("SNES", @"C:\UniCade\Emulators\ZSNES\zsnesw.exe", @"C:\UniCade\ROMS\SNES\", "prefPath", ".smc", "consoleInfo", "%file", "1990"));
-            Database.AddConsole(new Console("Nintendo N64", @"C:\UniCade\Emulators\Project64\Project64.exe", @"C:\UniCade\ROMS\N64\", "prefPath", ".n64*.z64", "consoleInfo", "%file", "1996"));
-            Database.AddConsole(new Console("Sony Playstation", @"C:\UniCade\Emulators\ePSXe\ePSXe.exe", @"C:\UniCade\ROMS\PS1\", "prefPath", ".iso*.bin*.img", "consoleInfo", "-nogui -loadbin %file", "1994"));
-            Database.AddConsole(new Console("Sony Playstation 2", @"C:\UniCade\Emulators\PCSX2\pcsx2.exe", @"C:\UniCade\ROMS\PS2\", "prefPath", ".iso*.bin*.img", "consoleInfo", "%file", "2000"));
+            Database.AddConsole(new Console("Nintendo N64", @"C:\UniCade\Emulators\Project64\Project64.exe", @"C:\UniCade\ROMS\Nintendo N64\", "prefPath", ".n64*.z64", "consoleInfo", "%file", "1996"));
+            Database.AddConsole(new Console("Sony Playstation", @"C:\UniCade\Emulators\ePSXe\ePSXe.exe", @"C:\UniCade\ROMS\Sony Playstation\", "prefPath", ".iso*.bin*.img", "consoleInfo", "-nogui -loadbin %file", "1994"));
+            Database.AddConsole(new Console("Sony Playstation 2", @"C:\UniCade\Emulators\PCSX2\pcsx2.exe", @"C:\UniCade\ROMS\Sony Playstation 2\", "prefPath", ".iso*.bin*.img", "consoleInfo", "%file", "2000"));
             Database.AddConsole(new Console("Atari 2600", @"C:\UniCade\Emulators\Stella\Stella.exe", @"C:\UniCade\ROMS\Atari 2600\", "prefPath", ".iso*.bin*.img", "consoleInfo", "file", "1977"));
-            Database.AddConsole(new Console("Sega Dreamcast", @"C:\UniCade\Emulators\NullDC\nullDC_Win32_Release-NoTrace.exe", @"C:\UniCade\ROMS\Dreamcast\", "prefPath", ".iso*.bin*.img", "consoleInfo", "-config ImageReader:defaultImage=%file", "1998"));
-            Database.AddConsole(new Console("Sony PSP", @"C:\UniCade\Emulators\PPSSPP\PPSSPPWindows64.exe", @"C:\UniCade\ROMS\PSP\", "prefPath", ".iso*.cso", "consoleInfo", "%file", "2005"));
+            Database.AddConsole(new Console("Sega Dreamcast", @"C:\UniCade\Emulators\NullDC\nullDC_Win32_Release-NoTrace.exe", @"C:\UniCade\ROMS\Sega Dreamcast\", "prefPath", ".iso*.bin*.img", "consoleInfo", "-config ImageReader:defaultImage=%file", "1998"));
+            Database.AddConsole(new Console("Sony PSP", @"C:\UniCade\Emulators\PPSSPP\PPSSPPWindows64.exe", @"C:\UniCade\ROMS\Sony PSP\", "prefPath", ".iso*.cso", "consoleInfo", "%file", "2005"));
             Database.AddConsole(new Console("Nintendo Wii U", @"C:\UniCade\Emulators\WiiU\cemu.exe", @"C:\UniCade\ROMS\Atari 2600\", "prefPath", ".iso*.bin*.img", "consoleInfo", "file", "2012"));
-            Database.AddConsole(new Console("Nintendo 3DS", @"C:\UniCade\Emulators\PS3\3ds.exe", @"C:\UniCade\ROMS\3DS\", "prefPath", ".iso", "consoleInfo", "%file", "2014"));
+            Database.AddConsole(new Console("Nintendo 3DS", @"C:\UniCade\Emulators\PS3\3ds.exe", @"C:\UniCade\ROMS\Nintendo 3DS\", "prefPath", ".iso", "consoleInfo", "%file", "2014"));
         }
 
-        /// <summary>s
+        /// <summary>
         /// Validate the integrity of the Media folder located in the current working directory
         /// </summary>
         public static bool VerifyMediaDirectoryIntegrity()
@@ -379,17 +378,17 @@ namespace UniCade.Backend
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
             }
-            if (Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Media\Consoles").Length < 4)
-            {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
-                return false;
-            }
-            if (Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos").Length < 4)
+            if (Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Media\Consoles").Length < 20)
             {
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos"))
+            {
+                MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
+                return false;
+            }
+            if (Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos").Length < 20)
             {
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
@@ -404,20 +403,9 @@ namespace UniCade.Backend
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Backgrounds);
                 return false;
             }
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb"))
-            {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt_Esrb);
-                return false;
-            }
             if (!File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\Interface Background.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Marquee.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Icon.ico"))
             {
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Backgrounds);
-                return false;
-            }
-
-            if (!File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png"))
-            {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt_Esrb);
                 return false;
             }
             return true;
@@ -462,10 +450,7 @@ namespace UniCade.Backend
             }
 
             //Verify the current user license and set flag
-            if (CryptoEngine.ValidateLicense(Program.UserLicenseName, Program.UserLicenseKey))
-            {
-                Program.IsLicenseValid = true;
-            }
+                Program.IsLicenseValid = CryptoEngine.ValidateLicense(Program.UserLicenseName, Program.UserLicenseKey);
 
             //If the database file does not exist in the specified location, load default values and rescan rom directories
             if (!LoadDatabase())
