@@ -234,6 +234,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -268,7 +269,7 @@
     <Resource Include="Resources\EsrbLogos\E10.png" />
     <Resource Include="Resources\EsrbLogos\E.png" />
     <Resource Include="Resources\EsrbLogos\M.png" />
-    <Content Include="Resources\InterfaceBackground.png" />
+    <Resource Include="Resources\Images\InterfaceBackground.png" />
     <Resource Include="Resources\EsrbLogos\T.png" />
   </ItemGroup>
   <ItemGroup />

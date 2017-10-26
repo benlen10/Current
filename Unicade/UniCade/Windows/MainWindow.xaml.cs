@@ -108,13 +108,6 @@ namespace UniCade
         /// </summary>
         private void InitializeMainWindow()
         {
-            //Load the GUI background image
-            ImageBrush myBrush = new ImageBrush()
-            {
-                ImageSource = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\Interface Background.png"))
-            };
-            Background = myBrush;
-
             //Intialize a new settings window instance
             SettingsWindow = new SettingsWindow();
 

@@ -398,16 +398,6 @@ namespace UniCade.Backend
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Games);
                 return false;
             }
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds"))
-            {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt_Backgrounds);
-                return false;
-            }
-            if (!File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Logo.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\Interface Background.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Marquee.png") || !File.Exists(Directory.GetCurrentDirectory() + @"\Media\Backgrounds\UniCade Icon.ico"))
-            {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt_Backgrounds);
-                return false;
-            }
             return true;
         }
 
