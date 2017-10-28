@@ -551,7 +551,7 @@ namespace UniCade
                             if (DisplayEsrbWhileBrowsing)
                             {
                                 //Display the game if it has an allowed ESRB rating
-                                if (game.EsrbRatingsRating <= Database.GetCurrentUser().AllowedEsrbRatings)
+                                if (game.EsrbRating <= Database.GetCurrentUser().AllowedEsrbRatings)
                                 {
                                     ListBox.Items.Add(game.Title);
                                 }
@@ -639,7 +639,7 @@ namespace UniCade
                 {
                     //Populate the game info text
                     _gameInfoWindow.TextBlock1.Text = game.ConsoleName + " - " + game.Title;
-                    _gameInfoWindow.TextBlock.Text = Program.DisplayGameInfo(game);
+                    _gameInfoWindow.TextBlock.Text = GameInfo.DisplayGameInfo(game);
 
                     //Load the box front for the current game if it exists
                     BitmapImage bitmapImage;
@@ -673,32 +673,7 @@ namespace UniCade
                     }
 
                     //Load the ESRB logo for the curent rating
-                    string esrbPath = "";
-                    if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Everyone))
-                    {
-                        esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone.png";
-                    }
-                    else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Everyone10))
-                    {
-                        esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Everyone 10+.png";
-                    }
-                    else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Teen))
-                    {
-                        esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Teen.png";
-                    }
-                    else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Mature))
-                    {
-                        esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Mature.png";
-                    }
-                    else if (game.EsrbRatingsRating.Equals(Enums.EsrbRatings.Ao))
-                    {
-                        esrbPath = Directory.GetCurrentDirectory() + @"\Media\Esrb\Adults Only (Ao).png";
-                    }
-
-                    if (esrbPath.Length > 2)
-                    {
-                        _gameInfoWindow.DisplayEsrb(esrbPath);
-                    }
+                    _gameInfoWindow.DisplayEsrb(game);
                 }
             }
 

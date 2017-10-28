@@ -1,6 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using UniCade.Backend;
+using UniCade.Constants;
+using UniCade.Interfaces;
+using UniCade.Objects;
 
 namespace UniCade.Windows
 {
@@ -32,7 +37,7 @@ namespace UniCade.Windows
         /// <summary>
         /// Public constructor for the GameInfo class
         /// </summary>
-        public GameInfo()
+        public GameInfo(Game game)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
@@ -41,13 +46,9 @@ namespace UniCade.Windows
         /// <summary>
         /// Display the icon for the current ESRB rating
         /// </summary>
-        public void DisplayEsrb(string esrbRating)
+        public void DisplayEsrb(Game game)
         {
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.UriSource = new Uri(esrbRating);
-            bitmapImage.EndInit();
-            Image3.Source = bitmapImage;
+            Image3.Source = Utilties.GetEsrbLogoImage(game.EsrbRating);
         }
 
         /// <summary>
@@ -141,6 +142,26 @@ namespace UniCade.Windows
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Display all game info fields in plain text format
+        /// </summary>
+        public static string DisplayGameInfo(IGame game)
+        {
+            string text = "";
+            text += ("\nTitle: " + game.Title + "\n");
+            text += ("\nRelease Date: " + game.ReleaseDate + "\n");
+            text += ("\nConsole: " + game.ConsoleName + "\n");
+            text += ("\nLaunch Count: " + game.GetLaunchCount().ToString() + "\n");
+            text += ("\nDeveloper: " + game.DeveloperName + "\n");
+            text += ("\nPublisher: " + game.PublisherName + "\n");
+            text += ("\nPlayers: " + game.SupportedPlayerCount + "\n");
+            text += ("\nCritic Score: " + game.CriticReviewScore + "\n");
+            text += ("\nESRB Rating: " + game.Tags + "\n");
+            text += ("\nESRB Descriptors: " + game.GetEsrbDescriptorsString() + "\n");
+            text += ("\nGame Description: " + game.Description + "\n");
+            return text;
         }
     }
 }

@@ -24,7 +24,7 @@
         </ListBox>
         <Label x:Name="Label" Content="Game Count" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Bottom" Height="46" Width="246" Foreground="White" FontSize="20"/>
         <Image x:Name="Image2" HorizontalAlignment="Right" Margin="0,24,108,0" Width="470" Height="142" VerticalAlignment="Top"/>
-        <Label x:Name="Label1" Content="" HorizontalAlignment="Right" Margin="0,166,10,0" Width="419" FontSize="24" Foreground="White" Height="64" VerticalAlignment="Top"/>
+        <Label x:Name="Label1" Content="" HorizontalAlignment="Right" Margin="0,257,494,0" Width="419" FontSize="24" Foreground="White" Height="64" VerticalAlignment="Top"/>
         <Label x:Name="Label2" Content="" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Bottom" Width="282" Height="41" FontSize="16">
             <Label.Background>
                 <SolidColorBrush Color="#FFE81A1A" Opacity="0.6"/>

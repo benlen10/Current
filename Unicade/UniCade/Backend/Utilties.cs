@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Windows.Media.Imaging;
 using UniCade.Constants;
 
 namespace UniCade.Backend
@@ -105,5 +106,34 @@ namespace UniCade.Backend
             return Enums.EsrbRatings.Null;
         }
 
+        /// <summary>
+        /// Return the coresponding ESRB logo for the rating
+        /// </summary>
+        /// <param name="rating">An EsrbRating enum</param>
+        /// <returns>The BitMap image corresponding to the rating enum</returns>
+        internal static BitmapImage GetEsrbLogoImage(Enums.EsrbRatings rating)
+        {
+            if (rating.Equals(Enums.EsrbRatings.Everyone))
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/E.png"));
+            }
+            if (rating.Equals(Enums.EsrbRatings.Everyone10))
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/E10.png"));
+            }
+            if (rating.Equals(Enums.EsrbRatings.Teen))
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/T.png"));
+            }
+            if (rating.Equals(Enums.EsrbRatings.Mature))
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/M.png"));
+            }
+            if (rating.Equals(Enums.EsrbRatings.Ao))
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/AO.png"));
+            }
+            return null;
+        }
     }
 }

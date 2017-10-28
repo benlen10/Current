@@ -365,7 +365,7 @@ namespace UniCade.Objects
         /// The ESRB content rating
         /// </summary>
         [DataMember]
-        public Enums.EsrbRatings EsrbRatingsRating { get; set; }
+        public Enums.EsrbRatings EsrbRating { get; set; }
 
         #endregion
 
@@ -519,14 +519,14 @@ namespace UniCade.Objects
         /// <param name="criticScore">The average critic review score out of 100</param>
         /// <param name="supportedPlayerCount">The supported number of players</param>
         /// <param name="trivia">Trivia facts for the current game</param>
-        /// <param name="esrbRatingsRating">The ESRB content rating</param>
+        /// <param name="esrbRating">The ESRB content rating</param>
         /// <param name="esrbDescriptorString">The ESRB content descriptors</param>
         /// <param name="esrbSummary">Detailed summary of the ESRB rating</param>
         /// <param name="description">Brief game description or overview</param>
         /// <param name="genres">The genere(s) for the current game</param>
         /// <param name="tags">A list of common tags tags for the current game</param>
         /// <param name="isFavorite"></param>
-        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.EsrbRatings esrbRatingsRating, string esrbDescriptorString, string esrbSummary, string description, string genres, string tags, string isFavorite)
+        public Game(string fileName, string consoleName, int launchCount, string releaseDate, string publisherName, string developerName, string userReviewScore, string criticScore, string supportedPlayerCount, string trivia, Enums.EsrbRatings esrbRating, string esrbDescriptorString, string esrbSummary, string description, string genres, string tags, string isFavorite)
         {
             FileName = fileName;
             ConsoleName = consoleName;
@@ -538,7 +538,7 @@ namespace UniCade.Objects
             CriticReviewScore = criticScore;
             SupportedPlayerCount = supportedPlayerCount;
             Trivia = trivia;
-            EsrbRatingsRating = esrbRatingsRating;
+            EsrbRating = esrbRating;
             Description = description;
             EsrbSummary = esrbSummary;
             Genres = genres;
