@@ -29,6 +29,12 @@ namespace UniCade.Objects
         internal Enums.EsrbRatings RestrictGlobalEsrbRatings;
 
         /// <summary>
+        /// Specifies if the modern ESRB logos will be displayed instead of the classic logos
+        /// </summary>
+        [DataMember]
+        internal bool UseModernEsrbLogos;
+
+        /// <summary>
         /// Specifies if the command line interface should be launched on startup instead of the GUI
         /// </summary>
         [DataMember]

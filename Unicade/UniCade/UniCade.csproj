@@ -277,6 +277,15 @@
     <Resource Include="Resources\Images\UniCadeLogoTall.png" />
     <Resource Include="Resources\Images\UniCadeMarquee.png" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\ModernEsrbLogos\AO.png" />
+    <Resource Include="Resources\ModernEsrbLogos\E.png" />
+    <Resource Include="Resources\ModernEsrbLogos\E10.png" />
+    <Resource Include="Resources\ModernEsrbLogos\EC.png" />
+    <Resource Include="Resources\ModernEsrbLogos\M.png" />
+    <Resource Include="Resources\ModernEsrbLogos\T.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

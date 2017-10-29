@@ -98,6 +98,7 @@ namespace UniCade.Backend
             Program.ShowSplashScreen = currentSettings.ShowSplashScreen;
             Program.RescanOnStartup = currentSettings.RescanOnStartup;
             Program.RestrictGlobalEsrbRatings = currentSettings.RestrictGlobalEsrbRatings;
+            Program.UseModernEsrbLogos = currentSettings.UseModernEsrbLogos;
             Program.PerferCmdInterface = currentSettings.PerferCmdInterface;
             Program.ShowLoadingScreen = currentSettings.ShowLoadingScreen;
             Program.EnforceFileExtensions = currentSettings.EnforceFileExtensions;
@@ -124,6 +125,7 @@ namespace UniCade.Backend
                 ShowSplashScreen = Program.ShowSplashScreen,
                 RescanOnStartup = Program.RescanOnStartup,
                 RestrictGlobalEsrbRatings = Program.RestrictGlobalEsrbRatings,
+                UseModernEsrbLogos = Program.UseModernEsrbLogos,
                 PerferCmdInterface = Program.PerferCmdInterface,
                 EnforceFileExtensions = Program.EnforceFileExtensions,
                 ShowLoadingScreen = Program.ShowLoadingScreen,
@@ -235,17 +237,17 @@ namespace UniCade.Backend
             }
             if (Database.GetCurrentUser().AllowedEsrbRatings > 0)
             {
-                if (game.EsrbRatingsRating > Database.GetCurrentUser().AllowedEsrbRatings)
+                if (game.EsrbRating > Database.GetCurrentUser().AllowedEsrbRatings)
                 {
-                    throw new LaunchException(("ESRB " + game.EsrbRatingsRating + " Is Restricted for" + Database.GetCurrentUser().Username));
+                    throw new LaunchException(("ESRB " + game.EsrbRating + " Is Restricted for" + Database.GetCurrentUser().Username));
                 }
             }
 
             if (Program.RestrictGlobalEsrbRatings > 0)
             {
-                if (game.EsrbRatingsRating > Program.RestrictGlobalEsrbRatings)
+                if (game.EsrbRating > Program.RestrictGlobalEsrbRatings)
                 {
-                    throw new LaunchException(("ESRB " + game.EsrbRatingsRating + " Is Restricted globally"));
+                    throw new LaunchException(("ESRB " + game.EsrbRating + " Is Restricted globally"));
                 }
             }
 
@@ -455,7 +457,6 @@ namespace UniCade.Backend
                 {
                     MessageBox.Show(Strings.ErrorSavingDatabase);
                 }
-                ShowNotification("WARNING", "Database file not found.\n Loading defaults...");
             }
         }
 

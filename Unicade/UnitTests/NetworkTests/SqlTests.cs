@@ -75,7 +75,7 @@ namespace UnitTests.NetworkTests
                 ReleaseDate = gameReleaseDate,
                 PublisherName = publisherName,
                 DeveloperName = developerName,
-                EsrbRatingsRating = esrbRating,
+                EsrbRating = esrbRating,
                 Genres = genres,
                 Tags = tags,
                 UserReviewScore = userReviewScorew,
@@ -103,7 +103,7 @@ namespace UnitTests.NetworkTests
             Assert.AreEqual(gameTitle, game.Title, "Verify that the game Title is correct");
             Assert.AreEqual(publisherName, game.PublisherName, "Verify that the game PublisherName is correct");
             Assert.AreEqual(developerName, game.DeveloperName, "Verify that the game DeveloperName is correct");
-            Assert.AreEqual(esrbRating, game.EsrbRatingsRating, "Verify that the game Esrb rating is correct");
+            Assert.AreEqual(esrbRating, game.EsrbRating, "Verify that the game Esrb rating is correct");
             Assert.AreEqual(genres, game.Genres, "Verify that the game genres are correct");
             Assert.AreEqual(tags, game.Tags, "Verify that the game tags are correct");
             Assert.AreEqual(userReviewScorew, game.UserReviewScore, "Verify that the game user review score is correct");

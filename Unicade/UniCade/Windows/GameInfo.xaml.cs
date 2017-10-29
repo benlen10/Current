@@ -37,7 +37,7 @@ namespace UniCade.Windows
         /// <summary>
         /// Public constructor for the GameInfo class
         /// </summary>
-        public GameInfo(Game game)
+        public GameInfo()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
@@ -46,7 +46,7 @@ namespace UniCade.Windows
         /// <summary>
         /// Display the icon for the current ESRB rating
         /// </summary>
-        public void DisplayEsrb(Game game)
+        public void DisplayEsrb(IGame game)
         {
             Image3.Source = Utilties.GetEsrbLogoImage(game.EsrbRating);
         }

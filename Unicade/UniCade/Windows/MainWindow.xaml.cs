@@ -74,6 +74,11 @@ namespace UniCade
         public static bool DisplayEsrbWhileBrowsing;
 
         /// <summary>
+        /// Specifies if games with a restricted ESRB rating should be hidden 
+        /// </summary>
+        public static bool HideRestrictedEsrbGames;
+
+        /// <summary>
         /// The current GlobalKeyboardHook object
         /// </summary>
         internal static GlobalKeyboardHook KeyboardHook;
@@ -328,7 +333,7 @@ namespace UniCade
                 //Launch the settings window
                 else if ((e.KeyCode == Keys.P) && (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)  //Display preferences window
                 {
-                    if (Program.PasswordProtection.Length >= 4)
+                    if (Program.PasswordProtection != null)
                     {
                             IsPasswordValid = false;
                             PassWindow pw = new PassWindow();
@@ -548,7 +553,7 @@ namespace UniCade
                         else
                         {
                             //Filter the viewable games if the restrict esrb view filter is enabled
-                            if (DisplayEsrbWhileBrowsing)
+                            if (HideRestrictedEsrbGames)
                             {
                                 //Display the game if it has an allowed ESRB rating
                                 if (game.EsrbRating <= Database.GetCurrentUser().AllowedEsrbRatings)

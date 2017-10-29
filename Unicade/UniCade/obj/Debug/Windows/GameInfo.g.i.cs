@@ -10,7 +10,10 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
@@ -37,52 +40,52 @@ namespace UniCade.Windows {
     /// <summary>
     /// GameInfo
     /// </summary>
-    public partial class GameInfo : System.Windows.Window, System.Windows.Markup.IComponentConnector {
+    public partial class GameInfo : Window, IComponentConnector {
         
         
         #line 12 "..\..\..\Windows\GameInfo.xaml"
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.Image Image;
+        [SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal Image Image;
         
         #line default
         #line hidden
         
         
         #line 13 "..\..\..\Windows\GameInfo.xaml"
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.Image Image1;
+        [SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal Image Image1;
         
         #line default
         #line hidden
         
         
         #line 14 "..\..\..\Windows\GameInfo.xaml"
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.Image Image2;
+        [SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal Image Image2;
         
         #line default
         #line hidden
         
         
         #line 15 "..\..\..\Windows\GameInfo.xaml"
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.Image Image3;
+        [SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal Image Image3;
         
         #line default
         #line hidden
         
         
         #line 16 "..\..\..\Windows\GameInfo.xaml"
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.TextBlock TextBlock;
+        [SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal TextBlock TextBlock;
         
         #line default
         #line hidden
         
         
         #line 17 "..\..\..\Windows\GameInfo.xaml"
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.TextBlock TextBlock1;
+        [SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal TextBlock TextBlock1;
         
         #line default
         #line hidden
@@ -92,48 +95,48 @@ namespace UniCade.Windows {
         /// <summary>
         /// InitializeComponent
         /// </summary>
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
+        [DebuggerNonUserCode()]
+        [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
         public void InitializeComponent() {
             if (_contentLoaded) {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/UniCade;component/windows/gameinfo.xaml", System.UriKind.Relative);
+            Uri resourceLocater = new Uri("/UniCade;component/windows/gameinfo.xaml", UriKind.Relative);
             
             #line 1 "..\..\..\Windows\GameInfo.xaml"
-            System.Windows.Application.LoadComponent(this, resourceLocater);
+            Application.LoadComponent(this, resourceLocater);
             
             #line default
             #line hidden
         }
         
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-        void System.Windows.Markup.IComponentConnector.Connect(int connectionId, object target) {
+        [DebuggerNonUserCode()]
+        [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+        void IComponentConnector.Connect(int connectionId, object target) {
             switch (connectionId)
             {
             case 1:
-            this.Image = ((System.Windows.Controls.Image)(target));
+            this.Image = ((Image)(target));
             return;
             case 2:
-            this.Image1 = ((System.Windows.Controls.Image)(target));
+            this.Image1 = ((Image)(target));
             return;
             case 3:
-            this.Image2 = ((System.Windows.Controls.Image)(target));
+            this.Image2 = ((Image)(target));
             return;
             case 4:
-            this.Image3 = ((System.Windows.Controls.Image)(target));
+            this.Image3 = ((Image)(target));
             return;
             case 5:
-            this.TextBlock = ((System.Windows.Controls.TextBlock)(target));
+            this.TextBlock = ((TextBlock)(target));
             return;
             case 6:
-            this.TextBlock1 = ((System.Windows.Controls.TextBlock)(target));
+            this.TextBlock1 = ((TextBlock)(target));
             return;
             }
             this._contentLoaded = true;

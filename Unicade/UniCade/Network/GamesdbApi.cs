@@ -101,7 +101,7 @@ namespace UniCade.Network
                     }
                     else if (attributeNode.Name == "ESRB" && WebOps.ParseEsrbRating)
                     {
-                        game.EsrbRatingsRating = Utilties.ParseEsrbRating(attributeNode.InnerText);
+                        game.EsrbRating = Utilties.ParseEsrbRating(attributeNode.InnerText);
                     }
                     else if (attributeNode.Name == "Players" && WebOps.ParsePlayerCount)
                     {

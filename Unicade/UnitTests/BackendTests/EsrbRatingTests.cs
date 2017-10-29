@@ -46,27 +46,27 @@ namespace UnitTests.BackendTests
             //Create a new game for each rating
             IGame gameRatedE = new Game("game1.bin", _console.ConsoleName)
             {
-                EsrbRatingsRating = Enums.EsrbRatings.Everyone
+                EsrbRating = Enums.EsrbRatings.Everyone
             };
 
             IGame gameRatedE10 = new Game("game2.bin", _console.ConsoleName)
             {
-                EsrbRatingsRating = Enums.EsrbRatings.Everyone10
+                EsrbRating = Enums.EsrbRatings.Everyone10
             };
 
             IGame gameRatedT = new Game("game3.bin", _console.ConsoleName)
             {
-                EsrbRatingsRating = Enums.EsrbRatings.Teen
+                EsrbRating = Enums.EsrbRatings.Teen
             };
 
             IGame gameRatedM = new Game("game4.bin", _console.ConsoleName)
             {
-                EsrbRatingsRating = Enums.EsrbRatings.Mature
+                EsrbRating = Enums.EsrbRatings.Mature
             };
 
             IGame gameRatedAo = new Game("game5.bin", _console.ConsoleName)
             {
-                EsrbRatingsRating = Enums.EsrbRatings.Ao
+                EsrbRating = Enums.EsrbRatings.Ao
             };
 
             //Set the global ESRB restriction to Everyone
@@ -221,27 +221,27 @@ namespace UnitTests.BackendTests
             //Create a new game for each rating
             IGame gameRatedE = new Game("game1.bin", _console.ConsoleName)
             {
-                EsrbRatingsRating = Enums.EsrbRatings.Everyone
+                EsrbRating = Enums.EsrbRatings.Everyone
             };
 
             IGame gameRatedE10 = new Game("game2.bin", _console.ConsoleName)
             {
-                EsrbRatingsRating = Enums.EsrbRatings.Everyone10
+                EsrbRating = Enums.EsrbRatings.Everyone10
             };
 
             IGame gameRatedT = new Game("game3.bin", _console.ConsoleName)
             {
-                EsrbRatingsRating = Enums.EsrbRatings.Teen
+                EsrbRating = Enums.EsrbRatings.Teen
             };
 
             IGame gameRatedM = new Game("game4.bin", _console.ConsoleName)
             {
-                EsrbRatingsRating = Enums.EsrbRatings.Mature
+                EsrbRating = Enums.EsrbRatings.Mature
             };
 
             IGame gameRatedAo = new Game("game5.bin", _console.ConsoleName)
             {
-                EsrbRatingsRating = Enums.EsrbRatings.Ao
+                EsrbRating = Enums.EsrbRatings.Ao
             };
 
             //Set the user ESRB restriction to Everyone
@@ -401,7 +401,7 @@ namespace UnitTests.BackendTests
             {
                 IGame game = new Game("game.bin", _console.ConsoleName)
                 {
-                    EsrbRatingsRating = esrb
+                    EsrbRating = esrb
                 };
 
                 //Verify that the game can be launched when the global rating is set to null
@@ -426,7 +426,7 @@ namespace UnitTests.BackendTests
             {
                 IGame game = new Game("game.bin", _console.ConsoleName)
                 {
-                    EsrbRatingsRating = esrb
+                    EsrbRating = esrb
                 };
 
                 //Verify that the game can be launched when the user rating is set to null

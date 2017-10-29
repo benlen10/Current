@@ -276,7 +276,7 @@ namespace UniCade.ConsoleInterface
             gameInfo += ("\nPlayers: " + game.SupportedPlayerCount + "\n");
             gameInfo += ("\nUser Score: " + game.UserReviewScore + "\n");
             gameInfo += ("\nCritic Score: " + game.CriticReviewScore + "\n");
-            gameInfo += ("\nESRB Rating: " + game.EsrbRatingsRating + "\n");
+            gameInfo += ("\nESRB Rating: " + game.EsrbRating + "\n");
             gameInfo += ("\nESRB Descriptors: " + game.GetEsrbDescriptorsString() + "\n");
             gameInfo += ("\nGame Description: " + game.Description + "\n");
             Console.WriteLine(gameInfo);

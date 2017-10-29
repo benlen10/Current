@@ -38,6 +38,11 @@ namespace UniCade.Backend
         public static Enums.EsrbRatings RestrictGlobalEsrbRatings;
 
         /// <summary>
+        /// Specifies if the modern ESRB logos will be displayed instead of the classic logos
+        /// </summary>
+        public static bool UseModernEsrbLogos;
+
+        /// <summary>
         /// Specifies if the command line interface should be launched on startup instead of the GUI
         /// </summary>
         public static bool PerferCmdInterface;
@@ -90,26 +95,6 @@ namespace UniCade.Backend
                 App.InitializeComponent();
                 App.Run();
             }
-        }
-
-        /// <summary>
-        /// Display all game info fields in plain text format
-        /// </summary>
-        public static string DisplayGameInfo(IGame game)
-        {
-            string text = "";
-            text += ("\nTitle: " + game.Title + "\n");
-            text += ("\nRelease Date: " + game.ReleaseDate + "\n");
-            text += ("\nConsole: " + game.ConsoleName + "\n");
-            text += ("\nLaunch Count: " + game.GetLaunchCount().ToString() + "\n");
-            text += ("\nDeveloper: " + game.DeveloperName + "\n");
-            text += ("\nPublisher: " + game.PublisherName + "\n");
-            text += ("\nPlayers: " + game.SupportedPlayerCount + "\n");
-            text += ("\nCritic Score: " + game.CriticReviewScore + "\n");
-            text += ("\nESRB Rating: " + game.Tags + "\n");
-            text += ("\nESRB Descriptors: " + game.GetEsrbDescriptorsString() + "\n");
-            text += ("\nGame Description: " + game.Description + "\n");
-            return text;
         }
 
         #endregion

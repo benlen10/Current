@@ -54,7 +54,7 @@ namespace UnitTests.NetworkTests
 
             //Verify that the game info has been properly scraped
             Assert.IsTrue(_game.Description.Contains("Suspense"), "Verify that the game desription is properly fetched");
-            Assert.AreEqual(Enums.EsrbRatings.Mature, _game.EsrbRatingsRating, "Verify that the ESRB rating is properly fetched");
+            Assert.AreEqual(Enums.EsrbRatings.Mature, _game.EsrbRating, "Verify that the ESRB rating is properly fetched");
             Assert.AreEqual("Capcom", _game.PublisherName, "Verify that the publisher is properly fetched");
 
             //Verify that game images have been properly scraped

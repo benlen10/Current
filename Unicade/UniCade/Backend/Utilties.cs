@@ -113,25 +113,28 @@ namespace UniCade.Backend
         /// <returns>The BitMap image corresponding to the rating enum</returns>
         internal static BitmapImage GetEsrbLogoImage(Enums.EsrbRatings rating)
         {
+            //Choose between classic and modern logos
+            string logoType = Program.UseModernEsrbLogos ? "ModernEsrbLogos" : "EsrbLogos";
+
             if (rating.Equals(Enums.EsrbRatings.Everyone))
             {
-                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/E.png"));
+                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/E.png".Replace("EsrbLogos", logoType)));
             }
             if (rating.Equals(Enums.EsrbRatings.Everyone10))
             {
-                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/E10.png"));
+                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/E10.png".Replace("EsrbLogos", logoType)));
             }
             if (rating.Equals(Enums.EsrbRatings.Teen))
             {
-                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/T.png"));
+                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/T.png".Replace("EsrbLogos", logoType)));
             }
             if (rating.Equals(Enums.EsrbRatings.Mature))
             {
-                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/M.png"));
+                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/M.png".Replace("EsrbLogos", logoType)));
             }
             if (rating.Equals(Enums.EsrbRatings.Ao))
             {
-                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/AO.png"));
+                return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/AO.png".Replace("EsrbLogos", logoType)));
             }
             return null;
         }

@@ -31,7 +31,7 @@ namespace UniCade.Interfaces
         /// <summary>
         /// The ESRB content rating
         /// </summary>
-        Enums.EsrbRatings EsrbRatingsRating { get; set; }
+        Enums.EsrbRatings EsrbRating { get; set; }
 
         /// <summary>
         /// Detailed summary of the ESRB rating

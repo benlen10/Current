@@ -1,17 +1,13 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Microsoft.Win32;
 using UniCade.Backend;
 using UniCade.ConsoleInterface;
 using UniCade.Constants;
@@ -19,7 +15,6 @@ using UniCade.Interfaces;
 using UniCade.Network;
 using UniCade.Objects;
 using Console = UniCade.Objects.Console;
-using Image = System.Windows.Controls.Image;
 
 namespace UniCade.Windows
 {
@@ -124,13 +119,14 @@ namespace UniCade.Windows
             AboutTabTextboxSoftwareInfo.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
 
             //Populate textbox fields
-            if (Program.PasswordProtection.Length >= 4)
+            if (Program.PasswordProtection != null)
             {
                 GlobalTabTextboxPassword.Password = "Active";
             }
 
             //Populate checkboxes
             GlobalTabCheckboxDisplaySplash.IsChecked = Program.ShowSplashScreen;
+            GlobalTabCheckboxDisplayModernEsrbLogos.IsChecked = Program.UseModernEsrbLogos;
             GlobalTabCheckboxDisplayLoadingScreen.IsChecked = Program.ShowLoadingScreen;
             GlobalTabCheckboxRescanAllLibraries.IsChecked = Program.RescanOnStartup;
             GlobalTabCheckboxEnforceFileExtension.IsChecked = Program.EnforceFileExtensions;
@@ -400,7 +396,7 @@ namespace UniCade.Windows
                 _currentGame.ReleaseDate = GamesTabTextboxReleaseDate.Text;
                 _currentGame.CriticReviewScore = GamesTabTextboxCriticScore.Text;
                 _currentGame.SupportedPlayerCount = GamesTabTextboxPlayers.Text;
-                _currentGame.EsrbRatingsRating = Enums.ConvertStringToEsrbEnum(GamesTabTextboxEsrb.Text);
+                _currentGame.EsrbRating = Enums.ConvertStringToEsrbEnum(GamesTabTextboxEsrb.Text);
                 _currentGame.PublisherName = GamesTabTextboxPublisher.Text;
                 _currentGame.DeveloperName = GamesTabTextboxDeveloper.Text;
                 _currentGame.Description = GamesTabTextboxDescription.Text;
@@ -584,7 +580,7 @@ namespace UniCade.Windows
         private void RefreshEsrbIcon(IGame game)
         {
             if (game == null) { return; }
-            GamesTabImageEsrb.Source = Utilties.GetEsrbLogoImage(game.EsrbRatingsRating);
+            GamesTabImageEsrb.Source = Utilties.GetEsrbLogoImage(game.EsrbRating);
         }
 
         #endregion
@@ -1038,9 +1034,10 @@ namespace UniCade.Windows
             MainWindow.DisplayEsrbWhileBrowsing = GlobalTabCheckboxToView.IsChecked.Value;
             Program.ShowSplashScreen = GlobalTabCheckboxDisplaySplash.IsChecked.Value;
             Program.RescanOnStartup = GlobalTabCheckboxRescanAllLibraries.IsChecked.Value;
+            Program.UseModernEsrbLogos = GlobalTabCheckboxDisplayModernEsrbLogos.IsChecked.Value;
             MainWindow.DisplayEsrbWhileBrowsing = GlobalTabCheckboxDisplayEsrb.IsChecked.Value;
 
-            if (!GlobalTabTextboxPassword.Password.Equals("Active"))
+            if (!GlobalTabTextboxPassword.Password.Equals("Active") && (GlobalTabTextboxPassword.Password.Length >= 4))
             {
                 if ((GlobalTabTextboxPassword.Password.Length >= 4) && (GlobalTabTextboxPassword.Password.Length <= 20))
                 {
@@ -1359,7 +1356,7 @@ namespace UniCade.Windows
             GamesTabTextboxCriticScore.Text = game.CriticReviewScore;
             GamesTabTextboxPublisher.Text = game.PublisherName;
             GamesTabTextboxDeveloper.Text = game.DeveloperName;
-            GamesTabTextboxEsrb.Text = game.EsrbRatingsRating.GetStringValue();
+            GamesTabTextboxEsrb.Text = game.EsrbRating.GetStringValue();
             GamesTabTextboxPlayers.Text = game.SupportedPlayerCount;
             GamesTabTextboxEsrbDescriptor.Text = game.GetEsrbDescriptorsString();
             GamesTabTextboxGenres.Text = game.Genres;
