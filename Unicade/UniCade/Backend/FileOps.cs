@@ -375,27 +375,27 @@ namespace UniCade.Backend
                 MessageBox.Show(Strings.MediaDirectoryCorrupt);
                 return false;
             }
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles"))
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath))
             {
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
             }
-            if (Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Media\Consoles").Length < 20)
+            if (Directory.GetFiles(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath).Length < 1)
             {
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
             }
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos"))
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath))
             {
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
             }
-            if (Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos").Length < 20)
+            if (Directory.GetFiles(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath).Length < 1)
             {
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
                 return false;
             }
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media\Games"))
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath))
             {
                 MessageBox.Show(Strings.MediaDirectoryCorrupt_Games);
                 return false;

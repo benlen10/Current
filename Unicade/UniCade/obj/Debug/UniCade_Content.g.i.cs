@@ -8,11 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/modernesrblogos/ao.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/modernesrblogos/e.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/modernesrblogos/e10.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/modernesrblogos/ec.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/modernesrblogos/m.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/modernesrblogos/t.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("unicadeicon.ico")]
 
 

@@ -206,9 +206,24 @@ namespace UniCade.Constants
         internal const string MobyGamesApiKey = "xkaobsFA5xGdr8PEBtT8Zg==";
 
         /// <summary>
-        /// The current API key for MobyGames
+        /// The current path for the SQL database file
         /// </summary>
         internal const string SqlDatabaseFileName = "C:\\UniCade\\unicade.sqlite";
+
+        /// <summary>
+        /// The path to the console images media folder
+        /// </summary>
+        internal const string ConsoleImagesPath = @"\Media\Consoles\";
+
+        /// <summary>
+        /// The path to the console images media folder
+        /// </summary>
+        internal const string ConsoleLogoImagesPath = @"\Media\Consoles\Logos\";
+
+        /// <summary>
+        /// The path to the game images base folder
+        /// </summary>
+        internal const string GameImagesPath = @"\Media\Games\";
 
         #endregion
 

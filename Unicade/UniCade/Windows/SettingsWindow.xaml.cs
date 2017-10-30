@@ -349,7 +349,7 @@ namespace UniCade.Windows
         /// </summary>
         private void Image_Boxfront_Expand(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentGame.ConsoleName + "\\" + _currentGame.Title + "_BoxFront.jpg";
+            string imagePath = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + _currentGame.ConsoleName + "\\" + _currentGame.Title + "_BoxFront.jpg";
             if (File.Exists(imagePath))
             {
                 ImagePopup imagePopup = new ImagePopup(imagePath) {Title = _currentGame.Title + " BoxFront Image"};
@@ -470,7 +470,7 @@ namespace UniCade.Windows
                 System.Drawing.Image image = System.Drawing.Image.FromFile(fileDialog.FileName);
 
                 //If the directory does not exist, create it
-                string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" +
+                string directoryPath = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath +
                                        _currentConsole.ConsoleName + "\\";
                 if (!Directory.Exists(directoryPath))
                 {
@@ -506,7 +506,7 @@ namespace UniCade.Windows
                 System.Drawing.Image image = System.Drawing.Image.FromFile(fileDialog.FileName);
 
             //If the directory does not exist, create it
-            string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\";
+            string directoryPath = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + _currentConsole.ConsoleName + "\\";
             if (!System.IO.Directory.Exists(directoryPath))
             {
                 System.IO.Directory.CreateDirectory(directoryPath);
@@ -537,7 +537,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTabButtonRemoveBoxfrontImage_Click(object sender, RoutedEventArgs e)
         {
-            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" +
+            string imagePath = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + _currentConsole.ConsoleName + "\\" +
                                _currentGame.Title + "_BoxFront.jpg";
             if (File.Exists(imagePath))
             {
@@ -551,7 +551,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTabButtonRemoveBoxbackImage_Click(object sender, RoutedEventArgs e)
         {
-            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" +
+            string imagePath = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + _currentConsole.ConsoleName + "\\" +
                                _currentGame.Title + "_BoxBack.jpg";
             if (File.Exists(imagePath))
             {
@@ -565,7 +565,7 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTabButtonRemovescreenshotImage_Click(object sender, RoutedEventArgs e)
         {
-            string imagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" +
+            string imagePath = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + _currentConsole.ConsoleName + "\\" +
                                _currentGame.Title + "_Screenshot.jpg";
             if (File.Exists(imagePath))
             {
@@ -594,8 +594,7 @@ namespace UniCade.Windows
         {
             if (EmulatorsTabListboxConsoleList.SelectedItem == null) { return; }
             string curItem = EmulatorsTabListboxConsoleList.SelectedItem.ToString();
-            var consoleList = Database.GetConsoleList();
-            foreach (string consoleName in consoleList)
+            foreach (string consoleName in Database.GetConsoleList())
             {
                 IConsole console = Database.GetConsole(consoleName);
                 if (console.ConsoleName.Equals(curItem))
@@ -608,6 +607,38 @@ namespace UniCade.Windows
                     EmulatorsTabTextboxConsoleInfo.Text = console.ConsoleInfo;
                     EmulatorsTabTextboxGameCount.Text = console.GetGameCount().ToString();
                     EmulatorsTabTextboxReleaseDate.Text = console.ReleaseDate;
+
+                    string consoleImagePath = Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath + _currentEmulator.ConsoleName + ".png";
+                    if (File.Exists(consoleImagePath))
+                    {
+                        BitmapImage imageSource = new BitmapImage();
+                        imageSource.BeginInit();
+                        imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                        imageSource.UriSource = new Uri(consoleImagePath);
+                        imageSource.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                        imageSource.EndInit();
+                        EmulatorsTabImageConsole.Source = imageSource;
+                    }
+                    else
+                    {
+                        EmulatorsTabImageConsole.Source = null;
+                    }
+
+                    string consoleLogoImagePath = Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath + _currentEmulator.ConsoleName + ".png";
+                    if (File.Exists(consoleLogoImagePath))
+                    {
+                        BitmapImage imageSource = new BitmapImage();
+                        imageSource.BeginInit();
+                        imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                        imageSource.UriSource = new Uri(consoleLogoImagePath);
+                        imageSource.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                        imageSource.EndInit();
+                        EmulatorsTabImageConsoleLogo.Source = imageSource;
+                    }
+                    else
+                    {
+                       EmulatorsTabImageConsoleLogo.Source = null;
+                    }
                 }
             }
         }
@@ -1472,5 +1503,62 @@ namespace UniCade.Windows
 
         #endregion
 
+        private void EmulatorsTabButtonAddConsoleImage_Click(object sender, RoutedEventArgs e)
+        {
+            //Create an OpenFileDialog and set image filters
+            OpenFileDialog fileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png",
+                Title = "Select Image for " + _currentEmulator.ConsoleName
+            };
+
+            //Display the open file dialog and check the result
+            if (fileDialog.ShowDialog() == true)
+            {
+                //Load the image
+                System.Drawing.Image image = System.Drawing.Image.FromFile(fileDialog.FileName);
+
+                //If the directory does not exist, create it
+                string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Consoles\";
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                string destFileName = directoryPath + _currentEmulator.ConsoleName + ".png";
+
+                //Save the image as a jpg in the proper directory
+                image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Png);
+            }
+        }
+
+        private void EmulatorsTabButtonAddConsoleLogo_Click(object sender, RoutedEventArgs e)
+        {
+            //Create an OpenFileDialog and set image filters
+            OpenFileDialog fileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png",
+                Title = "Select Logo Image for " + _currentEmulator.ConsoleName
+            };
+
+            //Display the open file dialog and check the result
+            if (fileDialog.ShowDialog() == true)
+            {
+                //Load the image
+                System.Drawing.Image image = System.Drawing.Image.FromFile(fileDialog.FileName);
+
+                //If the directory does not exist, create it
+                string directoryPath = Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos";
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                string destFileName = directoryPath + _currentEmulator.ConsoleName + ".png";
+
+                //Save the image as a jpg in the proper directory
+                image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Png);
+            }
+        }
     }
 }

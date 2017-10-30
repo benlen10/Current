@@ -473,20 +473,20 @@ namespace UniCade
             }
 
             //Display the image for the currently selected console
-            if ((File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\" + ActiveConsoleList[IndexNumber] + ".png")) && (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png")))
+            if ((File.Exists(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath + ActiveConsoleList[IndexNumber] + ".png")) && (File.Exists(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath + ActiveConsoleList[IndexNumber] + ".png")))
             {
                 //Display the console image
                 Label1.Visibility = Visibility.Hidden;
                 BitmapImage b = new BitmapImage();
                 b.BeginInit();
-                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\" + ActiveConsoleList[IndexNumber] + ".png");
+                b.UriSource = new Uri(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath + ActiveConsoleList[IndexNumber] + ".png");
                 b.EndInit();
                 Image.Source = b;
 
                 //Display the console logo
                 b = new BitmapImage();
                 b.BeginInit();
-                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png");
+                b.UriSource = new Uri(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath + ActiveConsoleList[IndexNumber] + ".png");
                 b.EndInit();
                 Image1.Source = b;
             }

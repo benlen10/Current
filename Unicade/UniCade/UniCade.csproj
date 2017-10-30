@@ -54,8 +54,7 @@
     <StartupObject>UniCade.Backend.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>UniCadeIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -277,7 +276,9 @@
     <Resource Include="Resources\Images\UniCadeLogoTall.png" />
     <Resource Include="Resources\Images\UniCadeMarquee.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="UniCadeIcon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\ModernEsrbLogos\AO.png" />
     <Resource Include="Resources\ModernEsrbLogos\E.png" />

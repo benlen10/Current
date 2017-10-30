@@ -96,7 +96,6 @@
                     <TextBox x:Name="EmulatorsTabTextboxConsoleInfo" HorizontalAlignment="Left" Height="23" Margin="246,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTabTextboxReleaseDate" HorizontalAlignment="Left" Height="23" Margin="246,196,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" TextChanged="TextBox_TextChanged"/>
                     <TextBox x:Name="EmulatorsTabTextboxGameCount" HorizontalAlignment="Left" Height="23" Margin="451,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="TextBox_TextChanged" IsReadOnly="True"/>
-                    <Image x:Name="EmulatorsTabImageUniCadeLogo" HorizontalAlignment="Left" Height="391" Margin="570,0,0,0" VerticalAlignment="Top" Width="184" Stretch="Fill" Source="/UniCade;component/Resources/Images/UniCadeLogoTall.png"/>
                     <Button x:Name="EmulatorsTabButtonForceGlobalRescrape" Content="Force Global &#xD;&#xA;Metadata Rescrape" HorizontalAlignment="Left" Margin="10,287,0,0" VerticalAlignment="Top" Width="119" Height="42" Click="EmulatorsTab_ForceGlobalMetadataRescrapeButton_Click"/>
                     <Button x:Name="EmulatorsTabButtonAddNewConsole" Content="Add New Console" HorizontalAlignment="Left" Margin="10,338,0,0" VerticalAlignment="Top" Width="119" Height="19" Click="EmulatorsTab_AddNewConsoleButton_Click"/>
                     <Button x:Name="EmulatorsTabButtonRescanSingleConsole" Content="Rescan Console" HorizontalAlignment="Left" Margin="134,287,0,0" VerticalAlignment="Top" Width="119" Height="22" Click="EmulatorsTab_RescanSingleConsoleButton_Click"/>
@@ -110,6 +109,10 @@
                     <Button x:Name="EmulatorsTabButtonUploadAllConsoles" Content="Upload All Consoles" HorizontalAlignment="Left" Margin="258,314,0,0" VerticalAlignment="Top" Width="144" Click="EmulatorsTabButtonUploadAllConsoles_Click"/>
                     <Button x:Name="EmulatorsTabButtonDownloadConsoleInfo" Content="Download Console Info" HorizontalAlignment="Left" Margin="258,340,0,0" VerticalAlignment="Top" Width="144" Click="EmulatorsTabButtonDownloadConsoleInfo_Click"/>
                     <Button x:Name="EmulatorsTabButtonDownloadAllConsoles" Content="Download All Consoles" HorizontalAlignment="Left" Margin="258,365,0,0" VerticalAlignment="Top" Width="144" Click="EmulatorsTabButtonDownloadAllConsoles_Click"/>
+                    <Image x:Name="EmulatorsTabImageConsole" HorizontalAlignment="Left" Height="150" Margin="595,44,0,0" VerticalAlignment="Top" Width="150"/>
+                    <Image x:Name="EmulatorsTabImageConsoleLogo" HorizontalAlignment="Left" Height="51" Margin="576,233,0,0" VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.375,0.264"/>
+                    <Button x:Name="EmulatorsTabButtonAddConsoleImage" Content="Add Console Image" HorizontalAlignment="Left" Margin="613,13,0,0" VerticalAlignment="Top" Width="115" Click="EmulatorsTabButtonAddConsoleImage_Click"/>
+                    <Button x:Name="EmulatorsTabButtonAddConsoleLogo" Content="Add Console Logo" HorizontalAlignment="Left" Margin="621,202,0,0" VerticalAlignment="Top" Width="107" Click="EmulatorsTabButtonAddConsoleLogo_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Users">
