@@ -352,7 +352,7 @@ namespace UniCade.Windows
             string imagePath = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + _currentGame.ConsoleName + "\\" + _currentGame.Title + "_BoxFront.jpg";
             if (File.Exists(imagePath))
             {
-                ImagePopup imagePopup = new ImagePopup(imagePath) {Title = _currentGame.Title + " BoxFront Image"};
+                ImagePopup imagePopup = new ImagePopup(imagePath) { Title = _currentGame.Title + " BoxFront Image" };
                 imagePopup.ShowDialog();
             }
         }
@@ -502,23 +502,23 @@ namespace UniCade.Windows
             //Display the open file dialog and check the result
             if (fileDialog.ShowDialog() == true)
             {
-            //Load the image
+                //Load the image
                 System.Drawing.Image image = System.Drawing.Image.FromFile(fileDialog.FileName);
 
-            //If the directory does not exist, create it
-            string directoryPath = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + _currentConsole.ConsoleName + "\\";
-            if (!System.IO.Directory.Exists(directoryPath))
-            {
-                System.IO.Directory.CreateDirectory(directoryPath);
-            }
+                //If the directory does not exist, create it
+                string directoryPath = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + _currentConsole.ConsoleName + "\\";
+                if (!System.IO.Directory.Exists(directoryPath))
+                {
+                    System.IO.Directory.CreateDirectory(directoryPath);
+                }
 
-            string destFileName = directoryPath + _currentGame.Title + "_Screenshot.jpg";
+                string destFileName = directoryPath + _currentGame.Title + "_Screenshot.jpg";
 
-            //Save the image as a jpg in the proper directory
-            image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                //Save the image as a jpg in the proper directory
+                image.Save(destFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-            //After saving the image as a jpg file, refresh the current game info
-            RefreshGameInfo(_currentGame);
+                //After saving the image as a jpg file, refresh the current game info
+                RefreshGameInfo(_currentGame);
             }
         }
 
@@ -637,7 +637,7 @@ namespace UniCade.Windows
                     }
                     else
                     {
-                       EmulatorsTabImageConsoleLogo.Source = null;
+                        EmulatorsTabImageConsoleLogo.Source = null;
                     }
                 }
             }
@@ -715,10 +715,23 @@ namespace UniCade.Windows
             EmulatorsTabTextboxReleaseDate.Text = null;
 
             //Create a new console and add it to the datbase
-            string newConsoleName = "New Console";
-            IConsole newConsole = new Console(newConsoleName);
+            TextEntryWindow textEntryWindow = new TextEntryWindow
+            {
+                Title = "Please enter console name"
+            };
+            textEntryWindow.ShowDialog();
 
-            Database.AddConsole(newConsole);
+            try
+            {
+                Console newConsole = new Console("NewConsole.........");
+                newConsole.ConsoleName = textEntryWindow.EnteredText;
+                Database.AddConsole(newConsole);
+            }
+            catch (ArgumentException exception)
+            {
+                MessageBox.Show("Error: " + exception.Message);
+                return;
+            }
             EmulatorsTabListboxConsoleList.Items.Clear();
             GamesTabListboxConsoleList.Items.Clear();
             var consoleList = Database.GetConsoleList();
@@ -913,24 +926,28 @@ namespace UniCade.Windows
         /// </summary>
         private void UsersTab_DeleteUserButton_Click(object sender, EventArgs e)
         {
-            IUser user = Database.GetUser(UsersTabListboxCurrentUser.SelectedItem.ToString());
-
-            try
+            MessageBoxResult messageBoxResult =
+                MessageBox.Show("Are you sure you would like the delete the current user?", "Delete confrimation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                //Remove the user and refresh the database
-                Database.RemoveUser(user.Username);
-            }
-            catch (ArgumentException exception)
-            {
-                MessageBox.Show("Error: " + exception.Message);
-            }
+                IUser user = Database.GetUser(UsersTabListboxCurrentUser.SelectedItem.ToString());
+                try
+                {
+                    //Remove the user and refresh the database
+                    Database.RemoveUser(user.Username);
+                }
+                catch (ArgumentException exception)
+                {
+                    MessageBox.Show("Error: " + exception.Message);
+                }
 
-            //Refresh the user list
-            UsersTabListboxCurrentUser.Items.Clear();
-            Database.GetUserList().ForEach(u => UsersTabListboxCurrentUser.Items.Add(u));
+                //Refresh the user list
+                UsersTabListboxCurrentUser.Items.Clear();
+                Database.GetUserList().ForEach(u => UsersTabListboxCurrentUser.Items.Add(u));
 
-            UsersTabListboxCurrentUser.SelectedIndex = 0;
-            RefreshLocalUserInfo();
+                UsersTabListboxCurrentUser.SelectedIndex = 0;
+                RefreshLocalUserInfo();
+            }
         }
 
         /// <summary>
@@ -1425,7 +1442,7 @@ namespace UniCade.Windows
                 GamesTabImageBoxback.Source = imageSource;
             }
 
-            string screenshotImagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title +"_Screenshot.jpg";
+            string screenshotImagePath = Directory.GetCurrentDirectory() + @"\Media\Games\" + _currentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.jpg";
             if (File.Exists(screenshotImagePath))
             {
                 BitmapImage imageSource = new BitmapImage();

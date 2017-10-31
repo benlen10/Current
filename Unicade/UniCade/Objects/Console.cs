@@ -516,7 +516,7 @@ namespace UniCade.Objects
         /// </summary>
         public Console(string consoleName)
         {
-            ConsoleName = consoleName;
+            this.ConsoleName = consoleName;
             _gameList = new List<Game>();
         }
 

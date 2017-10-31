@@ -54,7 +54,7 @@
     <StartupObject>UniCade.Backend.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>UniCadeIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\UniCadeIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -166,6 +166,9 @@
     <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TextEntryWindow.xaml.cs">
+      <DependentUpon>TextEntryWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Windows\AccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -212,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TextEntryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -277,7 +284,7 @@
     <Resource Include="Resources\Images\UniCadeMarquee.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UniCadeIcon.ico" />
+    <Resource Include="Resources\UniCadeIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\ModernEsrbLogos\AO.png" />
