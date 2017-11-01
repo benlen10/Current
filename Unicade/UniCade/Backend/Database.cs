@@ -28,11 +28,6 @@ namespace UniCade.Backend
         private static List<IUser> _userList;
 
         /// <summary>
-        /// The current number of users in the database
-        /// </summary>
-        private static int _userCount;
-
-        /// <summary>
         /// The current number of games across all game consoles
         /// </summary>
         private static int _totalGameCount;
@@ -63,7 +58,6 @@ namespace UniCade.Backend
             _currentUser = uniCadeUser;
             _defaultUser = uniCadeUser;
             _totalGameCount = 0;
-            _userCount = 0;
             _consoleCount = 0;
         }
 
@@ -148,7 +142,7 @@ namespace UniCade.Backend
         public static bool AddUser(IUser user)
         {
             //Verify that the user count does not exceed the max value
-            if (_userCount >= ConstValues.MaxUserCount)
+            if (_userList.Count >= ConstValues.MaxUserCount)
             {
                 return false;
             }
@@ -157,7 +151,6 @@ namespace UniCade.Backend
             if (_userList.Find(u => u.Username.Equals(user.Username)) == null)
             {
                 _userList.Add(user);
-                _userCount++;
                 return true;
             }
             return false;
@@ -172,7 +165,7 @@ namespace UniCade.Backend
         public static bool RemoveUser(string username)
         {
             //Ensure that at least one console remains and that UniCade account cannot be deleted
-            if (_userCount > 1 && !username.Equals("UniCade"))
+            if (_userList.Count > 1 && !username.Equals("UniCade"))
             {
                 //Fetch the user
                 IUser user = _userList.Find(u => u.Username.Equals(username));
@@ -186,7 +179,6 @@ namespace UniCade.Backend
 
                     //Remove the user, decrement the usercount and return true
                     _userList.Remove(user);
-                    _userCount--;
                     return true;
                 }
             }
@@ -218,7 +210,7 @@ namespace UniCade.Backend
         /// <returns>User count</returns>
         public static int GetUserCount()
         {
-            return _userCount;
+            return _userList == null ? 0 : _userList.Count;
         }
 
         /// <summary>
