@@ -1160,12 +1160,17 @@ namespace UniCade.Windows
         /// </summary>
         private void GlobalTabButtonDeleteAllGameImages_Click(object sender, RoutedEventArgs e)
         {
-            foreach (string consoleName in Database.GetConsoleList())
+            MessageBoxResult messageBoxResult =
+                MessageBox.Show("Are you sure you would like to delete all images?", "Delete confrimation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                DeleteAllConsoleImages(Database.GetConsole(consoleName));
+                foreach (string consoleName in Database.GetConsoleList())
+                {
+                    DeleteAllConsoleImages(Database.GetConsole(consoleName));
+                }
+                RefreshGameInfo(_currentGame);
+                MessageBox.Show("All images deleted sucuessfully");
             }
-            RefreshGameInfo(_currentGame);
-            MessageBox.Show("All images deleted sucuessfully");
         }
 
         #endregion
@@ -1272,11 +1277,15 @@ namespace UniCade.Windows
                 MessageBox.Show("UniCade Cloud Login Required");
                 return;
             }
-
-            //Delete the current SQL user and update the label
-            SqlLiteClient.DeleteCurrentUser();
-            MessageBox.Show("Account deleted");
-            WebTabLabelCurrentWebUser.Content = "Current Web User: ";
+            MessageBoxResult messageBoxResult =
+                MessageBox.Show("Are you sure you would like the delete the current UniCade Cloud account?", "Delete confrimation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                //Delete the current SQL user and update the label
+                SqlLiteClient.DeleteCurrentUser();
+                MessageBox.Show("Account deleted");
+                WebTabLabelCurrentWebUser.Content = "Current Web User: ";
+            }
         }
 
         /// <summary>
@@ -1306,8 +1315,13 @@ namespace UniCade.Windows
                 return;
             }
 
-            SqlLiteClient.DeleteAllUserGames();
-            MessageBox.Show("Library successfully deleted");
+            MessageBoxResult messageBoxResult =
+                MessageBox.Show("Are you sure you would like the delete all games in the cloud for the current user?", "Delete confrimation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                SqlLiteClient.DeleteAllUserGames();
+                MessageBox.Show("Library successfully deleted");
+            }
         }
 
         /// <summary>
@@ -1333,17 +1347,22 @@ namespace UniCade.Windows
 
 
         /// <summary>
-        /// Delete all console for the current user
+        /// Delete all consoles for the current user
         /// </summary>
         private void UniCadeCloudTabDeleteAllUserConsolesButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SqlLiteClient.DeleteAllUserConsoles())
+            MessageBoxResult messageBoxResult =
+                MessageBox.Show("Are you sure you would like the delete consoles in the cloud for the current user?", "Delete confrimation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                MessageBox.Show("All consoles for the current user have been deleted from the cloud");
-            }
-            else
-            {
-                MessageBox.Show("All consoles for the current user have been deleted from the cloud");
+                if (SqlLiteClient.DeleteAllUserConsoles())
+                {
+                    MessageBox.Show("All consoles for the current user have been deleted from the cloud");
+                }
+                else
+                {
+                    MessageBox.Show("UniCade Cloud Login Required");
+                }
             }
         }
 
@@ -1506,15 +1525,19 @@ namespace UniCade.Windows
         /// <param name="console"></param>
         private void DeleteAllConsoleImages(IConsole console)
         {
-            if (console != null)
+            MessageBoxResult messageBoxResult =
+                MessageBox.Show("Are you sure you would like the delete all game images for the current console?", "Delete confrimation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                string folderPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + console.ConsoleName +
-                                    "\\";
-                if (Directory.Exists(folderPath))
+                if (console != null)
                 {
-                    Directory.Delete(folderPath, true);
+                    string folderPath = Directory.GetCurrentDirectory() + @"\Media\Games\" + console.ConsoleName + "\\";
+                    if (Directory.Exists(folderPath))
+                    {
+                        Directory.Delete(folderPath, true);
+                    }
+                    Directory.CreateDirectory(folderPath);
                 }
-                Directory.CreateDirectory(folderPath);
             }
         }
 
