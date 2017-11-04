@@ -336,12 +336,20 @@ namespace UniCade.Windows
         /// </summary>
         private void GamesTab_RescrapeConsoleMetadataButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This may take a while... Please wait for a completed nofication.");
-            foreach (string gameTitle in _currentConsole.GetGameList())
+            MessageBoxResult messageBoxResult =
+                MessageBox.Show("Are you sure you would like to rescrape metadata for the entire console? This may take a while and the interface will be unresponsive until completion", "Rescrape confrimation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                WebOps.ScrapeInfo(_currentConsole.GetGame(gameTitle));
+                foreach (string gameTitle in _currentConsole.GetGameList())
+                {
+                    WebOps.ScrapeInfo(_currentConsole.GetGame(gameTitle));
+                }
+                MessageBox.Show("Operation completed");
             }
-            MessageBox.Show("Operation completed");
+            else
+            {
+                MessageBox.Show("Operation canceled");
+            }
         }
 
         /// <summary>
@@ -750,7 +758,23 @@ namespace UniCade.Windows
         /// </summary>
         private void EmulatorsTab_ForceGlobalMetadataRescrapeButton_Click(object sender, EventArgs e)
         {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you would like to rescrape metadata for all consoles? This may take a while and the interface will be unresponsive until completion", "Rescrape confrimation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                foreach (string consoleName in Database.GetConsoleList())
+                {
+                    IConsole console = Database.GetConsole(consoleName);
+                    foreach (string gameName in console.GetGameList())
+                    {
+                        WebOps.ScrapeInfo(console.GetGame(gameName));
+                    }
 
+                }
+            }
+            else
+            {
+                MessageBox.Show("Operation Canceled");
+            }
         }
 
         /// <summary>
