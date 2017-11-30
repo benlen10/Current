@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 using UniCade.Constants;
@@ -137,6 +138,24 @@ namespace UniCade.Backend
                 return new BitmapImage(new Uri("pack://application:,,,/UniCade;component/Resources/EsrbLogos/AO.png".Replace("EsrbLogos", logoType)));
             }
             return null;
+        }
+
+        /// <summary>
+        /// Return true if the specified folder has write access
+        /// </summary>
+        /// <param name="folderPath">The folder path to test</param>
+        /// <returns>true if the specified folder has write access </returns>
+        internal static bool HasWriteAccessToFolder(string folderPath)
+        {
+            try
+            {
+                System.Security.AccessControl.DirectorySecurity ds = Directory.GetAccessControl(folderPath);
+                return true;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return false;
+            }
         }
     }
 }

@@ -370,35 +370,26 @@ namespace UniCade.Backend
         /// </summary>
         public static bool VerifyMediaDirectoryIntegrity()
         {
+            //Check for write privlages
+            if (Utilties.HasWriteAccessToFolder(Directory.GetCurrentDirectory()))
+            {
+                return false;
+            }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media"))
             {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt);
-                return false;
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\Media");
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath))
             {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
-                return false;
-            }
-            if (Directory.GetFiles(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath).Length < 1)
-            {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
-                return false;
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath);
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath))
             {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
-                return false;
-            }
-            if (Directory.GetFiles(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath).Length < 1)
-            {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt_Consoles);
-                return false;
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath);
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath))
             {
-                MessageBox.Show(Strings.MediaDirectoryCorrupt_Games);
-                return false;
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath);
             }
             return true;
         }
