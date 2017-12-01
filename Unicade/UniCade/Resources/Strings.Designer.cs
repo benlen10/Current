@@ -115,6 +115,15 @@ namespace UniCade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The current directory is write protected. The interface will now exit.
+        /// </summary>
+        internal static string CurrentDirectoryWriteProtected {
+            get {
+                return ResourceManager.GetString("CurrentDirectoryWriteProtected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fatal Error: Database File is corrupt.
         /// </summary>
         internal static string DatabaseCorrupt {

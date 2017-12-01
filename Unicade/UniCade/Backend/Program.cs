@@ -80,9 +80,15 @@ namespace UniCade.Backend
         {
             //Initalize the database, preform an initial scan and refresh the total game count
             Database.Initalize();
-            FileOps.StartupScan();
-            Database.RefreshTotalGameCount();
 
+            //Validate the media directory and attempt to laod both the database.xml and preferences.xml files
+            if (!FileOps.StartupScan())
+            {
+                return;
+            }
+
+            //Refresh the total came count across all consoles
+            Database.RefreshTotalGameCount();
 
             //Launch either the GUI or the legacy command line interface
             if (PerferCmdInterface)

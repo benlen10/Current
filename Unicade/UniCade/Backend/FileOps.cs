@@ -371,8 +371,9 @@ namespace UniCade.Backend
         public static bool VerifyMediaDirectoryIntegrity()
         {
             //Check for write privlages
-            if (Utilties.HasWriteAccessToFolder(Directory.GetCurrentDirectory()))
+            if (!Utilties.HasWriteAccessToFolder(Directory.GetCurrentDirectory()))
             {
+                MessageBox.Show("The current directory is write protected. The interface will now exit");
                 return false;
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media"))
@@ -394,8 +395,6 @@ namespace UniCade.Backend
             return true;
         }
 
-
-
         /// <summary>
         /// Restore default preferences. These updated preferences will take effect immediatly.
         /// NOTE: These changes are not automatically saved to the database file.
@@ -415,21 +414,20 @@ namespace UniCade.Backend
         /// <summary>
         /// Preforms the initial file system operations when the program is launched
         /// </summary>
-        public static void StartupScan()
+        public static bool StartupScan()
         {
+            //Verify the integrity of the local media directory and end the program if corruption is dectected  
+            if (!VerifyMediaDirectoryIntegrity())
+            {
+                return false;
+            }
+
             //If preferences file does not exist, load default preference values and save a new file
             if (!LoadPreferences())
             {
                 RestoreDefaultPreferences();
                 SavePreferences();
                 ShowNotification("WARNING", "Preference file not found.\n Loading defaults...");
-            }
-
-
-            //Verify the integrity of the local media directory and end the program if corruption is dectected  
-            if (!VerifyMediaDirectoryIntegrity())
-            {
-                return;
             }
 
             //Verify the current user license and set flag
@@ -449,6 +447,7 @@ namespace UniCade.Backend
                     MessageBox.Show(Strings.ErrorSavingDatabase);
                 }
             }
+            return true;
         }
 
         #endregion
