@@ -373,7 +373,7 @@ namespace UniCade.Backend
             //Check for write privlages
             if (!Utilties.HasWriteAccessToFolder(Directory.GetCurrentDirectory()))
             {
-                MessageBox.Show("The current directory is write protected. The interface will now exit");
+                MessageBox.Show(Strings.CurrentDirectoryWriteProtected);
                 return false;
             }
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Media"))
@@ -444,9 +444,21 @@ namespace UniCade.Backend
                 }
                 catch
                 {
-                    MessageBox.Show(Strings.ErrorSavingDatabase);
+                    MessageBox.Show(Strings.ErrorSavingDatabase + " The interface will now exit");
+                    return false;
                 }
             }
+            var consoleList = Database.GetConsoleList();
+            //Generate folders within the Console directory
+            foreach (string consoleName in Database.GetConsoleList())
+            {
+                string consoleDirectory = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + consoleName;
+                if (!Directory.Exists(consoleDirectory))
+                {
+                    Directory.CreateDirectory(consoleDirectory);
+                }
+            }
+
             return true;
         }
 

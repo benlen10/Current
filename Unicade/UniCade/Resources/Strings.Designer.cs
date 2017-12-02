@@ -179,51 +179,6 @@ namespace UniCade.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Media directory does not exist. Please reinstall or download UniCade Media Package to the current working directory.
-        /// </summary>
-        internal static string MediaDirectoryCorrupt {
-            get {
-                return ResourceManager.GetString("MediaDirectoryCorrupt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Media (Backgrounds) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory.
-        /// </summary>
-        internal static string MediaDirectoryCorrupt_Backgrounds {
-            get {
-                return ResourceManager.GetString("MediaDirectoryCorrupt_Backgrounds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Media (Consoles) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory.
-        /// </summary>
-        internal static string MediaDirectoryCorrupt_Consoles {
-            get {
-                return ResourceManager.GetString("MediaDirectoryCorrupt_Consoles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Media (ESRB) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory.
-        /// </summary>
-        internal static string MediaDirectoryCorrupt_Esrb {
-            get {
-                return ResourceManager.GetString("MediaDirectoryCorrupt_Esrb", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Media (Games) directory does not exist. Please reinstall or download UniCade Media Package to the current working directory.
-        /// </summary>
-        internal static string MediaDirectoryCorrupt_Games {
-            get {
-                return ResourceManager.GetString("MediaDirectoryCorrupt_Games", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 
         ///.
         /// </summary>
