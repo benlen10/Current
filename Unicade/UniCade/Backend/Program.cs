@@ -53,7 +53,7 @@ namespace UniCade.Backend
         public static bool ShowLoadingScreen;
 
         /// <summary>
-        /// If this value is greater than 0, passcode protection is enabled
+        /// The password required to launch the settings window
         /// </summary>
         public static string PasswordProtection;
 

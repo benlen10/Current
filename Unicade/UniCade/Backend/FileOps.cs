@@ -57,9 +57,9 @@ namespace UniCade.Backend
         /// <summary>
         /// Save the database to the specified path. Delete any preexisting database files
         /// </summary>
-        public static void SaveDatabase(string path = ConstValues.DatabaseFileName)
+        public static bool SaveDatabase(string path = ConstValues.DatabaseFileName)
         {
-            var consoleList = Database.GetConsoleList().Select(consoleName => (Console) Database.GetConsole(consoleName)).ToList();
+            var consoleList = Database.GetConsoleList().Select(consoleName => (Console)Database.GetConsole(consoleName)).ToList();
 
             var xmlWriterSettings = new XmlWriterSettings()
             {
@@ -72,6 +72,7 @@ namespace UniCade.Backend
             {
                 s.WriteObject(xmlWriter, consoleList);
             }
+            return true;
         }
 
 
@@ -117,7 +118,7 @@ namespace UniCade.Backend
         /// <summary>
         /// Save preferences file to the specified path
         /// </summary>
-        public static void SavePreferences(string path = ConstValues.PreferencesFileName)
+        public static bool SavePreferences(string path = ConstValues.PreferencesFileName)
         {
 
             var currentSettings = new CurrentSettings
@@ -154,6 +155,7 @@ namespace UniCade.Backend
             {
                 s.WriteObject(xmlWriter, currentSettings);
             }
+            return true;
         }
 
         /// <summary>
@@ -178,29 +180,41 @@ namespace UniCade.Backend
                 return false;
             }
             //Attempt to open the directory and fetch file entries
-            string[] fileEntries;
+            string[] fileEntries = null;
             try
             {
                 fileEntries = Directory.GetFiles(console.RomFolderPath);
             }
             catch
             {
-                return false;
+                Trace.WriteLine("Directory Not Found");
             }
 
             //Add games to the current console object
-            foreach (string fileName in fileEntries)
+            if (fileEntries != null)
             {
-                string gameTitle = fileName.Split('.')[0];
-                if (console.GetGame(gameTitle) == null)
+                foreach (string fileName in fileEntries)
                 {
-                    console.AddGame(new Game(Path.GetFileName(fileName), console.ConsoleName));
+                    string gameTitle = fileName.Split('.')[0];
+                    if (gameTitle != null)
+                    {
+                        if (console.GetGame(gameTitle) == null)
+                        {
+                            try
+                            {
+                                console.AddGame(new Game(Path.GetFileName(fileName), console.ConsoleName));
+                            }
+                            catch (ArgumentException exception)
+                            {
+                                Trace.WriteLine("Game cannot be added: " + exception.Message);
+                            }
+                        }
+                    }
                 }
             }
 
             //Delete nonexistent games
-            var gameTitleList = console.GetGameList();
-            foreach (string gameTitle in gameTitleList)
+            foreach (string gameTitle in console.GetGameList())
             {
                 if (!fileEntries.Contains(gameTitle))
                 {
@@ -208,22 +222,6 @@ namespace UniCade.Backend
                 }
             }
             return true;
-        }
-
-        /// <summary>
-        /// Load all current consoles from the text file in the local directory
-        /// </summary>
-        public static void LoadConsoles()
-        {
-            string line;
-            char[] sep = { '|' };
-            StreamReader file = new StreamReader(@"C:\UniCade\ConsoleList.txt");
-            while ((line = file.ReadLine()) != null)
-            {
-                var r = line.Split(sep);
-                Database.AddConsole(new Console(r[0], r[1], r[2], r[3], r[4], r[6], r[8], ""));
-            }
-            file.Close();
         }
 
         /// <summary>
@@ -431,7 +429,7 @@ namespace UniCade.Backend
             }
 
             //Verify the current user license and set flag
-                Program.IsLicenseValid = CryptoEngine.ValidateLicense(Program.UserLicenseName, Program.UserLicenseKey);
+            Program.IsLicenseValid = CryptoEngine.ValidateLicense(Program.UserLicenseName, Program.UserLicenseKey);
 
             //If the database file does not exist in the specified location, load default values and rescan rom directories
             if (!LoadDatabase())
