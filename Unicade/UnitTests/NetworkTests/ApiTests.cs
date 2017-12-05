@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCade.Backend;
@@ -90,6 +90,7 @@ namespace UnitTests.NetworkTests
         /// </summary>
         [TestMethod]
         [Priority(1)]
+        [SuppressMessage("ReSharper", "UnusedVariable")]
         public void VerifyMobyGamesApiScraping()
         {
 

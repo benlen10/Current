@@ -29,32 +29,26 @@ namespace UniCade.Network
         #region Public Methods
 
         /// <summary>
-        /// Create a new SQL database, tables and connect to the new database
-        /// </summary>
-        internal static void CreateNewSqlDatabase()
-        {
-            //If the sql database file does not exist, create it
-            if (!File.Exists(ConstValues.SqlDatabaseFileName))
-            {
-                SQLiteConnection.CreateFile(ConstValues.SqlDatabaseFileName);
-            }
-
-            //Create a new table to store all user info
-            ExecuteNonQuery(SqlCommands.CreateUsersTable);
-
-            //Connect to the new database
-            Connect();
-        }
-
-        /// <summary>
         /// Create a new local database file and connect
         /// </summary>
         internal static void Connect()
         {
+            //If the sql database file does not exist, create it
+            if (!File.Exists(Directory.GetCurrentDirectory() + ConstValues.SqlDatabaseFileName))
+            {
+                SQLiteConnection.CreateFile(Directory.GetCurrentDirectory() + ConstValues.SqlDatabaseFileName);
+
+                //Connect to the new database
+                _connection = new SQLiteConnection($"Data Source={Directory.GetCurrentDirectory() + ConstValues.SqlDatabaseFileName};Version=3;");
+                _connection.Open();
+
+                //Create a new table to store all user info
+                ExecuteNonQuery(SqlCommands.CreateUsersTable);
+            }
 
             if (_connection == null)
             {
-                _connection = new SQLiteConnection($"Data Source={ConstValues.SqlDatabaseFileName};Version=3;");
+                _connection = new SQLiteConnection($"Data Source={Directory.GetCurrentDirectory() + ConstValues.SqlDatabaseFileName};Version=3;");
                 _connection.Open();
             }
         }
@@ -531,6 +525,14 @@ namespace UniCade.Network
             return true;
         }
 
+        /// <summary>
+        /// Close the current SQL connection
+        /// </summary>
+        internal static void Disconnect()
+        {
+            _connection?.Close();
+        }
+
 
         #endregion
 
@@ -541,6 +543,7 @@ namespace UniCade.Network
         /// </summary>
         /// <param name="input">The command string to execute</param>
         /// <returns>The int status of the operation</returns>
+        // ReSharper disable once UnusedMethodReturnValue.Local
         private static int ExecuteNonQuery(string input)
         {
             if (input != null)

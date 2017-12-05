@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace UniCade.Objects
@@ -57,7 +53,7 @@ namespace UniCade.Objects
             IEnumerator ienumImages = node.GetEnumerator();
             while (ienumImages.MoveNext())
             {
-                XmlNode imageNode = (XmlNode) ienumImages.Current;
+                XmlNode imageNode = (XmlNode)ienumImages.Current;
 
                 if (imageNode.Name == "fanart")
                 {
@@ -73,7 +69,7 @@ namespace UniCade.Objects
                 }
                 else if (imageNode.Name == "boxart")
                 {
-                    if (imageNode.Attributes.GetNamedItem("side").InnerText == "front")
+                    if (imageNode.Attributes != null && imageNode.Attributes.GetNamedItem("side").InnerText == "front")
                     {
                         BoxartFront = imageNode.InnerText;
                     }

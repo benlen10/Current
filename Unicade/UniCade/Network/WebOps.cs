@@ -1,4 +1,5 @@
-﻿using UniCade.Constants;
+﻿using System.Diagnostics.CodeAnalysis;
+using UniCade.Constants;
 using UniCade.Interfaces;
 
 namespace UniCade.Network
@@ -129,6 +130,7 @@ namespace UniCade.Network
         /// <summary>
         /// Scrape game info for the specified game from online databases
         /// </summary>
+        [SuppressMessage("ReSharper", "UnusedVariable")]
         public static bool ScrapeInfo(IGame game)
         {
             if (game == null) { return false; }

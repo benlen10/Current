@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UniCade.Constants;
 using UniCade.Interfaces;
@@ -210,7 +209,7 @@ namespace UniCade.Backend
         /// <returns>User count</returns>
         public static int GetUserCount()
         {
-            return _userList == null ? 0 : _userList.Count;
+            return _userList?.Count ?? 0;
         }
 
         /// <summary>

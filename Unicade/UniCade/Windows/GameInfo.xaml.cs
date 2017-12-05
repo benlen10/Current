@@ -1,11 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Windows;
-using System.Windows.Media.Imaging;
+﻿using System.Windows;
 using UniCade.Backend;
-using UniCade.Constants;
 using UniCade.Interfaces;
-using UniCade.Objects;
 
 namespace UniCade.Windows
 {

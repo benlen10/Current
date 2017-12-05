@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Network;
 using UniCade.Objects;
@@ -23,8 +16,12 @@ namespace UnitTests.NetworkTests
         [TestInitialize]
         public void Initalize()
         {
+            if (File.Exists(Directory.GetCurrentDirectory() + ConstValues.SqlDatabaseFileName))
+            {
+                File.Delete(Directory.GetCurrentDirectory() + ConstValues.SqlDatabaseFileName);
+            }
+
             SqlLiteClient.Connect();
-            SqlLiteClient.CreateNewSqlDatabase();
         }
 
         #region SQL Tests
@@ -37,7 +34,6 @@ namespace UnitTests.NetworkTests
         public void TestUploadDownloadGames()
         {
             SqlLiteClient.Connect();
-            SqlLiteClient.CreateNewSqlDatabase();
 
             const string userName = "BenLen";
             const string password = "tempPass";
@@ -127,7 +123,6 @@ namespace UnitTests.NetworkTests
         public void TestUploadDownloadConsoles()
         {
             SqlLiteClient.Connect();
-            SqlLiteClient.CreateNewSqlDatabase();
 
             const string userName = "BenLen";
             const string password = "tempPass";
@@ -269,7 +264,6 @@ namespace UnitTests.NetworkTests
         public void VerifyDeleteUserGames()
         {
             SqlLiteClient.Connect();
-            SqlLiteClient.CreateNewSqlDatabase();
 
             const string userName = "BenLen";
             const string password = "tempPass";
@@ -305,12 +299,11 @@ namespace UnitTests.NetworkTests
         [TestCleanup]
         public void Cleanup()
         {
-            /*
-            if (File.Exists(ConstValues.SqlDatabaseFileName))
+            SqlLiteClient.Disconnect();
+            if (File.Exists(Directory.GetCurrentDirectory() + ConstValues.SqlDatabaseFileName))
             {
-                File.Delete(ConstValues.SqlDatabaseFileName);
+                File.Delete(Directory.GetCurrentDirectory() + ConstValues.SqlDatabaseFileName);
             }
-            */
         }
 
         #endregion

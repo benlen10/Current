@@ -1,11 +1,10 @@
-﻿using System.IO;
-using System.Linq;
-using System.Windows;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using System.Linq;
 using UniCade.Backend;
 using UniCade.Constants;
 using UniCade.Objects;
-using UniCade.Resources;
 using Console = UniCade.Objects.Console;
 
 namespace UnitTests.BackendTests
@@ -30,6 +29,7 @@ namespace UnitTests.BackendTests
         /// </summary>
         [TestMethod]
         [Priority(1)]
+        [SuppressMessage("ReSharper", "RedundantAssignment")]
         public void VerifySaveLoadDatabase()
         {
             //Create a new console and populate all fields
@@ -49,7 +49,7 @@ namespace UnitTests.BackendTests
             const string additionalConsoleInfo = "Addional SNES info";
             const int gamesDbApiId = 001;
             const int mobygamesApiId = 002;
-            const int IgdbApiId = 003;
+            const int igdbApiId = 003;
 
 
             Console console = new Console(consoleName)
@@ -69,7 +69,7 @@ namespace UnitTests.BackendTests
                 AdditionalConsoleInfo = additionalConsoleInfo,
                 GamesdbApiId =gamesDbApiId,
                 MobygamesApiId = mobygamesApiId,
-                IgdbApiId = IgdbApiId
+                IgdbApiId = igdbApiId
 
             };
 
@@ -131,8 +131,6 @@ namespace UnitTests.BackendTests
             FileOps.LoadDatabase(databasePath);
 
             //Verify that the console exists
-            var consoleList = Database.GetConsoleList();
-            var consoleCount = Database.GetConsoleCount();
             console = (Console) Database.GetConsole(consoleName);
             Assert.IsNotNull(console, "Verify that the console exists");
 
@@ -154,7 +152,7 @@ namespace UnitTests.BackendTests
             Assert.AreEqual(additionalConsoleInfo, console.AdditionalConsoleInfo, "Verify that the AdditionalConsoleInfo is correct");
             Assert.AreEqual(gamesDbApiId, console.GamesdbApiId, "Verify that the GamesdbApiId is correct");
             Assert.AreEqual(mobygamesApiId, console.MobygamesApiId, "Verify that the MobygamesApiId is correct");
-            Assert.AreEqual(IgdbApiId, console.IgdbApiId, "Verify that the IgdbApiId is correct");
+            Assert.AreEqual(igdbApiId, console.IgdbApiId, "Verify that the IgdbApiId is correct");
 
             //Attempt to fetch the game and verify that it exists
             game = (Game) console.GetGame(gameTitle);
@@ -182,6 +180,7 @@ namespace UnitTests.BackendTests
         /// </summary>
         [TestMethod]
         [Priority(1)]
+        [SuppressMessage("ReSharper", "RedundantAssignment")]
         public void VerifySaveLoadPrefrences()
         {
             //Declare all preferences 
@@ -316,8 +315,10 @@ namespace UnitTests.BackendTests
             }
 
             //Create a new console
-            Console console = new Console("SNES");
-            console.RomFolderPath = directoryPath;
+            Console console = new Console("SNES")
+            {
+                RomFolderPath = directoryPath
+            };
 
             //Populate the new rom directory 
             string romFilename1 = "Super Mario World.snes";

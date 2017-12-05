@@ -193,4 +193,7 @@ Press any key to return to previous menu
   <data name="CurrentDirectoryWriteProtected" xml:space="preserve">
     <value>The current directory is write protected. The interface will now exit</value>
   </data>
+  <data name="TheInterfaceWillNowExit" xml:space="preserve">
+    <value> The interface will now exit</value>
+  </data>
 </root>

@@ -208,7 +208,7 @@ namespace UniCade.Constants
         /// <summary>
         /// The current path for the SQL database file
         /// </summary>
-        internal const string SqlDatabaseFileName = "C:\\UniCade\\unicade.sqlite";
+        internal const string SqlDatabaseFileName = @"\Unicade.sqlite";
 
         /// <summary>
         /// The path to the console images media folder

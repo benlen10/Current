@@ -15,6 +15,7 @@ using UniCade.Interfaces;
 using UniCade.Network;
 using UniCade.Objects;
 using Console = UniCade.Objects.Console;
+// ReSharper disable All
 
 namespace UniCade.Windows
 {
@@ -387,8 +388,10 @@ namespace UniCade.Windows
                                    "\\" + _currentGame.Title + "_BoxBack.jpg";
                 if (File.Exists(imagePath))
                 {
-                    ImagePopup imagePopup = new ImagePopup(imagePath);
-                    imagePopup.Title = _currentGame.Title + " BoxBack Image";
+                    ImagePopup imagePopup = new ImagePopup(imagePath)
+                    {
+                        Title = _currentGame.Title + " BoxBack Image"
+                    };
                     imagePopup.ShowDialog();
                 }
             }
@@ -405,8 +408,11 @@ namespace UniCade.Windows
                                    "\\" + _currentGame.Title + "_Screenshot.jpg";
                 if (File.Exists(imagePath))
                 {
-                    ImagePopup imagePopup = new ImagePopup(imagePath);
-                    imagePopup.Title = _currentGame.Title + " Screenshot Image";
+                    ImagePopup imagePopup =
+                        new ImagePopup(imagePath)
+                        {
+                            Title = _currentGame.Title + " Screenshot Image"
+                        };
                     imagePopup.ShowDialog();
                 }
             }
@@ -554,9 +560,9 @@ namespace UniCade.Windows
 
                 //If the directory does not exist, create it
                 string directoryPath = Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + _currentConsole.ConsoleName + "\\";
-                if (!System.IO.Directory.Exists(directoryPath))
+                if (!Directory.Exists(directoryPath))
                 {
-                    System.IO.Directory.CreateDirectory(directoryPath);
+                    Directory.CreateDirectory(directoryPath);
                 }
 
                 string destFileName = directoryPath + _currentGame.Title + "_Screenshot.jpg";
@@ -741,8 +747,10 @@ namespace UniCade.Windows
 
             try
             {
-                Console newConsole = new Console("NewConsole.........");
-                newConsole.ConsoleName = textEntryWindow.EnteredText;
+                Console newConsole = new Console("NewConsole...")
+                {
+                    ConsoleName = textEntryWindow.EnteredText
+                };
                 Database.AddConsole(newConsole);
             }
             catch (ArgumentException exception)

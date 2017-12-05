@@ -9,7 +9,7 @@ using UniCade.Constants;
 namespace UniCade.Objects
 {
     [DataContract]
-    public class Console : IConsole
+    internal class Console : IConsole
     {
         #region Properties
 
@@ -516,7 +516,7 @@ namespace UniCade.Objects
         /// </summary>
         public Console(string consoleName)
         {
-            this.ConsoleName = consoleName;
+            ConsoleName = consoleName;
             _gameList = new List<Game>();
         }
 
@@ -526,12 +526,11 @@ namespace UniCade.Objects
         /// <param name="name"></param>
         /// <param name="emuExePath"></param>
         /// <param name="romFolderPath"></param>
-        /// <param name="prefPath"></param>
         /// <param name="romExt"></param>
         /// <param name="consoleInfo"></param>
         /// <param name="launchParam"></param>
         /// <param name="releaseDate"></param>
-        public Console(string name, string emuExePath, string romFolderPath, string prefPath, string romExt, string consoleInfo, string launchParam, string releaseDate)
+        public Console(string name, string emuExePath, string romFolderPath, string romExt, string consoleInfo, string launchParam, string releaseDate)
         {
             ConsoleName = name;
             EmulatorExePath = emuExePath;

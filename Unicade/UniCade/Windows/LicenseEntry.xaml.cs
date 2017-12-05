@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using UniCade.Backend;
-using UniCade.Constants;
 
 namespace UniCade.Windows
 {

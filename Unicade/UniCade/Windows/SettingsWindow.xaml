@@ -145,9 +145,6 @@
             </TabItem>
             <TabItem Header="Global" Height="22" Margin="-1.5,-2,-2.5,0" VerticalAlignment="Bottom">
                 <Grid Background="White">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
                     <Label x:Name="GlobalTabLabelAllowedEsrb" Content="Allowed ESRB Rating (Global)" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top"/>
                     <Label Grid.Row="0" x:Name="GlobalTabLabelPaswordProtection" Content="Password Protection" HorizontalAlignment="Left" Margin="50,89,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="GlobalTabLabelCoins" Content="# Coins" HorizontalAlignment="Left" Margin="242,257,0,0" VerticalAlignment="Top"/>

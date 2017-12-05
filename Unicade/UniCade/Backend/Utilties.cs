@@ -149,7 +149,7 @@ namespace UniCade.Backend
         {
             try
             {
-                System.Security.AccessControl.DirectorySecurity ds = Directory.GetAccessControl(folderPath);
+                Directory.GetAccessControl(folderPath);
                 return true;
             }
             catch (UnauthorizedAccessException)

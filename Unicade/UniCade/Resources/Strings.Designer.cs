@@ -254,6 +254,15 @@ namespace UniCade.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  The interface will now exit.
+        /// </summary>
+        internal static string TheInterfaceWillNowExit {
+            get {
+                return ResourceManager.GetString("TheInterfaceWillNowExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UniCade Cloud connection Error.
         /// </summary>
         internal static string UniCadeCloudConnectionError {

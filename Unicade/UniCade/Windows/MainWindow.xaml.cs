@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using UniCade.Backend;
 using UniCade.Constants;
@@ -90,7 +89,7 @@ namespace UniCade
 
         #endregion
 
-        #region  Private Instance Variables
+        #region  Private static Variables
 
         /// <summary>
         /// The current GameInfoWindow instance
@@ -477,25 +476,25 @@ namespace UniCade
             {
                 //Display the console image
                 Label1.Visibility = Visibility.Hidden;
-                BitmapImage b = new BitmapImage();
-                b.BeginInit();
-                b.UriSource = new Uri(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath + ActiveConsoleList[IndexNumber] + ".png");
-                b.EndInit();
-                Image.Source = b;
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + ConstValues.ConsoleImagesPath + ActiveConsoleList[IndexNumber] + ".png");
+                bitmapImage.EndInit();
+                Image.Source = bitmapImage;
 
                 //Display the console logo
-                b = new BitmapImage();
-                b.BeginInit();
-                b.UriSource = new Uri(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath + ActiveConsoleList[IndexNumber] + ".png");
-                b.EndInit();
-                Image1.Source = b;
+                bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath + ActiveConsoleList[IndexNumber] + ".png");
+                bitmapImage.EndInit();
+                Image1.Source = bitmapImage;
             }
             else
             {
                 //If the console image does not exist, display a notification
                 Image.Source = null;
                 Image1.Source = null;
-                Label1.Content = ActiveConsoleList[IndexNumber] + " Missing Console Image/Logo ";
+                Label1.Content = "Missing Console Image/Logo for " + ActiveConsoleList[IndexNumber] ;
                 Label1.Visibility = Visibility.Visible;
             }
         }
