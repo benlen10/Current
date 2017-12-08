@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,45 +28,56 @@ namespace UniCade.Network
         /// Update the info for the Game object with the MobyGames API
         /// </summary>
         /// <returns>A list of MobyGame objects</returns>
-        public static async Task<List<MobyGameResult>> FetchGameInfo(IGame game)
+        public static async Task<bool> FetchGameInfo(IGame game)
         {
             //Replace all spaces with underscores for the api request
             string title = game.Title.Replace(' ', '_');
             using (var httpClient = new HttpClient())
             {
+                //Attempt to access the Mobygames API
                 string mobyUrl = MobygamesApiBaseUrl + title + "&api_key=" + ConstValues.MobyGamesApiKey;
-                HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(mobyUrl);
-                if (httpResponseMessage.IsSuccessStatusCode)
+                HttpResponseMessage httpResponseMessage;
+                try
                 {
-                    string result = await httpResponseMessage.Content.ReadAsStringAsync();
-                    var rootResult = JsonConvert.DeserializeObject<MobyRootObject>(result);
-                    var gameResult = rootResult.games.First();
+                    httpResponseMessage = await httpClient.GetAsync(mobyUrl);
 
-                    //If a game was located, populate the game object fields
-                    if (gameResult != null)
+                    if (httpResponseMessage.IsSuccessStatusCode)
                     {
-                        game.MobygamesApiId = gameResult.game_id;
-                        game.MobyGamesUrl = gameResult.moby_url;
-                        if (WebOps.ParseDescription)
+                        string result = await httpResponseMessage.Content.ReadAsStringAsync();
+                        var rootResult = JsonConvert.DeserializeObject<MobyRootObject>(result);
+                        var gameResult = rootResult.games.First();
+
+                        //If a game was located, populate the game object fields
+                        if (gameResult != null)
                         {
-                            game.Description = gameResult.description;
+                            game.MobygamesApiId = gameResult.game_id;
+                            game.MobyGamesUrl = gameResult.moby_url;
+                            if (WebOps.ParseDescription)
+                            {
+                                game.Description = gameResult.description;
+                            }
+                            if (WebOps.ParseGenres)
+                            {
+                                game.Genres = ConvertGenreListToString(gameResult.genres);
+                            }
+                            if (WebOps.ParseOtherPlatforms)
+                            {
+                                game.OtherPlatforms = ConvertPlatformListToString(gameResult.platforms);
+                            }
+                            if (WebOps.ParseUserScore)
+                            {
+                                game.UserReviewScore = gameResult.moby_score.ToString(CultureInfo.InvariantCulture);
+                            }
                         }
-                        if (WebOps.ParseGenres)
-                        {
-                            game.Genres = ConvertGenreListToString(gameResult.genres);
-                        }
-                        if (WebOps.ParseOtherPlatforms)
-                        {
-                            game.OtherPlatforms = ConvertPlatformListToString(gameResult.platforms);
-                        }
-                        if (WebOps.ParseUserScore)
-                        {
-                            game.UserReviewScore = gameResult.moby_score.ToString(CultureInfo.InvariantCulture);
-                        }
+                        return true;
+                        //return rootResult.games;
                     }
-                    return rootResult.games;
                 }
-                return null;
+                catch (WebException) //HttpRequestException
+                {
+                    return false;
+                }
+                return false;
             }
         }
 

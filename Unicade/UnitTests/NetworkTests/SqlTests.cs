@@ -27,7 +27,7 @@ namespace UnitTests.NetworkTests
         #region SQL Tests
 
         /// <summary>
-        /// 
+        /// Verify that game info is properly uploaded and downloaded 
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -228,7 +228,7 @@ namespace UnitTests.NetworkTests
         }
 
         /// <summary>
-        /// 
+        /// Verify the ability to create and delete SQL users
         /// </summary>
         [TestMethod]
         [Priority(1)]
@@ -257,7 +257,7 @@ namespace UnitTests.NetworkTests
         }
 
         /// <summary>
-        /// 
+        /// Verify the ability to delete all games for the current user
         /// </summary>
         [TestMethod]
         [Priority(1)]

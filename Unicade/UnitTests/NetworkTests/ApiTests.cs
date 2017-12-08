@@ -11,7 +11,6 @@ namespace UnitTests.NetworkTests
     [TestClass]
     public class ApiTests
     {
-
         #region Properties
 
         /// <summary>
@@ -25,7 +24,6 @@ namespace UnitTests.NetworkTests
         private const string ConsoleName = "Sony Playstation";
 
         #endregion 
-
 
         /// <summary>
         /// Initalize the database and create a new game
@@ -50,7 +48,7 @@ namespace UnitTests.NetworkTests
         public void VerifyGamesDbApiScraping()
         {
             //Attempt to fetch info from GameDB API
-            GamesdbApi.UpdateGameInfo(_game);
+            Assert.IsTrue(GamesdbApi.UpdateGameInfo(_game), "Connection error");
 
             //Verify that the game info has been properly scraped
             Assert.IsTrue(_game.Description.Contains("Suspense"), "Verify that the game desription is properly fetched");
@@ -96,6 +94,7 @@ namespace UnitTests.NetworkTests
 
             //Attempt to fetch info from MobyGames API
             var result = MobyGamesApi.FetchGameInfo(_game).Result;
+            Assert.IsTrue(result, "Connection error");
 
             //Verify that the game info has been properly scraped
             Assert.IsNotNull(_game.MobyGamesUrl, "Verify that the mobygames url is properly fetched");

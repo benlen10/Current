@@ -35,13 +35,20 @@ namespace UniCade.Network
         /// <returns>A collection of games that matched the search terms</returns>
         public static bool UpdateGameInfo(IGame game, bool scrapeImages = true)
         {
+            //Ensure the console name is correct for TheGamesDb database
             string consoleName = ConvertConsoleName(game.ConsoleName);
 
+            //Attempt to load the XML document
             XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(@"http://thegamesdb.net/api/GetGamesList.php?name=" + game.Title + @"&platform=" + consoleName);
-
-            //Debug
-            xmlDocument.Save("searchresults.xml");
+            try
+            {
+                xmlDocument.Load(@"http://thegamesdb.net/api/GetGamesList.php?name=" + game.Title + @"&platform=" +
+                                 consoleName);
+            }
+            catch (WebException)
+            {
+                return false;
+            }
 
             //Set the root node and fetch the enumerator
             XmlNode rootNode = xmlDocument.DocumentElement;
@@ -52,6 +59,7 @@ namespace UniCade.Network
             }
 
             IEnumerator enumerator = rootNode.GetEnumerator();
+
             // Iterate through all games
             while (enumerator.MoveNext())
             {
