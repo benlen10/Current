@@ -846,6 +846,9 @@ namespace UniCade.Windows
             MessageBox.Show(_currentEmulator.ConsoleName + " Console Rescan Failed");
         }
 
+        /// <summary>
+        /// Upload info for the current console to the UniCade SQL database
+        /// </summary>
         private void EmulatorsTabButtonConsoleInfo_Click(object sender, RoutedEventArgs e)
         {
             if (SqlLiteClient.UploadConsole(_currentEmulator))
@@ -858,6 +861,9 @@ namespace UniCade.Windows
             }
         }
 
+        /// <summary>
+        /// Upload info for the all consoles to the UniCade SQL database
+        /// </summary>
         private void EmulatorsTabButtonUploadAllConsoles_Click(object sender, RoutedEventArgs e)
         {
             if (SqlLiteClient.UploadAllConsoles())
@@ -870,6 +876,9 @@ namespace UniCade.Windows
             }
         }
 
+        /// <summary>
+        /// Download info for the current console from the UniCade SQL database
+        /// </summary>
         private void EmulatorsTabButtonDownloadConsoleInfo_Click(object sender, RoutedEventArgs e)
         {
             if (SqlLiteClient.DownloadConsoleInfo(_currentEmulator))
@@ -882,6 +891,9 @@ namespace UniCade.Windows
             }
         }
 
+        /// <summary>
+        /// Download info for all consoles from the UniCade SQL database
+        /// </summary>
         private void EmulatorsTabButtonDownloadAllConsoles_Click(object sender, RoutedEventArgs e)
         {
             if (SqlLiteClient.DownloadAllConsoles())
@@ -894,6 +906,9 @@ namespace UniCade.Windows
             }
         }
 
+        /// <summary>
+        /// Refresh the info for the current emulator within the emulators tab
+        /// </summary>
         private void RefreshCurrentEmulatorInfo()
         {
             if (_currentEmulator == null)
@@ -1373,6 +1388,11 @@ namespace UniCade.Windows
 
         }
 
+        /// <summary>
+        /// This method is triggered when the index is changed for the API selection combo box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WebTabApiComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             WebOps.CurrentApi = (Enums.Api)WebTabApiComboBox.SelectedIndex;
@@ -1544,6 +1564,9 @@ namespace UniCade.Windows
             FileOps.SavePreferences();
         }
 
+        /// <summary>
+        /// Launches the UniCade legacy cmd line interface
+        /// </summary>
         private void LaunchCmdInterface_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -1637,6 +1660,7 @@ namespace UniCade.Windows
                 GamesTabImageScreeshot.Source = imageSource;
             }
         }
+
         /// <summary>
         /// Refresh global favorites across all consoles and users
         /// </summary>
@@ -1673,6 +1697,10 @@ namespace UniCade.Windows
 
         }
 
+        /// <summary>
+        /// Opens the FileSelect dialog to browse for an image file
+        /// </summary>
+        /// <returns>The filename of the selected image</returns>
         public string BrowseForImage()
         {
             var openFileDialog = new System.Windows.Forms.OpenFileDialog();
