@@ -22,7 +22,6 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\U
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\UniCade.exe
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\MySql.Data.dll
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\UniCade.pdb
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\UniCade.exe.config
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
@@ -30,3 +29,7 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\M
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\obj\Release\UnitTests.csprojResolveAssemblyReference.cache
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\obj\Release\UnitTests.dll
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\obj\Release\UnitTests.pdb
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\System.Data.SQLite.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Newtonsoft.Json.dll
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\System.Data.SQLite.xml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UnitTests\bin\Release\Newtonsoft.Json.xml

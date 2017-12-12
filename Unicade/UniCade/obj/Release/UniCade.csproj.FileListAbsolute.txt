@@ -59,11 +59,8 @@ C:\Users\Ben\Workspace\Unicade\UniCade\obj\Release\Windows\MainWindow.baml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Release\UniCade.exe.config
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Release\UniCade.exe
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Release\UniCade.pdb
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.csprojResolveAssemblyReference.cache
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Resources\App.g.cs
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade_Content.g.cs
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade_MarkupCompile.cache
-C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade_MarkupCompile.lref
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.g.resources
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.Properties.Resources.resources
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.csproj.GenerateResource.Cache
@@ -93,3 +90,9 @@ C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Win
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\ImagePopup.baml
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.Resources.Strings.resources
 C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.Windows.SettingsWindow.resources
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\TextEntryWindow.baml
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\Windows\TextEntryWindow.g.cs
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Release\UniCade.exe.manifest
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\bin\Release\UniCade.application
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.exe.manifest
+C:\Users\Ben\Dropbox\Visual Studio 2017\Projects\Unicade\UniCade\obj\Release\UniCade.application

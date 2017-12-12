@@ -165,12 +165,7 @@ namespace UniCade
         public static void RefreshConsoleList()
         {
             ActiveConsoleList = new ArrayList();
-            var consoleList = Database.GetConsoleList();
-            foreach (string consoleName in consoleList)
-            {
-                IConsole console = Database.GetConsole(consoleName);
-                ActiveConsoleList.Add(console.ConsoleName);
-            }
+            Database.GetConsoleList().ForEach(c => ActiveConsoleList.Add(c));
         }
 
         /// <summary>
@@ -571,17 +566,16 @@ namespace UniCade
             }
 
             //Update the console image within the game library page
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png"))
+            if (File.Exists(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath + ActiveConsoleList[IndexNumber]+ ".png"))
             {
                 //Load the console image
                 BitmapImage b = new BitmapImage();
                 b.BeginInit();
-                b.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Consoles\Logos\" + ActiveConsoleList[IndexNumber] + " Logo" + ".png");
+                b.UriSource = new Uri(Directory.GetCurrentDirectory() + ConstValues.ConsoleLogoImagesPath + ActiveConsoleList[IndexNumber]  + ".png");
                 b.EndInit();
                 Image2.Source = b;
 
                 //Populate the title label at the top of the page
-                Label1.Content = (ActiveConsoleList[IndexNumber] + "Library");
             }
             else
             {
@@ -645,33 +639,38 @@ namespace UniCade
                     _gameInfoWindow.TextBlock1.Text = game.ConsoleName + " - " + game.Title;
                     _gameInfoWindow.TextBlock.Text = GameInfo.DisplayGameInfo(game);
 
+                    _gameInfoWindow.Image.Source = null;
+                    _gameInfoWindow.Image1.Source = null;
+                    _gameInfoWindow.Image2.Source = null;
+
+
                     //Load the box front for the current game if it exists
                     BitmapImage bitmapImage;
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + game.ConsoleName + "\\" + game.Title + "_BoxFront.jpg"))
                     {
                         bitmapImage = new BitmapImage();
                         bitmapImage.BeginInit();
-                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxFront.png");
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + game.ConsoleName + "\\" + game.Title + "_BoxFront.jpg");
                         bitmapImage.EndInit();
                         _gameInfoWindow.Image.Source = bitmapImage;
                     }
 
                     //Load the box back image for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + game.ConsoleName + "\\" + game.Title + "_BoxBack.jpg"))
                     {
                         bitmapImage = new BitmapImage();
                         bitmapImage.BeginInit();
-                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_BoxBack.png");
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + game.ConsoleName + "\\" + game.Title + "_BoxBack.jpg");
                         bitmapImage.EndInit();
                         _gameInfoWindow.Image1.Source = bitmapImage;
                     }
 
                     //Load the screenshot for the current game if it exists
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png"))
+                    if (File.Exists(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + game.ConsoleName + "\\" + game.Title + "_Screenshot.jpg"))
                     {
                         bitmapImage = new BitmapImage();
                         bitmapImage.BeginInit();
-                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\Media\Games\" + CurrentConsole.ConsoleName + "\\" + game.Title + "_Screenshot.png");
+                        bitmapImage.UriSource = new Uri(Directory.GetCurrentDirectory() + ConstValues.GameImagesPath + game.ConsoleName + "\\" + game.Title + "_Screenshot.jpg");
                         bitmapImage.EndInit();
                         _gameInfoWindow.Image2.Source = bitmapImage;
                     }

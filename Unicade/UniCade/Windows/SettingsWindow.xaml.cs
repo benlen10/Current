@@ -464,7 +464,7 @@ namespace UniCade.Windows
             //Create an OpenFileDialog and set image filters
             OpenFileDialog fileDialog = new OpenFileDialog
             {
-                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp",
+                Filter = "Image Files(*.jpg; *.jpeg; *.png; *.bmp)|*.jpg; *.jpeg; *.png; *.bmp",
                 Title = "Select BoxFront Image for " + _currentGame.Title
             };
 
@@ -506,7 +506,7 @@ namespace UniCade.Windows
             //Create an OpenFileDialog and set image filters
             OpenFileDialog fileDialog = new OpenFileDialog
             {
-                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp",
+                Filter = "Image Files(*.jpg; *.jpeg; *.png; *.bmp)|*.jpg; *.jpeg; *.png; *.bmp",
                 Title = "Select BoxBack Image for " + _currentGame.Title
             };
 
@@ -548,7 +548,7 @@ namespace UniCade.Windows
             //Create an OpenFileDialog and set image filters
             OpenFileDialog fileDialog = new OpenFileDialog
             {
-                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp",
+                Filter = "Image Files(*.jpg; *.jpeg; *.png; *.bmp)|*.jpg; *.jpeg; *.png; *.bmp",
                 Title = "Select screenshot Image for " + _currentGame.Title
             };
 
@@ -965,7 +965,7 @@ namespace UniCade.Windows
             //Create an OpenFileDialog and set image filters
             OpenFileDialog fileDialog = new OpenFileDialog
             {
-                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png",
+                Filter = "Image Files(*.jpg; *.jpeg; *.png; *.bmp; *.png)|*.jpg; *.jpeg; *.png; *.bmp; *.png",
                 Title = "Select Image for " + _currentEmulator.ConsoleName
             };
 
@@ -1001,7 +1001,7 @@ namespace UniCade.Windows
             //Create an OpenFileDialog and set image filters
             OpenFileDialog fileDialog = new OpenFileDialog
             {
-                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png",
+                Filter = "Image Files(*.jpg; *.jpeg; *.png; *.bmp; *.png)|*.jpg; *.jpeg; *.png; *.bmp; *.png",
                 Title = "Select Logo Image for " + _currentEmulator.ConsoleName
             };
 
@@ -1734,6 +1734,5 @@ namespace UniCade.Windows
         }
 
         #endregion
-
     }
 }
